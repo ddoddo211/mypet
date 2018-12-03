@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+	
+	<mvc:annotation-driven/>
+	
+	<!-- 스프링에서 처리 불가능한 리소스를 was의 default servlet 으로 전달 -->
+	<mvc:default-servlet-handler/>
+
+	<context:annotation-config/>
+	
+	<context:component-scan base-package="kr.or.ddit" use-default-filters="false">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	</context:component-scan>
+	
+	<bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
+		<property name="order" value="0"/>
+	</bean>
+	
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/view/"></property>
+		<property name="suffix" value=".jsp"></property>
+	</bean>
+	<!-- hello : /WEB-INF/view/ + hello + .jsp  << 이형태로 자동 치환-->
+
+	<!-- multipartResolver 설정 
+		해당 설정이 없으면 fileupload 가 불가능하다
+		bean id = "miltipartResolver" 로 정해져있다
+	-->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="25000000"/>
+	</bean>
+	
+	<!-- 
+	<bean id="download" class="kr.or.ddit.board.web.DownloadView"/>
+	 -->
+
+</beans>
