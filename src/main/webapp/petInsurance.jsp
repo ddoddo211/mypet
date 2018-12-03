@@ -49,7 +49,7 @@
 		<%@include file="/petInsurance/petInsuranceHeader.jsp"%>
 		
 		<!--  펫보험 소개 -->
-		<div id="Introduction"  width="500px;">
+		<div id="Introduction" >
 		<img alt="펫보험소개안내글" src="/petInsurance/img/Introduction.jpg">
 		</div>
 	<!-- body -->
