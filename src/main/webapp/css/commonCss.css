@@ -168,8 +168,8 @@ a {
 
 #headerMain{
 	width : 1600px;
-	height : 867px;
 	margin-left: 165px;
+	/*height:지움*/
 }
 
 #header{
