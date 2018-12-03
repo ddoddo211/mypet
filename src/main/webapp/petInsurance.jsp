@@ -16,14 +16,23 @@
    <%@include file="/css/commonCss.css"%>
    
    <%@include file="/petInsurance/css/petInsuranceCss.css"%>
+   
+   #introduction{
+   	width: 1200px;
+   	height: 0 auto;
+   	margin-top: 80px;
+   	margin-left: 28%;
+   }
+   
 </style>
 
 </head>
 
 <body>
-<!-- header 시작 -->
-<%@include file="/common/header.jsp"%>
-<!-- header 끝-->
+	<!-- Main header 시작 -->
+	<%@include file="/common/header.jsp"%>
+	<!-- Main header 끝-->
+	
 	<div id="headerMain">
 		<!-- 여기서 부터 각자 -->
 		<!-- header -->
@@ -47,18 +56,21 @@
 
 		<!-- 펫보험소개 헤더 -->
 		<%@include file="/petInsurance/petInsuranceHeader.jsp"%>
-		
-		<!--  펫보험 소개 -->
-		<div id="Introduction" >
-		<img alt="펫보험소개안내글" src="/petInsurance/img/Introduction.jpg">
-		</div>
-	<!-- body -->
+
+	
+	<!-- header 끝 -->
 	</div>
 	
-<!-- footer 시작 -->
-<%@include file="/common/footer.jsp"%>
-<!-- footer 끝 -->
-      
+		<!--  펫보험 소개 -->
+		<div id="introduction">
+			<img alt="펫보험소개안내글" src="/petInsurance/img/Introduction.jpg">
+		</div>
+
+
+	<!-- footer 시작 -->
+	<%@include file="/common/footer.jsp"%>
+	<!-- footer 끝 -->
+
 </body>
 
 </html>

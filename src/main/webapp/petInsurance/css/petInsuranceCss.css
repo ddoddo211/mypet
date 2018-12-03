@@ -11,7 +11,7 @@
       background-color: blue;
    }
    
-   .mainmenu-li {
+   .mainmenu-li{
    background-color: #7c6ee9;
    width: 120px;
    float: left;
@@ -25,6 +25,9 @@
    padding: 7px;
    border:1px solid #7c6ee9;
    }
+   .mainmenu-li a {
+   color: white;
+   }
 
    .mainmenu-li:hover{
    color: black;
@@ -34,5 +37,5 @@
    }
    
    #mainmenu-li-1{
-   	margin-left: 120px;
+   	margin-left: 150px;
    }
