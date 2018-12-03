@@ -211,22 +211,30 @@ a {
 
 
 #footer {
-    text-align: center;
     width : 100%;
     border-bottom: 1px solid #e9edf3;
     background: #f4f6f9;
     clear: both;
-    height: 100px;
-    font-size: 11px;
-    color: #8d8d8d;
-    letter-spacing: -1px;
+    height: 120px;
     border-top: 2px solid #DAEAAA;
     top: 7px; 
-    padding-left : 315px;
+    
+}
+
+#footerText{
+	text-align : center;
+	font-family: dotum, sans-serif;
+	font-size: 11px;
+    color: #8d8d8d;
+    letter-spacing: -1px;
+    padding-top : 30px;
+    margin : 0 auto; 
+	width : 500px;
+	height : 90px;
 }
 
 #footer > ul {
-text-align: center;
+	text-align: center;
     margin: 0;
     padding: 0;
     list-style-type: none;
