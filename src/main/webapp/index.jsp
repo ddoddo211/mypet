@@ -5,8 +5,12 @@
 <head>
 <meta charset="EUC-KR">
 <title>Insert title here</title>
+<script type="text/javascript">
+
+	document.location = "/common/main.jsp";
+</script>
 </head>
 <body>
- 	<h2>hello mypet</h2>
+ 	
 </body>
 </html>

@@ -146,13 +146,28 @@ a {
 	float: left;
 }
 
+#petInsert {
+	width : 200px;
+	height : 100px;
+	float : left;
+}
+
+
 #petInsert > a{
 	padding-top: 10px;
 	padding-left: 60px;
 }
 
+#headerMain{
+	padding-left : 270px;
+	width : 1230px;
+	height : 867px;
+}
+
 #header{
 	position: relative;
+	width:1500px;
+	height : 100px;
 }
 
 #petSearch > a {
@@ -171,9 +186,9 @@ a {
 }
 
 #menu{
-	width: 1000px;
-	margin-left: 200px;
-	margin-right: 10px;
+	width: 1200px;
+	height : 800px;
+	margin-left: 150px;
 }
 
 .menu1{
@@ -181,24 +196,25 @@ a {
 	margin-right: 10px;
 	margin-bottom: 10px;
 	margin-top: 5px;
+	width : 270px;
+	height : 700px;
 }
 
 
 #footer {
     text-align: center;
-    height: 32px;
+    width : 1639px;
+    height: 52px;
     border-bottom: 1px solid #e9edf3;
     background: #f4f6f9;
-}
-
-#footer {
     clear: both;
     height: 100px;
     font-size: 11px;
     color: #8d8d8d;
     letter-spacing: -1px;
     border-top: 2px solid #DAEAAA;
-    top: 7px;  
+    top: 7px; 
+    padding-left : 270px;
 }
 
 #footer > ul {
