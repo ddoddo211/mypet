@@ -26,19 +26,8 @@
 	
 		<!-- main -->
 		<div id="logo">
-			<img alt="이미지가 없습니다" src="/img/petShopLogo.jpg" width="200px;">
+				<img alt="이미지가 없습니다" src="/img/petShopLogo.jpg" width="200px;">
 		</div>
-		<div id="petSearch">
-			<input type="text" id="search" value="검색어를 입력하세요" onfocus="this.value=''" style="color:#c1c1c1" />
-			<a href="#" id="searchButton"></a>
-		</div>
-		
-		<!-- 우리 아이 등록하기 -->
-		<div id="petInsert">
-			<a href="#"><img alt="이미지가 없습니다" src="/img/petInsert.jpg" width="170px;"></a>
-		</div>
-	</div>
-	
 <!-- footer 시작 -->
 <%@include file="/common/footer.jsp"%>
 <!-- footer 끝 -->
