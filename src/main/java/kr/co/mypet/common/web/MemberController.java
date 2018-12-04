@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import kr.co.mypet.common.model.MemberVo;
 import kr.co.mypet.common.service.CommonServiceInf;
 
 @RequestMapping("/mem")
@@ -41,10 +42,11 @@ public class MemberController {
 		return "common/main";
 	}
 	
-	//로그인 시도할떄 판단 method
+	//naver 로그인 시도할떄 판단 method
 	@RequestMapping("/login")
 	public String login(HttpServletRequest request) {
 		
+		MemberVo memVo = new MemberVo();
 		/////////////네이버 로그인 collback
 		
 		String clientId = "dQEq__PeBE4FPR0eimgb";//애플리케이션 클라이언트 아이디값";
@@ -88,6 +90,13 @@ public class MemberController {
 	      br.close();
 	      if(responseCode==200) {
 	        System.out.println(res.toString());
+	        
+	        //res.toString() 에서 token 빼오기
+	        String temp = res.toString();
+	        int startIndex = temp.indexOf("access_token")+15;
+	        int endIndex = temp.indexOf("refresh_token")-3;
+	        access_token = temp.substring(startIndex,endIndex);
+	        System.out.println("access_token : "+access_token);
 	      }
 	    } catch (Exception e) {
 	      System.out.println(e);
@@ -95,6 +104,51 @@ public class MemberController {
 		
 		
 		//////////////////////////////
+		
+	    
+	    ///////////////로그인 회원정보 조회
+	    
+	    String token = access_token;// 네이버 로그인 접근 토큰;
+        String header = "Bearer " + token; // Bearer 다음에 공백 추가
+        try {
+            apiURL = "https://openapi.naver.com/v1/nid/me";
+            URL url = new URL(apiURL);
+            HttpURLConnection con = (HttpURLConnection)url.openConnection();
+            con.setRequestMethod("GET");
+            con.setRequestProperty("Authorization", header);
+            int responseCode = con.getResponseCode();
+            BufferedReader br;
+            if(responseCode==200) { // 정상 호출
+                br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+            } else {  // 에러 발생
+                br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+            }
+            String inputLine;
+            StringBuffer response = new StringBuffer();
+            while ((inputLine = br.readLine()) != null) {
+                response.append(inputLine);
+            }
+            br.close();
+            System.out.println(response.toString());
+            String temp = response.toString();
+	        int startIndex = temp.indexOf("email")+8;
+	        int endIndex = temp.lastIndexOf("\"");
+	        String mem_id = temp.substring(startIndex,endIndex);
+	        System.out.println("로그인 아이디 : "+mem_id);
+	        memVo.setMem_id(mem_id);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+	    
+	    ///////////////////////////
+	    request.getSession().setAttribute("memVo", memVo);
+		
+		return "common/main";
+	}
+	
+	@RequestMapping("/logout")
+	public String logout(HttpServletRequest request) {
+		request.getSession().invalidate();
 		
 		
 		return "common/main";

@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+
+<%-- jstl --%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 	
 <!-- header 시작 -->
 <div id="gateway_warp">
@@ -42,8 +46,19 @@
 				<div id="gnbArea_link">
 
 					<ul>
-
-						<li><a href="/mem/loginPage">로그인</a></li>
+						
+						<c:choose>
+							<c:when test="${memVo!=null }">
+								<li>${memVo.mem_id } 님 안녕하세요!</li>
+								<li><a href="/mem/logout">로그아웃</a></li>
+							</c:when>
+							<c:otherwise>
+								<li>로그인 정보가 없습니다</li>
+								<li><a href="/mem/loginPage">로그인</a></li>
+							
+							</c:otherwise>
+						</c:choose>
+						
 
 						<li><a href="/mem/memJoin">회원가입</a></li>
 
