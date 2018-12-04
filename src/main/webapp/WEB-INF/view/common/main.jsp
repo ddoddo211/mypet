@@ -8,7 +8,7 @@
 
 <style type="text/css">
 
-<%@include file ="../css/commonCss.css"%>
+<%@include file ="/css/commonCss.css"%>
 
 </style>
 

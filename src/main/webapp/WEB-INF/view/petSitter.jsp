@@ -19,7 +19,7 @@
 </head>
 <body>
 <!-- header 시작 -->
-<%@include file="/common/header.jsp"%>
+<%@include file="/WEB-INF/view/common/header.jsp"%>
 <!-- header 끝-->
 
 	<!-- 각자 화면 -->
@@ -131,7 +131,7 @@
 	</div>
 	
 	<!-- footer 시작 -->
-<%@include file="/common/footer.jsp"%>
+<%@include file="/WEB-INF/view/common/footer.jsp"%>
 <!-- footer 끝 -->
 		
 </body>
