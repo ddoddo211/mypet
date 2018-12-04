@@ -7,10 +7,11 @@
 <title>main.jsp</title>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 <script src="http://malsup.github.com/jquery.cycle2.js"></script>
-<link href="/css/slideshow.css" rel="stylesheet">	
-
+<link href="/css/slideshow.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Karla" rel="stylesheet">
 <style type="text/css">
 	*{margin:0; padding: 0; }
+	@import url('https://fonts.googleapis.com/css?family=Bungee|Gamja+Flower');
 	
 	<%@include file="/WEB-INF/view/css/commonCss.css"%>
 	
@@ -73,14 +74,6 @@
 		width: 150px;
 	}
 	
-	.saryoSearch{
-		background-color: #ff8800;
-		border: 1px solid;
-		border-radius:5px;
-		font: black;
-		background-color: white;
-	}
-	
 	p {
 		font-size: 20px;
 		font-weight: bold;
@@ -126,17 +119,42 @@
 		border-radius:5px;
 	}
 	.noticebtn:hover{transion:0.5s;background-color:#000;color:#fff;}
+	
 	.productBtn {
-		width:100px;height:70px;padding:5px;border-radius:5px;font-size:18px;
+		width:100px;height:70px;padding:3px;border-radius:5px;font-size:15px;
 		clear:left;
 	}
 	.productBtn {
 		width:1200px;height:50px;margin:0 auto;text-align:center;padding-top:50px;
-		margin-top:40px;
+		margin-top:20px;
 	}
 	.productBtn > a {		
-		display:block;width:100px;height:40px;border:1px solid #000;
-		border-radius:5px;line-height:40px;text-align:center;margin:0 auto;
+		display:block;width:100px; height:30px; border:1px solid #000;
+		border-radius:5px; line-height:30px;text-align:center;margin:0 auto;
+	}
+	
+	.mainSearch {
+		width: 150px;
+	    height: 20px;
+ 	    padding-left: 31px; 
+	    font-size: 13px;
+	    color: #0e135e;
+	    border: 1px solid black;
+	    border-radius: 5px;
+	    margin-top: 5px;
+	    font-family: 'Karla', sans-serif;
+	}
+	
+	.saryoSearch{
+		background-color: #ff8800;
+		border: 1px solid black;
+		border-radius:5px;
+		font: black;
+		background-color: white;
+		color: #0e135e;
+		font-size: 13px;
+		padding: 1.5px 34px 1.5px 34px;
+		font-family: 'Karla', sans-serif;
 	}
 </style>
 
@@ -173,14 +191,25 @@
 		<br/>
 		<div id="maintop">
 			<div class="maintop-left">
-				<p>공지사항</p>
-				<ul class="shopnotice">
-					<li>할인 이벤트 관련 공지</li>
-					<li>사료 먹을 시간이다.</li>
-					<li>^^ 반가워요</li>
-					<li>ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</li>
-				</ul>
-				<a href="#" class = "noticebtn">더보기</a>
+				<img src="/shopimg/notice1.jpg" class="mySlides" width="917" height="270">
+				<img src="/shopimg/notice2.jpg" class="mySlides" width="917" height="270">
+				<img src="/shopimg/notice3.jpg" class="mySlides" width="917" height="270">
+				<script type="text/javascript">
+					var slideIndex = 0;
+					carousel();
+					
+					function carousel() {
+					 var i;
+					 var x = document.getElementsByClassName("mySlides");
+					 for (i = 0; i < x.length; i++) {
+					   x[i].style.display = "none"; 
+					 }
+					 slideIndex++;
+					 if (slideIndex > x.length) {slideIndex = 1} 
+					 x[slideIndex-1].style.display = "block"; 
+					 setTimeout(carousel, 2000); // Change image every 2 seconds
+					}
+				</script>
 			</div>
 			<div class="maintop-right">
 				<img alt="간편 사료 찾기" src="/shopimg/shopsaryo.png" width="190">
@@ -204,52 +233,76 @@
 			<p>베스트 상품</p>
 			<ul>
 				<li>
+					<a href="#">
 					<img src="http://placehold.it/250x250">
-					<a href="#">상품명</a>
+						<span>상품명</span>
+					</a>
 				</li>
 				<li>
+					<a href="#">
 					<img src="http://placehold.it/250x250">
-					<a href="#">상품명</a>
+						<span>상품명</span>
+					</a>
 				</li>
 				<li>
+					<a href="#">
 					<img src="http://placehold.it/250x250">
-					<a href="#">상품명</a>
+						<span>상품명</span>
+					</a>
 				</li>
 				<li>
+					<a href="#">
 					<img src="http://placehold.it/250x250">
-					<a href="#">상품명</a>
+						<span>상품명</span>
+					</a>
 				</li>
 				<li>
+					<a href="#">
 					<img src="http://placehold.it/250x250">
-					<a href="#">상품명</a>
+						<span>상품명</span>
+					</a>
 				</li>
 				<li>
+					<a href="#">
 					<img src="http://placehold.it/250x250">
-					<a href="#">상품명</a>
+						<span>상품명</span>
+					</a>
 				</li>
 				<li>
+					<a href="#">
 					<img src="http://placehold.it/250x250">
-					<a href="#">상품명</a>
+						<span>상품명</span>
+					</a>
 				</li>
 				<li>
+					<a href="#">
 					<img src="http://placehold.it/250x250">
-					<a href="#">상품명</a>
+						<span>상품명</span>
+					</a>
 				</li>
 				<li>
+					<a href="#">
 					<img src="http://placehold.it/250x250">
-					<a href="#">상품명</a>
+						<span>상품명</span>
+					</a>
 				</li>
 				<li>
+					<a href="#">
 					<img src="http://placehold.it/250x250">
-					<a href="#">상품명</a>
+						<span>상품명</span>
+					</a>
 				</li>
 				<li>
+					<a href="#">
 					<img src="http://placehold.it/250x250">
-					<a href="#">상품명</a>
+						<span>상품명</span>
+					</a>
 				</li>
 				<li>
+					<a href="#">
 					<img src="http://placehold.it/250x250">
-					<a href="#">상품명</a>
+						<span>상품명</span>
+					</a>
 				</li>
 			</ul>
 			<br>

@@ -100,5 +100,10 @@ public class MemberController {
 		return "common/main";
 	}
 	
+	//펫쇼핑몰로 화면이동
+	@RequestMapping("/petShop")
+	public String shopping() {
+		return "petShop";
+	}
 
 }
