@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 <script type="text/javascript">
 
-	document.location = "/common/main.jsp";
+	document.location = "/mem/main";
 </script>
 </head>
 <body>
