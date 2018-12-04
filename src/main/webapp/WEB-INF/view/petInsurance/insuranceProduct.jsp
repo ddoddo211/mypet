@@ -5,222 +5,44 @@
 <head>
 <meta charset="UTF-8">
 <title>main.jsp</title>
-<link href="/css/commonCss.css" rel="stylesheet">
+
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript">
 
 	$(document).ready(function() {
+		
+		// 달력 옵션 설정
 		$("#date1").datepicker({ // 달력에 옵션 설정하기
 			dayNamesMin : [ "일", "월", "화", "수", "목", "금", "토" ], // 요일에 표시되는 형식 설정
 			dateFormat : "yy-mm-dd", //날짜 형식 설정
 			monthNames : [ "1월", "2월", "3월", "4월", "5월", "6월", "7월",
 			"8월", "9월", "10월", "11월", "12월" ], //월표시 형식 설정
 			showOn : "button", //버튼 보이기
-			buttonText : "입력", //버튼에 보이는 텍스트설정
+			buttonText : "날짜입력", //버튼에 보이는 텍스트설정
 			showAnim : "fold" //애니메이션효과
 		});
+		
+		
+		// 체크박스 한개만 설정하는 방법 
+		$("input:checkbox").on('click', function() {
+			var $box = $(this);
+				if ($box.is(":checked")) {
+					var group = "input:checkbox[name='" + $box.attr("name") + "']";
+						$(group).prop("checked", false);
+						$box.prop("checked", true);
+				} else {
+					$box.prop("checked", false);
+				}
+			});
 	});
 </script>
 
-<style type="text/css">
+<link rel="stylesheet" href="/css/petInsuranceMenu.css">
+<link href="/css/commonCss.css" rel="stylesheet">
+<link rel="stylesheet" href="/css/petInsurance.css">
 
-/*보험 메뉴 스타일*/
-.mainmenu-li {
-	background-color: #7c6ee9;
-	width: 120px;
-	float: left;
-	padding: 0px;
-	margin: 0px;
-	margin-top: 5px;
-	margin-left: 5px;
-	color: white;
-	text-align: center;
-	border-radius: 50px;
-	border: 1px solid #7c6ee9;
-	font-family: inherit;
-}
-
-.mainmenu-li:hover {
-	color: black;
-	background-color: white;
-	border: 1px solid #7c6ee9;
-	width: 120px;
-	font-family: inherit;
-}
-
-.mainmenu-li a {
-	padding: 7px;
-	color: white;
-	font-family: inherit;
-	display: block;
-}
-
-.mainmenu-li a:hover {
-	padding: 7px;
-	color: black;
-	font-family: inherit;
-	display: block;
-}
-
-#main {
-	width: 1200px;
-	height: 0 auto;
-	margin: 0 auto;
-	margin-bottom: 20px;
-	border: 1px solid black;
-}
-
-#petInsuranceHeader {
-	height: 60px;
-	margin-left: 230px;
-	margin-bottom: 10px;
-}
-
-/* 보험 내용 들어가는 부분*/
-#introduction {
-	border: 1px solid black;
-	height: 0 auto;
-	margin: 0 auto;
-}
-
-#productRecommendation {
-	background-color: #fff7c9;
-	border-radius: 50px;
-	height: 150px;
-	border: 3px dashed #7c6ee9;
-	width: 900px;
-	margin-left: 130px;
-}
-
-#write {
-	margin-left: 120px;
-}
-
-#product {
-	margin-top: 50px;
-}
-
-#inputBox {
-	margin-left: 350px;
-	margin-top: -70px;
-	width: 400px;
-}
-#productBtn {
-	background-color: #7c6ee9;
-	color: white;
-	width: 240px;
-	height: 35px;
-	margin-top: 10px;
-	border-radius: 50px;
-}
-
-#productBtn:hover {
-	background-color: white;
-	color: #7c6ee9;
-	width: 240px;
-	height: 35px;
-	margin-top: 10px;
-	border-radius: 50px;
-	border-color: #7c6ee9;
-}
-#checkbox{
-	height: 30px;
-}
-
-#birth{
-	height: 30px;
-}
-
-
-#petSelect{
-	width: 100px;
-	height : 25px;
-	margin-left: 10px;
-}
-
-#disease{
-	height: 24px;
-}
-
-#date1{
-	width: 208px;
-	margin-right: 10px;
-}
-
-
-
-/* 체크박스 스타일주기 */
-
-/* Customize the label (the container) */
-.container {
-	display: block;
-	position: relative;
-	padding-left: 35px;
-	cursor: pointer;
-	font-size: 17px;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-	float: left;
-	margin-right: 10px;
-
-}
-
-/* Hide the browser's default radio button */
-.container input {
-	position: absolute;
-	opacity: 0;
-	cursor: pointer;
-	height: 0;
-	width: 0;
-}
-
-/* Create a custom radio button */
-.checkmark {
-	position: absolute;
-	top: 0;
-	left: 0;
-	height: 18px;
-	width: 18px;
-	background-color: white;
-	border-radius: 50%;
-}
-
-/* On mouse-over, add a grey background color */
-.container:hover input ~ .checkmark {
-	background-color: white;
-}
-
-/* When the radio button is checked, add a blue background */
-.container input:checked ~ .checkmark {
-	background-color: #7c6ee9;
-}
-
-/* Create the indicator (the dot/circle - hidden when not checked) */
-.checkmark:after {
-	content: "";
-	position: absolute;
-	display: none;
-}
-
-/* Show the indicator (dot/circle) when checked */
-.container input:checked ~ .checkmark:after {
-	display: block;
-}
-
-/* Style the indicator (dot/circle) */
-.container .checkmark:after {
-	top: 5px;
-	left: 5px;
-	width: 8px;
-	height: 8px;
-	border-radius: 50%;
-	background: white;
-}
-</style>
 </head>
 <body>
 <!-- header 시작 -->
@@ -252,22 +74,21 @@
 	
 <div id="main">	
 	<!-- 여기부터 나의 body -->
-		
+
 		<%--보험메뉴 --%>
 		<div id="petInsuranceHeader">
-			<div id="mainbody">
-				<div class="menu">
-					<ul class="menu_ul">
-						<li class="mainmenu-li"><a href="/isr/isrMain" >펫 보험소개</a></li>
-						<li class="mainmenu-li"><a href="/isr/productInfo">상품안내</a></li>
-						<li class="mainmenu-li"><a href="/petInsurance/view/planInformation.jsp" >플랜정보</a></li>
-						<li class="mainmenu-li"><a href="/petInsurance/view/compensationGuide.jsp" >보상안내</a></li>
-						<li class="mainmenu-li"><a href="/petInsurance/view/myPetInsurance.jsp" >나의 펫 보험</a></li>
-					</ul>
-				</div>
-			</div>
+			<ul class="menu_ul">
+				<li class="mainmenu-li"><a href="/isr/isrMain">펫 보험소개</a></li>
+				<li class="mainmenu-li"><a href="/isr/productInfo">상품안내</a></li>
+				<li class="mainmenu-li"><a
+					href="/petInsurance/view/planInformation.jsp">플랜정보</a></li>
+				<li class="mainmenu-li"><a
+					href="/petInsurance/view/compensationGuide.jsp">보상안내</a></li>
+				<li class="mainmenu-li"><a
+					href="/petInsurance/view/myPetInsurance.jsp">나의 펫 보험</a></li>
+			</ul>
 		</div>
-	
+
 		<%--우리 아이 보험상품 추천 --%>
 		<div id="introduction">
 			<div id="productRecommendation">
@@ -280,12 +101,12 @@
 						<div id="inputBox">
 							<div id="checkbox">
 								<label class="container">강아지
-								  <input type="checkbox" checked="checked">
+								  <input type="checkbox" checked="checked" name="gener">
 								  <span class="checkmark"></span>
 								</label>
 								
 								<label class="container">고양이
-								  <input type="checkbox">
+								  <input type="checkbox" name="gener">
 								  <span class="checkmark"></span>
 								</label>
 		
@@ -302,12 +123,12 @@
 							
 							<div id="disease">
 								질병여부 : <label class="container" class="kind">Y
-								  <input type="checkbox" checked="checked" name="disease" value='Y'>
+								  <input type="checkbox" checked="checked" name="disease" value='Y' name="gener">
 								  <span class="checkmark"></span>
 								</label>
 								
 								<label class="container" class="kind">N
-								  <input type="checkbox">
+								  <input type="checkbox" name="disease" value='N' name="gener">
 								  <span class="checkmark"></span>
 								</label>
 							</div>
@@ -320,7 +141,7 @@
 			</div>
 			
 			<div id="productList">
-				<input type="text"/>
+				<label>조회조건</label>
 			</div>
 			
 		</div>

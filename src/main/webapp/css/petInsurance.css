@@ -1,0 +1,152 @@
+@charset "UTF-8";
+
+/*펫보험 소개*/
+   #introduction{
+    margin: 0 auto;
+    height: 0 auto;
+   }
+   
+   #introduction1{
+   	 margin-left: 100px;
+   }
+   
+   
+   
+   
+   
+   
+/*상품안내*/
+
+#productRecommendation {
+	background-color: #fff7c9;
+	border-radius: 50px;
+	height: 150px;
+	border: 3px dashed #7c6ee9;
+	width: 900px;
+	margin-left: 130px;
+}
+
+#write {
+	margin-left: 120px;
+}
+
+#product {
+	margin-top: 50px;
+}
+
+#inputBox {
+	margin-left: 350px;
+	margin-top: -70px;
+	width: 400px;
+}
+#productBtn {
+	background-color: #7c6ee9;
+	color: white;
+	width: 240px;
+	height: 35px;
+	margin-top: 10px;
+	border-radius: 50px;
+}
+
+#productBtn:hover {
+	background-color: white;
+	color: #7c6ee9;
+	width: 240px;
+	height: 35px;
+	margin-top: 10px;
+	border-radius: 50px;
+	border-color: #7c6ee9;
+}
+#checkbox{
+	height: 30px;
+}
+
+#birth{
+	height: 30px;
+}
+
+
+#petSelect{
+	width: 100px;
+	height : 25px;
+	margin-left: 10px;
+}
+
+#disease{
+	height: 24px;
+}
+
+#date1{
+	width: 208px;
+	margin-right: 10px;
+}
+
+/* 체크박스 스타일주기 */
+
+/* Customize the label (the container) */
+.container {
+	display: block;
+	position: relative;
+	padding-left: 35px;
+	cursor: pointer;
+	font-size: 17px;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	float: left;
+	margin-right: 10px;
+
+}
+
+/* Hide the browser's default radio button */
+.container input {
+	position: absolute;
+	opacity: 0;
+	cursor: pointer;
+	height: 0;
+	width: 0;
+}
+
+/* Create a custom radio button */
+.checkmark {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 18px;
+	width: 18px;
+	background-color: white;
+	border-radius: 50%;
+}
+
+/* On mouse-over, add a grey background color */
+.container:hover input ~ .checkmark {
+	background-color: white;
+}
+
+/* When the radio button is checked, add a blue background */
+.container input:checked ~ .checkmark {
+	background-color: #7c6ee9;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.checkmark:after {
+	content: "";
+	position: absolute;
+	display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.container input:checked ~ .checkmark:after {
+	display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.container .checkmark:after {
+	top: 5px;
+	left: 5px;
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: white;
+}
