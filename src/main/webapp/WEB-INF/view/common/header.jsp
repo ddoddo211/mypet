@@ -48,9 +48,17 @@
 					<ul>
 						
 						<c:choose>
-							<c:when test=""></c:when>
+							<c:when test="${memVo!=null }">
+								<li>${memVo.mem_id } 님 안녕하세요!</li>
+								<li><a href="/mem/logout">로그아웃</a></li>
+							</c:when>
+							<c:otherwise>
+								<li>로그인 정보가 없습니다</li>
+								<li><a href="/mem/loginPage">로그인</a></li>
+							
+							</c:otherwise>
 						</c:choose>
-						<li><a href="/mem/loginPage">로그인</a></li>
+						
 
 						<li><a href="/mem/memJoin">회원가입</a></li>
 
