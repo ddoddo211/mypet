@@ -13,7 +13,7 @@
 	*{margin:0; padding: 0; }
 	@import url('https://fonts.googleapis.com/css?family=Bungee|Gamja+Flower');
 	
-	<%@include file="/WEB-INF/view/css/commonCss.css"%>
+	<%@include file="/css/commonCss.css"%>
 	
 	#mainbody{
 		width:1200px;

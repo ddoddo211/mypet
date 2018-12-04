@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+
+<%-- jstl --%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 	
 <!-- header 시작 -->
 <div id="gateway_warp">
@@ -42,7 +46,10 @@
 				<div id="gnbArea_link">
 
 					<ul>
-
+						
+						<c:choose>
+							<c:when test=""></c:when>
+						</c:choose>
 						<li><a href="/mem/loginPage">로그인</a></li>
 
 						<li><a href="/mem/memJoin">회원가입</a></li>

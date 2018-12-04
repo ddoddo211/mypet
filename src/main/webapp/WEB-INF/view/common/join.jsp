@@ -7,7 +7,7 @@
 <meta charset="EUC-KR">
 <title>회원가입</title>
 <style type="text/css">
-<%@include file ="../css/commonCss.css"%>
+<%@include file ="/css/commonCss.css"%>
 .member {
 	font-size: 50px;
 	text-shadow: 0 0 10px #666;
