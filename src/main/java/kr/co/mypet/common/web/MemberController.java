@@ -22,33 +22,33 @@ public class MemberController {
 	@Resource(name="commonService")
 	private CommonServiceInf commonService;
 	
-	//ÃÊ±â¿¡ main È­¸é ÁøÀÔ
+	//ì´ˆê¸°ì— main í™”ë©´ ì§„ì…
 	@RequestMapping("/main")
 	public String main() {return "common/main";}
 	
-	//·Î±×ÀÎ È­¸é ÁøÀÔ
+	//ë¡œê·¸ì¸ í™”ë©´ ì§„ì…
 	@RequestMapping("/loginPage")
 	public String loginPage() {return "common/login";}
 	
-	//È¸¿ø°¡ÀÔÈ­¸é ÁøÀÔ
+	//íšŒì›ê°€ì…í™”ë©´ ì§„ì…
 	@RequestMapping("/memJoin")
 	public String memJoin() {return "common/join";}
 	
-	//È¸¿ø°¡ÀÔ Ã³¸®¸Ş¼­µå
+	//íšŒì›ê°€ì… ì²˜ë¦¬ë©”ì„œë“œ
 	@RequestMapping("/join")
 	public String join() {
 		
 		return "common/main";
 	}
 	
-	//·Î±×ÀÎ ½ÃµµÇÒ‹š ÆÇ´Ü method
+	//ë¡œê·¸ì¸ ì‹œë„í• ë–„ íŒë‹¨ method
 	@RequestMapping("/login")
 	public String login(HttpServletRequest request) {
 		
-		/////////////³×ÀÌ¹ö ·Î±×ÀÎ collback
+		/////////////ë„¤ì´ë²„ ë¡œê·¸ì¸ collback
 		
-		String clientId = "dQEq__PeBE4FPR0eimgb";//¾ÖÇÃ¸®ÄÉÀÌ¼Ç Å¬¶óÀÌ¾ğÆ® ¾ÆÀÌµğ°ª";
-	    String clientSecret = "eBH_cdrwIQ";//¾ÖÇÃ¸®ÄÉÀÌ¼Ç Å¬¶óÀÌ¾ğÆ® ½ÃÅ©¸´°ª";
+		String clientId = "dQEq__PeBE4FPR0eimgb";//ì• í”Œë¦¬ì¼€ì´ì…˜ í´ë¼ì´ì–¸íŠ¸ ì•„ì´ë””ê°’";
+	    String clientSecret = "eBH_cdrwIQ";//ì• í”Œë¦¬ì¼€ì´ì…˜ í´ë¼ì´ì–¸íŠ¸ ì‹œí¬ë¦¿ê°’";
 	    String code = request.getParameter("code");
 	    String state = request.getParameter("state");
 	    String redirectURI="";
@@ -75,9 +75,9 @@ public class MemberController {
 	      int responseCode = con.getResponseCode();
 	      BufferedReader br;
 	      System.out.println("responseCode="+responseCode);
-	      if(responseCode==200) { // Á¤»ó È£Ãâ
+	      if(responseCode==200) { // ì •ìƒ í˜¸ì¶œ
 	        br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-	      } else {  // ¿¡·¯ ¹ß»ı
+	      } else {  // ì—ëŸ¬ ë°œìƒ
 	        br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
 	      }
 	      String inputLine;
