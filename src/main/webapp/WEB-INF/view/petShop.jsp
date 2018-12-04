@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,7 +14,7 @@
 	*{margin:0; padding: 0; }
 	@import url('https://fonts.googleapis.com/css?family=Bungee|Gamja+Flower');
 	
-	<%@include file="/WEB-INF/view/css/commonCss.css"%>
+	<%@include file="/css/commonCss.css"%>
 	
 	#mainbody{
 		width:1200px;
@@ -162,7 +163,7 @@
 
 <body>
 <!-- header 시작 -->
-<%@include file="/WEB-INF/view//common/header.jsp"%>
+<%@include file="/WEB-INF/view/common/header.jsp"%>
 <!-- header 끝-->
 	<div id="headerMain">
 	<!-- 여기서 부터 각자 -->
@@ -191,9 +192,9 @@
 		<br/>
 		<div id="maintop">
 			<div class="maintop-left">
-				<img src="/shopimg/notice1.jpg" class="mySlides" width="917" height="270">
-				<img src="/shopimg/notice2.jpg" class="mySlides" width="917" height="270">
-				<img src="/shopimg/notice3.jpg" class="mySlides" width="917" height="270">
+				<c:forEach items="${snotList }" var="list">
+					<a href="#"><img src="${list.snot_profile }" class="mySlides" width="917" height="270"></a>
+				</c:forEach>
 				<script type="text/javascript">
 					var slideIndex = 0;
 					carousel();
@@ -207,7 +208,7 @@
 					 slideIndex++;
 					 if (slideIndex > x.length) {slideIndex = 1} 
 					 x[slideIndex-1].style.display = "block"; 
-					 setTimeout(carousel, 2000); // Change image every 2 seconds
+					 setTimeout(carousel, 4000); // Change image every 2 seconds
 					}
 				</script>
 			</div>
