@@ -42,148 +42,149 @@ $(document).ready(function(){
     // 회원가입처리
     $('#join-submit').click(function(e){
         e.preventDefault();
-        var userNM = $("input[name='userNM']");
-        if( userNM.val() =='') {
+        var mem_name = $("input[name='mem_name']");
+        if( mem_name.val() =='') {
             alert("성명을 입력하세요");
-            userNM.focus();
+            mem_name.focus();
             return false;
         }
 
-        var email = $("input[name='email']");
-        if(email.val() == ''){
+        var mem_id = $("input[name='mem_id']");
+        if(mem_id.val() == ''){
             alert('이메일을 입력하세요');
-            email.focus();
+            mem_id.focus();
             return false;
         } else {
             var emailRegex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-            if (!emailRegex.test(email.val())) {
+            if (!emailRegex.test(mem_id.val())) {
                 alert('이메일 주소가 유효하지 않습니다. ex)abc@gmail.com');
-                email.focus();
+                mem_id.focus();
                 return false;
             }
         }
 
-        var mobileNO = $("input[name='mobileNO']");
-        if(mobileNO.val() ==''){
+        var mem_hp = $("input[name='mem_hp']");
+        if(mem_hp.val() ==''){
             alert('휴대폰 번호를 입력하세요');
-            mobileNO.focus();
+            mem_hp.focus();
             return false;
-        } else if(!/^[0-9]{10,11}$/.test(mobileNO.val())){
+        } else if(!/^[0-9]{10,11}$/.test(mem_hp.val())){
             alert("휴대폰 번호는 숫자만 10~11자리 입력하세요.");
             return false;
-        } else if(!/^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})([0-9]{3,4})([0-9]{4})$/.test(mobileNO.val())){
+        } else if(!/^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})([0-9]{3,4})([0-9]{4})$/.test(mem_hp.val())){
             alert("유효하지 않은 전화번호 입니다.");
             return false;
         }
 
-        var password = $("input[name='Password']");
-        var repassword = $("input[name='rePassword']");
-        if(password.val() =='') {
+        var mem_pass = $("input[name='mem_pass']");
+        var re_mem_pass = $("input[name='re_mem_pass']");
+        if(mem_pass.val() =='') {
             alert("비밀번호를 입력하세요!");
-            password.focus();
+            mem_pass.focus();
             return false;
         }
-        if(password.val().search(/\s/) != -1){
+        if(mem_pass.val().search(/\s/) != -1){
             alert("비밀번호는 공백없이 입력해주세요.");
             return false;
         }
-        if(!/^[a-zA-Z0-9!@#$%^&*()?_~]{8,20}$/.test(password.val())){
+        if(!/^[a-zA-Z0-9!@#$%^&*()?_~]{8,20}$/.test(mem_pass.val())){
             alert("비밀번호는 숫자, 영문, 특수문자(!@$%^&*?_~ 만 허용) 조합으로 8~20자리를 사용해야 합니다.");
             return false;
         }
         // 영문, 숫자, 특수문자 2종 이상 혼용
         var chk=0;
-        if(password.val().search(/[0-9]/g) != -1 ) chk ++;
-        if(password.val().search(/[a-z]/ig)  != -1 ) chk ++;
-        if(password.val().search(/[!@#$%^&*()?_~]/g) != -1) chk ++;
+        if(mem_pass.val().search(/[0-9]/g) != -1 ) chk ++;
+        if(mem_pass.val().search(/[a-z]/ig)  != -1 ) chk ++;
+        if(mem_pass.val().search(/[!@#$%^&*()?_~]/g) != -1) chk ++;
         if(chk < 2){
             alert("비밀번호는 숫자, 영문, 특수문자를 두가지이상 혼용하여야 합니다.");
             return false;
         }
-        // email이 아닌 userID 인 경우에는 체크하면 유용. email은 특수 허용문자에서 걸러진다.
+        // email이 아닌 mem_id 인 경우에는 체크하면 유용. email은 특수 허용문자에서 걸러진다.
         /*
-        if(password.val().search(userID.val())>-1){
-            alert("userID가 포함된 비밀번호는 사용할 수 없습니다.");
+        if(mem_pass.val().search(mem_id.val())>-1){
+            alert("mem_id가 포함된 비밀번호는 사용할 수 없습니다.");
             return false;
         }
         */
-        if(repassword.val() =='') {
+        if(re_mem_pass.val() =='') {
             alert("비밀번호를 다시 한번 더 입력하세요!");
-            repassword.focus();
+            re_mem_pass.focus();
             return false;
         }
-        if(password.val()!== repassword.val()){
+        if(mem_pass.val()!== re_mem_pass.val()){
             alert('입력한 두 개의 비밀번호가 일치하지 않습니다');
             return false;
         }
 
-        //var loginpath =$("#ajaxPath").attr('data-path');
-        $.ajax({
-            url: 'a.register.php',
-            type: 'POST',
-            data: {
-                userNM:userNM.val(),
-                userID:email.val(),
-                password:password.val(),
-                mobileNO:mobileNO.val()
-            },
-            dataType: "json", // json, text
-            success: function (response) {
-                //alert(response); //text 로 하고 a.register.php 에서 print_r을 사용하면 넘어간 데이터를 확인 가능
-                if(response.result == 1){
-                    alert('가입 완료');
-                    location.replace('index.php'); // 화면 갱신
-                } else if(response.result == 0){
-                    alert('이미 가입된 아이디입니다');
-                } else if(response.result == -2){
-                    alert('입력 데이터를 확인하세요');
-                } else {
-                    //alert('등록중에 에러가 발생했습니다' + response);
-                    alert('등록중에 에러가 발생했습니다');
-                }
-            },
-            error: function(jqXHR, textStatus, errorThrown){
-                alert("arjax error : " + textStatus + "\n" + errorThrown);
-            }
-        });
+//         //var loginpath =$("#ajaxPath").attr('data-path');
+//         $.ajax({
+//             url: '/mem/join',
+//             type: 'POST',
+//             data: {
+//                 mem_name:mem_name.val(),
+//                 mem_id:mem_id.val(),
+//                 mem_pass:mem_pass.val(),
+//                 mem_hp:mem_hp.val()
+//             },
+//             dataType: "json", // json, text
+//             success: function (response) {
+//                 //alert(response); //text 로 하고 a.register.php 에서 print_r을 사용하면 넘어간 데이터를 확인 가능
+//                 if(response.result == 1){
+//                     alert('가입 완료');
+//                     location.replace('/mem/main'); // 화면 갱신
+//                 } else if(response.result == 0){
+//                     alert('이미 가입된 아이디입니다');
+//                 } else if(response.result == -2){
+//                     alert('입력 데이터를 확인하세요');
+//                 } else {
+//                     //alert('등록중에 에러가 발생했습니다' + response);
+//                     alert('등록중에 에러가 발생했습니다');
+//                 }
+//             },
+//             error: function(jqXHR, textStatus, errorThrown){
+//                 alert("arjax error : " + textStatus + "\n" + errorThrown);
+//             }
+//         });
+	document.getElementById("frm").submit();
 
     });
 
-    // userID(e-mail) 가입여부 검사
+    // mem_id(e-mail) 가입여부 검사
     $("#checkid").click(function(e){
         e.preventDefault();
-        var email = $("input[name='email']");
-        if(email.val() == ''){
+        var mem_id = $("input[name='mem_id']");
+        if(mem_id.val() == ''){
             alert('이메일을 입력하세요');
-            email.focus();
+            mem_id.focus();
             return false;
         } else {
             var emailRegex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-            if (!emailRegex.test(email.val())) {
+            if (!emailRegex.test(mem_id.val())) {
                 alert('이메일 주소가 유효하지 않습니다. ex)abc@gmail.com');
-                email.focus();
+                mem_id.focus();
                 return false;
             }
         }
 
-        $.ajax({
-            url: 'a.joinChk.php',
-            type: 'POST',
-            data: {userID:email.val()},
-            dataType: "json",
-            success: function (msg) {
-                //alert(msg); // 확인하고 싶으면 dataType: "text" 로 변경한 후 확인 가능
-                if(msg.result == 1){
-                    alert('사용 가능합니다');
-                } else if(msg.result == 0){
-                     alert('이미 가입된 아이디입니다');
-                    email.val('');
-                }
-            },
-            error: function(jqXHR, textStatus, errorThrown){
-                alert("arjax error : " + textStatus + "\n" + errorThrown);
-            }
-        });
+//         $.ajax({
+//             url: 'a.joinChk.php',
+//             type: 'POST',
+//             data: {mem_id:mem_id.val()},
+//             dataType: "json",
+//             success: function (msg) {
+//                 //alert(msg); // 확인하고 싶으면 dataType: "text" 로 변경한 후 확인 가능
+//                 if(msg.result == 1){
+//                     alert('사용 가능합니다');
+//                 } else if(msg.result == 0){
+//                      alert('이미 가입된 아이디입니다');
+//                     mem_id.val('');
+//                 }
+//             },
+//             error: function(jqXHR, textStatus, errorThrown){
+//                 alert("arjax error : " + textStatus + "\n" + errorThrown);
+//             }
+//         });
     });
 
 
@@ -220,29 +221,33 @@ $(document).ready(function(){
 
 		<!-- login form -->
 		<div class="container">
-			<h2>회원가입 Form 예제</h2>
-			<form method="post" action="a.register.php">
+			<form method="post" action="/mem/join" id="frm">
+			
 				<table>
 					<tr>
-						<td style='width: 100px'>이름</td>
-						<td><input type="text" size=37 name="userNM" value=""></td>
-					</tr>
-					<tr>
-						<td>E-Mail</td>
-						<td><input type="text" size=25 name="email" value="">
+						<td>ID(E-Mail)</td>
+						<td><input type="text" size=25 name="mem_id" value="">
 							<input type="button" id="checkid" value="중복체크"></td>
 					</tr>
 					<tr>
-						<td>휴대폰번호</td>
-						<td><input type="text" size=37 name="mobileNO" value=""></td>
-					</tr>
-					<tr>
 						<td>비밀번호</td>
-						<td><input type="password" size=37 name="Password"></td>
+						<td><input type="password" size=37 name="mem_pass"></td>
 					</tr>
 					<tr>
 						<td>비밀번호(확인)</td>
-						<td><input type="password" size=37 name="rePassword"></td>
+						<td><input type="password" size=37 name="re_mem_pass"></td>
+					</tr>
+					<tr>
+						<td style='width: 100px'>이름</td>
+						<td><input type="text" size=37 name="mem_name" value=""></td>
+					</tr>
+					<tr>
+						<td>휴대폰번호</td>
+						<td><input type="text" size=37 name="mem_hp" value=""></td>
+					</tr>
+					<tr>
+						<td>주소</td>
+						<td><input type="text" size=37 name="mem_addr" value=""></td>
 					</tr>
 					<tr>
 						<td colspan='2' align='center'><input type="button"

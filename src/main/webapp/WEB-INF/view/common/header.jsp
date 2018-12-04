@@ -43,9 +43,9 @@
 
 					<ul>
 
-						<li><a href="/common/login.jsp">로그인</a></li>
+						<li><a href="/mem/loginPage">로그인</a></li>
 
-						<li><a href="/common/join.jsp">회원가입</a></li>
+						<li><a href="/mem/memJoin">회원가입</a></li>
 
 						<li><a href="#">마이페이지</a></li>
 
