@@ -5,7 +5,7 @@
 	padding: 0 auto;
 }
 
-html, body, div, a {
+html, body, div, a, span, button, p{
 	margin: 0;
 	padding: 0;
 	border: 0;
