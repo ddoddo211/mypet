@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="java.net.URLEncoder" %>
+<%@ page import="java.security.SecureRandom" %>
+<%@ page import="java.math.BigInteger" %>
 
 <!DOCTYPE html>
 <html>
@@ -7,7 +10,7 @@
 <meta charset="EUC-KR">
 <title>로그인</title>
 <style type="text/css">
-<%@include file ="/css/commonCss.css"%>
+<%@include file ="../css/commonCss.css"%>
 .member {
 	font-size: 50px;
 	text-shadow: 0 0 10px #666;
@@ -28,7 +31,7 @@ body {
 
 .form {
 	width: 380px;
-	height: 200px;
+	height: 250px;
 	border-radius: 25px;
 	border: 5px double #999;
 	margin: 30px auto;
@@ -140,12 +143,16 @@ input[type="checkbox"] {
 	cursor: pointer;
 }
 
+#naverLogin{
+	margin-left: 70px;
+}
+
 </style>
 
 </head>
 <body>
 	<!-- header 시작 -->
-	<%@include file="/common/header.jsp"%>
+	<%@include file="../common/header.jsp"%>
 	<!-- header 끝-->
 
 	<!-- main header content -->
@@ -169,7 +176,7 @@ input[type="checkbox"] {
 	<!-- main header content 끝  -->
 
 	<!-- login form -->
-	<form>
+	<form action="/mem/login" method="post">
 		<div id="wrap">
 			<h1 class="member">My Pet Login</h1>
 			<div class="form">
@@ -177,17 +184,30 @@ input[type="checkbox"] {
 					<div id="form2-1">
 						<div id="form2-1-1">
 							<div class="form3" id="form3-1">
-								<label for="user">아이디</label><input type="text">
+								<label for="user">아이디</label><input type="text" name="mem_id">
 							</div>
 							<div class="form3">
-								<label for="user">비밀번호</label><input type="password">
+								<label for="user">비밀번호</label><input type="password" name="mem_pass">
 							</div>
 						</div>
 						<div id="form2-1-1-1">
 							<input id="loginButton" type="submit" value="로그인">
 						</div>
 					</div>
-					
+							 <%
+							    String clientId = "dQEq__PeBE4FPR0eimgb";//애플리케이션 클라이언트 아이디값";
+							    String redirectURI = URLEncoder.encode("http://localhost:8081/mem/login", "UTF-8");
+							    SecureRandom random = new SecureRandom();
+							    String state = new BigInteger(130, random).toString();
+							    String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
+							    apiURL += "&client_id=" + clientId;
+							    apiURL += "&redirect_uri=" + redirectURI;
+							    apiURL += "&state=" + state;
+							    session.setAttribute("state", state);
+							 %>
+							 <div id="naverLogin">
+							  <a href="<%=apiURL%>"><img height="40" src="/img/naverBtn.PNG"/></a>
+							 </div>
 					<div class="form4">
 						<br>
 						<label><input type="checkbox">아이디저장</label> 
@@ -199,6 +219,9 @@ input[type="checkbox"] {
 							<label class="loginMenuLabel"><input class="loginMenuInput" type="button" value="회원가입"></label>
 						</div>
 						
+						
+						
+						
 					</div>
 				</div>
 			</div>
@@ -208,7 +231,7 @@ input[type="checkbox"] {
 
 
 	<!-- footer 시작 -->
-	<%@include file="/common/footer.jsp"%>
+	<%@include file="../common/footer.jsp"%>
 	<!-- footer 끝 -->
 </body>
 </html>

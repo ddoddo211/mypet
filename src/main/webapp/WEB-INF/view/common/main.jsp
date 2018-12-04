@@ -8,7 +8,7 @@
 
 <style type="text/css">
 
-<%@include file ="/css/commonCss.css"%>
+<%@include file ="../css/commonCss.css"%>
 
 </style>
 
@@ -17,7 +17,7 @@
 <body>
 
 <!-- header 시작 -->
-<%@include file="/common/header.jsp"%>
+<%@include file="../common/header.jsp"%>
 <!-- header 끝-->
 	<div id="headerMain">
 		<!-- main content -->
@@ -60,7 +60,7 @@
 		<!-- main content 끝  -->
 	</div>
 <!-- footer 시작 -->
-<%@include file="/common/footer.jsp"%>
+<%@include file="../common/footer.jsp"%>
 <!-- footer 끝 -->
 
 </body>
