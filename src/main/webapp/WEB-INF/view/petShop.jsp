@@ -12,8 +12,6 @@
 <link href="https://fonts.googleapis.com/css?family=Karla" rel="stylesheet">
 <style type="text/css">
 	*{margin:0; padding: 0; }
-	@import url('https://fonts.googleapis.com/css?family=Bungee|Gamja+Flower');
-	
 	<%@include file="/css/commonCss.css"%>
 	
 	#mainbody{
