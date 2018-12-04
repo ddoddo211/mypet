@@ -122,7 +122,8 @@
 							</div>
 							
 							<div id="disease">
-								질병여부 : <label class="container" class="kind">Y
+								<label id="disease1">질병여부 :</label>
+								<label class="container" class="kind">Y
 								  <input type="checkbox" checked="checked" name="disease" value='Y' name="gener">
 								  <span class="checkmark"></span>
 								</label>

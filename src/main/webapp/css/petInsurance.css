@@ -99,6 +99,11 @@
 
 }
 
+#disease1{
+	float: left;
+	margin-right: 10px;
+}
+
 /* Hide the browser's default radio button */
 .container input {
 	position: absolute;
