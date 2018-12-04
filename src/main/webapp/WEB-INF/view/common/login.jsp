@@ -7,7 +7,7 @@
 <meta charset="EUC-KR">
 <title>로그인</title>
 <style type="text/css">
-<%@include file ="/css/commonCss.css"%>
+<%@include file ="../css/commonCss.css"%>
 .member {
 	font-size: 50px;
 	text-shadow: 0 0 10px #666;
@@ -145,7 +145,7 @@ input[type="checkbox"] {
 </head>
 <body>
 	<!-- header 시작 -->
-	<%@include file="/common/header.jsp"%>
+	<%@include file="../common/header.jsp"%>
 	<!-- header 끝-->
 
 	<!-- main header content -->
@@ -208,7 +208,7 @@ input[type="checkbox"] {
 
 
 	<!-- footer 시작 -->
-	<%@include file="/common/footer.jsp"%>
+	<%@include file="../common/footer.jsp"%>
 	<!-- footer 끝 -->
 </body>
 </html>
