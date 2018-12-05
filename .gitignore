@@ -4,6 +4,8 @@
 
 ### Eclipse ###
 
+src/main/resource/kr/co/mypet/config/db/db.properties
+
 .metadata
 bin/
 tmp/

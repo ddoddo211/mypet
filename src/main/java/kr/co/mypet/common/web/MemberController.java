@@ -131,11 +131,19 @@ public class MemberController {
             br.close();
             System.out.println(response.toString());
             String temp = response.toString();
-	        int startIndex = temp.indexOf("email")+8;
-	        int endIndex = temp.lastIndexOf("\"");
-	        String mem_id = temp.substring(startIndex,endIndex);
-	        System.out.println("로그인 아이디 : "+mem_id);
-	        memVo.setMem_id(mem_id);
+            
+            if(temp.contains("email")) {
+            	int startIndex = temp.indexOf("email")+8;
+            	int endIndex = temp.lastIndexOf("\"");
+            	String mem_id = temp.substring(startIndex,endIndex);
+            	System.out.println("로그인 아이디 : "+mem_id);
+            	memVo.setMem_id(mem_id);
+            	
+            } else {
+            	if(request.getSession().getAttribute("memVo")!=null) {
+            		memVo = (MemberVo) request.getSession().getAttribute("memVo");
+            	}
+            }
         } catch (Exception e) {
             System.out.println(e);
         }
