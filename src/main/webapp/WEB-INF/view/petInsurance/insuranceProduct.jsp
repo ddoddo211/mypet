@@ -34,7 +34,10 @@
 					$box.prop("checked", false);
 				}
 			});
+		
 	});
+	
+	
 </script>
 
 <link rel="stylesheet" href="/css/petInsuranceMenu.css">
@@ -145,58 +148,46 @@
 				</div>
 			</div>
 			
+			
 			<div id="productList">
 				<table cellspacing='0'>
-					<tr class="tr1">
+					<tr>
+						<th class="tabel1">상품</th>
 						<th class="tabel1">가입대상</th>
 						<th class="tabel1">보험상품</th>
-						<th class="tabel1">보험료 가격</th>
+						<th class="tabel1">월 보험료 가격</th>
 						<th class="tabel1">가입연령</th>
 						<th class="tabel1">보장기간</th>
 						<th class="tabel1">질병여부</th>
-						<th class="tabel1">상품보기</th>
 					</tr>
+				<c:forEach items="${pageList}" var="prod">
 					<tr class="tr1">
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
+						<td>이미지 들어갈곳</td>
+						<td>${prod.insp_join}</td>
+						<td>${prod.insp_kind}</td>
+						<td>${prod.insp_fees}<%="원"%></td>
+						<td>${prod.insp_minage}<%="~"%>${prod.insp_maxage}<%="세"%></td>
+						<td>${prod.insp_period}<%="세"%></td>
+						<td>${prod.insp_sick}</td>
 					</tr>
-					<tr class="tr1">
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr class="tr1">
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr class="tr1">
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
+				</c:forEach>
 				</table>
-
 			</div>
-
-</div>
+			
+			<div id="pagenation">
+					<div id="pagenation1">
+					<ul>  
+						<!-- 화면에서 페이지수 나오는 부분  -->
+						<c:forEach begin="1" end="${pageCnt }" var="page">
+							<tr>
+								<li><a href="javascript:getPostListHtml(${page});">${page}</a></li>
+							</tr>
+						</c:forEach>  
+					</ul>
+					</div>
+			</div>
+		
+	</div>
 	
 	<!-- footer 시작 -->
 	<%@include file="../common/footer.jsp"%>
