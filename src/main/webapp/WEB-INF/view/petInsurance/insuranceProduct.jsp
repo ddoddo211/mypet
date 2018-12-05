@@ -19,8 +19,6 @@
 			dateFormat : "yy-mm-dd", //날짜 형식 설정
 			monthNames : [ "1월", "2월", "3월", "4월", "5월", "6월", "7월",
 			"8월", "9월", "10월", "11월", "12월" ], //월표시 형식 설정
-			showOn : "button", //버튼 보이기
-			buttonText : "날짜입력", //버튼에 보이는 텍스트설정
 			showAnim : "fold" //애니메이션효과
 		});
 		
@@ -75,19 +73,9 @@
 <div id="main">	
 	<!-- 여기부터 나의 body -->
 
-		<%--보험메뉴 --%>
-		<div id="petInsuranceHeader">
-			<ul class="menu_ul">
-				<li class="mainmenu-li"><a href="/isr/isrMain">펫 보험소개</a></li>
-				<li class="mainmenu-li"><a href="/isr/productInfo">상품안내</a></li>
-				<li class="mainmenu-li"><a
-					href="/petInsurance/view/planInformation.jsp">플랜정보</a></li>
-				<li class="mainmenu-li"><a
-					href="/petInsurance/view/compensationGuide.jsp">보상안내</a></li>
-				<li class="mainmenu-li"><a
-					href="/petInsurance/view/myPetInsurance.jsp">나의 펫 보험</a></li>
-			</ul>
-		</div>
+		<!-- petInsuranceHeaderMain -->
+		<%@include file="./petInsuranceHeaderMain.jsp"%>
+		<!-- petInsuranceHeaderMain 끝 -->
 
 		<%--우리 아이 보험상품 추천 --%>
 		<div id="introduction">
@@ -110,7 +98,7 @@
 								  <span class="checkmark"></span>
 								</label>
 		
-								<select name="pet" id="petSelect">
+								<select name="petKind" id="petSelect">
 									<option value="비숑">비숑</option>
 									<option value="치와와">치와와</option>
 									<option value="불독" selected="selected">불독</option>
@@ -123,12 +111,12 @@
 							
 							<div id="disease">
 								<label id="disease1">질병여부 :</label>
-								<label class="container" class="kind">Y
+								<label class="container" class="kind">예
 								  <input type="checkbox" checked="checked" name="disease" value='Y' name="gener">
 								  <span class="checkmark"></span>
 								</label>
 								
-								<label class="container" class="kind">N
+								<label class="container" class="kind">아니요
 								  <input type="checkbox" name="disease" value='N' name="gener">
 								  <span class="checkmark"></span>
 								</label>
@@ -141,13 +129,74 @@
 				</div>
 			</div>
 			
-			<div id="productList">
-				<label>조회조건</label>
+			<div id="lookup">
+						<div id="condition">
+							<div id="condition1">
+								<label id="label1">조회조건</label>
+							<form action="#">
+								<div class="condition2">
+										<label class="label2">애완동물 조회</label>
+												<input class="label2 laber3" type="submit" name="petKind" value="강아지"/>
+												<input class="laber3" type="submit"  name="petKind" value="고양이" />
+								</div>	
+							</form>	
+							</div>
+						</div>
+				</div>
 			</div>
 			
-		</div>
+			<div id="productList">
+				<table cellspacing='0'>
+					<tr class="tr1">
+						<th class="tabel1">가입대상</th>
+						<th class="tabel1">보험상품</th>
+						<th class="tabel1">보험료 가격</th>
+						<th class="tabel1">가입연령</th>
+						<th class="tabel1">보장기간</th>
+						<th class="tabel1">질병여부</th>
+						<th class="tabel1">상품보기</th>
+					</tr>
+					<tr class="tr1">
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr class="tr1">
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr class="tr1">
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr class="tr1">
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+				</table>
 
-	</div>
+			</div>
+
+</div>
 	
 	<!-- footer 시작 -->
 	<%@include file="../common/footer.jsp"%>
