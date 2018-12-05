@@ -1,0 +1,46 @@
+@charset "UTF-8";
+
+   /*보험 메뉴 스타일*/
+   .mainmenu-li{
+   background-color: #7c6ee9;
+   width: 120px;
+   float: left;
+   padding: 0px;
+   margin: 0px;
+   margin-top: 5px;
+   margin-left: 5px;
+   color: white;
+   text-align: center;
+   border-radius:50px;
+   border:1px solid #7c6ee9;
+   font-family: inherit;
+   }
+   
+   .mainmenu-li:hover{
+   color: black;
+   background-color: white;
+   border:1px solid #7c6ee9;
+   width: 120px;
+   font-family: inherit;
+   }
+
+   .mainmenu-li a {
+   padding: 7px;
+   color: white;
+   font-family: inherit;
+   display:block;
+   }
+   
+   .mainmenu-li a:hover {
+   padding: 7px;
+   color: black;
+   font-family: inherit;
+   display:block;
+   }
+   
+   
+   #petInsuranceHeader{
+  	height: 60px;
+   	margin-left: 230px;
+   	margin-bottom: 10px;
+   }
