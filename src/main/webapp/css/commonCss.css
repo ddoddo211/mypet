@@ -228,13 +228,14 @@ a {
 }
 
 #footer {
+	position : static;
+    bottom: 0;
 	width: 100%;
 	border-bottom: 1px solid #e9edf3;
 	background: #f4f6f9;
 	clear: both;
 	height: 120px;
 	border-top: 2px solid #DAEAAA;
-	top: 7px;
 }
 
 #footerText {

@@ -16,12 +16,12 @@
 
 				<ul>
 
-					<li><a href="/common/main.jsp"
+					<li><a href="/mem/main"
 						onMouseover="this.style.background='#41c16e', this.style.color='white';"
 						onMouseout="this.style.background='#f4f6f9', this.style.color='black';">홈</a>
 					</li>
 
-					<li class="petSitter"><a href="/petSitter.jsp"
+					<li class="petSitter"><a href="/sit/sitMain"
 						onMouseover="this.style.background='#17aaff', this.style.color='white';"
 						onMouseout="this.style.background='#f4f6f9', this.style.color='black';">펫시터</a></li>
 

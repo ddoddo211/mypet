@@ -1,6 +1,6 @@
 @charset "UTF-8";
 
-body{
+body, option, select{
 	font-family: 'Nanum Brush Script', cursive;
 }
 
@@ -8,13 +8,14 @@ body{
 	margin: 0 auto;
 	width: 1200px;
 	position: relative;
+	border : 1px solid red;
 }
 
 #petSittingWord {
 	width: 100%;
 	height: 300px;
 	position: absolute;
-	top: 70px;
+	top: 155px;
 	left: 80px;
 	z-index: 1;
 	font-size: 35px;
@@ -30,7 +31,7 @@ body{
 .dimpetSitting {
 	position: absolute;
 	background-color: rgba(0, 0, 0, 0.2);
-	top: 0px;
+	top: 70px;
 	left: 0px;
 	width: 1200px;
 	height: 400px;
@@ -124,17 +125,17 @@ body{
 }
 
 #postscript {
+	width: 1000px;
+	margin:0 auto;
 	margin-top: 40px;
-	width: 1200px;
-	height: 450px;
 }
 
 #post {
 	text-align: center;
 	font-weight: bold;
 	font-size: 32px;
-	width: 1200px;
-	height: 80px;
+	width: 1000px;
+	height: 40px;
 }
 
 #postImage {
@@ -157,17 +158,14 @@ body{
 	float : left;
 	
 }
-
-.pImg{
-	width : 300px;
-	height : 250px;
+.pImg {
+	width : 350px;
+	height: 250px;
 }
 
 #slide{
-	border : 1px solid blue;
 	width : 100%;
-	height : 40px;
-	
+	height:400px;
 }
 
 #slide input {
@@ -210,4 +208,159 @@ body{
     transition: 0.3s;
     border-radius: 50%;
     cursor: pointer;
+}
+
+
+<!-- -->
+#searchMain {
+	
+	border : 1px solid green;
+	width : 100%;
+	height : 200px;
+}
+
+#regSearch{
+	width : 100%;
+	height : 60px;
+}
+
+#reg{
+	margin : 0 auto;
+	min-height: 43px;
+    border: solid 1px #fbbe53;
+    background-color: #f5f5f5;
+    font-size: 24px;
+    padding-left: 140px;
+    padding-top : 17px;
+}
+
+#reg > li{
+	width : 120px;
+	position: static;
+	float : left;
+	cursor : pointer;
+}
+
+.dropdown-menu {
+    width: 875px;
+    padding: 8px 10px 15px 20px;
+    top: 47px;
+    border-radius: 0;
+    border: solid 1px #f9c25d;
+    font-size: 13px;
+    background-color : #fff;
+    position: absolute;
+    
+}
+
+#searchList{
+	width : 100%;
+	
+}
+
+#list1{
+	width : 1000px;
+	heigth : 200px;
+}
+
+#list2{
+	margin-top : 20px;
+	width : 100%;
+	height : 70px;
+}
+
+#list2 > ul > li{
+	font-size : 24px;
+	margin-right : 40px;
+	float : left;
+	
+}
+
+.service {
+	border: 1px solid #c8c8c8;
+	font-size : 20px;
+    border-radius: 4px;
+	padding : 5px;
+	outline: none;
+}
+
+#listButton{
+	padding: 5px 30px 5px 30px;
+	font-family : 'Nanum Brush Script', cursive;
+	font-size : 25px;
+	color : white;
+	background-color : #17aaff;
+	border-radius: 15px;
+	cursor : pointer;
+}
+
+#lstBtn{
+	color : #fff;
+	padding-top: 27px;
+}
+
+#petToList{
+	border : 1px solid blue;
+	width : 100%;
+}
+#listMenu{
+	width : 100%;
+	height : 50px;
+	
+}
+#sort{
+	float:right;
+	font-size : 24px;
+	width : 100px;
+}
+
+.btn {
+	cursor : pointer;
+}
+#list {
+	border : 1px solid skyblue;
+	width : 100%;
+	height : 270px;
+}
+
+#notice {
+	border : 3px solid pink;
+	width : 100%;
+}
+
+#noticeImg{
+	width : 35%;
+	height : 270px;
+	float:left;
+}
+
+#noticeContent{
+	width : 65%;
+	float : left;
+	font-size : 30px;
+}
+
+#content1{
+	width : 100%;
+	height : 120px;
+}
+
+#content2{
+	width : 100%;
+	height : 120px;
+}
+
+#content3{
+	width : 100%;
+	height : 30px;
+}
+
+#content4{
+	margin-left : 510px;
+	float : left;
+}
+
+#content5{
+	margin-left : 100px;
+	float:left;
 }

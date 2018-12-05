@@ -9,12 +9,44 @@
 <link href="/css/commonCss.css" rel ="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Nanum+Brush+Script" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<!-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> -->
 <link href="/css/petSitter.css" rel="stylesheet">
+<link rel="stylesheet" href="/css/swiper.min.css">
 <style type="text/css">
 	#gateway_con .gnbArea_left li a{
 		box-sizing: content-box !important;
 	}
+	html, body {
+      position: relative;
+      height: 100%;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+    }
+    .swiper-container {
+      width: 100%;
+      height: 100%;
+    }
+    .swiper-slide {
+      text-align: center;
+      font-size: 18px;
+      background: #fff;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+      -webkit-justify-content: center;
+      justify-content: center;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      -webkit-align-items: center;
+      align-items: center;
+      flex-direction:column;
+    }
+    .swiper-pagination{margin-top:50px !important;}
 </style>
 </head>
 <body>
@@ -28,16 +60,31 @@
 		<div id="header">
 			<!-- main -->
 			<div id="logo">
-				<a href="/petSitter.jsp"><img alt="이미지가 없습니다" src="/img/petSitterLogo2.jpg" width="200px;" /></a>
+				<a href="/petSitter.jsp"><img alt="이미지가 없습니다"
+					src="/img/petSitterLogo2.jpg" width="200px;" /></a>
 			</div>
-			<div>
-				<a></a>
+			<div id="petSearch">
+				<div id="word">
+					<input type="text" id="search" value="검색어를 입력하세요" onfocus="this.value=''" style="color: #c1c1c1" />
+				</div>
+				<div id="searchButton">
+					<a href="#" id="searchButton"></a>
+				</div>
 			</div>
-			
+
+			<!-- 우리 아이 등록하기 -->
+			<div id="petInsert">
+				<a href="#"><img alt="이미지가 없습니다" src="/img/petInsert.jpg"
+					width="240px;" height="100px;"></a>
+			</div>
+
 		</div>
 	</div>
-	
+
 	<div id="body">
+		<div id="petSitterMenu">
+			<%@include file="/WEB-INF/view/petSitter/petSitterMenu.jsp" %>
+		</div>
 		<div class="dimpetSitting"></div>
 		<div id="petSittingWord">
 			<span>당신의 반려동물을 <br>
@@ -79,6 +126,7 @@
 					<span>평점 높은 펫시팅 후기들을 확인해보세요.</span>
 				</div>
 			</div>
+			<!--
 			<div id="postImage">
 				<div id="pList">
 					<div class="pNotice">
@@ -115,16 +163,96 @@
 						</div>
 					</div>
 				</div>
+				-->
 					
 				<div id="slide">
-					<input type="radio" name="pos" id="pos1" checked>
-					<input type="radio" name="pos" id="pos2" >
-					<div id="slide_ul">
-						<p class="pos">
-							<label for="pos1"></label>
-							<label for="pos2"></label>
-						</p>
-					</div>
+					<div class="swiper-container">
+					    <div class="swiper-wrapper">
+					      <div class="swiper-slide">
+					      	<div id="post1Image">
+								<img class="pImg" name="pos3" alt="이미지" src="/img/petSitterImg/petSitterPost1.jpg" />
+							</div>
+							<div>
+								<span> 
+									하루종일 같이 놀아주시고, 배식과 간식 먹는 사진과 즐겁게 노는 사진을 <br> 
+									많이	보내주셔서 안심하고 맡길 수 있어서 너무 안심이 됐습니다.
+								</span>
+							</div>
+					      </div>
+					      <div class="swiper-slide">
+					      	<div id="post1Image">
+								<img class="pImg" name="pos3" alt="이미지" src="/img/petSitterImg/petSitterPost2.jpg" />
+							</div>
+							<div>
+								<span> 
+									하루종일 같이 놀아주시고, 배식과 간식 먹는 사진과 즐겁게 노는 사진을 <br> 
+									많이	보내주셔서 안심하고 맡길 수 있어서 너무 안심이 됐습니다.
+								</span>
+							</div>
+					      </div>
+					      <div class="swiper-slide">
+					      	<div id="post1Image">
+								<img class="pImg" name="pos3" alt="이미지" src="/img/petSitterImg/petSitterPost1.jpg" />
+							</div>
+							<div>
+								<span> 
+									하루종일 같이 놀아주시고, 배식과 간식 먹는 사진과 즐겁게 노는 사진을 <br> 
+									많이	보내주셔서 안심하고 맡길 수 있어서 너무 안심이 됐습니다.
+								</span>
+							</div>
+					      </div>
+					      <div class="swiper-slide">
+					      	<div id="post1Image">
+								<img class="pImg" name="pos3" alt="이미지" src="/img/petSitterImg/petSitterPost2.jpg" />
+							</div>
+							<div>
+								<span> 
+									하루종일 같이 놀아주시고, 배식과 간식 먹는 사진과 즐겁게 노는 사진을 <br> 
+									많이	보내주셔서 안심하고 맡길 수 있어서 너무 안심이 됐습니다.
+								</span>
+							</div>
+					      </div>
+					      <div class="swiper-slide">
+					      	<div id="post1Image">
+								<img class="pImg" name="pos3" alt="이미지" src="/img/petSitterImg/petSitterPost1.jpg" />
+							</div>
+							<div>
+								<span> 
+									하루종일 같이 놀아주시고, 배식과 간식 먹는 사진과 즐겁게 노는 사진을 <br> 
+									많이	보내주셔서 안심하고 맡길 수 있어서 너무 안심이 됐습니다.
+								</span>
+							</div>
+					      </div>
+					      <div class="swiper-slide">
+					      	<div id="post1Image">
+								<img class="pImg" name="pos3" alt="이미지" src="/img/petSitterImg/petSitterPost2.jpg" />
+							</div>
+							<div>
+								<span> 
+									하루종일 같이 놀아주시고, 배식과 간식 먹는 사진과 즐겁게 노는 사진을 <br> 
+									많이	보내주셔서 안심하고 맡길 수 있어서 너무 안심이 됐습니다.
+								</span>
+							</div>
+					      </div>
+					    </div>
+					    <!-- Add Pagination -->
+					    <div class="swiper-pagination"></div>
+					  </div>
+					
+					  <!-- Swiper JS -->
+					  <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.4.2/js/swiper.min.js"></script>
+					
+					  <!-- Initialize Swiper -->
+					  <script>
+					    var swiper = new Swiper('.swiper-container', {
+					      slidesPerView: 3,
+					      spaceBetween: 30,
+					      pagination: {
+					        el: '.swiper-pagination',
+					        clickable: true,
+					      },
+					    });
+					  </script>
 				</div>
 			</div>
 		</div>
