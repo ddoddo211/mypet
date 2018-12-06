@@ -128,7 +128,7 @@ ul {
 }
 
 a {
-	font-family: NanumGothic, "Nanum Gothic", dotum, "돋움", sans-serif;
+/* 	font-family: NanumGothic, "Nanum Gothic", dotum, "돋움", sans-serif; */
 	text-decoration: none;
 	color: #222;
 }
