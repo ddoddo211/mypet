@@ -1,5 +1,7 @@
 package kr.co.mypet.insurance.web;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -30,38 +32,215 @@ public class InsuranceController {
 	// 보험 상품안내로 화면 이동하는 부분
 	@RequestMapping(value="/productInfo")
 	public String productInfo(Model model, PageVo pageVo ,HttpServletRequest request) {
-				
-		//페이지로 만들어주기 (pageVo로 만들기)
-//		pageVo.setPage(Integer.parseInt(request.getParameter("page")));
-//		pageVo.setPageSize(Integer.parseInt(request.getParameter("pageSize")));
-		
-		pageVo.setPage(1);
-		pageVo.setPageSize(10);
-
-		// 쿼리문으로 연결하여 전달하기 
-		Map<String , Object> resultMap = insuranceService.prodPageList(pageVo);
-		
-		
-		// 해당 페이지에 맞게 리스트 가지고 오기
-		List<InsProdVo> pageList = (List<InsProdVo>)resultMap.get("pageList");
-	
-		// 페이지 건수 
-		int pageCnt = (int)resultMap.get("pageCnt");
-		
-		
-		// model 객체에 저장 
-		model.addAttribute("pageList", pageList);
-		model.addAttribute("pageCnt" , pageCnt);
-		
-		
-		if(resultMap.get("pageList") == null){
-			pageCnt = 0;
-			pageList = null;
-		}
-		
 		
 		return "petInsurance/insuranceProduct";
 	}
+	
+	
+// 보험상품 아작스 이용
+	// 아작스 사용하여 리스트 나오게 설정하기
+		@RequestMapping("/prodPageListAjaxHtml")
+		public String prodPageListAjaxHtml(Model model , PageVo pageVo ,HttpServletRequest request) {
+			
+			//페이지로 만들어주기 (pageVo로 만들기)
+			pageVo.setPage(Integer.parseInt(request.getParameter("page")));
+			pageVo.setPageSize(Integer.parseInt(request.getParameter("pageSize")));
+
+			// 쿼리문으로 연결하여 전달하기 
+			Map<String , Object> resultMap = insuranceService.prodPageList(pageVo);
+			
+			// 해당 페이지에 맞게 리스트 가지고 오기
+			List<InsProdVo> pageList = (List<InsProdVo>)resultMap.get("pageList");
+		
+			if(resultMap.get("pageList") == null){
+				pageList = null;
+			}
+			
+			// model 객체에 저장 
+			model.addAttribute("pageList", pageList);
+			
+			int page2 = Integer.parseInt(request.getParameter("page"));
+			request.setAttribute("page" , page2);
+						
+			return "petInsurance/prodPageListAjaxHtml";
+		}
+		
+		
+		@RequestMapping("/paginationHtml")
+		public String paginationHtml(Model model , PageVo pageVo ,HttpServletRequest request) {
+			
+		
+			//페이지로 만들어주기 (pageVo로 만들기)
+			pageVo.setPage(Integer.parseInt(request.getParameter("page")));
+			pageVo.setPageSize(Integer.parseInt(request.getParameter("pageSize")));
+			
+			
+			// 쿼리문으로 연결하여 전달하기 
+			Map<String , Object> resultMap = insuranceService.prodPageList(pageVo);
+			
+			
+			// 페이지 건수 
+			int pageCnt = (int)resultMap.get("pageCnt");
+			
+			
+			if(resultMap.get("pageList") == null){
+				pageCnt = 0;
+			}
+			
+			// model 객체에 저장 
+			model.addAttribute("pageCnt" , pageCnt);
+			
+			
+			int page2 = Integer.parseInt(request.getParameter("page"));
+			request.setAttribute("page" , page2);
+		
+			
+			return "petInsurance/paginationHtml";
+		}
+	
+		// 아작스 사용하여 리스트 나오게 설정하기(조회조건을 클릭하였을때 - 리스트 나오는 부분)
+		@RequestMapping("/prodKindPageListAjaxHtml")
+		public String prodKindPageListAjaxHtml(Model model , PageVo pageVo ,HttpServletRequest request) {
+			
+			
+			//페이지로 만들어주기 (pageVo로 만들기)
+			pageVo.setPage(Integer.parseInt(request.getParameter("page")));
+			pageVo.setPageSize(Integer.parseInt(request.getParameter("pageSize")));
+			pageVo.setPetKind(request.getParameter("petKind"));
+
+			// 쿼리문으로 연결하여 전달하기 
+			Map<String , Object> resultMap = insuranceService.prodKindPageList(pageVo);
+		
+			// model 객체에 저장 
+			model.addAttribute("pageList", (List<InsProdVo>)resultMap.get("pageList"));
+			
+			int page2 = Integer.parseInt(request.getParameter("page"));
+			request.setAttribute("page" , page2);
+					
+			
+			return "petInsurance/prodPageListAjaxHtml";
+		}
+		
+		// 아작스 사용하여 리스트 나오게 설정하기(조회조건을 클릭하였을때 - 페이징 나오는 부분)
+		@RequestMapping("/kindPaginationHtml")
+		public String kindPaginationHtml(Model model , PageVo pageVo ,HttpServletRequest request) {
+			
+		
+			//페이지로 만들어주기 (pageVo로 만들기)
+			pageVo.setPage(Integer.parseInt(request.getParameter("page")));
+			pageVo.setPageSize(Integer.parseInt(request.getParameter("pageSize")));
+			pageVo.setPetKind(request.getParameter("petKind"));
+			
+			
+			// 쿼리문으로 연결하여 전달하기 
+			Map<String , Object> resultMap = insuranceService.prodKindPageList(pageVo);
+			
+			
+			// 페이지 건수 
+			int pageCnt = (int)resultMap.get("pageCnt");
+			
+			
+			if(resultMap.get("pageList") == null){
+				pageCnt = 0;
+			}
+			
+			// model 객체에 저장 
+			model.addAttribute("pageCnt" , pageCnt);
+			
+			
+			int page2 = Integer.parseInt(request.getParameter("page"));
+			request.setAttribute("page" , page2);
+		
+			
+			return "petInsurance/paginationHtml";
+		}
+		
+		
+		// 우리 아이 보험 추천 부분에 나와야 하는 부분(리스트)
+		@RequestMapping("/prodProductRecommendation")
+		public String prodProductRecommendation(PageVo pageVo, HttpServletRequest request,Model model) {
+			
+			// 생년월일을 나이로 계산하는 작업 
+		    SimpleDateFormat formatter = new SimpleDateFormat("yyyy");  
+		    Date date = new Date();  
+		    
+		    String birth = request.getParameter("petBirth");
+		    
+		    int b = Integer.parseInt(formatter.format(date));
+		    int a = Integer.parseInt(birth.substring(0, 4));
+		    
+		    int c = b-a;
+		    
+			
+			// 값 담아주기 (종류 , 생년월일 , 질병여부 , 페이지 , 페이지 사이즈)		
+			pageVo.setPage(Integer.parseInt(request.getParameter("page")));
+			pageVo.setPageSize(Integer.parseInt(request.getParameter("pageSize")));
+			pageVo.setPetKind(request.getParameter("petKind"));
+				// 문자열로 변경하기 
+			pageVo.setPetBirth(c+"");
+			pageVo.setPetSick(request.getParameter("petSick"));
+
+			
+			// 쿼리문으로 연결하여 전달하기 
+			Map<String , Object> resultMap = insuranceService.prodProductRecommendation(pageVo);
+
+			
+			// model 객체에 저장 
+			model.addAttribute("pageList", (List<InsProdVo>)resultMap.get("pageList"));
+
+			int page2 = Integer.parseInt(request.getParameter("page"));
+			request.setAttribute("page" , page2);
+			
+			
+						
+			
+			return "petInsurance/prodPageListAjaxHtml";
+		}
+		
+		// 우리 아이 보험 추천 부분에 나와야 하는 부분(페이징)
+		@RequestMapping("/getProdRPagenation")
+		public String getProdRPagenation(PageVo pageVo, HttpServletRequest request,Model model) {
+			
+			// 생년월일을 나이로 계산하는 작업 
+		    SimpleDateFormat formatter = new SimpleDateFormat("yyyy");  
+		    Date date = new Date();  
+		    
+		    String birth = request.getParameter("petBirth");
+		    
+		    int b = Integer.parseInt(formatter.format(date));
+		    int a = Integer.parseInt(birth.substring(0, 4));
+		    
+		    int c = b-a;
+		    
+			
+			// 값 담아주기 (종류 , 생년월일 , 질병여부 , 페이지 , 페이지 사이즈)		
+			pageVo.setPetKind(request.getParameter("petKind"));
+			// 문자열로 변경하기 
+			pageVo.setPetBirth(c+"");
+			pageVo.setPetSick(request.getParameter("petSick"));
+
+			
+			// 쿼리문으로 연결하여 전달하기 
+			Map<String , Object> resultMap = insuranceService.prodProductRecommendation(pageVo);
+
+			// model 객체에 저장 
+			model.addAttribute("pageList", (List<InsProdVo>)resultMap.get("pageList"));
+
+			int page2 = Integer.parseInt(request.getParameter("page"));
+			request.setAttribute("page" , page2);
+			
+			// 페이지 건수 
+			int pageCnt = (int)resultMap.get("pageCnt");
+			
+			// model 객체에 저장 
+			model.addAttribute("pageCnt" , pageCnt);
+						
+			
+			return "petInsurance/paginationHtml";
+		}
+		
+		
+		
 	
 	
 	

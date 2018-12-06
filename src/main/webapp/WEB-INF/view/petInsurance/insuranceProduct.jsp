@@ -13,6 +13,47 @@
 
 	$(document).ready(function() {
 		
+		//input을 문서 실행하면 먼저 실행되게끔 처리하기 
+		var pageSize = 10;
+		
+		// input에 값을 가지고 와서 함수로 뺴기 
+		$(".petKind").click(function(){
+			if($(this).val()== "강아지"|| $(this).val() == "고양이"){
+				getProdKindPageListAjaxHtml(1, $(this).val(),pageSize);
+			}
+			if($(this).val()== "전체"){
+				getProdListHtml(1);
+			}
+		});
+		
+		
+		
+		//우리아이 보험상품 추천 
+		var petKind = "";
+		var birth = "";
+		var petSick = "";
+		
+		$(".kind").click(function(){
+			petKind = $(this).val();
+		});
+				
+		$(".petSick").click(function(){
+			petSick = $(this).val();
+		});
+		
+		$("#productBtn").click(function(){
+			birth = $("#date1").val();
+			
+			//생년월일을 입력하지 않고 보험상품 추천 버튼을 클릭하였을때 처리해야 하는 부분
+			if($("#date1").val() == ""){
+				alert("생년월일을 입력하시기 바랍니다");
+				event.preventDefault();	// 이벤트 제거 하기 
+				return false;
+			}
+			getProdRecommendation(1,10,petKind,birth,petSick);
+		});
+		
+
 		// 달력 옵션 설정
 		$("#date1").datepicker({ // 달력에 옵션 설정하기
 			dayNamesMin : [ "일", "월", "화", "수", "목", "금", "토" ], // 요일에 표시되는 형식 설정
@@ -23,21 +64,103 @@
 		});
 		
 		
-		// 체크박스 한개만 설정하는 방법 
-		$("input:checkbox").on('click', function() {
-			var $box = $(this);
-				if ($box.is(":checked")) {
-					var group = "input:checkbox[name='" + $box.attr("name") + "']";
-						$(group).prop("checked", false);
-						$box.prop("checked", true);
-				} else {
-					$box.prop("checked", false);
+		// 첫페이지는 무조건 실행되야 하기 떄문에 설정
+		getProdListHtml(1);	//  html로 리턴해주는 함수 
+		
+		
+		
+});		
+		
+		// 페이지 리스트가 나오는 html
+		function getProdListHtml(page){
+			var pageSize = 10;
+			
+			// parameter --> json
+			$.ajax({
+				url : "/isr/prodPageListAjaxHtml",
+				type : "get" ,
+				data : "page="+page+"&pageSize="+pageSize,
+				success : function(dt){
+					$("#prodList").html(dt);
+					getProdPagenationHtml(page,pageSize);	// 해당 페이지의 페이지 네이션 정보를 리턴해주는 함수 
 				}
 			});
+			
+		}
+
+
+		// 페이지 처리
+			function getProdPagenationHtml(page,pageSize){
+
+				$.ajax({
+					url : "/isr/paginationHtml",
+					type : "get" ,
+					data : "page="+page+"&pageSize="+pageSize,
+					success : function(dt){
+						$("#paginationHtml").html(dt);
+					}
+				});
+				
+			}
 		
-	});
-	
-	
+		
+		// 조회조건주었을때 아작스 처리
+		
+			// 페이지 리스트가 나오는 html
+			function getProdKindPageListAjaxHtml(page, petKind ,pageSize){
+				// parameter --> json
+				$.ajax({
+					url : "/isr/prodKindPageListAjaxHtml",
+					type : "get" ,
+					data : "page="+page+"&pageSize="+pageSize+"&petKind="+petKind,
+					success : function(dt){
+						$("#prodList").html(dt);
+						getProdKindPagenationHtml(page,petKind,pageSize);	// 해당 페이지의 페이지 네이션 정보를 리턴해주는 함수 
+					}
+				});
+				
+			}
+
+			// 페이지 처리(조회조건)
+				function getProdKindPagenationHtml(page,petKind, pageSize){
+					$.ajax({
+						url : "/isr/kindPaginationHtml",
+						type : "get" ,
+						data : "page="+page+"&pageSize="+pageSize+"&petKind="+petKind,
+						success : function(dt){
+							$("#paginationHtml").html(dt);
+						}
+					});
+					
+				}
+			
+			// 우리아이 보험상품 추천 
+				// 우리아이 보험상품 추천 리스트
+				function getProdRecommendation(page,pageSize,petKind,birth,petSick){
+					$.ajax({
+						url : "/isr/prodProductRecommendation",
+						type : "get" ,
+						data : "page="+page+"&pageSize="+pageSize+"&petKind="+petKind+"&petBirth="+birth+"&petSick="+petSick,
+						success : function(dt){
+							$("#prodList").html(dt);
+							getProdRPagenation(page,pageSize,petKind,birth,petSick);	// 해당 페이지의 페이지 네이션 정보를 리턴해주는 함수 
+						}
+					});
+				}
+				
+			    // 우리아이 보험상품 추천 페이징 
+				function getProdRPagenation(page,pageSize,petKind,birth,petSick){
+					$.ajax({
+						url : "/isr/getProdRPagenation",
+						type : "get" ,
+						data : "page="+page+"&pageSize="+pageSize+"&petKind="+petKind+"&petBirth="+birth+"&petSick="+petSick,
+						success : function(dt){
+							$("#paginationHtml").html(dt);
+						}
+					});
+					
+				}
+
 </script>
 
 <link rel="stylesheet" href="/css/petInsuranceMenu.css">
@@ -88,47 +211,39 @@
 						<div id="product">
 							<h2>우리아이 보험상품 추천</h2>
 						</div>
-					<form action="#" name="pet_info" method="get">
 						<div id="inputBox">
 							<div id="checkbox">
 								<label class="container">강아지
-								  <input type="checkbox" checked="checked" name="gener">
+								  <input type="radio" class="kind" checked="checked" name="kind" value="강아지">
 								  <span class="checkmark"></span>
 								</label>
 								
 								<label class="container">고양이
-								  <input type="checkbox" name="gener">
+								  <input type="radio" class="kind" name="kind" value="고양이" >
 								  <span class="checkmark"></span>
 								</label>
-		
-								<select name="petKind" id="petSelect">
-									<option value="비숑">비숑</option>
-									<option value="치와와">치와와</option>
-									<option value="불독" selected="selected">불독</option>
-								</select>
-								
 							</div>
 							<div id="birth">
-								생년월일 : &nbsp;<input type="text" id="date1" readonly="readonly"><br/>
+								생년월일 : &nbsp;<input type="text" name ="petBirth" id="date1" readonly="readonly"><br/>
 							</div>
 							
 							<div id="disease">
 								<label id="disease1">질병여부 :</label>
-								<label class="container" class="kind">예
-								  <input type="checkbox" checked="checked" name="disease" value='Y' name="gener">
+								<label class="container">예
+								  <input type="radio" class="petSick" checked="checked" name="disease" value='Y' >
 								  <span class="checkmark"></span>
 								</label>
 								
-								<label class="container" class="kind">아니요
-								  <input type="checkbox" name="disease" value='N' name="gener">
+								<label class="container">아니요
+								  <input type="radio" class="petSick" name="disease" value='N'>
 								  <span class="checkmark"></span>
 								</label>
 							</div>
 							<div>
-								<button type="submit" id="productBtn">보험상품 추천</button>
+								<input type="submit" id="productBtn" value="보험상품 추천" />
 							</div>
+
 						</div>
-					</form>
 				</div>
 			</div>
 			
@@ -136,13 +251,15 @@
 						<div id="condition">
 							<div id="condition1">
 								<label id="label1">조회조건</label>
-							<form action="#">
+							
 								<div class="condition2">
 										<label class="label2">애완동물 조회</label>
-												<input class="label2 laber3" type="submit" name="petKind" value="강아지"/>
-												<input class="laber3" type="submit"  name="petKind" value="고양이" />
+												<input class="label2 laber3 petKind" type="button" name="petKind" value="강아지"/>
+												<input class="label2 laber3 petKind" type="button"  name="petKind"  value="고양이" />
+												<input class="laber3 petKind" type="button"  name="petKind"  value="전체" />
+												
 								</div>	
-							</form>	
+							
 							</div>
 						</div>
 				</div>
@@ -152,40 +269,30 @@
 			<div id="productList">
 				<table cellspacing='0'>
 					<tr>
-						<th class="tabel1">상품</th>
 						<th class="tabel1">가입대상</th>
 						<th class="tabel1">보험상품</th>
 						<th class="tabel1">월 보험료 가격</th>
 						<th class="tabel1">가입연령</th>
 						<th class="tabel1">보장기간</th>
-						<th class="tabel1">질병여부</th>
+						<th class="tabel1">질병여부(Y/N)</th>
 					</tr>
-				<c:forEach items="${pageList}" var="prod">
-					<tr class="tr1">
-						<td>이미지 들어갈곳</td>
-						<td>${prod.insp_join}</td>
-						<td>${prod.insp_kind}</td>
-						<td>${prod.insp_fees}<%="원"%></td>
-						<td>${prod.insp_minage}<%="~"%>${prod.insp_maxage}<%="세"%></td>
-						<td>${prod.insp_period}<%="세"%></td>
-						<td>${prod.insp_sick}</td>
-					</tr>
-				</c:forEach>
+
+				<tbody id="prodList">
+					<!-- 보험상품 리스트 아작스 처리한곳 -->
+				</tbody>
+
+						
 				</table>
 			</div>
 			
 			<div id="pagenation">
-					<div id="pagenation1">
-					<ul>  
-						<!-- 화면에서 페이지수 나오는 부분  -->
-						<c:forEach begin="1" end="${pageCnt }" var="page">
-							<tr>
-								<li><a href="javascript:getPostListHtml(${page});">${page}</a></li>
-							</tr>
-						</c:forEach>  
-					</ul>
+					<div id="pagenation1" >
+						<ul class="pagination" id="paginationHtml">  
+							<!-- 페이징 아작스 처리한곳 -->
+						</ul>
 					</div>
 			</div>
+			
 		
 	</div>
 	

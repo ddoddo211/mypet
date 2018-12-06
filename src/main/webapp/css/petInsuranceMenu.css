@@ -29,6 +29,7 @@
    color: white;
    font-family: inherit;
    display:block;
+   border-radius: 50px;
    }
    
    .mainmenu-li a:hover {
