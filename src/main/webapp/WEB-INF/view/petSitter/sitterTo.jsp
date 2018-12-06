@@ -16,7 +16,22 @@
   $( function() {
     $( "#tabs" ).tabs();
   } );
+  
+  
   </script>
+<style type="text/css">
+.ui-tabs .ui-tabs-panel {
+    display: block;
+    border-width: 0;
+    padding: 1em 1.4em;
+    background: none;
+    position: absolute;
+    border: 1px solid #1581ce;
+    width: 888px;
+    background-color: white;
+    float:left;
+}
+</style>
 </head>
 <body>
 <%@include file="/WEB-INF/view/common/header.jsp"%>
@@ -121,5 +136,6 @@
 	</div>
 	
 	<%@ include file="/WEB-INF/view/common/footer.jsp" %>
+	
 </body>
 </html>

@@ -3,12 +3,14 @@ package kr.co.mypet.sitter.web;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.co.mypet.sitter.model.PetSitterVo;
+import kr.co.mypet.sitter.model.ZipVo;
 import kr.co.mypet.sitter.service.SitterServiceInf;
 
 @Controller
@@ -32,12 +34,15 @@ public class SitterController {
 	
 	// 펫시터 집에 맡기기 화면
 	@RequestMapping("/sitterTo")
-	public String sitterTo(Model model) {
+	public String sitterTo(Model model, HttpServletRequest request) {
 		List<PetSitterVo> sitList = sitterService.petNoticeList();
 		
-		List<Integer> cntList = null;
+		List<ZipVo> zipList = sitterService.zipList();
+		
+		request.getServletContext().setAttribute("zipList", zipList);
 		
 		model.addAttribute("sitList", sitList);
+		
 		return "petSitter/sitterTo";
 	}
 	

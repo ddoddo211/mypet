@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import kr.co.mypet.sitter.dao.SitterDaoInf;
 import kr.co.mypet.sitter.model.PetSitterVo;
+import kr.co.mypet.sitter.model.ZipVo;
 
 @Service
 public class SitterService implements SitterServiceInf {
@@ -23,5 +24,10 @@ public class SitterService implements SitterServiceInf {
 	@Override
 	public int petRevCnt(String stv_pst) {
 		return sitterDao.petRevCnt(stv_pst);
+	}
+
+	@Override
+	public List<ZipVo> zipList() {
+		return sitterDao.zipList();
 	}
 }

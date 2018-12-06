@@ -1,0 +1,54 @@
+@charset "UTF-8";
+
+.mainmenu-li {
+	background-color: #17aaff;
+	width: 150px;
+	float: left;
+	padding: 0px;
+	margin: 0px;
+	margin-top: 5px;
+	margin-left: 5px;
+	color: white;
+	text-align: center;
+	border-radius: 50px;
+	border: 1px solid #17aaff;
+	font-family: inherit;
+}
+
+.mainmenu-li:hover {
+	color: black;
+	background-color: white;
+	border: 1px solid #17aaff;
+	width: 150px;
+	font-family: inherit;
+}
+
+.mainmenu-li a {
+	padding: 10px;
+	color: white;
+	font-family: inherit;
+	display: block;
+}
+
+.mainmenu-li a:hover {
+	padding: 10px;
+	color: black;
+	font-family: inherit;
+	display: block;
+}
+
+#petSitterMenu {
+	height: 70px;
+	margin: 0 auto;
+}
+
+#menu {
+	margin : 0 auto;
+	width : 900px;
+	height : 70px;
+}
+
+.menuWord{
+	font-size : 23px;
+	
+}

@@ -8,7 +8,6 @@ body, option, select{
 	margin: 0 auto;
 	width: 1200px;
 	position: relative;
-	border : 1px solid red;
 }
 
 #petSittingWord {
@@ -139,7 +138,6 @@ body, option, select{
 }
 
 #postImage {
-	border : 1px solid green;
 	margin : 0 auto;
 	width: 950px;
 	height: 370px;
@@ -214,7 +212,6 @@ body, option, select{
 <!-- -->
 #searchMain {
 	
-	border : 1px solid green;
 	width : 100%;
 	height : 200px;
 }
@@ -255,7 +252,8 @@ body, option, select{
 
 #searchList{
 	width : 100%;
-	
+	border-top : 1px solid black;
+	border-bottom : 1px solid black;
 }
 
 #list1{
@@ -300,12 +298,12 @@ body, option, select{
 }
 
 #petToList{
-	border : 1px solid blue;
 	width : 100%;
 }
 #listMenu{
 	width : 100%;
-	height : 50px;
+	height : 40px;
+	border-bottom : 1px solid black;
 	
 }
 #sort{
@@ -318,14 +316,13 @@ body, option, select{
 	cursor : pointer;
 }
 #list {
-	border : 1px solid skyblue;
 	width : 100%;
-	height : 270px;
 }
 
-#notice {
-	border : 3px solid pink;
+.notice {
 	width : 100%;
+	height : 272px;
+	border-bottom : 1px solid black;
 }
 
 #noticeImg{
@@ -363,4 +360,20 @@ body, option, select{
 #content5{
 	margin-left : 100px;
 	float:left;
+}
+
+#close{
+	width : 12px;
+	background-color : #fff;
+	margin-left : 888px;
+}
+
+.closeBtn{
+	background-color : #fff;
+	cursor : pointer;
+}
+
+#tabs > ul > li{
+	font-family : 'Nanum Brush Script', cursive;
+	font-size : 25px;
 }
