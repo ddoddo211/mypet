@@ -16,32 +16,40 @@
 		//input을 문서 실행하면 먼저 실행되게끔 처리하기 
 		var pageSize = 10;
 		
+		var petKind = "강아지";
+
 		// input에 값을 가지고 와서 함수로 뺴기 
 		$(".petKind").click(function(){
-			if($(this).val()== "강아지"|| $(this).val() == "고양이"){
-				getProdKindPageListAjaxHtml(1, $(this).val(),pageSize);
+			if($(this).val()== "강아지"){
+				petKind = "강아지";
 			}
+			if($(this).val() == "고양이"){
+				petKind = "고양이";
+			}
+			getProdKindPageListAjaxHtml(1,petKind,pageSize);
+
+				
 			if($(this).val()== "전체"){
 				getProdListHtml(1);
 			}
 		});
 		
-		
-		
 		//우리아이 보험상품 추천 
-		var petKind = "";
+		
 		var birth = "";
-		var petSick = "";
-		
-		$(".kind").click(function(){
-			petKind = $(this).val();
-		});
-				
-		$(".petSick").click(function(){
-			petSick = $(this).val();
-		});
-		
+		var petSick = "Y";
+	
+			
 		$("#productBtn").click(function(){
+			
+			$(".kind").click(function(){
+				petKind = $(this).val();
+			});
+			
+			$(".petSick").click(function(){
+				petSick = $(this).val();
+			});
+			
 			birth = $("#date1").val();
 			
 			//생년월일을 입력하지 않고 보험상품 추천 버튼을 클릭하였을때 처리해야 하는 부분
@@ -50,9 +58,11 @@
 				event.preventDefault();	// 이벤트 제거 하기 
 				return false;
 			}
+			
 			getProdRecommendation(1,10,petKind,birth,petSick);
 		});
 		
+
 
 		// 달력 옵션 설정
 		$("#date1").datepicker({ // 달력에 옵션 설정하기
@@ -115,14 +125,13 @@
 					data : "page="+page+"&pageSize="+pageSize+"&petKind="+petKind,
 					success : function(dt){
 						$("#prodList").html(dt);
-						getProdKindPagenationHtml(page,petKind,pageSize);	// 해당 페이지의 페이지 네이션 정보를 리턴해주는 함수 
+						getProdKindPagenationHtml(page,petKind,pageSize);
 					}
 				});
-				
 			}
 
 			// 페이지 처리(조회조건)
-				function getProdKindPagenationHtml(page,petKind, pageSize){
+				function getProdKindPagenationHtml(page,petKind,pageSize){
 					$.ajax({
 						url : "/isr/kindPaginationHtml",
 						type : "get" ,
@@ -143,7 +152,7 @@
 						data : "page="+page+"&pageSize="+pageSize+"&petKind="+petKind+"&petBirth="+birth+"&petSick="+petSick,
 						success : function(dt){
 							$("#prodList").html(dt);
-							getProdRPagenation(page,pageSize,petKind,birth,petSick);	// 해당 페이지의 페이지 네이션 정보를 리턴해주는 함수 
+							getProdRPagenation(page,pageSize,petKind,birth,petSick);
 						}
 					});
 				}
@@ -265,9 +274,11 @@
 				</div>
 			</div>
 			
-			
 			<div id="productList">
 				<table cellspacing='0'>
+					<tr>
+						<th colspan="7" class="tabel1" id="guide">* 원하시는 상품을 클릭하시면 상세보기 하실수 있습니다</th>
+					</tr>
 					<tr>
 						<th class="tabel1">가입대상</th>
 						<th class="tabel1">보험상품</th>
@@ -275,6 +286,7 @@
 						<th class="tabel1">가입연령</th>
 						<th class="tabel1">보장기간</th>
 						<th class="tabel1">질병여부(Y/N)</th>
+						<th class="tabel1">보험상품  만료여부</th>
 					</tr>
 
 				<tbody id="prodList">

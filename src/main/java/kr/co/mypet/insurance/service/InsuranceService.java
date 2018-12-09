@@ -90,6 +90,7 @@ public class InsuranceService implements InsuranceServiceInf {
 	public Map<String, Object> prodProductRecommendation(PageVo pageVo) {
 		// 페이지에 해당 하는 유저 리스트(1~10건) 
 		List<InsProdVo> pageList = insuranceDao.prodProductRecommendation(pageVo);
+		
 
 		// 페이지 내비게이션을 위한 전체 유저 리스트 조회 
 		int totalInsProductCnt = insuranceDao.getProductRecommendationCnt(pageVo);
