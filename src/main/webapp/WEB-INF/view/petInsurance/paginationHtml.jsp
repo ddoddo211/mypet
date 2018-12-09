@@ -21,7 +21,7 @@
 			<c:when test="${pageSelect == 1}">
 				<!-- 화면에서 페이지수 나오는 부분  -->
 				<c:forEach begin="1" end="${pageCnt }" var="page">
-						<li><a href="javascript:getProdKindPageListAjaxHtml(${page},${petKind},${pageSize});">${page}</a></li>
+						<li><a href="javascript:getProdKindPageListAjaxHtml(${page},'${petKind}',${pageSize});">${page}</a></li>
 				</c:forEach>
 			</c:when>
 </c:choose>
@@ -31,7 +31,7 @@
 			<c:when test="${pageSelect == 2}">
 				<!-- 화면에서 페이지수 나오는 부분  -->
 				<c:forEach begin="1" end="${pageCnt }" var="page">
-						<li><a href="javascript:getProdRecommendation(${page},${pageSize},${petKind},${birth},${petSick});">${page}</a></li>
+						<li><a href="javascript:getProdRecommendation(${page},${pageSize},'${petKind}','${birth}','${petSick}');">${page}</a></li>
 				</c:forEach>
 			</c:when>
 </c:choose>

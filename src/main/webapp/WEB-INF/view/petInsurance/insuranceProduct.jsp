@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>main.jsp</title>
+<title>insuranceProduct.jsp(상품안내)</title>
 
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -73,103 +73,115 @@
 			showAnim : "fold" //애니메이션효과
 		});
 		
-		
+
+
 		// 첫페이지는 무조건 실행되야 하기 떄문에 설정
-		getProdListHtml(1);	//  html로 리턴해주는 함수 
-		
-		
-		
-});		
-		
-		// 페이지 리스트가 나오는 html
-		function getProdListHtml(page){
-			var pageSize = 10;
-			
-			// parameter --> json
-			$.ajax({
-				url : "/isr/prodPageListAjaxHtml",
-				type : "get" ,
-				data : "page="+page+"&pageSize="+pageSize,
-				success : function(dt){
-					$("#prodList").html(dt);
-					getProdPagenationHtml(page,pageSize);	// 해당 페이지의 페이지 네이션 정보를 리턴해주는 함수 
-				}
-			});
-			
-		}
+		getProdListHtml(1); //  html로 리턴해주는 함수 
 
+	});
 
-		// 페이지 처리
-			function getProdPagenationHtml(page,pageSize){
+	// 페이지 리스트가 나오는 html
+	function getProdListHtml(page) {
+		var pageSize = 10;
 
-				$.ajax({
-					url : "/isr/paginationHtml",
-					type : "get" ,
-					data : "page="+page+"&pageSize="+pageSize,
-					success : function(dt){
-						$("#paginationHtml").html(dt);
-					}
-				});
-				
+		// parameter --> json
+		$.ajax({
+			url : "/isr/prodPageListAjaxHtml",
+			type : "get",
+			data : "page=" + page + "&pageSize=" + pageSize,
+			success : function(dt) {
+				$("#prodList").html(dt);
+				getProdPagenationHtml(page, pageSize); // 해당 페이지의 페이지 네이션 정보를 리턴해주는 함수 
 			}
-		
-		
-		// 조회조건주었을때 아작스 처리
-		
-			// 페이지 리스트가 나오는 html
-			function getProdKindPageListAjaxHtml(page, petKind ,pageSize){
-				// parameter --> json
-				$.ajax({
-					url : "/isr/prodKindPageListAjaxHtml",
-					type : "get" ,
-					data : "page="+page+"&pageSize="+pageSize+"&petKind="+petKind,
-					success : function(dt){
-						$("#prodList").html(dt);
-						getProdKindPagenationHtml(page,petKind,pageSize);
-					}
-				});
+		});
+
+	}
+
+	// 페이지 처리
+	function getProdPagenationHtml(page, pageSize) {
+
+		$.ajax({
+			url : "/isr/paginationHtml",
+			type : "get",
+			data : "page=" + page + "&pageSize=" + pageSize,
+			success : function(dt) {
+				$("#paginationHtml").html(dt);
 			}
+		});
 
-			// 페이지 처리(조회조건)
-				function getProdKindPagenationHtml(page,petKind,pageSize){
-					$.ajax({
-						url : "/isr/kindPaginationHtml",
-						type : "get" ,
-						data : "page="+page+"&pageSize="+pageSize+"&petKind="+petKind,
-						success : function(dt){
-							$("#paginationHtml").html(dt);
-						}
-					});
-					
-				}
-			
-			// 우리아이 보험상품 추천 
-				// 우리아이 보험상품 추천 리스트
-				function getProdRecommendation(page,pageSize,petKind,birth,petSick){
-					$.ajax({
-						url : "/isr/prodProductRecommendation",
-						type : "get" ,
-						data : "page="+page+"&pageSize="+pageSize+"&petKind="+petKind+"&petBirth="+birth+"&petSick="+petSick,
-						success : function(dt){
-							$("#prodList").html(dt);
-							getProdRPagenation(page,pageSize,petKind,birth,petSick);
-						}
-					});
-				}
-				
-			    // 우리아이 보험상품 추천 페이징 
-				function getProdRPagenation(page,pageSize,petKind,birth,petSick){
-					$.ajax({
-						url : "/isr/getProdRPagenation",
-						type : "get" ,
-						data : "page="+page+"&pageSize="+pageSize+"&petKind="+petKind+"&petBirth="+birth+"&petSick="+petSick,
-						success : function(dt){
-							$("#paginationHtml").html(dt);
-						}
-					});
-					
-				}
+	}
 
+	// 조회조건주었을때 아작스 처리
+
+	// 페이지 리스트가 나오는 html
+	function getProdKindPageListAjaxHtml(page, petKind, pageSize) {
+	
+		
+		// parameter --> json
+		$.ajax({
+			url : "/isr/prodKindPageListAjaxHtml",
+			type : "get",
+			data : "page=" + page + "&pageSize=" + pageSize + "&petKind="+ petKind,
+			success : function(dt) {
+				$("#prodList").html(dt);
+				getProdKindPagenationHtml(page, petKind, pageSize);
+			}
+		});
+	}
+
+	// 페이지 처리(조회조건)
+	function getProdKindPagenationHtml(page, petKind, pageSize) {
+		$.ajax({
+			url : "/isr/kindPaginationHtml",
+			type : "get",
+			data : "page=" + page + "&pageSize=" + pageSize + "&petKind="
+					+ petKind,
+			success : function(dt) {
+				$("#paginationHtml").html(dt);
+			}
+		});
+
+	}
+
+	// 우리아이 보험상품 추천 
+	// 우리아이 보험상품 추천 리스트
+	function getProdRecommendation(page, pageSize, petKind, birth, petSick) {
+		$.ajax({
+			url : "/isr/prodProductRecommendation",
+			type : "get",
+			data : "page=" + page + "&pageSize=" + pageSize + "&petKind="
+					+ petKind + "&petBirth=" + birth + "&petSick=" + petSick,
+			success : function(dt) {
+				$("#prodList").html(dt);
+				getProdRPagenation(page, pageSize, petKind, birth, petSick);
+			}
+		});
+	}
+
+	// 우리아이 보험상품 추천 페이징 
+	function getProdRPagenation(page, pageSize, petKind, birth, petSick) {
+		$.ajax({
+			url : "/isr/getProdRPagenation",
+			type : "get",
+			data : "page=" + page + "&pageSize=" + pageSize + "&petKind="
+					+ petKind + "&petBirth=" + birth + "&petSick=" + petSick,
+			success : function(dt) {
+				$("#paginationHtml").html(dt);
+			}
+		});
+
+	}
+
+	// 해당 행을 클릭하였을때 보험상품 상세 페이지로 이동하는 방법 (만약, 보험상품 만료라면 이동안되게 설정)
+	function productClick() {
+		location.href = '/isr/productDetail';
+	}
+	
+	function selectTr(trInfo){
+		var trInfo = trInfo;
+		location.href = '/isr/productDetail?prodId='+trInfo;
+	}
+	
 </script>
 
 <link rel="stylesheet" href="/css/petInsuranceMenu.css">
@@ -275,7 +287,8 @@
 			</div>
 			
 			<div id="productList">
-				<table cellspacing='0'>
+				<table cellspacing='0' id="example-table-1">
+				<thead>
 					<tr>
 						<th colspan="7" class="tabel1" id="guide">* 원하시는 상품을 클릭하시면 상세보기 하실수 있습니다</th>
 					</tr>
@@ -288,6 +301,7 @@
 						<th class="tabel1">질병여부(Y/N)</th>
 						<th class="tabel1">보험상품  만료여부</th>
 					</tr>
+				</thead>
 
 				<tbody id="prodList">
 					<!-- 보험상품 리스트 아작스 처리한곳 -->

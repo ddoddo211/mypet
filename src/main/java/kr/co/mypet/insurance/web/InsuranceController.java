@@ -279,8 +279,22 @@ public class InsuranceController {
 		
 		/*보험상세보기 보내는 부분 */
 		@RequestMapping("/productDetail")
-		public String productDetail() {
+		public String productDetail(Model model, PageVo pageVo, HttpServletRequest request) {
+			
+			String prodId = request.getParameter("prodId");
+			
+			// 서비스 연결해서 해당 상품 정보 가지고 오기 
+			InsProdVo prodVo = insuranceService.getProdInfo(prodId);
+			
+			model.addAttribute("prodVo" , prodVo);
+			
 			return "petInsurance/insuranceProduct2";
+		}
+		
+//플랜정보 추가하기 
+		@RequestMapping("/prodAdd")
+		public String prodAdd() {
+			return "petInsurance/planInformation";
 		}
 	
 	

@@ -37,5 +37,15 @@ public interface InsuranceServiceInf {
 	* Method 설명 : 우리아이 보험상품 
 	*/
 	Map<String, Object> prodProductRecommendation(PageVo pageVo);
+	
+	/**
+	* Method : getProdInfo
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param prodId
+	* @return
+	* Method 설명 : 보험상품 아이디를 매개변수로 줘서 보험상품 정보 가지고 오는 방법
+	*/
+	public InsProdVo getProdInfo(String prodId);
 
 }
