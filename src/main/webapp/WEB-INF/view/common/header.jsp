@@ -29,7 +29,7 @@
 						onMouseover="this.style.background='#ffba00', this.style.color='white';"
 						onMouseout="this.style.background='#f4f6f9', this.style.color='black';">펫미용실</a></li>
 
-					<li class="petShop"><a href="/petShop.jsp"
+					<li class="petShop"><a href="/shop/shopMain"
 						onMouseover="this.style.background='#ff4f03', this.style.color='white';"
 						onMouseout="this.style.background='#f4f6f9', this.style.color='black';">펫쇼핑몰</a></li>
 

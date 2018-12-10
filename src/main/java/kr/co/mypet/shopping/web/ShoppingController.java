@@ -41,4 +41,9 @@ public class ShoppingController {
 	public String petShopList() {
 		return "petshop/petShopList";
 	}
+	
+	@RequestMapping("/prodDetail")
+	public String prodDetail() {
+		return "petshop/petProdDetail";
+	}
 }
