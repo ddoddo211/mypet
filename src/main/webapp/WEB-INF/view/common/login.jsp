@@ -9,8 +9,8 @@
 <head>
 <meta charset="EUC-KR">
 <title>로그인</title>
+<link = href="/css/commonCss.css" rel="stylesheet"/>
 <style type="text/css">
-<%@include file ="/css/commonCss.css"%>
 .member {
 	font-size: 50px;
 	text-shadow: 0 0 10px #666;

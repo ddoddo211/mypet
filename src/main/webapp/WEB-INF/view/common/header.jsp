@@ -76,30 +76,6 @@ body {
 	clear: both;
 }
 
-input[type="submit"] {
-	float: left;
-	/*  display:block; */
-	height: 50px;
-	background: #FFBB00;
-	border-radius: 5px;
-	border: none;
-	font-family: "맑은 고딕";
-}
-
-input[type="button"] {
-	height: 30px;
-	background: white;
-	border: none;
-	border-radius: 5px;
-	/*  width: 140px; */
-	font-family: "맑은 고딕";
-	margin-top: 10px;
-	border-radius: 5px;
-}
-
-input[type="checkbox"] {
-	margin-top: 20px;
-}
 
 #loginButton {
 	margin-left: 10px;
