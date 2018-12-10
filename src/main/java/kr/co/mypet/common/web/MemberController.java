@@ -159,5 +159,11 @@ public class MemberController {
 	public String shopping() {
 		return "petShop";
 	}
+	
+	// 펫보험으로 화면이동
+	@RequestMapping("/petIns")
+	public String petIns() {
+		return "isr/isrMain";
+	}
 
 }

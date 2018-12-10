@@ -298,7 +298,6 @@ table tr:first-child th:first-child{
 	-moz-border-radius-topleft:3px;
 	-webkit-border-top-left-radius:3px;
 	border-top-left-radius:3px;
-	text-align: left;
 }
 table tr:first-child th:last-child{
 	-moz-border-radius-topright:3px;
@@ -535,6 +534,255 @@ table tr:hover td{
 #prodImg{
 	width: 1200px;
 }
+
+
+
+/* 플랜정보*/
+
+#petInfoTable{
+	width: 1200px;
+	height: 0 auto;
+}
+
+#petInfoTableTop{
+	width: 1200px;
+	height: 60px;
+}
+
+#pettitle{
+	width: 450px;
+	height: 50px;
+	font-family: 'Nanum Pen Script', cursive;
+	font-size: 50px;
+	background-color: #fff6dd;
+	text-align: center;
+	float: left;
+	border-radius:3px;
+  	box-shadow:3px 3px 3px 3px #999;
+  	border-right: none;
+}
+
+#petInsert2{
+	height: 50px;
+	width: 200px;
+	float: left;
+}
+
+#petDelete{
+	height: 50px;
+    width: 200px;
+    float: left;
+    margin-left: 5px;
+}
+
+#petdBtn{
+	width: 200px;
+	background-color: #7c6ee9;
+	height: 30px;
+	border-radius: 50px;
+	border: 2px solid #7c6ee9;
+	color: white;
+	font-size: 20px;
+	margin-top: 15px;
+	cursor: pointer;
+
+}
+
+#petdBtn:hover{
+	width: 200px;
+	background-color: white;
+	height: 30px;
+	border-radius: 50px;
+	border: 2px solid #7c6ee9;
+	color: black;
+	font-size: 20px;
+}
+
+
+
+#petBtn{
+	float: left;
+	margin-left: 315px;
+}
+
+
+#prodBtn{
+	float: left;
+	margin-left: 315px;
+}
+
+#petIsBtn{
+	width: 200px;
+	background-color: #7c6ee9;
+	height: 30px;
+	border-radius: 50px;
+	border: 2px solid #7c6ee9;
+	color: white;
+	font-size: 20px;
+	margin-top: 15px;
+	cursor: pointer;
+}
+
+#petIsBtn:hover{
+	width: 200px;
+	background-color: white;
+	height: 30px;
+	border-radius: 50px;
+	border: 2px solid #7c6ee9;
+	color: black;
+	font-size: 20px;
+}
+
+#petTable{
+	width: 1200px;
+	height: 0 auto;
+	margin-top: 10px;
+}
+
+.td2{
+	width: 120px;
+}
+
+
+.td3{
+	width: 150px;
+}
+
+.td4{
+	width: 250px;
+}
+
+#td5{
+	height: 120px;
+}
+
+.td6{
+	width: 40px;
+}
+
+#insuranceProdTable{
+	width: 1200px;
+	height: 50;
+	margin-top: 30px;
+}
+
+#insuranceProdTableTop{
+	width: 1200px;
+	height: 60px;
+	margin-bottom: 10px;
+}
+
+#isTitle{
+	width: 450px;
+	height: 50;
+	font-family: 'Nanum Pen Script', cursive;
+	font-size: 50px;
+	background-color: #fff6dd;
+	text-align: center;
+	float: left;
+	border-radius:3px;
+  	box-shadow:3px 3px 3px 3px #999;
+  	border-right: none;
+}
+
+.tr7{
+	width: 100px;
+}
+
+.td8{
+	width: 130px;
+}
+
+.td9{
+	width: 100px;
+}
+
+.td10{
+	width: 180px;
+}
+
+#insuranceProdTableTop2{
+	background-color: #8e8e8e;
+	color: white;
+	width: 800px;
+	margin-top: 5px;
+	height: 30px;
+	font-family: 'Nanum Pen Script', cursive;
+	font-size: 30px;
+}
+
+#pettitle2{
+	background-color: #8e8e8e;
+	color: white;
+	width: 800px;
+	margin-top: 5px;
+	height: 30px;
+	font-family: 'Nanum Pen Script', cursive;
+	font-size: 30px;
+}
+
+#insuranceProdInsert{
+	width : 200px;
+	height: 50px;
+	float: left;
+}
+#insuranceProdDelete{
+	width : 200px;
+	height: 50px;
+	float: left;
+}
+
+#insuranceProdIsBtn{
+	width: 200px;
+	background-color: #7c6ee9;
+	height: 30px;
+	border-radius: 50px;
+	border: 2px solid #7c6ee9;
+	color: white;
+	font-size: 20px;
+	margin-top: 15px;
+	
+}
+
+#insuranceProdIsBtn:hover{
+	width: 200px;
+	background-color: white;
+	height: 30px;
+	border-radius: 50px;
+	border: 2px solid #7c6ee9;
+	color: black;
+	font-size: 20px;
+}
+
+#td11{
+	height: 100px;
+}
+
+#insuranceProdDlBtn{
+	width: 200px;
+	background-color: #7c6ee9;
+	height: 30px;
+	border-radius: 50px;
+	border: 2px solid #7c6ee9;
+	color: white;
+	font-size: 20px;
+	margin-top: 15px;
+	margin-left: 5px;
+	
+}
+
+#insuranceProdDlBtn:hover{
+	width: 200px;
+	background-color: white;
+	height: 30px;
+	border-radius: 50px;
+	border: 2px solid #7c6ee9;
+	color: black;
+	font-size: 20px;
+}
+
+
+
 
 
 

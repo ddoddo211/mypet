@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.Map;
 
 import kr.co.mypet.insurance.model.InsProdVo;
+import kr.co.mypet.insurance.model.InsuranceVo;
 import kr.co.mypet.insurance.model.PageVo;
+import kr.co.mypet.insurance.model.ProdShoppingVo;
 
 public interface InsuranceDaoInf {
 	
@@ -71,5 +73,25 @@ public interface InsuranceDaoInf {
 	* Method 설명 : 보험상품 아이디를 매개변수로 줘서 보험상품 정보 가지고 오는 방법
 	*/
 	public InsProdVo getProdInfo(String prodId);
+	
+	/**
+	* Method : planInsert
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param memberId
+	* @return
+	* Method 설명 : 보험상품 상세내역에서 플랜정보에 추가하는 부분 
+	*/
+	int planInsert (InsuranceVo insuranceVo);
+	
+	/**
+	* Method : memPlan
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param ins_mem
+	* @return
+	* Method 설명 : 회원의 플랜정보에 추가된 보험상품 조회
+	*/
+	List<ProdShoppingVo> memPlan(String ins_mem);
 
 }

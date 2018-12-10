@@ -17,7 +17,13 @@ function listClick() {
 }
 
 function prodAdd(){
-	location.href ='/isr/prodAdd?prodId='+${prodVo.insp_id};
+
+	if('${memVo.mem_id}' == ""){
+		alert("로그인이 되어 있지 않습니다.\n로그인하시기 바랍니다.");
+		location.href ='/mem/loginPage';
+	}else{
+		location.href ='/isr/prodAdd?prodId='+${prodVo.insp_id};
+	}
 }
 
 

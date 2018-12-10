@@ -12,8 +12,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import kr.co.mypet.common.model.MemberVo;
 import kr.co.mypet.insurance.model.InsProdVo;
+import kr.co.mypet.insurance.model.InsuranceVo;
 import kr.co.mypet.insurance.model.PageVo;
+import kr.co.mypet.insurance.model.ProdShoppingVo;
 import kr.co.mypet.insurance.service.InsuranceServiceInf;
 
 @Controller
@@ -283,6 +286,9 @@ public class InsuranceController {
 			
 			String prodId = request.getParameter("prodId");
 			
+			// 세션에 저장된 회원의 아이디 가지고 오기 			
+			model.addAttribute("memVo" ,request.getSession().getAttribute("memVo") );
+			
 			// 서비스 연결해서 해당 상품 정보 가지고 오기 
 			InsProdVo prodVo = insuranceService.getProdInfo(prodId);
 			
@@ -293,7 +299,27 @@ public class InsuranceController {
 		
 //플랜정보 추가하기 
 		@RequestMapping("/prodAdd")
-		public String prodAdd() {
+		public String prodAdd(Model model ,HttpServletRequest request, InsuranceVo isrVo , MemberVo memVo) {
+			
+			String prodId = request.getParameter("prodId");
+		
+			System.out.println(prodId);
+			
+			// 세션에 저장된 회원의 아이디 가지고 오기 
+			request.getSession().getAttribute("memVo");
+			
+			// 회원 아이디 , 보험상품 아이디만 넣어주면 된다
+			isrVo.setIns_insp(prodId);
+			isrVo.setIns_mem(memVo.getMem_id());
+			
+			// 플랜정보에 추가하기
+			int result = insuranceService.planInsert(isrVo);
+			
+			// 회원의 추가된 보험상품 가지고 오기 
+			List<ProdShoppingVo> memIsrList = insuranceService.memPlan(prodId);
+			
+			model.addAttribute("memIsrList" ,memIsrList);
+			
 			return "petInsurance/planInformation";
 		}
 	

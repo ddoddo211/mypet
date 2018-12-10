@@ -53,7 +53,7 @@
 					<a href="/petShop.jsp" class="innerborder"><img alt="이미지가 없습니다" src="/img/petnav3.jpg" width="292px" height="700px"></a> 
 				</div>
 				<div class="menu1 menu1Last">
-					<a href="/petInsurance.jsp" class="innerborder"><img alt="이미지가 없습니다" src="/img/petnav4.jpg" width="292px" height="700px"></a> 
+					<a href="/isr/isrMain" class="innerborder"><img alt="이미지가 없습니다" src="/img/petnav4.jpg" width="292px" height="700px"></a> 
 				</div>
 			</div>
 		
