@@ -17,12 +17,16 @@ function listClick() {
 }
 
 function prodAdd(){
-
-	if('${memVo.mem_id}' == ""){
+	if('${memberVo.mem_id}' == ""){
 		alert("로그인이 되어 있지 않습니다.\n로그인하시기 바랍니다.");
 		location.href ='/mem/loginPage';
 	}else{
-		location.href ='/isr/prodAdd?prodId='+${prodVo.insp_id};
+		if('${mypetSize}' == 0){
+			alert("펫이 등록되어 있지 앖습니다. 펫을 등록하시기 바랍니다");
+			location.href ='/isr/petInsert';
+		}else{
+			location.href ='/isr/prodAdd?prodId='+${prodVo.insp_id};
+		}
 	}
 }
 

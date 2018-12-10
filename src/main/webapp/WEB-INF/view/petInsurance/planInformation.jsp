@@ -86,27 +86,19 @@ function prodAdd(){
 							<th class="td2">종류</th>
 							<th class="td4">현재 가입되어 있는 보험상품</th>
 						</tr>
-						<tr class="tr2" id="td5">
-							<td class="td6">선택</td>
-							<td class="td3">가입대상</td>
-							<td class="td2">이름</td>
-							<td class="td2">성별</td>
-							<td class="td2">생년월일</td>
-							<td class="td2">질병</td>
-							<td class="td2">종류</td>
-							<td class="td4">현재 가입되어 있는 보험상품</td>
-						</tr>
-						<tr class="tr2" id="td5">
-							<td class="td6">선택</td>
-							<td class="td3">가입대상</td>
-							<td class="td2">이름</td>
-							<td class="td2">성별</td>
-							<td class="td2">생년월일</td>
-							<td class="td2">질병</td>
-							<td class="td2">종류</td>
-							<td class="td4">현재 가입되어 있는 보험상품</td>
-						</tr>
 						
+						<c:forEach begin="1" items="${mypetList}" var="pet">
+							<tr class="tr2" id="td5">
+								<td class="td6">선택</td>
+								<td class="td3">${pet.myp_img}</td>
+								<td class="td2">${pet.myp_petk}</td>
+								<td class="td2">${pet.myp_gender}</td>
+								<td class="td2">${pet.myp_birth}</td>
+								<td class="td2">${pet.myp_sick}</td>
+								<td class="td2">${pet.myp_petk}</td>
+								<td class="td4">현재 가입되어 있는 보험상품</td>
+							</tr>
+						</c:forEach>	
 				</table>
 			</div>
 		</div>

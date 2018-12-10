@@ -3,6 +3,7 @@ package kr.co.mypet.insurance.service;
 import java.util.List;
 import java.util.Map;
 
+import kr.co.mypet.common.model.MypetVo;
 import kr.co.mypet.insurance.model.InsProdVo;
 import kr.co.mypet.insurance.model.InsuranceVo;
 import kr.co.mypet.insurance.model.PageVo;
@@ -70,5 +71,16 @@ public interface InsuranceServiceInf {
 	* Method 설명 : 회원의 플랜정보에 추가된 보험상품 조회
 	*/
 	List<ProdShoppingVo> memPlan(String ins_mem);
+	
+	/**
+	* Method : petList
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param myp_mem
+	* @return
+	* Method 설명 :회원의 펫정보를 가지고 오는 부분
+	*/
+	List<MypetVo> petList(String myp_mem);
+
 
 }

@@ -67,7 +67,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		
 		<!-- 플랜정보에 보험상품 추가하기 -->
 		<insert id="planInsert" parameterType="insVo">
-			insert into insurance values(SEQ_POST.nextval,#{ins_mem},#{ins_insp},'',sysdate,'','','','')
+			insert into insurance values(insurance_num.nextval,#{ins_mem},#{ins_insp},'',sysdate,'','','','')
 		</insert>
 		
 		<!-- 플랜정보에 회원의 플랜정보에 추가된 보험상품 조회 -->
@@ -76,6 +76,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			from insurance , insprod
 			where ins_id  = insp_id
 			and INS_MEM = #{ins_mem}
+		</select>
+		
+		<!-- 회원의 펫이 있는지 확인하는 부분 -->
+		<select id="memPet" parameterType="String" resultType="mypetVo">
+			select *
+			from mypet
+			where myp_mem = #{myp_mem}
 		</select>
 		
 </mapper>
