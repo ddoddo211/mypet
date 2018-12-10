@@ -1,5 +1,8 @@
 @charset "UTF-8";
 
+@import url(//fonts.googleapis.com/earlyaccess/nanumpenscript.css);
+@import url(//fonts.googleapis.com/earlyaccess/jejugothic.css);
+
 
 /*전체*/
 #main {
@@ -8,9 +11,6 @@
 	margin: 0 auto;
 	margin-bottom: 20px;
 }
-
-
-
 
 
 /*펫보험 소개*/
@@ -60,6 +60,10 @@
 	font-size: 17px;
 }
 
+#productBtn:focus {
+	outline: none;
+}
+
 #productBtn:hover {
 	background-color: white;
 	color: #7c6ee9;
@@ -69,6 +73,7 @@
 	border-radius: 50px;
 	border :2px solid #7c6ee9;
 	font-size: 17px;
+	outline: none;
 }
 #checkbox{
 	height: 30px;
@@ -221,6 +226,7 @@
 	text-align: center;
 }
 
+
 .tabel1{
 	width: 165px;
 	text-align: center;
@@ -292,6 +298,7 @@ table tr:first-child th:first-child{
 	-moz-border-radius-topleft:3px;
 	-webkit-border-top-left-radius:3px;
 	border-top-left-radius:3px;
+	text-align: left;
 }
 table tr:first-child th:last-child{
 	-moz-border-radius-topright:3px;
@@ -303,11 +310,9 @@ table tr{
 	padding-left:20px;
 }
 table tr td:first-child{
-	padding-left:20px;
 	border-left: 0;
 }
 table tr td {
-	padding:12px;
 	border-top: 1px solid #ffffff;
 	border-bottom:1px solid #e0e0e0;
 	border-left: 1px solid #e0e0e0;
@@ -316,6 +321,8 @@ table tr td {
 	background: -webkit-gradient(linear, left top, left bottom, from(#fbfbfb), to(#fafafa));
 	background: -moz-linear-gradient(top,  #fbfbfb,  #fafafa);
 }
+
+
 table tr.even td{
 	background: #f6f6f6;
 	background: -webkit-gradient(linear, left top, left bottom, from(#f8f8f8), to(#f6f6f6));
@@ -374,6 +381,160 @@ table tr:hover td{
 	background-color:#7c6ee9;
 }
 
+/* 보험상품 상세 목록 나오는 부분 */
+#detail{
+	width: 1200px;
+	height: 0 auto;
+	
+}
+
+#detailtop{
+	width: 1200px;
+	height: 50px;
+	margin-bottom: 10px;
+}
+
+#prodInfo{
+	width: 20px;
+	float: left;
+}
+.prodInfo1{
+	margin-top:-10px;
+	height: 50px;
+	width: 50px;
+}
+
+#detailName{
+	float: left;
+	margin-left: 50px;
+	font-size: 25px;
+}
+
+#list{
+	margin-left: 1040px;
+}
+
+#listButton{
+	background-color: #fafafa;
+	height: 50px;
+	border-radius: 50px;
+	width: 150px;
+	border: 1px solid #c6c6c6;
+}
+
+#detailWrite{
+	background-color:#fff6dd;
+	height: 300px;
+	background-image: url("/img/petInsurance/back.jpg");
+	box-shadow: 0px 0px 20px -5px rgba(0, 0, 0, 0.8);
+	border: 1px solid #fff6dd;
+}
+
+#detailWrite1{
+	margin-left: 330px;
+	margin-top: 30px;
+	width: 700px;
+	height : 200px;
+	font-size: 30px;
+	font-family: 'Nanum Pen Script', cursive;
+}
+
+.dWclass{
+	margin-bottom: 15px;
+}
+
+.whiteLb{
+	background-color: white;
+}
+
+#dWlabel{
+	margin-right: 150px;
+}
+
+#dWlabel1{
+	margin-right: 100px;
+}
+
+#dWlabel2{
+	margin-right: 162px;
+}
+
+#dWlabel3{
+	margin-right: 190px;
+}
+
+#dWlabel4{
+	margin-right: 138px;
+}
+
+
+
+#plan{
+	margin-left: 950px;
+}
+
+#planButton{
+	background-color: #7c6ee9;
+	height: 30px;
+	border-radius: 50px;
+	width: 200px;
+	border: 2px solid #7c6ee9;
+	color: white;
+	font-size: 20px;
+}
+
+#planButton:hover{
+	background-color: white;
+	height: 30px;
+	border-radius: 50px;
+	width: 200px;
+	border: 2px solid #7c6ee9;
+	color: black;
+	font-size: 20px;
+}
+
+#insuranceGuide{
+	width: 1200px;
+	height: 50px;
+	background-color: #ffcc33;
+	margin-top: 10px;
+}
+
+#insuranceGuide a{
+	color: white;
+}
+
+#insuranceGuide a:hover{
+	color: black;
+}
+
+#insuranceGuide2{
+	background-color: #fafafa;
+	border: 3px dashed #ffcc33;
+	border-top : none;
+	text-align: center;
+	margin-top: 5px;
+	height: 30px;
+}
+
+#idDiv{
+	margin-left: 230px;
+}
+
+#ig1 ,#ig2 ,#ig3  {
+	width: 200px;
+    float: left;
+} 
+
+#igBt,#igBt2 ,#igBt3 ,#igBt4 {
+	font-family: 'Nanum Pen Script', cursive;
+	font-size: 40px;
+	background-color: #ffcc33;
+}    
+
+#prodImg{
+	width: 1200px;
+}
 
 
 

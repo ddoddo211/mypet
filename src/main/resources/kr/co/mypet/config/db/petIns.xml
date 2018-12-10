@@ -5,6 +5,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   
 <mapper namespace="petIns">
 
+		<!-- 보험상품 -->
 		<!-- 보험상품 리스트 목록가지고 오는 부분 -->
 		<select id="prodPageList" parameterType="pageVo" resultType="pageVo">
 			select * from
@@ -18,5 +19,48 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<select id="getInsProductCnt" resultType="int">
 			select count(*) from insprod
 	  	</select>
+	  	
+	  	<!-- 보험상품 리스트 목록가지고 오는 부분 -->
+		<select id="prodKindPageList" parameterType="pageVo" resultType="pageVo">
+			select * from
+			(select ROWNUM rnum,
+			A.*
+			from (select * from insProd where INSP_JOIN = #{petKind} order by to_number(insp_id) asc) A)
+			WHERE rnum between #{page}*#{pageSize}-(#{pageSize}-1) and #{page}*#{pageSize}
+		</select>
 		
+		<!-- 게시글 총갯수(조건) -->
+		<select id="getInsProductKindCnt" parameterType="String" resultType="int" >
+			select count(*) from insprod  where INSP_JOIN = #{petKind}
+	  	</select>
+	  	
+	  	<!-- 우리아이 보험상품 추천 리스트 가지고 오는 부분 -->
+	  	<select id="prodProductRecommendation" parameterType="pageVo" resultType="insProdVo">
+		     select * from
+		              (select ROWNUM rnum,
+		                      A.*
+		               from  (select  *
+		                      from insProd
+		                      order by insp_id asc) A)
+				 WHERE  rnum BETWEEN #{page}*#{pageSize}-(#{pageSize}-1) and #{page}*#{pageSize}
+		         and INSP_JOIN = #{petKind}
+		         and INSP_MINAGE <![CDATA[<=]]> ${petBirth}
+		         and INSP_MAXAGE <![CDATA[>=]]> ${petBirth}
+		         and INSP_SICK = #{petSick}
+		</select>
+		
+		<!-- 게시글 총갯수(우리아이보험추천) -->
+		<select id="getProductRecommendationCnt" parameterType="pageVo" resultType="int" >
+			select count(*) from insprod 
+			 where INSP_JOIN = #{petKind}
+		       and INSP_MINAGE <![CDATA[<=]]> to_number(#{petBirth})
+		       and INSP_MAXAGE <![CDATA[>=]]> to_number(#{petBirth})
+		       and INSP_SICK = #{petSick}
+	  	</select>
+		
+		
+		<select id="getProdInfo" parameterType="String" resultType="insProdVo">
+			select * from insprod
+			where insp_id = #{prodId}
+		</select>
 </mapper>
