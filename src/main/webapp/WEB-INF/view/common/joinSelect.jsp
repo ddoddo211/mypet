@@ -147,15 +147,22 @@ input[type="checkbox"] {
 	margin-left: 70px;
 }
 
-</style>
+.joinSel{
+	font-size: 28px;
+	width : 200px;
+}
 
-<script type="text/javascript">
-	<%if(request.getParameter("navermsg")==null){%>
-		alert("ID 또는 PW가 일치하지않습니다 다시 시도해주세요");
-	<%} else {%>
-		alert("네이버 로그인 실패"); 
-	<%	}%>
-</script>
+.joinSelCon{
+	text-align: center;
+	width: 400px;
+	height: 80px;
+	border: 3px solid #f4f6f9;
+	padding-top: 40px;
+	vertical-align: middle;
+
+}
+
+</style>
 
 </head>
 <body>
@@ -182,60 +189,31 @@ input[type="checkbox"] {
 		</div>
 	</div>
 	<!-- main header content 끝  -->
+	
+	 <%
+	    clientId = "dQEq__PeBE4FPR0eimgb";//애플리케이션 클라이언트 아이디값";
+	    redirectURI = URLEncoder.encode("http://localhost:8081/mem/join", "UTF-8");
+	    random = new SecureRandom();
+	    state = new BigInteger(130, random).toString();
+	    apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
+	    apiURL += "&client_id=" + clientId;
+	    apiURL += "&redirect_uri=" + redirectURI;
+	    apiURL += "&state=" + state;
+	    session.setAttribute("state", state);
+	 %>
+	
 
-	<!-- login form -->
-	<form action="/mem/loginNM" method="post">
 		<div id="wrap">
-			<h1 class="member">My Pet Login</h1>
-			<div class="form">
-				<div class="form2">
-					<div id="form2-1">
-						<div id="form2-1-1">
-							<div class="form3" id="form3-1">
-								<label for="user">아이디</label><input type="text" name="mem_id">
-							</div>
-							<div class="form3">
-								<label for="user">비밀번호</label><input type="password" name="mem_pass">
-							</div>
-						</div>
-						<div id="form2-1-1-1">
-							<input id="loginButton" type="submit" value="로그인">
-						</div>
-					</div>
-							 <%
-							    clientId = "dQEq__PeBE4FPR0eimgb";//애플리케이션 클라이언트 아이디값";
-							    redirectURI = URLEncoder.encode("http://localhost:8081/mem/login", "UTF-8");
-							    random = new SecureRandom();
-							    state = new BigInteger(130, random).toString();
-							    apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
-							    apiURL += "&client_id=" + clientId;
-							    apiURL += "&redirect_uri=" + redirectURI;
-							    apiURL += "&state=" + state;
-							    session.setAttribute("state", state);
-							 %>
-							 <div id="naverLogin">
-							  <a href="<%=apiURL%>"><img height="40" src="/img/naverBtn.PNG"/></a>
-							 </div>
-					<div class="form4">
-						<br>
-						<label><input type="checkbox">아이디저장</label> 
-					    <label><input type="checkbox">보안접속</label> <br>
-					    
-					    <div id="loginMenu">
-							<label class="loginMenuLabel"><input class="loginMenuInput" type="button" value="아이디 찾기"></label>
-							<label class="loginMenuLabel"><input class="loginMenuInput" type="button" value="비밀번호 찾기"></label>
-							<label class="loginMenuLabel"><input class="loginMenuInput" type="button" value="회원가입"></label>
-						</div>
-						
-						
-						
-						
-					</div>
+				<h1 class="member">My Pet Join</h1>
+				<br><br>
+			 	<div class="joinSelCon">
+					<a href="/mem/memJoin" class="joinSel">일반회원 가입하기</a>
 				</div>
-			</div>
+				<br><br>
+			 	<div id="naverJoin" class="joinSelCon">
+			  		<a href="<%=apiURL%>" class="joinSel"><img height="30" src="/img/naverBtnSmall.PNG"/>네이버아이디로 회원가입</a> 
+			 	</div>
 		</div>
-	</form>
-	<!-- login form 끝 -->
 
 
 	<!-- footer 시작 -->

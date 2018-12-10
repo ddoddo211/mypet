@@ -6,11 +6,11 @@
 <meta charset="UTF-8">
 <title>main.jsp</title>
 
-<style type="text/css">
+<!-- <style type="text/css"> -->
 
-<%@include file ="/css/commonCss.css"%>
+<%-- <%@include file ="/css/commonCss.css"%> --%>
 
-</style>
+<!-- </style> -->
 
 </head>
 
@@ -47,7 +47,7 @@
 					<a href="/sit/sitMain" class="innerborder"><img alt="이미지가 없습니다" src="/img/petnav1.jpg" width="292px" height="700px"></a> 
 				</div>
 				<div class="menu1">
-					<a href="petHair.jsp" class="innerborder"><img alt="이미지가 없습니다" src="/img/petnav2.jpg" width="292px" height="700px"></a> 
+					<a href="/hair/hairMain" class="innerborder"><img alt="이미지가 없습니다" src="/img/petnav2.jpg" width="292px" height="700px"></a> 
 				</div>
 				<div class="menu1">
 					<a href="/shop/shopMain" class="innerborder"><img alt="이미지가 없습니다" src="/img/petnav3.jpg" width="292px" height="700px"></a> 
