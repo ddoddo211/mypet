@@ -19,5 +19,35 @@ public class CommonDao implements CommonDaoInf {
 		return template.insert("member.insertMember", memVo);
 	}
 
+	@Override
+	public int login(MemberVo memVo) {
+		// TODO Auto-generated method stub
+		int Chk = 0;
+		memVo = template.selectOne("member.login", memVo);
+		if(memVo==null) {
+			//조회 실패
+			Chk = 1;
+		} else {
+			//조회 성공
+			Chk = 0;
+		}
+		return Chk;
+	}
+
+	@Override
+	public int naverLogin(String mem_id) {
+		// TODO Auto-generated method stub
+				int Chk = 0;
+				MemberVo memVo = template.selectOne("member.naverLogin", mem_id);
+				if(memVo==null) {
+					//조회 실패
+					Chk = 1;
+				} else {
+					//조회 성공
+					Chk = 0;
+				}
+				return Chk;
+	}
+
 
 }

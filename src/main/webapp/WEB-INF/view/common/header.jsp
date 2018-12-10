@@ -171,7 +171,7 @@ input[type="checkbox"] {
 						onMouseover="this.style.background='#17aaff', this.style.color='white';"
 						onMouseout="this.style.background='#f4f6f9', this.style.color='black';">펫시터</a></li>
 
-					<li class="petHair"><a href="/petHair.jsp"
+					<li class="petHair"><a href="/hair/hairMain"
 						onMouseover="this.style.background='#ffba00', this.style.color='white';"
 						onMouseout="this.style.background='#f4f6f9', this.style.color='black';">펫미용실</a></li>
 

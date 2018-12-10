@@ -3,6 +3,17 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="member">
+  
+  <!-- 로그인 체크 -->
+  <select id="login" parameterType="memVo" resultType="memVo">
+  	select * from member where mem_id=#{mem_id} and mem_pass=#{mem_pass}
+  </select>
+  
+  <!-- naver 로그인 체크 -->
+  <select id="naverLogin" parameterType="String" resultType="memVo">
+  	select * from member where mem_id=#{mem_id}
+  </select>
+  
   <!--  사용자 등록 -->
   <insert id="insertMember" parameterType="memVo">
 	insert into member

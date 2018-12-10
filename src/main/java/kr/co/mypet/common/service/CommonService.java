@@ -19,5 +19,17 @@ public class CommonService implements CommonServiceInf {
 		
 		return commonDao.memberJoin(memVo);
 	}
+
+	@Override
+	public int login(MemberVo memVo) {
+		
+		return commonDao.login(memVo);
+	}
+
+	@Override
+	public int naverLogin(String mem_id) {
+		// TODO Auto-generated method stub
+		return commonDao.naverLogin(mem_id);
+	}
 	
 }

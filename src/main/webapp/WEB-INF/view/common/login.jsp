@@ -149,6 +149,14 @@ input[type="checkbox"] {
 
 </style>
 
+<script type="text/javascript">
+	<%if(request.getParameter("navermsg")==null){%>
+		alert("ID 또는 PW가 일치하지않습니다 다시 시도해주세요");
+	<%} else {%>
+		alert("네이버 로그인 실패"); 
+	<%	}%>
+</script>
+
 </head>
 <body>
 	<!-- header 시작 -->
@@ -195,11 +203,11 @@ input[type="checkbox"] {
 						</div>
 					</div>
 							 <%
-							    String clientId = "dQEq__PeBE4FPR0eimgb";//애플리케이션 클라이언트 아이디값";
-							    String redirectURI = URLEncoder.encode("http://localhost:8081/mem/login", "UTF-8");
-							    SecureRandom random = new SecureRandom();
-							    String state = new BigInteger(130, random).toString();
-							    String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
+							    clientId = "dQEq__PeBE4FPR0eimgb";//애플리케이션 클라이언트 아이디값";
+							    redirectURI = URLEncoder.encode("http://localhost:8081/mem/login", "UTF-8");
+							    random = new SecureRandom();
+							    state = new BigInteger(130, random).toString();
+							    apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
 							    apiURL += "&client_id=" + clientId;
 							    apiURL += "&redirect_uri=" + redirectURI;
 							    apiURL += "&state=" + state;

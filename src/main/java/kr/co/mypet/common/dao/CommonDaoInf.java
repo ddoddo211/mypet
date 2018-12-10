@@ -6,4 +6,8 @@ public interface CommonDaoInf {
 
 	public int memberJoin(MemberVo memVo);
 
+	public int login(MemberVo memVo);
+
+	public int naverLogin(String mem_id);
+
 }

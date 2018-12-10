@@ -9,6 +9,7 @@ import java.net.URLEncoder;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -151,9 +152,24 @@ public class MemberController {
 		return "common/join";
 	}
 	
-	public String loginNM() {
+	//일반 로그인 method
+	@RequestMapping("/loginNM")
+	public String loginNM(MemberVo memVo, HttpSession session) {
+		String url = "";
+		int chk = commonService.login(memVo);
 		
-		return "";
+		if(chk==0) {
+			//조회 성공
+			url="common/main";
+			session.setAttribute("memVo", memVo);
+		} else {
+			url="common/login";
+			
+		}
+		
+		
+		
+		return url;
 	}
 	
 	//회원 가입 처리 method
@@ -274,9 +290,22 @@ public class MemberController {
         }
 	    
 	    ///////////////////////////
-	    request.getSession().setAttribute("memVo", memVo);
+        String url = "";
+		int chk = commonService.naverLogin(memVo.getMem_id());
 		
-		return "common/main";
+		if(chk==0) {
+			//조회 성공
+			url="common/main";
+			request.getSession().setAttribute("memVo", memVo);
+		} else {
+			request.setAttribute("navermsg", "사이트 회원등록이 필요합니다 회원가입해주세요");
+			url="common/login";
+			
+		}
+		
+		
+		
+		return url;
 	}
 	
 	@RequestMapping("/logout")
