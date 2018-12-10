@@ -9,6 +9,7 @@
 	<typeAliases>
 <!-- 		<typeAlias type="kr.or.ddit.user.model.UserVo" alias="userVo"/> -->
 		<typeAlias type="kr.co.mypet.common.model.MemberVo" alias="memVo"/>
+		<typeAlias type="kr.co.mypet.shopping.model.ShopNoticeVo" alias="snotVo"/>
 	</typeAliases>
 
   <mappers>
@@ -19,7 +20,7 @@
 
 
 
-
+		<mapper resource="kr/co/mypet/config/db/shopping.xml"/> 
 		<mapper resource="kr/co/mypet/config/db/member.xml"/>
   </mappers>
 </configuration>
