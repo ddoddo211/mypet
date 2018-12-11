@@ -9,6 +9,7 @@
 <head>
 <meta charset="EUC-KR">
 <title>로그인</title>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <link = href="/css/commonCss.css" rel="stylesheet"/>
 <style type="text/css">
 .member {
@@ -33,8 +34,9 @@ body {
 	width: 380px;
 	height: 250px;
 	border-radius: 25px;
-	border: 5px double #999;
+	border: 2px dashed #999;
 	margin: 30px auto;
+	background-color: white;
 }
 
 .form2 {
@@ -78,10 +80,11 @@ input[type="submit"] {
 	float: left;
 	/*  display:block; */
 	height: 50px;
-	background: #FFBB00;
+	background: #96c8ff;
 	border-radius: 5px;
 	border: none;
 	font-family: "맑은 고딕";
+	box-shadow: 3px 3px 10px #E6E2AF;
 }
 
 input[type="button"] {
@@ -102,7 +105,7 @@ input[type="checkbox"] {
 #loginButton {
 	margin-left: 10px;
 	height: 50px;
-	width: 60px;
+	width: 90px;
 }
 
 #user {
@@ -147,6 +150,11 @@ input[type="checkbox"] {
 	margin-left: 70px;
 }
 
+#loginForm{
+	background-image: url("/img/loginBack.jpg");
+	margin-bottom: 100px;
+	width: 1200px;
+}
 </style>
 
 <script type="text/javascript">
@@ -203,6 +211,7 @@ input[type="checkbox"] {
 						</div>
 					</div>
 							 <%
+							    clientId = "dQEq__PeBE4FPR0eimgb"; /*애플리케이션 클라이언트 아이디값";*/
 							    clientId = "dQEq__PeBE4FPR0eimgb";//애플리케이션 클라이언트 아이디값";
 							    redirectURI = URLEncoder.encode("http://localhost:8081/mem/login", "UTF-8");
 							    random = new SecureRandom();

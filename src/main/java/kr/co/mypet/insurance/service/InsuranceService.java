@@ -8,9 +8,13 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import kr.co.mypet.common.model.MemberVo;
 import kr.co.mypet.insurance.dao.InsuranceDaoInf;
 import kr.co.mypet.insurance.model.InsProdVo;
+import kr.co.mypet.insurance.model.InsuranceVo;
+import kr.co.mypet.insurance.model.MypetVo;
 import kr.co.mypet.insurance.model.PageVo;
+import kr.co.mypet.insurance.model.ProdShoppingVo;
 
 @Service
 public class InsuranceService implements InsuranceServiceInf {
@@ -120,6 +124,58 @@ public class InsuranceService implements InsuranceServiceInf {
 	public InsProdVo getProdInfo(String prodId) {
 		return insuranceDao.getProdInfo(prodId);
 	}
+	
+	/**
+	* Method : planInsert
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param memberId
+	* @return
+	* Method 설명 : 보험상품 상세내역에서 플랜정보에 추가하는 부분 
+	*/
+	public int planInsert (InsuranceVo insuranceVo) {
+		return insuranceDao.planInsert(insuranceVo);
+	}
+
+	/**
+	* Method : memPlan
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param ins_mem
+	* @return
+	* Method 설명 : 회원의 플랜정보에 추가된 보험상품 조회
+	*/
+	@Override
+	public List<ProdShoppingVo> memPlan(String ins_mem) {
+		return insuranceDao.memPlan(ins_mem);
+	}
+
+	/**
+	* Method : petList
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param myp_mem
+	* @return
+	* Method 설명 :회원의 펫정보를 가지고 오는 부분
+	*/
+	@Override
+	public List<MypetVo> petList(String myp_mem) {
+		return insuranceDao.petList(myp_mem);
+	}
+
+	
+	/**
+	* Method : memberInfo
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param mem_id
+	* @return
+	* Method 설명 : 회원 아이디를 줘서 회원의 정보를 받아오는 부분
+	*/
+	@Override
+	public MemberVo memberInfo(MemberVo memVo) {
+		return insuranceDao.memberInfo(memVo);
+	};
 
 
 

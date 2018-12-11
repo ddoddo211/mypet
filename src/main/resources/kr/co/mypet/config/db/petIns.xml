@@ -63,4 +63,33 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			select * from insprod
 			where insp_id = #{prodId}
 		</select>
+		
+		
+		<!-- 플랜정보에 보험상품 추가하기 -->
+		<insert id="planInsert" parameterType="insVo">
+			insert into insurance values(insurance_num.nextval,#{ins_mem},#{ins_insp},'',sysdate,'','','','')
+		</insert>
+		
+		<!-- 플랜정보에 회원의 플랜정보에 추가된 보험상품 조회 -->
+		<select id="memPlan" parameterType="String" resultType="pspVo">
+			select * 
+			from insurance , insprod
+			where ins_id  = insp_id
+			and INS_MEM = #{ins_mem}
+		</select>
+		
+		<!-- 회원의 펫이 있는지 확인하는 부분 -->
+		<select id="memPet" parameterType="String" resultType="mypetVo">
+			select *
+			from mypet
+			where myp_mem = #{myp_mem}
+		</select>
+		
+		<!-- 회원 정보를 가지고 오는 쿼리 -->
+		<select id="memberInfo" parameterType="String" resultType="memVo">
+			select *
+			  from member
+			where mem_id = #{mem_id}
+		</select>
+		
 </mapper>
