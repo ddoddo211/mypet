@@ -3,18 +3,15 @@ package kr.co.mypet.insurance.service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.annotation.Resource;
-
 import org.springframework.stereotype.Service;
-
 import kr.co.mypet.common.model.MemberVo;
 import kr.co.mypet.insurance.dao.InsuranceDaoInf;
 import kr.co.mypet.insurance.model.InsProdVo;
+import kr.co.mypet.insurance.model.InsshoppingVo;
 import kr.co.mypet.insurance.model.InsuranceVo;
 import kr.co.mypet.insurance.model.MypetVo;
 import kr.co.mypet.insurance.model.PageVo;
-import kr.co.mypet.insurance.model.ProdShoppingVo;
 
 @Service
 public class InsuranceService implements InsuranceServiceInf {
@@ -133,8 +130,8 @@ public class InsuranceService implements InsuranceServiceInf {
 	* @return
 	* Method 설명 : 보험상품 상세내역에서 플랜정보에 추가하는 부분 
 	*/
-	public int planInsert (InsuranceVo insuranceVo) {
-		return insuranceDao.planInsert(insuranceVo);
+	public int planInsert (InsshoppingVo insshoppingVo) {
+		return insuranceDao.planInsert(insshoppingVo);
 	}
 
 	/**
@@ -146,8 +143,8 @@ public class InsuranceService implements InsuranceServiceInf {
 	* Method 설명 : 회원의 플랜정보에 추가된 보험상품 조회
 	*/
 	@Override
-	public List<ProdShoppingVo> memPlan(String ins_mem) {
-		return insuranceDao.memPlan(ins_mem);
+	public List<InsshoppingVo> memPlan(String inssp_mem) {
+		return insuranceDao.memPlan(inssp_mem);
 	}
 
 	/**

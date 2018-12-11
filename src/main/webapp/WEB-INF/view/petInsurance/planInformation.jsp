@@ -124,32 +124,33 @@ function prodAdd(){
 			
 			<div id="petTable">
 				<table>
-						<c:forEach begin="1" end="${memIsrList}" var="prodVo">
-						<tr class="tr7">
-							<th class="td8">나의펫선택</th>
-							<th class="td9">${prodVo.insp_name}</th>
-							<c:choose>
-								<c:when test = "${prodVo.insp_join == '강아지'}">
-									<td class="td9"><img alt="이미지가 없습니다" src="/img/petInsurance/petKind.jpg" width="40px" height="40px">${prod.insp_join}</td>
-								</c:when>
-								<c:otherwise>
-									<td class="td9"><img alt="이미지가 없습니다" src="/img/petInsurance/petKind2.jpg" width="40px" height="40px">${prod.insp_join}</td>
-								</c:otherwise>
-							</c:choose>
-							<td class="td9">${prodVo.insp_kind}</td>
-							<td class="td9"><%="월 "%>${prodVo.insp_fees}<%="원"%></td>
-							<td class="td9">${prodVo.insp_minage}<%="~"%>${prodVo.insp_maxage}<%="세"%></td>
-							<td class="td9"><%="가입부터 ~"%>${prodVo.insp_period}<%="세 까지"%></td>
-							<td class="td9">${prodVo.insp_sick}</td>
-							<td class="td10">상품보기</td>
-						</tr>
+						<c:forEach items="${memIsrList}" var="prodVo">
+							<tr class="tr7">
+								<th class="td8">나의펫선택</th>
+								<th class="td9">${prodVo.insp_name}</th>
+								<c:choose>
+									<c:when test = "${prodVo.insp_join == '강아지'}">
+										<td class="td9"><img alt="이미지가 없습니다" src="/img/petInsurance/petKind.jpg" width="40px" height="40px">${prod.insp_join}</td>
+									</c:when>
+									<c:otherwise>
+										<td class="td9"><img alt="이미지가 없습니다" src="/img/petInsurance/petKind2.jpg" width="40px" height="40px">${prod.insp_join}</td>
+									</c:otherwise>
+								</c:choose>
+								<td class="td9">${prodVo.insp_kind}</td>
+								<td class="td9"><%="월 "%>${prodVo.insp_fees}<%="원"%></td>
+								<td class="td9">${prodVo.insp_minage}<%="~"%>${prodVo.insp_maxage}<%="세"%></td>
+								<td class="td9"><%="가입부터 ~"%>${prodVo.insp_period}<%="세 까지"%></td>
+								<td class="td9">${prodVo.insp_sick}</td>
+								<td class="td10">상품보기</td>
+							</tr>
 						</c:forEach>
 						
 				</table>
-		</div>
+			</div>
 		
+	</div>
+
 </div>
-	
 
 </body>
 

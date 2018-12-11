@@ -6,13 +6,12 @@ import javax.annotation.Resource;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
-
 import kr.co.mypet.common.model.MemberVo;
 import kr.co.mypet.insurance.model.InsProdVo;
+import kr.co.mypet.insurance.model.InsshoppingVo;
 import kr.co.mypet.insurance.model.InsuranceVo;
 import kr.co.mypet.insurance.model.MypetVo;
 import kr.co.mypet.insurance.model.PageVo;
-import kr.co.mypet.insurance.model.ProdShoppingVo;
 
 
 @Repository
@@ -117,8 +116,8 @@ public class InsuranceDao implements InsuranceDaoInf {
 	* Method 설명 : 보험상품 상세내역에서 플랜정보에 추가하는 부분 
 	*/
 	@Override
-	public int planInsert(InsuranceVo insuranceVo) {
-		return template.selectOne("petIns.planInsert" , insuranceVo);
+	public int planInsert(InsshoppingVo insshoppingVo) {
+		return template.insert("petIns.planInsert" , insshoppingVo);
 	}
 
 
@@ -131,8 +130,8 @@ public class InsuranceDao implements InsuranceDaoInf {
 	* Method 설명 : 회원의 플랜정보에 추가된 보험상품 조회
 	*/
 	@Override
-	public List<ProdShoppingVo> memPlan(String ins_mem) {
-		return template.selectList("petIns.memPlan" , ins_mem);
+	public List<InsshoppingVo> memPlan(String inssp_mem) {
+		return template.selectList("petIns.memPlan" , inssp_mem);
 	}
 
 
@@ -146,7 +145,7 @@ public class InsuranceDao implements InsuranceDaoInf {
 	*/
 	@Override
 	public List<MypetVo> petList(String myp_mem) {
-		return template.selectList("petIns.memPet" , myp_mem);
+		return template.selectList("petIns.petList" , myp_mem);
 	}
 
 

@@ -17,16 +17,22 @@ function listClick() {
 }
 
 function prodAdd(){
-	if('${memberVo.mem_id}' == ""){
+	if('${memVo.mem_id}' == ''){
+		alert("로그인오류");
+		
 		alert("로그인이 되어 있지 않습니다.\n로그인하시기 바랍니다.");
 		location.href ='/mem/loginPage';
-	}else{
-		if('${mypetSize}' == 0){
+	}else if('${mypetSize}' == '0'){
+		alert('${memVo.mem_id}');
+		alert('${mypetSize}');
+		alert("펫사이즈 오류");
+		
 			alert("펫이 등록되어 있지 앖습니다. 펫을 등록하시기 바랍니다");
 			location.href ='/isr/petInsert';
-		}else{
+	}else{
+		
+		alert("페이지 오류");
 			location.href ='/isr/prodAdd?prodId='+${prodVo.insp_id};
-		}
 	}
 }
 

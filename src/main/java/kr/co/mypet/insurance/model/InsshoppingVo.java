@@ -2,20 +2,27 @@ package kr.co.mypet.insurance.model;
 
 import java.util.Date;
 
-public class ProdShoppingVo {
-	
-	// 장바구니 역할이 없어서 장바구니를 만들어줌(보험상품 Vo + 보험 Vo) 합친것
+public class InsshoppingVo {
 
-	private String ins_id;
-	private String ins_mem;
-	private String ins_insp;
-	private String ins_myp;
-	private Date ins_start;
-	private Date ins_end;
-	private String ins_stat;
-	private String ins_dis;
-	private String ins_total;
+	// 플랜정보 화면
+	private String inssp_id;
+	private String inssp_mem;
+	private String inssp_insp;
 	
+
+	// 펫정보 
+	private String myp_id;
+	private String myp_mem;
+	private String myp_petk;
+	private Date myp_birth;
+	private String myp_size;
+	private String myp_sick;
+	private String myp_img;
+	private String myp_neu;
+	private String myp_gender;
+	
+	
+	// 회원이 추가한 보험장바구니 정보 
 	private String insp_id;
 	private String insp_name;
 	private String insp_join;
@@ -38,74 +45,78 @@ public class ProdShoppingVo {
 	
 	
 	
-	
+
 	@Override
 	public String toString() {
-		return "prodShoppingVo [ins_id=" + ins_id + ", ins_mem=" + ins_mem + ", ins_insp=" + ins_insp + ", ins_myp="
-				+ ins_myp + ", ins_start=" + ins_start + ", ins_end=" + ins_end + ", ins_stat=" + ins_stat
-				+ ", ins_dis=" + ins_dis + ", ins_total=" + ins_total + ", insp_id=" + insp_id + ", insp_name="
-				+ insp_name + ", insp_join=" + insp_join + ", insp_kind=" + insp_kind + ", insp_fees=" + insp_fees
-				+ ", insp_maxins=" + insp_maxins + ", insp_minage=" + insp_minage + ", insp_maxage=" + insp_maxage
-				+ ", insp_period=" + insp_period + ", insp_sick=" + insp_sick + ", insp_img=" + insp_img
-				+ ", insp_text=" + insp_text + ", insp_insimg=" + insp_insimg + ", insp_instext=" + insp_instext
-				+ ", insp_joinimg=" + insp_joinimg + ", insp_jointext=" + insp_jointext + ", insp_reqimg=" + insp_reqimg
-				+ ", insp_reqtext=" + insp_reqtext + ", insp_del=" + insp_del + "]";
+		return "InsshoppingVo [inssp_id=" + inssp_id + ", inssp_mem=" + inssp_mem + ", inssp_insp=" + inssp_insp
+				+ ", myp_id=" + myp_id + ", myp_mem=" + myp_mem + ", myp_petk=" + myp_petk + ", myp_birth=" + myp_birth
+				+ ", myp_size=" + myp_size + ", myp_sick=" + myp_sick + ", myp_img=" + myp_img + ", myp_neu=" + myp_neu
+				+ ", myp_gender=" + myp_gender + ", insp_id=" + insp_id + ", insp_name=" + insp_name + ", insp_join="
+				+ insp_join + ", insp_kind=" + insp_kind + ", insp_fees=" + insp_fees + ", insp_maxins=" + insp_maxins
+				+ ", insp_minage=" + insp_minage + ", insp_maxage=" + insp_maxage + ", insp_period=" + insp_period
+				+ ", insp_sick=" + insp_sick + ", insp_img=" + insp_img + ", insp_text=" + insp_text + ", insp_insimg="
+				+ insp_insimg + ", insp_instext=" + insp_instext + ", insp_joinimg=" + insp_joinimg + ", insp_jointext="
+				+ insp_jointext + ", insp_reqimg=" + insp_reqimg + ", insp_reqtext=" + insp_reqtext + ", insp_del="
+				+ insp_del + "]";
 	}
 	
 	
-	public String getIns_id() {
-		return ins_id;
+	public String getInssp_id() {
+		return inssp_id;
 	}
-	public void setIns_id(String ins_id) {
-		this.ins_id = ins_id;
+	public String getMyp_id() {
+		return myp_id;
 	}
-	public String getIns_mem() {
-		return ins_mem;
+	public void setMyp_id(String myp_id) {
+		this.myp_id = myp_id;
 	}
-	public void setIns_mem(String ins_mem) {
-		this.ins_mem = ins_mem;
+	public String getMyp_mem() {
+		return myp_mem;
 	}
-	public String getIns_insp() {
-		return ins_insp;
+	public void setMyp_mem(String myp_mem) {
+		this.myp_mem = myp_mem;
 	}
-	public void setIns_insp(String ins_insp) {
-		this.ins_insp = ins_insp;
+	public String getMyp_petk() {
+		return myp_petk;
 	}
-	public String getIns_myp() {
-		return ins_myp;
+	public void setMyp_petk(String myp_petk) {
+		this.myp_petk = myp_petk;
 	}
-	public void setIns_myp(String ins_myp) {
-		this.ins_myp = ins_myp;
+	public Date getMyp_birth() {
+		return myp_birth;
 	}
-	public Date getIns_start() {
-		return ins_start;
+	public void setMyp_birth(Date myp_birth) {
+		this.myp_birth = myp_birth;
 	}
-	public void setIns_start(Date ins_start) {
-		this.ins_start = ins_start;
+	public String getMyp_size() {
+		return myp_size;
 	}
-	public Date getIns_end() {
-		return ins_end;
+	public void setMyp_size(String myp_size) {
+		this.myp_size = myp_size;
 	}
-	public void setIns_end(Date ins_end) {
-		this.ins_end = ins_end;
+	public String getMyp_sick() {
+		return myp_sick;
 	}
-	public String getIns_stat() {
-		return ins_stat;
+	public void setMyp_sick(String myp_sick) {
+		this.myp_sick = myp_sick;
 	}
-	public void setIns_stat(String ins_stat) {
-		this.ins_stat = ins_stat;
+	public String getMyp_img() {
+		return myp_img;
 	}
-	public String getIns_dis() {
-		return ins_dis;
+	public void setMyp_img(String myp_img) {
+		this.myp_img = myp_img;
 	}
-	public void setIns_dis(String ins_dis) {
-		this.ins_dis = ins_dis;
+	public String getMyp_neu() {
+		return myp_neu;
 	}
-	public String getIns_total() {
-		return ins_total;
+	public void setMyp_neu(String myp_neu) {
+		this.myp_neu = myp_neu;
 	}
-	public void setIns_total(String ins_total) {
-		this.ins_total = ins_total;
+	public String getMyp_gender() {
+		return myp_gender;
+	}
+	public void setMyp_gender(String myp_gender) {
+		this.myp_gender = myp_gender;
 	}
 	public String getInsp_id() {
 		return insp_id;
@@ -221,6 +232,22 @@ public class ProdShoppingVo {
 	public void setInsp_del(String insp_del) {
 		this.insp_del = insp_del;
 	}
+	public void setInssp_id(String inssp_id) {
+		this.inssp_id = inssp_id;
+	}
+	public String getInssp_mem() {
+		return inssp_mem;
+	}
+	public void setInssp_mem(String inssp_mem) {
+		this.inssp_mem = inssp_mem;
+	}
+	public String getInssp_insp() {
+		return inssp_insp;
+	}
+	public void setInssp_insp(String inssp_insp) {
+		this.inssp_insp = inssp_insp;
+	}
+	
 	
 	
 }

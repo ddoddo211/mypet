@@ -10,11 +10,11 @@
 <style type="text/css">
 
 
-<!-- <style type="text/css"> -->
+<style type="text/css">
 
 <%-- <%@include file ="/css/commonCss.css"%> --%>
 
-<!-- </style> -->
+</style>
 
 </head>
 
