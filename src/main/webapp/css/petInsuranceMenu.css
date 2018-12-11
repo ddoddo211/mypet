@@ -3,7 +3,7 @@
    /*보험 메뉴 스타일*/
    .mainmenu-li{
    background-color: #7c6ee9;
-   width: 120px;
+   width: 150px;
    float: left;
    padding: 0px;
    margin: 0px;
@@ -13,35 +13,44 @@
    text-align: center;
    border-radius:50px;
    border:1px solid #7c6ee9;
-   font-family: inherit;
+   font-family: 'Nanum Gothic', sans-serif;
+   
    }
    
    .mainmenu-li:hover{
    color: black;
    background-color: white;
    border:1px solid #7c6ee9;
-   width: 120px;
-   font-family: inherit;
+   width: 150px;
+   border-radius:50px;
+   font-family: 'Nanum Gothic', sans-serif;
+   
    }
 
-   .mainmenu-li a {
-   padding: 7px;
-   color: white;
-   font-family: inherit;
-   display:block;
-   border-radius: 50px;
+   .mainmenu-li a {   
+   	padding: 10px;
+	color: white;
+	border-radius:50px;
+	font-family: 'Nanum Gothic', sans-serif;
+	display: block;
    }
    
    .mainmenu-li a:hover {
-   padding: 7px;
-   color: black;
-   font-family: inherit;
-   display:block;
+	padding: 10px;
+	color: black;
+	background-color: white;
+	font-family: 'Nanum Gothic', sans-serif;
+	display: block;
    }
    
    
    #petInsuranceHeader{
   	height: 60px;
-   	margin-left: 230px;
+   	margin-left: 190px;
    	margin-bottom: 10px;
    }
+   
+   .menuWord{
+	font-size : 15px;
+	letter-spacing: -0.5px;
+	}
