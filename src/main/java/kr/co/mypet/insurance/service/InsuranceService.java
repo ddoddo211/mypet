@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import kr.co.mypet.common.model.MemberVo;
 import kr.co.mypet.insurance.dao.InsuranceDaoInf;
 import kr.co.mypet.insurance.model.InsProdVo;
 import kr.co.mypet.insurance.model.InsuranceVo;
@@ -160,6 +161,20 @@ public class InsuranceService implements InsuranceServiceInf {
 	@Override
 	public List<MypetVo> petList(String myp_mem) {
 		return insuranceDao.petList(myp_mem);
+	}
+
+	
+	/**
+	* Method : memberInfo
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param mem_id
+	* @return
+	* Method 설명 : 회원 아이디를 줘서 회원의 정보를 받아오는 부분
+	*/
+	@Override
+	public MemberVo memberInfo(MemberVo memVo) {
+		return insuranceDao.memberInfo(memVo);
 	};
 
 

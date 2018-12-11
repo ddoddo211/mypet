@@ -28,6 +28,14 @@ public class InsuranceController {
 	@Resource(name="insuranceService")
 	private InsuranceServiceInf insuranceService;
 	
+	
+	// 로그인이 현재 정상적이지 않아 직접 만든것 나중에 로그인 정상적으로 되면 변경할것
+	String mem_id = "laswl4090@hanmail.net";
+	
+	
+	
+	
+	
 	// 보험 메인으로 가는 부분
 	@RequestMapping("/isrMain")
 	public String MainView() {
@@ -289,7 +297,7 @@ public class InsuranceController {
 			String prodId = request.getParameter("prodId");
 			
 			// 세션에 저장된 회원의 아이디 가지고 오기 			
-			 model.addAttribute("memberVo" , request.getSession().getAttribute("memVo"));
+			 model.addAttribute("memberVo" , memberVo);
 			 
 			 // 펫사이즈가 0이라면 펫추가하기 화면으로 이동한다.
 			 if(memberVo.getMem_id() == null) {
@@ -320,12 +328,19 @@ public class InsuranceController {
 		
 //플랜정보 추가하기 
 		@RequestMapping("/prodAdd")
-		public String prodAdd(Model model ,HttpServletRequest request, InsuranceVo isrVo , MemberVo memberVo) {
+		public String prodAdd(Model model ,HttpServletRequest request, InsuranceVo isrVo ) {
+			
+			MemberVo memberVo = new MemberVo();
+			memberVo.setMem_id(mem_id);
+			memberVo.setMem_pass("1");
+			memberVo = insuranceService.memberInfo(memberVo);
+			System.out.println("컨트롤러 : " + memberVo);
 			
 				String prodId = request.getParameter("prodId");
 				
+				
 				// 세션에 저장된 회원의 아이디 가지고 오기 			
-				 model.addAttribute("memberVo" , request.getSession().getAttribute("memVo"));
+				 model.addAttribute("memberVo" , memberVo);
 				
 					// 회원 아이디 , 보험상품 아이디만 넣어주면 된다
 					isrVo.setIns_insp(prodId);
@@ -348,21 +363,20 @@ public class InsuranceController {
 
 
 		@RequestMapping("/planInformation")
-		public String planInformation(HttpServletRequest request , Model model , MemberVo memVo) {
+		public String planInformation(HttpServletRequest request , Model model , MemberVo memberVo) {
 			
-			memVo = (MemberVo) request.getSession().getAttribute("memVo");
-
-			
+//			 memberVo = insuranceService.memberInfo(mem_id);
+			 
 			// 로그인을 안한 회원일 경우에는 로그인 화면으로 이동 
-			if(memVo.getMem_id() == "") {
+			if(memberVo.getMem_id() == "") {
 				return "common/login";
 			}else {
 				// 회원의 추가된 보험상품 가지고 오기 
-				List<ProdShoppingVo> memIsrList = insuranceService.memPlan(memVo.getMem_id());
+				List<ProdShoppingVo> memIsrList = insuranceService.memPlan(memberVo.getMem_id());
 				
 				model.addAttribute("memIsrList" ,memIsrList);
 				// 세션에 저장된 회원의 아이디 가지고 오기 
-				model.addAttribute("memVo" , memVo);
+				model.addAttribute("memberVo" , memberVo);
 				
 				return "petInsurance/planInformation";
 				

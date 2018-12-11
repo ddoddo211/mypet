@@ -3,24 +3,20 @@
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-
-
-	
 	<typeAliases>
-<!-- 		<typeAlias type="kr.or.ddit.user.model.UserVo" alias="userVo"/> -->
-		<typeAlias type="kr.co.mypet.common.model.MemberVo" alias="memVo"/>
-		<typeAlias type="kr.co.mypet.shopping.model.ShopNoticeVo" alias="snotVo"/>
+			<typeAlias type="kr.co.mypet.insurance.model.AccidentVo" alias="accidentVo"/>
+			<typeAlias type="kr.co.mypet.insurance.model.InsPaymentVo" alias="insPayVo"/>
+			<typeAlias type="kr.co.mypet.insurance.model.InsProdVo" alias="insProdVo"/>
+			<typeAlias type="kr.co.mypet.insurance.model.InsuranceNoticeVo" alias="insNoticeVo"/>
+			<typeAlias type="kr.co.mypet.insurance.model.InsuranceVo" alias="insVo"/>
+			<typeAlias type="kr.co.mypet.insurance.model.PageVo" alias="pageVo"/>
+			<typeAlias type="kr.co.mypet.insurance.model.ProdShoppingVo" alias="pspVo"/>
+			<typeAlias type="kr.co.mypet.insurance.model.MypetVo" alias="mypetVo"/>
+			<typeAlias type="kr.co.mypet.common.model.MemberVo" alias="memVo"/>
 	</typeAliases>
 
   <mappers>
-<!--   	 <mapper resource="kr/or/ddit/config/db/board.xml"/> -->
-
-
-
-
-
-
-		<mapper resource="kr/co/mypet/config/db/shopping.xml"/> 
-		<mapper resource="kr/co/mypet/config/db/member.xml"/>
+  	 <mapper resource="kr/co/mypet/config/db/petIns.xml"/>
+  	 <mapper resource="kr/co/mypet/config/db/member.xml"/>
   </mappers>
 </configuration>

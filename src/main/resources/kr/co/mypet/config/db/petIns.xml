@@ -85,4 +85,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			where myp_mem = #{myp_mem}
 		</select>
 		
+		<!-- 회원 정보를 가지고 오는 쿼리 -->
+		<select id="memberInfo" parameterType="String" resultType="memVo">
+			select *
+			  from member
+			where mem_id = #{mem_id}
+		</select>
+		
 </mapper>

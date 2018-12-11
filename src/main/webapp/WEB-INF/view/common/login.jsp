@@ -9,17 +9,9 @@
 <head>
 <meta charset="EUC-KR">
 <title>로그인</title>
-<<<<<<< HEAD
-
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-=======
 <link = href="/css/commonCss.css" rel="stylesheet"/>
->>>>>>> branch 'master' of https://github.com/ddoddo211/mypet.git
 <style type="text/css">
-<<<<<<< HEAD
-<link = href="/css/commonCss.css" rel="stylesheet"/>
-=======
->>>>>>> branch 'master' of https://github.com/ddoddo211/mypet.git
 .member {
 	font-size: 50px;
 	text-shadow: 0 0 10px #666;
@@ -219,11 +211,8 @@ input[type="checkbox"] {
 						</div>
 					</div>
 							 <%
-<<<<<<< HEAD
 							    clientId = "dQEq__PeBE4FPR0eimgb"; /*애플리케이션 클라이언트 아이디값";*/
-=======
 							    clientId = "dQEq__PeBE4FPR0eimgb";//애플리케이션 클라이언트 아이디값";
->>>>>>> branch 'master' of https://github.com/ddoddo211/mypet.git
 							    redirectURI = URLEncoder.encode("http://localhost:8081/mem/login", "UTF-8");
 							    random = new SecureRandom();
 							    state = new BigInteger(130, random).toString();

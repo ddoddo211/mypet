@@ -7,10 +7,8 @@
 <%-- jstl --%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 	
 <style type="text/css">
-<<<<<<< HEAD
 <%@include file ="/css/commonCss.css"%>
 .member {
 	font-size: 50px;
@@ -370,8 +368,4 @@ body {
 		});
 		
 	});
-<<<<<<< HEAD
-=======
-
->>>>>>> branch 'master' of https://github.com/ddoddo211/mypet.git
 </script>

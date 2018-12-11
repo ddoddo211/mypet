@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import kr.co.mypet.common.model.MemberVo;
 import kr.co.mypet.insurance.model.InsProdVo;
 import kr.co.mypet.insurance.model.InsuranceVo;
 import kr.co.mypet.insurance.model.MypetVo;
@@ -146,6 +147,21 @@ public class InsuranceDao implements InsuranceDaoInf {
 	@Override
 	public List<MypetVo> petList(String myp_mem) {
 		return template.selectList("petIns.memPet" , myp_mem);
+	}
+
+
+
+	/**
+	* Method : memberInfo
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param mem_id
+	* @return
+	* Method 설명 : 회원 아이디를 줘서 회원의 정보를 받아오는 부분
+	*/
+	@Override
+	public MemberVo memberInfo(MemberVo memVo) {
+		return template.selectOne("member.login" , memVo);
 	}
 
 
