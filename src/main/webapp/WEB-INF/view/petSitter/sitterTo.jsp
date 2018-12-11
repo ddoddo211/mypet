@@ -21,19 +21,39 @@
   </script>
 <style type="text/css">
 .ui-tabs .ui-tabs-panel {
-    display: block;
-    border-width: 0;
-    padding: 1em 1.4em;
-    background: none;
-    position: absolute;
-    border: 1px solid #1581ce;
-    width: 888px;
-    background-color: white;
-    float:left;
+	display: block;
+	border-width: 0;
+	padding: 1em 1.4em;
+	background: none;
+	position: absolute;
+	border: 1px solid #1581ce;
+	width: 888px;
+	background-color: white;
+	float: left;
+}
+
+#hidden {
+	display: none;
 }
 </style>
+<script type="text/javascript">
+	$(document).ready(function(){
+		var ev = "click";
+		$("#noticeList").on(ev,".noticeClick", function(){
+			var pstId = $(this).children()[1].innerText;
+			$("#pstId").val(pstId);
+			alert(pstId);
+			$("#frm").submit();
+		});
+		$("#content1").click(function(){
+			alert("상세페이지 전환");
+			$("#frm").submit();
+		});
+	});
+</script>
 </head>
 <body>
+
 <%@include file="/WEB-INF/view/common/header.jsp"%>
 
 <!-- 각자 화면 -->
@@ -116,24 +136,35 @@
 				</div>
 			</div>
 			<div id="list">
-				<c:forEach items="${sitList }" var="list">
-					<div class="notice">
-						<div id="noticeImg"> 
-							<img alt="이미지" src="${list.pst_img }" width="370px" height="270px"/>
-						</div>
-						<div id="noticeContent">
-							<div id="content1"><span>설명글 : ${list.pst_text }</span></div>
-							<div id="content2"><span>가격정보</span></div>
-							<div id="content3">
-								<div id="content4"><span>평정 : ${list.pst_score }</span></div>
-								<div id="content5"><span>조회수 : ${list.pst_view }</span></div>
-							</div>		
-						</div>
-					</div>
-				</c:forEach>
+				<div class="notice">
+					<table id="noticeTable" cellspacing="0" cellpadding="0">
+						<tbody id="noticeList">
+							<c:forEach items="${sitList }" var="list">
+								<tr class="noticeClick noticeTr">
+									<td rowspan="3" class="noticeAttr"><img alt="이미지" src="${list.pst_img }" width="370px" height="270px"/></td>
+									<td id="hidden" rowspan="3">${list.pst_id }</td>
+									<td colspan="3"><span>설명글 : ${list.pst_text }</span></td>
+								</tr>
+								<tr class="noticeTr">
+									<td colspan="3"><span>가격정보</span></td>
+								</tr>
+								<tr class="noticeTr" id="noticeLast">
+									<td><fmt:formatDate value="${list.pst_date }" pattern="yyyy-MM-dd" /></td>
+									<td><span>평정 : ${list.pst_score }</span></td>
+									<td><span>조회수 : ${list.pst_view }</span></td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
 	</div>
+	
+	
+	<form id="frm" method="get" action="/sit/sitDetail">
+		<input type="hidden" id="pstId" name="pst_id" />
+	</form>
 	
 	<%@ include file="/WEB-INF/view/common/footer.jsp" %>
 	

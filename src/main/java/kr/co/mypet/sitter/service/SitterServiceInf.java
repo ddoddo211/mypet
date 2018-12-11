@@ -25,4 +25,14 @@ public interface SitterServiceInf {
 	* Method 설명 : 주소 리스트
 	*/
 	List<ZipVo> zipList();
+	
+	/**
+	* Method : petToHomeDetail
+	* 작성자 : pc24
+	* 변경이력 : 2018-12-07
+	* @param pst_id
+	* @return 
+	* Method 설명 : 펫시터 집에 맡기기 상세화면 데이터조회
+	*/
+	PetSitterVo petToHomeDetail(String pst_id);
 }

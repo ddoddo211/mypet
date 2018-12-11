@@ -10,4 +10,10 @@
 	<select id="petSitterZip" resultType="zipVo">
 		select * from zip
 	</select>
+	
+	<select id="petToHomeDetail" parameterType="String" resultType="pstVo">
+		select * 
+		from petsitter
+		where pst_id = #{pst_id}
+	</select>
 </mapper>

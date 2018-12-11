@@ -30,4 +30,9 @@ public class SitterService implements SitterServiceInf {
 	public List<ZipVo> zipList() {
 		return sitterDao.zipList();
 	}
+
+	@Override
+	public PetSitterVo petToHomeDetail(String pst_id) {
+		return sitterDao.petToHomeDetail(pst_id);
+	}
 }
