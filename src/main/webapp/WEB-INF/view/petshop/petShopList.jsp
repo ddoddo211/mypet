@@ -118,6 +118,11 @@
     	justify-content: center;
     	align-items: center;
 	}
+	
+	.ageChk {
+		floot:left;
+	}
+	
 	.ageChk ul li{
 		padding: 6px 5px 0px 5px;
     	float: left;
@@ -159,6 +164,10 @@
 	.page ul li {
 		float:left;
 	}
+	
+	.chkbox {
+		margin-top: 0px;
+	}
 </style>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -172,7 +181,9 @@
 		<!-- header -->
 		<div id="header">
 			<div id="logo">
-				<img alt="" src="/img/petShopLogo.jpg" width="200">
+				<a href="/shop/shopMain">
+					<img alt="" src="/img/petShopLogo.jpg" width="200">
+				</a>
 			</div>
 			<div id="petSearch">
 				<div id="word">
@@ -233,9 +244,9 @@
 					</div>
 					<div class="ageChk">
 						<ul>
-							<li><input type="checkbox"><span>전연령</span></li>
-							<li><input type="checkbox"><span>성견</span></li>
-							<li><input type="checkbox"><span>퍼피</span></li>
+							<li><input type="checkbox" class="chkbox"><span>전연령</span></li>
+							<li><input type="checkbox" class="chkbox"><span>성견</span></li>
+							<li><input type="checkbox" class="chkbox"><span>퍼피</span></li>
 						</ul>
 					</div>
 				</div>
@@ -245,9 +256,9 @@
 					</div>
 					<div class="ageChk">
 						<ul>
-							<li><input type="checkbox"><span>건강백서</span></li>
-							<li><input type="checkbox"><span>네츄럴코어</span></li>
-							<li><input type="checkbox"><span>웰니스</span></li>
+							<li><input type="checkbox" class="chkbox"><span>건강백서</span></li>
+							<li><input type="checkbox" class="chkbox"><span>네츄럴코어</span></li>
+							<li><input type="checkbox" class="chkbox"><span>웰니스</span></li>
 						</ul>
 					</div>
 				</div>
