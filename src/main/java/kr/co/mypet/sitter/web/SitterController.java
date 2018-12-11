@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.co.mypet.sitter.model.PetSitterVo;
 import kr.co.mypet.sitter.model.ZipVo;
@@ -44,6 +45,17 @@ public class SitterController {
 		model.addAttribute("sitList", sitList);
 		
 		return "petSitter/sitterTo";
+	}
+	
+	// 펫시터 집에 맡기기 상세화면
+	@RequestMapping("/sitDetail")
+	public String sitterDetail(Model model, @RequestParam("pst_id")String pst_id) {
+		
+		PetSitterVo pstVo = sitterService.petToHomeDetail(pst_id);
+		System.out.println("sitDetail : "+pst_id);
+		model.addAttribute("pstVo", pstVo);
+		
+		return "petSitter/sitterDetail";
 	}
 	
 	// FAQ 게시판 화면

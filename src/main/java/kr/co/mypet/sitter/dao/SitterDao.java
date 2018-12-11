@@ -29,5 +29,10 @@ public class SitterDao implements SitterDaoInf {
 	@Override
 	public List<ZipVo> zipList() {
 		return template.selectList("petSitter.petSitterZip");
+	}
+
+	@Override
+	public PetSitterVo petToHomeDetail(String pst_id) {
+		return template.selectOne("petSitter.petToHomeDetail", pst_id);
 	}	
 }

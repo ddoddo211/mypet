@@ -4,15 +4,24 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>main.jsp</title>
-<link href="/css/commonCss.css" rel="stylesheet">
-<link rel="stylesheet" href="/css/petInsuranceMenu.css">
-<link rel="stylesheet" href="/css/petInsurance.css">
+<title>petInsert.jsp(펫추가하기)</title>
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script type="text/javascript">
+
+
+</script>
+
+<link rel="stylesheet" href="/css/petInsuranceMenu.css">
+<link href="/css/commonCss.css" rel="stylesheet">
+<link rel="stylesheet" href="/css/petInsurance.css">
+
 </head>
 <body>
 <!-- header 시작 -->
-<%@include file="./common/header.jsp"%>
+<%@include file="../common/header.jsp"%>
 <!-- header 끝-->
 
 	<div id="headerMain">
@@ -40,22 +49,18 @@
 	
 <div id="main">	
 	<!-- 여기부터 나의 body -->
-		
+
 		<!-- petInsuranceHeaderMain -->
-		<%@include file="./petInsurance/petInsuranceHeaderMain.jsp"%>
+		<%@include file="./petInsuranceHeaderMain.jsp"%>
 		<!-- petInsuranceHeaderMain 끝 -->
-	
-		<%--펫보험소개 --%>
-		<div id="introduction">
-			<div id="introduction1">
-				<img alt="펫보험소개안내글" src="/img/petInsurance/Introduction.jpg" width="1200px">
-			</div>
-		</div>
-	
+		
+		
+
+		
 </div>
 	
 	<!-- footer 시작 -->
-	<%@include file="./common/footer.jsp"%>
+	<%@include file="../common/footer.jsp"%>
 	<!-- footer 끝 -->
 
 </body>

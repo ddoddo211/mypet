@@ -15,11 +15,49 @@
 	});
 </script>
 <style>
+	#tabs-2, #tabs-3, #tabs-4, #tabs-5, #tabs-6, #tabs-7, #tabs-8{
+		width: 720px;
+	}
 	.zipKind {
 		float : left;
 		font-family: font-family: 'Nanum Brush Script', cursive;
 		font-size : 20px;
-		
+	    display: list-item;
+    	text-align: -webkit-match-parent;
+    	list-style: none;
+    	margin-right : 20px;
+    	width:100px;
+	}
+	.tab_ul{
+		border: 0;
+	    outline: 0;
+	    font-size: 100%;
+	    margin: 0;
+	    padding: 0;
+	    width : 100%;
+	}
+	.tabFont{
+		font-family : 'Nanum Brush Script', cursive;
+		font-size : 28px;
+	}
+	#zipchk{
+		margin-right : 15px;
+	}
+	
+	#tab_ok{
+	    width: 100%;
+	    height: 60px;
+	    float: right;
+	    margin-top: 10px;
+	    padding: 10px 0px 0px 0px
+	}
+	
+	.tab_btn{
+		padding : 7px;
+		border-radius : 7px;
+		background-color : #17aaff;
+		color : #fff;
+		cursor : pointer;
 	}
 </style>
 <div id="tabs">
@@ -34,154 +72,91 @@
 		<li><a href="#tabs-8">부산</a></li>
 	</ul>
 	<div id="tabs-2">
-		<ul>
+		<ul class="tab_ul">
 			<c:forEach items="${zipList }" var="zlist">
 				<c:if test="${zlist.zip_high == '서울' }">
-					
-					<li class="zipKind"><input type = "radio" name="zip" />${zlist.zip_low }</li>
+					<li class="zipKind"><input type = "radio" name="zip" id="zipchk"/><span class="tabFont">${zlist.zip_low }</span></li>
 				</c:if>
 			</c:forEach>
 		</ul>
-		<div id="close">
-			<button type="button" class="closeBtn" value="2" >X</button>
+		<div id="tab_ok">
+			<button class="tab_btn"><span class="tabFont">확인</span></button> 
+			<button class="tab_btn closeBtn"><span class="tabFont">취소</span></button>
 		</div>
 	</div>
 	<div id="tabs-3">
-		<p>Mauris eleifend est et turpis. Duis id erat. Suspendisse
-			potenti. Aliquam vulputate, pede vel vehicula accumsan, mi neque
-			rutrum erat, eu congue orci lorem eget lorem. Vestibulum non ante.
-			Class aptent taciti sociosqu ad litora torquent per conubia nostra,
-			per inceptos himenaeos. Fusce sodales. Quisque eu urna vel enim
-			commodo pellentesque. Praesent eu risus hendrerit ligula tempus
-			pretium. Curabitur lorem enim, pretium nec, feugiat nec, luctus a,
-			lacus.</p>
-		<p>Duis cursus. Maecenas ligula eros, blandit nec, pharetra at,
-			semper at, magna. Nullam ac lacus. Nulla facilisi. Praesent viverra
-			justo vitae neque. Praesent blandit adipiscing velit. Suspendisse
-			potenti. Donec mattis, pede vel pharetra blandit, magna ligula
-			faucibus eros, id euismod lacus dolor eget odio. Nam scelerisque.
-			Donec non libero sed nulla mattis commodo. Ut sagittis. Donec nisi
-			lectus, feugiat porttitor, tempor ac, tempor vitae, pede. Aenean
-			vehicula velit eu tellus interdum rutrum. Maecenas commodo.
-			Pellentesque nec elit. Fusce in lacus. Vivamus a libero vitae lectus
-			hendrerit hendrerit.</p>
-		<div id="close">
-			<button type="button" class="closeBtn" value="3">X</button>
+		<div >
+		<ul class="tab_ul">
+			<c:forEach items="${zipList }" var="zlist">
+				<c:if test="${zlist.zip_high == '대전' }">
+					<li class="zipKind"><input type = "radio" name="zip" id="zipchk"/><span class="tabFont">${zlist.zip_low }</span></li>
+				</c:if>
+			</c:forEach>
+		</ul>
+		</div>
+		<div id="tab_ok">
+			<button class="tab_btn"><span class="tabFont">확인</span></button> <button class="tab_btn closeBtn"><span class="tabFont">취소</span></button>
 		</div>
 	</div>
 	<div id="tabs-4">
-		<p>Mauris eleifend est et turpis. Duis id erat. Suspendisse
-			potenti. Aliquam vulputate, pede vel vehicula accumsan, mi neque
-			rutrum erat, eu congue orci lorem eget lorem. Vestibulum non ante.
-			Class aptent taciti sociosqu ad litora torquent per conubia nostra,
-			per inceptos himenaeos. Fusce sodales. Quisque eu urna vel enim
-			commodo pellentesque. Praesent eu risus hendrerit ligula tempus
-			pretium. Curabitur lorem enim, pretium nec, feugiat nec, luctus a,
-			lacus.</p>
-		<p>Duis cursus. Maecenas ligula eros, blandit nec, pharetra at,
-			semper at, magna. Nullam ac lacus. Nulla facilisi. Praesent viverra
-			justo vitae neque. Praesent blandit adipiscing velit. Suspendisse
-			potenti. Donec mattis, pede vel pharetra blandit, magna ligula
-			faucibus eros, id euismod lacus dolor eget odio. Nam scelerisque.
-			Donec non libero sed nulla mattis commodo. Ut sagittis. Donec nisi
-			lectus, feugiat porttitor, tempor ac, tempor vitae, pede. Aenean
-			vehicula velit eu tellus interdum rutrum. Maecenas commodo.
-			Pellentesque nec elit. Fusce in lacus. Vivamus a libero vitae lectus
-			hendrerit hendrerit.</p>
-		<div id="close">
-			<button type="button" class="closeBtn" value="4">X</button>
+		<ul class="tab_ul">
+			<c:forEach items="${zipList }" var="zlist">
+				<c:if test="${zlist.zip_high == '경기' }">
+					<li class="zipKind"><input type = "radio" name="zip" id="zipchk"/><span class="tabFont">${zlist.zip_low }</span></li>
+				</c:if>
+			</c:forEach>
+		</ul>
+		<div id="tab_ok">
+			<button class="tab_btn"><span class="tabFont">확인</span></button> <button class="tab_btn closeBtn"><span class="tabFont">취소</span></button>
 		</div>
 	</div>
 	<div id="tabs-5">
-		<p>Mauris eleifend est et turpis. Duis id erat. Suspendisse
-			potenti. Aliquam vulputate, pede vel vehicula accumsan, mi neque
-			rutrum erat, eu congue orci lorem eget lorem. Vestibulum non ante.
-			Class aptent taciti sociosqu ad litora torquent per conubia nostra,
-			per inceptos himenaeos. Fusce sodales. Quisque eu urna vel enim
-			commodo pellentesque. Praesent eu risus hendrerit ligula tempus
-			pretium. Curabitur lorem enim, pretium nec, feugiat nec, luctus a,
-			lacus.</p>
-		<p>Duis cursus. Maecenas ligula eros, blandit nec, pharetra at,
-			semper at, magna. Nullam ac lacus. Nulla facilisi. Praesent viverra
-			justo vitae neque. Praesent blandit adipiscing velit. Suspendisse
-			potenti. Donec mattis, pede vel pharetra blandit, magna ligula
-			faucibus eros, id euismod lacus dolor eget odio. Nam scelerisque.
-			Donec non libero sed nulla mattis commodo. Ut sagittis. Donec nisi
-			lectus, feugiat porttitor, tempor ac, tempor vitae, pede. Aenean
-			vehicula velit eu tellus interdum rutrum. Maecenas commodo.
-			Pellentesque nec elit. Fusce in lacus. Vivamus a libero vitae lectus
-			hendrerit hendrerit.</p>
-		<div id="close">
-			<button type="button" class="closeBtn" value="5">X</button>
+		<ul class="tab_ul">
+			<c:forEach items="${zipList }" var="zlist">
+				<c:if test="${zlist.zip_high == '인천' }">
+					<li class="zipKind"><input type = "radio" name="zip" id="zipchk"/><span class="tabFont">${zlist.zip_low }</span></li>
+				</c:if>
+			</c:forEach>
+		</ul>
+		<div id="tab_ok">
+			<button class="tab_btn"><span class="tabFont">확인</span></button> <button class="tab_btn closeBtn"><span class="tabFont">취소</span></button>
 		</div>
 	</div>
+	
 	<div id="tabs-6">
-		<p>Mauris eleifend est et turpis. Duis id erat. Suspendisse
-			potenti. Aliquam vulputate, pede vel vehicula accumsan, mi neque
-			rutrum erat, eu congue orci lorem eget lorem. Vestibulum non ante.
-			Class aptent taciti sociosqu ad litora torquent per conubia nostra,
-			per inceptos himenaeos. Fusce sodales. Quisque eu urna vel enim
-			commodo pellentesque. Praesent eu risus hendrerit ligula tempus
-			pretium. Curabitur lorem enim, pretium nec, feugiat nec, luctus a,
-			lacus.</p>
-		<p>Duis cursus. Maecenas ligula eros, blandit nec, pharetra at,
-			semper at, magna. Nullam ac lacus. Nulla facilisi. Praesent viverra
-			justo vitae neque. Praesent blandit adipiscing velit. Suspendisse
-			potenti. Donec mattis, pede vel pharetra blandit, magna ligula
-			faucibus eros, id euismod lacus dolor eget odio. Nam scelerisque.
-			Donec non libero sed nulla mattis commodo. Ut sagittis. Donec nisi
-			lectus, feugiat porttitor, tempor ac, tempor vitae, pede. Aenean
-			vehicula velit eu tellus interdum rutrum. Maecenas commodo.
-			Pellentesque nec elit. Fusce in lacus. Vivamus a libero vitae lectus
-			hendrerit hendrerit.</p>
-		<div id="close">
-			<button type="button" class="closeBtn" value="6">X</button>
+		<ul class="tab_ul">
+			<c:forEach items="${zipList }" var="zlist">
+				<c:if test="${zlist.zip_high == '광주' }">
+					<li class="zipKind"><input type = "radio" name="zip" id="zipchk"/><span class="tabFont">${zlist.zip_low }</span></li>
+				</c:if>
+			</c:forEach>
+		</ul>
+		<div id="tab_ok">
+			<button class="tab_btn"><span class="tabFont">확인</span></button> <button class="tab_btn closeBtn"><span class="tabFont">취소</span></button>
 		</div>
 	</div>
 	<div id="tabs-7">
-		<p>Mauris eleifend est et turpis. Duis id erat. Suspendisse
-			potenti. Aliquam vulputate, pede vel vehicula accumsan, mi neque
-			rutrum erat, eu congue orci lorem eget lorem. Vestibulum non ante.
-			Class aptent taciti sociosqu ad litora torquent per conubia nostra,
-			per inceptos himenaeos. Fusce sodales. Quisque eu urna vel enim
-			commodo pellentesque. Praesent eu risus hendrerit ligula tempus
-			pretium. Curabitur lorem enim, pretium nec, feugiat nec, luctus a,
-			lacus.</p>
-		<p>Duis cursus. Maecenas ligula eros, blandit nec, pharetra at,
-			semper at, magna. Nullam ac lacus. Nulla facilisi. Praesent viverra
-			justo vitae neque. Praesent blandit adipiscing velit. Suspendisse
-			potenti. Donec mattis, pede vel pharetra blandit, magna ligula
-			faucibus eros, id euismod lacus dolor eget odio. Nam scelerisque.
-			Donec non libero sed nulla mattis commodo. Ut sagittis. Donec nisi
-			lectus, feugiat porttitor, tempor ac, tempor vitae, pede. Aenean
-			vehicula velit eu tellus interdum rutrum. Maecenas commodo.
-			Pellentesque nec elit. Fusce in lacus. Vivamus a libero vitae lectus
-			hendrerit hendrerit.</p>
-		<div id="close">
-			<button type="button" class="closeBtn" value="7">X</button>
+		<ul class="tab_ul">
+			<c:forEach items="${zipList }" var="zlist">
+				<c:if test="${zlist.zip_high == '대구' }">
+					<li class="zipKind"><input type = "radio" name="zip" id="zipchk"/><span class="tabFont">${zlist.zip_low }</span></li>
+				</c:if>
+			</c:forEach>
+		</ul>
+		<div id="tab_ok">
+			<button class="tab_btn"><span class="tabFont">확인</span></button> <button class="tab_btn closeBtn"><span class="tabFont">취소</span></button>
 		</div>
 	</div>
 	<div id="tabs-8">
-		<p>Mauris eleifend est et turpis. Duis id erat. Suspendisse
-			potenti. Aliquam vulputate, pede vel vehicula accumsan, mi neque
-			rutrum erat, eu congue orci lorem eget lorem. Vestibulum non ante.
-			Class aptent taciti sociosqu ad litora torquent per conubia nostra,
-			per inceptos himenaeos. Fusce sodales. Quisque eu urna vel enim
-			commodo pellentesque. Praesent eu risus hendrerit ligula tempus
-			pretium. Curabitur lorem enim, pretium nec, feugiat nec, luctus a,
-			lacus.</p>
-		<p>Duis cursus. Maecenas ligula eros, blandit nec, pharetra at,
-			semper at, magna. Nullam ac lacus. Nulla facilisi. Praesent viverra
-			justo vitae neque. Praesent blandit adipiscing velit. Suspendisse
-			potenti. Donec mattis, pede vel pharetra blandit, magna ligula
-			faucibus eros, id euismod lacus dolor eget odio. Nam scelerisque.
-			Donec non libero sed nulla mattis commodo. Ut sagittis. Donec nisi
-			lectus, feugiat porttitor, tempor ac, tempor vitae, pede. Aenean
-			vehicula velit eu tellus interdum rutrum. Maecenas commodo.
-			Pellentesque nec elit. Fusce in lacus. Vivamus a libero vitae lectus
-			hendrerit hendrerit.</p>
-		<div id="close">
-			<button type="button" class="closeBtn" value="8">X</button>
+		<ul class="tab_ul">
+			<c:forEach items="${zipList }" var="zlist">
+				<c:if test="${zlist.zip_high == '부산' }">
+					<li class="zipKind"><input type = "radio" name="zip" id="zipchk"/><span class="tabFont">${zlist.zip_low }</span></li>
+				</c:if>
+			</c:forEach>
+		</ul>
+		<div id="tab_ok">
+			<button class="tab_btn"><span class="tabFont">확인</span></button> <button class="tab_btn closeBtn"><span class="tabFont">취소</span></button>
 		</div>
 	</div>
 </div>

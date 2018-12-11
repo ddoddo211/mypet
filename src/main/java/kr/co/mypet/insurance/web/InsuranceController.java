@@ -7,13 +7,18 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import kr.co.mypet.common.model.MemberVo;
 import kr.co.mypet.insurance.model.InsProdVo;
+import kr.co.mypet.insurance.model.InsuranceVo;
+import kr.co.mypet.insurance.model.MypetVo;
 import kr.co.mypet.insurance.model.PageVo;
+import kr.co.mypet.insurance.model.ProdShoppingVo;
 import kr.co.mypet.insurance.service.InsuranceServiceInf;
 
 @Controller
@@ -22,6 +27,14 @@ public class InsuranceController {
 
 	@Resource(name="insuranceService")
 	private InsuranceServiceInf insuranceService;
+	
+	
+	// 로그인이 현재 정상적이지 않아 직접 만든것 나중에 로그인 정상적으로 되면 변경할것
+	String mem_id = "laswl4090@hanmail.net";
+	
+	
+	
+	
 	
 	// 보험 메인으로 가는 부분
 	@RequestMapping("/isrMain")
@@ -279,23 +292,103 @@ public class InsuranceController {
 		
 		/*보험상세보기 보내는 부분 */
 		@RequestMapping("/productDetail")
-		public String productDetail(Model model, PageVo pageVo, HttpServletRequest request) {
+		public String productDetail(Model model, PageVo pageVo, HttpServletRequest request , MemberVo memberVo) {
 			
 			String prodId = request.getParameter("prodId");
 			
-			// 서비스 연결해서 해당 상품 정보 가지고 오기 
-			InsProdVo prodVo = insuranceService.getProdInfo(prodId);
-			
-			model.addAttribute("prodVo" , prodVo);
-			
-			return "petInsurance/insuranceProduct2";
+			// 세션에 저장된 회원의 아이디 가지고 오기 			
+			 model.addAttribute("memberVo" , memberVo);
+			 
+			 // 펫사이즈가 0이라면 펫추가하기 화면으로 이동한다.
+			 if(memberVo.getMem_id() == null) {
+				 model.addAttribute("mypetSize" ,0);
+				 
+				// 서비스 연결해서 해당 상품 정보 가지고 오기
+
+					// 서비스 연결해서 해당 상품 정보 가지고 오기 
+					InsProdVo prodVo = insuranceService.getProdInfo(prodId);
+					
+					model.addAttribute("prodVo" , prodVo);
+				
+					return "petInsurance/insuranceProduct2";
+					
+			 }else {
+				 List<MypetVo> mypetList = insuranceService.petList(memberVo.getMem_id());
+				 model.addAttribute("mypetSize" ,mypetList.size());
+				 
+					// 서비스 연결해서 해당 상품 정보 가지고 오기 
+					InsProdVo prodVo = insuranceService.getProdInfo(prodId);
+					
+					model.addAttribute("prodVo" , prodVo);
+				
+					return "petInsurance/insuranceProduct2";
+			 }
+				
 		}
 		
 //플랜정보 추가하기 
 		@RequestMapping("/prodAdd")
-		public String prodAdd() {
-			return "petInsurance/planInformation";
+		public String prodAdd(Model model ,HttpServletRequest request, InsuranceVo isrVo ) {
+			
+			MemberVo memberVo = new MemberVo();
+			memberVo.setMem_id(mem_id);
+			memberVo.setMem_pass("1");
+			memberVo = insuranceService.memberInfo(memberVo);
+			System.out.println("컨트롤러 : " + memberVo);
+			
+				String prodId = request.getParameter("prodId");
+				
+				
+				// 세션에 저장된 회원의 아이디 가지고 오기 			
+				 model.addAttribute("memberVo" , memberVo);
+				
+					// 회원 아이디 , 보험상품 아이디만 넣어주면 된다
+					isrVo.setIns_insp(prodId);
+					isrVo.setIns_mem(memberVo.getMem_id());
+					
+					// 회원의 펫정보를 가지고 온다
+					List<MypetVo> mypetList = insuranceService.petList(memberVo.getMem_id());
+					model.addAttribute("mypetList" ,mypetList);
+					
+					// 플랜정보에 추가하기
+					int result = insuranceService.planInsert(isrVo);
+					
+					// 회원의 추가된 보험상품 가지고 오기 
+					List<ProdShoppingVo> memIsrList = insuranceService.memPlan(memberVo.getMem_id());
+					model.addAttribute("memIsrList" ,memIsrList);
+					
+					return "petInsurance/planInformation";
+		
 		}
-	
+
+
+		@RequestMapping("/planInformation")
+		public String planInformation(HttpServletRequest request , Model model , MemberVo memberVo) {
+			
+//			 memberVo = insuranceService.memberInfo(mem_id);
+			 
+			// 로그인을 안한 회원일 경우에는 로그인 화면으로 이동 
+			if(memberVo.getMem_id() == "") {
+				return "common/login";
+			}else {
+				// 회원의 추가된 보험상품 가지고 오기 
+				List<ProdShoppingVo> memIsrList = insuranceService.memPlan(memberVo.getMem_id());
+				
+				model.addAttribute("memIsrList" ,memIsrList);
+				// 세션에 저장된 회원의 아이디 가지고 오기 
+				model.addAttribute("memberVo" , memberVo);
+				
+				return "petInsurance/planInformation";
+				
+			}
+			
+		}
+		
+// 펫 추가화면으로 이동 
+		@RequestMapping("/petInsert")
+		public String petInsert() {
+			
+			return "petInsurance/petInsert";
+		}
 	
 }

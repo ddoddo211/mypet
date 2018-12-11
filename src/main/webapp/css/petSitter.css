@@ -8,6 +8,7 @@ body, option, select{
 	margin: 0 auto;
 	width: 1200px;
 	position: relative;
+	border : 1px solid red;
 }
 
 #petSittingWord {
@@ -265,6 +266,7 @@ body, option, select{
 	margin-top : 20px;
 	width : 100%;
 	height : 70px;
+	font-family: 'Nanum Brush Script', cursive;
 }
 
 #list2 > ul > li{
@@ -314,58 +316,46 @@ body, option, select{
 
 .btn {
 	cursor : pointer;
+	font-family: 'Nanum Brush Script', cursive;
 }
 #list {
 	width : 100%;
 }
-
 .notice {
 	width : 100%;
-	height : 272px;
-	border-bottom : 1px solid black;
 }
-
-#noticeImg{
-	width : 35%;
-	height : 270px;
-	float:left;
+td {
+	padding : 0px;
+	border : none;
 }
-
-#noticeContent{
-	width : 65%;
-	float : left;
-	font-size : 30px;
-}
-
-#content1{
+#noticeTable{
+	border-collapse: collapse;
+	padding : 0px;
+	margin:0px;
 	width : 100%;
-	height : 120px;
+	border:none;
+	border-spacing:0px !important;
+	font-family: 'Nanum Brush Script', cursive;
 }
 
-#content2{
-	width : 100%;
-	height : 120px;
+.noticeTr{
+	height : 90px;
 }
 
-#content3{
-	width : 100%;
-	height : 30px;
+.noticeAttr{
+	padding : 0px;
+	width : 370px;
+	height : 270px !important;
 }
 
-#content4{
-	margin-left : 510px;
-	float : left;
+#noticeLast{
+	background-color: #f1f1c1;
+	height : 90px;
 }
-
-#content5{
-	margin-left : 100px;
-	float:left;
-}
-
 #close{
 	width : 12px;
 	background-color : #fff;
-	margin-left : 888px;
+	margin-left : 800px;
 }
 
 .closeBtn{
@@ -376,4 +366,97 @@ body, option, select{
 #tabs > ul > li{
 	font-family : 'Nanum Brush Script', cursive;
 	font-size : 25px;
+}
+
+#contentMain {
+	font-family : 'Nanum Brush Script', cursive;
+	width : 100%;
+	overflow: hidden;
+	box-sizing: border-box;
+}
+
+#contentleft{
+	width : 64%;
+	float : left;
+}
+
+#contentleft1{
+	width : 100%;
+	height : 400px;
+}
+
+#contentset{
+	margin-top : 30px;
+	border : 1px solid pink;
+}
+
+#contentImg{
+	width : 100%;
+	height : 100%;
+}
+
+#contentright{
+	margin-left : 20px;
+	width : 33%;
+	float : left;
+	text-align: center;
+}
+
+#contentright1{
+	border : 1px solid green;
+	
+}
+
+#contentDate{
+	margin : 0 auto;
+	width : 270px;
+	height : 25px;
+	border : 1px solid gray;
+	border-radius: 5px;
+	margin-top : 20px;
+}
+
+#dateStart, #dateEnd{
+	margin-top : 2px;
+	outline : none;
+	width : 120px;
+	height : 20px;
+	border : none;
+}
+
+#contentPrice{
+	margin : 20px;
+	line-height: 200%;
+}
+
+.priceDt{
+	float:left;
+	text-align : left;
+	border-top : 1px solid gray;
+	width : 60%;
+}
+
+.priceDd{
+	float:left;
+	text-align : right;
+	border-top : 1px solid gray;
+	width : 40%;
+}
+#resultBtn{
+	padding : 10px 20px 10px 20px;
+	border-radius: 10px;
+	background-color : #5cbb86;
+	font-size : 18px;
+	font-weight: bold;
+	color : #fff;
+}
+.dlLast{
+	border-bottom : 1px solid gray;
+}
+
+#res { position:relative; margin-top : 90px; margin-bottom : 20px;}
+
+#contentright2{ 
+	margin-top : 30px; 
+	border : 1px solid green;
 }

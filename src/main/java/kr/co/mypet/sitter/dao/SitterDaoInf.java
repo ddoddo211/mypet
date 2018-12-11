@@ -12,4 +12,6 @@ public interface SitterDaoInf {
 	int petRevCnt(String stv_pst);
 
 	List<ZipVo> zipList();
+
+	PetSitterVo petToHomeDetail(String pst_id);
 }

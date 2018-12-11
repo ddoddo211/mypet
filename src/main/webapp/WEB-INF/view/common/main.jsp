@@ -6,6 +6,10 @@
 <meta charset="UTF-8">
 <title>main.jsp</title>
 
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<style type="text/css">
+
+
 <!-- <style type="text/css"> -->
 
 <%-- <%@include file ="/css/commonCss.css"%> --%>
@@ -53,7 +57,7 @@
 					<a href="/shop/shopMain" class="innerborder"><img alt="이미지가 없습니다" src="/img/petnav3.jpg" width="292px" height="700px"></a> 
 				</div>
 				<div class="menu1 menu1Last">
-					<a href="/petInsurance.jsp" class="innerborder"><img alt="이미지가 없습니다" src="/img/petnav4.jpg" width="292px" height="700px"></a> 
+					<a href="/isr/isrMain" class="innerborder"><img alt="이미지가 없습니다" src="/img/petnav4.jpg" width="292px" height="700px"></a> 
 				</div>
 			</div>
 		
