@@ -14,9 +14,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.co.mypet.common.model.MemberVo;
-import kr.co.mypet.common.model.MypetVo;
 import kr.co.mypet.insurance.model.InsProdVo;
 import kr.co.mypet.insurance.model.InsuranceVo;
+import kr.co.mypet.insurance.model.MypetVo;
 import kr.co.mypet.insurance.model.PageVo;
 import kr.co.mypet.insurance.model.ProdShoppingVo;
 import kr.co.mypet.insurance.service.InsuranceServiceInf;

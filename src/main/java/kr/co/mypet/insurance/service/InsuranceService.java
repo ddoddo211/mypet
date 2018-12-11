@@ -8,10 +8,10 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import kr.co.mypet.common.model.MypetVo;
 import kr.co.mypet.insurance.dao.InsuranceDaoInf;
 import kr.co.mypet.insurance.model.InsProdVo;
 import kr.co.mypet.insurance.model.InsuranceVo;
+import kr.co.mypet.insurance.model.MypetVo;
 import kr.co.mypet.insurance.model.PageVo;
 import kr.co.mypet.insurance.model.ProdShoppingVo;
 

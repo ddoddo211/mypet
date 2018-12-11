@@ -2,9 +2,9 @@ package kr.co.mypet.insurance.dao;
 
 import java.util.List;
 
-import kr.co.mypet.common.model.MypetVo;
 import kr.co.mypet.insurance.model.InsProdVo;
 import kr.co.mypet.insurance.model.InsuranceVo;
+import kr.co.mypet.insurance.model.MypetVo;
 import kr.co.mypet.insurance.model.PageVo;
 import kr.co.mypet.insurance.model.ProdShoppingVo;
 

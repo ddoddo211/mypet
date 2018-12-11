@@ -3,9 +3,9 @@ package kr.co.mypet.insurance.service;
 import java.util.List;
 import java.util.Map;
 
-import kr.co.mypet.common.model.MypetVo;
 import kr.co.mypet.insurance.model.InsProdVo;
 import kr.co.mypet.insurance.model.InsuranceVo;
+import kr.co.mypet.insurance.model.MypetVo;
 import kr.co.mypet.insurance.model.PageVo;
 import kr.co.mypet.insurance.model.ProdShoppingVo;
 
