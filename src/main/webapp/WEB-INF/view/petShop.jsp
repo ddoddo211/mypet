@@ -148,7 +148,9 @@
 		<!-- header -->
 		<div id="header">
 			<div id="logo">
-				<img alt="" src="/img/petShopLogo.jpg" width="200">
+				<a href="/shop/shopMain">
+					<img alt="" src="/img/petShopLogo.jpg" width="200">
+				</a>
 			</div>
 			<div id="petSearch">
 				<div id="word">

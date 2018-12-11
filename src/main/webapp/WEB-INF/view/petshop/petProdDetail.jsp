@@ -24,6 +24,8 @@
 	#mainmid {
 		width: 1200px;
 		margin: 0 auto;
+		overflow: hidden;
+		border-bottom: 1px solid #000;
 	}
 	
 	#mainmid .prodTop{
@@ -35,7 +37,6 @@
 		height : 400px;
 		display:flex;
 		justify-content:center;
-		align-items:center;
 		float:left;
 	}
 	
@@ -59,7 +60,7 @@
 	    justify-content: flex-end;
 	    align-items: center;
 	    margin-bottom: 10px;
-	    width: 650px;
+	  	width: 500px;
 	}
 	
 	.fb-share-button{
@@ -97,6 +98,7 @@
 		text-align: center;
 		-webkit-appearance: none;
 		margin: 0px 5px 0px 5px;
+		width:30px;
 	}
 	
 	.minusBtn{
@@ -117,6 +119,54 @@
 		font-size: 15px;
 		font-weight: bold;
 	}
+	
+	.totalbtn{
+		margin-top: 20px;
+		width: 500px;
+		overflow: hidden;
+		display: flex;
+	    justify-content: flex-start;
+	    align-items: center;
+	}
+	
+	.bsBtn{
+		width: 250px;
+		display: flex;
+		justify-content: flex-end;
+	}
+	
+	.bsBtn .btnBS{
+		width: 100px;
+		height: 60px;
+		background-color: #fff;
+   		border: 1px solid #000;
+    	border-radius: 5px;
+    	margin-left: 10px;
+	}
+	
+	.bsBtn .btnBS:hover{
+		background-color: #000;
+		color:#fff;
+	}
+	
+	.buyBtn{
+		float:left;
+	}
+	
+	.saveBtn{
+		float:left;
+	}
+	
+	.totalPrice{
+		font-size: 20px;
+		font-weight: bold;
+		width: 250px;
+	}
+	
+	#mainbottom{
+		width:1200px;
+		margin: 0 auto;
+	}
 </style>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -130,7 +180,9 @@
 		<!-- header -->
 		<div id="header">
 			<div id="logo">
-				<img alt="" src="/img/petShopLogo.jpg" width="200">
+				<a href="/shop/shopMain">
+					<img alt="" src="/img/petShopLogo.jpg" width="200">
+				</a>
 			</div>
 			<div id="petSearch">
 				<div id="word">
@@ -154,27 +206,39 @@
 	<div id="mainmid">
 		<div class="prodTop">
 			<div class="prodIMG">
-				<img alt="" src="/img/petInsert.jpg" width="300">
+				<img alt="" src="/shopimg/prod1.jpg" width="400" height="350">
 			</div>
 			<div class="prodRight">
 				<div class="share">
-					<div class="fb-share-button" data-href="http://www.naver.com" data-layout="button"
-						data-size="small">
-						<a target="_blank"
-							class="fb-xfbml-parse-ignore">
+<!-- 					<div class="fb-share-button" data-href="http://www.naver.com" data-layout="button" -->
+<!-- 						data-size="small"> -->
+<!-- 						<a target="_blank" -->
+<!-- 							class="fb-xfbml-parse-ignore"> -->
+<!-- 						</a> -->
+						<a id="facebook" class="fb-xfbml-parse-ignore" 
+						onclick="window.open('https://www.facebook.com/sharer/sharer.php','window_name',
+								'width=430,height=500,location=no,status=no,scrollbars=no');"> 
+							<img src="/shopimg/facebook.png" width="30" height="30">
 						</a>
-					</div>
-					<script>
-				 		(function(d, s, id) {
-				 			var js, fjs = d.getElementsByTagName(s)[0];
-				 			if (d.getElementById(id))
-				 				return;
-				 			js = d.createElement(s);
-				 			js.id = id;
-				 			js.src = 'https://connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v3.2';
-				 			fjs.parentNode.insertBefore(js, fjs);
-				 		}(document, 'script', 'facebook-jssdk'));
-					</script>
+<!-- 					</div> -->
+ 					<script> 
+//   				 		(function(d, s, id) { 
+//  				 			var js, fjs = d.getElementsByTagName(s)[0];
+//  				 			if (d.getElementById(id)) 
+//  				 				return;
+//   				 			js = d.createElement(s); 
+//   				 			js.id = id; -->
+//  				 			js.src = 'https://connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v3.2';
+//   				 			fjs.parentNode.insertBefore(js, fjs);
+//  				 		}(document, 'script', 'facebook-jssdk'));
+<%--
+					$("#facebook").click(function() {
+			 			var url = "https://www.facebook.com/sharer/sharer.php";
+			 			var url2 = "http://www.naver.com";
+			 			window.open(url + "?u=" + url2, height=100, width=100);
+			 		})
+			 	--%>
+					</script> 
 					<div class="kakaoShare" id="kakao-link-btn">
 						<a id="kakao-link-btn" href="javascript:;"> 
 							<img src="//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png" width="30" height="30"/>
@@ -235,13 +299,25 @@
 				<div class="prodQty">
 					<div class="qtyChk">
 						<button class="minusBtn"><img src="/shopimg/minus.png" height="20" /></button>
-					    <input  type="number" name="Quantity" id="qty" name="qty" value="1" max = "10" min="1" readonly="readonly"/>
+					    <input  type="text" name="Quantity" id="qty" name="qty" value="1" max = "10" min="1" readonly />
 					    <button class="plusBtn"><img src="/shopimg/plus.png" height="20" /></button>
 				    </div>
 				    <script type="text/javascript">
 				    	$(document).ready(function(){
 				    		var value = $("#qty").val();
-							console.log(value);
+				    		$(".minusBtn").click(function() {
+				    			if(value == 1){
+				    				alert("1개 이하는 불가능 합니다.")
+				    			}else{
+									value =parseInt(value)-1;
+				    			}
+								$("#qty").val(value);
+							})
+							$(".plusBtn").click(function() {
+								value =parseInt(value)+1;
+								$("#qty").val(value);
+							})
+				    		
 				    	});
 				    		
 				    </script>
@@ -249,7 +325,38 @@
 				    	<span>가격</span><span>원</span>
 				    </div>
 				</div>
+				<div class="totalbtn">
+					<div class="totalPrice">
+						<span>총 상품금액 </span>
+						<span>150,000</span><span>원</span>
+					</div>
+					<div class="bsBtn">
+						<div class="buyBtn">
+							<form>
+								<input type="hidden">
+								<input type="hidden">
+								<input type="submit" value="장바구니" class="btnBS">
+							</form>
+						</div>
+						<div class="saveBtn">
+							<form>
+								<input type="submit" value="주문하기" class="btnBS">
+							</form>
+						</div>
+					</div>
+				</div>
 			</div>
+		</div>
+	</div>
+	<div id="mainbottom">
+		<div>
+			<ul>
+				<li>상품정보</li>
+				<li>상품후기</li>
+			</ul>
+		</div>
+		<div class="prodDetailIMG">
+			<img alt="" src="/shopimg/prod1detail.jpg">
 		</div>
 	</div>
 </body>
