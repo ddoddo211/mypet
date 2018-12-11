@@ -4,6 +4,12 @@
 
 ### Eclipse ###
 
+/mybatis-config.xml
+/db.properties
+
+/index.jsp
+
+
 .metadata
 bin/
 tmp/
