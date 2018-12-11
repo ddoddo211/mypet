@@ -73,16 +73,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		
 		<!-- 플랜정보에 회원의 플랜정보에 추가된 보험상품 조회 -->
 		<select id="memPlan" parameterType="String" resultType="insShVo">
-			select * 
-			from insshopping
-			where inssp_mem = #{inssp_mem}
+			select * from insshopping , insprod
+			 where inssp_insp = insp_id 
+               and inssp_mem = #{inssp_mem}
 		</select>
 		
 		<!-- 회원의 펫이 있는지 확인하는 부분 -->
 		<select id="petList" parameterType="String" resultType="mypetVo">
 			select *
-			from mypet
-			where myp_mem = #{myp_mem}
+			  from mypet , petkind
+			 where  myp_petk = petk_id
+               and myp_mem =#{myp_mem}
 		</select>
 		
 		<!-- 회원 정보를 가지고 오는 쿼리 -->

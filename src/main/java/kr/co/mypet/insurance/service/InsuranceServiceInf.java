@@ -5,8 +5,6 @@ import java.util.Map;
 import kr.co.mypet.common.model.MemberVo;
 import kr.co.mypet.insurance.model.InsProdVo;
 import kr.co.mypet.insurance.model.InsshoppingVo;
-import kr.co.mypet.insurance.model.InsuranceVo;
-import kr.co.mypet.insurance.model.MypetVo;
 import kr.co.mypet.insurance.model.PageVo;
 
 
@@ -80,7 +78,7 @@ public interface InsuranceServiceInf {
 	* @return
 	* Method 설명 :회원의 펫정보를 가지고 오는 부분
 	*/
-	List<MypetVo> petList(String myp_mem);
+	List<InsshoppingVo> petList(String myp_mem);
 	
 	/**
 	* Method : memberInfo

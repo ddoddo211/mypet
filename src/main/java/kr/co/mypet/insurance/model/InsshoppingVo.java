@@ -20,6 +20,7 @@ public class InsshoppingVo {
 	private String myp_img;
 	private String myp_neu;
 	private String myp_gender;
+	private String myp_name;
 	
 	
 	// 회원이 추가한 보험장바구니 정보 
@@ -44,23 +45,35 @@ public class InsshoppingVo {
 	private String insp_del;
 	
 	
-	
-
 	@Override
 	public String toString() {
 		return "InsshoppingVo [inssp_id=" + inssp_id + ", inssp_mem=" + inssp_mem + ", inssp_insp=" + inssp_insp
 				+ ", myp_id=" + myp_id + ", myp_mem=" + myp_mem + ", myp_petk=" + myp_petk + ", myp_birth=" + myp_birth
 				+ ", myp_size=" + myp_size + ", myp_sick=" + myp_sick + ", myp_img=" + myp_img + ", myp_neu=" + myp_neu
-				+ ", myp_gender=" + myp_gender + ", insp_id=" + insp_id + ", insp_name=" + insp_name + ", insp_join="
-				+ insp_join + ", insp_kind=" + insp_kind + ", insp_fees=" + insp_fees + ", insp_maxins=" + insp_maxins
-				+ ", insp_minage=" + insp_minage + ", insp_maxage=" + insp_maxage + ", insp_period=" + insp_period
-				+ ", insp_sick=" + insp_sick + ", insp_img=" + insp_img + ", insp_text=" + insp_text + ", insp_insimg="
-				+ insp_insimg + ", insp_instext=" + insp_instext + ", insp_joinimg=" + insp_joinimg + ", insp_jointext="
-				+ insp_jointext + ", insp_reqimg=" + insp_reqimg + ", insp_reqtext=" + insp_reqtext + ", insp_del="
-				+ insp_del + "]";
+				+ ", myp_gender=" + myp_gender + ", myp_name=" + myp_name + ", insp_id=" + insp_id + ", insp_name="
+				+ insp_name + ", insp_join=" + insp_join + ", insp_kind=" + insp_kind + ", insp_fees=" + insp_fees
+				+ ", insp_maxins=" + insp_maxins + ", insp_minage=" + insp_minage + ", insp_maxage=" + insp_maxage
+				+ ", insp_period=" + insp_period + ", insp_sick=" + insp_sick + ", insp_img=" + insp_img
+				+ ", insp_text=" + insp_text + ", insp_insimg=" + insp_insimg + ", insp_instext=" + insp_instext
+				+ ", insp_joinimg=" + insp_joinimg + ", insp_jointext=" + insp_jointext + ", insp_reqimg=" + insp_reqimg
+				+ ", insp_reqtext=" + insp_reqtext + ", insp_del=" + insp_del + "]";
 	}
-	
-	
+
+
+	public String getMyp_name() {
+		return myp_name;
+	}
+
+
+
+
+	public void setMyp_name(String myp_name) {
+		this.myp_name = myp_name;
+	}
+
+
+
+
 	public String getInssp_id() {
 		return inssp_id;
 	}

@@ -84,19 +84,19 @@ function prodAdd(){
 							<th class="td2">생년월일</th>
 							<th class="td2">질병</th>
 							<th class="td2">종류</th>
-							<th class="td4">현재 가입되어 있는 보험상품</th>
+							<th class="td4">가입되어 있는 보험상품</th>
 						</tr>
 						
-						<c:forEach begin="1" items="${mypetList}" var="pet">
+						<c:forEach items="${mypetList}" var="pet">
 							<tr class="tr2" id="td5">
-								<td class="td6">선택</td>
+								<td class="td6"><input type="checkbox" id="cb1"><label for="cb1"></label></td>
 								<td class="td3">${pet.myp_img}</td>
-								<td class="td2">${pet.myp_petk}</td>
+								<td class="td2">${pet.myp_name}</td>
 								<td class="td2">${pet.myp_gender}</td>
 								<td class="td2">${pet.myp_birth}</td>
 								<td class="td2">${pet.myp_sick}</td>
-								<td class="td2">${pet.myp_petk}</td>
-								<td class="td4">현재 가입되어 있는 보험상품</td>
+								<td class="td2">${pet.petk_name}(${pet.myp_size})</td>
+								<td class="td4">가입되어 있는 보험상품</td>
 							</tr>
 						</c:forEach>	
 				</table>
@@ -124,24 +124,43 @@ function prodAdd(){
 			
 			<div id="petTable">
 				<table>
+						<tr class="tr7">
+							<th class="td11">선택</th>
+							<th class="td8">나의펫선택</th>
+							<th class="td9">보험상품</th>
+							<th class="td9">가입대상</th>
+							<th class="td9">보험이름</th>
+							<th class="td9">월보험료</th>
+							<th class="td12">가입연령</th>
+							<th class="td9">보장기간</th>
+							<th class="td12">질병여부</th>
+							<th class="td10">보험가입</th>
+						</tr>
 						<c:forEach items="${memIsrList}" var="prodVo">
 							<tr class="tr7">
-								<th class="td8">나의펫선택</th>
-								<th class="td9">${prodVo.insp_name}</th>
+								<td class="td11"><input type="checkbox" id="cb2"><label for="cb2"></label></td>
+								<td class="td8">
+									<select name="petSelect">
+									  <c:forEach items="${mypetList}" var="petSelect">
+									  	<option value="${petSelect.myp_name}">${petSelect.myp_name}</option>
+									  </c:forEach>
+									</select>
+								</td>
+								<td class="td9">${prodVo.insp_name}</td>
 								<c:choose>
 									<c:when test = "${prodVo.insp_join == '강아지'}">
-										<td class="td9"><img alt="이미지가 없습니다" src="/img/petInsurance/petKind.jpg" width="40px" height="40px">${prod.insp_join}</td>
+										<td class="td9"><img alt="이미지가 없습니다" src="/img/petInsurance/petKind.jpg" width="40px" height="40px">${prodVo.insp_join}</td>
 									</c:when>
 									<c:otherwise>
-										<td class="td9"><img alt="이미지가 없습니다" src="/img/petInsurance/petKind2.jpg" width="40px" height="40px">${prod.insp_join}</td>
+										<td class="td9"><img alt="이미지가 없습니다" src="/img/petInsurance/petKind2.jpg" width="40px" height="40px">${prodVo.insp_join}</td>
 									</c:otherwise>
 								</c:choose>
 								<td class="td9">${prodVo.insp_kind}</td>
 								<td class="td9"><%="월 "%>${prodVo.insp_fees}<%="원"%></td>
-								<td class="td9">${prodVo.insp_minage}<%="~"%>${prodVo.insp_maxage}<%="세"%></td>
+								<td class="td12">${prodVo.insp_minage}<%="~"%>${prodVo.insp_maxage}<%="세"%></td>
 								<td class="td9"><%="가입부터 ~"%>${prodVo.insp_period}<%="세 까지"%></td>
-								<td class="td9">${prodVo.insp_sick}</td>
-								<td class="td10">상품보기</td>
+								<td class="td12">${prodVo.insp_sick}</td>
+								<td class="td10"><input type="submit" value="가입하기"></td>
 							</tr>
 						</c:forEach>
 						

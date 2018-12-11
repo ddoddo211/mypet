@@ -272,9 +272,8 @@ public class InsuranceController {
 			return "petInsurance/insuranceProduct2";
 
 		} else {
-			System.out.println("2");
 
-			List<MypetVo> mypetList = insuranceService.petList(memVo.getMem_id());
+			List<InsshoppingVo> mypetList = insuranceService.petList(memVo.getMem_id());
 
 			model.addAttribute("mypetSize", mypetList.size());
 
@@ -296,8 +295,8 @@ public class InsuranceController {
 
 		String prodId = request.getParameter("prodId");
 
-		// 회원의 펫정보를 가지고 온다
-		List<MypetVo> mypetList = insuranceService.petList(memVo.getMem_id());
+		//회원의 펫 가지고 오기
+		List<InsshoppingVo> mypetList = insuranceService.petList(memVo.getMem_id());
 		model.addAttribute("mypetList", mypetList);
 		
 		InsshoppingVo isrSPVo = new InsshoppingVo();
@@ -312,9 +311,6 @@ public class InsuranceController {
 
 		// 회원의 추가된 보험상품 가지고 오기
 		List<InsshoppingVo> memIsrList = insuranceService.memPlan(memVo.getMem_id());
-		
-		System.out.println(memIsrList);
-		
 		model.addAttribute("memIsrList", memIsrList);
 
 		return "petInsurance/planInformation";
@@ -322,7 +318,7 @@ public class InsuranceController {
 	}
 
 	@RequestMapping("/planInformation")
-	public String planInformation(HttpServletRequest request, Model model, HttpSession session) {
+	public String planInformation(Model model, HttpSession session) {
 
 		// 회원 정보 받아오는 부분
 		MemberVo memVo = (MemberVo) session.getAttribute("memVo");
@@ -333,13 +329,14 @@ public class InsuranceController {
 		} else {
 			// 회원의 추가된 보험상품 가지고 오기
 			List<InsshoppingVo> memIsrList = insuranceService.memPlan(memVo.getMem_id());
-
 			model.addAttribute("memIsrList", memIsrList);
-
+			
+			//회원의 펫 가지고 오기
+			List<InsshoppingVo> mypetList = insuranceService.petList(memVo.getMem_id());
+			model.addAttribute("mypetList", mypetList);
+			
 			return "petInsurance/planInformation";
-
 		}
-
 	}
 
 // 펫 추가화면으로 이동 
