@@ -7,8 +7,10 @@
 <%-- jstl --%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 	
 <style type="text/css">
+<<<<<<< HEAD
 <%@include file ="/css/commonCss.css"%>
 .member {
 	font-size: 50px;
@@ -102,6 +104,124 @@ body {
 #naverLogin{
 	margin-left: 70px;
 }
+=======
+
+<%@include file ="/css/commonCss.css"%>
+
+.member {
+	font-size: 50px;
+	text-shadow: 0 0 10px #666;
+	color: #fff;
+	margin: 0 auto;
+	margin-top: 70px;
+	text-align: center;
+	text-transform: capitalize;
+	font-family: "맑은 고딕";
+	font-style: italic;
+	text-align: center;
+}
+
+body {
+	font-family: "맑은 고딕";
+	font-size: 12px;
+}
+
+.form {
+	width: 380px;
+	height: 250px;
+	border-radius: 25px;
+	border: 5px double #999;
+	margin: 30px auto;
+}
+
+.form2 {
+	width: 380px;
+	min-width: 320px;
+	height: 200px;
+	margin: 30px auto;
+	margin-left: 20px;
+	min-width: 320px;
+}
+
+.form3 {
+	float: left;
+	/*   background:#f00;  */
+	padding-top: 5px;
+}
+
+.form3 label {
+	width: 60px;
+	height: 20px;
+	/*  display: block; */
+	float: left;
+	margin-left: 10px;
+}
+
+.form4 {
+	padding: 0px 0px 0px 70px;
+}
+
+#wrap {
+	width: 400px;
+	height: 400px;
+	margin: 0 auto;
+}
+
+.clear {
+	clear: both;
+}
+
+
+#loginButton {
+	margin-left: 10px;
+	height: 50px;
+	width: 60px;
+}
+
+#user {
+	margin-left: 10px;
+}
+
+#form2-1 {
+	width: 400px;
+	height: 60px;
+}
+
+#form2-1-1{
+	width: 250px;
+	height: 60px;
+	float: left;
+}
+
+#form2-1-1-1{
+	width: 70px;
+	height: 60px;
+	float: left;
+	padding-top:5px;
+
+}
+
+#loginMenu{
+	width: 400px;
+}
+
+.loginMenuLabel{
+	float: left;
+}
+
+.loginMenuInput{
+	width: 90px;
+	margin-right: 0px;
+	outline: none;
+	cursor: pointer;
+}
+
+#naverLogin{
+	margin-left: 70px;
+}
+
+
+>>>>>>> branch 'master' of https://github.com/ddoddo211/mypet.git
 </style>
 <!-- header 시작 -->
 <div id="gateway_warp">
@@ -250,4 +370,8 @@ body {
 		});
 		
 	});
+<<<<<<< HEAD
+=======
+
+>>>>>>> branch 'master' of https://github.com/ddoddo211/mypet.git
 </script>

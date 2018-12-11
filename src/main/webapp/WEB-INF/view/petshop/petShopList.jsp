@@ -6,7 +6,10 @@
 <link href="/css/commonCss.css" rel="stylesheet">
 <link href="/css/petShopCss.css" rel="stylesheet">
 <style type="text/css">
-
+	html,body{
+		height: 100%;
+	}
+	
 	#maintop{
 		width: 1200px;
 		margin: 0 auto;
@@ -22,21 +25,21 @@
 	
 	#mainmid {
 		width : 1200px;
-		height : 600px;
 		margin: 0 auto;
+		overflow: hidden;
+		background-color: #f1f1f1;
 	}
 	
-	#mainmid .mainleft {
+	.mainleft {
 		width: 21%;
-		height: 100%;
-		background-color: #ff9010;
-		border-right: 1px solid #000;
+		height:100%;
 		float: left;
+		background-color: #f1f1f1;
 	}
 	
 	#mainmid .mainleft .listSearch{
 		margin-bottom: 10px;
-   		border-bottom: 1px solid #000;
+   		border-bottom: 1px solid darkgray;
 	    height: 52px;
     	text-align: center;
     	padding-top: 15px;
@@ -75,38 +78,87 @@
 		padding-top: 5px;
 	}
 	.listMenu ul li a{
-		color : #fff;
+		color : #000;
 		border-bottom: 1px solid;
 	}
 	
 	.mainright{
-		width: 78%;
-    	float: left;	
+		width: 79%;
+		height:100%;
+    	float: left;
+    	background-color: #fff;
 	}
-	.petAges{
+	.petchk{
 		float:left;
-		background-color: #ff8800;
-	    border: 1px solid white;
-	    border-radius: 5px;
 	    color: white;
 	    font-size: 15px;
-	    padding: 5px;
 	}
 	
 	.pordCheck{
 		width: 850px;
-		height : 200px;
-		border: 1px solid #000;
-		margin-left: 50px;
+		margin: auto;
    		margin-top: 15px;
    		padding: 10px;
+   		background-color: #f1f1f1;
+   		border: 1px solid darkgray;
 	}
 	
+	.chk{
+		height: 30px;
+	}
+	
+	.chkName{
+		width: 55px;
+	    height: 26px;
+	    float: left;
+	    background: darkgray;
+	    border: 1px solid white;
+	    border-radius: 5px;
+	    display: flex;
+    	justify-content: center;
+    	align-items: center;
+	}
 	.ageChk ul li{
-		padding: 5px 5px 0px 5px;
+		padding: 6px 5px 0px 5px;
+    	float: left;
+    	font-size: 13px;
+	}
+	
+	.prodMenu{
+		width: 870px;
+	    margin: auto;
+	    text-align:center;
+	    margin-top: 15px;
+	    border-bottom: 1px solid #efefef;
+    	overflow: hidden;
+    	padding-bottom: 20px;
+	}
+	
+	.prodMenu ul {
+		display:block;
+		width:813px;
+		padding:10px;
+		margin:auto;
+	}
+	
+	.prodMenu ul li {
+		padding-left: 11px;
+		float: left;
+	}
+	
+	.page{
+		display:flex;
+		justify-content:center;
+		align-items:center;
+		height: 45px;
+	}
+	
+	.page ul{
+	}
+	
+	.page ul li {
 		float:left;
 	}
-	
 </style>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -175,20 +227,57 @@
 		
 		<div class="mainright">
 			<div class="pordCheck">
-					<span class="petAges">연령</span>
-				<div class="ageChk">
-					<ul>
-						<li><input type="checkbox"><span>전연령</span></li>
-						<li><input type="checkbox"><span>성견</span></li>
-						<li><input type="checkbox"><span>퍼피</span></li>
-					</ul>
+				<div class="chk">
+					<div class="chkName">
+						<span class="petchk">연령</span>
+					</div>
+					<div class="ageChk">
+						<ul>
+							<li><input type="checkbox"><span>전연령</span></li>
+							<li><input type="checkbox"><span>성견</span></li>
+							<li><input type="checkbox"><span>퍼피</span></li>
+						</ul>
+					</div>
 				</div>
+				<div class="chk">
+					<div class="chkName">
+						<span class="petchk">브랜드</span>
+					</div>
+					<div class="ageChk">
+						<ul>
+							<li><input type="checkbox"><span>건강백서</span></li>
+							<li><input type="checkbox"><span>네츄럴코어</span></li>
+							<li><input type="checkbox"><span>웰니스</span></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="prodMenu">
+				<ul>
+					<c:forEach begin="1" end="12">
+						<li>
+							<a href="/shop/prodDetail">
+								<img src="http://placehold.it/250x250">
+							<br>
+							<span>상품명</span>
+							<br>
+							<span>가격</span>
+							<span>할인가</span>
+							</a>
+						</li>
+					</c:forEach>
+				</ul>
+			</div>
+			<div class="page">
+				<ul>
+					<li><a href="#">1</a></li>
+				</ul>
 			</div>
 		</div>
 	</div>
+	
 	<!-- footer 시작 -->
 	<%@include file="/WEB-INF/view/common/footer.jsp"%>
 	<!-- footer 끝 -->
-	
 </body>
 </html>

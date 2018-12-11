@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>회원가입</title>
 <style type="text/css">
 <%@include file ="/css/commonCss.css"%>
@@ -43,20 +43,21 @@ $(document).ready(function(){
     $('#join-submit').click(function(e){
         e.preventDefault();
         var mem_name = $("input[name='mem_name']");
+        console.log(mem_name);
         if( mem_name.val() =='') {
             alert("성명을 입력하세요");
             mem_name.focus();
             return false;
         }
-
         var mem_id = $("input[name='mem_id']");
-        if(mem_id.val() == ''){
+		console.log(mem_id);
+        if($("#mem_id").val() == ''){
             alert('이메일을 입력하세요');
             mem_id.focus();
             return false;
         } else {
             var emailRegex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-            if (!emailRegex.test(mem_id.val())) {
+            if (!emailRegex.test($("#mem_id").val())) {
                 alert('이메일 주소가 유효하지 않습니다. ex)abc@gmail.com');
                 mem_id.focus();
                 return false;
@@ -78,24 +79,24 @@ $(document).ready(function(){
 
         var mem_pass = $("input[name='mem_pass']");
         var re_mem_pass = $("input[name='re_mem_pass']");
-        if(mem_pass.val() =='') {
+        if($("#mem_pass").val() =='') {
             alert("비밀번호를 입력하세요!");
             mem_pass.focus();
             return false;
         }
-        if(mem_pass.val().search(/\s/) != -1){
+        if($("#mem_pass").val().search(/\s/) != -1){
             alert("비밀번호는 공백없이 입력해주세요.");
             return false;
         }
-        if(!/^[a-zA-Z0-9!@#$%^&*()?_~]{8,20}$/.test(mem_pass.val())){
+        if(!/^[a-zA-Z0-9!@#$%^&*()?_~]{8,20}$/.test($("#mem_pass").val())){
             alert("비밀번호는 숫자, 영문, 특수문자(!@$%^&*?_~ 만 허용) 조합으로 8~20자리를 사용해야 합니다.");
             return false;
         }
         // 영문, 숫자, 특수문자 2종 이상 혼용
         var chk=0;
-        if(mem_pass.val().search(/[0-9]/g) != -1 ) chk ++;
-        if(mem_pass.val().search(/[a-z]/ig)  != -1 ) chk ++;
-        if(mem_pass.val().search(/[!@#$%^&*()?_~]/g) != -1) chk ++;
+        if($("#mem_pass").val().search(/[0-9]/g) != -1 ) chk ++;
+        if($("#mem_pass").val().search(/[a-z]/ig)  != -1 ) chk ++;
+        if($("#mem_pass").val().search(/[!@#$%^&*()?_~]/g) != -1) chk ++;
         if(chk < 2){
             alert("비밀번호는 숫자, 영문, 특수문자를 두가지이상 혼용하여야 합니다.");
             return false;
@@ -107,12 +108,12 @@ $(document).ready(function(){
             return false;
         }
         */
-        if(re_mem_pass.val() =='') {
+        if($("#re_mem_pass").val() =='') {
             alert("비밀번호를 다시 한번 더 입력하세요!");
             re_mem_pass.focus();
             return false;
         }
-        if(mem_pass.val()!== re_mem_pass.val()){
+        if($("#mem_pass").val()!= $("#re_mem_pass").val()){
             alert('입력한 두 개의 비밀번호가 일치하지 않습니다');
             return false;
         }
@@ -150,22 +151,22 @@ $(document).ready(function(){
 
     });
 
-    // mem_id(e-mail) 가입여부 검사
-    $("#checkid").click(function(e){
-        e.preventDefault();
-        var mem_id = $("input[name='mem_id']");
-        if(mem_id.val() == ''){
-            alert('이메일을 입력하세요');
-            mem_id.focus();
-            return false;
-        } else {
-            var emailRegex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-            if (!emailRegex.test(mem_id.val())) {
-                alert('이메일 주소가 유효하지 않습니다. ex)abc@gmail.com');
-                mem_id.focus();
-                return false;
-            }
-        }
+//     // mem_id(e-mail) 가입여부 검사
+//     $("#checkid").click(function(e){
+//         e.preventDefault();
+//         var mem_id = $("input[name='mem_id']");
+//         if(mem_id.val() == ''){
+//             alert('이메일을 입력하세요');
+//             mem_id.focus();
+//             return false;
+//         } else {
+//             var emailRegex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+//             if (!emailRegex.test(mem_id.val())) {
+//                 alert('이메일 주소가 유효하지 않습니다. ex)abc@gmail.com');
+//                 mem_id.focus();
+//                 return false;
+//             }
+//         }
 
 //         $.ajax({
 //             url: 'a.joinChk.php',
@@ -185,7 +186,7 @@ $(document).ready(function(){
 //                 alert("arjax error : " + textStatus + "\n" + errorThrown);
 //             }
 //         });
-    });
+//    });
 
 
 });
@@ -219,35 +220,44 @@ $(document).ready(function(){
 		<div id="wrap">
 		<h1 class="member">My Pet Login</h1>
 
+		<%-- 네이버 인지 아닌지 확인해서 mem_id 채울지 말지 결정 --%>
+		<c:set var="id">
+			<c:choose>
+				<c:when test="${mem_id!=null }">${mem_id }</c:when>
+				<c:otherwise> </c:otherwise>
+			</c:choose>
+		</c:set>
+
+
 		<!-- login form -->
 		<div class="container">
-			<form method="post" action="/mem/join" id="frm">
+			<form method="post" action="/mem/joinMethod" id="frm">
 			
 				<table>
 					<tr>
 						<td>ID(E-Mail)</td>
-						<td><input type="text" size=25 name="mem_id" value="">
+						<td><input type="text" size=25 name="mem_id" value="${id}" id="mem_id">
 							<input type="button" id="checkid" value="중복체크"></td>
 					</tr>
 					<tr>
 						<td>비밀번호</td>
-						<td><input type="password" size=37 name="mem_pass"></td>
+						<td><input type="password" size=37 name="mem_pass" id="mem_pass"></td>
 					</tr>
 					<tr>
 						<td>비밀번호(확인)</td>
-						<td><input type="password" size=37 name="re_mem_pass"></td>
+						<td><input type="password" size=37 name="re_mem_pass" id="re_mem_pass"></td>
 					</tr>
 					<tr>
 						<td style='width: 100px'>이름</td>
-						<td><input type="text" size=37 name="mem_name" value=""></td>
+						<td><input type="text" size=37 name="mem_name" value="" id="mem_name"></td>
 					</tr>
 					<tr>
 						<td>휴대폰번호</td>
-						<td><input type="text" size=37 name="mem_hp" value=""></td>
+						<td><input type="text" size=37 name="mem_hp" value="" id="mem_hp"></td>
 					</tr>
 					<tr>
 						<td>주소</td>
-						<td><input type="text" size=37 name="mem_addr" value=""></td>
+						<td><input type="text" size=37 name="mem_addr" value="" id="mem_addr"></td>
 					</tr>
 					<tr>
 						<td colspan='2' align='center'><input type="button"
