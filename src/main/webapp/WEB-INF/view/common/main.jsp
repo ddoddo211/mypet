@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>main.jsp</title>
-
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <style type="text/css">
 
 <%@include file ="/css/commonCss.css"%>

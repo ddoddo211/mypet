@@ -9,8 +9,10 @@
 <head>
 <meta charset="EUC-KR">
 <title>로그인</title>
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <style type="text/css">
-<%@include file ="/css/commonCss.css"%>
+<link = href="/css/commonCss.css" rel="stylesheet"/>
 .member {
 	font-size: 50px;
 	text-shadow: 0 0 10px #666;
@@ -33,8 +35,9 @@ body {
 	width: 380px;
 	height: 250px;
 	border-radius: 25px;
-	border: 5px double #999;
+	border: 2px dashed #999;
 	margin: 30px auto;
+	background-color: white;
 }
 
 .form2 {
@@ -78,10 +81,11 @@ input[type="submit"] {
 	float: left;
 	/*  display:block; */
 	height: 50px;
-	background: #FFBB00;
+	background: #96c8ff;
 	border-radius: 5px;
 	border: none;
 	font-family: "맑은 고딕";
+	box-shadow: 3px 3px 10px #E6E2AF;
 }
 
 input[type="button"] {
@@ -102,7 +106,7 @@ input[type="checkbox"] {
 #loginButton {
 	margin-left: 10px;
 	height: 50px;
-	width: 60px;
+	width: 90px;
 }
 
 #user {
@@ -147,7 +151,20 @@ input[type="checkbox"] {
 	margin-left: 70px;
 }
 
+#loginForm{
+	background-image: url("/img/loginBack.jpg");
+	margin-bottom: 100px;
+	width: 1200px;
+}
 </style>
+
+<script type="text/javascript">
+	<%if(request.getParameter("navermsg")==null){%>
+		alert("ID 또는 PW가 일치하지않습니다 다시 시도해주세요");
+	<%} else {%>
+		alert("네이버 로그인 실패"); 
+	<%	}%>
+</script>
 
 </head>
 <body>
@@ -176,7 +193,7 @@ input[type="checkbox"] {
 	<!-- main header content 끝  -->
 
 	<!-- login form -->
-	<form action="/mem/login" method="post">
+	<form action="/mem/loginNM" method="post">
 		<div id="wrap">
 			<h1 class="member">My Pet Login</h1>
 			<div class="form">
@@ -195,11 +212,11 @@ input[type="checkbox"] {
 						</div>
 					</div>
 							 <%
-							    String clientId = "dQEq__PeBE4FPR0eimgb";//애플리케이션 클라이언트 아이디값";
-							    String redirectURI = URLEncoder.encode("http://localhost:8081/mem/login", "UTF-8");
-							    SecureRandom random = new SecureRandom();
-							    String state = new BigInteger(130, random).toString();
-							    String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
+							    clientId = "dQEq__PeBE4FPR0eimgb"; /*애플리케이션 클라이언트 아이디값";*/
+							    redirectURI = URLEncoder.encode("http://localhost:8081/mem/login", "UTF-8");
+							    random = new SecureRandom();
+							    state = new BigInteger(130, random).toString();
+							    apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
 							    apiURL += "&client_id=" + clientId;
 							    apiURL += "&redirect_uri=" + redirectURI;
 							    apiURL += "&state=" + state;

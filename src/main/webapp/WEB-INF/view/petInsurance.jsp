@@ -8,7 +8,7 @@
 <link href="/css/commonCss.css" rel="stylesheet">
 <link rel="stylesheet" href="/css/petInsuranceMenu.css">
 <link rel="stylesheet" href="/css/petInsurance.css">
-
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 </head>
 <body>
 <!-- header 시작 -->
