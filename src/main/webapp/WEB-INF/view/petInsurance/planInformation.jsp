@@ -9,6 +9,9 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <script type="text/javascript">
 
 function prodAdd(){
@@ -93,7 +96,9 @@ function prodAdd(){
 								<td class="td3">${pet.myp_img}</td>
 								<td class="td2">${pet.myp_name}</td>
 								<td class="td2">${pet.myp_gender}</td>
-								<td class="td2">${pet.myp_birth}</td>
+								<td class="td2">
+									<fmt:formatDate value="${pet.myp_birth}" pattern="yy년-MM월-dd일"></fmt:formatDate>
+								</td>
 								<td class="td2">${pet.myp_sick}</td>
 								<td class="td2">${pet.petk_name}(${pet.myp_size})</td>
 								<td class="td4">가입되어 있는 보험상품</td>
@@ -160,7 +165,7 @@ function prodAdd(){
 								<td class="td12">${prodVo.insp_minage}<%="~"%>${prodVo.insp_maxage}<%="세"%></td>
 								<td class="td9"><%="가입부터 ~"%>${prodVo.insp_period}<%="세 까지"%></td>
 								<td class="td12">${prodVo.insp_sick}</td>
-								<td class="td10"><input type="submit" value="가입하기"></td>
+								<td class="td10"><input type="submit" value="가입하기" class="prodPlanAdd"></td>
 							</tr>
 						</c:forEach>
 						
