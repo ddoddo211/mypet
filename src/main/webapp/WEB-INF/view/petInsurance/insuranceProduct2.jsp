@@ -18,21 +18,14 @@ function listClick() {
 
 function prodAdd(){
 	if('${memVo.mem_id}' == ''){
-		alert("로그인오류");
-		
 		alert("로그인이 되어 있지 않습니다.\n로그인하시기 바랍니다.");
 		location.href ='/mem/loginPage';
 	}else if('${mypetSize}' == '0'){
-		alert('${memVo.mem_id}');
-		alert('${mypetSize}');
-		alert("펫사이즈 오류");
-		
 			alert("펫이 등록되어 있지 앖습니다. 펫을 등록하시기 바랍니다");
 			location.href ='/isr/petInsert';
 	}else{
-		
-		alert("페이지 오류");
-			location.href ='/isr/prodAdd?prodId='+${prodVo.insp_id};
+			//location.href ='/isr/prodAdd?prodId='+${prodVo.insp_id};
+			$("#frm").submit();
 	}
 }
 
@@ -45,6 +38,13 @@ function prodAdd(){
 
 </head>
 <body>
+
+<!-- 폼에 저장해 주기 -->
+<form  action="/isr/prodAdd" id="frm" method="post">
+	<input type="hidden" name="prodId" value="${prodVo.insp_id}">
+</form>
+
+
 <!-- header 시작 -->
 <%@include file="../common/header.jsp"%>
 <!-- header 끝-->

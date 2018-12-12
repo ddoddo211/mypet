@@ -347,6 +347,10 @@ table tr:hover td{
 
 
 /*보험상품안내 리스트 - 페이징 처리*/
+#pagenation{
+	margin-top: 20px;
+}
+
 #pagenation ul {
 	list-style:none;
 	float:left;
@@ -563,7 +567,7 @@ table tr:hover td{
 
 #petInsert2{
 	height: 50px;
-	width: 200px;
+	width: 150px;
 	float: left;
 }
 
@@ -575,25 +579,25 @@ table tr:hover td{
 }
 
 #petdBtn{
-	width: 200px;
-	background-color: #7c6ee9;
+	width: 150px;
+	background-color: white;
 	height: 30px;
 	border-radius: 50px;
-	border: 2px solid #7c6ee9;
-	color: white;
-	font-size: 20px;
+	border: 2px solid #41d0ce;
+	color: black;
+	font-size: 16px;
 	margin-top: 15px;
 	cursor: pointer;
 
 }
 
 #petdBtn:hover{
-	width: 200px;
-	background-color: white;
+	width: 150px;
+	background-color: #41d0ce;
 	height: 30px;
 	border-radius: 50px;
-	border: 2px solid #7c6ee9;
-	color: black;
+	border: 2px solid #41d0ce;
+	color: white;
 	font-size: 20px;
 }
 
@@ -601,35 +605,35 @@ table tr:hover td{
 
 #petBtn{
 	float: left;
-	margin-left: 315px;
+	margin-left: 395px;
 }
 
 
 #prodBtn{
 	float: left;
-	margin-left: 315px;
+	margin-left: 395px;
 }
 
 #petIsBtn{
-	width: 200px;
-	background-color: #7c6ee9;
+	width: 150px;
+	background-color: white;
 	height: 30px;
 	border-radius: 50px;
-	border: 2px solid #7c6ee9;
-	color: white;
-	font-size: 20px;
+	border: 2px solid #41d0ce;
+	color: black;
+	font-size: 16px;
 	margin-top: 15px;
 	cursor: pointer;
 }
 
 #petIsBtn:hover{
-	width: 200px;
-	background-color: white;
+	width: 150px;
+	background-color: #41d0ce;
 	height: 30px;
 	border-radius: 50px;
-	border: 2px solid #7c6ee9;
-	color: black;
-	font-size: 20px;
+	border: 2px solid #41d0ce;
+	color: white;
+	font-size: 16px;
 }
 
 #petTable{
@@ -729,7 +733,7 @@ table tr:hover td{
 }
 
 #insuranceProdInsert{
-	width : 200px;
+	width : 150px;
 	height: 50px;
 	float: left;
 }
@@ -740,25 +744,25 @@ table tr:hover td{
 }
 
 #insuranceProdIsBtn{
-	width: 200px;
-	background-color: #7c6ee9;
+	width: 150px;
+	background-color: white;
 	height: 30px;
 	border-radius: 50px;
-	border: 2px solid #7c6ee9;
-	color: white;
-	font-size: 20px;
+	border: 2px solid #41d0ce;
+	color: black;
+	font-size: 16px;
 	margin-top: 15px;
 	
 }
 
 #insuranceProdIsBtn:hover{
-	width: 200px;
-	background-color: white;
+	width: 150px;
+	background-color: #41d0ce;
 	height: 30px;
 	border-radius: 50px;
-	border: 2px solid #7c6ee9;
-	color: black;
-	font-size: 20px;
+	border: 2px solid #41d0ce;
+	color: white;
+	font-size: 16px;
 }
 
 #td11{
@@ -766,25 +770,25 @@ table tr:hover td{
 }
 
 #insuranceProdDlBtn{
-	width: 200px;
-	background-color: #7c6ee9;
+	width: 150px;
+	background-color: white;
 	height: 30px;
 	border-radius: 50px;
-	border: 2px solid #7c6ee9;
-	color: white;
-	font-size: 20px;
+	border: 2px solid #41d0ce;
+	color: black;
+	font-size: 16px;
 	margin-top: 15px;
 	margin-left: 5px;
 	
 }
 
 #insuranceProdDlBtn:hover{
-	width: 200px;
-	background-color: white;
+	width: 150px;
+	background-color: #41d0ce;
 	height: 30px;
 	border-radius: 50px;
-	border: 2px solid #7c6ee9;
-	color: black;
+	border: 2px solid #41d0ce;
+	color: white;
 	font-size: 20px;
 }
 
