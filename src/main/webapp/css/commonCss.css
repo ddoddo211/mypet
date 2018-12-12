@@ -319,6 +319,7 @@ a.innerborder:hover img {
 	margin-left: 700px;
 	background-color: white;
 	box-shadow: 5px 5px 3px #aaaaaa;
+	display: none;
 	
 }
 
