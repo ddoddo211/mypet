@@ -10,6 +10,8 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
 import kr.co.mypet.common.model.MemberVo;
 import kr.co.mypet.insurance.model.InsProdVo;
 import kr.co.mypet.insurance.model.InsshoppingVo;
@@ -287,7 +289,7 @@ public class InsuranceController {
 
 	
 // 플랜정보 추가버튼을 클릭한후 플랜정보 화면으로 이동하는 부분 	
-	@RequestMapping(value="/prodAdd")
+	@RequestMapping(value="/prodAdd", method=RequestMethod.POST)
 	public String prodAdd(Model model, HttpServletRequest request, HttpSession session) {
 
 		// 회원 정보 받아오는 부분
@@ -309,17 +311,12 @@ public class InsuranceController {
 		// 플랜정보에 추가하기
 		int result = insuranceService.planInsert(isrSPVo);
 
-		// 회원의 추가된 보험상품 가지고 오기
-		List<InsshoppingVo> memIsrList = insuranceService.memPlan(memVo.getMem_id());
-		model.addAttribute("memIsrList", memIsrList);
 
-		return "petInsurance/planInformation";
-
+		return "redirect:/isr/goplanInformation";
 	}
 	
-	
 	// 보험 메뉴에서 플랜정보 버튼을 클릭하였을때 이동하는 부분
-	@RequestMapping("/planInformation")
+	@RequestMapping("/goplanInformation")
 	public String planInformation(Model model, HttpSession session) {
 
 		// 회원 정보 받아오는 부분
