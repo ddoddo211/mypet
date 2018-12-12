@@ -165,7 +165,7 @@ function prodAdd(){
 								<td class="td12">${prodVo.insp_minage}<%="~"%>${prodVo.insp_maxage}<%="세"%></td>
 								<td class="td9"><%="가입부터 ~"%>${prodVo.insp_period}<%="세 까지"%></td>
 								<td class="td12">${prodVo.insp_sick}</td>
-								<td class="td10"><input type="submit" value="가입하기"></td>
+								<td class="td10"><input type="submit" value="가입하기" class="prodPlanAdd"></td>
 							</tr>
 						</c:forEach>
 						

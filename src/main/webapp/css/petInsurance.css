@@ -826,3 +826,8 @@ input[id="cb2"]:checked+label {
 input[id="cb2"] {
 	display: none;
 }
+
+.prodPlanAdd {
+	background-color: #8e8e8e;
+    color: white;
+}
