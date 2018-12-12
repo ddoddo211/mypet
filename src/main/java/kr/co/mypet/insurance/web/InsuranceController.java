@@ -321,7 +321,7 @@ public class InsuranceController {
 
 		// 회원 정보 받아오는 부분
 		MemberVo memVo = (MemberVo) session.getAttribute("memVo");
-
+		
 		// 로그인을 안한 회원일 경우에는 로그인 화면으로 이동
 		if (memVo == null) {
 			return "common/login";
@@ -332,6 +332,11 @@ public class InsuranceController {
 			
 			//회원의 펫 가지고 오기
 			List<InsshoppingVo> mypetList = insuranceService.petList(memVo.getMem_id());
+			
+			// 회원의 강아지 정보를 가지고 왔다면 생년월일을 sysdate-> yyyy-MM-dd형으로 변경해주기
+			//SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+			//Date date = new Date();
+					
 			model.addAttribute("mypetList", mypetList);
 			
 			return "petInsurance/planInformation";
