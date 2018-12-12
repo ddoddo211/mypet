@@ -45,7 +45,13 @@
    
    #petInsuranceHeader{
   	height: 70px;
-	margin: 0 auto;
+  	margin: 0 auto;
+   }
+   
+   #petInsuranceHeader2{
+    width: 900px;
+    height: 70px;
+    margin: 0 auto;
    }
 
    

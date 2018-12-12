@@ -347,6 +347,10 @@ table tr:hover td{
 
 
 /*보험상품안내 리스트 - 페이징 처리*/
+#pagenation{
+	margin-top: 20px;
+}
+
 #pagenation ul {
 	list-style:none;
 	float:left;

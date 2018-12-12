@@ -12,26 +12,23 @@
 <script type="text/javascript">
 
 // 목록 버튼을 클릭하였을때 이전화면으로 보내는 함수 
+function listClick() {
+	location.href = '/isr/productInfo';
+}
 
-	function listClick() {
-		location.href = '/isr/productInfo';
-	}
-
-	function prodAdd() {
-		if ('${memVo.mem_id}' == '') {
-			alert("로그인이 되어 있지 않습니다.\n로그인하시기 바랍니다.");
-			location.href = '/mem/loginPage';
-		} else if ('${mypetSize}' == '0') {
+function prodAdd(){
+	if('${memVo.mem_id}' == ''){
+		alert("로그인이 되어 있지 않습니다.\n로그인하시기 바랍니다.");
+		location.href ='/mem/loginPage';
+	}else if('${mypetSize}' == '0'){
 			alert("펫이 등록되어 있지 앖습니다. 펫을 등록하시기 바랍니다");
-			location.href = '/isr/petInsert';
-		} else {
-			location.href = '/isr/prodAdd?prodId=' + $
-			{
-				prodVo.insp_id
-			}
-			;
-		}
+			location.href ='/isr/petInsert';
+	}else{
+			location.href ='/isr/prodAdd?prodId='+${prodVo.insp_id};
 	}
+}
+
+
 </script>
 
 <link rel="stylesheet" href="/css/petInsuranceMenu.css">
