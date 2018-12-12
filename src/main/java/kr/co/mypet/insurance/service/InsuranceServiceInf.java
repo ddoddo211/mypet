@@ -89,6 +89,17 @@ public interface InsuranceServiceInf {
 	* Method 설명 : 회원 아이디를 줘서 회원의 정보를 받아오는 부분
 	*/
 	MemberVo memberInfo(MemberVo memberVo);
+	
+	
+	/**
+	* Method : insShProdDelete
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param inssp_id
+	* @return
+	* Method 설명 : 플랜정보에서 보험상품삭제 버튼을 클릭하였을때 보험상품 아이디를 줘서 삭제하는 쿼리문
+	*/
+	int insShProdDelete (String inssp_id);
 
 
 }

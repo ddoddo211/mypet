@@ -598,7 +598,7 @@ table tr:hover td{
 	border-radius: 50px;
 	border: 2px solid #41d0ce;
 	color: white;
-	font-size: 20px;
+	font-size: 16px;
 }
 
 
@@ -789,7 +789,7 @@ table tr:hover td{
 	border-radius: 50px;
 	border: 2px solid #41d0ce;
 	color: white;
-	font-size: 20px;
+	font-size: 16px;
 }
 
 /*체크박스*/
@@ -811,7 +811,7 @@ input[id="cb1"] {
 }
 
 
-input[id="cb2"]+label {
+input[name="cb2"]+label {
 	display: inline-block;
 	width: 20px;
 	height: 20px;
@@ -819,11 +819,17 @@ input[id="cb2"]+label {
 	cursor: pointer;
 }
 
-input[id="cb2"]:checked+label {
+input[name="cb2"]:checked+label {
 	background-color: #666666;
 }
 
-input[id="cb2"] {
+.activeCb
+{
+	background-color: #666666;
+}
+
+
+input[name="cb2"] {
 	display: none;
 }
 

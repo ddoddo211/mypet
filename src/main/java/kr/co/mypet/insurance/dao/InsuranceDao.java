@@ -160,4 +160,19 @@ public class InsuranceDao implements InsuranceDaoInf {
 	}
 
 
+
+	/**
+	* Method : insShProdDelete
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param inssp_id
+	* @return
+	* Method 설명 : 플랜정보에서 보험상품삭제 버튼을 클릭하였을때 보험상품 아이디를 줘서 삭제하는 쿼리문
+	*/
+	@Override
+	public int insShProdDelete(String inssp_id) {
+		return template.delete("petIns.insShProdDelete", inssp_id);
+	}
+
+
 }

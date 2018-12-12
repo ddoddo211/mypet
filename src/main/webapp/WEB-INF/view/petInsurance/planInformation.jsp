@@ -14,9 +14,46 @@
 
 <script type="text/javascript">
 
+$(document).ready(function(){
+	$(".option").change(function(){
+		$("#petSelectMenu").hide();
+	});
+	
+	//$(".cb2").click(function(){
+	$(".cb2_label").click(function(){
+		//값을 초기화
+		$("#prodId").val("");
+		
+		//기존 체크되어 있는 체크박스 전체 해제
+		$(".cb2_label").removeClass("activeCb");
+		
+		// 원래 체크 되어 있다면 또 다시 클릭한다면 해제하는 부분
+		if($(this).hasClass("activeCb")){
+			$("#prodId").val("");
+			$(".cb2_label").removeClass("activeCb");
+		}else{
+			$(this).addClass("activeCb")
+		}
+		//hasClass -> 클래스가 있는지 확인하는것
+		//toggleClass -> 해당 요소가 있으면 이를 제거합니다. 반대로 해당 요소가 없다면 이를 부여하는 매우 유용한 메소드입니다
+		var prodId = $(this).data("inssp_insp");
+
+		$("#prodId").val(prodId);
+	});
+	
+});
+
+
+/*보험상품 추가 버튼을 클릭하면 상품 리스트로 이동한다*/
 function prodAdd(){
-	location.href ='/isr/productInfo';
+	location.href = '/isr/productInfo';
 }
+
+/*보험상품삭제 form으로 보내기*/
+function prodDelete(){
+	$("#frm").submit();
+}
+
 
 </script>
 
@@ -26,6 +63,13 @@ function prodAdd(){
 
 </head>
 <body>
+
+
+<!-- 상품아이디를 받아서 넘겨주는 폼(보험상품 삭제버튼에 이요 -->
+<form action="/isr/productShoppingDel" method="get" id="frm">
+	<input type="hidden" id="prodId"  name="prodId" value="">
+</form>
+
 <!-- header 시작 -->
 <%@include file="../common/header.jsp"%>
 <!-- header 끝-->
@@ -118,7 +162,7 @@ function prodAdd(){
 						<button id="insuranceProdIsBtn" onclick="prodAdd()">보험상품 추가</button>
 					</div>
 					<div id="insuranceProdDelete">
-						<button id="insuranceProdDlBtn">보험상품 삭제</button>
+						<button id="insuranceProdDlBtn" type="button" onclick="prodDelete()">보험상품 삭제</button>
 					</div>
 				</div>
 			</div>
@@ -143,9 +187,10 @@ function prodAdd(){
 						</tr>
 						<c:forEach items="${memIsrList}" var="prodVo">
 							<tr class="tr7">
-								<td class="td11"><input type="checkbox" id="cb2"><label for="cb2"></label></td>
+								<td class="td11"><input type="checkbox" name="cb2" class="cb2" value="${prodVo.inssp_id}"><label class="cb2_label" data-inssp_insp="${prodVo.inssp_id}"></label></td>
 								<td class="td8">
-									<select name="petSelect">
+									<select name="petSelect" class="option">
+									  <option selected="selected" id="petSelectMenu">나의 펫 선택</option>
 									  <c:forEach items="${mypetList}" var="petSelect">
 									  	<option value="${petSelect.myp_name}">${petSelect.myp_name}</option>
 									  </c:forEach>

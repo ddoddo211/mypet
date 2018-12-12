@@ -332,16 +332,44 @@ public class InsuranceController {
 			
 			//회원의 펫 가지고 오기
 			List<InsshoppingVo> mypetList = insuranceService.petList(memVo.getMem_id());
-			
-			// 회원의 강아지 정보를 가지고 왔다면 생년월일을 sysdate-> yyyy-MM-dd형으로 변경해주기
-			//SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-			//Date date = new Date();
-					
+								
 			model.addAttribute("mypetList", mypetList);
 			
 			return "petInsurance/planInformation";
 		}
 	}
+	
+	// 보험상품 삭제버튼을 클릭하였을때 적용되는 부분 
+		@RequestMapping("/productShoppingDel")
+		public String productShoppingDel( HttpServletRequest request,HttpSession session,Model model) {
+
+			// 보험상품의 아이디를 매개변수로 담아준다
+			String prodId = request.getParameter("prodId");
+			
+			int delete = insuranceService.insShProdDelete(prodId);
+			
+			System.out.println(prodId);
+			System.out.println(delete);
+			
+			// 회원 정보 받아오는 부분
+			MemberVo memVo = (MemberVo) session.getAttribute("memVo");
+			
+			// 로그인을 안한 회원일 경우에는 로그인 화면으로 이동
+			if (memVo == null) {
+				return "common/login";
+			} else {
+				// 회원의 추가된 보험상품 가지고 오기
+				List<InsshoppingVo> memIsrList = insuranceService.memPlan(memVo.getMem_id());
+				model.addAttribute("memIsrList", memIsrList);
+				
+				//회원의 펫 가지고 오기
+				List<InsshoppingVo> mypetList = insuranceService.petList(memVo.getMem_id());
+									
+				model.addAttribute("mypetList", mypetList);
+			
+				return "redirect:/isr/goplanInformation";
+			}
+		}
 
 // 펫 추가화면으로 이동 
 	@RequestMapping("/petInsert")

@@ -93,4 +93,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			where mem_id = #{mem_id}
 		</select>
 		
+		<!-- 플랜정보에서 보험상품삭제 버튼을 클릭하였을때 보험상품 아이디를 줘서 삭제하는 쿼리문 -->
+		<delete id="insShProdDelete" parameterType="String">
+			delete from insshopping 
+			where inssp_id = #{inssp_id}
+		</delete>
+		
 </mapper>
