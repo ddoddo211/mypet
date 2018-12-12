@@ -11,13 +11,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			select * from
 			(select ROWNUM rnum,
 			A.*
-			from (select * from insProd order by to_number(insp_id) asc) A)
+			from (select * from insProd where insp_del = 'N' order by to_number(insp_id) asc) A)
 			WHERE rnum between #{page}*#{pageSize}-(#{pageSize}-1) and #{page}*#{pageSize}
 		</select>
 		
-		<!-- 게시글 총갯수 -->
+		<!-- 보험상품 총갯수 -->
 		<select id="getInsProductCnt" resultType="int">
 			select count(*) from insprod
+			where insp_del = 'N'
 	  	</select>
 	  	
 	  	<!-- 보험상품 리스트 목록가지고 오는 부분 -->
@@ -25,13 +26,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			select * from
 			(select ROWNUM rnum,
 			A.*
-			from (select * from insProd where INSP_JOIN = #{petKind} order by to_number(insp_id) asc) A)
+			from (select * from insProd where INSP_JOIN = #{petKind} and insp_del = 'N' order by to_number(insp_id) asc) A)
 			WHERE rnum between #{page}*#{pageSize}-(#{pageSize}-1) and #{page}*#{pageSize}
 		</select>
 		
-		<!-- 게시글 총갯수(조건) -->
+		<!-- 보험상품 총갯수(조건) -->
 		<select id="getInsProductKindCnt" parameterType="String" resultType="int" >
-			select count(*) from insprod  where INSP_JOIN = #{petKind}
+			select count(*) from insprod  where INSP_JOIN = #{petKind} and insp_del = 'N'
 	  	</select>
 	  	
 	  	<!-- 우리아이 보험상품 추천 리스트 가지고 오는 부분 -->
@@ -39,9 +40,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		     select * from
 		              (select ROWNUM rnum,
 		                      A.*
-		               from  (select  *
-		                      from insProd
-		                      order by insp_id asc) A)
+		               from  (select * from insProd where insp_del = 'N' order by to_number(insp_id) asc)A)
 				 WHERE  rnum BETWEEN #{page}*#{pageSize}-(#{pageSize}-1) and #{page}*#{pageSize}
 		         and INSP_JOIN = #{petKind}
 		         and INSP_MINAGE <![CDATA[<=]]> ${petBirth}
@@ -56,6 +55,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		       and INSP_MINAGE <![CDATA[<=]]> to_number(#{petBirth})
 		       and INSP_MAXAGE <![CDATA[>=]]> to_number(#{petBirth})
 		       and INSP_SICK = #{petSick}
+		       and insp_del = 'N'
 	  	</select>
 		
 		
@@ -66,23 +66,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		
 		
 		<!-- 플랜정보에 보험상품 추가하기 -->
-		<insert id="planInsert" parameterType="insVo">
-			insert into insurance values(insurance_num.nextval,#{ins_mem},#{ins_insp},'',sysdate,'','','','')
+		<insert id="planInsert" parameterType="insShVo">
+			insert into insshopping
+			values(insShopping_num.nextval,#{inssp_mem},#{inssp_insp})
 		</insert>
 		
 		<!-- 플랜정보에 회원의 플랜정보에 추가된 보험상품 조회 -->
-		<select id="memPlan" parameterType="String" resultType="pspVo">
-			select * 
-			from insurance , insprod
-			where ins_id  = insp_id
-			and INS_MEM = #{ins_mem}
+		<select id="memPlan" parameterType="String" resultType="insShVo">
+			select * from insshopping , insprod
+			 where inssp_insp = insp_id 
+               and inssp_mem = #{inssp_mem}
 		</select>
 		
 		<!-- 회원의 펫이 있는지 확인하는 부분 -->
-		<select id="memPet" parameterType="String" resultType="mypetVo">
+		<select id="petList" parameterType="String" resultType="mypetVo">
 			select *
-			from mypet
-			where myp_mem = #{myp_mem}
+			  from mypet , petkind
+			 where  myp_petk = petk_id
+               and myp_mem =#{myp_mem}
 		</select>
 		
 		<!-- 회원 정보를 가지고 오는 쿼리 -->

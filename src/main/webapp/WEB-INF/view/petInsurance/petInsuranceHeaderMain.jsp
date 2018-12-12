@@ -3,11 +3,13 @@
 
 <%--보험메뉴 --%>
 <div id="petInsuranceHeader">
-	<ul class="menu_ul">
-		<li class="mainmenu-li"><a href="/isr/isrMain">펫 보험소개</a></li>
-		<li class="mainmenu-li"><a href="/isr/productInfo">상품안내</a></li>
-		<li class="mainmenu-li"><a href="/isr/planInformation">플랜정보</a></li>
-		<li class="mainmenu-li"><a href="#">보상안내</a></li>
-		<li class="mainmenu-li"><a href="#">나의 펫 보험</a></li>
-	</ul>
+	<div id="petInsuranceHeader2">
+		<ul class="menu_ul">
+			<li class="mainmenu-li"><a href="/isr/isrMain"><span class="menuWord">펫 보험소개</span></a></li>
+			<li class="mainmenu-li"><a href="/isr/productInfo"><span class="menuWord">상품안내</span></a></li>
+			<li class="mainmenu-li"><a href="/isr/goplanInformation"><span class="menuWord">플랜정보</span></a></li>
+			<li class="mainmenu-li"><a href="#"><span class="menuWord">보상안내</span></a></li>
+			<li class="mainmenu-li"><a href="#"><span class="menuWord">나의 펫 보험</span></a></li>
+		</ul>
+	</div>
 </div>
