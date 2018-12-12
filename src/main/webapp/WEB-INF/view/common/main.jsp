@@ -14,7 +14,7 @@
 
 <%-- <%@include file ="/css/commonCss.css"%> --%>
 
-<!-- </style> -->
+</style><!--  -->
 
 </head>
 

@@ -1,0 +1,134 @@
+@charset "UTF-8";
+
+.mainmenu-li {
+	background-color: #ffba00;
+	width: 150px;
+	float: left;
+	padding: 0px;
+	margin: 0px;
+	margin-top: 5px;
+	margin-left: 5px;
+	color: white;
+	text-align: center;
+	border-radius: 50px;
+	border: 1px solid #ffba00;
+	font-family: 'Nanum Gothic', sans-serif;
+}
+
+.mainmenu-li:hover {
+	color: black;
+	background-color: white;
+	border: 1px solid #17aaff;
+	width: 150px;
+	font-family: 'Nanum Gothic', sans-serif;
+}
+
+.mainmenu-li a {
+	padding: 10px;
+	color: white;
+	font-family: 'Nanum Gothic', sans-serif;
+	display: block;
+}
+
+.mainmenu-li a:hover {
+	padding: 10px;
+	color: black;
+	font-family: 'Nanum Gothic', sans-serif;
+	display: block;
+}
+
+#petSitterMenu {
+	height: 70px;
+	margin: 0 auto;
+}
+
+#menu {
+	margin : 0 auto;
+	width : 900px;
+	height : 70px;
+}
+
+.menuWord{
+	font-size : 15px;
+	letter-spacing: -0.5px;
+	
+}
+
+#mainmid {
+		width : 1200px;
+		margin: 0 auto;
+		overflow: hidden;
+		background-color: #f1f1f1;
+	}
+	
+#shopAddr{
+	width : 100%;
+	height: 50px;
+	border: 1px solid red;
+	box-sizing: border-box;
+	
+}	
+
+#shopList{
+	width: 300px;
+	height: 720px;
+	float: left;
+	border: 1px solid black;
+	box-sizing: border-box;
+	overflow: scroll;
+	
+}
+
+#shopDetail {
+	width: 900px;
+	height: 720px;
+	float: left;
+	border: 1px solid blue;
+	box-sizing: border-box;
+	
+}
+	
+.zipSelect {
+	margin-top: 5px;
+	width: 200px;
+	height: 40px;
+	border-radius: 10px;
+	
+}
+
+#zipMent{
+	float: left;
+	width: 300px;
+}
+
+#zipCon{
+	width: 600px;
+	float: left;
+	
+}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
