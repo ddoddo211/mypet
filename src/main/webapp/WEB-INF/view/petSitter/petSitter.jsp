@@ -9,8 +9,8 @@
 <link href="/css/commonCss.css" rel ="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Nanum+Brush+Script" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css">
-<!-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> -->
 <link href="/css/petSitter.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <link rel="stylesheet" href="/css/swiper.min.css">
 <style type="text/css">
 	#gateway_con .gnbArea_left li a{
