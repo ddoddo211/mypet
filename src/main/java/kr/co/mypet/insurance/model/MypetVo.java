@@ -13,15 +13,60 @@ public class MypetVo {
 	private String myp_img;
 	private String myp_neu;
 	private String myp_gender;
+	private String myp_name;
 	
+	// 품종을 꺼내 오기위해 입력 
+	private String petk_id;
+	private String petk_name;
 	
+
+
 	@Override
 	public String toString() {
 		return "MypetVo [myp_id=" + myp_id + ", myp_mem=" + myp_mem + ", myp_petk=" + myp_petk + ", myp_birth="
 				+ myp_birth + ", myp_size=" + myp_size + ", myp_sick=" + myp_sick + ", myp_img=" + myp_img
-				+ ", myp_neu=" + myp_neu + ", myp_gender=" + myp_gender + "]";
+				+ ", myp_neu=" + myp_neu + ", myp_gender=" + myp_gender + ", myp_name=" + myp_name + ", petk_id="
+				+ petk_id + ", petk_name=" + petk_name + "]";
 	}
-	
+
+
+
+	public String getPetk_id() {
+		return petk_id;
+	}
+
+
+
+	public void setPetk_id(String petk_id) {
+		this.petk_id = petk_id;
+	}
+
+
+
+	public String getPetk_name() {
+		return petk_name;
+	}
+
+
+
+	public void setPetk_name(String petk_name) {
+		this.petk_name = petk_name;
+	}
+
+
+
+	public String getMyp_name() {
+		return myp_name;
+	}
+
+
+
+	public void setMyp_name(String myp_name) {
+		this.myp_name = myp_name;
+	}
+
+
+
 	public String getMyp_id() {
 		return myp_id;
 	}

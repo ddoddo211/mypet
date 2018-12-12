@@ -2,13 +2,10 @@ package kr.co.mypet.insurance.service;
 
 import java.util.List;
 import java.util.Map;
-
 import kr.co.mypet.common.model.MemberVo;
 import kr.co.mypet.insurance.model.InsProdVo;
-import kr.co.mypet.insurance.model.InsuranceVo;
-import kr.co.mypet.insurance.model.MypetVo;
+import kr.co.mypet.insurance.model.InsshoppingVo;
 import kr.co.mypet.insurance.model.PageVo;
-import kr.co.mypet.insurance.model.ProdShoppingVo;
 
 
 public interface InsuranceServiceInf {
@@ -61,7 +58,7 @@ public interface InsuranceServiceInf {
 	* @return
 	* Method 설명 : 보험상품 상세내역에서 플랜정보에 추가하는 부분 
 	*/
-	int planInsert (InsuranceVo insuranceVo);
+	int planInsert (InsshoppingVo insshoppingVo);
 	
 	/**
 	* Method : memPlan
@@ -71,7 +68,7 @@ public interface InsuranceServiceInf {
 	* @return
 	* Method 설명 : 회원의 플랜정보에 추가된 보험상품 조회
 	*/
-	List<ProdShoppingVo> memPlan(String ins_mem);
+	List<InsshoppingVo> memPlan(String inssp_mem);
 	
 	/**
 	* Method : petList
@@ -81,7 +78,7 @@ public interface InsuranceServiceInf {
 	* @return
 	* Method 설명 :회원의 펫정보를 가지고 오는 부분
 	*/
-	List<MypetVo> petList(String myp_mem);
+	List<InsshoppingVo> petList(String myp_mem);
 	
 	/**
 	* Method : memberInfo

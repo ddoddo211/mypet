@@ -172,11 +172,7 @@
 
 	}
 
-	// 해당 행을 클릭하였을때 보험상품 상세 페이지로 이동하는 방법 (만약, 보험상품 만료라면 이동안되게 설정)
-	function productClick() {
-		location.href = '/isr/productDetail';
-	}
-	
+
 	function selectTr(trInfo){
 		var trInfo = trInfo;
 		location.href = '/isr/productDetail?prodId='+trInfo;
