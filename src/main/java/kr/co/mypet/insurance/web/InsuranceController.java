@@ -328,7 +328,6 @@ public class InsuranceController {
 		
 		// 로그인을 안한 회원일 경우에는 로그인 화면으로 이동
 		if (memVo == null) {
-			
 			return "common/login";
 		} else {
 			// 회원의 추가된 보험상품 가지고 오기
