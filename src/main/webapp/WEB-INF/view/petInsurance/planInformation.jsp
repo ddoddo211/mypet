@@ -230,6 +230,9 @@ function petDelete(){
 			<div id="insuranceProdTableTop2">
 				* "플랜 정보에 추가한 보험상품"부분은 회원님이 상품안내에서 추가한 보험상품입니다.
 			</div>
+			<div id="insuranceProdTableTop3">
+				* 보험상품 가입은 한개씩 선택하여 보험가입을 진행하시기 바랍니다.
+			</div>
 			
 			<div id="petTable">
 				<table>

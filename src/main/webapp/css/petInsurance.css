@@ -585,6 +585,7 @@ table tr:hover td{
 #petInfoTable{
 	width: 1200px;
 	height: 0 auto;
+	margin-top: 10px;
 }
 
 #petInfoTableTop{
@@ -674,6 +675,18 @@ table tr:hover td{
 
 #insuranceJoinBtn{
     width: 170px;
+    background-color: white;
+    height: 30px;
+    border-radius: 50px;
+    border: 2px solid #41d0ce;
+    color: black;
+    font-size: 16px;
+    margin-top: 15px;
+    margin-left: 10px;
+}
+
+#insuranceJoinBtn:hover{
+    width: 170px;
     background-color: #41d0ce;
     height: 30px;
     border-radius: 50px;
@@ -726,7 +739,7 @@ table tr:hover td{
 	width: 1200px;
 	height: 50;
 	margin-top: 30px;
-	margin-bottom: 100px;
+	margin-bottom: 53px;
 }
 
 #insuranceProdTableTop{
@@ -769,6 +782,16 @@ table tr:hover td{
 
 #insuranceProdTableTop2{
 	background-color: #8e8e8e;
+	color: white;
+	width: 800px;
+	margin-top: 15px;
+	height: 30px;
+	font-family: 'Nanum Pen Script', cursive;
+	font-size: 30px;
+}
+
+#insuranceProdTableTop3{
+	background-color: #1d9dd3;
 	color: white;
 	width: 800px;
 	margin-top: 15px;
