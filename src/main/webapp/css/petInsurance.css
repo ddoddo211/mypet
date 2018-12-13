@@ -20,8 +20,48 @@
    }
 
 
+/*로그인 페이지*/
+#loginBox{
+	margin: 0 auto;
+	height: 657px;
+	display:flex;
+	justify-content:center;
+	align-items:center;
+}
 
+#loginBox2{
+	width: 500px;
+	height : 300px;
+	border-radius : 20px;
+	background-color: #eff0f2;
+}
 
+#loginBox2Write{
+	font-size: 20px;
+	text-align: center;
+	font-family: 'Jeju Gothic', sans-serif;
+	width:100%;
+	height:215px;
+	display:flex;
+	justify-content:center;
+	align-items:center;
+}
+
+#loginBoxOk{
+    width:100%;
+    height: 100px;
+}
+
+#loginBoxOk2{
+	width: 500px;
+	height: 85px;
+	color: blue;
+	border-bottom-left-radius:25px;
+	border-bottom-right-radius:25px;
+	border:none;
+	font-size: 25px;
+	font-family: 'Jeju Gothic', sans-serif;
+}
 
 
 
@@ -686,6 +726,7 @@ table tr:hover td{
 	width: 1200px;
 	height: 50;
 	margin-top: 30px;
+	margin-bottom: 100px;
 }
 
 #insuranceProdTableTop{

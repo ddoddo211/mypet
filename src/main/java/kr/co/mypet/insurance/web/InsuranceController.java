@@ -262,29 +262,24 @@ public class InsuranceController {
 		// 회원 정보 받아오는 부분
 		MemberVo memVo = (MemberVo) session.getAttribute("memVo");
 		
-		// 회원의 플랜정보부분의 추가된 상품 중복 플랜정보 추가 막기 위해서 입력 (보험상품 아이디 하고 회원 정보만 주면된다)
-		//inssp_mem,inssp_insp
-		insShVo = new InsshoppingVo();
-		insShVo.setInssp_mem(memVo.getMem_id());
-		insShVo.setInssp_insp(prodId);
-		
-		InsshoppingVo insShList = insuranceService.insShList(insShVo);
-		
-		if(insShList == null) {
-			model.addAttribute("insShList", 0);
-		}else {
-			model.addAttribute("insShList", insShList);
+		// 펫사이즈가 0이라면 펫추가하기 화면으로 이동한다.
+		if (memVo != null) {
+			// 회원의 플랜정보부분의 추가된 상품 중복 플랜정보 추가 막기 위해서 입력 (보험상품 아이디 하고 회원 정보만 주면된다)
+			insShVo = new InsshoppingVo();
+			insShVo.setInssp_mem(memVo.getMem_id());
+			insShVo.setInssp_insp(prodId);
+			
+			InsshoppingVo insShList = insuranceService.insShList(insShVo);
+			
+			if(insShList == null) {
+				model.addAttribute("insShList", 0);
+			}else {
+				model.addAttribute("insShList", insShList);
+			}
 		}
-		
-
 		// 서비스 연결해서 해당 상품 정보 가지고 오기
 		InsProdVo prodVo = insuranceService.getProdInfo(prodId);
 		model.addAttribute("prodVo", prodVo);
-		
-		// 펫사이즈가 0이라면 펫추가하기 화면으로 이동한다.
-		if (memVo == null) {
-			return "common/login";
-		}
 		
 		return "petInsurance/insuranceProduct2";
 	
@@ -328,7 +323,7 @@ public class InsuranceController {
 		
 		// 로그인을 안한 회원일 경우에는 로그인 화면으로 이동
 		if (memVo == null) {
-			return "common/login";
+			return "petInsurance/memLoginChk";
 		} else {
 			// 회원의 추가된 보험상품 가지고 오기
 			List<InsshoppingVo> memIsrList = insuranceService.memPlan(memVo.getMem_id());
@@ -362,7 +357,7 @@ public class InsuranceController {
 			
 			// 로그인을 안한 회원일 경우에는 로그인 화면으로 이동
 			if (memVo == null) {
-				return "common/login";
+				return "petInsurance/memLoginChk";
 			} else {
 				// 회원의 추가된 보험상품 가지고 오기
 				List<InsshoppingVo> memIsrList = insuranceService.memPlan(memVo.getMem_id());
@@ -390,7 +385,7 @@ public class InsuranceController {
 			
 			// 로그인을 안한 회원일 경우에는 로그인 화면으로 이동
 			if (memVo == null) {
-				return "common/login";
+				return "petInsurance/memLoginChk";
 			} else {
 				// 회원의 추가된 보험상품 가지고 오기
 				List<InsshoppingVo> memIsrList = insuranceService.memPlan(memVo.getMem_id());
@@ -403,8 +398,6 @@ public class InsuranceController {
 				return "redirect:/isr/goplanInformation";
 			}
 		}
-		
-		
 
 // 펫 추가화면으로 이동 
 	@RequestMapping("/petInsert")

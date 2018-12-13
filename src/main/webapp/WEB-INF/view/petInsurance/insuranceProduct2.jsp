@@ -7,10 +7,12 @@
 <title>insuranceProduct2(상품 상세보기)</title>
 
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script type="text/javascript">
 
+
+<script type="text/javascript">
 // 목록 버튼을 클릭하였을때 이전화면으로 보내는 함수 
 function listClick() {
 	location.href = '/isr/productInfo';
@@ -27,8 +29,6 @@ function prodAdd(){
 			$("#frm").submit();
 	}
 }
-
-
 </script>
 
 <link rel="stylesheet" href="/css/petInsuranceMenu.css">

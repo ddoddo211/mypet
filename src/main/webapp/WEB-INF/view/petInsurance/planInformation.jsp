@@ -12,6 +12,10 @@
 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
+<link rel="stylesheet" href="/css/petInsuranceMenu.css">
+<link href="/css/commonCss.css" rel="stylesheet">
+<link rel="stylesheet" href="/css/petInsurance.css">
+
 <script type="text/javascript">
 
 $(document).ready(function(){
@@ -97,17 +101,10 @@ function petDelete(){
 	$("#frm1").submit();
 	
 }
-
-
 </script>
-
-<link rel="stylesheet" href="/css/petInsuranceMenu.css">
-<link href="/css/commonCss.css" rel="stylesheet">
-<link rel="stylesheet" href="/css/petInsurance.css">
 
 </head>
 <body>
-
 
 <!-- 상품아이디를 받아서 넘겨주는 폼(보험상품 삭제버튼에 이용) -->
 <form action="/isr/productShoppingDel" method="get" id="frm">
@@ -123,7 +120,6 @@ function petDelete(){
 <!-- header 시작 -->
 <%@include file="../common/header.jsp"%>
 <!-- header 끝-->
-
 	<div id="headerMain">
 		<!-- main content -->
 			<div id="header">
@@ -282,6 +278,7 @@ function petDelete(){
 								<td class="td12">${prodVo.insp_minage}<%="~"%>${prodVo.insp_maxage}<%="세"%></td>
 								<td class="td9"><%="가입부터 ~"%>${prodVo.insp_period}<%="세 까지"%></td>
 								<td class="td12">${prodVo.insp_sick}</td>
+
 							</tr>
 						</c:forEach>
 		</c:otherwise>		
