@@ -254,37 +254,40 @@ public class InsuranceController {
 // 보험상품 상세보기 
 	/* 보험상세보기 보내는 부분 */
 	@RequestMapping("/productDetail")
-	public String productDetail(Model model, PageVo pageVo, HttpServletRequest request, HttpSession session) {
+	public String productDetail(Model model, PageVo pageVo, HttpServletRequest request, HttpSession session , 
+			InsshoppingVo insShVo) {
 
 		String prodId = request.getParameter("prodId");
 
 		// 회원 정보 받아오는 부분
 		MemberVo memVo = (MemberVo) session.getAttribute("memVo");
+		
+		// 회원의 플랜정보부분의 추가된 상품 중복 플랜정보 추가 막기 위해서 입력 (보험상품 아이디 하고 회원 정보만 주면된다)
+		//inssp_mem,inssp_insp
+		insShVo = new InsshoppingVo();
+		insShVo.setInssp_mem(memVo.getMem_id());
+		insShVo.setInssp_insp(prodId);
+		
+		InsshoppingVo insShList = insuranceService.insShList(insShVo);
+		
+		if(insShList == null) {
+			model.addAttribute("insShList", 0);
+		}else {
+			model.addAttribute("insShList", insShList);
+		}
+		
 
+		// 서비스 연결해서 해당 상품 정보 가지고 오기
+		InsProdVo prodVo = insuranceService.getProdInfo(prodId);
+		model.addAttribute("prodVo", prodVo);
+		
 		// 펫사이즈가 0이라면 펫추가하기 화면으로 이동한다.
 		if (memVo == null) {
-
-			// 서비스 연결해서 해당 상품 정보 가지고 오기
-			InsProdVo prodVo = insuranceService.getProdInfo(prodId);
-
-			model.addAttribute("prodVo", prodVo);
-			model.addAttribute("mypetSize", 0);
-
-			return "petInsurance/insuranceProduct2";
-
-		} else {
-
-			List<InsshoppingVo> mypetList = insuranceService.petList(memVo.getMem_id());
-
-			model.addAttribute("mypetSize", mypetList.size());
-
-			// 서비스 연결해서 해당 상품 정보 가지고 오기
-			InsProdVo prodVo = insuranceService.getProdInfo(prodId);
-			model.addAttribute("prodVo", prodVo);
-
-			return "petInsurance/insuranceProduct2";
-
+			return "common/login";
 		}
+		
+		return "petInsurance/insuranceProduct2";
+	
 	}
 
 	
@@ -300,6 +303,7 @@ public class InsuranceController {
 		//회원의 펫 가지고 오기
 		List<InsshoppingVo> mypetList = insuranceService.petList(memVo.getMem_id());
 		model.addAttribute("mypetList", mypetList);
+		
 		
 		InsshoppingVo isrSPVo = new InsshoppingVo();
 
@@ -324,16 +328,22 @@ public class InsuranceController {
 		
 		// 로그인을 안한 회원일 경우에는 로그인 화면으로 이동
 		if (memVo == null) {
+			
 			return "common/login";
 		} else {
 			// 회원의 추가된 보험상품 가지고 오기
 			List<InsshoppingVo> memIsrList = insuranceService.memPlan(memVo.getMem_id());
 			model.addAttribute("memIsrList", memIsrList);
 			
+			// 보험상품이 하나도 업을때 사이즈 보내주는것 (상품이 없을때 상품이 없다는 메세지 나오게 하기 위해서 설정) 
+			model.addAttribute("isrListSize" , memIsrList.size());
+			
 			//회원의 펫 가지고 오기
 			List<InsshoppingVo> mypetList = insuranceService.petList(memVo.getMem_id());
-								
 			model.addAttribute("mypetList", mypetList);
+			
+			// 회원의 펫이 없을떄 가입가능한 나의 펫 부분에 (펫이 없다는 메세지 나오게 하기 위해서 설정)
+			model.addAttribute("petListSize", mypetList.size());
 			
 			return "petInsurance/planInformation";
 		}
@@ -346,10 +356,7 @@ public class InsuranceController {
 			// 보험상품의 아이디를 매개변수로 담아준다
 			String prodId = request.getParameter("prodId");
 			
-			int delete = insuranceService.insShProdDelete(prodId);
-			
-			System.out.println(prodId);
-			System.out.println(delete);
+			insuranceService.insShProdDelete(prodId);
 			
 			// 회원 정보 받아오는 부분
 			MemberVo memVo = (MemberVo) session.getAttribute("memVo");
@@ -370,6 +377,35 @@ public class InsuranceController {
 				return "redirect:/isr/goplanInformation";
 			}
 		}
+		
+		// 펫 삭제버튼을 클릭하였을때 적용되는 부분 
+		@RequestMapping("/mypetDel")
+		public String mypetDel(HttpServletRequest request,HttpSession session,Model model) {
+			// 보험상품의 아이디를 매개변수로 담아준다
+			String petId = request.getParameter("petId");
+			
+			insuranceService.mypetDel(petId);
+			
+			// 회원 정보 받아오는 부분
+			MemberVo memVo = (MemberVo) session.getAttribute("memVo");
+			
+			// 로그인을 안한 회원일 경우에는 로그인 화면으로 이동
+			if (memVo == null) {
+				return "common/login";
+			} else {
+				// 회원의 추가된 보험상품 가지고 오기
+				List<InsshoppingVo> memIsrList = insuranceService.memPlan(memVo.getMem_id());
+				model.addAttribute("memIsrList", memIsrList);
+				
+				//회원의 펫 가지고 오기
+				List<InsshoppingVo> mypetList = insuranceService.petList(memVo.getMem_id());
+				model.addAttribute("mypetList", mypetList);
+				
+				return "redirect:/isr/goplanInformation";
+			}
+		}
+		
+		
 
 // 펫 추가화면으로 이동 
 	@RequestMapping("/petInsert")

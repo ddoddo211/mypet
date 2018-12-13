@@ -19,7 +19,8 @@ $(document).ready(function(){
 		$("#petSelectMenu").hide();
 	});
 	
-	//$(".cb2").click(function(){
+	
+	// 보험상품 선택할떄 값 담아주기
 	$(".cb2_label").click(function(){
 		//값을 초기화
 		$("#prodId").val("");
@@ -41,6 +42,31 @@ $(document).ready(function(){
 		$("#prodId").val(prodId);
 	});
 	
+	
+	
+	// 나의 펫 선택할떄 값 담아주기
+	$(".cb1_label").click(function(){
+		//값을 초기화
+		$("#petId").val("");
+		
+		//기존 체크되어 있는 체크박스 전체 해제
+		$(".cb1_label").removeClass("activeCb");
+		
+		// 원래 체크 되어 있다면 또 다시 클릭한다면 해제하는 부분
+		if($(this).hasClass("activeCb")){
+			$("#petId").val("");
+			$(".cb1_label").removeClass("activeCb");
+		}else{
+			$(this).addClass("activeCb")
+		}
+		//hasClass -> 클래스가 있는지 확인하는것
+		//toggleClass -> 해당 요소가 있으면 이를 제거합니다. 반대로 해당 요소가 없다면 이를 부여하는 매우 유용한 메소드입니다
+		var petId = $(this).data("myp_id");
+
+		$("#petId").val(petId);
+	});
+	
+	
 });
 
 
@@ -51,7 +77,25 @@ function prodAdd(){
 
 /*보험상품삭제 form으로 보내기*/
 function prodDelete(){
+
+	// 만약 체크 박스를 아무것도 클릭하지 않았을 경우 작동되는 부분
+	if($("#prodId").val()== ""){
+		alert("선택된 보험상품이 없습니다.");
+		return;
+	}
 	$("#frm").submit();
+}
+
+/*펫 삭제 form으로 보내기*/
+function petDelete(){
+	
+	// 만약 체크 박스를 아무것도 클릭하지 않았을 경우 작동되는 부분
+	if($("#petId").val()== ""){
+		alert("선택된 나의펫이 없습니다.");
+		return;
+	}
+	$("#frm1").submit();
+	
 }
 
 
@@ -65,9 +109,15 @@ function prodDelete(){
 <body>
 
 
-<!-- 상품아이디를 받아서 넘겨주는 폼(보험상품 삭제버튼에 이요 -->
+<!-- 상품아이디를 받아서 넘겨주는 폼(보험상품 삭제버튼에 이용) -->
 <form action="/isr/productShoppingDel" method="get" id="frm">
 	<input type="hidden" id="prodId"  name="prodId" value="">
+</form>
+
+
+<!-- 나의펫 id를 받아서 넘겨주는 폼(펫 삭제하기에 이용) -->
+<form action="/isr/mypetDel" method="get" id="frm1">
+	<input type="hidden" id="petId"  name="petId" value="">
 </form>
 
 <!-- header 시작 -->
@@ -114,7 +164,7 @@ function prodDelete(){
 						<button id="petIsBtn">펫 추가하기</button>
 					</div>
 					<div id="petDelete">
-						<button id="petdBtn">펫 삭제하기</button>
+						<button id="petdBtn" onclick="petDelete()">펫 삭제하기</button>
 					</div>
 				</div>
 			</div>
@@ -133,10 +183,18 @@ function prodDelete(){
 							<th class="td2">종류</th>
 							<th class="td4">가입되어 있는 보험상품</th>
 						</tr>
-						
+
+<!-- 펫이 한마리도 없을떄 실행되는 부분 -->
+<c:choose>
+	<c:when test="${petListSize == 0}">
+		<tr class="tr2" id="td5">
+			<td colspan="8">회원의 펫이 없습니다</td>
+		</tr>
+	</c:when>
+	<c:otherwise>				
 						<c:forEach items="${mypetList}" var="pet">
 							<tr class="tr2" id="td5">
-								<td class="td6"><input type="checkbox" id="cb1"><label for="cb1"></label></td>
+								<td class="td6"><input type="checkbox" name="cb1" class="cb1" value="${pet.myp_id}"><label class="cb1_label" data-myp_id="${pet.myp_id}"></label></td>
 								<td class="td3">${pet.myp_img}</td>
 								<td class="td2">${pet.myp_name}</td>
 								<td class="td2">${pet.myp_gender}</td>
@@ -148,6 +206,9 @@ function prodDelete(){
 								<td class="td4">가입되어 있는 보험상품</td>
 							</tr>
 						</c:forEach>	
+	</c:otherwise>					
+</c:choose>	
+
 				</table>
 			</div>
 		</div>
@@ -163,6 +224,9 @@ function prodDelete(){
 					</div>
 					<div id="insuranceProdDelete">
 						<button id="insuranceProdDlBtn" type="button" onclick="prodDelete()">보험상품 삭제</button>
+					</div>
+					<div id="insuranceJoin">
+						<button id="insuranceJoinBtn">선택한 보험가입하기</button>
 					</div>
 				</div>
 			</div>
@@ -183,8 +247,16 @@ function prodDelete(){
 							<th class="td12">가입연령</th>
 							<th class="td9">보장기간</th>
 							<th class="td12">질병여부</th>
-							<th class="td10">보험가입</th>
 						</tr>
+
+<!-- 보험상품이 없을떄 if 실행되기 -->	
+<c:choose>	
+	<c:when test="${isrListSize == 0}">
+		<tr class="tr7" id="td5">
+			<td colspan="10">플랜정보에 추가된 보험상품이 없습니다</td>
+		</tr>
+	</c:when>
+	<c:otherwise>
 						<c:forEach items="${memIsrList}" var="prodVo">
 							<tr class="tr7">
 								<td class="td11"><input type="checkbox" name="cb2" class="cb2" value="${prodVo.inssp_id}"><label class="cb2_label" data-inssp_insp="${prodVo.inssp_id}"></label></td>
@@ -210,9 +282,10 @@ function prodDelete(){
 								<td class="td12">${prodVo.insp_minage}<%="~"%>${prodVo.insp_maxage}<%="세"%></td>
 								<td class="td9"><%="가입부터 ~"%>${prodVo.insp_period}<%="세 까지"%></td>
 								<td class="td12">${prodVo.insp_sick}</td>
-								<td class="td10"><input type="submit" value="가입하기" class="prodPlanAdd"></td>
 							</tr>
 						</c:forEach>
+		</c:otherwise>		
+</c:choose>	
 						
 				</table>
 			</div>

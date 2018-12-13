@@ -611,7 +611,7 @@ table tr:hover td{
 
 #prodBtn{
 	float: left;
-	margin-left: 395px;
+	margin-left: 220px;
 }
 
 #petIsBtn{
@@ -624,6 +624,24 @@ table tr:hover td{
 	font-size: 16px;
 	margin-top: 15px;
 	cursor: pointer;
+}
+
+#insuranceJoin{
+	width: 200px;
+    height: 50px;
+    float: left;
+}
+
+#insuranceJoinBtn{
+    width: 170px;
+    background-color: #41d0ce;
+    height: 30px;
+    border-radius: 50px;
+    border: 2px solid #41d0ce;
+    color: white;
+    font-size: 16px;
+    margin-top: 15px;
+    margin-left: 10px;
 }
 
 #petIsBtn:hover{
@@ -658,6 +676,7 @@ table tr:hover td{
 #td5{
 	height: 120px;
 }
+
 
 .td6{
 	width: 40px;
@@ -699,11 +718,6 @@ table tr:hover td{
 .td9{
 	width: 200px;
 }
-
-.td10{
-	width: 170px;
-}
-
 .td11{
 	width: 80px;
 }
@@ -716,7 +730,7 @@ table tr:hover td{
 	background-color: #8e8e8e;
 	color: white;
 	width: 800px;
-	margin-top: 5px;
+	margin-top: 15px;
 	height: 30px;
 	font-family: 'Nanum Pen Script', cursive;
 	font-size: 30px;
@@ -738,7 +752,7 @@ table tr:hover td{
 	float: left;
 }
 #insuranceProdDelete{
-	width : 200px;
+	width : 150px;
 	height: 50px;
 	float: left;
 }
@@ -794,7 +808,11 @@ table tr:hover td{
 
 /*체크박스*/
 
-input[id="cb1"]+label {
+.activeCb
+{ background-color: #666666; }
+
+
+input[name="cb1"]+label {
 	display: inline-block;
 	width: 20px;
 	height: 20px;
@@ -802,11 +820,12 @@ input[id="cb1"]+label {
 	cursor: pointer;
 }
 
-input[id="cb1"]:checked+label {
+input[name="cb1"]:checked+label {
 	background-color: #666666;
 }
 
-input[id="cb1"] {
+
+input[name="cb1"] {
 	display: none;
 }
 
@@ -820,11 +839,6 @@ input[name="cb2"]+label {
 }
 
 input[name="cb2"]:checked+label {
-	background-color: #666666;
-}
-
-.activeCb
-{
 	background-color: #666666;
 }
 

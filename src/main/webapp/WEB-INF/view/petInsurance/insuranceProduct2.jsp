@@ -20,11 +20,10 @@ function prodAdd(){
 	if('${memVo.mem_id}' == ''){
 		alert("로그인이 되어 있지 않습니다.\n로그인하시기 바랍니다.");
 		location.href ='/mem/loginPage';
-	}else if('${mypetSize}' == '0'){
-			alert("펫이 등록되어 있지 앖습니다. 펫을 등록하시기 바랍니다");
-			location.href ='/isr/petInsert';
+	}else if('${insShList}' != 0){
+		alert("이미 플랜정보에 추가된 보험상품입니다.\n이미 추가된 상품은 추가되지 않습니다.");
+		return ;
 	}else{
-			//location.href ='/isr/prodAdd?prodId='+${prodVo.insp_id};
 			$("#frm").submit();
 	}
 }
