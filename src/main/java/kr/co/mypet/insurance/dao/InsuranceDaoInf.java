@@ -4,7 +4,7 @@ import java.util.List;
 import kr.co.mypet.common.model.MemberVo;
 import kr.co.mypet.insurance.model.InsProdVo;
 import kr.co.mypet.insurance.model.InsshoppingVo;
-import kr.co.mypet.insurance.model.PageVo;
+import kr.co.mypet.insurance.model.InsurancePageVo;
 
 public interface InsuranceDaoInf {
 	
@@ -17,7 +17,7 @@ public interface InsuranceDaoInf {
 	* @return
 	* Method 설명 : 보험상품리스트 가지고 오는 부분
 	*/
-	public List<InsProdVo> prodPageList(PageVo pageVo);
+	public List<InsProdVo> prodPageList(InsurancePageVo pageVo);
 	
 	/**  * Method   : getInsProductCnt
 	  * 작성자 : PC 
@@ -34,7 +34,7 @@ public interface InsuranceDaoInf {
 	* @return
 	* Method 설명 : 보험상품리스트 가지고 오는 부분(조회조건(애완동물)
 	*/
-	public List<InsProdVo> prodKindPageList(PageVo pageVo);
+	public List<InsProdVo> prodKindPageList(InsurancePageVo pageVo);
 	
 	/**  * Method   : getInsProductKindCnt
 	  * 작성자 : PC 
@@ -51,7 +51,7 @@ public interface InsuranceDaoInf {
 	* @return
 	* Method 설명 : 우리아이 보험상품 
 	*/
-	public List<InsProdVo> prodProductRecommendation(PageVo pageVo);
+	public List<InsProdVo> prodProductRecommendation(InsurancePageVo pageVo);
 	
 	/**  * Method   : getProductRecommendationCnt
 	  * 작성자 : PC 
@@ -59,7 +59,7 @@ public interface InsuranceDaoInf {
 	  * @return
 	  * Method 설명 :  우리아이 보험상품 총 갯수
 	*/
-	int getProductRecommendationCnt(PageVo pageVo);
+	int getProductRecommendationCnt(InsurancePageVo pageVo);
 	
 
 	/**

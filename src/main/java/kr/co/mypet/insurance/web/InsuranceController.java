@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import kr.co.mypet.common.model.MemberVo;
 import kr.co.mypet.insurance.model.InsProdVo;
 import kr.co.mypet.insurance.model.InsshoppingVo;
-import kr.co.mypet.insurance.model.PageVo;
+import kr.co.mypet.insurance.model.InsurancePageVo;
 import kr.co.mypet.insurance.service.InsuranceServiceInf;
 
 @Controller
@@ -33,14 +33,14 @@ public class InsuranceController {
 
 	// 보험 상품안내로 화면 이동하는 부분
 	@RequestMapping(value = "/productInfo")
-	public String productInfo(Model model, PageVo pageVo, HttpServletRequest request) {
+	public String productInfo(Model model, InsurancePageVo pageVo, HttpServletRequest request) {
 
 		return "petInsurance/insuranceProduct";
 	}
 
 	// 보험상품 아작스 이용(리스트)
 	@RequestMapping("/prodPageListAjaxHtml")
-	public String prodPageListAjaxHtml(Model model, PageVo pageVo, HttpServletRequest request) {
+	public String prodPageListAjaxHtml(Model model, InsurancePageVo pageVo, HttpServletRequest request) {
 
 		// 페이지로 만들어주기 (pageVo로 만들기)
 		pageVo.setPage(Integer.parseInt(request.getParameter("page")));
@@ -73,7 +73,7 @@ public class InsuranceController {
 
 	// 보험상품 아작스 이용(페이징)
 	@RequestMapping("/paginationHtml")
-	public String paginationHtml(Model model, PageVo pageVo, HttpServletRequest request) {
+	public String paginationHtml(Model model, InsurancePageVo pageVo, HttpServletRequest request) {
 
 		// 페이지로 만들어주기 (pageVo로 만들기)
 		pageVo.setPage(Integer.parseInt(request.getParameter("page")));
@@ -101,7 +101,7 @@ public class InsuranceController {
 
 	// 아작스 사용하여 리스트 나오게 설정하기(조회조건을 클릭하였을때 - 리스트 나오는 부분)
 	@RequestMapping("/prodKindPageListAjaxHtml")
-	public String prodKindPageListAjaxHtml(Model model, PageVo pageVo, HttpServletRequest request) {
+	public String prodKindPageListAjaxHtml(Model model, InsurancePageVo pageVo, HttpServletRequest request) {
 
 		// 페이지로 만들어주기 (pageVo로 만들기)
 		pageVo.setPage(Integer.parseInt(request.getParameter("page")));
@@ -139,7 +139,7 @@ public class InsuranceController {
 
 	// 아작스 사용하여 리스트 나오게 설정하기(조회조건을 클릭하였을때 - 페이징 나오는 부분)
 	@RequestMapping("/kindPaginationHtml")
-	public String kindPaginationHtml(Model model, PageVo pageVo, HttpServletRequest request) {
+	public String kindPaginationHtml(Model model, InsurancePageVo pageVo, HttpServletRequest request) {
 
 		// 페이지로 만들어주기 (pageVo로 만들기)
 		pageVo.setPage(Integer.parseInt(request.getParameter("page")));
@@ -167,7 +167,7 @@ public class InsuranceController {
 
 	// 우리 아이 보험 추천 부분에 나와야 하는 부분(리스트)
 	@RequestMapping("/prodProductRecommendation")
-	public String prodProductRecommendation(PageVo pageVo, HttpServletRequest request, Model model) {
+	public String prodProductRecommendation(InsurancePageVo pageVo, HttpServletRequest request, Model model) {
 
 		// 생년월일을 나이로 계산하는 작업
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy");
@@ -211,7 +211,7 @@ public class InsuranceController {
 
 	// 우리 아이 보험 추천 부분에 나와야 하는 부분(페이징)
 	@RequestMapping("/getProdRPagenation")
-	public String getProdRPagenation(PageVo pageVo, HttpServletRequest request, Model model) {
+	public String getProdRPagenation(InsurancePageVo pageVo, HttpServletRequest request, Model model) {
 
 		// 생년월일을 나이로 계산하는 작업
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy");
@@ -254,7 +254,7 @@ public class InsuranceController {
 // 보험상품 상세보기 
 	/* 보험상세보기 보내는 부분 */
 	@RequestMapping("/productDetail")
-	public String productDetail(Model model, PageVo pageVo, HttpServletRequest request, HttpSession session , 
+	public String productDetail(Model model, InsurancePageVo pageVo, HttpServletRequest request, HttpSession session , 
 			InsshoppingVo insShVo) {
 
 		String prodId = request.getParameter("prodId");
@@ -399,11 +399,10 @@ public class InsuranceController {
 			}
 		}
 
-// 펫 추가화면으로 이동 
-	@RequestMapping("/petInsert")
-	public String petInsert() {
-
-		return "petInsurance/petInsert";
-	}
+		// 펫 추가화면으로 이동 
+			@RequestMapping("/petInsert")
+			public String petInsert() {
+				return "petInsurance/petInsert";
+			}
 
 }

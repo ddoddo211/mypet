@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import kr.co.mypet.common.model.MemberVo;
 import kr.co.mypet.insurance.model.InsProdVo;
 import kr.co.mypet.insurance.model.InsshoppingVo;
-import kr.co.mypet.insurance.model.PageVo;
+import kr.co.mypet.insurance.model.InsurancePageVo;
 
 
 @Repository
@@ -25,7 +25,7 @@ public class InsuranceDao implements InsuranceDaoInf {
 	* Method 설명 : 보험상품리스트 가지고 오는 부분
 	*/
 	@Override
-	public List<InsProdVo> prodPageList(PageVo pageVo) {
+	public List<InsProdVo> prodPageList(InsurancePageVo pageVo) {
 		return template.selectList("petIns.prodPageList" , pageVo);
 	}
 	
@@ -50,7 +50,7 @@ public class InsuranceDao implements InsuranceDaoInf {
 	* Method 설명 : 보험상품리스트 가지고 오는 부분(조회조건(애완동물)
 	*/
 	@Override
-	public List<InsProdVo> prodKindPageList(PageVo pageVo) {
+	public List<InsProdVo> prodKindPageList(InsurancePageVo pageVo) {
 		return template.selectList("petIns.prodKindPageList" , pageVo);
 	}
 	
@@ -74,7 +74,7 @@ public class InsuranceDao implements InsuranceDaoInf {
 	* Method 설명 : 우리아이 보험상품 
 	*/
 	@Override
-	public List<InsProdVo> prodProductRecommendation(PageVo pageVo) {
+	public List<InsProdVo> prodProductRecommendation(InsurancePageVo pageVo) {
 		return template.selectList("petIns.prodProductRecommendation" , pageVo);
 	}
 	
@@ -85,7 +85,7 @@ public class InsuranceDao implements InsuranceDaoInf {
 	  * Method 설명 :  우리아이 보험상품 총 갯수(페이지 처리를 위해)
 	*/
 	@Override
-	public int getProductRecommendationCnt(PageVo pageVo) {
+	public int getProductRecommendationCnt(InsurancePageVo pageVo) {
 		return template.selectOne("petIns.getProductRecommendationCnt" , pageVo);
 	}
 

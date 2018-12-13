@@ -53,10 +53,19 @@
 		<!-- petInsuranceHeaderMain -->
 		<%@include file="./petInsuranceHeaderMain.jsp"%>
 		<!-- petInsuranceHeaderMain 끝 -->
-		
-		펫추가하는 곳입니다
 
-		
+		<div id="petInfoInsert">
+			<div id="petInfoForm">
+				<div id="petInfoFormTop">
+					<div id="petInfoTitle">나의 펫 추가(반려동물에 대한 정보입력)</div>
+				</div>
+				<div id="">
+				
+				</div>
+			</div>
+		</div>
+
+
 </div>
 	
 	<!-- footer 시작 -->

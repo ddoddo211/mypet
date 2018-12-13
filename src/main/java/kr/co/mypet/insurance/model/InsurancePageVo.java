@@ -1,6 +1,6 @@
 package kr.co.mypet.insurance.model;
 
-public class PageVo extends InsProdVo  {
+public class InsurancePageVo extends InsProdVo  {
 	
 	// 페이징 처리
 	private int rnum;

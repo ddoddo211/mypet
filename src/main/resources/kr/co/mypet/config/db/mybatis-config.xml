@@ -9,7 +9,7 @@
 			<typeAlias type="kr.co.mypet.insurance.model.InsProdVo" alias="insProdVo"/>
 			<typeAlias type="kr.co.mypet.insurance.model.InsuranceNoticeVo" alias="insNoticeVo"/>
 			<typeAlias type="kr.co.mypet.insurance.model.InsuranceVo" alias="insVo"/>
-			<typeAlias type="kr.co.mypet.insurance.model.PageVo" alias="pageVo"/>
+			<typeAlias type="kr.co.mypet.insurance.model.InsurancePageVo" alias="inspageVo"/>
 			<typeAlias type="kr.co.mypet.insurance.model.MypetVo" alias="mypetVo"/>
 			<typeAlias type="kr.co.mypet.common.model.MemberVo" alias="memVo"/>
 			<typeAlias type="kr.co.mypet.shopping.model.ShopNoticeVo" alias="snotVo"/>

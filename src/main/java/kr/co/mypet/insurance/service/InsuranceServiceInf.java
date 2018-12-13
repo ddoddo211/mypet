@@ -5,7 +5,7 @@ import java.util.Map;
 import kr.co.mypet.common.model.MemberVo;
 import kr.co.mypet.insurance.model.InsProdVo;
 import kr.co.mypet.insurance.model.InsshoppingVo;
-import kr.co.mypet.insurance.model.PageVo;
+import kr.co.mypet.insurance.model.InsurancePageVo;
 
 
 public interface InsuranceServiceInf {
@@ -19,7 +19,7 @@ public interface InsuranceServiceInf {
 	* @return
 	* Method 설명 : 보험상품리스트 가지고 오는 부분
 	*/
-	Map<String, Object> prodPageList(PageVo pageVo);
+	Map<String, Object> prodPageList(InsurancePageVo pageVo);
 	
 	/**
 	* Method : prodList
@@ -28,7 +28,7 @@ public interface InsuranceServiceInf {
 	* @return
 	* Method 설명 : 보험상품리스트 가지고 오는 부분(조회조건(애완동물)
 	*/
-	Map<String, Object> prodKindPageList(PageVo pageVo);
+	Map<String, Object> prodKindPageList(InsurancePageVo pageVo);
 	
 	/**
 	* Method : prodProductRecommendation
@@ -37,7 +37,7 @@ public interface InsuranceServiceInf {
 	* @return
 	* Method 설명 : 우리아이 보험상품 
 	*/
-	Map<String, Object> prodProductRecommendation(PageVo pageVo);
+	Map<String, Object> prodProductRecommendation(InsurancePageVo pageVo);
 	
 	/**
 	* Method : getProdInfo

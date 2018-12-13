@@ -9,7 +9,7 @@ import kr.co.mypet.common.model.MemberVo;
 import kr.co.mypet.insurance.dao.InsuranceDaoInf;
 import kr.co.mypet.insurance.model.InsProdVo;
 import kr.co.mypet.insurance.model.InsshoppingVo;
-import kr.co.mypet.insurance.model.PageVo;
+import kr.co.mypet.insurance.model.InsurancePageVo;
 
 @Service
 public class InsuranceService implements InsuranceServiceInf {
@@ -26,7 +26,7 @@ public class InsuranceService implements InsuranceServiceInf {
 	* Method 설명 : 보험상품리스트 가지고 오는 부분(페이징처리)
 	*/
 	@Override
-	public Map<String, Object> prodPageList(PageVo pageVo) {
+	public Map<String, Object> prodPageList(InsurancePageVo pageVo) {
 
 		// 페이지에 해당 하는 유저 리스트(1~10건) 
 		List<InsProdVo> pageList = insuranceDao.prodPageList(pageVo);
@@ -57,7 +57,7 @@ public class InsuranceService implements InsuranceServiceInf {
 	* Method 설명 : 보험상품리스트 가지고 오는 부분(페이징처리)
 	*/
 	@Override
-	public Map<String, Object> prodKindPageList(PageVo pageVo) {
+	public Map<String, Object> prodKindPageList(InsurancePageVo pageVo) {
 
 		// 페이지에 해당 하는 유저 리스트(1~10건) 
 		List<InsProdVo> pageList = insuranceDao.prodKindPageList(pageVo);
@@ -86,7 +86,7 @@ public class InsuranceService implements InsuranceServiceInf {
 	* Method 설명 : 우리아이 보험상품 
 	*/
 	@Override
-	public Map<String, Object> prodProductRecommendation(PageVo pageVo) {
+	public Map<String, Object> prodProductRecommendation(InsurancePageVo pageVo) {
 		// 페이지에 해당 하는 유저 리스트(1~10건) 
 		List<InsProdVo> pageList = insuranceDao.prodProductRecommendation(pageVo);
 		

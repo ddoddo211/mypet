@@ -16,6 +16,7 @@
 <link href="/css/commonCss.css" rel="stylesheet">
 <link rel="stylesheet" href="/css/petInsurance.css">
 
+</head>
 <script type="text/javascript">
 
 $(document).ready(function(){
@@ -101,9 +102,13 @@ function petDelete(){
 	$("#frm1").submit();
 	
 }
-</script>
 
-</head>
+/*펫 추가 화면으로 이동하기*/
+function petInsert(){
+	location.href = '/isr/petInsert';
+}
+ 
+</script>
 <body>
 
 <!-- 상품아이디를 받아서 넘겨주는 폼(보험상품 삭제버튼에 이용) -->
@@ -157,7 +162,7 @@ function petDelete(){
 				</div>
 				<div id="petBtn">
 					<div id="petInsert2">
-						<button id="petIsBtn">펫 추가하기</button>
+						<button id="petIsBtn" onclick="petInsert()">펫 추가하기</button>
 					</div>
 					<div id="petDelete">
 						<button id="petdBtn" onclick="petDelete()">펫 삭제하기</button>
@@ -191,7 +196,20 @@ function petDelete(){
 						<c:forEach items="${mypetList}" var="pet">
 							<tr class="tr2" id="td5">
 								<td class="td6"><input type="checkbox" name="cb1" class="cb1" value="${pet.myp_id}"><label class="cb1_label" data-myp_id="${pet.myp_id}"></label></td>
-								<td class="td3">${pet.myp_img}</td>
+<!-- 펫의 이미지가 없을때 실행되는 부분 -->
+						<c:choose>	
+							<c:when test="${pet.myp_img == null}">
+								<td class="td3">
+									<img class="td13" alt="이미지가 없습니다" src="/insimg/noimg.jpg">
+								</td>
+							</c:when>
+							<c:otherwise>
+								<td class="td3">
+									<img class="td13" alt="이미지가 없습니다" src="${pet.myp_img}">
+								</td>
+							</c:otherwise>
+						</c:choose>							
+		
 								<td class="td2">${pet.myp_name}</td>
 								<td class="td2">${pet.myp_gender}</td>
 								<td class="td2">
