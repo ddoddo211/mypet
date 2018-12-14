@@ -16,4 +16,15 @@
 		from petsitter
 		where pst_id = #{pst_id}
 	</select>
+	
+	<select id="getFaqList" resultType="fVo">
+		select *
+		from petsitFaq
+	</select>
+	
+	<select id="getFaqOne" parameterType="String" resultType="fVo">
+		select *
+		from petsitFaq
+		where psf_id = #{psf_id}
+	</select>
 </mapper>

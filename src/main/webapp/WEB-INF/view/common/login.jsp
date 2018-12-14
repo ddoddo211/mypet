@@ -10,7 +10,7 @@
 <meta charset="EUC-KR">
 <title>로그인</title>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-<link = href="/css/commonCss.css" rel="stylesheet"/>
+<link href="/css/commonCss.css" rel="stylesheet"/>
 <style type="text/css">
 .member {
 	font-size: 50px;
