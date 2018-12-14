@@ -20,8 +20,48 @@
    }
 
 
+/*로그인 페이지*/
+#loginBox{
+	margin: 0 auto;
+	height: 657px;
+	display:flex;
+	justify-content:center;
+	align-items:center;
+}
 
+#loginBox2{
+	width: 500px;
+	height : 300px;
+	border-radius : 20px;
+	background-color: #eff0f2;
+}
 
+#loginBox2Write{
+	font-size: 20px;
+	text-align: center;
+	font-family: 'Jeju Gothic', sans-serif;
+	width:100%;
+	height:215px;
+	display:flex;
+	justify-content:center;
+	align-items:center;
+}
+
+#loginBoxOk{
+    width:100%;
+    height: 100px;
+}
+
+#loginBoxOk2{
+	width: 500px;
+	height: 85px;
+	color: blue;
+	border-bottom-left-radius:25px;
+	border-bottom-right-radius:25px;
+	border:none;
+	font-size: 25px;
+	font-family: 'Jeju Gothic', sans-serif;
+}
 
 
 
@@ -545,6 +585,7 @@ table tr:hover td{
 #petInfoTable{
 	width: 1200px;
 	height: 0 auto;
+	margin-top: 10px;
 }
 
 #petInfoTableTop{
@@ -598,7 +639,7 @@ table tr:hover td{
 	border-radius: 50px;
 	border: 2px solid #41d0ce;
 	color: white;
-	font-size: 20px;
+	font-size: 16px;
 }
 
 
@@ -611,7 +652,7 @@ table tr:hover td{
 
 #prodBtn{
 	float: left;
-	margin-left: 395px;
+	margin-left: 220px;
 }
 
 #petIsBtn{
@@ -624,6 +665,36 @@ table tr:hover td{
 	font-size: 16px;
 	margin-top: 15px;
 	cursor: pointer;
+}
+
+#insuranceJoin{
+	width: 200px;
+    height: 50px;
+    float: left;
+}
+
+#insuranceJoinBtn{
+    width: 170px;
+    background-color: white;
+    height: 30px;
+    border-radius: 50px;
+    border: 2px solid #41d0ce;
+    color: black;
+    font-size: 16px;
+    margin-top: 15px;
+    margin-left: 10px;
+}
+
+#insuranceJoinBtn:hover{
+    width: 170px;
+    background-color: #41d0ce;
+    height: 30px;
+    border-radius: 50px;
+    border: 2px solid #41d0ce;
+    color: white;
+    font-size: 16px;
+    margin-top: 15px;
+    margin-left: 10px;
 }
 
 #petIsBtn:hover{
@@ -651,6 +722,12 @@ table tr:hover td{
 	width: 150px;
 }
 
+.td13{
+	width: 150px;
+	height:150px;
+	border-radius: 20px;
+}
+
 .td4{
 	width: 180px;
 }
@@ -658,6 +735,7 @@ table tr:hover td{
 #td5{
 	height: 120px;
 }
+
 
 .td6{
 	width: 40px;
@@ -667,6 +745,7 @@ table tr:hover td{
 	width: 1200px;
 	height: 50;
 	margin-top: 30px;
+	margin-bottom: 53px;
 }
 
 #insuranceProdTableTop{
@@ -699,11 +778,6 @@ table tr:hover td{
 .td9{
 	width: 200px;
 }
-
-.td10{
-	width: 170px;
-}
-
 .td11{
 	width: 80px;
 }
@@ -716,7 +790,17 @@ table tr:hover td{
 	background-color: #8e8e8e;
 	color: white;
 	width: 800px;
-	margin-top: 5px;
+	margin-top: 15px;
+	height: 30px;
+	font-family: 'Nanum Pen Script', cursive;
+	font-size: 30px;
+}
+
+#insuranceProdTableTop3{
+	background-color: #1d9dd3;
+	color: white;
+	width: 800px;
+	margin-top: 15px;
 	height: 30px;
 	font-family: 'Nanum Pen Script', cursive;
 	font-size: 30px;
@@ -738,7 +822,7 @@ table tr:hover td{
 	float: left;
 }
 #insuranceProdDelete{
-	width : 200px;
+	width : 150px;
 	height: 50px;
 	float: left;
 }
@@ -789,12 +873,16 @@ table tr:hover td{
 	border-radius: 50px;
 	border: 2px solid #41d0ce;
 	color: white;
-	font-size: 20px;
+	font-size: 16px;
 }
 
 /*체크박스*/
 
-input[id="cb1"]+label {
+.activeCb
+{ background-color: #666666; }
+
+
+input[name="cb1"]+label {
 	display: inline-block;
 	width: 20px;
 	height: 20px;
@@ -802,16 +890,17 @@ input[id="cb1"]+label {
 	cursor: pointer;
 }
 
-input[id="cb1"]:checked+label {
+input[name="cb1"]:checked+label {
 	background-color: #666666;
 }
 
-input[id="cb1"] {
+
+input[name="cb1"] {
 	display: none;
 }
 
 
-input[id="cb2"]+label {
+input[name="cb2"]+label {
 	display: inline-block;
 	width: 20px;
 	height: 20px;
@@ -819,10 +908,45 @@ input[id="cb2"]+label {
 	cursor: pointer;
 }
 
-input[id="cb2"]:checked+label {
+input[name="cb2"]:checked+label {
 	background-color: #666666;
 }
 
-input[id="cb2"] {
+
+input[name="cb2"] {
 	display: none;
+}
+
+.prodPlanAdd {
+	background-color: #8e8e8e;
+    color: white;
+}
+
+/*펫추가하는 화면*/
+#petInfoInsert{
+	width : 1200px;
+	height : 660px;
+	border: 1px solid black;
+}
+
+#petInfoForm{
+	width: 800px;
+	height: 600px;
+	margin: 0 auto;
+	margin-top:30px;
+	border: 1px solid red;
+}
+
+#petInfoFormTop{
+	width: 650px;
+	height: 50px;	
+	margin: 0 auto;
+}
+
+#petInfoTitle{
+	font-family: 'Nanum Pen Script', cursive;
+	font-size: 50px;
+	text-align: center;
+	background-color: #ffedf6;
+	box-shadow: 3px 3px 3px 3px #999;
 }

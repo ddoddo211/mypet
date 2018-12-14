@@ -7,7 +7,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 		<!-- 보험상품 -->
 		<!-- 보험상품 리스트 목록가지고 오는 부분 -->
-		<select id="prodPageList" parameterType="pageVo" resultType="pageVo">
+		<select id="prodPageList" parameterType="inspageVo" resultType="inspageVo">
 			select * from
 			(select ROWNUM rnum,
 			A.*
@@ -22,7 +22,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	  	</select>
 	  	
 	  	<!-- 보험상품 리스트 목록가지고 오는 부분 -->
-		<select id="prodKindPageList" parameterType="pageVo" resultType="pageVo">
+		<select id="prodKindPageList" parameterType="inspageVo" resultType="inspageVo">
 			select * from
 			(select ROWNUM rnum,
 			A.*
@@ -36,7 +36,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	  	</select>
 	  	
 	  	<!-- 우리아이 보험상품 추천 리스트 가지고 오는 부분 -->
-	  	<select id="prodProductRecommendation" parameterType="pageVo" resultType="insProdVo">
+	  	<select id="prodProductRecommendation" parameterType="inspageVo" resultType="insProdVo">
 		     select * from
 		              (select ROWNUM rnum,
 		                      A.*
@@ -49,7 +49,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</select>
 		
 		<!-- 게시글 총갯수(우리아이보험추천) -->
-		<select id="getProductRecommendationCnt" parameterType="pageVo" resultType="int" >
+		<select id="getProductRecommendationCnt" parameterType="inspageVo" resultType="int" >
 			select count(*) from insprod 
 			 where INSP_JOIN = #{petKind}
 		       and INSP_MINAGE <![CDATA[<=]]> to_number(#{petBirth})
@@ -92,5 +92,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			  from member
 			where mem_id = #{mem_id}
 		</select>
+		
+		<!-- 회원이 플랜정보 추가버튼을 클릭하였을때 이미 플랜정보에 추가되어진 상품인지 확인하는 부분 -->
+		<select id="memShopping" parameterType="insShVo" resultType="insShVo">
+			select * from insshopping
+			where inssp_mem = #{inssp_mem}
+			and inssp_insp= #{inssp_insp}
+		</select>
+		
+		<!-- 플랜정보에서 보험상품삭제 버튼을 클릭하였을때 보험상품 아이디를 줘서 삭제하는 쿼리문 -->
+		<delete id="insShProdDelete" parameterType="String">
+			delete from insshopping 
+			where inssp_id = #{inssp_id}
+		</delete>
+		
+		<!-- 플랜정보에서 펫 삭제하기 버튼을 클릭하였을떄 펫의 아이디를 줘서 삭제하는 쿼리문  -->
+		<delete id="mypetDel" parameterType="String">
+			delete from mypet 
+			where myp_id = #{myp_id}
+		</delete>
+		
 		
 </mapper>

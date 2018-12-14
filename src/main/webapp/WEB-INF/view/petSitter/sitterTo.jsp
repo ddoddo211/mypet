@@ -165,7 +165,11 @@
 	<form id="frm" method="get" action="/sit/sitDetail">
 		<input type="hidden" id="pstId" name="pst_id" />
 	</form>
-	
+	<div id="topMove">
+		<a href="#header">
+			<img alt="화살표" src="/img/petSitterImg/top.jpg" width=50px height=50px>
+		</a>
+	</div>
 	<%@ include file="/WEB-INF/view/common/footer.jsp" %>
 	
 </body>

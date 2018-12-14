@@ -24,15 +24,15 @@
 		
 		<%-- 상단 주소 선택 div --%>
 		<div id="shopAddr">
-			<div id="zipMent">지역을 선택해 주세요 </div>
+			<div id="zipMent"><div class="innerMent">지역을 선택해 주세요</div> <div class="innerMent"><img src="/img/petHair/arrowO.jpg"/></div> </div>
 			
 			<div id="zipCon">
 				<select  class="zipSelect" name="zip_high">
-					<option value="">:: 광역시/도 :: </option>
+					<option value="">:: 광역(특별)시 / 도 :: </option>
 				</select>
 				
 				<select class="zipSelect" name="zip_low"> 
-					<option value="">:: 구 / 시 :: </option>
+					<option value=""> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :: 구  / 시 :: </option>
 				</select>
 			</div>
 		</div>

@@ -9,7 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import kr.co.mypet.insurance.model.InsProdVo;
-import kr.co.mypet.insurance.model.PageVo;
+import kr.co.mypet.insurance.model.InsurancePageVo;
 
 public class InsuranceServiceTest {
 
@@ -27,7 +27,7 @@ public class InsuranceServiceTest {
 		
 		/***Given***/ 
 		
-		PageVo pageVo = new PageVo();
+		InsurancePageVo pageVo = new InsurancePageVo();
 
 		pageVo.setPage(0);
 		pageVo.setPageSize(10);

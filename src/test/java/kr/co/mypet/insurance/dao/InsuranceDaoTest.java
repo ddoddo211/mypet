@@ -8,7 +8,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import kr.co.mypet.insurance.model.InsProdVo;
-import kr.co.mypet.insurance.model.PageVo;
+import kr.co.mypet.insurance.model.InsurancePageVo;
 
 import org.junit.Before;
 import org.junit.Test;

@@ -2,6 +2,7 @@ package kr.co.mypet.sitter.service;
 
 import java.util.List;
 
+import kr.co.mypet.sitter.model.FaqVo;
 import kr.co.mypet.sitter.model.PetSitterVo;
 import kr.co.mypet.sitter.model.ZipVo;
 
@@ -35,4 +36,23 @@ public interface SitterServiceInf {
 	* Method 설명 : 펫시터 집에 맡기기 상세화면 데이터조회
 	*/
 	PetSitterVo petToHomeDetail(String pst_id);
+
+	/**
+	* Method : getFaqList
+	* 작성자 : pc24
+	* 변경이력 :
+	* @return
+	* Method 설명 : 펫시터 FAQ 전체 리스트 조회
+	*/
+	List<FaqVo> getFaqList();
+
+	/**
+	* Method : getFaqOne
+	* 작성자 : pc24
+	* 변경이력 :
+	* @param psf_id
+	* @return
+	* Method 설명 : 선택한 FAQ 상세 조회 
+	*/
+	FaqVo getFaqOne(String psf_id);
 }

@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import kr.co.mypet.sitter.model.FaqVo;
 import kr.co.mypet.sitter.model.PetSitterVo;
 import kr.co.mypet.sitter.model.ZipVo;
 import kr.co.mypet.sitter.service.SitterServiceInf;
@@ -60,8 +61,21 @@ public class SitterController {
 	
 	// FAQ 게시판 화면
 	@RequestMapping("/faq")
-	public String faq() {
+	public String faq(Model model) {
+		List<FaqVo> faqList = sitterService.getFaqList();
+		model.addAttribute("faqList", faqList);
 		return "petSitter/faq";
+	}
+	
+	// FAQ 게시판 상세화면
+	@RequestMapping("/faqDetail")
+	public String faqDetail(Model model, @RequestParam("faqId")String psf_id) {
+		
+		FaqVo fVo = sitterService.getFaqOne(psf_id);
+		
+		model.addAttribute("fVo", fVo);
+		
+		return "petSitter/faqDetail";
 	}
 	
 	// 펫시터 지원하기 화면

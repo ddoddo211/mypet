@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import kr.co.mypet.common.model.MemberVo;
 import kr.co.mypet.insurance.model.InsProdVo;
 import kr.co.mypet.insurance.model.InsshoppingVo;
-import kr.co.mypet.insurance.model.PageVo;
+import kr.co.mypet.insurance.model.InsurancePageVo;
 
 
 @Repository
@@ -25,7 +25,7 @@ public class InsuranceDao implements InsuranceDaoInf {
 	* Method 설명 : 보험상품리스트 가지고 오는 부분
 	*/
 	@Override
-	public List<InsProdVo> prodPageList(PageVo pageVo) {
+	public List<InsProdVo> prodPageList(InsurancePageVo pageVo) {
 		return template.selectList("petIns.prodPageList" , pageVo);
 	}
 	
@@ -50,7 +50,7 @@ public class InsuranceDao implements InsuranceDaoInf {
 	* Method 설명 : 보험상품리스트 가지고 오는 부분(조회조건(애완동물)
 	*/
 	@Override
-	public List<InsProdVo> prodKindPageList(PageVo pageVo) {
+	public List<InsProdVo> prodKindPageList(InsurancePageVo pageVo) {
 		return template.selectList("petIns.prodKindPageList" , pageVo);
 	}
 	
@@ -74,7 +74,7 @@ public class InsuranceDao implements InsuranceDaoInf {
 	* Method 설명 : 우리아이 보험상품 
 	*/
 	@Override
-	public List<InsProdVo> prodProductRecommendation(PageVo pageVo) {
+	public List<InsProdVo> prodProductRecommendation(InsurancePageVo pageVo) {
 		return template.selectList("petIns.prodProductRecommendation" , pageVo);
 	}
 	
@@ -85,7 +85,7 @@ public class InsuranceDao implements InsuranceDaoInf {
 	  * Method 설명 :  우리아이 보험상품 총 갯수(페이지 처리를 위해)
 	*/
 	@Override
-	public int getProductRecommendationCnt(PageVo pageVo) {
+	public int getProductRecommendationCnt(InsurancePageVo pageVo) {
 		return template.selectOne("petIns.getProductRecommendationCnt" , pageVo);
 	}
 
@@ -157,6 +157,50 @@ public class InsuranceDao implements InsuranceDaoInf {
 	@Override
 	public MemberVo memberInfo(MemberVo memVo) {
 		return template.selectOne("member.login" , memVo);
+	}
+
+
+
+	/**
+	* Method : insShProdDelete
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param inssp_id
+	* @return
+	* Method 설명 : 플랜정보에서 보험상품삭제 버튼을 클릭하였을때 보험상품 아이디를 줘서 삭제하는 쿼리문
+	*/
+	@Override
+	public int insShProdDelete(String inssp_id) {
+		return template.delete("petIns.insShProdDelete", inssp_id);
+	}
+
+
+
+	/**
+	* Method : mypetDel
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param myp_id
+	* @return
+	* Method 설명 : 플랜정보에서 펫 삭제하기 버튼을 클릭하였을떄 펫의 아이디를 줘서 삭제하는 쿼리문 
+	*/
+	@Override
+	public int mypetDel(String myp_id) {
+		return template.delete("petIns.mypetDel", myp_id);
+	}
+
+
+	/**
+	* Method : insShList
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param insShVo
+	* @return
+	* Method 설명 : 회원이 플랜정보 추가버튼을 클릭하였을때 이미 플랜정보에 추가되어진 상품인지 확인하는 부분
+	*/
+	@Override
+	public InsshoppingVo insShList(InsshoppingVo insShVo) {
+		return template.selectOne("petIns.memShopping",insShVo);
 	}
 
 
