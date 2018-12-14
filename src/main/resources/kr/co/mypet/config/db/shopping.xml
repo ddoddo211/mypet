@@ -3,13 +3,44 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="shop">
+	
+	<!-- 펫쇼핑몰 이벤트List 조회 -->
 	<select id="shopNoticeList" resultType="snotVo">
 		select * from shopnotice
 	</select>
 	
+	<!-- 펫쇼핑몰 이벤트글 조회 -->
 	<select id="shopNoticeDetail" parameterType="String" resultType="snotVo">
 		select * from shopnotice
 		where snot_id = #{snot_id}
 	</select>
+	
+	<!-- 펫쇼핑몰 강아지 메뉴List -->
+	<select id="dogMenuList" resultType="dvsVo">
+		SELECT dvs_id, LPAD(' ' , 3 * (LEVEL-1)) || dvs_name dvs_name, LEVEL
+		FROM division
+		START WITH dvs_parent = 'DVS1'
+		CONNECT BY PRIOR dvs_id  = dvs_parent
+		and level = 1
+	</select>
+	
+	<!-- 펫쇼핑몰 강아지메뉴 옵션(연령,브랜드)List -->
+	<select id="dogMenuOption" parameterType="String" resultType="dvsVo">
+		SELECT dvs_id,dvs_name, LEVEL
+		FROM division
+		START WITH dvs_parent = #{dvs_id}
+		CONNECT BY PRIOR dvs_id = dvs_parent
+		and level = 1
+	</select>
+	
+	<!-- 펫쇼핑몰 강아지메뉴 옵션(연령,주원료,브랜드)의 분류(성견,퍼피,건강백서,닭고기등) -->
+	<select id="optionDivision" parameterType="String" resultType="dvsVo">
+		SELECT dvs_id,dvs_name,dvs_parent, LEVEL
+		FROM division
+		WHERE LEVEL = 2
+		START WITH dvs_parent = #{dvs_id}
+		CONNECT BY PRIOR dvs_id = dvs_parent
+	</select>
+	
 </mapper>
  

@@ -77,9 +77,11 @@
 	
 	.listMenu ul li{
 		padding-top: 5px;
+		padding-bottom: 10px;
 	}
 	.listMenu ul li a{
 		color : #000;
+		font-size:15px;
 		border-bottom: 1px solid;
 	}
 	
@@ -109,7 +111,7 @@
 	}
 	
 	.chkName{
-		width: 55px;
+		width: 65px;
 	    height: 26px;
 	    float: left;
 	    background: darkgray;
@@ -189,41 +191,53 @@
 			<div class="listMenu">
 				<p>Menu</p>
 				<ul>
-					<li><a href="#">사료</a></li>
-					<li><a href="#">장난감</a></li>
-					<li><a href="#">위생/배변</a></li>
-					<li><a href="#">간식</a></li>
+					<c:forEach items="${menuList }" var="list">
+						<li><a href="/shop/petShopList?dvs_id=${list.dvs_id}">${list.dvs_name }</a></li>
+					</c:forEach>
+					
 				</ul>
 			</div>
 		</div>
 		
 		<div class="mainright">
 			<div class="pordCheck">
-				<div class="chk">
-					<div class="chkName">
-						<span class="petchk">연령</span>
-					</div>
-					<div class="ageChk">
-						<ul>
-							<li><input type="checkbox" class="chkbox"><span>전연령</span></li>
-							<li><input type="checkbox" class="chkbox"><span>성견</span></li>
-							<li><input type="checkbox" class="chkbox"><span>퍼피</span></li>
-						</ul>
-					</div>
-				</div>
-				<div class="chk">
-					<div class="chkName">
-						<span class="petchk">브랜드</span>
-					</div>
-					<div class="ageChk">
-						<ul>
-							<li><input type="checkbox" class="chkbox"><span>건강백서</span></li>
-							<li><input type="checkbox" class="chkbox"><span>네츄럴코어</span></li>
-							<li><input type="checkbox" class="chkbox"><span>웰니스</span></li>
-						</ul>
-					</div>
-				</div>
+				<c:forEach items="${optionList}" var="dvs">
+						<div class="chk">
+								<div class="chkName">
+									<span class="petchk">${dvs.dvs_name }</span>
+								</div>
+							<c:forEach items="${dvsList }" var="list">
+								<c:if test="${dvs.dvs_id==list.dvs_parent}">
+									<div class="ageChk">
+										<ul>
+											<li><input type="checkbox" class="chkbox"><span>${list.dvs_name }</span></li>
+										</ul>
+									</div>
+								</c:if>
+							</c:forEach>
+						</div>
+				</c:forEach>
 			</div>
+			
+			<!--
+			<div class="pordCheck">
+					<c:forEach items="${optionList }" var="list" varStatus="i"> 
+						<div class="chk">
+							<div class="chkName">
+								<span class="petchk">${list.dvs_name }</span>
+							</div>
+							<div class="ageChk">
+								<ul>
+									<li><input type="checkbox" class="chkbox"><span>성견</span></li>
+									<li><input type="checkbox" class="chkbox"><span>퍼피</span></li>
+								</ul>
+							</div>
+						</div>
+					</c:forEach>
+			</div>
+			
+			  -->
+			
 			<div class="prodMenu">
 				<ul>
 					<c:forEach begin="1" end="12">
