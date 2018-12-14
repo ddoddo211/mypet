@@ -7,10 +7,12 @@
 <title>insuranceProduct2(상품 상세보기)</title>
 
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script type="text/javascript">
 
+
+<script type="text/javascript">
 // 목록 버튼을 클릭하였을때 이전화면으로 보내는 함수 
 function listClick() {
 	location.href = '/isr/productInfo';
@@ -18,25 +20,15 @@ function listClick() {
 
 function prodAdd(){
 	if('${memVo.mem_id}' == ''){
-		alert("로그인오류");
-		
 		alert("로그인이 되어 있지 않습니다.\n로그인하시기 바랍니다.");
 		location.href ='/mem/loginPage';
-	}else if('${mypetSize}' == '0'){
-		alert('${memVo.mem_id}');
-		alert('${mypetSize}');
-		alert("펫사이즈 오류");
-		
-			alert("펫이 등록되어 있지 앖습니다. 펫을 등록하시기 바랍니다");
-			location.href ='/isr/petInsert';
+	}else if('${insShList}' != 0){
+		alert("이미 플랜정보에 추가된 보험상품입니다.\n이미 추가된 상품은 추가되지 않습니다.");
+		return ;
 	}else{
-		
-		alert("페이지 오류");
-			location.href ='/isr/prodAdd?prodId='+${prodVo.insp_id};
+			$("#frm").submit();
 	}
 }
-
-
 </script>
 
 <link rel="stylesheet" href="/css/petInsuranceMenu.css">
@@ -45,6 +37,13 @@ function prodAdd(){
 
 </head>
 <body>
+
+<!-- 폼에 저장해 주기 -->
+<form  action="/isr/prodAdd" id="frm" method="post">
+	<input type="hidden" name="prodId" value="${prodVo.insp_id}">
+</form>
+
+
 <!-- header 시작 -->
 <%@include file="../common/header.jsp"%>
 <!-- header 끝-->

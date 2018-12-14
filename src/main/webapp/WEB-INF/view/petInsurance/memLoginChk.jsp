@@ -11,6 +11,9 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript">
 
+function login(){
+	location.href ='/mem/loginPage';
+}
 
 </script>
 
@@ -53,19 +56,20 @@
 		<!-- petInsuranceHeaderMain -->
 		<%@include file="./petInsuranceHeaderMain.jsp"%>
 		<!-- petInsuranceHeaderMain 끝 -->
-
-		<div id="petInfoInsert">
-			<div id="petInfoForm">
-				<div id="petInfoFormTop">
-					<div id="petInfoTitle">나의 펫 추가(반려동물에 대한 정보입력)</div>
+		
+		<div id="loginBox">
+			<div id="loginBox2">
+				<div id="loginBox2Write">
+					로그인을 해야 이용할수 있는 화면입니다. <br>
+					로그인을 진행하시기 바랍니다.
 				</div>
-				<div id="">
-				
+				<div id="loginBoxOk">
+					<input id="loginBoxOk2"type="submit" value="확인" onclick="login()">
 				</div>
 			</div>
 		</div>
 
-
+		
 </div>
 	
 	<!-- footer 시작 -->

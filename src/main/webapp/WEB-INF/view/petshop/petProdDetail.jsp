@@ -1,3 +1,4 @@
+<%@page import="com.fasterxml.jackson.annotation.JsonInclude.Include"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -5,6 +6,7 @@
 <head>
 <link href="/css/commonCss.css" rel="stylesheet">
 <link href="/css/petShopCss.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <!-- kakao -->
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 <style type="text/css">
@@ -25,7 +27,6 @@
 		width: 1200px;
 		margin: 0 auto;
 		overflow: hidden;
-		border-bottom: 1px solid #000;
 	}
 	
 	#mainmid .prodTop{
@@ -167,37 +168,46 @@
 		width:1200px;
 		margin: 0 auto;
 	}
+	
+	.prodInfo{
+		width: 1200px;
+		border-top: 1px solid;
+		border-bottom:1px solid;
+		padding:10px 0px 10px 0px;
+		overflow: hidden;
+	}
+	
+	.prodInfo ul li{
+		padding-left: 10px;
+		float : left;
+		font-size: 20px;
+	}
+	
+	.prodInfo ul li a{
+		font-size: 20px;
+		font-weight: bold;
+	}
+	
+	.prodDetailIMG{
+		display: flex;
+	    justify-content: center;
+	    align-items: center;
+	}
+	
+	.review{
+		text-align: center;
+		border-top: 1px solid;
+	}
+	.review span{
+		font-size: 20px;
+		font-weight: bold;
+	}
 </style>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
-	<!-- header 시작 -->
-	<%@include file="/WEB-INF/view/common/header.jsp"%>
-	<!-- header 끝-->
-	<div id="headerMain">
-	<!-- 여기서 부터 각자 -->
-		<!-- header -->
-		<div id="header">
-			<div id="logo">
-				<a href="/shop/shopMain">
-					<img alt="" src="/img/petShopLogo.jpg" width="200">
-				</a>
-			</div>
-			<div id="petSearch">
-				<div id="word">
-					<input type="text" id="search" value="검색어를 입력하세요" onfocus="this.value=''" style="color:#c1c1c1" />
-				</div>
-				<div id="searchButton">
-					<a href="#" id="searchButton"></a>
-				</div>
-			</div>
-			<!-- 우리 아이 등록하기 -->
-			<div id="petInsert">
-				<a href="#"><img alt="이미지가 없습니다" src="/img/petInsert.jpg" width="240px;" height="100px;"></a>
-			</div>
-		</div>
-	</div>
+	<%@include file="/WEB-INF/view/petshop/petShopH.jsp"%>
 	
 	<div id="maintop">
 		<p>상품 상세보기</p>
@@ -349,15 +359,40 @@
 		</div>
 	</div>
 	<div id="mainbottom">
-		<div>
+		<div class="prodInfo">
 			<ul>
-				<li>상품정보</li>
-				<li>상품후기</li>
+				<li><a href="#name01">상품정보</a></li>
+				<li><a href="#name02">상품후기</a></li>
 			</ul>
 		</div>
 		<div class="prodDetailIMG">
-			<img alt="" src="/shopimg/prod1detail.jpg">
+			<a name="name01" /><img alt="" src="/shopimg/prod1detail.jpg">
+		</div>
+		<div class="review">
+			<a name="name02" /><span>상품 후기</span>
+		</div>
+		<div class="prodReview">
+			<table border="1">
+				<thead>
+					<tr>
+						<th>제목</th>
+						<th>작성자</th>
+						<th>날짜</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>이 상품 너무 후짐</td>
+						<td>김정섭</td>
+						<td>2018-12-11</td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
 	</div>
+	
+	<!-- footer 시작 -->
+	<%@include file="/WEB-INF/view/common/footer.jsp"%>
+	<!-- footer 끝 -->
 </body>
 </html>

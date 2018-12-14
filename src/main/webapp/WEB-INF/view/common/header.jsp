@@ -7,11 +7,9 @@
 <%-- jstl --%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-	
+<link rel="stylesheet" href="/css/commonCss.css" />
+
 <style type="text/css">
-
-<%@include file ="/css/commonCss.css"%>
-
 .member {
 	font-size: 50px;
 	text-shadow: 0 0 10px #666;

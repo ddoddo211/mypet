@@ -229,7 +229,7 @@ a {
 #footer {
 	margin-top : 20px;
 	position : static;
-    bottom: 0;
+    bottom: 0px;
 	width: 100%;
 	border-bottom: 1px solid #e9edf3;
 	background: #f4f6f9;
@@ -318,6 +318,9 @@ a.innerborder:hover img {
 	margin-left: 700px;
 	background-color: white;
 	box-shadow: 5px 5px 3px #aaaaaa;
+	display: none;
 	
 }
 
+/* 전체 */
+#wraps{width:100%;min-height:100vh;position:relative;}
