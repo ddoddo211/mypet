@@ -9,6 +9,7 @@
 <link href="/css/commonCss.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Nanum+Brush+Script"
 	rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic" rel="stylesheet">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css">
 <link href="/css/petSitter.css" rel="stylesheet">
@@ -271,7 +272,11 @@ body {
 			</div>
 		</div>
 	</div>
-	
+	<div id="topMove">
+		<a href="#header">
+			<img alt="화살표" src="/img/petSitterImg/top.jpg" width=50px height=50px>
+		</a>
+	</div>
 	<!-- footer 시작 -->
 	<%@include file="/WEB-INF/view/common/footer.jsp"%>
 	<!-- footer 끝 -->

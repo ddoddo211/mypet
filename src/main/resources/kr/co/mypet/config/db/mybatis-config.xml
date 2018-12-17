@@ -29,5 +29,6 @@
   	 <mapper resource="kr/co/mypet/config/db/member.xml"/>
   	 <mapper resource="kr/co/mypet/config/db/shopping.xml"/> 
   	 <mapper resource="kr/co/mypet/config/db/petSitter.xml" />
+  	 <mapper resource="kr/co/mypet/config/db/petHair.xml" />
   </mappers>
 </configuration>

@@ -161,6 +161,7 @@ public class MemberController {
 		if(chk==0) {
 			//조회 성공
 			url="common/main";
+			memVo = commonService.memberInfo(memVo.getMem_id());
 			session.setAttribute("memVo", memVo);
 		} else {
 			url="common/login";
@@ -296,6 +297,7 @@ public class MemberController {
 		if(chk==0) {
 			//조회 성공
 			url="common/main";
+			memVo = commonService.memberInfo(memVo.getMem_id());
 			request.getSession().setAttribute("memVo", memVo);
 		} else {
 			request.setAttribute("navermsg", "사이트 회원등록이 필요합니다 회원가입해주세요");

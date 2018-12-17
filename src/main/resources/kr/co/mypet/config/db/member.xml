@@ -21,6 +21,11 @@
 	values(#{mem_id},#{mem_pass},#{mem_name},#{mem_addr},#{mem_hp},1,1,1,1, 1,0,1)
   </insert>
   
+  <!-- 정보조회 -->
+  <select id="memberInfo" parameterType="String" resultType="memVo">
+  	select * from member where mem_id=#{mem_id}
+  </select>
+  
 </mapper>
 
 

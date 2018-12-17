@@ -9,6 +9,7 @@ body, option, select{
 	width: 1200px;
 	position: relative;
 	border : 1px solid red;
+	min-height: 728px;
 }
 
 #petSittingWord {
@@ -510,6 +511,89 @@ td {
 
 #topMove{
 	position : fixed;
-    right: 100px;
+    right: 250px;
     bottom: 140px;
+}
+
+#faqDetail {
+	box-sizing: border-box;
+	width : 100%;
+	
+}
+
+#faqDetailTop{
+	margin : 0 auto;
+	overflow: hidden;
+	width : 900px;
+}
+
+#faqTitle{
+	width : 690px;
+	padding-left : 10px;
+	border-bottom : 1px solid black;
+	float : left;
+	font-size : 24px;
+	height : 30px;
+}
+
+#faqDate{
+	width : 190px;
+	text-align: right;
+	padding-right : 10px;
+	border-bottom : 1px solid black;
+	float : left;
+	font-size : 24px;
+	height : 30px;
+}
+
+#faqDetailMain{
+	width : 900px;
+	margin : 0 auto;
+	text-align: left;
+	font-size : 16px;
+	margin-top : 10px;	
+}
+
+#index {
+	width : 50px;
+	height : 20px;
+	float : right;
+	text-align: center;
+	margin-top : 50px;
+	margin-right : 150px;
+}
+
+#indexMove{
+	border : 1px solid black;
+	display : block;
+	border-radius: 10px;
+	font-size : 16px;
+}
+
+#indexMove:hover{
+	border : 1px solid #17aaff;
+	display:bloack;
+	border-radius : 10px;
+	font-size : 16px;
+	background-color : #17aaff;
+	color : #fff;
+}
+
+#sitToMain{
+	border : 1px solid green;
+	width : 900px;
+	margin : 0 auto;
+	min-height : 600px;
+}
+
+#addressDiv{
+	border : 1px solid blue;
+}
+
+#mypetDiv{
+	border : 1px solid pink;
+}
+
+#scheduleDiv{
+	border : 1px solid skyblue;
 }

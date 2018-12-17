@@ -13,5 +13,8 @@ public interface CommonServiceInf {
 	//naverLoginChk
 	public int naverLogin(String mem_id);
 	
+	//memberinfo
+	public MemberVo memberInfo(String mem_id);
+	
 	
 }
