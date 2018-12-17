@@ -47,11 +47,27 @@
 		</div>
 		
 		<div id="faqDetail">
-			<div id="faqTitle">
-				<span>${fVo.psf_name }</span>
-				<fmt:formatDate pattern = "yyyy-MM-dd" value = "${fVo.psf_date}" />
+			<div id="faqDetailTop">
+				<div id="faqTitle">
+					<span>${fVo.psf_name }</span>
+				</div>
+				<div id="faqDate">
+					<fmt:formatDate pattern = "yyyy-MM-dd" value = "${fVo.psf_date}" />
+				</div>
+			</div>
+			<div id="faqDetailMain">
+				<span>${fVo.psf_text }</span>
 			</div>
 		</div>
+		<div id="index">
+			<a id="indexMove">목록</a>
+		</div>
 	</div>
+	<div id="topMove">
+		<a href="#header">
+			<img alt="화살표" src="/img/petSitterImg/top.jpg" width=50px height=50px>
+		</a>
+	</div>
+	<%@ include file="/WEB-INF/view/common/footer.jsp" %>
 </body>
 </html>

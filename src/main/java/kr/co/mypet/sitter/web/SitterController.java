@@ -4,12 +4,15 @@ import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import kr.co.mypet.common.model.MemberVo;
 import kr.co.mypet.sitter.model.FaqVo;
 import kr.co.mypet.sitter.model.PetSitterVo;
 import kr.co.mypet.sitter.model.ZipVo;
@@ -30,8 +33,30 @@ public class SitterController {
 	
 	// 펫시터 집으로 부르기 화면
 	@RequestMapping("/sitterFrom")
-	public String sitterFrom() {
-		return "petSitter/sitterFrom";
+	public String sitterFrom(HttpSession session) {
+		MemberVo memVo = (MemberVo) session.getAttribute("memVo");
+		
+		if(memVo != null) {
+			return "petSitter/sitterFrom";
+		} else {
+			return "redirect:/mem/loginPage";
+		}
+		
+	}
+	
+	// 펫시터 집으로 부르기 -> 주소변경 화면
+	@RequestMapping(value= {"/sitFromPopUp"}, method= {RequestMethod.GET})
+	public String sitFromPopUpView() {
+		return "petSitter/addressUpdate";
+	}
+	
+	// 펫시터 집으로 부르기 -> 주소변경 화면 -> 수정완료 처리
+	@RequestMapping(value= {"/sitFromPopUp"}, method= {RequestMethod.POST})
+	public String sitFromPopUp() {
+		
+		
+		
+		return "petSitter/addressUpdate";
 	}
 	
 	// 펫시터 집에 맡기기 화면

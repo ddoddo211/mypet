@@ -68,7 +68,7 @@ body {
 
 #wrap {
 	width: 400px;
-	height: 400px;
+	min-height: 658px;
 	margin: 0 auto;
 }
 

@@ -26,6 +26,16 @@
 	#hidden{
 		display : none;
 	}
+	
+	#menu{
+		height : 70px;
+		margin : 0 auto;
+	}
+	
+	#faqMain{
+		min-height : 240px;
+		margin : 0 auto;
+	}
 </style>
 </head>
 <body>
@@ -59,7 +69,7 @@
 			</div>
 		</div>
 	</div>
-	<div id="body">
+	<div id="menu">
 		<div id="petSitterMenu">
 			<%@include file="/WEB-INF/view/petSitter/petSitterMenu.jsp" %>
 		</div>
@@ -69,7 +79,7 @@
 			<input type="text" id="faqSearchWord" value="검색어를 입력하세요" onfocus="this.value=''" style="color: #c1c1c1" />
 		</div>
 	</div>
-	<div id="body">
+	<div id="faqMain">
 		<div id="faqTable">
 			<span>자주 묻는 질문</span><br>
 			<table id="faq">
