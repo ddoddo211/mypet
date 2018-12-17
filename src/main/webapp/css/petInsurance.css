@@ -789,7 +789,7 @@ table tr:hover td{
 #insuranceProdTableTop2{
 	background-color: #8e8e8e;
 	color: white;
-	width: 800px;
+	width: 1200px;
 	margin-top: 15px;
 	height: 30px;
 	font-family: 'Nanum Pen Script', cursive;
@@ -799,7 +799,7 @@ table tr:hover td{
 #insuranceProdTableTop3{
 	background-color: #1d9dd3;
 	color: white;
-	width: 800px;
+	width: 1200px;
 	margin-top: 15px;
 	height: 30px;
 	font-family: 'Nanum Pen Script', cursive;
@@ -809,7 +809,7 @@ table tr:hover td{
 #pettitle2{
 	background-color: #8e8e8e;
 	color: white;
-	width: 800px;
+	width: 1200px;
 	margin-top: 5px;
 	height: 30px;
 	font-family: 'Nanum Pen Script', cursive;
@@ -962,6 +962,7 @@ input[name="cb2"] {
 	background-repeat: no-repeat;
 	background-size: 900px 750px;
 	margin-top: 30px;
+	margin-left: 200px;
 }
 
 .wr1{
@@ -1146,12 +1147,14 @@ input[name="cb2"] {
 
 #petInfoForm2{
 	background-color: #ff569c;
-	width: 1200px;
+	width: 1190px;
 	height: 30px;
 	font-family: 'Jeju Gothic', sans-serif;
 	font-size: 20px;
 	text-align: center;
 	margin-top: 10px;
+	color: white;
+	padding: 5px;
 }
 
 #petTable2{
@@ -1193,7 +1196,6 @@ input[name="cb2"] {
 #isrJoinInfo4{
 	font-family: 'Jeju Gothic', sans-serif;
 	font-size: 18px;
-	margin-bottom: 10px;
 	margin-left: 10px;
 }
 
@@ -1202,9 +1204,7 @@ input[name="cb2"] {
 	font-size: 20px;
 }
 
-#isrJoinInfo5{
-	margin-left: 10px;
-}
+
 
 #isrJoinNotice{
 	width:1200px;
@@ -1266,3 +1266,35 @@ input[name="cb2"] {
 	font-size: 18px;
 	border-radius: 50px;
 }
+
+#isrJoinInfo3{
+	height: 45px;
+}
+
+#memJoinName2{
+	margin-left: 30px;
+}
+
+#memJoinPhone{
+	float: left;
+	margin-left: 0px;
+}
+
+#memJoinPhone2{
+	margin-left: 30px;
+}
+
+#isrJoinMem1{
+	float: left;
+}
+
+.isrJoinInfo5{
+	height: 45px;
+	margin-left: 10px;
+}
+
+#isrJoinInfo5_1{
+	margin-left: 15px;
+}
+
+

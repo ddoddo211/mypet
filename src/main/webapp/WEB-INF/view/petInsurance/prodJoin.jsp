@@ -11,7 +11,47 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
+	
+	$("#isrJoinBtn3").click(function(){
+		  // 계약자 정보 체크박스
+			if (!$("input[id='isrJoinInfo5_1']:checked").val()) {
+				alert("계약자 정보의 체크 박스에 체크하시기 바랍니다");
+				return;
+			}
 
+			if (!$("input[name='name']:checked").val()) {
+				alert("고지사항1번 부분에 체크되어 있지 않습니다.\n체크하시기 바랍니다");
+				return false;
+			}
+			
+			if (!$("input[name='name1']:checked").val()) {
+				alert("고지사항2번 부분에 체크되어 있지 않습니다.\n체크하시기 바랍니다");
+				return false;
+			}
+			if (!$("input[name='name2']:checked").val()) {
+				alert("고지사항3번 부분에 체크되어 있지 않습니다.\n체크하시기 바랍니다");
+				return false;
+			}
+			
+			
+			if($("input[name='name']:checked").val()== 'N'){
+				alert("고지사항1번 부분에 Y로 체크되어 있지 않습니다.\nY로 입력하셔야만 가입 진행이 가능하십니다.");
+				return false;
+			}
+			
+			if($("input[name='name1']:checked").val()== 'N'){
+				alert("고지사항2번 부분에 Y로 체크되어 있지 않습니다.\nY로 입력하셔야만 가입 진행이 가능하십니다.");
+				return false;
+			}
+			
+			if($("input[name='name2']:checked").val()== 'N'){
+					alert("고지사항3번 부분에 Y로 체크되어 있지 않습니다.\nY로 입력하셔야만 가입 진행이 가능하십니다.");
+					return false;
+			}
+			
+			
+			
+	});
 });
 </script>
 
@@ -61,10 +101,10 @@ $(document).ready(function() {
 				<!-- 펫의 정보가 나오는 부분 -->
 				<div id="petInfoForm">
 					<div id="petInfoForm1">
-						을 위한 보험료 안내
+						"${mypetInfo.myp_name}"을 위한 보험료 안내
 					</div>
 					<div id="petInfoForm2">
-						이름 /생년월일/품종/성별/질병여부
+						${mypetInfo.myp_name}&nbsp;&nbsp;/&nbsp;&nbsp;<fmt:formatDate value="${mypetInfo.myp_birth}" pattern="yy년 MM월 dd일"></fmt:formatDate>&nbsp;&nbsp;/&nbsp;&nbsp;${mypetInfo.petk_name}&nbsp;&nbsp;/&nbsp;&nbsp;${mypetInfo.myp_gender}&nbsp;&nbsp;/&nbsp;&nbsp;${mypetInfo.myp_sick}
 					</div>
 					<div id="petTable2">
 						<table>
@@ -77,25 +117,23 @@ $(document).ready(function() {
 								<th class="td9">보장기간</th>
 								<th class="td12">질병여부</th>
 							</tr>
-					<c:forEach items="${memIsrList}" var="prodVo">
 							<tr class="tr7">
-								<td class="td9">${prodVo.insp_name}</td>
+								<td class="td9">${prodJoin.insp_name}</td>
 								<c:choose>
-									<c:when test = "${prodVo.insp_join == '강아지'}">
-										<td class="td9"><img alt="이미지가 없습니다" src="/img/petInsurance/petKind.jpg" width="40px" height="40px">${prodVo.insp_join}</td>
+									<c:when test = "${prodJoin.insp_join == '강아지'}">
+										<td class="td9"><img alt="이미지가 없습니다" src="/img/petInsurance/petKind.jpg" width="40px" height="40px">${prodJoin.insp_join}</td>
 									</c:when>
 									<c:otherwise>
-										<td class="td9"><img alt="이미지가 없습니다" src="/img/petInsurance/petKind2.jpg" width="40px" height="40px">${prodVo.insp_join}</td>
+										<td class="td9"><img alt="이미지가 없습니다" src="/img/petInsurance/petKind2.jpg" width="40px" height="40px">${prodJoin.insp_join}</td>
 									</c:otherwise>
 								</c:choose>
-								<td class="td9">${prodVo.insp_kind}</td>
-								<td class="td9"><%="월 "%>${prodVo.insp_fees}<%="원"%></td>
-								<td class="td12">${prodVo.insp_minage}<%="~"%>${prodVo.insp_maxage}<%="세"%></td>
-								<td class="td9"><%="가입부터 ~"%>${prodVo.insp_period}<%="세 까지"%></td>
-								<td class="td12">${prodVo.insp_sick}</td>
+								<td class="td9">${prodJoin.insp_kind}</td>
+								<td class="td9"><%="월 "%>${prodJoin.insp_fees}<%="원"%></td>
+								<td class="td12">${prodJoin.insp_minage}<%="~"%>${prodJoin.insp_maxage}<%="세"%></td>
+								<td class="td9"><%="가입부터 ~"%>${prodJoin.insp_period}<%="세 까지"%></td>
+								<td class="td12">${prodJoin.insp_sick}</td>
 
 							</tr>
-						</c:forEach>
 					</table>
 				</div>
 				
@@ -104,14 +142,16 @@ $(document).ready(function() {
 					<div id="isrJoinInfo2">
 						가입 진행을 위해 계약자의 정보를 입력하세요
 					</div>
-					<div id="isrJoinInfo3" class="isrJoinMem">
-						이름 <label class="isrJoinInfoLabel">${memVo.mem_name}</label>
+					<div id="isrJoinInfo3">
+						<div class="isrJoinMem" id="isrJoinMem1">이름</div> 
+						<label class="isrJoinInfoLabel" id="memJoinName2">${memVo.mem_name}</label>
 					</div>
-					<div class="isrJoinMem">
-						전화번호 <label class="isrJoinInfoLabel">${memVo.mem_hp}</label>
+					<div class="isrJoinInfo5">
+						<div id="memJoinPhone" class="isrJoinMem">전화번호</div>
+						<label class="isrJoinInfoLabel" id="memJoinPhone2">${memVo.mem_hp}</label>
 					</div>
-					<div id="isrJoinInfo4">
-						보험료계산 / 가입을 위해 본인의 개인(신용)정보를 수집,이용하는 것에 동의합니다.<input id="isrJoinInfo5" type="checkbox" />
+					<div id="isrJoinInfo4" class="isrJoinInfo5">
+						보험료계산 / 가입을 위해 본인의 개인(신용)정보를 수집,이용하는 것에 동의합니다.<input id="isrJoinInfo5_1" type="checkbox" />
 					</div>
 				</div>
 				
@@ -123,22 +163,22 @@ $(document).ready(function() {
 					<div class="isrJoinNotice3">
 						* 애완/ 반려 외의 목적으로 양육하고 있습니까?
 						<span class="isrJoinNotice3_1">
-							<input type="radio" value="Y"/><label>예</label>
-							<input class="isrJoinNotice3_1_1" type="radio" value="N"/><label>아니요</label>
+							<input class="YesNo" type="radio" value="Y" name="name"/><label>예</label>
+							<input class="isrJoinNotice3_1_1 YesNo" type="radio" value="N" name="name"/><label>아니요</label>
 						</span> 
 					</div>
 					<div class="isrJoinNotice3">
 						* 보험가입이 완료될시에는 나의 펫의 고의적인 상해를 가하는 경우에는 형사처벌을 받을것을 동의하시겠습니까?
 						<span class="isrJoinNotice3_1">
-							<input type="radio" value="Y"/><label>예</label>
-							<input class="isrJoinNotice3_1_1" type="radio" value="N"/><label>아니요</label>
+							<input class="YesNo" type="radio" value="Y" name="name1"/><label>예</label>
+							<input class="isrJoinNotice3_1_1 YesNo" type="radio" value="N" name="name1"/><label>아니요</label>
 						</span>
 					</div>
 					<div class="isrJoinNotice3">
 						* 현재 작성한 내용을 거짓없이 사실 내용에 의해서 작성하셨습니까? 
 						<span class="isrJoinNotice3_1">
-							<input type="radio" value="Y"/><label>예</label>
-							<input class="isrJoinNotice3_1_1" type="radio" value="N"/><label>아니요</label>
+							<input class="YesNo" type="radio" value="Y" name="name2"/><label>예</label>
+							<input class="isrJoinNotice3_1_1 YesNo" type="radio" value="N" name="name2"/><label>아니요</label>
 						</span>
 					</div>
 					

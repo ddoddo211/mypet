@@ -17,10 +17,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import kr.co.mypet.common.model.MemberVo;
+import kr.co.mypet.common.model.MypetVo;
 import kr.co.mypet.common.model.PetkindVo;
 import kr.co.mypet.insurance.model.InsProdVo;
 import kr.co.mypet.insurance.model.InsshoppingVo;
 import kr.co.mypet.insurance.model.InsurancePageVo;
+import kr.co.mypet.insurance.model.InsuranceVo;
 import kr.co.mypet.insurance.service.InsuranceServiceInf;
 import kr.co.mypet.util.StringUtil;
 
@@ -340,8 +342,12 @@ public class InsuranceController {
 			//회원의 펫 가지고 오기
 			List<InsshoppingVo> mypetList = insuranceService.petList(memVo.getMem_id());
 			model.addAttribute("mypetList", mypetList);
-		
 			
+			//회원의 펫 가입되어 있는 현재 보험 상품 나오게 하기 
+			List<InsuranceVo> mypetIsrJoin = insuranceService.petIsrAlready(memVo.getMem_id());
+			model.addAttribute("mypetIsrJoin", mypetIsrJoin);
+			
+	
 			// 회원의 펫이 없을떄 가입가능한 나의 펫 부분에 (펫이 없다는 메세지 나오게 하기 위해서 설정)
 			model.addAttribute("petListSize", mypetList.size());
 			
@@ -371,7 +377,6 @@ public class InsuranceController {
 				
 				//회원의 펫 가지고 오기
 				List<InsshoppingVo> mypetList = insuranceService.petList(memVo.getMem_id());
-									
 				model.addAttribute("mypetList", mypetList);
 			
 				return "redirect:/isr/goplanInformation";
@@ -476,19 +481,25 @@ public class InsuranceController {
 			
 			// 펫 보험 가입 화면으로 이동
 			@RequestMapping("/prodJoin")
-			public String prodJoin(HttpSession session, Model model) {
-				
+			public String prodJoin(HttpSession session, Model model , HttpServletRequest request) {
+					
+					//애완동물 id 전달하기
+					String petId = request.getParameter("mypetId");
+					//보험상품 id 전달하기
+					String prodJoinId = request.getParameter("prodJoinId");
+					
 					// 회원 정보 받아오는 부분
 					MemberVo memVo = (MemberVo) session.getAttribute("memVo");
-					model.addAttribute("memVo", (MemberVo) session.getAttribute("memVo"));
+					model.addAttribute("memVo", memVo );
 				
-					// 회원의 추가된 보험상품 가지고 오기
-					List<InsshoppingVo> memIsrList = insuranceService.memPlan(memVo.getMem_id());
-					model.addAttribute("memIsrList", memIsrList);
+					// 가입을 진행하고 있는 보험상품 정보 가지고 오기
+					InsProdVo prodJoin = insuranceService.getProdInfo(prodJoinId);
+					model.addAttribute("prodJoin", prodJoin);
 					
-					//회원의 펫 가지고 오기
-					List<InsshoppingVo> mypetList = insuranceService.petList(memVo.getMem_id());
-					model.addAttribute("mypetList", mypetList);
+					// 가입을 진행하고 있는 펫 정보 가지고 오기
+					MypetVo mypetInfo = insuranceService.mypetInfo(petId);
+					model.addAttribute("mypetInfo", mypetInfo);
+				
 					
 				return "/petInsurance/prodJoin";
 			}

@@ -15,7 +15,20 @@ public class InsuranceVo {
 	private String mem_id;
 	private String inssp_id;
 	
+	// 보험가입 상품 이름 
+	private String insp_kind;
 	
+	
+	public String getInsp_kind() {
+		return insp_kind;
+	}
+
+
+	public void setInsp_kind(String insp_kind) {
+		this.insp_kind = insp_kind;
+	}
+
+
 	@Override
 	public String toString() {
 		return "InsuranceVo [ins_id=" + ins_id + ", ins_start=" + ins_start + ", ins_end=" + ins_end + ", ins_stat="

@@ -58,7 +58,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		       and insp_del = 'N'
 	  	</select>
 		
-		
+		<!-- 보험상품 아이디를 매개변수로 줘서 보험상품 정보 가지고 오는 방법 -->
 		<select id="getProdInfo" parameterType="String" resultType="insProdVo">
 			select * from insprod
 			where insp_id = #{prodId}
@@ -119,6 +119,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			where petk_size = size_id
             and petk_am = AM_ID
             and am_name = #{am_name}
+		</select>
+		
+		<!-- 플랜정보에서 나의 펫에 현재 보험가입이 되어 있는 상품 보여주기 -->
+		<select id="petIsrAlready" parameterType="String" resultType="insVo">
+			select * from insurance , insprod
+			where  inssp_id = insp_id
+			and mem_id = #{mem_id}
+		</select>
+		
+		<!-- 보험가입을 위해서 진행 펫 id를 줘서 해당 펫 정보가지고 오기 -->
+		<select id="mypetInfo" parameterType="String" resultType="mypetVo">
+			select *
+			from mypet , petkind , prodsize
+			where myp_petk = petk_id
+			and petk_size = size_id
+			and MYP_ID = #{mem_id}
 		</select>
 		
 		

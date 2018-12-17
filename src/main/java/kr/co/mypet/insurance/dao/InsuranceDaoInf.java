@@ -3,10 +3,12 @@ package kr.co.mypet.insurance.dao;
 import java.util.List;
 
 import kr.co.mypet.common.model.MemberVo;
+import kr.co.mypet.common.model.MypetVo;
 import kr.co.mypet.common.model.PetkindVo;
 import kr.co.mypet.insurance.model.InsProdVo;
 import kr.co.mypet.insurance.model.InsshoppingVo;
 import kr.co.mypet.insurance.model.InsurancePageVo;
+import kr.co.mypet.insurance.model.InsuranceVo;
 
 public interface InsuranceDaoInf {
 	
@@ -160,5 +162,25 @@ public interface InsuranceDaoInf {
 	List<PetkindVo> petKindList(String am_name);
 	
 	
+	/**
+	* Method : petIsrAlready
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param myp_id
+	* @return
+	* Method 설명 :플랜정보에서 나의 펫에 현재 보험가입이 되어 있는 상품 보여주기
+	*/
+	List<InsuranceVo> petIsrAlready (String mem_id );
+	
+	
+	/**
+	* Method : mypetInfo
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param mem_id
+	* @return
+	* Method 설명 : 펫 id를 줘서 해당 펫 정보가지고 오기
+	*/
+	MypetVo mypetInfo(String mem_id);
 
 }
