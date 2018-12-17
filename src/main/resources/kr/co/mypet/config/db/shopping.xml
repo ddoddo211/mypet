@@ -15,32 +15,41 @@
 		where snot_id = #{snot_id}
 	</select>
 	
-	<!-- 펫쇼핑몰 강아지 메뉴List -->
-	<select id="dogMenuList" resultType="dvsVo">
-		SELECT dvs_id, LPAD(' ' , 3 * (LEVEL-1)) || dvs_name dvs_name, LEVEL
-		FROM division
-		START WITH dvs_parent = 'DVS1'
-		CONNECT BY PRIOR dvs_id  = dvs_parent
-		and level = 1
+	<!-- 펫쇼핑몰 동물 메뉴 -->
+	<select id="animalMenu" resultType="aniVo">
+		select * from animal
 	</select>
 	
-	<!-- 펫쇼핑몰 강아지메뉴 옵션(연령,브랜드)List -->
-	<select id="dogMenuOption" parameterType="String" resultType="dvsVo">
-		SELECT dvs_id,dvs_name, LEVEL
-		FROM division
-		START WITH dvs_parent = #{dvs_id}
-		CONNECT BY PRIOR dvs_id = dvs_parent
-		and level = 1
+	<!-- 펫쇼핑몰 강이지/고양이 상품메뉴 -->
+	<select id="prodMenu" resultType="pddVo" parameterType="String">
+		SELECT * FROM PRODDV
+		WHERE PDD_AM = #{pdd_am}
 	</select>
 	
-	<!-- 펫쇼핑몰 강아지메뉴 옵션(연령,주원료,브랜드)의 분류(성견,퍼피,건강백서,닭고기등) -->
-	<select id="optionDivision" parameterType="String" resultType="dvsVo">
-		SELECT dvs_id,dvs_name,dvs_parent, LEVEL
-		FROM division
-		WHERE LEVEL = 2
-		START WITH dvs_parent = #{dvs_id}
-		CONNECT BY PRIOR dvs_id = dvs_parent
+	<!-- 펫쇼핑 상품메뉴에 대한 상품List -->
+	<select id="prodList" parameterType="String" resultType="prodVo">
+		select b.* from bdetail c,prod b
+		where bd_id = prod_bd
+		and bd_proddv = #{pdd_id}
 	</select>
 	
+	<!-- 상품메뉴에서 옵션분류List -->
+	<select id="optionList" parameterType="String" resultType="ageVo">
+		select * from prodage
+		where page_am = #{pdd_am}
+	</select>
+	
+	<!-- 해당 상품메뉴에 해당하는 브랜드List -->
+	<select id="brandList" parameterType="String" resultType="brdVo">
+		select b.* from bdetail a,brand b
+		where brd_id = bd_brand
+		and bd_proddv = #{pdd_id}
+	</select>
+	
+	<!-- 상품의 상세정보 -->
+	<select id="prodDetail" parameterType="String" resultType="prodVo">
+		select * from prod
+		where prod_id = #{prod_id}
+	</select>
 </mapper>
  

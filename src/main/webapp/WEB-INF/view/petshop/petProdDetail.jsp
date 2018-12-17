@@ -192,6 +192,7 @@
 		display: flex;
 	    justify-content: center;
 	    align-items: center;
+	    margin-top: 20px;
 	}
 	
 	.review{
@@ -216,7 +217,7 @@
 	<div id="mainmid">
 		<div class="prodTop">
 			<div class="prodIMG">
-				<img alt="" src="/shopimg/prod1.jpg" width="400" height="350">
+				<a href="${prodVo.prod_pimg }"><img alt="" src="${prodVo.prod_pimg }" width="400" height="350"></a>
 			</div>
 			<div class="prodRight">
 				<div class="share">
@@ -265,23 +266,23 @@
 									container : '#kakao-link-btn',
 									objectType : 'commerce',
 									content : {
-										title : 'Ivory long dress (4 Color)',
-										imageUrl : 'http://mud-kage.kakao.co.kr/dn/RY8ZN/btqgOGzITp3/uCM1x2xu7GNfr7NS9QvEs0/kakaolink40_original.png',
+										title : '${prodVo.prod_name}',
+										imageUrl : 'http://localhost:8081/shopimg/saryo2.jpg',
 										link : {
-											mobileWebUrl : 'http://localhost:8081/shop/prodDetail',
-											webUrl : 'http://localhost:8081/shop/prodDetail'
+											mobileWebUrl : 'http://localhost:8081/shop/prodDetail?prod_id=${prodVo.prod_id}',
+											webUrl : 'http://localhost:8081/shop/prodDetail?prod_id=${prodVo.prod_id}'
 										}
 									},
 									commerce : {
-										regularPrice : 208800,
-										discountPrice : 146160,
-										discountRate : 30
+										regularPrice : ${prodVo.prod_price},
+										discountPrice : ${prodVo.prod_sprice},
+										discountRate : 10
 									},
 									buttons : [ {
 										title : '구매하기',
 										link : {
-											mobileWebUrl : 'http://localhost:8081/shop/prodDetail',
-											webUrl : 'http://localhost:8081/shop/prodDetail'
+											mobileWebUrl : 'http://localhost:8081/shop/prodDetail?prod_id=${prodVo.prod_id}',
+											webUrl : 'http://localhost:8081/shop/prodDetail?prod_id=${prodVo.prod_id}'
 										}
 									} ]
 								});
@@ -290,12 +291,15 @@
 				<div class="prodName">
 					<h1>
 						<span>[브랜드]</span>
-						<span>상품명</span>
+						<span>${prodVo.prod_name }</span>
 					</h1>
 				</div>
 				<div class="prodPrice">
 					<span>가격</span>
+					<span>${prodVo.prod_price }원</span>
+					<br>
 					<span>할인가</span>
+					<span>${prodVo.prod_sprice }원</span>
 				</div>
 				<p>옵션선택</p>
 				<div class="prodOption">
@@ -366,7 +370,7 @@
 			</ul>
 		</div>
 		<div class="prodDetailIMG">
-			<a name="name01" /><img alt="" src="/shopimg/prod1detail.jpg">
+			<a name="name01" /><img alt="" src="${prodVo.prod_img }">
 		</div>
 		<div class="review">
 			<a name="name02" /><span>상품 후기</span>

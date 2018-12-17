@@ -28,12 +28,12 @@
 		width : 1200px;
 		margin: 0 auto;
 		overflow: hidden;
-		background-color: #f1f1f1;
+		min-height: 658px;
 	}
 	
 	.mainleft {
 		width: 21%;
-		height:100%;
+		min-height: 658px;
 		float: left;
 		background-color: #f1f1f1;
 	}
@@ -191,64 +191,54 @@
 			<div class="listMenu">
 				<p>Menu</p>
 				<ul>
-					<c:forEach items="${menuList }" var="list">
-						<li><a href="/shop/petShopList?dvs_id=${list.dvs_id}">${list.dvs_name }</a></li>
+					<c:forEach items="${pddList }" var="list">
+						<li><a href="/shop/petShopList?pdd_id=${list.pdd_id}&pdd_am=${list.pdd_am}">${list.pdd_name }</a></li>
 					</c:forEach>
-					
 				</ul>
 			</div>
 		</div>
 		
 		<div class="mainright">
 			<div class="pordCheck">
-				<c:forEach items="${optionList}" var="dvs">
-						<div class="chk">
-								<div class="chkName">
-									<span class="petchk">${dvs.dvs_name }</span>
-								</div>
-							<c:forEach items="${dvsList }" var="list">
-								<c:if test="${dvs.dvs_id==list.dvs_parent}">
-									<div class="ageChk">
-										<ul>
-											<li><input type="checkbox" class="chkbox"><span>${list.dvs_name }</span></li>
-										</ul>
-									</div>
-								</c:if>
-							</c:forEach>
-						</div>
-				</c:forEach>
-			</div>
-			
-			<!--
-			<div class="pordCheck">
-					<c:forEach items="${optionList }" var="list" varStatus="i"> 
-						<div class="chk">
-							<div class="chkName">
-								<span class="petchk">${list.dvs_name }</span>
-							</div>
-							<div class="ageChk">
-								<ul>
-									<li><input type="checkbox" class="chkbox"><span>성견</span></li>
-									<li><input type="checkbox" class="chkbox"><span>퍼피</span></li>
-								</ul>
-							</div>
+				<div class="chk">
+					<div class="chkName">
+						<span class="petchk">브랜드</span>
+					</div>
+					<c:forEach items="${brdList}" var="list">
+						<div class="ageChk">
+							<ul>
+								<li><input type="checkbox" class="chkbox"><span>${list.brd_name }</span></li>
+							</ul>
 						</div>
 					</c:forEach>
+				</div>
+				<c:if test="${ageList != null}">
+					<div class="chk">
+						<div class="chkName">
+								<span class="petchk">연령</span>
+						</div>
+						<c:forEach items="${ageList}" var="list">
+							<div class="ageChk">
+								<ul>
+									<li><input type="checkbox" class="chkbox"><span>${list.page_name }</span></li>
+								</ul>
+							</div>
+						</c:forEach>
+					</div>
+				</c:if>
 			</div>
-			
-			  -->
 			
 			<div class="prodMenu">
 				<ul>
-					<c:forEach begin="1" end="12">
+					<c:forEach items="${prodList }" var = "list">
 						<li>
-							<a href="/shop/prodDetail">
-								<img src="http://placehold.it/250x250">
+							<a href="/shop/prodDetail?prod_id=${list.prod_id }">
+								<img src="${list.prod_pimg }" width="250" height="250">
 							<br>
-							<span>상품명</span>
+							<span>${list.prod_name }</span>
 							<br>
-							<span>가격</span>
-							<span>할인가</span>
+							<span>${list.prod_price }원</span>
+							<span>${list.prod_sprice }원</span>
 							</a>
 						</li>
 					</c:forEach>

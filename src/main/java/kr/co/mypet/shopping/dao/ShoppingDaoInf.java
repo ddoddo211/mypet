@@ -1,8 +1,13 @@
 package kr.co.mypet.shopping.dao;
 
 import java.util.List;
+import java.util.Map;
 
-import kr.co.mypet.shopping.model.DivisionVo;
+import kr.co.mypet.shopping.model.AnimalVo;
+import kr.co.mypet.shopping.model.BrandVo;
+import kr.co.mypet.shopping.model.ProdAgeVo;
+import kr.co.mypet.shopping.model.ProdVo;
+import kr.co.mypet.shopping.model.ProddvVo;
 import kr.co.mypet.shopping.model.ShopNoticeVo;
 
 public interface ShoppingDaoInf {
@@ -26,31 +31,61 @@ public interface ShoppingDaoInf {
 	public ShopNoticeVo shopNoticeDetail(String snot_id);
 	
 	/**
-	* Method : dogMenuList
+	* Method : animalMenu
 	* 작성자 : pc25
 	* 변경이력 :
 	* @return
-	* Method 설명 :펫쇼핑몰 강아지 메뉴
+	* Method 설명 : 펫쇼핑몰 동물메뉴
 	*/
-	public List<DivisionVo> dogMenuList();
+	public List<AnimalVo> animalMenu();
 	
 	/**
-	* Method : dogMenuOption
+	* Method : prodMenu
 	* 작성자 : pc25
 	* 변경이력 :
-	* @param dvs_id
 	* @return
-	* Method 설명 : 강아지메뉴에 대한 옵션(연령,브랜드,주원료) List
+	* Method 설명 : 동물별 상품메뉴List
 	*/
-	public List<DivisionVo> dogMenuOption(String dvs_id);
+	public List<ProddvVo> prodMenu(String pdd_am);
 	
 	/**
-	* Method : optionDivision
+	* Method : prodList
 	* 작성자 : pc25
 	* 변경이력 :
-	* @param dvs_id
+	* @param pdd_id
 	* @return
-	* Method 설명 : 강아지메뉴에 대한 옵션과 분류 List (분류를 뽑아내기 위해)
+	* Method 설명 : 상품분류에 대한 상품List
 	*/
-	public List<DivisionVo> optionDivision(String dvs_id);
+	public List<ProdVo> prodList(String pdd_id);
+	
+	/**
+	* Method : optionList
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param pdd_id
+	* @return
+	* Method 설명 : 상품분류(사료,장난감등)안에 옵션분류(연령-성견...)List
+	*/
+	public List<ProdAgeVo> optionList(String pdd_am);
+	
+	/**
+	* Method : brandList
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param pdd_id
+	* @return
+	* Method 설명 : 상품분류에 대한 상품들의 브랜드List
+	*/
+	public List<BrandVo> brandList(String pdd_id);
+	
+	/**
+	* Method : prodDetail
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param prod_id
+	* @return
+	* Method 설명 : 해당 상품에 대한 상세정보
+	*/
+	public ProdVo prodDetail(String prod_id);
+	
 }
