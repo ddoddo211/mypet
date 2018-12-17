@@ -9,6 +9,7 @@ body, option, select{
 	width: 1200px;
 	position: relative;
 	border : 1px solid red;
+	min-height: 728px;
 }
 
 #petSittingWord {
@@ -462,21 +463,137 @@ td {
 }
 
 #faqSearch{
-	width : 100%;
-	
-}
-
-#faqImage{
-	width : 100%;
-	height : 400px;
+	background-image: url("/img/petSitterImg/faqImage.png");
+	background-position: center;
+    background-size: cover;
+    height: 400px;
+    text-align: center;
+    width: 100%;
 }
 
 #faqSearchMain{
-	width : 1200px;
-	height : 100px;
-	background-color: #fff;
-	border-radius: 10px;
+	position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    max-width: 610px;
+    margin: 0 auto;
+}
+
+#faqSearchWord{
+    background-color: #f1f1f1;
+    padding: 12px 45px 14px 21px;
+    border: none;
+    border-radius: 50px;
+    width: 400px;
+    height: 20px;
+    outline: none;
+}
+
+#faqTable{
+	width : 900px;
+	margin : 0 auto;
+	font-family : 'Nanum Brush Script', cursive;
+	margin-top : 20px;
+	text-align: center;
+}
+
+#faqTable > span {
+	font-size : 32px;
+	font-weight: bold;
+}
+
+#faq{
+	width : 900px;
 	border : 1px solid black;
-	position: absolute;
+	border-collapse: collapse;
+	border-spacing: 0px;
+}
+
+#topMove{
+	position : fixed;
+    right: 250px;
+    bottom: 140px;
+}
+
+#faqDetail {
+	box-sizing: border-box;
+	width : 100%;
 	
+}
+
+#faqDetailTop{
+	margin : 0 auto;
+	overflow: hidden;
+	width : 900px;
+}
+
+#faqTitle{
+	width : 690px;
+	padding-left : 10px;
+	border-bottom : 1px solid black;
+	float : left;
+	font-size : 24px;
+	height : 30px;
+}
+
+#faqDate{
+	width : 190px;
+	text-align: right;
+	padding-right : 10px;
+	border-bottom : 1px solid black;
+	float : left;
+	font-size : 24px;
+	height : 30px;
+}
+
+#faqDetailMain{
+	width : 900px;
+	margin : 0 auto;
+	text-align: left;
+	font-size : 16px;
+	margin-top : 10px;	
+}
+
+#index {
+	width : 50px;
+	height : 20px;
+	float : right;
+	text-align: center;
+	margin-top : 50px;
+	margin-right : 150px;
+}
+
+#indexMove{
+	border : 1px solid black;
+	display : block;
+	border-radius: 10px;
+	font-size : 16px;
+}
+
+#indexMove:hover{
+	border : 1px solid #17aaff;
+	display:bloack;
+	border-radius : 10px;
+	font-size : 16px;
+	background-color : #17aaff;
+	color : #fff;
+}
+
+#sitToMain{
+	border : 1px solid green;
+	width : 900px;
+	margin : 0 auto;
+	min-height : 600px;
+}
+
+#addressDiv{
+	border : 1px solid blue;
+}
+
+#mypetDiv{
+	border : 1px solid pink;
+}
+
+#scheduleDiv{
+	border : 1px solid skyblue;
 }

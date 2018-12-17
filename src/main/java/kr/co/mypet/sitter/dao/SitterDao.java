@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import kr.co.mypet.sitter.model.FaqVo;
 import kr.co.mypet.sitter.model.PetSitterVo;
 import kr.co.mypet.sitter.model.ZipVo;
 
@@ -34,5 +35,15 @@ public class SitterDao implements SitterDaoInf {
 	@Override
 	public PetSitterVo petToHomeDetail(String pst_id) {
 		return template.selectOne("petSitter.petToHomeDetail", pst_id);
+	}
+
+	@Override
+	public List<FaqVo> getFaqList() {
+		return template.selectList("petSitter.getFaqList");
+	}
+
+	@Override
+	public FaqVo getFaqOne(String psf_id) {
+		return template.selectOne("petSitter.getFaqOne", psf_id);
 	}	
 }

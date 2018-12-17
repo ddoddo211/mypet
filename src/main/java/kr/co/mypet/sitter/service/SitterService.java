@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import kr.co.mypet.sitter.dao.SitterDaoInf;
+import kr.co.mypet.sitter.model.FaqVo;
 import kr.co.mypet.sitter.model.PetSitterVo;
 import kr.co.mypet.sitter.model.ZipVo;
 
@@ -34,5 +35,15 @@ public class SitterService implements SitterServiceInf {
 	@Override
 	public PetSitterVo petToHomeDetail(String pst_id) {
 		return sitterDao.petToHomeDetail(pst_id);
+	}
+
+	@Override
+	public List<FaqVo> getFaqList() {
+		return sitterDao.getFaqList();
+	}
+
+	@Override
+	public FaqVo getFaqOne(String psf_id) {
+		return sitterDao.getFaqOne(psf_id);
 	}
 }

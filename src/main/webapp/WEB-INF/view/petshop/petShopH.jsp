@@ -31,8 +31,8 @@
 	<div id = "mainMenu">
 		<div id="shopmenu">
 			<ul class="meinmenul-ul">
-				<a href="/shop/petShopList"><li class="mainmenu-li">강아지</li></a>
-				<a href="/shop/petShopList"><li class="mainmenu-li">고양이</li></a>
+				<a href="/shop/petShopList?pdd_id=PDV1000&pdd_am=AM1000"><li class="mainmenu-li">강아지</li></a>
+				<a href="/shop/petShopList?pdd_id=PDV1001&pdd_am=AM1001"><li class="mainmenu-li">고양이</li></a>
 				<li class="mainmenu-li">베스트</li>
 				<li class="mainmenu-li">최근 본 상품</li>
 				<li class="mainmenu-li">장바구니</li>

@@ -1,47 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>faq.jsp</title>
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<title>faqDetail.jsp</title>
 <link href="/css/commonCss.css" rel ="stylesheet">
 <link href="/css/petSitter.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Nanum+Brush+Script" rel="stylesheet">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<script type="text/javascript">
-	$(document).ready(function(){
-		var ev = "click";
-		$("#faqList").on(ev,".click", function(){
-			var faqId = $(this).children()[0].innerHTML;
-			$("#faq_id").val(faqId);
-			alert(faqId);
-			$("#faqFrm").submit();
-		});
-	});
-</script>
-<style type="text/css">
-	#hidden{
-		display : none;
-	}
-	
-	#menu{
-		height : 70px;
-		margin : 0 auto;
-	}
-	
-	#faqMain{
-		min-height : 240px;
-		margin : 0 auto;
-	}
-</style>
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
 <body>
-<form action="/sit/faqDetail" method="post" id="faqFrm">
-	<input type="hidden" id="faq_id" name="faqId" />
-</form>
 <%@include file="/WEB-INF/view/common/header.jsp"%>
 
 <!-- 각자 화면 -->
@@ -69,30 +41,32 @@
 			</div>
 		</div>
 	</div>
-	<div id="menu">
+	<div id="body">
 		<div id="petSitterMenu">
 			<%@include file="/WEB-INF/view/petSitter/petSitterMenu.jsp" %>
 		</div>
-	</div>
-	<div id="faqSearch">
-		<div id="faqSearchMain">
-			<input type="text" id="faqSearchWord" value="검색어를 입력하세요" onfocus="this.value=''" style="color: #c1c1c1" />
+		
+		<div id="faqDetail">
+			<div id="faqDetailTop">
+				<div id="faqTitle">
+					<span>${fVo.psf_name }</span>
+				</div>
+				<div id="faqDate">
+					<fmt:formatDate pattern = "yyyy-MM-dd" value = "${fVo.psf_date}" />
+				</div>
+			</div>
+			<div id="faqDetailMain">
+				<span>${fVo.psf_text }</span>
+			</div>
+		</div>
+		<div id="index">
+			<a id="indexMove">목록</a>
 		</div>
 	</div>
-	<div id="faqMain">
-		<div id="faqTable">
-			<span>자주 묻는 질문</span><br>
-			<table id="faq">
-				<tbody id="faqList">
-					<c:forEach items="${faqList }" var="faqlist">
-						<tr class="click">
-							<td id="hidden">${faqlist.psf_id }</td>
-							<td>${faqlist.psf_name }</td>
-						</tr>
-					</c:forEach>
-				</tbody>
-			</table>
-		</div>
+	<div id="topMove">
+		<a href="#header">
+			<img alt="화살표" src="/img/petSitterImg/top.jpg" width=50px height=50px>
+		</a>
 	</div>
 	<%@ include file="/WEB-INF/view/common/footer.jsp" %>
 </body>
