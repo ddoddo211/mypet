@@ -31,5 +31,11 @@ public class CommonService implements CommonServiceInf {
 		// TODO Auto-generated method stub
 		return commonDao.naverLogin(mem_id);
 	}
+
+	@Override
+	public MemberVo memberInfo(String mem_id) {
+		// TODO Auto-generated method stub
+		return commonDao.memberInfo(mem_id);
+	}
 	
 }
