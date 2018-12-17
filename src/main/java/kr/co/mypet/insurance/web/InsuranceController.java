@@ -1,22 +1,28 @@
 package kr.co.mypet.insurance.web;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import kr.co.mypet.common.model.MemberVo;
+import kr.co.mypet.common.model.PetkindVo;
 import kr.co.mypet.insurance.model.InsProdVo;
 import kr.co.mypet.insurance.model.InsshoppingVo;
 import kr.co.mypet.insurance.model.InsurancePageVo;
 import kr.co.mypet.insurance.service.InsuranceServiceInf;
+import kr.co.mypet.util.StringUtil;
 
 @Controller
 @RequestMapping("/isr")
@@ -298,8 +304,7 @@ public class InsuranceController {
 		//회원의 펫 가지고 오기
 		List<InsshoppingVo> mypetList = insuranceService.petList(memVo.getMem_id());
 		model.addAttribute("mypetList", mypetList);
-		
-		
+			
 		InsshoppingVo isrSPVo = new InsshoppingVo();
 
 		// 회원 아이디 , 보험상품 아이디만 넣어주면 된다
@@ -335,6 +340,7 @@ public class InsuranceController {
 			//회원의 펫 가지고 오기
 			List<InsshoppingVo> mypetList = insuranceService.petList(memVo.getMem_id());
 			model.addAttribute("mypetList", mypetList);
+		
 			
 			// 회원의 펫이 없을떄 가입가능한 나의 펫 부분에 (펫이 없다는 메세지 나오게 하기 위해서 설정)
 			model.addAttribute("petListSize", mypetList.size());
@@ -401,8 +407,91 @@ public class InsuranceController {
 
 		// 펫 추가화면으로 이동 
 			@RequestMapping("/petInsert")
-			public String petInsert() {
+			public String petInsert(Model model , HttpSession session) {
+				// 회원 정보 받아오는 부분
+				MemberVo memVo = (MemberVo) session.getAttribute("memVo");
+				// 로그인을 안한 회원일 경우에는 로그인 화면으로 이동
+				if (memVo == null) {
+					return "petInsurance/memLoginChk";
+				}
 				return "petInsurance/petInsert";
 			}
+			
+		// 펫 품종 ajax 처리
+			@RequestMapping("/petKindHtml")
+			public String petKindHtml(Model model,HttpServletRequest request) {
+			
+				String petKind = request.getParameter("petKind");
+		
+				// 펫추가 하는 화면에 펫 품종 선택할수 있게 넣어 주기
+				List<PetkindVo> petKindList = insuranceService.petKindList(petKind);
+				model.addAttribute("petKindList", petKindList);
+				
+				return "petInsurance/petKindAjaxHtml";
+				
+			}
+		// 펫 추가 처리 하는 부분
+//			@RequestMapping("/mypetInsert")
+//			public String mypetInsert(HttpSession session, Model model, HttpServletRequest request) {
+				
+//				// 회원 정보 받아오는 부분
+//				MemberVo memVo = (MemberVo) session.getAttribute("memVo");
+//				
+//				// 로그인을 안한 회원일 경우에는 로그인 화면으로 이동
+//				if (memVo == null) {
+//					return "petInsurance/memLoginChk";
+//				} else {
+//					// 나의 펫에 추가하려며 있어야 하는 부분 
+//					// myp_mem , myp_petk ,myp_birth , myp_sick ,myp_img ,myp_neu ,myp_gender,myp_name
+//					// 파일 경로 지정 
+//					//Part profilePart = request.getPart("profile");
+//
+//					//사용자가 프로필 이미지를 전송한경우
+//					String contentDisposition = "";
+//					String fileName = "";
+//					String petProFile = "";
+//					//if(profilePart.getSize() > 0){
+//						contentDisposition = 
+//								//profilePart.getHeader("Content-disposition");
+//
+//						fileName = StringUtil.getFileNameFormHeader(contentDisposition);
+//
+//						//파일 쓰기
+//						//url정보를 실제 파일경로로 변경
+//						//String path = getServletContext().getRealPath("/inisimg");
+//
+//						//profilePart.write(path + File.separator + fileName);
+//
+//						//profilePart.delete();  //파일업로드 과정에서 사용한 디스크 임시 영역을 정리
+//
+//						//profile 신규 값 입력
+//						//userVo.setProfile("/inisimg/"+fileName);
+//					}
+//								
+//					return "redirect:/isr/goplanInformation";
+//				}
+//			}
+				
+			
+			
+			// 펫 보험 가입 화면으로 이동
+			@RequestMapping("/prodJoin")
+			public String prodJoin(HttpSession session, Model model) {
+				
+					// 회원 정보 받아오는 부분
+					MemberVo memVo = (MemberVo) session.getAttribute("memVo");
+					model.addAttribute("memVo", (MemberVo) session.getAttribute("memVo"));
+				
+					// 회원의 추가된 보험상품 가지고 오기
+					List<InsshoppingVo> memIsrList = insuranceService.memPlan(memVo.getMem_id());
+					model.addAttribute("memIsrList", memIsrList);
+					
+					//회원의 펫 가지고 오기
+					List<InsshoppingVo> mypetList = insuranceService.petList(memVo.getMem_id());
+					model.addAttribute("mypetList", mypetList);
+					
+				return "/petInsurance/prodJoin";
+			}
+			
 
 }

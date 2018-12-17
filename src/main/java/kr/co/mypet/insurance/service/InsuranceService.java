@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import kr.co.mypet.common.model.MemberVo;
+import kr.co.mypet.common.model.PetkindVo;
 import kr.co.mypet.insurance.dao.InsuranceDaoInf;
 import kr.co.mypet.insurance.model.InsProdVo;
 import kr.co.mypet.insurance.model.InsshoppingVo;
@@ -212,11 +213,21 @@ public class InsuranceService implements InsuranceServiceInf {
 	@Override
 	public InsshoppingVo insShList(InsshoppingVo insShVo) {
 		return insuranceDao.insShList(insShVo);
-	};
-
-
+	}
 
 	
+	/**
+	* Method : petKindList
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @return
+	* Method 설명 : 반려동물 품종 조회해오는 쿼리문
+	*/
+	@Override
+	public List<PetkindVo> petKindList(String am_name) {
+		return insuranceDao.petKindList(am_name);
+	}
+
 	
 	
 }

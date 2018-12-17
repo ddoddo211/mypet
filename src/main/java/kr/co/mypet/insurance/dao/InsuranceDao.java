@@ -5,6 +5,7 @@ import javax.annotation.Resource;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 import kr.co.mypet.common.model.MemberVo;
+import kr.co.mypet.common.model.PetkindVo;
 import kr.co.mypet.insurance.model.InsProdVo;
 import kr.co.mypet.insurance.model.InsshoppingVo;
 import kr.co.mypet.insurance.model.InsurancePageVo;
@@ -202,6 +203,21 @@ public class InsuranceDao implements InsuranceDaoInf {
 	public InsshoppingVo insShList(InsshoppingVo insShVo) {
 		return template.selectOne("petIns.memShopping",insShVo);
 	}
+
+
+
+	/**
+	* Method : petKindList
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @return
+	* Method 설명 : 반려동물 품종 조회해오는 쿼리문
+	*/
+	@Override
+	public List<PetkindVo> petKindList(String am_name) {
+		return template.selectList("petIns.petKind" , am_name);
+	}
+
 
 
 }

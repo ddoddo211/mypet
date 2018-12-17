@@ -72,8 +72,6 @@
 			"8월", "9월", "10월", "11월", "12월" ], //월표시 형식 설정
 			showAnim : "fold" //애니메이션효과
 		});
-		
-
 
 		// 첫페이지는 무조건 실행되야 하기 떄문에 설정
 		getProdListHtml(1); //  html로 리턴해주는 함수 
@@ -171,7 +169,6 @@
 		});
 
 	}
-
 
 	function selectTr(trInfo){
 		var trInfo = trInfo;

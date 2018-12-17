@@ -10,12 +10,13 @@
 			<typeAlias type="kr.co.mypet.insurance.model.InsuranceNoticeVo" alias="insNoticeVo"/>
 			<typeAlias type="kr.co.mypet.insurance.model.InsuranceVo" alias="insVo"/>
 			<typeAlias type="kr.co.mypet.insurance.model.InsurancePageVo" alias="inspageVo"/>
-			<typeAlias type="kr.co.mypet.insurance.model.MypetVo" alias="mypetVo"/>
+			<typeAlias type="kr.co.mypet.common.model.MypetVo" alias="mypetVo"/>
 			<typeAlias type="kr.co.mypet.common.model.MemberVo" alias="memVo"/>
 			<typeAlias type="kr.co.mypet.shopping.model.ShopNoticeVo" alias="snotVo"/>
 			<typeAlias type="kr.co.mypet.sitter.model.PetSitterVo" alias="pstVo" />
 			<typeAlias type="kr.co.mypet.sitter.model.ZipVo" alias="zipVo" />
 			<typeAlias type="kr.co.mypet.insurance.model.InsshoppingVo" alias="insShVo"/>
+			<typeAlias type="kr.co.mypet.common.model.PetkindVo" alias="petkindVo"/>
 	</typeAliases>
 
   <mappers>

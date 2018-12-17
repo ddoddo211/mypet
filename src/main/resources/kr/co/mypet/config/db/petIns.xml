@@ -81,9 +81,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<!-- 회원의 펫이 있는지 확인하는 부분 -->
 		<select id="petList" parameterType="String" resultType="mypetVo">
 			select *
-			  from mypet , petkind
-			 where  myp_petk = petk_id
-               and myp_mem =#{myp_mem}
+			from mypet , petkind , prodsize
+			where myp_petk = petk_id
+			and petk_size = size_id
+			and myp_mem = #{myp_mem}
 		</select>
 		
 		<!-- 회원 정보를 가지고 오는 쿼리 -->
@@ -111,6 +112,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			delete from mypet 
 			where myp_id = #{myp_id}
 		</delete>
+		
+		<!--반려동물 품종 가지고 오는 쿼리문-->
+		<select id="petKind" parameterType="String" resultType="petkindVo">
+			select * from petkind , prodsize , animal
+			where petk_size = size_id
+            and petk_am = AM_ID
+            and am_name = #{am_name}
+		</select>
 		
 		
 </mapper>

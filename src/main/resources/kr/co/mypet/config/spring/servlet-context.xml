@@ -36,6 +36,8 @@
 		<property name="maxUploadSize" value="25000000"/>
 	</bean>
 	
+	
+	
 	<!-- 
 	<bean id="download" class="kr.or.ddit.board.web.DownloadView"/>
 	 -->

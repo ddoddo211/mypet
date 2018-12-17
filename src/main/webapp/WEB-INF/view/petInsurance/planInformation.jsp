@@ -107,6 +107,10 @@ function petDelete(){
 function petInsert(){
 	location.href = '/isr/petInsert';
 }
+
+function prodJoin() {
+	location.href = '/isr/prodJoin';
+}
  
 </script>
 <body>
@@ -216,7 +220,7 @@ function petInsert(){
 									<fmt:formatDate value="${pet.myp_birth}" pattern="yy년-MM월-dd일"></fmt:formatDate>
 								</td>
 								<td class="td2">${pet.myp_sick}</td>
-								<td class="td2">${pet.petk_name}(${pet.myp_size})</td>
+								<td class="td2">${pet.petk_name}(${pet.size_name})</td>
 								<td class="td4">가입되어 있는 보험상품</td>
 							</tr>
 						</c:forEach>	
@@ -240,7 +244,7 @@ function petInsert(){
 						<button id="insuranceProdDlBtn" type="button" onclick="prodDelete()">보험상품 삭제</button>
 					</div>
 					<div id="insuranceJoin">
-						<button id="insuranceJoinBtn">선택한 보험가입하기</button>
+						<button id="insuranceJoinBtn" type="button" onclick="prodJoin()">선택한 보험가입하기</button>
 					</div>
 				</div>
 			</div>
