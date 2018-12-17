@@ -5,6 +5,7 @@ public class MemberVo {
 	private String mem_pass;
 	private String mem_name;
 	private String mem_addr;
+	private String mem_addr2;
 	private String mem_hp;
 	private int mem_exit;
 	private int mem_admin;
@@ -19,9 +20,15 @@ public class MemberVo {
 	@Override
 	public String toString() {
 		return "MemberVo [mem_id=" + mem_id + ", mem_pass=" + mem_pass + ", mem_name=" + mem_name + ", mem_addr="
-				+ mem_addr + ", mem_hp=" + mem_hp + ", mem_exit=" + mem_exit + ", mem_admin=" + mem_admin + ", mem_sit="
-				+ mem_sit + ", mem_shop=" + mem_shop + ", mem_hair=" + mem_hair + ", mem_point=" + mem_point
-				+ ", mem_black=" + mem_black + "]";
+				+ mem_addr + ", mem_addr2=" + mem_addr2 + ", mem_hp=" + mem_hp + ", mem_exit=" + mem_exit
+				+ ", mem_admin=" + mem_admin + ", mem_sit=" + mem_sit + ", mem_shop=" + mem_shop + ", mem_hair="
+				+ mem_hair + ", mem_point=" + mem_point + ", mem_black=" + mem_black + "]";
+	}
+	public String getMem_addr2() {
+		return mem_addr2;
+	}
+	public void setMem_addr2(String mem_addr2) {
+		this.mem_addr2 = mem_addr2;
 	}
 	public String getMem_id() {
 		return mem_id;

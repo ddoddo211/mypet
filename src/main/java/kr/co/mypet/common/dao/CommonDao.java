@@ -49,5 +49,11 @@ public class CommonDao implements CommonDaoInf {
 				return Chk;
 	}
 
+	@Override
+	public MemberVo memberInfo(String mem_id) {
+		MemberVo memVo = template.selectOne("member.memberInfo", mem_id);
+		return memVo;
+	}
+
 
 }

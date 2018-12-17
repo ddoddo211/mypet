@@ -10,4 +10,6 @@ public interface CommonDaoInf {
 
 	public int naverLogin(String mem_id);
 
+	public MemberVo memberInfo(String mem_id);
+
 }
