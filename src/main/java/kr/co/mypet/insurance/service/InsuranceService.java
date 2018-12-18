@@ -248,6 +248,11 @@ public class InsuranceService implements InsuranceServiceInf {
 		return insuranceDao.mypetInfo(mem_id);
 	}
 
+	@Override
+	public int insertPet(MypetVo mypetVo) {
+		return insuranceDao.insertPet(mypetVo);
+	}
+
 	
 	
 }

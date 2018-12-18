@@ -16,5 +16,20 @@ public class StringUtil {
 		}
 		return fileName;
 	}
+	
+	// 파일명으로 잘라주기 메서드
+	public static String getFileExt(String fileName) {
+
+	      int index = fileName.lastIndexOf(".");
+
+	      if (index != -1) {
+	         String ext = fileName.substring(index);
+	         return ext;
+	      } else {
+	         return "";
+	      }
+	   }
+	
+	
 
 }

@@ -250,14 +250,13 @@ function petInsert(){
 								</td>
 							</c:otherwise>
 						</c:choose>							
-		
 								<td class="td2">${pet.myp_name}</td>
 								<td class="td2">${pet.myp_gender}</td>
 								<td class="td2">
 									<fmt:formatDate value="${pet.myp_birth}" pattern="yy년 MM월 dd일"></fmt:formatDate>
 								</td>
 								<td class="td2">${pet.myp_sick}</td>
-								<td class="td2">${pet.petk_name}(${pet.size_name})</td>
+								<td class="td2">${pet.petk_name}(${pet.petk_size})</td>
 								<td class="td4">
 									<c:forEach items="${mypetIsrJoin}" var="mypetIsr">
 										${mypetIsr.insp_kind }

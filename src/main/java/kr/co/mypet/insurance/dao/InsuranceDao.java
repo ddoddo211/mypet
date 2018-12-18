@@ -250,4 +250,11 @@ public class InsuranceDao implements InsuranceDaoInf {
 
 
 
+	@Override
+	public int insertPet(MypetVo mypetVo) {
+		return template.insert("petIns.mypetInsert", mypetVo);
+	}
+
+
+
 }

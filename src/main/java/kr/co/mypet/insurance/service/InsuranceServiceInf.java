@@ -157,5 +157,15 @@ public interface InsuranceServiceInf {
 	*/
 	MypetVo mypetInfo(String mem_id);
 
+	/**
+	* Method : insertPet
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param mypetVo
+	* @return
+	* Method 설명 : 나의 반려동물 정보 추가
+	*/
+	int insertPet(MypetVo mypetVo);
+
 
 }

@@ -4,9 +4,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 품종은
-<select id="wr1_2_3" class="ip1"> 
+<select class="ip1 wr1_2_3" name="petKindSelect" > 
+	<option selected value="0">반려동물의 품종을 선택해주세요.</option>
 	<c:forEach items="${petKindList}" var="petKind">
-		<option>${petKind.petk_name}</option>
+		<option value="${petKind.petk_id}">${petKind.petk_name}</option>
 	</c:forEach>
 </select>
 입니다

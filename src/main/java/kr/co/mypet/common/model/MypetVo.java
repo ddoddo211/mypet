@@ -17,46 +17,34 @@ public class MypetVo {
 	// 품종을 꺼내 오기위해 입력 
 	private String petk_id;
 	private String petk_name;
+	private String petk_size;
 	
-	// 펫의 사이즈를 불러오기 위해서 입력
-	private String size_id;
-	private String size_name;
 	
+	
+	
+	
+
+
 
 	@Override
 	public String toString() {
 		return "MypetVo [myp_id=" + myp_id + ", myp_mem=" + myp_mem + ", myp_petk=" + myp_petk + ", myp_birth="
 				+ myp_birth + ", myp_sick=" + myp_sick + ", myp_img=" + myp_img + ", myp_neu=" + myp_neu
 				+ ", myp_gender=" + myp_gender + ", myp_name=" + myp_name + ", petk_id=" + petk_id + ", petk_name="
-				+ petk_name + ", size_id=" + size_id + ", size_name=" + size_name + "]";
+				+ petk_name + ", petk_size=" + petk_size + "]";
 	}
 
 
 
-	public String getSize_id() {
-		return size_id;
+	public String getPetk_size() {
+		return petk_size;
 	}
 
 
 
-	public void setSize_id(String size_id) {
-		this.size_id = size_id;
+	public void setPetk_size(String petk_size) {
+		this.petk_size = petk_size;
 	}
-
-
-
-	public String getSize_name() {
-		return size_name;
-	}
-
-
-
-	public void setSize_name(String size_name) {
-		this.size_name = size_name;
-	}
-
-
-
 
 
 	public String getPetk_id() {

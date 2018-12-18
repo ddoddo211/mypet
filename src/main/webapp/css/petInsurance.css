@@ -995,6 +995,17 @@ input[name="cb2"] {
 	background-color: white;
 	border: 3px solid white;
 	color: black;
+	outline: none;
+}
+
+.wr1_2_2_1{
+	margin-left: 10px;
+	margin-right: 10px;
+	font-family: 'Nanum Pen Script', cursive;
+	background-color: white;
+	border: 3px solid white;
+	color: black;
+	outline: none;
 }
 
 
@@ -1007,6 +1018,15 @@ input[name="cb2"] {
 	font-size: 17px;
 	margin-right: 10px;
 	font-family: 'Jeju Gothic', sans-serif;
+}
+
+.wr2{
+		font-family: 'Nanum Pen Script', cursive;
+	    font-size: 30px;
+	    height: 50px;
+	    margin-bottom: 15px;
+	    margin-top: 50px;
+	    margin-left: 135px;
 }
 
 #petJoin{
@@ -1037,21 +1057,32 @@ input[name="cb2"] {
 	height: 30px;
 	border-radius: 50px;
 	margin-right: 5px;
+	outline: none;
+}
+
+#womenG{
+	font-family: 'Jeju Gothic', sans-serif;
+	font-size: 18px;
+}
+
+#manG{
+	font-family: 'Jeju Gothic', sans-serif;
+	font-size: 18px;
+}
+
+#petSickY{
+	font-family: 'Jeju Gothic', sans-serif;
+	font-size: 18px;
+}
+
+#petSickN{
+	font-family: 'Jeju Gothic', sans-serif;
+	font-size: 18px;
 }
 
 
 #wr1_1{
 	padding-top: 20px;
-}
-
-#wr1_2_3{
-	margin-left: 20px;
-    font-family: 'Jeju Gothic', sans-serif;
-    font-size: 17px;
-    width: 232px;
-    text-align: center;
-    border-radius: 50px;
-    height: 30px;
 }
 
 .genderImg{
@@ -1100,6 +1131,17 @@ input[name="cb2"] {
 	outline: none;
 }
 
+.wr1_2_3{
+	margin-left: 20px;
+	font-family: 'Jeju Gothic', sans-serif;
+	font-size: 18px;
+	width: 250px;
+	text-align: center;
+	outline: none;
+	height: 35px;
+    border-radius: 50px;
+}
+
 #wr1_2_3{
 	margin-left: 20px;
 	font-family: 'Jeju Gothic', sans-serif;
@@ -1108,6 +1150,7 @@ input[name="cb2"] {
 	text-align: center;
 	outline: none;
 	height: 35px;
+    border-radius: 50px;
 }
 
 
