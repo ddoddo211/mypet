@@ -1,22 +1,38 @@
 package kr.co.mypet.insurance.web;
 
+import java.awt.font.TransformAttribute;
+import java.io.File;
+import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+
 import javax.annotation.Resource;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.mypet.common.model.MemberVo;
+import kr.co.mypet.common.model.MypetVo;
+import kr.co.mypet.common.model.PetkindVo;
 import kr.co.mypet.insurance.model.InsProdVo;
 import kr.co.mypet.insurance.model.InsshoppingVo;
 import kr.co.mypet.insurance.model.InsurancePageVo;
+import kr.co.mypet.insurance.model.InsuranceVo;
 import kr.co.mypet.insurance.service.InsuranceServiceInf;
+import kr.co.mypet.util.StringUtil;
 
 @Controller
 @RequestMapping("/isr")
@@ -298,8 +314,7 @@ public class InsuranceController {
 		//회원의 펫 가지고 오기
 		List<InsshoppingVo> mypetList = insuranceService.petList(memVo.getMem_id());
 		model.addAttribute("mypetList", mypetList);
-		
-		
+			
 		InsshoppingVo isrSPVo = new InsshoppingVo();
 
 		// 회원 아이디 , 보험상품 아이디만 넣어주면 된다
@@ -336,6 +351,11 @@ public class InsuranceController {
 			List<InsshoppingVo> mypetList = insuranceService.petList(memVo.getMem_id());
 			model.addAttribute("mypetList", mypetList);
 			
+			//회원의 펫 가입되어 있는 현재 보험 상품 나오게 하기 
+			List<InsuranceVo> mypetIsrJoin = insuranceService.petIsrAlready(memVo.getMem_id());
+			model.addAttribute("mypetIsrJoin", mypetIsrJoin);
+			
+	
 			// 회원의 펫이 없을떄 가입가능한 나의 펫 부분에 (펫이 없다는 메세지 나오게 하기 위해서 설정)
 			model.addAttribute("petListSize", mypetList.size());
 			
@@ -365,7 +385,6 @@ public class InsuranceController {
 				
 				//회원의 펫 가지고 오기
 				List<InsshoppingVo> mypetList = insuranceService.petList(memVo.getMem_id());
-									
 				model.addAttribute("mypetList", mypetList);
 			
 				return "redirect:/isr/goplanInformation";
@@ -401,8 +420,118 @@ public class InsuranceController {
 
 		// 펫 추가화면으로 이동 
 			@RequestMapping("/petInsert")
-			public String petInsert() {
+			public String petInsert(Model model , HttpSession session) {
+				// 회원 정보 받아오는 부분
+				MemberVo memVo = (MemberVo) session.getAttribute("memVo");
+				// 로그인을 안한 회원일 경우에는 로그인 화면으로 이동
+				if (memVo == null) {
+					return "petInsurance/memLoginChk";
+				}
 				return "petInsurance/petInsert";
 			}
+			
+		// 펫 품종 ajax 처리
+			@RequestMapping("/petKindHtml")
+			public String petKindHtml(Model model,HttpServletRequest request) {
+			
+				String petKind = request.getParameter("petKind");
+		
+				// 펫추가 하는 화면에 펫 품종 선택할수 있게 넣어 주기
+				List<PetkindVo> petKindList = insuranceService.petKindList(petKind);
+				model.addAttribute("petKindList", petKindList);
+				
+				return "petInsurance/petKindAjaxHtml";
+				
+			}
+		// 펫 추가 처리 하는 부분
+			@RequestMapping("/mypetInsert")
+			public String mypetInsert(@RequestPart("petImgForm")MultipartFile part,HttpSession session, Model model, HttpServletRequest request
+					) throws ParseException, IOException, ServletException {
+				
+				// 회원 정보 받아오는 부분
+				MemberVo memVo = (MemberVo) session.getAttribute("memVo");
+				
+				// 로그인을 안한 회원일 경우에는 로그인 화면으로 이동
+				if (memVo == null) {
+					return "petInsurance/memLoginChk";
+				} else {
+					// 나의 펫에 추가하려며 있어야 하는 부분 
+					// myp_mem , myp_petk ,myp_birth , myp_sick ,myp_img ,myp_neu ,myp_gender,myp_name
+					//	myp_id -> 시퀀스로 처리
+					// mypetVo에 입력하기
+					MypetVo mypetVo = new MypetVo();
+					
+					// 생년월일 Date 타입으로 변경하기
+					String birth = request.getParameter("petBirthForm");
+					SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
+					Date dateBirth = date.parse(birth);
+
+					mypetVo.setMyp_mem(memVo.getMem_id());
+					mypetVo.setMyp_name(request.getParameter("petName"));
+					mypetVo.setMyp_gender(request.getParameter("petGender"));
+					mypetVo.setMyp_petk(request.getParameter("petKindForm"));
+					mypetVo.setMyp_birth(dateBirth);
+					mypetVo.setMyp_neu(request.getParameter("petNTL"));
+					mypetVo.setMyp_sick(request.getParameter("petSick"));
+					
+					// 파일 저장되기
+					
+					// 실제 파일 저장될 경로 설정하기
+					String path = "C:\\Users\\PC\\6.Spring\\LastProjectWorkSpace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\mypet\\insimg";
+					String str = part.getOriginalFilename();
+					
+					// 파일명 가지고 오기
+					if(str == "") {
+						mypetVo.setMyp_img("/insimg/noimg.jpg");
+					}else {
+						// 확장자만 빼기(확장자는 저장해줘야 한다)
+						String fileExt = StringUtil.getFileExt(str);
+						String fileName = UUID.randomUUID().toString() + fileExt;	// 충돌 방지를 위한 임의의 파일명 
+						
+						File file = new File(path + File.separator + fileName);
+						
+						part.transferTo(file);
+						
+						str = "/insimg/"+fileName;
+						
+						// DB 넣어주기
+						mypetVo.setMyp_img(str);
+					}
+					
+					insuranceService.insertPet(mypetVo);
+				
+					return "redirect:/isr/goplanInformation";
+					
+				}
+				
+			}
+				
+			
+			
+			// 펫 보험 가입 화면으로 이동
+			@RequestMapping("/prodJoin")
+			public String prodJoin(HttpSession session, Model model , HttpServletRequest request) {
+					
+					//애완동물 id 전달하기
+					String petId = request.getParameter("mypetId");
+					//보험상품 id 전달하기
+					String prodJoinId = request.getParameter("prodJoinId");
+					
+					// 회원 정보 받아오는 부분
+					MemberVo memVo = (MemberVo) session.getAttribute("memVo");
+					model.addAttribute("memVo", memVo );
+				
+					// 가입을 진행하고 있는 보험상품 정보 가지고 오기
+					InsProdVo prodJoin = insuranceService.getProdInfo(prodJoinId);
+					model.addAttribute("prodJoin", prodJoin);
+					
+					// 가입을 진행하고 있는 펫 정보 가지고 오기
+					MypetVo mypetInfo = insuranceService.mypetInfo(petId);
+					model.addAttribute("mypetInfo", mypetInfo);
+				
+					
+				return "/petInsurance/prodJoin";
+			}
+			
 
 }

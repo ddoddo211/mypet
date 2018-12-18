@@ -789,7 +789,7 @@ table tr:hover td{
 #insuranceProdTableTop2{
 	background-color: #8e8e8e;
 	color: white;
-	width: 800px;
+	width: 1200px;
 	margin-top: 15px;
 	height: 30px;
 	font-family: 'Nanum Pen Script', cursive;
@@ -799,7 +799,7 @@ table tr:hover td{
 #insuranceProdTableTop3{
 	background-color: #1d9dd3;
 	color: white;
-	width: 800px;
+	width: 1200px;
 	margin-top: 15px;
 	height: 30px;
 	font-family: 'Nanum Pen Script', cursive;
@@ -809,7 +809,7 @@ table tr:hover td{
 #pettitle2{
 	background-color: #8e8e8e;
 	color: white;
-	width: 800px;
+	width: 1200px;
 	margin-top: 5px;
 	height: 30px;
 	font-family: 'Nanum Pen Script', cursive;
@@ -922,24 +922,26 @@ input[name="cb2"] {
     color: white;
 }
 
+
+
+
 /*펫추가하는 화면*/
 #petInfoInsert{
 	width : 1200px;
-	height : 660px;
-	border: 1px solid black;
+	height : 820px;	
+	margin-bottom: 105px;
 }
 
 #petInfoForm{
 	width: 800px;
-	height: 600px;
+	height: 700px;
 	margin: 0 auto;
-	margin-top:30px;
-	border: 1px solid red;
+	margin-top:15px;
 }
 
 #petInfoFormTop{
 	width: 650px;
-	height: 50px;	
+	height: 80px;	
 	margin: 0 auto;
 }
 
@@ -949,4 +951,393 @@ input[name="cb2"] {
 	text-align: center;
 	background-color: #ffedf6;
 	box-shadow: 3px 3px 3px 3px #999;
+	margin-bottom: 10px;
 }
+
+#petInfoWrite{
+	margin:0 auto;
+	height: 750px;
+	width:900px;
+	background-image: url("/img/petInsurance/post.jpg");
+	background-repeat: no-repeat;
+	background-size: 900px 750px;
+	margin-top: 30px;
+	margin-left: 200px;
+}
+
+.wr1{
+	    font-family: 'Nanum Pen Script', cursive;
+	    font-size: 30px;
+	    width: 600px;
+	    height: 50px;
+	    margin: 0 auto;
+	    margin-bottom: 15px;
+}
+
+
+#wr1_2{
+	margin-left: 150px;
+}
+
+
+#wr1_2_1{
+	margin-left: 20px;
+	font-family: 'Jeju Gothic', sans-serif;
+	font-size: 18px;
+	width: 250px;
+	text-align: center;
+}
+
+.wr1_2_2{
+	margin-left: 10px;
+	margin-right: 10px;
+	font-family: 'Nanum Pen Script', cursive;
+	background-color: white;
+	border: 3px solid white;
+	color: black;
+	outline: none;
+}
+
+.wr1_2_2_1{
+	margin-left: 10px;
+	margin-right: 10px;
+	font-family: 'Nanum Pen Script', cursive;
+	background-color: white;
+	border: 3px solid white;
+	color: black;
+	outline: none;
+}
+
+
+
+#wr1_2_1:focus{
+	outline: none;
+}
+
+#wr3{
+	font-size: 17px;
+	margin-right: 10px;
+	font-family: 'Jeju Gothic', sans-serif;
+}
+
+.wr2{
+		font-family: 'Nanum Pen Script', cursive;
+	    font-size: 30px;
+	    height: 50px;
+	    margin-bottom: 15px;
+	    margin-top: 50px;
+	    margin-left: 135px;
+}
+
+#petJoin{
+	margin-left: 160px;
+	background-color: black;
+	color: white;
+	height: 50px;
+	width: 200px;
+	border-radius: 20px;
+	font-size: 17px;
+	outline: none;
+}
+
+#petPs{
+	margin-left: 15px;
+}
+
+#petPr{
+	width: 150px;
+	height: 150px;
+}
+
+#petPrH{
+	height: 160px;
+}
+
+.ip1{
+	height: 30px;
+	border-radius: 50px;
+	margin-right: 5px;
+	outline: none;
+}
+
+#womenG{
+	font-family: 'Jeju Gothic', sans-serif;
+	font-size: 18px;
+}
+
+#manG{
+	font-family: 'Jeju Gothic', sans-serif;
+	font-size: 18px;
+}
+
+#petSickY{
+	font-family: 'Jeju Gothic', sans-serif;
+	font-size: 18px;
+}
+
+#petSickN{
+	font-family: 'Jeju Gothic', sans-serif;
+	font-size: 18px;
+}
+
+
+#wr1_1{
+	padding-top: 20px;
+}
+
+.genderImg{
+	width: 20px;
+	margin-left: 15px;
+}
+
+#wr3_1{
+	width: 20px;
+    height: 15px;
+}
+
+
+.petK{
+	width: 250px;
+	height: 50px;
+	margin-top: 10px;
+	border-radius: 50px;
+	background-color: white;
+	border: 3px solid #ff569c;
+	color: black;
+	font-size: 17px;
+	outline: none;
+}
+
+#petK1{
+	margin-right: 80px;	
+}
+
+.activePet { 
+	background-color: #7c6ee9; 
+	font-family: 'Nanum Pen Script', cursive;
+	color: white;
+	border: 3px solid #7c6ee9;
+}
+
+.activePetKind { 
+	width: 250px;
+	height: 50px;
+	margin-top: 10px;
+	border-radius: 50px;
+	background-color: #ff569c;
+	border: 3px solid #ff569c;
+	color: white;
+	font-size: 17px;
+	outline: none;
+}
+
+.wr1_2_3{
+	margin-left: 20px;
+	font-family: 'Jeju Gothic', sans-serif;
+	font-size: 18px;
+	width: 250px;
+	text-align: center;
+	outline: none;
+	height: 35px;
+    border-radius: 50px;
+}
+
+#wr1_2_3{
+	margin-left: 20px;
+	font-family: 'Jeju Gothic', sans-serif;
+	font-size: 18px;
+	width: 250px;
+	text-align: center;
+	outline: none;
+	height: 35px;
+    border-radius: 50px;
+}
+
+
+
+
+/* 펫 보험가입내용 작성 화면*/
+#petJoinForm{
+	width: 1200px;
+	height: 840px;
+}
+
+#petJoinForm2{
+	width: 1200px;
+	height: 800px;
+	margin : 0 auto;
+}
+
+#petInfoForm{
+	margin-top:10px;
+	width: 1200px;
+	height: 300px;
+}
+
+#petInfoForm1{
+	margin-bottom:25px;
+	text-align: center;
+	font-family: 'Nanum Pen Script', cursive;
+	font-size: 50px;
+	width: 480px;
+    height: 50px;
+    background-color: #fff6dd;
+    text-align: center;
+    border-radius: 3px;
+    box-shadow: 3px 3px 3px 3px #999;
+    border-right: none;
+}
+
+#petInfoForm2{
+	background-color: #ff569c;
+	width: 1190px;
+	height: 30px;
+	font-family: 'Jeju Gothic', sans-serif;
+	font-size: 20px;
+	text-align: center;
+	margin-top: 10px;
+	color: white;
+	padding: 5px;
+}
+
+#petTable2{
+	margin-top: 10px;
+}
+
+#isrJoinInfo{
+	height: 180px;
+	margin-top: 35px;
+}
+
+#isrJoinInfo2{
+	margin-bottom:25px;
+	text-align: center;
+	font-family: 'Nanum Pen Script', cursive;
+	font-size: 50px;
+	width: 700px;
+    height: 50px;
+    background-color: #fff6dd;
+    text-align: center;
+    border-radius: 3px;
+    box-shadow: 3px 3px 3px 3px #999;
+    border-right: none;
+}
+
+.isrJoinMem{
+	font-family: 'Jeju Gothic', sans-serif;
+	font-size: 20px;
+	margin-bottom: 10px;
+	margin-left: 10px;
+	background-color: #ffcce7;
+	color: white;
+	width: 150px;
+	border-radius: 50px;
+	text-align: center;
+	padding: 5px;
+}
+
+#isrJoinInfo4{
+	font-family: 'Jeju Gothic', sans-serif;
+	font-size: 18px;
+	margin-left: 10px;
+}
+
+.isrJoinInfoLabel{
+	font-family: 'Jeju Gothic', sans-serif;
+	font-size: 20px;
+}
+
+
+
+#isrJoinNotice{
+	width:1200px;
+	height: 200px;
+	margin-top: 50px;
+}
+
+#isrJoinNotice2{
+	margin-bottom:35px;
+	margin-top:15px;
+	text-align: center;
+	font-family: 'Nanum Pen Script', cursive;
+	font-size: 50px;
+	width: 700px;
+    height: 50px;
+    background-color: #fff6dd;
+    text-align: center;
+    border-radius: 3px;
+    box-shadow: 3px 3px 3px 3px #999;
+    border-right: none;
+}
+
+.isrJoinNotice3{
+	font-family: 'Jeju Gothic', sans-serif;
+	font-size: 18px;
+	margin-bottom: 20px;
+	margin-left: 10px;	
+}
+
+.isrJoinNotice3_1{
+	margin-left: 20px;
+	margin-right: 20px;
+}
+
+.isrJoinNotice3_1_1{
+	margin-left: 20px;
+}
+
+
+#isrJoinBtn{
+	width: 1200px;
+	height: 80px;
+	margin-top: 58px;
+}
+
+#isrJoinBtn2{
+	margin: 0 auto;
+	width: 200px;
+	height: 50px;
+	margin-top: 20px;
+}
+
+#isrJoinBtn3{
+	background-color: black;
+	color: white;
+	width: 200px;
+	height: 50px;
+	font-family: 'Jeju Gothic', sans-serif;
+	font-size: 18px;
+	border-radius: 50px;
+}
+
+#isrJoinInfo3{
+	height: 45px;
+}
+
+#memJoinName2{
+	margin-left: 30px;
+}
+
+#memJoinPhone{
+	float: left;
+	margin-left: 0px;
+}
+
+#memJoinPhone2{
+	margin-left: 30px;
+}
+
+#isrJoinMem1{
+	float: left;
+}
+
+.isrJoinInfo5{
+	height: 45px;
+	margin-left: 10px;
+}
+
+#isrJoinInfo5_1{
+	margin-left: 15px;
+}
+
+

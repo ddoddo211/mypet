@@ -15,7 +15,6 @@ public class InsshoppingVo {
 	private String myp_mem;
 	private String myp_petk;
 	private Date myp_birth;
-	private String myp_size;
 	private String myp_sick;
 	private String myp_img;
 	private String myp_neu;
@@ -45,19 +44,22 @@ public class InsshoppingVo {
 	private String insp_del;
 	
 	
+
 	@Override
 	public String toString() {
 		return "InsshoppingVo [inssp_id=" + inssp_id + ", inssp_mem=" + inssp_mem + ", inssp_insp=" + inssp_insp
 				+ ", myp_id=" + myp_id + ", myp_mem=" + myp_mem + ", myp_petk=" + myp_petk + ", myp_birth=" + myp_birth
-				+ ", myp_size=" + myp_size + ", myp_sick=" + myp_sick + ", myp_img=" + myp_img + ", myp_neu=" + myp_neu
-				+ ", myp_gender=" + myp_gender + ", myp_name=" + myp_name + ", insp_id=" + insp_id + ", insp_name="
-				+ insp_name + ", insp_join=" + insp_join + ", insp_kind=" + insp_kind + ", insp_fees=" + insp_fees
+				+ ", myp_sick=" + myp_sick + ", myp_img=" + myp_img + ", myp_neu=" + myp_neu + ", myp_gender="
+				+ myp_gender + ", myp_name=" + myp_name + ", insp_id=" + insp_id + ", insp_name=" + insp_name
+				+ ", insp_join=" + insp_join + ", insp_kind=" + insp_kind + ", insp_fees=" + insp_fees
 				+ ", insp_maxins=" + insp_maxins + ", insp_minage=" + insp_minage + ", insp_maxage=" + insp_maxage
 				+ ", insp_period=" + insp_period + ", insp_sick=" + insp_sick + ", insp_img=" + insp_img
 				+ ", insp_text=" + insp_text + ", insp_insimg=" + insp_insimg + ", insp_instext=" + insp_instext
 				+ ", insp_joinimg=" + insp_joinimg + ", insp_jointext=" + insp_jointext + ", insp_reqimg=" + insp_reqimg
 				+ ", insp_reqtext=" + insp_reqtext + ", insp_del=" + insp_del + "]";
 	}
+
+
 
 
 	public String getMyp_name() {
@@ -101,12 +103,7 @@ public class InsshoppingVo {
 	public void setMyp_birth(Date myp_birth) {
 		this.myp_birth = myp_birth;
 	}
-	public String getMyp_size() {
-		return myp_size;
-	}
-	public void setMyp_size(String myp_size) {
-		this.myp_size = myp_size;
-	}
+
 	public String getMyp_sick() {
 		return myp_sick;
 	}

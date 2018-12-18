@@ -70,10 +70,9 @@
 			dateFormat : "yy-mm-dd", //날짜 형식 설정
 			monthNames : [ "1월", "2월", "3월", "4월", "5월", "6월", "7월",
 			"8월", "9월", "10월", "11월", "12월" ], //월표시 형식 설정
-			showAnim : "fold" //애니메이션효과
+			showAnim : "fold", //애니메이션효과
+			maxDate : "0D"
 		});
-		
-
 
 		// 첫페이지는 무조건 실행되야 하기 떄문에 설정
 		getProdListHtml(1); //  html로 리턴해주는 함수 
@@ -171,7 +170,6 @@
 		});
 
 	}
-
 
 	function selectTr(trInfo){
 		var trInfo = trInfo;

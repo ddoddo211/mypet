@@ -5,9 +5,12 @@ import javax.annotation.Resource;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 import kr.co.mypet.common.model.MemberVo;
+import kr.co.mypet.common.model.MypetVo;
+import kr.co.mypet.common.model.PetkindVo;
 import kr.co.mypet.insurance.model.InsProdVo;
 import kr.co.mypet.insurance.model.InsshoppingVo;
 import kr.co.mypet.insurance.model.InsurancePageVo;
+import kr.co.mypet.insurance.model.InsuranceVo;
 
 
 @Repository
@@ -202,6 +205,56 @@ public class InsuranceDao implements InsuranceDaoInf {
 	public InsshoppingVo insShList(InsshoppingVo insShVo) {
 		return template.selectOne("petIns.memShopping",insShVo);
 	}
+
+
+
+	/**
+	* Method : petKindList
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @return
+	* Method 설명 : 반려동물 품종 조회해오는 쿼리문
+	*/
+	@Override
+	public List<PetkindVo> petKindList(String am_name) {
+		return template.selectList("petIns.petKind" , am_name);
+	}
+
+
+	/**
+	* Method : petIsrAlready
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param myp_id
+	* @return
+	* Method 설명 :플랜정보에서 나의 펫에 현재 보험가입이 되어 있는 상품 보여주기
+	*/
+	@Override
+	public List<InsuranceVo> petIsrAlready(String mem_id) {
+		return template.selectList("petIns.petIsrAlready" , mem_id);
+	}
+
+
+	/**
+	* Method : mypetInfo
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param mem_id
+	* @return
+	* Method 설명 : 펫 id를 줘서 해당 펫 정보가지고 오기
+	*/
+	@Override
+	public MypetVo mypetInfo(String mem_id) {
+		return template.selectOne("petIns.mypetInfo" , mem_id);
+	}
+
+
+
+	@Override
+	public int insertPet(MypetVo mypetVo) {
+		return template.insert("petIns.mypetInsert", mypetVo);
+	}
+
 
 
 }
