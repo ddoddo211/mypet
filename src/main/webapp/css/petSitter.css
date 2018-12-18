@@ -587,11 +587,71 @@ td {
 }
 
 #addressDiv{
+	margin : 0 auto;
 	border : 1px solid blue;
+	overflow: hidden;
+	font-family: 'Work Sans', sans-serif;
+	height : 130px;
+}
+
+#addressDiv1{
+	height : 70px;	
+}
+
+#addressDiv2{
+	margin : 0 auto;
+	font-size : 22px;
+	font-weight : bold;
+	width : 500px;
+	float : center;
+}
+
+#addressDiv3{
+	margin-right : auto;
+	float:right;
+	font-size : 16px;
+	text-decoration: underline;
+}
+
+#addressDiv3 > a > span {
+	color : blue;
+}
+
+#address{
+	font-size : 18px;
+	color : #7b7b7b;
+	margin : 0 auto;
+	width : 400px;
+	float : center;
+	border-bottom : 1px solid #7b7b7b;
+	text-align: center;
 }
 
 #mypetDiv{
+	margin : 0 auto;
+	margin-top : 20px;
 	border : 1px solid pink;
+	overflow: hidden;
+	font-family: 'Work Sans', sans-serif;
+	height : 130px;
+}
+
+#mypet{
+	margin-top : 10px;
+	border : 1px solid pink;
+	font-size : 20px;
+	color : #7b7b7b;
+}
+#mypetDiv1{
+	height : 70px;	
+}
+
+#mypetDiv2{
+	margin : 0 auto;
+	font-size : 22px;
+	font-weight : bold;
+	width : 500px;
+	float : center;
 }
 
 #scheduleDiv{
