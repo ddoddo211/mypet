@@ -477,12 +477,12 @@ public class InsuranceController {
 					// 파일 저장되기
 					
 					// 실제 파일 저장될 경로 설정하기
-					String path = "C:\\Users\\PC\\6.Spring\\LastProjectWorkSpace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\mypet\\insimg";
+					String path = "C:\\Users\\PC\\6.Spring\\LastProjectWorkSpace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\mypet\\img\\petimg";
 					String str = part.getOriginalFilename();
 					
 					// 파일명 가지고 오기
 					if(str == "") {
-						mypetVo.setMyp_img("/insimg/noimg.jpg");
+						mypetVo.setMyp_img("/img/petimg/noimg.jpg");
 					}else {
 						// 확장자만 빼기(확장자는 저장해줘야 한다)
 						String fileExt = StringUtil.getFileExt(str);
@@ -492,7 +492,7 @@ public class InsuranceController {
 						
 						part.transferTo(file);
 						
-						str = "/insimg/"+fileName;
+						str = "/img/petimg/"+fileName;
 						
 						// DB 넣어주기
 						mypetVo.setMyp_img(str);

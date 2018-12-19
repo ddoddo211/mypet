@@ -45,19 +45,11 @@ $(document).ready(function() {
 								// ajax 실행될때 같이 작업되는 부분  - > 애견 추가될떄 값 뽑아 오는 부분
 								// 선택한 애견 번호 뽑아오기
 									// 품종 값 넘겨주기
-								
 								$('select[name=petKindSelect]').change(function() {
 									var petKind = $(this).val();
-									
-									if(petKind == "0"){
-										alert("품종을 선택하시기 바랍니다.");
-										return;
-									}else{
-										$("#petKindForm").val(petKind);
-									}
+								
+									$("#petKindForm").val(petKind);
 								});
-								
-								
 							}
 						});
 					}
@@ -140,6 +132,8 @@ $(document).ready(function() {
 						var petImg = null;
 						petImg = $("#petPs").val();
 						
+						var petKind = $("#petKindForm").val();
+						
 						// 이름 입력안했을시
 						if(petName == ""){
 							alert("이름을 입력하시기 바랍니다.");
@@ -149,6 +143,9 @@ $(document).ready(function() {
 							return;
 						}else if(petBirth == ""){
 							alert("생일을 선택해주시기 바랍니다.");
+							return;
+						}else if(petKind == "0"){
+							alert("품종을 선택하시기 바랍니다.");
 							return;
 						}else if(petSick == null){
 							alert("질병여부 부분에 체크 되지 않았습니다.");
@@ -241,9 +238,9 @@ $(document).ready(function() {
 						<input type="hidden" id="petGender" name="petGender" value="">
 						<input type="hidden" id="petNTL" name="petNTL" value="">
 						<input type="hidden" id="petBirthForm" name="petBirthForm" value="">
-						<input type="hidden" id="petKindForm" name="petKindForm" value="">
+						<input type="hidden" id="petKindForm" name="petKindForm" value="0">
 						<input type="hidden" id="petSick" name="petSick" value="">
-						<div class="wr1">반려동물사진(필수)<input type="file" id="petPs" name="petImgForm"> </div>
+						<div class="wr1">반려동물사진<input type="file" id="petPs" name="petImgForm"> </div>
 						<div class="wr1" id="petPrH"><img alt="이미지가 없습니다" src="/insimg/noimg.jpg" id="petPr"> </div>
 						<div class="wr2"><input type="button" value="펫 등록 " id="petJoin"> </div>
 					</form>

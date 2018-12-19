@@ -17,14 +17,44 @@ public class MypetVo {
 	// 품종을 꺼내 오기위해 입력
 	private String petk_id;
 	private String petk_name;
+	private String petk_am;
 	private String petk_size;
+
+	// 동물
+	private String am_id;
+	private String am_name;
 
 	@Override
 	public String toString() {
 		return "MypetVo [myp_id=" + myp_id + ", myp_mem=" + myp_mem + ", myp_petk=" + myp_petk + ", myp_birth="
 				+ myp_birth + ", myp_sick=" + myp_sick + ", myp_img=" + myp_img + ", myp_neu=" + myp_neu
 				+ ", myp_gender=" + myp_gender + ", myp_name=" + myp_name + ", petk_id=" + petk_id + ", petk_name="
-				+ petk_name + ", petk_size=" + petk_size + "]";
+				+ petk_name + ", petk_am=" + petk_am + ", petk_size=" + petk_size + ", am_id=" + am_id + ", am_name="
+				+ am_name + "]";
+	}
+
+	public String getAm_id() {
+		return am_id;
+	}
+
+	public void setAm_id(String am_id) {
+		this.am_id = am_id;
+	}
+
+	public String getAm_name() {
+		return am_name;
+	}
+
+	public void setAm_name(String am_name) {
+		this.am_name = am_name;
+	}
+
+	public String getPetk_am() {
+		return petk_am;
+	}
+
+	public void setPetk_am(String petk_am) {
+		this.petk_am = petk_am;
 	}
 
 	public String getPetk_size() {

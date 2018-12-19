@@ -256,14 +256,35 @@ function petInsert(){
 									<fmt:formatDate value="${pet.myp_birth}" pattern="yy년 MM월 dd일"></fmt:formatDate>
 								</td>
 								<td class="td2">${pet.myp_sick}</td>
+					
+<!-- 가입가능한 나의 펫 부분에서 고양이 일때에는 입력되지 견종크기 나오지 않게 설정 -->
+						<c:choose>
+							<c:when test="${pet.petk_am == 1 }">				
 								<td class="td2">${pet.petk_name}(${pet.petk_size})</td>
-								<td class="td4">
-									<c:forEach items="${mypetIsrJoin}" var="mypetIsr">
-										${mypetIsr.insp_kind }
-									</c:forEach>
-								</td>
-							</tr>
-						</c:forEach>	
+							</c:when>
+							<c:otherwise>
+								<td class="td2">${pet.petk_name}</td>
+							</c:otherwise>
+						</c:choose>		
+						
+<!-- 가입되어 있는 보험상품 -->						
+										<c:choose>
+											<c:when test="${mypetIsr.myp_id == pet.myp_id}">
+												<c:forEach items="${mypetIsrJoin}" var="mypetIsr">
+													<td class="td4">
+															${mypetIsr.insp_kind }
+													</td>
+												</c:forEach>
+											</c:when>	
+											<c:otherwise>
+												<td class="td4">
+														현재 가입되어 있는 보험이 없습니다.
+												</td>
+											</c:otherwise>
+										</c:choose>	
+														
+						</tr>
+				</c:forEach>	
 	</c:otherwise>					
 </c:choose>	
 
