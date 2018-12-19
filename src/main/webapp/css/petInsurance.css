@@ -881,6 +881,9 @@ table tr:hover td{
 .activeCb
 { background-color: #666666; }
 
+.activeCb1
+{ background-color: white; }
+
 
 input[name="cb1"]+label {
 	display: inline-block;

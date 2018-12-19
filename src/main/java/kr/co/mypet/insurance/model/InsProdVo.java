@@ -12,14 +12,6 @@ public class InsProdVo {
 	private int insp_maxage;
 	private int insp_period;
 	private String insp_sick;
-	private String insp_img;
-	private String insp_text;
-	private String insp_insimg;
-	private String insp_instext;
-	private String insp_joinimg;
-	private String insp_jointext;
-	private String insp_reqimg;
-	private String insp_reqtext;
 	private String insp_del;
 	
 	@Override
@@ -27,12 +19,8 @@ public class InsProdVo {
 		return "InsProdVo [insp_id=" + insp_id + ", insp_name=" + insp_name + ", insp_join=" + insp_join
 				+ ", insp_kind=" + insp_kind + ", insp_fees=" + insp_fees + ", insp_maxins=" + insp_maxins
 				+ ", insp_minage=" + insp_minage + ", insp_maxage=" + insp_maxage + ", insp_period=" + insp_period
-				+ ", insp_sick=" + insp_sick + ", insp_img=" + insp_img + ", insp_text=" + insp_text + ", insp_insimg="
-				+ insp_insimg + ", insp_instext=" + insp_instext + ", insp_joinimg=" + insp_joinimg + ", insp_jointext="
-				+ insp_jointext + ", insp_reqimg=" + insp_reqimg + ", insp_reqtext=" + insp_reqtext + ", insp_del="
-				+ insp_del + "]";
+				+ ", insp_sick=" + insp_sick + ", insp_del=" + insp_del + "]";
 	}
-	
 	public String getInsp_id() {
 		return insp_id;
 	}
@@ -94,54 +82,7 @@ public class InsProdVo {
 	public void setInsp_sick(String insp_sick) {
 		this.insp_sick = insp_sick;
 	}
-	public String getInsp_img() {
-		return insp_img;
-	}
-	public void setInsp_img(String insp_img) {
-		this.insp_img = insp_img;
-	}
-	public String getInsp_text() {
-		return insp_text;
-	}
-	public void setInsp_text(String insp_text) {
-		this.insp_text = insp_text;
-	}
-	public String getInsp_insimg() {
-		return insp_insimg;
-	}
-	public void setInsp_insimg(String insp_insimg) {
-		this.insp_insimg = insp_insimg;
-	}
-	public String getInsp_instext() {
-		return insp_instext;
-	}
-	public void setInsp_instext(String insp_instext) {
-		this.insp_instext = insp_instext;
-	}
-	public String getInsp_joinimg() {
-		return insp_joinimg;
-	}
-	public void setInsp_joinimg(String insp_joinimg) {
-		this.insp_joinimg = insp_joinimg;
-	}
-	public String getInsp_jointext() {
-		return insp_jointext;
-	}
-	public void setInsp_jointext(String insp_jointext) {
-		this.insp_jointext = insp_jointext;
-	}
-	public String getInsp_reqimg() {
-		return insp_reqimg;
-	}
-	public void setInsp_reqimg(String insp_reqimg) {
-		this.insp_reqimg = insp_reqimg;
-	}
-	public String getInsp_reqtext() {
-		return insp_reqtext;
-	}
-	public void setInsp_reqtext(String insp_reqtext) {
-		this.insp_reqtext = insp_reqtext;
-	}
+
 	public String getInsp_del() {
 		return insp_del;
 	}

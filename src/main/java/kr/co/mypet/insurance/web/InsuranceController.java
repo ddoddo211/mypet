@@ -285,6 +285,8 @@ public class InsuranceController {
 			insShVo.setInssp_mem(memVo.getMem_id());
 			insShVo.setInssp_insp(prodId);
 			
+			
+			// 플랜정보에 이미 추가되어 있는 부분 확인하기(상품)
 			InsshoppingVo insShList = insuranceService.insShList(insShVo);
 			
 			if(insShList == null) {
@@ -292,6 +294,7 @@ public class InsuranceController {
 			}else {
 				model.addAttribute("insShList", insShList);
 			}
+			
 		}
 		// 서비스 연결해서 해당 상품 정보 가지고 오기
 		InsProdVo prodVo = insuranceService.getProdInfo(prodId);
@@ -331,8 +334,10 @@ public class InsuranceController {
 	
 	// 보험 메뉴에서 플랜정보 버튼을 클릭하였을때 이동하는 부분
 	@RequestMapping("/goplanInformation")
-	public String planInformation(Model model, HttpSession session) {
+	public String planInformation(Model model, HttpSession session, HttpServletRequest request) {
 
+		String joinFail = request.getParameter("joinFail");
+		
 		// 회원 정보 받아오는 부분
 		MemberVo memVo = (MemberVo) session.getAttribute("memVo");
 		
@@ -358,6 +363,7 @@ public class InsuranceController {
 	
 			// 회원의 펫이 없을떄 가입가능한 나의 펫 부분에 (펫이 없다는 메세지 나오게 하기 위해서 설정)
 			model.addAttribute("petListSize", mypetList.size());
+			model.addAttribute("joinFail", joinFail);
 			
 			return "petInsurance/planInformation";
 		}
@@ -511,7 +517,8 @@ public class InsuranceController {
 			// 펫 보험 가입 화면으로 이동
 			@RequestMapping("/prodJoin")
 			public String prodJoin(HttpSession session, Model model , HttpServletRequest request) {
-					
+				
+				// 펫의 정보와 보험상품 가입조건이 맞는지 확인한다 
 					//애완동물 id 전달하기
 					String petId = request.getParameter("mypetId");
 					//보험상품 id 전달하기
@@ -523,14 +530,57 @@ public class InsuranceController {
 				
 					// 가입을 진행하고 있는 보험상품 정보 가지고 오기
 					InsProdVo prodJoin = insuranceService.getProdInfo(prodJoinId);
-					model.addAttribute("prodJoin", prodJoin);
 					
 					// 가입을 진행하고 있는 펫 정보 가지고 오기
 					MypetVo mypetInfo = insuranceService.mypetInfo(petId);
-					model.addAttribute("mypetInfo", mypetInfo);
-				
 					
-				return "/petInsurance/prodJoin";
+					
+					// 조회해온 마이펫의 품종을 준다면 그 강아지를 뽑아 올수 있어야 가입조건에 가입대상을 확인할수 있다.
+					PetkindVo petkindVo = insuranceService.petKindVo(mypetInfo.getMyp_petk());
+					
+					// 가입대상, 가입연령 , 질병여부 맞는지 확인
+					
+					SimpleDateFormat date = new SimpleDateFormat("yyyy");
+					// 현재 데이터 나오게 설정
+					Date  petdate = new Date();
+					
+						// 지금 부분하고 상관은 없지만 알고 있을려고 입력해 놓은것 
+						// 날짜를 구하는 부분은 parse로 이용한다
+						//String birth = request.getParameter("petBirthForm");
+						//Date dateBirth = date.parse(birth);
+					
+					// string으로 변경하는 부분은 format으로 이용해야 한다
+					String petBirth1 = date.format(mypetInfo.getMyp_birth());
+					
+					// int로 변경한다.
+					int petBirth = Integer.parseInt(petBirth1);
+					
+					
+					// 보험상품의 최소연령
+					int minage = prodJoin.getInsp_minage();
+					// 보험상품의 최대연령
+					int maxage = prodJoin.getInsp_maxage();
+
+					// 현재일자
+					int b = Integer.parseInt(date.format(petdate));
+
+					// 현재 나이 구하는 부분
+					int c = b - petBirth;
+					
+					// 가입을 진행하고 있는 보험상품 정보 가지고 오기	
+					model.addAttribute("prodJoin", prodJoin);
+					// 가입을 진행하고 있는 펫 정보 가지고 오기
+					model.addAttribute("mypetInfo", mypetInfo);
+					
+					if(petkindVo.getAm_name() ==  prodJoin.getInsp_join() 
+							|| prodJoin.getInsp_sick() == mypetInfo.getMyp_sick() || !(c >= minage && c <= maxage) ) {
+						model.addAttribute("joinFail" , "0");
+						return "redirect:/isr/goplanInformation";
+					}else {
+						// 가입조건이 맞지 않다면 가입화면으로 이동
+						return "/petInsurance/prodJoin";
+					}
+			
 			}
 			
 

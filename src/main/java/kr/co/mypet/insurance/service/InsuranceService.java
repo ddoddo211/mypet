@@ -243,14 +243,45 @@ public class InsuranceService implements InsuranceServiceInf {
 		return insuranceDao.petIsrAlready(mem_id);
 	}
 
+	
+	/**
+	* Method : mypetInfo
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param mem_id
+	* @return
+	* Method 설명 : 펫 id를 줘서 해당 펫 정보가지고 오기
+	*/
 	@Override
 	public MypetVo mypetInfo(String mem_id) {
 		return insuranceDao.mypetInfo(mem_id);
 	}
-
+	
+	/**
+	* Method : insertPet
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param mypetVo
+	* @return
+	* Method 설명 : 펫 정보를 입력하여 추가하기
+	*/
 	@Override
 	public int insertPet(MypetVo mypetVo) {
 		return insuranceDao.insertPet(mypetVo);
+	}
+
+	
+	/**
+	* Method : petKindVo
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param myp_petk
+	* @return
+	* Method 설명 : 마이펫에서 번호를 주면 품종 가지고 오는 쿼리문 (플랜정보에서 보험가입할때 이부분이 필요하다)
+	*/
+	@Override
+	public PetkindVo petKindVo(String petk_id) {
+		return insuranceDao.petKindVo(petk_id);
 	}
 
 	

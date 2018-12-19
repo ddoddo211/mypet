@@ -18,12 +18,15 @@
 
 </head>
 <script type="text/javascript">
-
+var joinFail = <%=request.getParameter("joinFail")%>;
+	if(joinFail == "0"){
+		alert("보험상품 조건에 맞지 않습니다. 확인하시기 바랍니다.");
+	}
+	
 $(document).ready(function(){
 	$(".option").change(function(){
 		$("#petSelectMenu").hide();
 	});
-	
 	
 	// 보험상품 선택할떄 값 담아주기
 	var prodId = null;
@@ -40,16 +43,15 @@ $(document).ready(function(){
 			$("#prodId").val("");
 			$(".cb2_label").removeClass("activeCb");
 		}else{
-			$(this).addClass("activeCb")
+			$(this).addClass("activeCb");
 		}
 		//hasClass -> 클래스가 있는지 확인하는것
 		//toggleClass -> 해당 요소가 있으면 이를 제거합니다. 반대로 해당 요소가 없다면 이를 부여하는 매우 유용한 메소드입니다
 		prodId = $(this).data("inssp_insp");
 
-
 		$("#prodId").val(prodId);
 		
-		// 보험가입할때 보험상품 id 담아주기
+		// 선택한 보험 상품 pk 담아주기 
 		prodId2 = $(this).data("insp_id");
 		$("#prodJoinId").val(prodId2);
 		
@@ -61,15 +63,18 @@ $(document).ready(function(){
 		$("#petId").val("");
 		
 		//기존 체크되어 있는 체크박스 전체 해제
-		$(".cb1_label").removeClass("activeCb");
+		$(".cb2_label").removeClass("activeCb");
+		
 		
 		// 원래 체크 되어 있다면 또 다시 클릭한다면 해제하는 부분
 		if($(this).hasClass("activeCb")){
 			$("#petId").val("");
-			$(".cb1_label").removeClass("activeCb");
+			$(".cb2_label").removeClass("activeCb");
 		}else{
-			$(this).addClass("activeCb")
+			$(this).addClass("activeCb");
 		}
+		
+		
 		//hasClass -> 클래스가 있는지 확인하는것
 		//toggleClass -> 해당 요소가 있으면 이를 제거합니다. 반대로 해당 요소가 없다면 이를 부여하는 매우 유용한 메소드입니다
 		var petId = $(this).data("myp_id");
@@ -82,13 +87,12 @@ $(document).ready(function(){
 	var select = null;
 	
 	$(".option").click(function(){
+		// 선택한 펫의 id 담아주기 
 		select = $(this).val();
+		
 		// 마이펫 id 넘겨주기
 		$("#mypetId").val(select);
-		
 	});
-	
-	
 	
 	$("#insuranceJoinBtn").click(function(){
 		// 나의 펫 선택 부분이 선택을 안했을때 나오는 알림창
@@ -100,10 +104,24 @@ $(document).ready(function(){
 			alert("가입할 보험의 상품을 체크하시기 바랍니다.");
 			return ;
 		}else{
-			$("#frm2").submit();
+			// 동일한 값이 있는지 확인하는 변수
+			var chkDu = 0;
+			// 해당 펫의 이미 가입되어 있는 상품이 있을떄에는 변수의 값을 1씩 증가한다
+			for(var i = 1 ; i < 10 ; i++){
+				if(prodId2==$("#isr"+i+select).val()){
+					chkDu += 1;
+				}
+			}
+			// 가입되어 있는 보험상품이 없을때에는 아래 부분이 실행된다
+			if(chkDu==0){
+				$("#frm2").submit();
+			} else {
+				alert("이미 가입된 상품입니다");
+				return;
+			}
 		}
+		
 	});
-	
 });
 
 
@@ -199,7 +217,7 @@ function petInsert(){
 		<div id="petInfoTable">
 			<div id="petInfoTableTop">
 				<div id="pettitle">
-					가입가능한 나의 펫 
+					가입 가능한 나의 펫 
 				</div>
 				<div id="petBtn">
 					<div id="petInsert2">
@@ -268,21 +286,16 @@ function petInsert(){
 						</c:choose>		
 						
 <!-- 가입되어 있는 보험상품 -->						
-										<c:choose>
-											<c:when test="${mypetIsr.myp_id == pet.myp_id}">
-												<c:forEach items="${mypetIsrJoin}" var="mypetIsr">
-													<td class="td4">
-															${mypetIsr.insp_kind }
-													</td>
+											<td class="td4">
+												<c:forEach items="${mypetIsrJoin}" var="mypetIsr" varStatus="index">
+													<c:choose>
+														<c:when test="${mypetIsr.myp_id == pet.myp_id}">
+																	* <span > ${mypetIsr.insp_kind }(${mypetIsr.ins_stat})</span><br>
+																	<input id="isr${index.count}${pet.myp_id}" type="hidden" value="${mypetIsr.inssp_id }"/>
+														</c:when>
+													</c:choose>
 												</c:forEach>
-											</c:when>	
-											<c:otherwise>
-												<td class="td4">
-														현재 가입되어 있는 보험이 없습니다.
-												</td>
-											</c:otherwise>
-										</c:choose>	
-														
+											</td>
 						</tr>
 				</c:forEach>	
 	</c:otherwise>					
@@ -305,7 +318,7 @@ function petInsert(){
 						<button id="insuranceProdDlBtn" type="button" onclick="prodDelete()">보험상품 삭제</button>
 					</div>
 					<div id="insuranceJoin">
-						<button id="insuranceJoinBtn" type="button" onclick="prodJoin()">선택한 보험가입하기</button>
+						<button id="insuranceJoinBtn" type="button">선택한 보험가입하기</button>
 					</div>
 				</div>
 			</div>
@@ -341,7 +354,10 @@ function petInsert(){
 	<c:otherwise>
 						<c:forEach items="${memIsrList}" var="prodVo">
 							<tr class="tr7">
-								<td class="td11"><input type="checkbox" name="cb2" class="cb2" value="${prodVo.inssp_id}"><label class="cb2_label" data-inssp_insp="${prodVo.inssp_id}" data-insp_id="${prodVo.insp_id}"></label></td>
+								<td class="td11">
+									<input type="checkbox" name="cb2" class="cb2" value="${prodVo.inssp_id}">
+									<label class="cb2_label" data-inssp_insp="${prodVo.inssp_id}" data-insp_id="${prodVo.insp_id}"></label>
+								</td>
 								<td class="td8">
 									<select name="petSelect" class="option">
 									  <option selected="selected" id="petSelectMenu">나의 펫 선택</option>

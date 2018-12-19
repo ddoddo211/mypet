@@ -166,6 +166,17 @@ public interface InsuranceServiceInf {
 	* Method 설명 : 나의 반려동물 정보 추가
 	*/
 	int insertPet(MypetVo mypetVo);
+	
+	
+	/**
+	* Method : petKindVo
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param myp_petk
+	* @return
+	* Method 설명 : 마이펫에서 번호를 주면 품종 가지고 오는 쿼리문 (플랜정보에서 보험가입할때 이부분이 필요하다)
+	*/
+	PetkindVo petKindVo (String petk_id);
 
 
 }

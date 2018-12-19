@@ -249,10 +249,32 @@ public class InsuranceDao implements InsuranceDaoInf {
 	}
 
 
-
+	/**
+	* Method : insertPet
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param mypetVo
+	* @return
+	* Method 설명 : 펫 정보를 입력하여 추가하기
+	*/
 	@Override
 	public int insertPet(MypetVo mypetVo) {
 		return template.insert("petIns.mypetInsert", mypetVo);
+	}
+
+
+
+	/**
+	* Method : petKindVo
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param myp_petk
+	* @return
+	* Method 설명 : 마이펫에서 번호를 주면 품종 가지고 오는 쿼리문 (플랜정보에서 보험가입할때 이부분이 필요하다)
+	*/
+	@Override
+	public PetkindVo petKindVo(String petk_id) {
+		return template.selectOne("petIns.petIrsJoinKind", petk_id);
 	}
 
 
