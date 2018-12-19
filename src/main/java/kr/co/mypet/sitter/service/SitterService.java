@@ -7,7 +7,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import kr.co.mypet.insurance.model.MypetVo;
+import kr.co.mypet.common.model.MypetVo;
 import kr.co.mypet.sitter.dao.SitterDaoInf;
 import kr.co.mypet.sitter.model.FaqVo;
 import kr.co.mypet.sitter.model.PetSitterVo;

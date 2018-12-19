@@ -80,8 +80,10 @@
 							<input type="checkbox" id="mypetchk" name="mypetchk" />
 							<span>${list.myp_name }</span>
 							<span>(<fmt:formatDate pattern = "yyyy-MM-dd" value = "${list.myp_birth }" /></span>
-							<span>${list.myp_size }</span>
+							<span>${list.petk_name }</span>
+							<span>${list.petk_size }</span>
 							<span>${list.myp_gender })</span>
+							<span>${list.am_name }</span>
 						</div>
 					</c:forEach>
 				</div>

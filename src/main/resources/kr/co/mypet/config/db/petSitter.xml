@@ -35,8 +35,9 @@
 	</update>
 	
 	<select id="getMypetList" parameterType="String" resultType="mypetVo">
-		select * 
-		from mypet
-		where myp_mem = #{mem_id}
+		select * from mypet, petkind, animal
+		where myp_petk = petk_id
+		and am_id = petk_am
+		and myp_mem = #{mem_id}
 	</select>
 </mapper>
