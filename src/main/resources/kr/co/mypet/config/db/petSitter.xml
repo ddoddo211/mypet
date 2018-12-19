@@ -27,4 +27,16 @@
 		from petsitFaq
 		where psf_id = #{psf_id}
 	</select>
+	
+	<update id="memAddrUpdate" parameterType="map">
+		update member
+		set mem_addr = #{mem_addr}, mem_addr2 = #{mem_addr2}
+		where mem_id = #{mem_id}
+	</update>
+	
+	<select id="getMypetList" parameterType="String" resultType="mypetVo">
+		select * 
+		from mypet
+		where myp_mem = #{mem_id}
+	</select>
 </mapper>
