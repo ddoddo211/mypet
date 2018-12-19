@@ -3,7 +3,7 @@ package kr.co.mypet.sitter.service;
 import java.util.List;
 import java.util.Map;
 
-import kr.co.mypet.insurance.model.MypetVo;
+import kr.co.mypet.common.model.MypetVo;
 import kr.co.mypet.sitter.model.FaqVo;
 import kr.co.mypet.sitter.model.PetSitterVo;
 import kr.co.mypet.sitter.model.ZipVo;

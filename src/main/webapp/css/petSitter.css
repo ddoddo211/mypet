@@ -19,9 +19,10 @@ body, option, select{
 	top: 155px;
 	left: 80px;
 	z-index: 1;
-	font-size: 35px;
+	font-size: 42px;
 	color: #fff;
 	font-weight: bold;
+	font-family: 'Nanum Brush Script', cursive;
 }
 
 #petSittingHome {
@@ -85,6 +86,7 @@ body, option, select{
 	width: 400px;
 	height: 200px;
 	font-size: 30px;
+	font-family: 'Nanum Brush Script', cursive;
 	float: left;
 }
 
@@ -101,6 +103,7 @@ body, option, select{
 	height: 200px;
 	font-size: 30px;
 	float: left;
+	font-family: 'Nanum Brush Script', cursive;
 }
 
 #toHome2 {
@@ -137,6 +140,7 @@ body, option, select{
 	font-size: 32px;
 	width: 1000px;
 	height: 40px;
+	font-family: 'Nanum Brush Script', cursive;
 }
 
 #postImage {
@@ -170,6 +174,11 @@ body, option, select{
 
 #slide input {
     display: none;
+}
+
+.swiper-slide {
+	font-family: 'Nanum Brush Script', cursive;
+	font-size : 24px;
 }
 
 #slide_ul{
