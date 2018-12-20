@@ -279,4 +279,33 @@ public class InsuranceDao implements InsuranceDaoInf {
 
 
 
+	/**
+	* Method : isrProdMypetJoin
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param isrVo
+	* @return
+	* Method 설명 : 보험상품 가입되는 부분
+	*/
+	@Override
+	public int isrProdMypetJoin(InsuranceVo isrVo) {
+		return template.insert("petIns.isrProdMypetJoin",isrVo);
+	}
+
+
+	/**
+	* Method : shoppingJoinProd
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param deleteProd
+	* @return
+	* Method 설명 :보험가입이 완료 된다면 해당 플랜정보(장바구니)화면에 해당 상품이 삭제 되도록 만들기
+	*/
+	@Override
+	public int shoppingJoinProd(String deleteProd) {
+		return template.insert("petIns.shoppingJoinProd",deleteProd);
+	}
+
+
+
 }

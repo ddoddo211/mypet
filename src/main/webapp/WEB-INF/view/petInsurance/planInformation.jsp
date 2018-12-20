@@ -137,8 +137,13 @@ function prodDelete(){
 	if($("#prodId").val()== ""){
 		alert("선택된 보험상품이 없습니다.");
 		return;
+	}else if{
+		// 해당 반려견이 가입보험상품이 있을떄에는 삭제되지 않아야 한다
+		// 반려견하고 반려견이 가입되어 있는 사이즈 만큼 구하면 된다 
+		
+	}else{
+		$("#frm").submit();
 	}
-	$("#frm").submit();
 }
 
 /*펫 삭제 form으로 보내기*/
@@ -231,6 +236,12 @@ function petInsert(){
 				<div id="pettitle2">
 					* 원하시는 나의 펫이 없을때에는 펫 추가하시기 바랍니다.
 				</div>
+				<div id="pettitle3">
+					* 가입보험에 빨간색으로 표시된 부분은 신청자가 보험가입을 완료하였더라도 관리자가 승인을 해야 정상적인 가입완료가 됩니다.
+				</div>
+				<div id="pettitle4">
+					* 가입보험이 있는 나의 펫의 경우에는 "펫 삭제"를 하실수 없습니다.
+				</div>
 			<div id="petTable">
 				<table>
 						<tr class="tr2">
@@ -239,9 +250,9 @@ function petInsert(){
 							<th class="td2">이름</th>
 							<th class="td2">성별</th>
 							<th class="td2">생년월일</th>
-							<th class="td2">질병</th>
+							<th class="td2">질병이력</th>
 							<th class="td2">종류</th>
-							<th class="td4">가입되어 있는 보험상품</th>
+							<th class="td4">가입보험</th>
 						</tr>
 
 <!-- 펫이 한마리도 없을떄 실행되는 부분 -->
@@ -278,20 +289,29 @@ function petInsert(){
 <!-- 가입가능한 나의 펫 부분에서 고양이 일때에는 입력되지 견종크기 나오지 않게 설정 -->
 						<c:choose>
 							<c:when test="${pet.petk_am == 1 }">				
-								<td class="td2">${pet.petk_name}(${pet.petk_size})</td>
+								<td class="td2">${pet.petk_name}<br>(${pet.petk_size})</td>
 							</c:when>
 							<c:otherwise>
-								<td class="td2">${pet.petk_name}(고양이)</td>
+								<td class="td2">${pet.petk_name}<br>(고양이)</td>
 							</c:otherwise>
 						</c:choose>		
-						
+
 <!-- 가입되어 있는 보험상품 -->						
 											<td class="td4">
-												<c:forEach items="${mypetIsrJoin}" var="mypetIsr" varStatus="index">
+												<c:forEach items="${mypetIsrJoin}" var="mypetIsr" >
 													<c:choose>
 														<c:when test="${mypetIsr.myp_id == pet.myp_id}">
-																	* <span > ${mypetIsr.insp_kind }(${mypetIsr.ins_stat})</span><br>
-																	<input id="isr${index.count}${pet.myp_id}" type="hidden" value="${mypetIsr.inssp_id }"/>
+																	<c:choose>
+																		<c:when test="${mypetIsr.ins_stat == '신청'}">
+																			* <span id="isrCondition" > ${mypetIsr.insp_kind }(${mypetIsr.ins_stat})</span><br>
+																			<input id="isr${index.count}${pet.myp_id}" type="hidden" value="${mypetIsr.inssp_id }"/>
+																		</c:when>
+																		<c:otherwise>
+																			* <span> ${mypetIsr.insp_kind }(${mypetIsr.ins_stat})</span><br>
+																			<input id="isr${index.count}${pet.myp_id}" type="hidden" value="${mypetIsr.inssp_id }"/>
+																		</c:otherwise>
+																	</c:choose>
+														
 														</c:when>
 													</c:choose>
 												</c:forEach>
@@ -341,7 +361,7 @@ function petInsert(){
 							<th class="td9">월보험료</th>
 							<th class="td12">가입연령</th>
 							<th class="td9">보장기간</th>
-							<th class="td12">질병여부</th>
+							<th class="td12">질병이력여부</th>
 						</tr>
 
 <!-- 보험상품이 없을떄 if 실행되기 -->	

@@ -203,5 +203,26 @@ public interface InsuranceDaoInf {
 	* Method 설명 : 마이펫에서 번호를 주면 품종 가지고 오는 쿼리문 (플랜정보에서 보험가입할때 이부분이 필요하다)
 	*/
 	PetkindVo petKindVo (String petk_id);
+	
+	/**
+	* Method : isrProdMypetJoin
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param isrVo
+	* @return
+	* Method 설명 : 보험상품 가입되는 부분
+	*/
+	int isrProdMypetJoin(InsuranceVo isrVo);
+	
+	
+	/**
+	* Method : shoppingJoinProd
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param deleteProd
+	* @return
+	* Method 설명 :보험가입이 완료 된다면 해당 플랜정보(장바구니)화면에 해당 상품이 삭제 되도록 만들기
+	*/
+	int shoppingJoinProd(String deleteProd);
 
 }

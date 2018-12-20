@@ -152,4 +152,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             and petk_id = #{petk_id}
 		</select>
 		
+		<!-- 보험상품 가입되는 부분 -->
+		<insert id="isrProdMypetJoin" parameterType="insVo">
+			insert into insurance values (insurancejoin_num.nextval,sysdate,#{ins_end},'신청','N',0,#{myp_id},#{mem_id},#{inssp_id})
+		</insert>
+		
+		<!-- 보험가입이 완료 된다면 해당 플랜정보(장바구니)화면에 해당 상품이 삭제 되도록 만들기 -->
+		<delete id="shoppingJoinProd" parameterType="String">
+			delete from insshopping where inssp_insp = #{inssp_insp}
+		</delete>
+
 </mapper>
