@@ -356,9 +356,17 @@ public class InsuranceController {
 			List<InsshoppingVo> mypetList = insuranceService.petList(memVo.getMem_id());
 			model.addAttribute("mypetList", mypetList);
 			
+			// 나의 펫 에서 삭제 할때 for문 돌리기 위해서 펫의 수가 필요하기 떄문에 설정
+			model.addAttribute("mypetListSize" , mypetList.size());
+			
+			
 			//회원의 펫 가입되어 있는 현재 보험 상품 나오게 하기 
 			List<InsuranceVo> mypetIsrJoin = insuranceService.petIsrAlready(memVo.getMem_id());
 			model.addAttribute("mypetIsrJoin", mypetIsrJoin);
+			
+			
+			// 보험상품 선택한 보험가입이 되어 있는지 확인하려고 for문 돌리기 위해서 필요
+			model.addAttribute("mypetIsrJoinSize", mypetIsrJoin.size());
 			
 	
 			// 회원의 펫이 없을떄 가입가능한 나의 펫 부분에 (펫이 없다는 메세지 나오게 하기 위해서 설정)

@@ -63,7 +63,7 @@ $(document).ready(function(){
 		$("#petId").val("");
 		
 		//기존 체크되어 있는 체크박스 전체 해제
-		$(".cb2_label").removeClass("activeCb");
+		$(".cb2_label").addClass("activeCb1");
 		
 		
 		// 원래 체크 되어 있다면 또 다시 클릭한다면 해제하는 부분
@@ -80,6 +80,7 @@ $(document).ready(function(){
 		var petId = $(this).data("myp_id");
 
 		$("#petId").val(petId);
+		
 	});
 	
 	
@@ -106,8 +107,9 @@ $(document).ready(function(){
 		}else{
 			// 동일한 값이 있는지 확인하는 변수
 			var chkDu = 0;
+		
 			// 해당 펫의 이미 가입되어 있는 상품이 있을떄에는 변수의 값을 1씩 증가한다
-			for(var i = 1 ; i < 10 ; i++){
+			for(var i = 1 ; i < ${mypetIsrJoinSize}; i++){
 				if(prodId2==$("#isr"+i+select).val()){
 					chkDu += 1;
 				}
@@ -122,6 +124,8 @@ $(document).ready(function(){
 		}
 		
 	});
+	
+	
 });
 
 
@@ -132,15 +136,10 @@ function prodAdd(){
 
 /*보험상품삭제 form으로 보내기*/
 function prodDelete(){
-
 	// 만약 체크 박스를 아무것도 클릭하지 않았을 경우 작동되는 부분
 	if($("#prodId").val()== ""){
 		alert("선택된 보험상품이 없습니다.");
 		return;
-	}else if{
-		// 해당 반려견이 가입보험상품이 있을떄에는 삭제되지 않아야 한다
-		// 반려견하고 반려견이 가입되어 있는 사이즈 만큼 구하면 된다 
-		
 	}else{
 		$("#frm").submit();
 	}
@@ -148,14 +147,23 @@ function prodDelete(){
 
 /*펫 삭제 form으로 보내기*/
 function petDelete(){
-	
 	// 만약 체크 박스를 아무것도 클릭하지 않았을 경우 작동되는 부분
 	if($("#petId").val()== ""){
 		alert("선택된 나의펫이 없습니다.");
 		return;
+	}else if(true){
+		var select = $("#petId").val()
+		for(var i = 1 ; i < ${mypetListSize}; i++){
+			if($("#petIsrNumber"+select).val() == select){
+			// 해당 반려견이 가입보험상품이 있을떄에는 삭제되지 않아야 한다
+			// 반려견하고 반려견이 가입되어 있는 사이즈 만큼 구하면 된다 
+				alert("해당 펫은 보험에 가입되어 있는 펫입니다.\n나의 펫에서 삭제하실수 없습니다.");
+				return ;
+			}else{
+				$("#frm1").submit();
+			}
+		}
 	}
-	$("#frm1").submit();
-	
 }
 
 /*펫 추가 화면으로 이동하기*/
@@ -298,12 +306,15 @@ function petInsert(){
 
 <!-- 가입되어 있는 보험상품 -->						
 											<td class="td4">
-												<c:forEach items="${mypetIsrJoin}" var="mypetIsr" >
+												<c:forEach items="${mypetIsrJoin}" var="mypetIsr" varStatus="index">
 													<c:choose>
 														<c:when test="${mypetIsr.myp_id == pet.myp_id}">
+														
+															<!-- 펫의 가입보험 부분에 값이 있다면 -->
+															<input type="hidden" id="petIsrNumber${pet.myp_id}" value="${pet.myp_id}">
 																	<c:choose>
 																		<c:when test="${mypetIsr.ins_stat == '신청'}">
-																			* <span id="isrCondition" > ${mypetIsr.insp_kind }(${mypetIsr.ins_stat})</span><br>
+																			* <span id="isrCondition"> ${mypetIsr.insp_kind }(${mypetIsr.ins_stat})</span><br>
 																			<input id="isr${index.count}${pet.myp_id}" type="hidden" value="${mypetIsr.inssp_id }"/>
 																		</c:when>
 																		<c:otherwise>
@@ -311,8 +322,10 @@ function petInsert(){
 																			<input id="isr${index.count}${pet.myp_id}" type="hidden" value="${mypetIsr.inssp_id }"/>
 																		</c:otherwise>
 																	</c:choose>
-														
 														</c:when>
+														<c:otherwise>
+
+														</c:otherwise>
 													</c:choose>
 												</c:forEach>
 											</td>
