@@ -20,13 +20,6 @@
 		color : #000;
 	}
 	
-	#maintop .topMenu ul li{
-		float: left;
-		margin-top:10px;
-		padding-left: 10px;
-		font-size: 15px;
-	}
-	
 	#mainmid {
 		margin: 0 auto;
 		width: 1200px;
@@ -96,7 +89,7 @@
 	
 	<div id="mainbottom">
 		<div class="snot_text">
-			<img src="${snotVo.snot_dimg }">
+			<img src="${snotVo.snot_img }">
 		</div>
 	</div>
 	
