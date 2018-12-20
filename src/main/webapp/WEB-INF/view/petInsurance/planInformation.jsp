@@ -18,14 +18,19 @@
 
 </head>
 <script type="text/javascript">
-
+var joinFail = <%=request.getParameter("joinFail")%>;
+	if(joinFail == "0"){
+		alert("보험상품 조건에 맞지 않습니다. 확인하시기 바랍니다.");
+	}
+	
 $(document).ready(function(){
 	$(".option").change(function(){
 		$("#petSelectMenu").hide();
 	});
 	
-	
 	// 보험상품 선택할떄 값 담아주기
+	var prodId = null;
+	var prodId2 = null;
 	$(".cb2_label").click(function(){
 		//값을 초기화
 		$("#prodId").val("");
@@ -38,16 +43,19 @@ $(document).ready(function(){
 			$("#prodId").val("");
 			$(".cb2_label").removeClass("activeCb");
 		}else{
-			$(this).addClass("activeCb")
+			$(this).addClass("activeCb");
 		}
 		//hasClass -> 클래스가 있는지 확인하는것
 		//toggleClass -> 해당 요소가 있으면 이를 제거합니다. 반대로 해당 요소가 없다면 이를 부여하는 매우 유용한 메소드입니다
-		var prodId = $(this).data("inssp_insp");
+		prodId = $(this).data("inssp_insp");
 
 		$("#prodId").val(prodId);
+		
+		// 선택한 보험 상품 pk 담아주기 
+		prodId2 = $(this).data("insp_id");
+		$("#prodJoinId").val(prodId2);
+		
 	});
-	
-	
 	
 	// 나의 펫 선택할떄 값 담아주기
 	$(".cb1_label").click(function(){
@@ -55,15 +63,18 @@ $(document).ready(function(){
 		$("#petId").val("");
 		
 		//기존 체크되어 있는 체크박스 전체 해제
-		$(".cb1_label").removeClass("activeCb");
+		$(".cb2_label").removeClass("activeCb");
+		
 		
 		// 원래 체크 되어 있다면 또 다시 클릭한다면 해제하는 부분
 		if($(this).hasClass("activeCb")){
 			$("#petId").val("");
-			$(".cb1_label").removeClass("activeCb");
+			$(".cb2_label").removeClass("activeCb");
 		}else{
-			$(this).addClass("activeCb")
+			$(this).addClass("activeCb");
 		}
+		
+		
 		//hasClass -> 클래스가 있는지 확인하는것
 		//toggleClass -> 해당 요소가 있으면 이를 제거합니다. 반대로 해당 요소가 없다면 이를 부여하는 매우 유용한 메소드입니다
 		var petId = $(this).data("myp_id");
@@ -72,6 +83,45 @@ $(document).ready(function(){
 	});
 	
 	
+	// 선택한 상품 가입하기 버튼을 클릭하였을때 
+	var select = null;
+	
+	$(".option").click(function(){
+		// 선택한 펫의 id 담아주기 
+		select = $(this).val();
+		
+		// 마이펫 id 넘겨주기
+		$("#mypetId").val(select);
+	});
+	
+	$("#insuranceJoinBtn").click(function(){
+		// 나의 펫 선택 부분이 선택을 안했을때 나오는 알림창
+		if(select == null || select == "나의 펫 선택"){
+			alert("보험에 가입하실 나의 펫을 선택하시기 바랍니다.");
+			return ;
+		}else if(prodId == null){
+			// 체크 박스를 클릭하지 않았을 경우 
+			alert("가입할 보험의 상품을 체크하시기 바랍니다.");
+			return ;
+		}else{
+			// 동일한 값이 있는지 확인하는 변수
+			var chkDu = 0;
+			// 해당 펫의 이미 가입되어 있는 상품이 있을떄에는 변수의 값을 1씩 증가한다
+			for(var i = 1 ; i < 10 ; i++){
+				if(prodId2==$("#isr"+i+select).val()){
+					chkDu += 1;
+				}
+			}
+			// 가입되어 있는 보험상품이 없을때에는 아래 부분이 실행된다
+			if(chkDu==0){
+				$("#frm2").submit();
+			} else {
+				alert("이미 가입된 상품입니다");
+				return;
+			}
+		}
+		
+	});
 });
 
 
@@ -107,7 +157,7 @@ function petDelete(){
 function petInsert(){
 	location.href = '/isr/petInsert';
 }
- 
+
 </script>
 <body>
 
@@ -120,6 +170,15 @@ function petInsert(){
 <!-- 나의펫 id를 받아서 넘겨주는 폼(펫 삭제하기에 이용) -->
 <form action="/isr/mypetDel" method="get" id="frm1">
 	<input type="hidden" id="petId"  name="petId" value="">
+</form>
+
+<!-- 플랜정보에서 보험가입하는 화면으로 이동 -->
+
+<form action="/isr/prodJoin" method="get" id="frm2">
+	<!--마이펫의 id 넘겨주기-->
+	<input type="hidden" id="mypetId" name="mypetId" value="">
+	<!--보험상품 id 넘겨주기-->
+	<input type="hidden" id="prodJoinId" name="prodJoinId" value="">
 </form>
 
 <!-- header 시작 -->
@@ -158,7 +217,7 @@ function petInsert(){
 		<div id="petInfoTable">
 			<div id="petInfoTableTop">
 				<div id="pettitle">
-					가입가능한 나의 펫 
+					가입 가능한 나의 펫 
 				</div>
 				<div id="petBtn">
 					<div id="petInsert2">
@@ -209,17 +268,36 @@ function petInsert(){
 								</td>
 							</c:otherwise>
 						</c:choose>							
-		
 								<td class="td2">${pet.myp_name}</td>
 								<td class="td2">${pet.myp_gender}</td>
 								<td class="td2">
-									<fmt:formatDate value="${pet.myp_birth}" pattern="yy년-MM월-dd일"></fmt:formatDate>
+									<fmt:formatDate value="${pet.myp_birth}" pattern="yy년 MM월 dd일"></fmt:formatDate>
 								</td>
 								<td class="td2">${pet.myp_sick}</td>
-								<td class="td2">${pet.petk_name}(${pet.myp_size})</td>
-								<td class="td4">가입되어 있는 보험상품</td>
-							</tr>
-						</c:forEach>	
+					
+<!-- 가입가능한 나의 펫 부분에서 고양이 일때에는 입력되지 견종크기 나오지 않게 설정 -->
+						<c:choose>
+							<c:when test="${pet.petk_am == 1 }">				
+								<td class="td2">${pet.petk_name}(${pet.petk_size})</td>
+							</c:when>
+							<c:otherwise>
+								<td class="td2">${pet.petk_name}</td>
+							</c:otherwise>
+						</c:choose>		
+						
+<!-- 가입되어 있는 보험상품 -->						
+											<td class="td4">
+												<c:forEach items="${mypetIsrJoin}" var="mypetIsr" varStatus="index">
+													<c:choose>
+														<c:when test="${mypetIsr.myp_id == pet.myp_id}">
+																	* <span > ${mypetIsr.insp_kind }(${mypetIsr.ins_stat})</span><br>
+																	<input id="isr${index.count}${pet.myp_id}" type="hidden" value="${mypetIsr.inssp_id }"/>
+														</c:when>
+													</c:choose>
+												</c:forEach>
+											</td>
+						</tr>
+				</c:forEach>	
 	</c:otherwise>					
 </c:choose>	
 
@@ -240,16 +318,16 @@ function petInsert(){
 						<button id="insuranceProdDlBtn" type="button" onclick="prodDelete()">보험상품 삭제</button>
 					</div>
 					<div id="insuranceJoin">
-						<button id="insuranceJoinBtn">선택한 보험가입하기</button>
+						<button id="insuranceJoinBtn" type="button">선택한 보험가입하기</button>
 					</div>
 				</div>
 			</div>
 			
 			<div id="insuranceProdTableTop2">
-				* "플랜 정보에 추가한 보험상품"부분은 회원님이 상품안내에서 추가한 보험상품입니다.
+				&nbsp;&nbsp;* "플랜 정보에 추가한 보험상품"부분은 회원님이 상품안내에서 추가한 보험상품입니다.
 			</div>
 			<div id="insuranceProdTableTop3">
-				* 보험상품 가입은 한개씩 선택하여 보험가입을 진행하시기 바랍니다.
+				&nbsp;&nbsp;* 보험상품 가입은 한개씩 선택하여 보험가입을 진행하시기 바랍니다.
 			</div>
 			
 			<div id="petTable">
@@ -276,12 +354,15 @@ function petInsert(){
 	<c:otherwise>
 						<c:forEach items="${memIsrList}" var="prodVo">
 							<tr class="tr7">
-								<td class="td11"><input type="checkbox" name="cb2" class="cb2" value="${prodVo.inssp_id}"><label class="cb2_label" data-inssp_insp="${prodVo.inssp_id}"></label></td>
+								<td class="td11">
+									<input type="checkbox" name="cb2" class="cb2" value="${prodVo.inssp_id}">
+									<label class="cb2_label" data-inssp_insp="${prodVo.inssp_id}" data-insp_id="${prodVo.insp_id}"></label>
+								</td>
 								<td class="td8">
 									<select name="petSelect" class="option">
 									  <option selected="selected" id="petSelectMenu">나의 펫 선택</option>
 									  <c:forEach items="${mypetList}" var="petSelect">
-									  	<option value="${petSelect.myp_name}">${petSelect.myp_name}</option>
+									  	<option value="${petSelect.myp_id}">${petSelect.myp_name}</option>
 									  </c:forEach>
 									</select>
 								</td>

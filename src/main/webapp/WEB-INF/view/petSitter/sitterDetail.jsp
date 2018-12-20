@@ -5,15 +5,21 @@
 <head>
 <meta charset="UTF-8">
 <title>sitterDetail.jsp</title>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />  
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>  
+<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script> 
+
 <link href="/css/commonCss.css" rel ="stylesheet">
 <link href="/css/petSitter.css" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Nanum+Brush+Script" rel="stylesheet">
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
+<link href="https://fonts.googleapis.com/css?family=Nanum+Brush+Script" rel="stylesheet">
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link href='/css/fullcalendar/fullcalendar.min.css' rel='stylesheet' />
 <link href='/css/fullcalendar/fullcalendar.print.min.css' rel='stylesheet' media='print' />
 <script src='/js/moment.min.js'></script>
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src='/js/fullcalendar.min.js'></script>
 
   <style type="text/css">
@@ -33,81 +39,55 @@
   	height : 288px !important;
   }
   
+  #dateStart, #dateEnd{
+  	text-align: center;
+  }
+  
   </style>
-  <script>
 
-  $(document).ready(function() {
+<script type="text/javascript">
+	$(document).ready(function() {
+		
+		var today = new Date();
+		$('#calendar').fullCalendar({
+			header : {
+			left : 'prev,next today',
+			center : 'title',
+			right : 'month,agendaWeek,agendaDay,listWeek'
+		},
+			defaultDate : today,
+			locale : 'ko',
+			navLinks : true, // can click day/week names to navigate views
+			editable : true,
+			eventLimit : true, // allow "more" link when too many events
+			events : []
 
-    $('#calendar').fullCalendar({
-      header: {
-        left: 'prev,next today',
-        center: 'title',
-        right: 'month,agendaWeek,agendaDay,listWeek'
-      },
-      defaultDate: '2018-03-12',
-      navLinks: true, // can click day/week names to navigate views
-      editable: true,
-      eventLimit: true, // allow "more" link when too many events
-      events: [
-        {
-          title: 'All Day Event',
-          start: '2018-03-01',
-        },
-        {
-          title: 'Long Event',
-          start: '2018-03-07',
-          end: '2018-03-10'
-        },
-        {
-          id: 999,
-          title: 'Repeating Event',
-          start: '2018-03-09T16:00:00'
-        },
-        {
-          id: 999,
-          title: 'Repeating Event',
-          start: '2018-03-16T16:00:00'
-        },
-        {
-          title: 'Conference',
-          start: '2018-03-11',
-          end: '2018-03-13'
-        },
-        {
-          title: 'Meeting',
-          start: '2018-03-12T10:30:00',
-          end: '2018-03-12T12:30:00'
-        },
-        {
-          title: 'Lunch',
-          start: '2018-03-12T12:00:00'
-        },
-        {
-          title: 'Meeting',
-          start: '2018-03-12T14:30:00'
-        },
-        {
-          title: 'Happy Hour',
-          start: '2018-03-12T17:30:00'
-        },
-        {
-          title: 'Dinner',
-          start: '2018-03-12T20:00:00'
-        },
-        {
-          title: 'Birthday Party',
-          start: '2018-03-13T07:00:00'
-        },
-        {
-          title: 'Click for Google',
-          url: 'http://google.com/',
-          start: '2018-03-28'
-        }
-      ]
-    });
+		});
 
-  });
-
+	});
+	$(function(){
+		// 달력 옵션 설정
+		$("#dateStart").datepicker({ 
+			// 달력에 옵션 설정하기
+			dayNamesMin : [ "일", "월", "화", "수", "목",	"금", "토" ], // 요일에 표시되는 형식 설정
+			dateFormat : "yy-mm-dd", //날짜 형식 설정
+			monthNames : [ "1월", "2월", "3월", "4월","5월", "6월", "7월", "8월", "9월","10월", "11월", "12월" ], //월표시 형식 설정
+			showAnim : "fold", //애니메이션효과
+			minDate : 0,
+			maxDate : "+3M"
+		});
+		
+		// 달력 옵션 설정
+		$("#dateEnd").datepicker({ 
+			// 달력에 옵션 설정하기
+			dayNamesMin : [ "일", "월", "화", "수", "목",	"금", "토" ], // 요일에 표시되는 형식 설정
+			dateFormat : "yy-mm-dd", //날짜 형식 설정
+			monthNames : [ "1월", "2월", "3월", "4월","5월", "6월", "7월", "8월", "9월","10월", "11월", "12월" ], //월표시 형식 설정
+			showAnim : "fold", //애니메이션효과
+			minDate : 0,
+			maxDate : "+3M"
+		});
+	});
 </script>
 </head>
 
@@ -159,8 +139,8 @@
 				<div id="contentright1">
 					<span>예약을 원하는 날짜와 시간을 선택해주세요.</span> <br>
 					<div id="contentDate">
-						<input type="text" name="dateStart" id="dateStart" readonly/> ~
-						<input type="text" name="dateEnd" id="dateEnd" readonly/>
+						<input type="text" name="dateStart" id="dateStart" readonly="readonly"/> ~
+						<input type="text" name="dateEnd" id="dateEnd" readonly="readonly" />
 					</div>
 					<div id="contentPrice">
 						<span>원</span> 

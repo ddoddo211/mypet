@@ -1,10 +1,14 @@
 package kr.co.mypet.insurance.dao;
 
 import java.util.List;
+
 import kr.co.mypet.common.model.MemberVo;
+import kr.co.mypet.common.model.MypetVo;
+import kr.co.mypet.common.model.PetkindVo;
 import kr.co.mypet.insurance.model.InsProdVo;
 import kr.co.mypet.insurance.model.InsshoppingVo;
 import kr.co.mypet.insurance.model.InsurancePageVo;
+import kr.co.mypet.insurance.model.InsuranceVo;
 
 public interface InsuranceDaoInf {
 	
@@ -146,5 +150,58 @@ public interface InsuranceDaoInf {
 	* Method 설명 : 회원이 플랜정보 추가버튼을 클릭하였을때 이미 플랜정보에 추가되어진 상품인지 확인하는 부분
 	*/
 	InsshoppingVo insShList(InsshoppingVo insShVo);
+	
+	
+	/**
+	* Method : petKindList
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @return
+	* Method 설명 : 반려동물 품종 조회해오는 쿼리문
+	*/
+	List<PetkindVo> petKindList(String am_name);
+	
+	
+	/**
+	* Method : petIsrAlready
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param myp_id
+	* @return
+	* Method 설명 :플랜정보에서 나의 펫에 현재 보험가입이 되어 있는 상품 보여주기
+	*/
+	List<InsuranceVo> petIsrAlready (String mem_id );
+	
+	
+	/**
+	* Method : mypetInfo
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param mem_id
+	* @return
+	* Method 설명 : 펫 id를 줘서 해당 펫 정보가지고 오기
+	*/
+	MypetVo mypetInfo(String mem_id);
+
+	/**
+	* Method : insertPet
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param mypetVo
+	* @return
+	* Method 설명 : 나의 반려동물 정보 추가
+	*/
+	public int insertPet(MypetVo mypetVo);
+	
+	
+	/**
+	* Method : petKindVo
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param myp_petk
+	* @return
+	* Method 설명 : 마이펫에서 번호를 주면 품종 가지고 오는 쿼리문 (플랜정보에서 보험가입할때 이부분이 필요하다)
+	*/
+	PetkindVo petKindVo (String petk_id);
 
 }
