@@ -84,6 +84,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			from mypet , petkind 
 			where myp_petk = petk_id
 			and myp_mem = #{myp_mem}
+			order by myp_id
 		</select>
 		
 		<!-- 회원 정보를 가지고 오는 쿼리 -->

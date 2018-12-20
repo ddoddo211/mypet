@@ -281,7 +281,7 @@ function petInsert(){
 								<td class="td2">${pet.petk_name}(${pet.petk_size})</td>
 							</c:when>
 							<c:otherwise>
-								<td class="td2">${pet.petk_name}</td>
+								<td class="td2">${pet.petk_name}(고양이)</td>
 							</c:otherwise>
 						</c:choose>		
 						
