@@ -152,7 +152,7 @@
 		<div id="maintop">
 			<div class="maintop-left">
 				<c:forEach items="${snotList }" var="list">
-					<a href="/shop/shopNoticeDetail?snot_id=${list.snot_id }"><img src="${list.snot_profile }" class="mySlides" width="907" height="280"></a>
+					<a href="/shop/shopNoticeDetail?snot_id=${list.snot_id }"><img src="${list.snot_pimg }" class="mySlides" width="907" height="280"></a>
 				</c:forEach>
 				<script type="text/javascript">
 					var slideIndex = 0;

@@ -6,8 +6,8 @@ public class ShopNoticeVo {
 	private String snot_text;
 	private String snot_date;
 	private String snot_mem;
-	private String snot_profile;
-	private String snot_dimg;
+	private String snot_pimg;
+	private String snot_img;
 	private int snot_chk;
 	
 	public ShopNoticeVo() {
@@ -54,20 +54,20 @@ public class ShopNoticeVo {
 		this.snot_mem = snot_mem;
 	}
 
-	public String getSnot_profile() {
-		return snot_profile;
+	public String getSnot_pimg() {
+		return snot_pimg;
 	}
 
-	public void setSnot_profile(String snot_profile) {
-		this.snot_profile = snot_profile;
+	public void setSnot_pimg(String snot_pimg) {
+		this.snot_pimg = snot_pimg;
 	}
 
-	public String getSnot_dimg() {
-		return snot_dimg;
+	public String getSnot_img() {
+		return snot_img;
 	}
 
-	public void setSnot_dimg(String snot_dimg) {
-		this.snot_dimg = snot_dimg;
+	public void setSnot_img(String snot_img) {
+		this.snot_img = snot_img;
 	}
 
 	public int getSnot_chk() {
@@ -81,9 +81,11 @@ public class ShopNoticeVo {
 	@Override
 	public String toString() {
 		return "ShopNoticeVo [snot_id=" + snot_id + ", snot_title=" + snot_title + ", snot_text=" + snot_text
-				+ ", snot_date=" + snot_date + ", snot_mem=" + snot_mem + ", snot_profile=" + snot_profile
-				+ ", snot_dimg=" + snot_dimg + ", snot_chk=" + snot_chk + "]";
+				+ ", snot_date=" + snot_date + ", snot_mem=" + snot_mem + ", snot_pimg=" + snot_pimg + ", snot_img="
+				+ snot_img + ", snot_chk=" + snot_chk + "]";
 	}
+
+	
 	
 
 }
