@@ -15,20 +15,22 @@ public class AccidentVo {
 	private int accd_insp;
 	private String accd_mem;
 	private String accd_myp; 
-	private String accd_ins;
+	private String ins_id;
 	
-	
-
 	
 	@Override
 	public String toString() {
 		return "AccidentVo [accd_id=" + accd_id + ", accd_date=" + accd_date + ", accd_addr=" + accd_addr
 				+ ", accd_text=" + accd_text + ", accd_img=" + accd_img + ", accd_recp=" + accd_recp + ", accd_stat="
 				+ accd_stat + ", accd_res=" + accd_res + ", accd_insp=" + accd_insp + ", accd_mem=" + accd_mem
-				+ ", accd_myp=" + accd_myp + ", accd_ins=" + accd_ins + "]";
+				+ ", accd_myp=" + accd_myp + ", ins_id=" + ins_id + "]";
 	}
-	
-	
+	public String getIns_id() {
+		return ins_id;
+	}
+	public void setIns_id(String ins_id) {
+		this.ins_id = ins_id;
+	}
 	public String getAccd_id() {
 		return accd_id;
 	}
@@ -95,12 +97,7 @@ public class AccidentVo {
 	public void setAccd_myp(String accd_myp) {
 		this.accd_myp = accd_myp;
 	}
-	public String getAccd_ins() {
-		return accd_ins;
-	}
-	public void setAccd_ins(String accd_ins) {
-		this.accd_ins = accd_ins;
-	}
+
 	
 	
 

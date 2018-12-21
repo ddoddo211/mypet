@@ -24,9 +24,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
+import kr.co.mypet.common.model.AccountVo;
 import kr.co.mypet.common.model.MemberVo;
 import kr.co.mypet.common.model.MypetVo;
 import kr.co.mypet.common.model.PetkindVo;
+import kr.co.mypet.insurance.model.AccidentVo;
 import kr.co.mypet.insurance.model.InsProdVo;
 import kr.co.mypet.insurance.model.InsshoppingVo;
 import kr.co.mypet.insurance.model.InsurancePageVo;
@@ -349,7 +351,7 @@ public class InsuranceController {
 			List<InsshoppingVo> memIsrList = insuranceService.memPlan(memVo.getMem_id());
 			model.addAttribute("memIsrList", memIsrList);
 			
-			// 보험상품 체크박스 색상 나타낼떄 필요하기 때문에 설정
+			// 보험상품 에서 삭제 할때 for문 돌리기 위해서 플랜정보에 추가된 상품 수가 필요하기 떄문에 설정
 			model.addAttribute("memIsrListSize", memIsrList.size());
 			
 			
@@ -376,6 +378,7 @@ public class InsuranceController {
 			// 회원의 펫이 없을떄 가입가능한 나의 펫 부분에 (펫이 없다는 메세지 나오게 하기 위해서 설정)
 			model.addAttribute("petListSize", mypetList.size());
 			model.addAttribute("joinFail", joinFail);
+			
 			
 			return "petInsurance/planInformation";
 		}
@@ -523,8 +526,6 @@ public class InsuranceController {
 				}
 				
 			}
-				
-			
 			
 			// 펫 보험 가입 화면으로 이동
 			@RequestMapping("/prodJoin")
@@ -589,9 +590,15 @@ public class InsuranceController {
 					model.addAttribute("prodJoin", prodJoin);
 					// 가입을 진행하고 있는 펫 정보 가지고 오기
 					model.addAttribute("mypetInfo", mypetInfo);
+					
+					
+					// 해당 회원의 이메일(pk)로 보내서 회원의 계좌번호를 가지고 오는 방법(매개변수를 회원의 아이디로 설정한다) 
+					List<AccountVo> memAccidentList = insuranceService.memAccountList(memVo.getMem_id());
+					model.addAttribute("memAccidentList", memAccidentList);
+					
 				
 					// 가입조건이 맞지 않는다면 가입이 안되는 메서드 사용 
-					if(insuranceAvaliable(prodJoin.getInsp_sick(), mypetInfo.getMyp_sick(), petkindVo.getAm_name(), prodJoin.getInsp_join(), minage, maxage, petage ))
+					if(insuranceAvaliable(prodJoin.getInsp_sick(), mypetInfo.getMyp_sick(), petkindVo.getAm_name(), prodJoin.getInsp_join(), minage, maxage, petage ))	
 						return "/petInsurance/prodJoin";
 					else {
 						model.addAttribute("joinFail" , 0);
@@ -599,18 +606,16 @@ public class InsuranceController {
 					}
 					
 			}
-		
-
-			
 			
 			// 보험상품 가입을 위한 마지막 처리 (이부분을 지나면 보험가입이 완료된다)
 			@RequestMapping("/isrProdMypetJoin")
 			public String isrProdMypetJoin(HttpServletRequest request) throws Exception {
 				
-				// 내 반려동물 id , 회원 id(이메일) , 보험상품 id 변수에 담아주기
+				// 내 반려동물 id , 회원 id(이메일) , 보험상품 id ,선택한 계좌번호 변수에 담아주기
 				String petId = request.getParameter("petId");
 				String memId = request.getParameter("memId");
 				String prodJoinId = request.getParameter("prodJoinId");
+				String memAccident = request.getParameter("memAccount");
 				
 				// 만기일 계산하기 
 				// 만기일을 계산할떄에는 현재 애완펫의 년생을 구한다 
@@ -660,13 +665,14 @@ public class InsuranceController {
 					Date prodDuedate = date.parse(duedate);
 					
 				// 서비스 이용하여 db 보험가입상품 테이블에 추가하기 (매개변수는 보험상품 VO로 넘겨주기)
-				// 내 반려동물 id , 회원 id(이메일) , 보험상품 id, 보험만기일 변수에 담아주기
+				// 내 반려동물 id , 회원 id(이메일) , 보험상품 id, 보험만기일, 선택한 보험 상품 변수에 담아주기
 				InsuranceVo isrVo = new InsuranceVo();
 				
 				isrVo.setMyp_id(petId);
 				isrVo.setMem_id(memId);
 				isrVo.setInssp_id(prodJoinId);
 				isrVo.setIns_end(prodDuedate);
+				isrVo.setAct_id(memAccident);
 				
 				// 쿼리문 이용하여 저장해주기
 				insuranceService.isrProdMypetJoin(isrVo);

@@ -22,6 +22,7 @@
 			<typeAlias type="kr.co.mypet.shopping.model.ProddvVo" alias="pddVo"/>
 			<typeAlias type="kr.co.mypet.hair.model.HairShopVo" alias="hairShopVo"/>
 			<typeAlias type="kr.co.mypet.shopping.model.DivisionVo" alias="dvsVo"/>
+			<typeAlias type="kr.co.mypet.common.model.AccountVo" alias="accountVo"/>
 	</typeAliases>
 
   <mappers>

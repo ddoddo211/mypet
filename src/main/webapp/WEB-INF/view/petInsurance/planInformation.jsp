@@ -28,34 +28,8 @@ $(document).ready(function(){
 		$("#petSelectMenu").hide();
 	});
 	
-	// 보험상품 선택할떄 값 담아주기
-	var prodId = null;
-	var prodId2 = null;
 	
-	$(".cb2_label").click(function(){
-		//값을 초기화
-		$("#prodId").val("");
-		
-		//기존 체크되어 있는 체크박스 전체 해제
-		$(".cb2_label").removeClass("activeCb");
-		
-		// 원래 체크 되어 있다면 또 다시 클릭한다면 해제하는 부분
-		if($(this).hasClass("activeCb")){
-			$("#prodId").val("");
-			$(".cb2_label").removeClass("activeCb");
-		}else{
-			$(this).addClass("activeCb");
-		}
-		
-		prodId = $(this).data("inssp_insp");
 
-		$("#prodId").val(prodId);
-		
-		// 선택한 보험 상품 pk 담아주기 
-		prodId2 = $(this).data("insp_id");
-		$("#prodJoinId").val(prodId2);
-		
-	});
 	
 	// 나의 펫 선택할떄 값 담아주기
 	$(".cb1_label").click(function(){
@@ -69,7 +43,7 @@ $(document).ready(function(){
 				if($(this).hasClass("activeCb")){
 					$("#petId").val("");
 				}else{
-					// 클릭한 아이디하고 선택한 펫의 아이디하고 맞다면 회색 배경색 주기 
+					// 클릭한 아이디하고 선택한 펫의 아이디하고 맞다면 회색 배경색 주기                     
 					$("#petId").val(petId);
 				}
 				//toggleClass -> 해당 요소가 있으면 이를 제거합니다. 반대로 해당 요소가 없다면 이를 부여하는 매우 유용한 메소드입니다
@@ -79,6 +53,30 @@ $(document).ready(function(){
 				$("#label"+i).removeClass("activeCb");
 			}
 		}
+	});
+	
+	$(".cb2_label").click(function(){
+		// 보험상품 선택할떄 값 담아주기
+		var prodId = $(this).data("inssp_insp");
+		var prodId2 = $(this).data("insp_id");
+		
+			for(var i = 1; i<= ${memIsrListSize}; i++){
+					if($("#prodLabel"+i).data("prodLabel") == prodId2){
+							// 원래 체크 되어 있다면 또 다시 클릭한다면 해제하는 부분
+							if($(this).hasClass("activeCb")){
+								$("#prodId").val("");
+								$("#prodJoinId").val("");
+							}else{
+								// 선택한 보험 상품 pk 담아주기 
+								$("#prodId").val(prodId);
+								$("#prodJoinId").val(prodId2);
+							}
+								$("#prodLabel"+i).toggleClass("activeCb");
+					}else {
+							// 클릭한 아이디하고 선택한 펫이 맞지 않을떄에는 배경색 흰색 주기 
+							$("#prodLabel"+i).removeClass("activeCb");
+					}
+			}
 	});
 	
 	
@@ -388,11 +386,11 @@ function petInsert(){
 		</tr>
 	</c:when>
 	<c:otherwise>
-						<c:forEach items="${memIsrList}" var="prodVo">
+						<c:forEach items="${memIsrList}" var="prodVo" varStatus="index">
 							<tr class="tr7">
 								<td class="td11">
 									<input type="checkbox" name="cb2" class="cb2" value="${prodVo.inssp_id}">
-									<label class="cb2_label" data-inssp_insp="${prodVo.inssp_id}" data-insp_id="${prodVo.insp_id}"></label>
+									<label class="cb2_label" id="prodLabel${index.count}" data-prodLabel="${prodVo.insp_id}" data-inssp_insp="${prodVo.inssp_id}" data-insp_id="${prodVo.insp_id}"></label>
 								</td>
 								<td class="td8">
 									<select name="petSelect" class="option">
