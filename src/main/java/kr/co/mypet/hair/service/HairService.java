@@ -7,7 +7,8 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import kr.co.mypet.hair.dao.HairDaoInf;
-import kr.co.mypet.hair.model.ZipVo;
+import kr.co.mypet.hair.model.HairShopVo;
+import kr.co.mypet.sitter.model.ZipVo;
 
 @Service
 public class HairService implements HairServiceInf {
@@ -25,5 +26,11 @@ public class HairService implements HairServiceInf {
 		public List<ZipVo> selectZipLow(String zip_high) {
 			// TODO Auto-generated method stub
 			return hairDao.selectZipLow(zip_high);
+		}
+
+		@Override
+		public List<HairShopVo> selectHairShopAll() {
+			// TODO Auto-generated method stub
+			return hairDao.selectHairShopAll();
 		}
 }
