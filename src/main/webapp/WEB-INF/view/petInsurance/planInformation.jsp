@@ -31,6 +31,7 @@ $(document).ready(function(){
 	// 보험상품 선택할떄 값 담아주기
 	var prodId = null;
 	var prodId2 = null;
+	
 	$(".cb2_label").click(function(){
 		//값을 초기화
 		$("#prodId").val("");
@@ -45,8 +46,7 @@ $(document).ready(function(){
 		}else{
 			$(this).addClass("activeCb");
 		}
-		//hasClass -> 클래스가 있는지 확인하는것
-		//toggleClass -> 해당 요소가 있으면 이를 제거합니다. 반대로 해당 요소가 없다면 이를 부여하는 매우 유용한 메소드입니다
+		
 		prodId = $(this).data("inssp_insp");
 
 		$("#prodId").val(prodId);
@@ -59,28 +59,26 @@ $(document).ready(function(){
 	
 	// 나의 펫 선택할떄 값 담아주기
 	$(".cb1_label").click(function(){
-		//값을 초기화
-		$("#petId").val("");
-		
-		//기존 체크되어 있는 체크박스 전체 해제
-		$(".cb2_label").addClass("activeCb1");
-		
-		
-		// 원래 체크 되어 있다면 또 다시 클릭한다면 해제하는 부분
-		if($(this).hasClass("activeCb")){
-			$("#petId").val("");
-			$(".cb2_label").removeClass("activeCb");
-		}else{
-			$(this).addClass("activeCb");
-		}
-		
-		
-		//hasClass -> 클래스가 있는지 확인하는것
-		//toggleClass -> 해당 요소가 있으면 이를 제거합니다. 반대로 해당 요소가 없다면 이를 부여하는 매우 유용한 메소드입니다
 		var petId = $(this).data("myp_id");
-
-		$("#petId").val(petId);
 		
+		// 체크박스 반복문 돌려서 클릭한 아이디에 회색 색 주기 
+		for(var i = 1; i<= ${mypetListSize}; i++){
+			if($("#label"+i).data("label")== petId){
+				// 이미 선택되어 있는데 다시 클릭한다면 
+				//hasClass -> 클래스가 있는지 확인하는것
+				if($(this).hasClass("activeCb")){
+					$("#petId").val("");
+				}else{
+					// 클릭한 아이디하고 선택한 펫의 아이디하고 맞다면 회색 배경색 주기 
+					$("#petId").val(petId);
+				}
+				//toggleClass -> 해당 요소가 있으면 이를 제거합니다. 반대로 해당 요소가 없다면 이를 부여하는 매우 유용한 메소드입니다
+				$("#label"+i).toggleClass("activeCb");
+			}else {
+				// 클릭한 아이디하고 선택한 펫이 맞지 않을떄에는 배경색 흰색 주기 
+				$("#label"+i).removeClass("activeCb");
+			}
+		}
 	});
 	
 	
@@ -152,13 +150,18 @@ function petDelete(){
 		alert("선택된 나의펫이 없습니다.");
 		return;
 	}else if(true){
-		var select = $("#petId").val()
+		var select = $("#petId").val();
 		for(var i = 1 ; i < ${mypetListSize}; i++){
 			if($("#petIsrNumber"+select).val() == select){
 			// 해당 반려견이 가입보험상품이 있을떄에는 삭제되지 않아야 한다
 			// 반려견하고 반려견이 가입되어 있는 사이즈 만큼 구하면 된다 
+				// 체크박스 회색 없애기 
+				$("#label"+i).removeClass("activeCb");
+			
 				alert("해당 펫은 보험에 가입되어 있는 펫입니다.\n나의 펫에서 삭제하실수 없습니다.");
 				return ;
+				
+				
 			}else{
 				$("#frm1").submit();
 			}
@@ -271,9 +274,9 @@ function petInsert(){
 		</tr>
 	</c:when>
 	<c:otherwise>				
-						<c:forEach items="${mypetList}" var="pet">
+						<c:forEach items="${mypetList}" var="pet" varStatus="index">
 							<tr class="tr2" id="td5">
-								<td class="td6"><input type="checkbox" name="cb1" class="cb1" value="${pet.myp_id}"><label class="cb1_label" data-myp_id="${pet.myp_id}"></label></td>
+								<td class="td6"><input type="checkbox" name="cb1" class="cb1" value="${pet.myp_id}"><label class="cb1_label" id="label${index.count}" data-label="${pet.myp_id}" data-myp_id="${pet.myp_id}"></label></td>
 <!-- 펫의 이미지가 없을때 실행되는 부분 -->
 						<c:choose>	
 							<c:when test="${pet.myp_img == null}">

@@ -349,6 +349,10 @@ public class InsuranceController {
 			List<InsshoppingVo> memIsrList = insuranceService.memPlan(memVo.getMem_id());
 			model.addAttribute("memIsrList", memIsrList);
 			
+			// 보험상품 체크박스 색상 나타낼떄 필요하기 때문에 설정
+			model.addAttribute("memIsrListSize", memIsrList.size());
+			
+			
 			// 보험상품이 하나도 업을때 사이즈 보내주는것 (상품이 없을때 상품이 없다는 메세지 나오게 하기 위해서 설정) 
 			model.addAttribute("isrListSize" , memIsrList.size());
 			
