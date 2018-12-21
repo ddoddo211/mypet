@@ -109,6 +109,16 @@ public interface ShoppingServiceInf {
 	public List<ProdVo> chkList(Map<String, Object> map);
 	
 	/**
+	* Method : chkSize
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param map
+	* @return
+	* Method 설명 : 체크박스 조건이 있을 경우 상품리스트 SIZE
+	*/
+	public int chkSize(Map<String,Object> map);
+	
+	/**
 	* Method : opChk
 	* 작성자 : pc25
 	* 변경이력 :
@@ -116,7 +126,5 @@ public interface ShoppingServiceInf {
 	* @return
 	* Method 설명 : 옵션(연령,브랜드)과 관련된 해당분류id(성견,퍼피등) 찾기
 	*/
-//	public List<String> opChk(List<String> list);
-	
 	public List<String> opChk(Map<String,Object> map);
 }

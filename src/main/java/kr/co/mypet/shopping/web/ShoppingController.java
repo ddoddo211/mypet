@@ -70,7 +70,7 @@ public class ShoppingController {
 	* Method 설명 : 강아지/고양이 쇼핑몰화면으로 이동 첫화면은 가장 첫메뉴 사료 부분의 리스트를 보여준다.
 	*/
 	@RequestMapping("/petShopList")
-	public String petShopList(Model model,DivisionVo dvsVo) {
+	public String petShopList(Model model,DivisionVo dvsVo,HttpSession session) {
 		
 		// 강아지/고양이 상품분류(사료,장난감,간식등)List
 		List<DivisionVo> menuList = shoppingService.prodMenu(dvsVo.getDvs_id());
@@ -88,6 +88,18 @@ public class ShoppingController {
 		return "petshop/petShopList";
 	}
 	
+	/**
+	* Method : prodListHtml
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param model
+	* @param dvsVo
+	* @param pageVo
+	* @param values
+	* @param opValues
+	* @return
+	* Method 설명 : ajax로 상품List 
+	*/
 	@RequestMapping("/prodListHtml")
 	public String prodListHtml(Model model,DivisionVo dvsVo,PageVo pageVo,@RequestParam("values")String values
 							   ,@RequestParam("opValues")String[] opValues) {
@@ -105,6 +117,18 @@ public class ShoppingController {
 		return "petshop/prodListHtml";
 	}
 	
+	/**
+	* Method : prodPageHtml
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param model
+	* @param dvsVo
+	* @param pageVo
+	* @param values
+	* @param opValues
+	* @return
+	* Method 설명 : ajax로 페이지 이동
+	*/
 	@RequestMapping("/prodPageHtml")
 	public String prodPageHtml(Model model,DivisionVo dvsVo,PageVo pageVo,@RequestParam("values")String values
 							  ,@RequestParam("opValues")String[] opValues) {

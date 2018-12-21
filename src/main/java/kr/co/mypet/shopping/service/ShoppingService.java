@@ -136,36 +136,57 @@ public class ShoppingService implements ShoppingServiceInf {
 		
 		
 //		String temp = values.replaceAll(",", "','");
-//		values = temp;
-//		System.out.println(values[0] + "values");
-		List<String> op_chk = new ArrayList<>();
-		String[] chkk = new String[opValues.length];
-	
+		String chkk = "";
+		
+		// String에 담은 추출한 값을 다시 List에 담아준다.
+		List<String> opChkList = new ArrayList<>();
+		
 		int size = 0;
-		if(values.equals("")) {
+		if(values.equals("") || values == null) {
 			prodList = shoppingDao.prodList(map);
 			size = shoppingDao.prodSize(dvsVo.getDvs_parent());
-		}else {
-			prodList = shoppingDao.chkList(map);
+		}else if(!(values.equals("") || values == null)){
 			for (int i = 0; i < opValues.length; i++) {
 				
-				// 연령등 id 받아서 한 리스트로 넘기기
+				// 체크한 체크박스 id들
 				List<String> valueGo = new ArrayList<>();
+				
+				// 해당 옵션id(연령,브랜드등) 과 체크한 체크박스id를 담을 map
 				Map<String,Object> chkMap = new HashMap<>();
+				
+				// 체크한 체크박스를 id를 , 기준으로 짤라서 배열에 담아준다.
 				String[] tempArray = values.split(",");
+				
+				// 옵션id map에 저장
 				chkMap.put("opid",opValues[i]);
+				
+				// 스플리트 한 배열을 리스트에 저장
 				for (int k = 0; k < tempArray.length; k++) {
 					valueGo.add(tempArray[k]);
 				}
 				
+				// 체크한 체크박스id 리스트를 map 담아준다.
 				chkMap.put("valueGo",valueGo);
-				List<String> dddd = shoppingDao.opChk(chkMap); 
-					
+				
+				// 옵션에 해당하는 체크박스id 추출
+				List<String> dddd = shoppingDao.opChk(chkMap);
+				
+				// 옵션에 해당하는 체크박스id를 배열에 저장
 				for (int j = 0; j < dddd.size(); j++) {
-						chkk[i] += i+ " " + dddd.get(j) + " ";
+					chkk += dddd.get(j) + ",";
 				}
-				System.out.println(chkk[i] +  " : chkk");
+				if(!(chkk.equals(""))) {
+					String last = chkk.substring(0,chkk.lastIndexOf(","));
+					String temp = "'"+last.replaceAll(",", "','")+"'";
+					opChkList.add(temp);
+					chkk = "";
+				}
 			}
+			
+			 map.put("op0",opChkList.get(0));
+			 map.put("opChkList",opChkList);
+			 size = shoppingDao.chkSize(map);
+			 prodList = shoppingDao.chkList(map);
 			
 		}
 		
@@ -192,12 +213,6 @@ public class ShoppingService implements ShoppingServiceInf {
 	public List<ProdVo> chkList(Map<String, Object> map) {
 		return shoppingDao.chkList(map);
 	}
-
-	@Override
-	public List<String> opChk(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	
 	/**
 	* Method : opChk
@@ -207,11 +222,23 @@ public class ShoppingService implements ShoppingServiceInf {
 	* @return
 	* Method 설명 : 옵션(연령,브랜드)과 관련된 해당분류id(성견,퍼피등) 찾기
 	*/
-//	@Override
-//	public List<String> opChk(List<String> list) {
-//		return shoppingDao.opChk(list);
-//	}
+	@Override
+	public List<String> opChk(Map<String, Object> map) {
+		return shoppingDao.opChk(map);
+	}
 	
+	/**
+	* Method : chkSize
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param map
+	* @return
+	* Method 설명 : 체크박스 조건이 있을 경우 상품리스트 SIZE
+	*/
+	@Override
+	public int chkSize(Map<String, Object> map) {
+		return shoppingDao.chkSize(map);
+	}
 	
 	
 }

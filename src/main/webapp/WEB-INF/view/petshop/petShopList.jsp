@@ -85,6 +85,19 @@
 		border-bottom: 1px solid;
 	}
 	
+	.creProd {
+		margin-top : 100px;
+		text-align:center;
+	}
+	
+	.creProd #submit{
+		width: 100px;
+	    height: 50px;
+	    background-color: darkgray;
+	    border: 1px solid #f1f1f1;
+   		border-radius: 10px;
+	}
+	
 	.mainright{
 		width: 79%;
 		height:100%;
@@ -174,7 +187,28 @@
 		
 		$(".chkbox").click(function() {
 			prodListHtml(1,'${dvs_id}','${dvs_parent}');
-		});
+		}); 
+		
+		
+		// 판매자인지 확인
+		var mem_shop = parseInt("${memVo.mem_shop}");
+		if(mem_shop == 2){
+			$(".creProd").show();
+		}else{
+			$(".creProd").hide();
+		}
+		
+		$(".ageChk").on("click",".label",function(){
+			
+			if($(this).siblings("input:checkbox[name='chkbox']").is(":checked") == false){
+				$(this).siblings("input:checkbox[name='chkbox']").prop("checked", true);  /* .is(":checked") == true; */
+				prodListHtml(1,'${dvs_id}','${dvs_parent}');
+			}else{
+				$(this).siblings("input:checkbox[name='chkbox']").prop("checked", false);
+				prodListHtml(1,'${dvs_id}','${dvs_parent}');
+			}
+		})
+		
 	})
 	
 	function prodListHtml(page,dvs_id,dvs_parent) {
@@ -229,7 +263,6 @@
 </head>
 <body>
 	<%@include file="/WEB-INF/view/petshop/petShopH.jsp"%>
-		
 	<div id="maintop">
 		<p>강아지</p>
 	</div>
@@ -237,7 +270,7 @@
 	<div id="mainmid">
 		<div class ="mainleft">
 			<div class="listSearch">
-				<input type="text" id="shopSearch" value="검색어를 입력하세요" onfocus="this.value=''" style="color:#c1c1c1" />
+				<input type="text" id="shopSearch" name = "prod_name" placeholder="상품명 검색" onfocus="this.value=''" style="color:#c1c1c1" />
 				<a href="#"></a>
 			</div>
 			<div class="listMenu">
@@ -247,6 +280,12 @@
 						<li><a href="/shop/petShopList?dvs_id=${dvs_id }&dvs_parent=${list.dvs_id}">${list.dvs_name }</a></li>
 					</c:forEach>
 				</ul>
+			</div>
+			<div class="creProd">
+				<form method="post">
+					<input type="hidden" value="${dvs_id }">
+					<input type="submit" value = "상품등록" id ="submit">
+				</form>
 			</div>
 		</div>
 		
@@ -258,11 +297,15 @@
 							<span class="petchk">${list.dvs_name }</span>
 							<input type="hidden" value="${list.dvs_id }" name ="op_id">
 						</div>
+						<c:set var="i" value="0" />
 						<c:forEach items="${opMenuList}" var="list2">
 							<c:if test="${list.dvs_id == list2.dvs_parent }">
 								<div class="ageChk">
 									<ul>
-										<li><input type="checkbox" class="chkbox" name="chkbox" value="${list2.dvs_id }"><span>${list2.dvs_name }</span></li>
+										<li>
+											<input type="checkbox" id="chkbox" class="chkbox" name="chkbox" value="${list2.dvs_id }">
+											<label class="label" style="cursor:pointer">${list2.dvs_name }</label>
+										</li>
 									</ul>
 								</div>
 							</c:if>
@@ -285,5 +328,6 @@
 	<!-- footer 시작 -->
 	<%@include file="/WEB-INF/view/common/footer.jsp"%>
 	<!-- footer 끝 -->
+	<input type="checkbox" id="cbox" /><label for="cbox" style="cursor:pointer;title:'테스트'">테스트</label>
 </body>
 </html>

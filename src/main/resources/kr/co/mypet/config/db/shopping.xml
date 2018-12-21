@@ -62,14 +62,27 @@
 	
 	<!-- 펫쇼핑몰 체크박스 조건이 있을 경우 상품List -->
 	<select id="chkList" parameterType="Map" resultType="prodVo">
-		select * from
-    	(select rownum as rnum,a.*
-	        from (select * from prod
-	                where PROD_ID IN (SELECT PDD_PROD FROM PRODDV WHERE PDD_DVS = #{dvsVo.dvs_parent}
-	                        AND PDD_PROD IN (SELECT PDD_PROD FROM PRODDV WHERE PDD_DVS IN (#{values})))                         
-	            )a
-	    )
+		select * from (
+		select  rownum as rnum,a.* from prod a
+		where prod_id in (select pdd_prod from proddv where pdd_dvs in (${op0})
+		<foreach collection="opChkList" item="item" index="index">
+			and prod_id in (select pdd_prod from proddv where pdd_dvs in (${item}))
+		</foreach>
+		 )
+		)
 		where rnum between #{pageVo.page} *#{pageVo.pageSize}-(#{pageVo.pageSize}-1) and #{pageVo.page}*#{pageVo.pageSize}
+	</select>
+	
+	<!-- 펫쇼핑몰 체크박스 조건이 있을 경우 상품리스트 Size -->
+	<select id="chkSize" parameterType="Map" resultType="int">
+		select count(*) from (
+		select  rownum as rnum,a.* from prod a
+		where prod_id in (select pdd_prod from proddv where pdd_dvs in (${op0})
+		<foreach collection="opChkList" item="item" index="index">
+			and prod_id in (select pdd_prod from proddv where pdd_dvs in (${item}))
+		</foreach>
+		 )
+		)
 	</select>
 	
 	<!-- 상품의 대한 상세정보 -->
@@ -78,28 +91,6 @@
 		where prod_id = #{prod_id}
 	</select>
 	
-	<!-- 펫쇼핑몰 상품분류에 대한 상품List -->
-	<select id="prodPageList" parameterType="String" resultType="prodVo">
-		select * from
-	    (select rownum as rnum,a.*
-	        from (select * from prod
-	                where PROD_ID in (SELECT PDD_PROD FROM PRODDV WHERE PDD_DVS in (#{dvs_parent}))
-	            )a
-	    )
-		where	rnum between #{page}*#{pageSize}-(#{pageSize}-1) and #{page}*#{pageSize}
-		order by rownum
-	</select>
-	
-	<!-- 옵션 체크 확인 -->
-<!-- 	<select id="opChk" parameterType="list" resultType="String"> -->
-<!-- 		select DVS_ID from division -->
-<!-- 		WHERE DVS_PARENT = #{list[0]} -->
-<!-- 		AND dvs_id in  -->
-<!-- 		<foreach collection="list" item="item" index="index" separator="," open="(" close=")"> -->
-<!-- 			#{item} -->
-<!-- 		</foreach> -->
-<!-- 	</select> -->
-
 	<select id="opChk" parameterType="Map" resultType="String"> 
 		select DVS_ID from division
 		WHERE DVS_PARENT = #{opid}

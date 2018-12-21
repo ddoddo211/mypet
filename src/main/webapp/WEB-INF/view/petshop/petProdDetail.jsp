@@ -204,6 +204,13 @@
 		font-weight: bold;
 	}
 </style>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$(".btnBS").click(function() {
+			alert("장바구니에 추가 되었습니다.");
+		})
+	})
+</script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
@@ -346,7 +353,7 @@
 					</div>
 					<div class="bsBtn">
 						<div class="buyBtn">
-							<form>
+							<form action="#">
 								<input type="hidden">
 								<input type="hidden">
 								<input type="submit" value="장바구니" class="btnBS">
