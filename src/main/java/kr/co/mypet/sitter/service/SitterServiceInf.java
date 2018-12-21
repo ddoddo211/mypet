@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import kr.co.mypet.common.model.MypetVo;
+import kr.co.mypet.common.model.PetkindVo;
 import kr.co.mypet.sitter.model.FaqVo;
 import kr.co.mypet.sitter.model.PetSitterVo;
 import kr.co.mypet.sitter.model.ZipVo;
@@ -77,4 +78,54 @@ public interface SitterServiceInf {
 	* Method 설명 : 나의 반려동물 리스트 조회
 	*/
 	List<MypetVo> getMypetList(String mem_id);
+
+	/**
+	* Method : getPetKindList
+	* 작성자 : pc24
+	* 변경이력 :
+	* @param am_name
+	* @return
+	* Method 설명 : 동물별 품종 리스트 조회
+	*/
+	List<PetkindVo> getPetKindList(String am_name);
+
+	/**
+	* Method : insertMyPet
+	* 작성자 : pc24
+	* 변경이력 :
+	* @param mypetVo
+	* @return
+	* Method 설명 : 나의 반려동물 정보 추가
+	*/
+	int insertMyPet(MypetVo mypetVo);
+
+	/**
+	* Method : deleteMypet
+	* 작성자 : pc24
+	* 변경이력 :
+	* @param mypet_id
+	* @return
+	* Method 설명 : 나의 반려동물 정보 삭제
+	*/
+	int deleteMypet(String mypet_id);
+
+	/**
+	* Method : getPetInfo
+	* 작성자 : pc24
+	* 변경이력 :
+	* @param myp_id
+	* @return
+	* Method 설명 : 해당 반려동물 정보 가져오기
+	*/
+	MypetVo getPetInfo(String myp_id);
+
+	/**
+	* Method : insertReservation
+	* 작성자 : pc24
+	* 변경이력 :
+	* @param param
+	* @return
+	* Method 설명 : 반려동물 예약하기 처리
+	*/
+	int insertReservation(Map<String, Object> param);
 }
