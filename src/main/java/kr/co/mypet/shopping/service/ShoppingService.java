@@ -1,5 +1,7 @@
 package kr.co.mypet.shopping.service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -7,12 +9,10 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import kr.co.mypet.common.model.PageVo;
 import kr.co.mypet.shopping.dao.ShoppingDaoInf;
-import kr.co.mypet.shopping.model.AnimalVo;
-import kr.co.mypet.shopping.model.BrandVo;
-import kr.co.mypet.shopping.model.ProdAgeVo;
+import kr.co.mypet.shopping.model.DivisionVo;
 import kr.co.mypet.shopping.model.ProdVo;
-import kr.co.mypet.shopping.model.ProddvVo;
 import kr.co.mypet.shopping.model.ShopNoticeVo;
 
 @Service
@@ -50,63 +50,65 @@ public class ShoppingService implements ShoppingServiceInf {
 	* Method : prodMenu
 	* 작성자 : pc25
 	* 변경이력 :
+	* @param dvs_id
 	* @return
-	* Method 설명 : 강이지/고양이 상품메뉴List
+	* Method 설명 : 강아지/고양이 상품분류(사료,장난감,간식등)List
 	*/
 	@Override
-	public List<ProddvVo> prodMenu(String pdd_am) {
-		return shoppingDao.prodMenu(pdd_am);
+	public List<DivisionVo> prodMenu(String dvs_id) {
+		return shoppingDao.prodMenu(dvs_id);
 	}
 	
 	/**
-	* Method : animalMenu
+	* Method : prodMenuOption
 	* 작성자 : pc25
 	* 변경이력 :
+	* @param dvs_parent
 	* @return
-	* Method 설명 : 펫쇼핑몰 동물메뉴
+	* Method 설명 : 상품분류의 옵션(연령,브랜드,견종크기등)List
 	*/
 	@Override
-	public List<AnimalVo> animalMenu() {
-		return shoppingDao.animalMenu();
+	public List<DivisionVo> prodMenuOption(String dvs_parent) {
+		return shoppingDao.prodMenuOption(dvs_parent);
+	}
+	
+	/**
+	* Method : opMenuList
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param dvs_parent
+	* @return
+	* Method 설명 : 옵션(연령,브랜드등) 분류(브랜드명,연령등)List
+	*/
+	@Override
+	public List<DivisionVo> opMenuList(String dvs_parent) {
+		return shoppingDao.opMenuList(dvs_parent);
 	}
 	
 	/**
 	* Method : prodList
 	* 작성자 : pc25
 	* 변경이력 :
-	* @param pdd_id
+	* @param dvs_parent
 	* @return
-	* Method 설명 : 상품분류에 대한 상품List
+	* Method 설명 : 체크박스 조건이 없을 경우 상품List
 	*/
 	@Override
-	public List<ProdVo> prodList(String pdd_id) {
-		return shoppingDao.prodList(pdd_id);
+	public List<ProdVo> prodList(Map<String,Object> map) {
+		return shoppingDao.prodList(map);
 	}
 	
 	/**
-	* Method : optionList
+	* Method : prodSize
 	* 작성자 : pc25
 	* 변경이력 :
-	* @param pdd_id
+	* @param dvs_parent
 	* @return
-	* Method 설명 : 상품분류(사료,장난감등)안에 옵션분류(연령-성견...)List
+	* Method 설명 : 체크박스 조건이 없을 경우 상품리스트 SIZE
 	*/
 	@Override
-	public List<ProdAgeVo> optionList(String pdd_am) {
-		return shoppingDao.optionList(pdd_am);
-	}
-	
-	/**
-	* Method : brandList
-	* 작성자 : pc25
-	* 변경이력 :
-	* @param pdd_id
-	* @return
-	* Method 설명 : 상품분류에 대한 상품들의 브랜드List
-	*/
-	@Override
-	public List<BrandVo> brandList(String pdd_id) {
-		return shoppingDao.brandList(pdd_id);
+	public int prodSize(String dvs_parent) {
+		return shoppingDao.prodSize(dvs_parent);
 	}
 	
 	/**
@@ -115,13 +117,128 @@ public class ShoppingService implements ShoppingServiceInf {
 	* 변경이력 :
 	* @param prod_id
 	* @return
-	* Method 설명 : 해당 상품에 대한 상세정보
+	* Method 설명 : 상품에 대한 상세정보 
 	*/
 	@Override
 	public ProdVo prodDetail(String prod_id) {
 		return shoppingDao.prodDetail(prod_id);
 	}
 
+	@Override
+	public Map<String, Object> prodPageList(Map<String, Object> map) {
+		
+		List<ProdVo> prodList = null;
+		
+		PageVo pageVo = (PageVo) map.get("pageVo");
+		DivisionVo dvsVo = (DivisionVo) map.get("dvsVo");
+		String values = (String) map.get("values");
+		String[] opValues = (String[]) map.get("opValues");
+		
+		
+//		String temp = values.replaceAll(",", "','");
+		String chkk = "";
+		
+		// String에 담은 추출한 값을 다시 List에 담아준다.
+		List<String> opChkList = new ArrayList<>();
+		
+		int size = 0;
+		if(values.equals("") || values == null) {
+			prodList = shoppingDao.prodList(map);
+			size = shoppingDao.prodSize(dvsVo.getDvs_parent());
+		}else if(!(values.equals("") || values == null)){
+			for (int i = 0; i < opValues.length; i++) {
+				
+				// 체크한 체크박스 id들
+				List<String> valueGo = new ArrayList<>();
+				
+				// 해당 옵션id(연령,브랜드등) 과 체크한 체크박스id를 담을 map
+				Map<String,Object> chkMap = new HashMap<>();
+				
+				// 체크한 체크박스를 id를 , 기준으로 짤라서 배열에 담아준다.
+				String[] tempArray = values.split(",");
+				
+				// 옵션id map에 저장
+				chkMap.put("opid",opValues[i]);
+				
+				// 스플리트 한 배열을 리스트에 저장
+				for (int k = 0; k < tempArray.length; k++) {
+					valueGo.add(tempArray[k]);
+				}
+				
+				// 체크한 체크박스id 리스트를 map 담아준다.
+				chkMap.put("valueGo",valueGo);
+				
+				// 옵션에 해당하는 체크박스id 추출
+				List<String> dddd = shoppingDao.opChk(chkMap);
+				
+				// 옵션에 해당하는 체크박스id를 배열에 저장
+				for (int j = 0; j < dddd.size(); j++) {
+					chkk += dddd.get(j) + ",";
+				}
+				if(!(chkk.equals(""))) {
+					String last = chkk.substring(0,chkk.lastIndexOf(","));
+					String temp = "'"+last.replaceAll(",", "','")+"'";
+					opChkList.add(temp);
+					chkk = "";
+				}
+			}
+			
+			 map.put("op0",opChkList.get(0));
+			 map.put("opChkList",opChkList);
+			 size = shoppingDao.chkSize(map);
+			 prodList = shoppingDao.chkList(map);
+			
+		}
+		
+		int prodSize = (int) Math.ceil((double) size/pageVo.getPageSize());
+		
+		Map<String,Object> resultMap = new HashMap<>();
+		resultMap.put("prodList",prodList);
+		resultMap.put("prodSize",prodSize);
+		resultMap.put("page",pageVo.getPage());
+		resultMap.put("dvsVo",dvsVo);
+		
+		return resultMap;
+	}
+	
+	/**
+	* Method : chkList
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param map
+	* @return
+	* Method 설명 : 체크한 체크박스에 id를 받아와 찾아서 상품List 출력
+	*/
+	@Override
+	public List<ProdVo> chkList(Map<String, Object> map) {
+		return shoppingDao.chkList(map);
+	}
+	
+	/**
+	* Method : opChk
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param map
+	* @return
+	* Method 설명 : 옵션(연령,브랜드)과 관련된 해당분류id(성견,퍼피등) 찾기
+	*/
+	@Override
+	public List<String> opChk(Map<String, Object> map) {
+		return shoppingDao.opChk(map);
+	}
+	
+	/**
+	* Method : chkSize
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param map
+	* @return
+	* Method 설명 : 체크박스 조건이 있을 경우 상품리스트 SIZE
+	*/
+	@Override
+	public int chkSize(Map<String, Object> map) {
+		return shoppingDao.chkSize(map);
+	}
 	
 	
 }

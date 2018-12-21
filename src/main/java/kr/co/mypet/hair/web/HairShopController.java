@@ -8,8 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import kr.co.mypet.hair.model.ZipVo;
 import kr.co.mypet.hair.service.HairServiceInf;
+import kr.co.mypet.sitter.model.ZipVo;
 
 @RequestMapping("/hair")
 @Controller
@@ -46,6 +46,13 @@ public class HairShopController {
 			model.addAttribute("zip_high", zipVo.getZip_high());
 		}
 		
+		
+		return "petHair/petHairMain";
+	}
+	
+	//select shop 주소 소분류 선택 후 해당 소분류의 미용실 리스트를 불러오는 메서드
+	@RequestMapping("/selectShop")
+	public String selectShop() {
 		
 		return "petHair/petHairMain";
 	}

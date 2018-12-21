@@ -249,10 +249,61 @@ public class InsuranceDao implements InsuranceDaoInf {
 	}
 
 
-
+	/**
+	* Method : insertPet
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param mypetVo
+	* @return
+	* Method 설명 : 펫 정보를 입력하여 추가하기
+	*/
 	@Override
 	public int insertPet(MypetVo mypetVo) {
 		return template.insert("petIns.mypetInsert", mypetVo);
+	}
+
+
+
+	/**
+	* Method : petKindVo
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param myp_petk
+	* @return
+	* Method 설명 : 마이펫에서 번호를 주면 품종 가지고 오는 쿼리문 (플랜정보에서 보험가입할때 이부분이 필요하다)
+	*/
+	@Override
+	public PetkindVo petKindVo(String petk_id) {
+		return template.selectOne("petIns.petIrsJoinKind", petk_id);
+	}
+
+
+
+	/**
+	* Method : isrProdMypetJoin
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param isrVo
+	* @return
+	* Method 설명 : 보험상품 가입되는 부분
+	*/
+	@Override
+	public int isrProdMypetJoin(InsuranceVo isrVo) {
+		return template.insert("petIns.isrProdMypetJoin",isrVo);
+	}
+
+
+	/**
+	* Method : shoppingJoinProd
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param deleteProd
+	* @return
+	* Method 설명 :보험가입이 완료 된다면 해당 플랜정보(장바구니)화면에 해당 상품이 삭제 되도록 만들기
+	*/
+	@Override
+	public int shoppingJoinProd(String deleteProd) {
+		return template.insert("petIns.shoppingJoinProd",deleteProd);
 	}
 
 

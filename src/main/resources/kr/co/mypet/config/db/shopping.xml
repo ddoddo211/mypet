@@ -15,41 +15,89 @@
 		where snot_id = #{snot_id}
 	</select>
 	
-	<!-- 펫쇼핑몰 동물 메뉴 -->
-	<select id="animalMenu" resultType="aniVo">
-		select * from animal
+	<!-- 펫쇼핑몰 강아지/고양이 상품분류(사료,장난감등) -->
+	<select id="prodMenu" parameterType="String" resultType="dvsVo">
+		SELECT dvs_id,dvs_name, LEVEL
+		FROM division
+		START WITH dvs_parent = #{dvs_id}
+		CONNECT BY PRIOR dvs_id  = dvs_parent
+		and level = 1
+		ORDER BY to_number(SUBSTR(DVS_ID,4,2))
 	</select>
 	
-	<!-- 펫쇼핑몰 강이지/고양이 상품메뉴 -->
-	<select id="prodMenu" resultType="pddVo" parameterType="String">
-		SELECT * FROM PRODDV
-		WHERE PDD_AM = #{pdd_am}
+	<!-- 펫쇼핑 상품분류에 대한 옵션(연령,브랜드등)List -->
+	<select id="prodMenuOption" parameterType="String" resultType="dvsVo">
+		SELECT dvs_id,dvs_name, LEVEL
+		FROM division
+		START WITH dvs_parent = #{dvs_parent}
+		CONNECT BY PRIOR dvs_id  = dvs_parent
+		and level = 1
 	</select>
 	
-	<!-- 펫쇼핑 상품메뉴에 대한 상품List -->
-	<select id="prodList" parameterType="String" resultType="prodVo">
-		select b.* from bdetail c,prod b
-		where bd_id = prod_bd
-		and bd_proddv = #{pdd_id}
+	<!-- 펫쇼핑몰 옵션(연령,브랜드등)에 대한 분류(브랜드명,펫나이등)List -->
+	<select id="opMenuList" parameterType="String" resultType="dvsVo">
+		SELECT dvs_id,dvs_name,dvs_parent, LEVEL
+		FROM division
+		where level = 2
+		START WITH dvs_parent = #{dvs_parent}
+		CONNECT BY PRIOR dvs_id  = dvs_parent
 	</select>
 	
-	<!-- 상품메뉴에서 옵션분류List -->
-	<select id="optionList" parameterType="String" resultType="ageVo">
-		select * from prodage
-		where page_am = #{pdd_am}
+	<!-- 펫쇼핑몰 체크박스 조건이 없을 경우 상품List -->
+	<select id="prodList" parameterType="Map" resultType="prodVo">
+		select * from (
+			select rownum as rnum,a.* from
+    			(SELECT * FROM PROD 
+     			WHERE PROD_ID in (SELECT PDD_PROD FROM PRODDV WHERE PDD_DVS = #{dvsVo.dvs_parent})
+		     	order by prod_date desc)a
+		     )
+		where rnum between #{pageVo.page} *#{pageVo.pageSize}-(#{pageVo.pageSize}-1) and #{pageVo.page}*#{pageVo.pageSize}
 	</select>
 	
-	<!-- 해당 상품메뉴에 해당하는 브랜드List -->
-	<select id="brandList" parameterType="String" resultType="brdVo">
-		select b.* from bdetail a,brand b
-		where brd_id = bd_brand
-		and bd_proddv = #{pdd_id}
+	<!-- 펫쇼핑몰 체크박스 조건이 없을 경우 상품리스트 Size -->
+	<select id="prodSize" parameterType="String" resultType="int">
+		select count(*) 
+		from (select * from prod where prod_id in (select pdd_prod from proddv where pdd_dvs = #{dvs_parent}))
 	</select>
 	
-	<!-- 상품의 상세정보 -->
+	<!-- 펫쇼핑몰 체크박스 조건이 있을 경우 상품List -->
+	<select id="chkList" parameterType="Map" resultType="prodVo">
+		select * from (
+		select  rownum as rnum,a.* from prod a
+		where prod_id in (select pdd_prod from proddv where pdd_dvs in (${op0})
+		<foreach collection="opChkList" item="item" index="index">
+			and prod_id in (select pdd_prod from proddv where pdd_dvs in (${item}))
+		</foreach>
+		 )
+		)
+		where rnum between #{pageVo.page} *#{pageVo.pageSize}-(#{pageVo.pageSize}-1) and #{pageVo.page}*#{pageVo.pageSize}
+	</select>
+	
+	<!-- 펫쇼핑몰 체크박스 조건이 있을 경우 상품리스트 Size -->
+	<select id="chkSize" parameterType="Map" resultType="int">
+		select count(*) from (
+		select  rownum as rnum,a.* from prod a
+		where prod_id in (select pdd_prod from proddv where pdd_dvs in (${op0})
+		<foreach collection="opChkList" item="item" index="index">
+			and prod_id in (select pdd_prod from proddv where pdd_dvs in (${item}))
+		</foreach>
+		 )
+		)
+	</select>
+	
+	<!-- 상품의 대한 상세정보 -->
 	<select id="prodDetail" parameterType="String" resultType="prodVo">
 		select * from prod
 		where prod_id = #{prod_id}
+	</select>
+	
+	<select id="opChk" parameterType="Map" resultType="String"> 
+		select DVS_ID from division
+		WHERE DVS_PARENT = #{opid}
+		AND dvs_id in 
+		<foreach collection="valueGo" item="item" index="index" separator="," open="(" close=")">
+			#{item}
+		</foreach>
 	</select>
 </mapper>
  

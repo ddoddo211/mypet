@@ -3,11 +3,8 @@ package kr.co.mypet.shopping.service;
 import java.util.List;
 import java.util.Map;
 
-import kr.co.mypet.shopping.model.AnimalVo;
-import kr.co.mypet.shopping.model.BrandVo;
-import kr.co.mypet.shopping.model.ProdAgeVo;
+import kr.co.mypet.shopping.model.DivisionVo;
 import kr.co.mypet.shopping.model.ProdVo;
-import kr.co.mypet.shopping.model.ProddvVo;
 import kr.co.mypet.shopping.model.ShopNoticeVo;
 
 public interface ShoppingServiceInf {
@@ -32,52 +29,54 @@ public interface ShoppingServiceInf {
 	public ShopNoticeVo shopNoticeDetail(String snot_id);
 	
 	/**
-	* Method : animalMenu
-	* 작성자 : pc25
-	* 변경이력 :
-	* @return
-	* Method 설명 : 펫쇼핑몰 동물메뉴
-	*/
-	public List<AnimalVo> animalMenu();
-	
-	/**
 	* Method : prodMenu
 	* 작성자 : pc25
 	* 변경이력 :
+	* @param dvs_id
 	* @return
-	* Method 설명 : 동물별 상품메뉴List
+	* Method 설명 : 강아지/고양이 상품분류(사료,장난감,간식등)List
 	*/
-	public List<ProddvVo> prodMenu(String pdd_am);
+	public List<DivisionVo> prodMenu(String dvs_id);
+	
+	/**
+	* Method : prodMenuOption
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param dvs_parent
+	* @return
+	* Method 설명 : 상품분류의 옵션(연령,브랜드,견종크기등)List
+	*/
+	public List<DivisionVo> prodMenuOption(String dvs_parent);
+	
+	/**
+	* Method : opMenuList
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param dvs_parent
+	* @return
+	* Method 설명 : 옵션(연령,브랜드등) 분류(브랜드명,연령등)List
+	*/
+	public List<DivisionVo> opMenuList(String dvs_parent);
 	
 	/**
 	* Method : prodList
 	* 작성자 : pc25
 	* 변경이력 :
-	* @param pdd_id
+	* @param dvs_parent
 	* @return
-	* Method 설명 : 상품분류에 대한 상품List
+	* Method 설명 : 체크박스 조건이 없을 경우 상품List
 	*/
-	public List<ProdVo> prodList(String pdd_id);
+	public List<ProdVo> prodList(Map<String,Object> map);
 	
 	/**
-	* Method : optionList
+	* Method : prodSize
 	* 작성자 : pc25
 	* 변경이력 :
-	* @param pdd_id
+	* @param dvs_parent
 	* @return
-	* Method 설명 : 상품분류(사료,장난감등)안에 옵션분류(연령-성견...)List
+	* Method 설명 : 체크박스 조건이 없을 경우 상품리스트 SIZE
 	*/
-	public List<ProdAgeVo> optionList(String pdd_am);
-	
-	/**
-	* Method : brandList
-	* 작성자 : pc25
-	* 변경이력 :
-	* @param pdd_id
-	* @return
-	* Method 설명 : 상품분류에 대한 상품들의 브랜드List
-	*/
-	public List<BrandVo> brandList(String pdd_id);
+	public int prodSize(String dvs_parent);
 	
 	/**
 	* Method : prodDetail
@@ -85,8 +84,47 @@ public interface ShoppingServiceInf {
 	* 변경이력 :
 	* @param prod_id
 	* @return
-	* Method 설명 : 해당 상품에 대한 상세정보
+	* Method 설명 : 상품에 대한 상세정보 
 	*/
 	public ProdVo prodDetail(String prod_id);
 	
+	/**
+	* Method : prodPageList
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param map
+	* @return
+	* Method 설명 : 상품의 페이지List
+	*/
+	public Map<String,Object> prodPageList(Map<String,Object> map);
+	
+	/**
+	* Method : chkList
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param map
+	* @return
+	* Method 설명 : 체크한 체크박스에 id를 받아와 찾아서 상품List 출력
+	*/
+	public List<ProdVo> chkList(Map<String, Object> map);
+	
+	/**
+	* Method : chkSize
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param map
+	* @return
+	* Method 설명 : 체크박스 조건이 있을 경우 상품리스트 SIZE
+	*/
+	public int chkSize(Map<String,Object> map);
+	
+	/**
+	* Method : opChk
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param map
+	* @return
+	* Method 설명 : 옵션(연령,브랜드)과 관련된 해당분류id(성견,퍼피등) 찾기
+	*/
+	public List<String> opChk(Map<String,Object> map);
 }

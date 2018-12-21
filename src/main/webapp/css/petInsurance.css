@@ -347,9 +347,7 @@ table tr{
 	text-align: center;
 	padding-left:20px;
 }
-table tr td:first-child{
-	border-left: 0;
-}
+
 table tr td {
 	border-top: 1px solid #ffffff;
 	border-bottom:1px solid #e0e0e0;
@@ -816,6 +814,26 @@ table tr:hover td{
 	font-size: 30px;
 }
 
+#pettitle3{
+	background-color: #1d9dd3;
+	color: white;
+	width: 1200px;
+	margin-top: 15px;
+	height: 30px;
+	font-family: 'Nanum Pen Script', cursive;
+	font-size: 30px;
+}
+
+#pettitle4{
+	background-color: #1d9dd3;
+	color: white;
+	width: 1200px;
+	margin-top: 15px;
+	height: 30px;
+	font-family: 'Nanum Pen Script', cursive;
+	font-size: 30px;
+}
+
 #insuranceProdInsert{
 	width : 150px;
 	height: 50px;
@@ -1153,6 +1171,12 @@ input[name="cb2"] {
     border-radius: 50px;
 }
 
+#isrCondition{
+	color: red;
+}
+
+
+
 
 
 
@@ -1343,5 +1367,9 @@ input[name="cb2"] {
 #selectpet{
 	text-align: center;
 }
+
+
+
+
 
 

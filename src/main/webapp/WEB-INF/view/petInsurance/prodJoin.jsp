@@ -17,42 +17,32 @@ $(document).ready(function() {
 			if (!$("input[id='isrJoinInfo5_1']:checked").val()) {
 				alert("계약자 정보의 체크 박스에 체크하시기 바랍니다");
 				return;
-			}
-
-			if (!$("input[name='name']:checked").val()) {
+			}else if (!$("input[name='name']:checked").val()) {
 				alert("고지사항1번 부분에 체크되어 있지 않습니다.\n체크하시기 바랍니다");
-				return false;
-			}
-			
-			if (!$("input[name='name1']:checked").val()) {
+				return ;
+			}else if (!$("input[name='name1']:checked").val()) {
 				alert("고지사항2번 부분에 체크되어 있지 않습니다.\n체크하시기 바랍니다");
-				return false;
-			}
-			if (!$("input[name='name2']:checked").val()) {
+				return ;
+			}else if (!$("input[name='name2']:checked").val()) {
 				alert("고지사항3번 부분에 체크되어 있지 않습니다.\n체크하시기 바랍니다");
-				return false;
-			}
-			
-			
-			if($("input[name='name']:checked").val()== 'N'){
+				return ;
+			}else if($("input[name='name']:checked").val()== 'N'){
 				alert("고지사항1번 부분에 Y로 체크되어 있지 않습니다.\nY로 입력하셔야만 가입 진행이 가능하십니다.");
-				return false;
-			}
-			
-			if($("input[name='name1']:checked").val()== 'N'){
+				return ;
+			}else if($("input[name='name1']:checked").val()== 'N'){
 				alert("고지사항2번 부분에 Y로 체크되어 있지 않습니다.\nY로 입력하셔야만 가입 진행이 가능하십니다.");
-				return false;
+				return ;
+			}else if($("input[name='name2']:checked").val()== 'N'){
+				alert("고지사항3번 부분에 Y로 체크되어 있지 않습니다.\nY로 입력하셔야만 가입 진행이 가능하십니다.");
+				return ;
+			}else{
+				$("#frm").submit();
 			}
-			
-			if($("input[name='name2']:checked").val()== 'N'){
-					alert("고지사항3번 부분에 Y로 체크되어 있지 않습니다.\nY로 입력하셔야만 가입 진행이 가능하십니다.");
-					return false;
-			}
-			
-			
 			
 	});
+	
 });
+
 </script>
 
 <link rel="stylesheet" href="/css/petInsuranceMenu.css">
@@ -61,6 +51,14 @@ $(document).ready(function() {
 
 </head>
 <body>
+
+<!-- form에  내 반려동물 id , 회원 id(이메일) , 보험상품 id 담아서 보내주기-->
+<form action="/isr/isrProdMypetJoin" method="get" id="frm">
+	<input type="hidden" name="petId" value="${petId}"/>
+	<input type="hidden" name="memId" value="${memVo.mem_id}"/>
+	<input type="hidden" name="prodJoinId" value="${prodJoinId}"/>
+</form>
+
 <!-- header 시작 -->
 <%@include file="../common/header.jsp"%>
 <!-- header 끝-->
@@ -132,7 +130,6 @@ $(document).ready(function() {
 								<td class="td12">${prodJoin.insp_minage}<%="~"%>${prodJoin.insp_maxage}<%="세"%></td>
 								<td class="td9"><%="가입부터 ~"%>${prodJoin.insp_period}<%="세 까지"%></td>
 								<td class="td12">${prodJoin.insp_sick}</td>
-
 							</tr>
 					</table>
 				</div>

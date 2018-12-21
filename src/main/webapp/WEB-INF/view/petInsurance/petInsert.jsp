@@ -241,7 +241,7 @@ $(document).ready(function() {
 						<input type="hidden" id="petKindForm" name="petKindForm" value="0">
 						<input type="hidden" id="petSick" name="petSick" value="">
 						<div class="wr1">반려동물사진<input type="file" id="petPs" name="petImgForm"> </div>
-						<div class="wr1" id="petPrH"><img alt="이미지가 없습니다" src="/insimg/noimg.jpg" id="petPr"> </div>
+						<div class="wr1" id="petPrH"><img alt="이미지가 없습니다" src="/img/petimg/noimg.jpg" id="petPr"> </div>
 						<div class="wr2"><input type="button" value="펫 등록 " id="petJoin"> </div>
 					</form>
 					

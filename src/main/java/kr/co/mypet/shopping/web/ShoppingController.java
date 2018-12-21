@@ -5,17 +5,18 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import kr.co.mypet.shopping.model.AnimalVo;
-import kr.co.mypet.shopping.model.BrandVo;
-import kr.co.mypet.shopping.model.ProdAgeVo;
+import kr.co.mypet.common.model.MemberVo;
+import kr.co.mypet.common.model.PageVo;
+import kr.co.mypet.shopping.model.DivisionVo;
 import kr.co.mypet.shopping.model.ProdVo;
-import kr.co.mypet.shopping.model.ProddvVo;
 import kr.co.mypet.shopping.model.ShopNoticeVo;
 import kr.co.mypet.shopping.service.ShoppingServiceInf;
 
@@ -38,10 +39,7 @@ public class ShoppingController {
 	public String shopMain(Model model) {
 		
 		List<ShopNoticeVo>snotList = shoppingService.shopNoticeList();
-		List<AnimalVo> aniList = shoppingService.animalMenu();
-		
 		model.addAttribute("snotList",snotList);
-		model.addAttribute("aniList",aniList);
 		
 		return "petShop";
 	}
@@ -72,25 +70,80 @@ public class ShoppingController {
 	* Method 설명 : 강아지/고양이 쇼핑몰화면으로 이동 첫화면은 가장 첫메뉴 사료 부분의 리스트를 보여준다.
 	*/
 	@RequestMapping("/petShopList")
-	public String petShopList(Model model,ProddvVo pddVo) {
+	public String petShopList(Model model,DivisionVo dvsVo,HttpSession session) {
 		
-		List<ProddvVo> pddList = shoppingService.prodMenu(pddVo.getPdd_am());
-		List<ProdVo> prodList = shoppingService.prodList(pddVo.getPdd_id());
-		List<BrandVo> brdList = shoppingService.brandList(pddVo.getPdd_id());
-		for(int i = 0; i < prodList.size();i++) {
-			if(prodList.get(i).getProd_page() != null) {
-				List<ProdAgeVo> ageList = shoppingService.optionList(pddVo.getPdd_am());
-				model.addAttribute("ageList",ageList);
-			}
-			if(prodList.get(i).getProd_size() != null) {
-			}
-		}
+		// 강아지/고양이 상품분류(사료,장난감,간식등)List
+		List<DivisionVo> menuList = shoppingService.prodMenu(dvsVo.getDvs_id());
+		// 상품분류에 대한 체크박스옵션List(연령,브랜드,견종크기등)
+		List<DivisionVo> opList = shoppingService.prodMenuOption(dvsVo.getDvs_parent());
+		// 체크박스옵션분류List(연령 - 성견,퍼피등..)
+		List<DivisionVo> opMenuList = shoppingService.opMenuList(dvsVo.getDvs_parent());
 		
-		model.addAttribute("pddList",pddList);
-		model.addAttribute("prodList",prodList);
-		model.addAttribute("brdList",brdList);
+		model.addAttribute("dvs_id",dvsVo.getDvs_id());
+		model.addAttribute("dvs_parent",dvsVo.getDvs_parent());
+		model.addAttribute("menuList",menuList);
+		model.addAttribute("opList",opList);
+		model.addAttribute("opMenuList",opMenuList);
 		
 		return "petshop/petShopList";
+	}
+	
+	/**
+	* Method : prodListHtml
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param model
+	* @param dvsVo
+	* @param pageVo
+	* @param values
+	* @param opValues
+	* @return
+	* Method 설명 : ajax로 상품List 
+	*/
+	@RequestMapping("/prodListHtml")
+	public String prodListHtml(Model model,DivisionVo dvsVo,PageVo pageVo,@RequestParam("values")String values
+							   ,@RequestParam("opValues")String[] opValues) {
+		
+		Map<String,Object> map = new HashMap<>();
+		map.put("pageVo",pageVo);
+		map.put("dvsVo",dvsVo);
+		map.put("values",values);
+		map.put("opValues",opValues);
+		
+		Map<String,Object> resultMap = shoppingService.prodPageList(map);
+		
+		model.addAllAttributes(resultMap);
+		
+		return "petshop/prodListHtml";
+	}
+	
+	/**
+	* Method : prodPageHtml
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param model
+	* @param dvsVo
+	* @param pageVo
+	* @param values
+	* @param opValues
+	* @return
+	* Method 설명 : ajax로 페이지 이동
+	*/
+	@RequestMapping("/prodPageHtml")
+	public String prodPageHtml(Model model,DivisionVo dvsVo,PageVo pageVo,@RequestParam("values")String values
+							  ,@RequestParam("opValues")String[] opValues) {
+		
+		Map<String,Object> map = new HashMap<>();
+		map.put("pageVo",pageVo);
+		map.put("dvsVo",dvsVo);
+		map.put("values",values);
+		map.put("opValues",opValues);
+		
+		Map<String,Object> resultMap = shoppingService.prodPageList(map);
+		
+		model.addAllAttributes(resultMap);
+
+		return "petshop/prodPageHtml";
 	}
 	
 	/**
@@ -101,11 +154,34 @@ public class ShoppingController {
 	* Method 설명 : 상품상세보기 화면으로 이동 상품에 대한 정보를 가지고 이동
 	*/
 	@RequestMapping("/prodDetail")
-	public String prodDetail(@RequestParam("prod_id")String prod_id,Model model) {
-		
+	public String prodDetail(@RequestParam("prod_id")String prod_id,Model model,HttpSession session) {
+		MemberVo memVo = (MemberVo) session.getAttribute("memVo");
 		ProdVo prodVo = shoppingService.prodDetail(prod_id);
+		
 		model.addAttribute("prodVo",prodVo);
 		
 		return "petshop/petProdDetail";
+	}
+	
+	/**
+	* Method : lastProd
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param session
+	* @param model
+	* @return
+	* Method 설명 : 최근 본 상품
+	*/
+	@RequestMapping("/recentProd")
+	public String recentProd(HttpSession session,Model model) {
+		MemberVo memVo = (MemberVo) session.getAttribute("memVo");
+		
+		return "petshop/recentProd";
+	}
+	
+	@RequestMapping("/basketProd")
+	public String basketProd(){
+		
+		return "petshop/basketProd";
 	}
 }
