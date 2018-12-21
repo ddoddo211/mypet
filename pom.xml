@@ -33,6 +33,15 @@
 	
 	<dependencies>
 	
+		<!-- https://mvnrepository.com/artifact/junit/junit -->
+		<dependency>
+		    <groupId>junit</groupId>
+		    <artifactId>junit</artifactId>
+		    <version>4.12</version>
+		    <scope>test</scope>
+		</dependency>
+		
+	
 		<!-- multipart 설정을 위해 apache commons fileupload lib -->
 		<!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
 		<dependency>
@@ -66,7 +75,7 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jdbc</artifactId>
-			<version>${spring.version}</version>
+			<version>3.2.18.RELEASE</version>
 		</dependency>
 	
 		<!-- multipart 설정을 위해 apache commons fileupload lib -->
@@ -149,6 +158,13 @@
 			<version>3.2.18.RELEASE</version>
 			<scope>test</scope>
 		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/org.aspectj/aspectjweaver -->
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<version>1.9.2</version>
+		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.springframework/spring-aop -->
 		<dependency>
@@ -157,13 +173,13 @@
 			<version>3.2.18.RELEASE</version>
 		</dependency>
 		
-		<!-- https://mvnrepository.com/artifact/junit/junit -->
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.12</version>
-			<scope>test</scope>
-		</dependency>
+<!-- https://mvnrepository.com/artifact/junit/junit -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>junit</groupId> -->
+<!-- 			<artifactId>junit</artifactId> -->
+<!-- 			<version>4.12</version> -->
+<!-- 			<scope>test</scope> -->
+<!-- 		</dependency> -->
 
 
 

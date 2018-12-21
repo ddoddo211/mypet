@@ -7,7 +7,9 @@ import javax.annotation.Resource;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
-import kr.co.mypet.hair.model.ZipVo;
+import kr.co.mypet.hair.model.HairShopVo;
+import kr.co.mypet.sitter.model.ZipVo;
+
 
 @Repository
 public class HairDao implements HairDaoInf {
@@ -29,6 +31,14 @@ public class HairDao implements HairDaoInf {
 		List<ZipVo> zipList = template.selectList("petHair.zipLow",zip_high);
 		
 		return zipList;
+	}
+
+	@Override
+	public List<HairShopVo> selectHairShopAll() {
+		
+		List<HairShopVo> hairShopList = template.selectList("petHair.shopSelectAll");
+		
+		return hairShopList;
 	}	
 	
 }

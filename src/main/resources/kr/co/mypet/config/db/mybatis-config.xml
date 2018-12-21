@@ -20,6 +20,10 @@
 			<typeAlias type="kr.co.mypet.sitter.model.FaqVo" alias="fVo"/>
 			<typeAlias type="kr.co.mypet.shopping.model.ProdVo" alias="prodVo"/>
 			<typeAlias type="kr.co.mypet.shopping.model.ProddvVo" alias="pddVo"/>
+			<typeAlias type="kr.co.mypet.shopping.model.AnimalVo" alias="aniVo"/>
+			<typeAlias type="kr.co.mypet.shopping.model.ProdAgeVo" alias="ageVo"/>
+			<typeAlias type="kr.co.mypet.shopping.model.BrandVo" alias="brdVo"/>
+			<typeAlias type="kr.co.mypet.hair.model.HairShopVo" alias="hairShopVo"/>
 			<typeAlias type="kr.co.mypet.shopping.model.DivisionVo" alias="dvsVo"/>
 	</typeAliases>
 

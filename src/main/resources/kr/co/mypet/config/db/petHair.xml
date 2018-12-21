@@ -14,6 +14,10 @@
   	select zip_low from zip where zip_high=#{zip_high}
   </select>
   
+  <!-- 모든 미용실의 목록을 표시 -->
+  <select id="shopSelectAll" resultType="hairShopVo">
+  	select * from hairshop
+  </select>
   
 </mapper>
 
