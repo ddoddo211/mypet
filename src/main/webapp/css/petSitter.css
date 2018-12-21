@@ -589,18 +589,17 @@ td {
 }
 
 #sitToMain{
-	border : 1px solid green;
-	width : 900px;
-	margin : 0 auto;
-	min-height : 600px;
+	width: 900px;
+    margin: 0 auto;
+    min-height: 600px;
+    background-color: #f1f1f1;
+    border-radius: 20px;
 }
 
 #addressDiv{
 	margin : 0 auto;
-	border : 1px solid blue;
 	overflow: hidden;
 	font-family: 'Work Sans', sans-serif;
-	height : 130px;
 }
 
 #addressDiv1{
@@ -616,14 +615,16 @@ td {
 }
 
 #addressDiv3{
-	margin-right : auto;
+	margin-right : 110px;
 	float:right;
 	font-size : 16px;
-	text-decoration: underline;
 }
 
 #addressDiv3 > a > span {
-	color : blue;
+	color: #fff;
+    padding: 5px;
+    background-color: #8b8b8b;
+    border-radius: 10px;
 }
 
 #address{
@@ -638,19 +639,20 @@ td {
 
 #mypetDiv{
 	margin : 0 auto;
-	margin-top : 20px;
-	border : 1px solid pink;
+	margin-top : 30px;
 	overflow: hidden;
 	font-family: 'Work Sans', sans-serif;
-	height : 130px;
 }
 
 #mypet{
+	margin : 0 auto;
 	margin-top : 10px;
-	border : 1px solid pink;
-	font-size : 20px;
+	font-size : 30px;
+	font-family : 'Nanum Brush Script', cursive;
 	color : #7b7b7b;
+	margin-left : 200px;
 }
+
 #mypetDiv1{
 	height : 70px;	
 }
@@ -663,6 +665,140 @@ td {
 	float : center;
 }
 
+#mypetDiv3{
+	margin-right : 110px;
+	float:right;
+	font-size : 16px;
+}
+
+#mypetDiv3 > a > span {
+	color: #fff;
+    padding: 5px;
+    background-color: #8b8b8b;
+    border-radius: 10px;
+}
+
+
+.activeCb
+{ background-color: #666666; }
+
+.activeCb1
+{ background-color: #fff; }
+
+
+input[name="mypet1"]+label {
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	border: 2px solid #bcbcbc;
+	cursor: pointer;
+}
+
+input[name="mypet1"]:checked+label {
+	background-color: #666666;
+}
+
+
+input[name="mypet1"] {
+	display: none;
+}
+
 #scheduleDiv{
-	border : 1px solid skyblue;
+	margin-top : 20px;
+}
+
+#scheduleDiv1{
+	margin : 0 auto;
+	font-size : 22px;
+	font-weight : bold;
+	width : 500px;
+	float : center;
+}
+
+#schedule{
+	margin-left :200px;
+	margin-top : 20px;
+}
+
+#schedule > span {
+	font-size : 20px;
+	font-family : 'Nanum Brush Script', cursive; 
+	color : #0397d2;
+}
+
+#dateChooice{
+	width : 200px;
+	height : 30px;
+	font-size : 30px;
+	font-family : 'Nanum Brush Script', cursive; 
+	border-radius: 10px;
+	box-shadow: 2px 2px 3px 4px #ccc;
+	text-align: center;
+}
+
+.timeSelect{
+	margin-left : 20px;
+	width : 130px;
+	height : 40px;
+	font-size : 24px;
+	font-family: 'Nanum Brush Script', cursive; 
+	border-radius: 10px;
+	box-shadow: 2px 2px 3px 4px #ccc;
+	text-align-last: center;
+}
+
+#mypetOk{
+	margin : 0 auto;
+	margin-top : 30px;
+	text-align: center;
+}
+
+#sitFromBtn{
+	padding : 5px 50px 5px 50px;
+	font-size : 40px;
+	font-family: 'Nanum Brush Script', cursive; 
+	color : #fff;
+	background-color: #b1b1b1;
+	border-radius: 10px;
+	box-shadow: 2px 2px 0px #868686;
+	cursor: pointer;
+}
+
+/* #sitFromBtn:hover{ */
+/* 	padding : 5px 50px 5px 50px; */
+/* 	font-size : 40px; */
+/* 	font-family: 'Nanum Brush Script', cursive;  */
+/* 	color : #fff; */
+/* 	background-color: #2f2f2f; */
+/* 	border-radius: 10px; */
+/* 	box-shadow: 2px 2px 0px #868686; */
+/* 	cursor: pointer; */
+/* } */
+
+#sitFromBtn:active{
+	padding : 5px 50px 5px 50px;
+	font-size : 40px;
+	font-family: 'Nanum Brush Script', cursive; 
+	color : #fff;
+	background-color: #2f2f2f;
+	border-radius: 10px;
+	box-shadow: -2px -2px 0px #868686;
+	cursor: pointer;
+}
+
+#difficulty{
+	margin : 0 auto;
+	margin-top : 10px;
+	width : 100%;
+	overflow : hidden;
+}
+
+#dWord {
+	float:left;
+	margin-left : 200px;	
+}
+
+#dTextArea{
+	margin-left: 10px;
+	float:left;
 }
