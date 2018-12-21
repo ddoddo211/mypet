@@ -1,6 +1,8 @@
 package kr.co.mypet.sitter.web;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.co.mypet.common.model.MemberVo;
+import kr.co.mypet.common.model.MypetVo;
 import kr.co.mypet.sitter.model.FaqVo;
 import kr.co.mypet.sitter.model.PetSitterVo;
 import kr.co.mypet.sitter.model.ZipVo;
@@ -33,10 +36,12 @@ public class SitterController {
 	
 	// 펫시터 집으로 부르기 화면
 	@RequestMapping("/sitterFrom")
-	public String sitterFrom(HttpSession session) {
+	public String sitterFrom(HttpSession session, Model model) {
 		MemberVo memVo = (MemberVo) session.getAttribute("memVo");
 		
 		if(memVo != null) {
+			List<MypetVo> mypetList = sitterService.getMypetList(memVo.getMem_id());
+			model.addAttribute("mypetList", mypetList);
 			return "petSitter/sitterFrom";
 		} else {
 			return "redirect:/mem/loginPage";
@@ -51,12 +56,30 @@ public class SitterController {
 	}
 	
 	// 펫시터 집으로 부르기 -> 주소변경 화면 -> 수정완료 처리
-	@RequestMapping(value= {"/sitFromPopUp"}, method= {RequestMethod.POST})
-	public String sitFromPopUp() {
+	@RequestMapping(value= {"/addressUpdate"}, method= {RequestMethod.POST})
+	public String sitFromPopUp(Model model, HttpSession session, @RequestParam("mem_addr1")String mem_addr, @RequestParam("mem_addr2")String mem_addr2) {
+		System.out.println("mem_addr : "+mem_addr);
+		System.out.println("mem_addr2 : "+mem_addr2);
 		
+		MemberVo memVo = (MemberVo) session.getAttribute("memVo");
+		Map<String, Object> param = new HashMap<>();
+		param.put("mem_id", memVo.getMem_id());
+		param.put("mem_addr", mem_addr);
+		param.put("mem_addr2", mem_addr2);
 		
+		int updateCnt = sitterService.memAddrUpdate(param);
 		
-		return "petSitter/addressUpdate";
+		if(updateCnt !=0) {
+			model.addAttribute("updateCnt", updateCnt);
+			memVo.setMem_addr(mem_addr);
+			memVo.setMem_addr2(mem_addr2);
+			System.out.println("수정성공!!");
+			return "petSitter/addressUpdate";
+		}
+		else {
+			System.out.println("수정실패!!");
+			return "petSitter/addressUpdate";
+		}
 	}
 	
 	// 펫시터 집에 맡기기 화면

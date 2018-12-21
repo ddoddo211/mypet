@@ -33,7 +33,7 @@
 	
 	.mainleft {
 		width: 21%;
-		min-height: 658px;
+		min-height: 1400px;
 		float: left;
 		background-color: #f1f1f1;
 	}
@@ -161,17 +161,69 @@
 		height: 45px;
 	}
 	
-	.page ul{
-	}
-	
 	.page ul li {
 		float:left;
+		padding: 10px;
+		font-size: 15px;
 	}
 	
-	.chkbox {
-		margin-top: 0px;
-	}
 </style>
+<script type="text/javascript">
+	$(document).ready(function() {
+		prodListHtml(1,'${dvs_id}','${dvs_parent}');
+		
+		$(".chkbox").click(function() {
+			prodListHtml(1,'${dvs_id}','${dvs_parent}');
+		});
+	})
+	
+	function prodListHtml(page,dvs_id,dvs_parent) {
+		var pageSize = 12;
+		var values = [];
+		var opValues = [];
+		$("input[name=chkbox]:checked").each(function(i){
+			values.push($(this).val());
+		});
+		$("input[name=op_id]").each(function(i){
+			opValues.push($(this).val());
+		});
+		$.ajax({
+			url : "/shop/prodListHtml",
+			type : "get",
+			data : "page=" + page + "&pageSize=" + pageSize + "&dvs_id="+dvs_id+"&dvs_parent="+dvs_parent+"&values="+values+"&opValues="+opValues,
+			success : function(dt) {
+				$("#prodList").html(dt);
+				prodPageHtml(page,dvs_id,dvs_parent);
+			}
+		});
+	}
+	
+	function prodPageHtml(page,dvs_id,dvs_parent) {
+		var pageSize = 12;
+		var values = [];
+		var opValues = [];
+		$("input[name=chkbox]:checked").each(function(i){
+			values.push($(this).val());
+		});
+		$("input[name=op_id]").each(function(i){
+			opValues.push($(this).val());
+		});
+		$.ajax({
+			url : "/shop/prodPageHtml",
+			type : "get",
+			data : "page=" + page + "&pageSize=" + pageSize + "&dvs_id="+dvs_id+"&dvs_parent="+dvs_parent+"&values="+values+"&opValues="+opValues,
+			success : function(dt) {
+				$(".pagination").html(dt);
+				scrollgo();
+			}
+		});
+	}
+	
+	function scrollgo() {
+		var offset = $("#mainmid").offset();
+	    $('html, body').animate({scrollTop : offset.top}, 400);
+	}
+</script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
@@ -191,8 +243,8 @@
 			<div class="listMenu">
 				<p>Menu</p>
 				<ul>
-					<c:forEach items="${pddList }" var="list">
-						<li><a href="/shop/petShopList?pdd_id=${list.pdd_id}&pdd_am=${list.pdd_am}">${list.pdd_name }</a></li>
+					<c:forEach items="${menuList }" var="list">
+						<li><a href="/shop/petShopList?dvs_id=${dvs_id }&dvs_parent=${list.dvs_id}">${list.dvs_name }</a></li>
 					</c:forEach>
 				</ul>
 			</div>
@@ -200,53 +252,31 @@
 		
 		<div class="mainright">
 			<div class="pordCheck">
-				<div class="chk">
-					<div class="chkName">
-						<span class="petchk">브랜드</span>
-					</div>
-					<c:forEach items="${brdList}" var="list">
-						<div class="ageChk">
-							<ul>
-								<li><input type="checkbox" class="chkbox"><span>${list.brd_name }</span></li>
-							</ul>
-						</div>
-					</c:forEach>
-				</div>
-				<c:if test="${ageList != null}">
+				<c:forEach items="${opList }" var="list">
 					<div class="chk">
 						<div class="chkName">
-								<span class="petchk">연령</span>
+							<span class="petchk">${list.dvs_name }</span>
+							<input type="hidden" value="${list.dvs_id }" name ="op_id">
 						</div>
-						<c:forEach items="${ageList}" var="list">
-							<div class="ageChk">
-								<ul>
-									<li><input type="checkbox" class="chkbox"><span>${list.page_name }</span></li>
-								</ul>
-							</div>
+						<c:forEach items="${opMenuList}" var="list2">
+							<c:if test="${list.dvs_id == list2.dvs_parent }">
+								<div class="ageChk">
+									<ul>
+										<li><input type="checkbox" class="chkbox" name="chkbox" value="${list2.dvs_id }"><span>${list2.dvs_name }</span></li>
+									</ul>
+								</div>
+							</c:if>
 						</c:forEach>
 					</div>
-				</c:if>
+				</c:forEach>
 			</div>
 			
 			<div class="prodMenu">
-				<ul>
-					<c:forEach items="${prodList }" var = "list">
-						<li>
-							<a href="/shop/prodDetail?prod_id=${list.prod_id }">
-								<img src="${list.prod_pimg }" width="250" height="250">
-							<br>
-							<span>${list.prod_name }</span>
-							<br>
-							<span>${list.prod_price }원</span>
-							<span>${list.prod_sprice }원</span>
-							</a>
-						</li>
-					</c:forEach>
+				<ul id="prodList">
 				</ul>
 			</div>
 			<div class="page">
-				<ul>
-					<li><a href="#">1</a></li>
+				<ul class="pagination">
 				</ul>
 			</div>
 		</div>
