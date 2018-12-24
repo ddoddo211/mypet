@@ -7,7 +7,9 @@ import javax.annotation.Resource;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import kr.co.mypet.hair.model.HairBoardVo;
 import kr.co.mypet.hair.model.HairShopVo;
+import kr.co.mypet.hair.model.PetStyleVo;
 import kr.co.mypet.sitter.model.ZipVo;
 
 
@@ -40,5 +42,32 @@ public class HairDao implements HairDaoInf {
 		
 		return hairShopList;
 	}	
+	
+	@Override
+	public List<HairShopVo> selectHairShopLoc(String has_addr) {
+		
+		List<HairShopVo> hairShopList = template.selectList("petHair.selectHairShopLoc", has_addr);
+		
+		
+		return hairShopList;
+	}
+
+	@Override
+	public HairShopVo selectShop(String has_id) {
+		HairShopVo hairShopVo = template.selectOne("petHair.selectShop", has_id);
+		return hairShopVo;
+	}
+
+	@Override
+	public List<HairBoardVo> selectReview(String hbrd_has) {
+		List<HairBoardVo> reviewList = template.selectList("petHair.selectReview", hbrd_has);
+		return reviewList;
+	}
+
+	@Override
+	public List<PetStyleVo> selectStyle(String pts_has) {
+		List<PetStyleVo> styleList = template.selectList("petHair.selectStyle", pts_has);
+		return styleList;
+	}
 	
 }
