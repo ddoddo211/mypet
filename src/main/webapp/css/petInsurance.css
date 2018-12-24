@@ -236,13 +236,16 @@
 	padding-top: 10px;
 }
 
-#label1{
-	float: left;
-	margin-right: 180px;
+#seach{
 	font-size: 17px;
 	display: block;
     font-size: 1.5em;
     font-weight: bold;
+    float: left;
+}
+
+#seach2{
+	margin-left: 280px;
 }
 
 .label2{
@@ -774,7 +777,7 @@ table tr:hover td{
 }
 
 .td9{
-	width: 200px;
+	width: 140px;
 }
 .td11{
 	width: 80px;
@@ -1183,7 +1186,7 @@ input[name="cb2"] {
 /* 펫 보험가입내용 작성 화면*/
 #petJoinForm{
 	width: 1200px;
-	height: 840px;
+	height: 975px;
 }
 
 #petJoinForm2{
@@ -1294,6 +1297,7 @@ input[name="cb2"] {
     border-right: none;
 }
 
+
 .isrJoinNotice3{
 	font-family: 'Jeju Gothic', sans-serif;
 	font-size: 18px;
@@ -1310,11 +1314,31 @@ input[name="cb2"] {
 	margin-left: 20px;
 }
 
+#contractorInfo{
+	width: 1200px;
+	height: 150px;
+}
+
+#contractor{
+	margin-bottom:35px;
+	margin-top:50px;
+	text-align: center;
+	font-family: 'Nanum Pen Script', cursive;
+	font-size: 50px;
+	width: 700px;
+    height: 50px;
+    background-color: #fff6dd;
+    text-align: center;
+    border-radius: 3px;
+    box-shadow: 3px 3px 3px 3px #999;
+    border-right: none;
+    border: 1px solid black;
+}
+
 
 #isrJoinBtn{
 	width: 1200px;
-	height: 80px;
-	margin-top: 58px;
+	height: 50px;
 }
 
 #isrJoinBtn2{
@@ -1332,6 +1356,7 @@ input[name="cb2"] {
 	font-family: 'Jeju Gothic', sans-serif;
 	font-size: 18px;
 	border-radius: 50px;
+	outline: none;
 }
 
 #isrJoinInfo3{
@@ -1368,8 +1393,50 @@ input[name="cb2"] {
 	text-align: center;
 }
 
+#accountInfo{
+	height: 100px;
+
+}
 
 
+.span1{
+	float: left;
+    height: 32px;
+    line-height: 32px;
+}
+
+#memAccidentList{
+	width: 1200px;
+	height: 100px;
+}
+
+#accountInfo1{
+	width: 700px;
+	height: 30px;
+}
+
+#accountInfo2{
+	font-family: 'Jeju Gothic', sans-serif;
+    font-size: 20px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    background-color: #ffcce7;
+    color: white;
+    width: 150px;
+    border-radius: 50px;
+    text-align: center;
+    padding: 5px;
+    float: left;
+    margin-right: 30px;
+    
+}
 
 
+.memAccidentSelect{
+	height: 30px;
+	font-family: 'Jeju Gothic', sans-serif;
+    font-size: 17px;
+    float: left;
+    
+}
 

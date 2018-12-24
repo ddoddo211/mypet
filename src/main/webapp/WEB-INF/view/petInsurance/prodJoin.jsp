@@ -12,37 +12,48 @@
 <script type="text/javascript">
 $(document).ready(function() {
 	
-	$("#isrJoinBtn3").click(function(){
-		  // 계약자 정보 체크박스
+		// 계좌번호 관리 부분에 선택버튼을 클릭하였을때 값이 담기게 설정
+		
+		$('select[name=accountSelect]').change(function() {
+			var  account = $(this).val();
+			$("#memAccountId").val(account);
+		});
+			
+		$("#isrJoinBtn3").click(function() {
+			
+			var account = $("#memAccountId").val();
+			
+			// 계약자 정보 체크박스
 			if (!$("input[id='isrJoinInfo5_1']:checked").val()) {
 				alert("계약자 정보의 체크 박스에 체크하시기 바랍니다");
 				return;
-			}else if (!$("input[name='name']:checked").val()) {
+			} else if (!$("input[name='name']:checked").val()) {
 				alert("고지사항1번 부분에 체크되어 있지 않습니다.\n체크하시기 바랍니다");
-				return ;
-			}else if (!$("input[name='name1']:checked").val()) {
+				return;
+			} else if (!$("input[name='name1']:checked").val()) {
 				alert("고지사항2번 부분에 체크되어 있지 않습니다.\n체크하시기 바랍니다");
-				return ;
-			}else if (!$("input[name='name2']:checked").val()) {
+				return;
+			} else if (!$("input[name='name2']:checked").val()) {
 				alert("고지사항3번 부분에 체크되어 있지 않습니다.\n체크하시기 바랍니다");
-				return ;
-			}else if($("input[name='name']:checked").val()== 'N'){
+				return;
+			} else if ($("input[name='name']:checked").val() == 'N') {
 				alert("고지사항1번 부분에 Y로 체크되어 있지 않습니다.\nY로 입력하셔야만 가입 진행이 가능하십니다.");
-				return ;
-			}else if($("input[name='name1']:checked").val()== 'N'){
+				return;
+			} else if ($("input[name='name1']:checked").val() == 'N') {
 				alert("고지사항2번 부분에 Y로 체크되어 있지 않습니다.\nY로 입력하셔야만 가입 진행이 가능하십니다.");
-				return ;
-			}else if($("input[name='name2']:checked").val()== 'N'){
+				return;
+			} else if ($("input[name='name2']:checked").val() == 'N') {
 				alert("고지사항3번 부분에 Y로 체크되어 있지 않습니다.\nY로 입력하셔야만 가입 진행이 가능하십니다.");
-				return ;
-			}else{
+				return;
+			}else if(account == "0"){ 
+				alert("계좌번호를 선택하시기 바랍니다.");
+				return;
+			} else {
 				$("#frm").submit();
 			}
-			
-	});
-	
-});
+		});
 
+	});
 </script>
 
 <link rel="stylesheet" href="/css/petInsuranceMenu.css">
@@ -51,12 +62,12 @@ $(document).ready(function() {
 
 </head>
 <body>
-
-<!-- form에  내 반려동물 id , 회원 id(이메일) , 보험상품 id 담아서 보내주기-->
-<form action="/isr/isrProdMypetJoin" method="get" id="frm">
+<!-- form에  내 반려동물 id , 회원 id(이메일) , 보험상품 id , 선택한 계좌번호 담아서 보내주기-->
+<form action="/isr/isrProdMypetJoin" method="post" id="frm">
 	<input type="hidden" name="petId" value="${petId}"/>
 	<input type="hidden" name="memId" value="${memVo.mem_id}"/>
 	<input type="hidden" name="prodJoinId" value="${prodJoinId}"/>
+	<input type="hidden" name="memAccount" id="memAccountId" value="0" />
 </form>
 
 <!-- header 시작 -->
@@ -178,6 +189,30 @@ $(document).ready(function() {
 							<input class="isrJoinNotice3_1_1 YesNo" type="radio" value="N" name="name2"/><label>아니요</label>
 						</span>
 					</div>
+					
+				<div id="contractorInfo">
+						<!-- 계약자의 계좌정보입력하기 -->
+						<div id="contractor">
+							보험료를 납부할 계좌를 선택하시기 바랍니다.
+						</div>
+						
+						<!-- 회원의 계좌번호 select박스 나오는곳 -->
+						<div id ="accountInfo">
+							<div id="accountInfo1">
+								<div id="accountInfo2">
+									계좌번호 
+								</div>
+								<div id="accountInfo3">
+									<select class="memAccidentSelect" name="accountSelect" >
+										<option selected value="0">보험료를 납부하실 계좌번호를 선택하시기 바랍니다.</option>
+										<c:forEach items="${memAccidentList }" var="account">
+											<option value="${account.act_id}">${account.act_bank}${account.act_num} 예금주 : ${account.act_name}</option>
+										</c:forEach>
+									</select>
+								</div>
+							</div>
+						</div>									
+				</div>
 					
 					<!-- 보험가입 버튼 -->
 					<div id="isrJoinBtn">

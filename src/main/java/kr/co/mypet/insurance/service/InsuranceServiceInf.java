@@ -2,9 +2,12 @@ package kr.co.mypet.insurance.service;
 
 import java.util.List;
 import java.util.Map;
+
+import kr.co.mypet.common.model.AccountVo;
 import kr.co.mypet.common.model.MemberVo;
 import kr.co.mypet.common.model.MypetVo;
 import kr.co.mypet.common.model.PetkindVo;
+import kr.co.mypet.insurance.model.AccidentVo;
 import kr.co.mypet.insurance.model.InsProdVo;
 import kr.co.mypet.insurance.model.InsshoppingVo;
 import kr.co.mypet.insurance.model.InsurancePageVo;
@@ -198,6 +201,17 @@ public interface InsuranceServiceInf {
 	* Method 설명 :보험가입이 완료 된다면 해당 플랜정보(장바구니)화면에 해당 상품이 삭제 되도록 만들기
 	*/
 	int shoppingJoinProd(String deleteProd);
+	
+	
+	/**
+	* Method : memAccidentList
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param mem_id
+	* @return
+	* Method 설명 : 해당 회원의 이메일(pk)로 보내서 회원의 계좌번호를 가지고 오는 방법
+	*/
+	List<AccountVo> memAccountList(String mem_id);
 
 
 }

@@ -265,9 +265,9 @@
 			<div id="lookup">
 						<div id="condition">
 							<div id="condition1">
-								<label id="label1">조회조건</label>
+								<label id="seach">조회조건</label>
 							
-								<div class="condition2">
+								<div class="condition2" id="seach2">
 										<label class="label2">애완동물 조회</label>
 												<input class="label2 laber3 petKind" type="button" name="petKind" value="강아지"/>
 												<input class="label2 laber3 petKind" type="button"  name="petKind"  value="고양이" />

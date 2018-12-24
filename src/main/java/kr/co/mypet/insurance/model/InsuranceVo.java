@@ -14,11 +14,20 @@ public class InsuranceVo {
 	private String myp_id;
 	private String mem_id;
 	private String inssp_id;
+	private String act_id;
 	
 	// 보험가입 상품 이름 
 	private String insp_kind;
 	
 	
+	@Override
+	public String toString() {
+		return "InsuranceVo [ins_id=" + ins_id + ", ins_start=" + ins_start + ", ins_end=" + ins_end + ", ins_stat="
+				+ ins_stat + ", ins_dis=" + ins_dis + ", ins_total=" + ins_total + ", myp_id=" + myp_id + ", mem_id="
+				+ mem_id + ", inssp_id=" + inssp_id + ", act_id=" + act_id + ", insp_kind=" + insp_kind + "]";
+	}
+
+
 	public String getInsp_kind() {
 		return insp_kind;
 	}
@@ -27,15 +36,18 @@ public class InsuranceVo {
 	public void setInsp_kind(String insp_kind) {
 		this.insp_kind = insp_kind;
 	}
-
-
-	@Override
-	public String toString() {
-		return "InsuranceVo [ins_id=" + ins_id + ", ins_start=" + ins_start + ", ins_end=" + ins_end + ", ins_stat="
-				+ ins_stat + ", ins_dis=" + ins_dis + ", ins_total=" + ins_total + ", myp_id=" + myp_id + ", mem_id="
-				+ mem_id + ", inssp_id=" + inssp_id + "]";
-	}
 	
+	
+
+
+	public String getAct_id() {
+		return act_id;
+	}
+
+
+	public void setAct_id(String act_id) {
+		this.act_id = act_id;
+	}	
 	
 	public String getIns_id() {
 		return ins_id;

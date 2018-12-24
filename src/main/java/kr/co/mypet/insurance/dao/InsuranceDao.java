@@ -4,9 +4,12 @@ import java.util.List;
 import javax.annotation.Resource;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
+
+import kr.co.mypet.common.model.AccountVo;
 import kr.co.mypet.common.model.MemberVo;
 import kr.co.mypet.common.model.MypetVo;
 import kr.co.mypet.common.model.PetkindVo;
+import kr.co.mypet.insurance.model.AccidentVo;
 import kr.co.mypet.insurance.model.InsProdVo;
 import kr.co.mypet.insurance.model.InsshoppingVo;
 import kr.co.mypet.insurance.model.InsurancePageVo;
@@ -304,6 +307,20 @@ public class InsuranceDao implements InsuranceDaoInf {
 	@Override
 	public int shoppingJoinProd(String deleteProd) {
 		return template.insert("petIns.shoppingJoinProd",deleteProd);
+	}
+
+
+	/**
+	* Method : memAccidentList
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param mem_id
+	* @return
+	* Method 설명 : 해당 회원의 이메일(pk)로 보내서 회원의 계좌번호를 가지고 오는 방법
+	*/
+	@Override
+	public List<AccountVo> memAccountList(String mem_id) {
+		return template.selectList("petIns.memAccountList", mem_id);
 	}
 
 

@@ -40,4 +40,32 @@
 		and am_id = petk_am
 		and myp_mem = #{mem_id}
 	</select>
+	
+	<select id="getPetKindList" parameterType="String" resultType="petkindVo">
+		select * 
+		from petkind, animal
+		where petk_am = am_id
+		and am_name = #{am_name}
+	</select>
+	
+	<insert id="insertMypet" parameterType="map">
+		insert into mypet
+		values('MP' || lpad(mypet_no.nextVal, 3, '0'), #{myp_mem}, #{myp_petk}, #{myp_birth}, #{myp_sick}, #{myp_img}, #{myp_neu}, #{myp_gender}, #{myp_name})	
+	</insert>
+	
+	<delete id="deleteMypet" parameterType="String">
+		delete from mypet
+		where myp_id = #{myp_id}
+	</delete>
+	
+	<select id="getPetInfo" parameterType="String" resultType="mypetVo">
+		select *
+		from mypet
+		where myp_id = #{myp_id}
+	</select>
+	
+	<insert id="insertReservation" parameterType="map">
+		insert into sitterres
+		values('STR' || lpad(res_no.nextVal,3,'0'), sysdate, #{str_spec}, #{str_price}, #{str_time}, #{str_atime}, #{str_arr}, #{str_pst}, #{str_mem}, #{str_myp})
+	</insert>
 </mapper>
