@@ -24,12 +24,12 @@ var joinFail = <%=request.getParameter("joinFail")%>;
 	}
 	
 $(document).ready(function(){
+	
+	
 	$(".option").change(function(){
 		$("#petSelectMenu").hide();
 	});
 	
-	
-
 	
 	// 나의 펫 선택할떄 값 담아주기
 	$(".cb1_label").click(function(){
@@ -60,18 +60,19 @@ $(document).ready(function(){
 		var prodId = $(this).data("inssp_insp");
 		var prodId2 = $(this).data("insp_id");
 		
-			for(var i = 1; i<= ${memIsrListSize}; i++){
-					if($("#prodLabel"+i).data("prodLabel") == prodId2){
-							// 원래 체크 되어 있다면 또 다시 클릭한다면 해제하는 부분
-							if($(this).hasClass("activeCb")){
-								$("#prodId").val("");
-								$("#prodJoinId").val("");
-							}else{
-								// 선택한 보험 상품 pk 담아주기 
-								$("#prodId").val(prodId);
-								$("#prodJoinId").val(prodId2);
-							}
+			for(var i = 1; i <= ${memIsrListSize}; i++){
+					if($("#prodLabel"+i).data("inssp_insp") == prodId){
+								// 원래 체크 되어 있다면 또 다시 클릭한다면 해제하는 부분
+								if($(this).hasClass("activeCb")){
+									$("#prodId").val("");
+									$("#prodJoinId").val("");
+								}else{
+									// 선택한 보험 상품 pk 담아주기 
+									$("#prodId").val(prodId);
+									$("#prodJoinId").val(prodId2);
+								}							
 								$("#prodLabel"+i).toggleClass("activeCb");
+								
 					}else {
 							// 클릭한 아이디하고 선택한 펫이 맞지 않을떄에는 배경색 흰색 주기 
 							$("#prodLabel"+i).removeClass("activeCb");
@@ -86,17 +87,20 @@ $(document).ready(function(){
 	$(".option").click(function(){
 		// 선택한 펫의 id 담아주기 
 		select = $(this).val();
-		
 		// 마이펫 id 넘겨주기
 		$("#mypetId").val(select);
 	});
 	
 	$("#insuranceJoinBtn").click(function(){
+		
+		var prodId = $("#prodId").val();
+		var prodId2 = $("#prodJoinId").val();
+		
 		// 나의 펫 선택 부분이 선택을 안했을때 나오는 알림창
 		if(select == null || select == "나의 펫 선택"){
 			alert("보험에 가입하실 나의 펫을 선택하시기 바랍니다.");
 			return ;
-		}else if(prodId == null){
+		}else if(prodId == ""){
 			// 체크 박스를 클릭하지 않았을 경우 
 			alert("가입할 보험의 상품을 체크하시기 바랍니다.");
 			return ;
@@ -106,10 +110,11 @@ $(document).ready(function(){
 		
 			// 해당 펫의 이미 가입되어 있는 상품이 있을떄에는 변수의 값을 1씩 증가한다
 			for(var i = 1 ; i < ${mypetIsrJoinSize}; i++){
-				if(prodId2==$("#isr"+i+select).val()){
+				if( prodId2 == $("#isr"+i+select).val()){
 					chkDu += 1;
 				}
 			}
+			
 			// 가입되어 있는 보험상품이 없을때에는 아래 부분이 실행된다
 			if(chkDu==0){
 				$("#frm2").submit();
@@ -187,7 +192,6 @@ function petInsert(){
 </form>
 
 <!-- 플랜정보에서 보험가입하는 화면으로 이동 -->
-
 <form action="/isr/prodJoin" method="get" id="frm2">
 	<!--마이펫의 id 넘겨주기-->
 	<input type="hidden" id="mypetId" name="mypetId" value="">
@@ -389,8 +393,8 @@ function petInsert(){
 						<c:forEach items="${memIsrList}" var="prodVo" varStatus="index">
 							<tr class="tr7">
 								<td class="td11">
-									<input type="checkbox" name="cb2" class="cb2" value="${prodVo.inssp_id}">
-									<label class="cb2_label" id="prodLabel${index.count}" data-prodLabel="${prodVo.insp_id}" data-inssp_insp="${prodVo.inssp_id}" data-insp_id="${prodVo.insp_id}"></label>
+									<input type="checkbox" name="cb2" class="cb2" value="${prodVo.inssp_id}" />
+									<label class="cb2_label" id="prodLabel${index.count}" data-inssp_insp="${prodVo.inssp_id}" data-insp_id="${prodVo.insp_id}"></label>
 								</td>
 								<td class="td8">
 									<select name="petSelect" class="option">

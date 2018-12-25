@@ -61,6 +61,7 @@
 	border:none;
 	font-size: 25px;
 	font-family: 'Jeju Gothic', sans-serif;
+	outline: none;
 }
 
 
@@ -1438,5 +1439,21 @@ input[name="cb2"] {
     font-size: 17px;
     float: left;
     
+}
+
+
+
+/*보상안내*/
+
+#guideMain{
+	width: 1200px;
+	height: 1000px;
+	border: 1px solid black;
+}
+
+#guideMain1{
+	width: 1200px;
+	height: 240px;
+	border: 1px solid red;
 }
 

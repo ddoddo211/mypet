@@ -709,5 +709,17 @@ public class InsuranceController {
 					return false;
 			}
 			
+			
+			
+			
+			
+			
+			
+			// 보상안내로 화면이동 하는 컨트롤러
+			@RequestMapping("/compensationGuide")
+			public String compensationGuide() {
+				return "petInsurance/compensationGuide";
+			}
+			
 
 }
