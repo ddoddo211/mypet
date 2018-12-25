@@ -14,6 +14,7 @@ import kr.co.mypet.insurance.dao.InsuranceDaoInf;
 import kr.co.mypet.insurance.model.AccidentVo;
 import kr.co.mypet.insurance.model.InsProdVo;
 import kr.co.mypet.insurance.model.InsshoppingVo;
+import kr.co.mypet.insurance.model.InsuranceNoticeVo;
 import kr.co.mypet.insurance.model.InsurancePageVo;
 import kr.co.mypet.insurance.model.InsuranceVo;
 
@@ -327,6 +328,19 @@ public class InsuranceService implements InsuranceServiceInf {
 	@Override
 	public List<AccountVo> memAccountList(String mem_id) {
 		return insuranceDao.memAccountList(mem_id);
+	}
+
+	
+	/**
+	* Method : insNotice
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @return
+	* Method 설명 :보상안내 공지사항 나오게 설정 
+	*/
+	@Override
+	public List<InsuranceNoticeVo> insNotice() {
+		return insuranceDao.insNotice();
 	}
 
 	

@@ -167,5 +167,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<select id="memAccountList" parameterType="String" resultType="accountVo">
 			select * from account where act_mem = #{act_mem}
 		</select>
+		
+		
+		<!-- 보상안내 공지사항 나오게 설정 -->
+		<select id="insNotice" resultType="insNoticeVo">
+			select * from insNotice 
+		</select>
 
 </mapper>

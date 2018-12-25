@@ -407,10 +407,10 @@ function petInsert(){
 								<td class="td9">${prodVo.insp_name}</td>
 								<c:choose>
 									<c:when test = "${prodVo.insp_join == '강아지'}">
-										<td class="td9"><img alt="이미지가 없습니다" src="/img/petInsurance/petKind.jpg" width="40px" height="40px">${prodVo.insp_join}</td>
+										<td class="td9"><img alt="이미지가 없습니다" src="/img/petInsurance/petInfo.jpg" width="40px" height="40px">${prodVo.insp_join}</td>
 									</c:when>
 									<c:otherwise>
-										<td class="td9"><img alt="이미지가 없습니다" src="/img/petInsurance/petKind2.jpg" width="40px" height="40px">${prodVo.insp_join}</td>
+										<td class="td9"><img alt="이미지가 없습니다" src="/img/petInsurance/petInfo2.jpg" width="40px" height="40px">${prodVo.insp_join}</td>
 									</c:otherwise>
 								</c:choose>
 								<td class="td9">${prodVo.insp_kind}</td>

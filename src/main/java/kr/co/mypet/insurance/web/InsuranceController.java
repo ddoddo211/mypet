@@ -31,6 +31,7 @@ import kr.co.mypet.common.model.PetkindVo;
 import kr.co.mypet.insurance.model.AccidentVo;
 import kr.co.mypet.insurance.model.InsProdVo;
 import kr.co.mypet.insurance.model.InsshoppingVo;
+import kr.co.mypet.insurance.model.InsuranceNoticeVo;
 import kr.co.mypet.insurance.model.InsurancePageVo;
 import kr.co.mypet.insurance.model.InsuranceVo;
 import kr.co.mypet.insurance.service.InsuranceServiceInf;
@@ -717,7 +718,13 @@ public class InsuranceController {
 			
 			// 보상안내로 화면이동 하는 컨트롤러
 			@RequestMapping("/compensationGuide")
-			public String compensationGuide() {
+			public String compensationGuide(Model model) {
+				
+				// 보상안내 화면에 접속할때 공지사항은 나와야 하기 때문에 설정
+				List<InsuranceNoticeVo> insNoiceList =  insuranceService.insNotice();
+				
+				model.addAttribute("insNoiceList" , insNoiceList);
+				
 				return "petInsurance/compensationGuide";
 			}
 			
