@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import kr.co.mypet.hair.dao.HairDaoInf;
+import kr.co.mypet.hair.model.HairBoardVo;
 import kr.co.mypet.hair.model.HairShopVo;
 import kr.co.mypet.sitter.model.ZipVo;
 
@@ -32,5 +33,23 @@ public class HairService implements HairServiceInf {
 		public List<HairShopVo> selectHairShopAll() {
 			// TODO Auto-generated method stub
 			return hairDao.selectHairShopAll();
+		}
+
+		@Override
+		public List<HairShopVo> selectHairShopLoc(String has_addr) {
+			// TODO Auto-generated method stub
+			return hairDao.selectHairShopLoc(has_addr);
+		}
+
+		@Override
+		public HairShopVo selectShop(String has_id) {
+			// TODO Auto-generated method stub
+			return hairDao.selectShop(has_id);
+		}
+
+		@Override
+		public List<HairBoardVo> selectReview(String hbrd_has) {
+			// TODO Auto-generated method stub
+			return hairDao.selectReview(hbrd_has);
 		}
 }

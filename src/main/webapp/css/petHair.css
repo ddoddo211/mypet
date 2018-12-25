@@ -183,7 +183,7 @@
 .profileShopNm{
 	width: 100%;
 	height: 30px;
-	font-size: 20px;
+	font-size: 14px;
 	background-color: #ff8868;
 	color: white;
 	text-align: center;
@@ -231,7 +231,7 @@
 .sdHeadCom{
 	float: left;
 	box-sizing:border-box;
-	font-size: 24px;
+	font-size: 22px;
 	font-weight: bold;
 	margin-top: 5px;
 	
@@ -254,14 +254,14 @@
 	text-align: center;
 	border-radius: 10px;
 	background-color: #FF8868;
+	border: 4px solid #E6E6E6;
 	
 }
 
 .bookMark:hover {
-	color: #ffba00;
 	background-color: white;
-	border: 4px solid #ffba00;
-	
+	border: 4px solid #FF8868;
+	color: #FF8868;
 }
 	
 .imgBlock{
@@ -319,19 +319,18 @@
 	
 .shopDetail{
 	height: 30px;
-	width: 50%;
-	background-color: #ffcc33;	
-	border-radius: 10px;
+	width: 100%;
 	
 }	
 	
 .shopDetail p {
-	color: #585858;
+	color: #848484;
 	margin-left: 10px;
 	width: 50%;
 	font-size: 18px;
 	padding-left: 20px;
 	font-family: 'Jeju Gothic', sans-serif;
+	border-bottom: 2px solid #848484;
 }	
 
 .shopLoc{

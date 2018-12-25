@@ -1,11 +1,14 @@
 package kr.co.mypet.common.dao;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import kr.co.mypet.common.model.MemberVo;
+import kr.co.mypet.hair.model.HairShopVo;
 
 @Repository
 public class CommonDao implements CommonDaoInf {
@@ -54,6 +57,8 @@ public class CommonDao implements CommonDaoInf {
 		MemberVo memVo = template.selectOne("member.memberInfo", mem_id);
 		return memVo;
 	}
+
+	
 
 
 }
