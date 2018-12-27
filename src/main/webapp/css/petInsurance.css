@@ -1607,12 +1607,11 @@ input[name="cb2"] {
 }
 
 #claimTitle3_1{
-	width: 500px;
+	width: 1200px;
 	height: 25px;
 	background-color: #f9f9f9;
 	font-family: 'Jeju Gothic', sans-serif;
     font-size: 25px;
-    border: 1px solid #7c7c7c;
 }
 
 #claimTitle3_2{
@@ -2035,11 +2034,124 @@ div#upload-btn_wrap2 button {/*버튼 div*/
 }
 
 
-/*펫 추가하기 보더 없애기*/
-#img{
-	border: none;
+/* 나의 펫 보험 페이지 */
+#mypetPage{
+	width: 1200px;
+	height: 900px;
 }
 
-.img_wrap{
-	border: none !important; 
+#mypetPageTitle{
+	width: 1200px;
+	height: 50px;
 }
+
+#mypetPageTitle1{
+	width: 450px;
+    height: 50px;
+    font-family: 'Nanum Pen Script', cursive;
+    font-size: 50px;
+    background-color: #fff6dd;
+    text-align: center;
+    float: left;
+    border-radius: 3px;
+    box-shadow: 3px 3px 3px 3px #999;
+    border-right: none;
+}
+
+#mypetPage1{
+	width: 1200px;
+	height: 800px;
+	margin-top: 20px;
+}
+
+#mypetPage2{
+	width: 250px;
+	height: 815px;
+	float: left;
+	border: 1px solid #808080;
+}
+
+#mypetPage3{
+	width: 915px;
+	height: 815px;
+	margin-left: 280px;
+	border: 1px solid blue;
+}
+
+#mypetPage2_1{
+	width: 250px;
+	height: 30px;
+	background-color : #f9f9f9;
+	font-size: 30px;
+	font-family: 'Nanum Pen Script', cursive;
+	text-align: center;
+	border-bottom: 1px solid #808080;
+}
+
+#mypetPage2_1_1{
+	width: 250px;
+	height: 20px;
+	background-color : #737373;
+	font-family: 'Jeju Gothic', sans-serif;
+    font-size: 12px;
+	text-align: center;
+	border-bottom: 2px dashed #808080;
+	line-height: 20px;
+	color: white;
+}
+
+.mypetPage2_2{
+	width: 250px;
+	height: 30px;
+	margin-top: 10px;
+	
+}
+
+#mypetPage2_2_1{
+	width: 235px;
+	height: 30px;
+	background-color: #7c6ee9;
+	color: white;
+	font-family: 'Jeju Gothic', sans-serif;
+    font-size: 20px;
+    margin-left: 7px;
+    outline: none;
+    border-radius: 10px;
+}
+
+
+
+#mypetPage2_3{
+	width: 250px;
+	height: 600px;
+	margin-top: 20px;
+}
+
+.mypetPage2_3_1{
+	width: 250px;
+	height: 130px;
+	margin-bottom: 20px;
+}
+
+.petImg{
+	width: 130px;
+	height: 130px;
+	margin-left: 60px;
+	border: 3px dashed #7c6ee9;
+	border-radius: 50px;
+}
+
+#mypetPage3_1{
+	width: 915px;
+	height: 30px;
+	border: 1px solid red;
+}
+
+.mypetPage2_3_2{
+	font-family: 'Jeju Gothic', sans-serif;
+    font-size: 18px;
+    text-align: center;
+}
+
+
+
