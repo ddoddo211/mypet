@@ -1,3 +1,4 @@
+<%@page import="kr.co.mypet.common.model.MemberVo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -27,6 +28,8 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
+			
+		
 			//원하는 좌표
 			var x = 126.570667;
 			var y = 33.450701;
@@ -53,13 +56,13 @@
 			        x = Number(result[0]['x']);
 			        map.setCenter(new daum.maps.LatLng(y, x));
 			        marker.setPosition(new daum.maps.LatLng(y, x));
-			        marker.setTitle('러비펫살롱');
+			        marker.setTitle('${hairShopVo.has_name}');
 			        infowindow.setPosition(new daum.maps.LatLng(y, x));
 			    }
 			};
 
 			
-			var test = "엄사 중앙로 66";
+			var test = "${hairShopVo.has_addr}";
 			geocoder.addressSearch(test, callback);
 			
 			
@@ -95,10 +98,11 @@
 			//info window
 			var infowindow = new daum.maps.InfoWindow({
 			    position: new daum.maps.LatLng(y, x),
-			    content: ' 러비펫살롱'
+			    content: ' ${hairShopVo.has_name}'
 			});
 
 			infowindow.open(map, marker);
+			
 			
 		//대분류 값변화시 소분류 목록을 불러오기위해 form 태그 발동
 		$("#zipHigh").change(function(){
@@ -116,10 +120,35 @@
 			$("#hiddenLowInput").val(
 					$("#zipLow").val()		
 				);
+			
+			$("#hiddenZipInputL").val(
+					$("#zipHigh").val()		
+				);
 				
 				$("#lowfrm").submit();
 			
 		});
+		
+		//리스트 클릭시 가게의 detail 표시 function
+		$(".shopProfile").click(function(){
+			$("#hiddenLowInputD").val(
+					$("#zipLow").val()		
+				);
+			
+			$("#hiddenZipInputD").val(
+					$("#zipHigh").val()		
+				);
+			
+			$("#hiddenHasId").val(
+				$(this).children(".sel_id").val()		
+			);
+			console.log("넘겨줄 has_id : "+$("hiddenHasId").val());
+				
+			
+				$("#detailfrm").submit();
+			
+		});
+		
 		
 		//탑버튼 클릭이동
 		$(".moveTop").click(function(){
@@ -127,7 +156,84 @@
 			
 		});
 		
+		//문의하기
+		$(".askShop").click(function(){
+			$(".askInput").toggle("fast");
+		});
+		
+		$(".askBtn").click(function(){
+			
+			if(<%=session.getAttribute("memVo")==null%>){
+				alert("로그인이 필요합니다 로그인해주세요");
+				return;
+			}
+			
+			if($(".askta").val()==""){
+				alert("내용을 입력해 주세요");
+				return;
+				
+			}
+			
+			$("#hiddenLowInputA").val(
+					$("#zipLow").val()		
+			);
+			
+			$("#hiddenZipInputA").val(
+					$("#zipHigh").val()		
+			);
+			
+			$("#hiddenAskText").val(
+				$(".askta").val()		
+			);
+			
+				
+			
+			$("#askfrm").submit();
+			
+		});
+		
+		
+		//즐겨찾기 등록 (detail 과 유사하며 bookmart insert실행)
+		//리스트 클릭시 가게의 detail 표시 function
+		$(".bookMark").click(function(){
+			
+			if(<%=session.getAttribute("memVo")==null%>){
+				alert("로그인이 필요합니다 로그인해주세요");
+				return;
+			}
+			
+			var has_name = $(".shopName").text().trim();
+			var result=confirm(has_name + " 을 즐겨찾기에 등록하시겠습니까?????")
+			
+			if(!result){
+				return;
+			}
+			
+			
+			$("#hiddenLowInputD").val(
+					$("#zipLow").val()		
+				);
+			
+			$("#hiddenZipInputD").val(
+					$("#zipHigh").val()		
+				);
+			
+			$("#hiddenHasId").val(
+				$(this).children(".bmHidden").val()		
+			);
+			console.log("넘겨줄 has_id : "+$("hiddenHasId").val());
+			
+			$("#bmChk").val("yes");
+			
+				$("#detailfrm").submit();
+			
+		});
+		
+		
+		
 	});
+	
+	
 
 </script>
 
@@ -151,7 +257,47 @@
 	
 	<%--소분류 선택 후 미용실 리스트 출력 form --%>
 	<form id="lowfrm" action="/hair/selectShop" method="post">
+		<input type="hidden" name="zip_high" id="hiddenZipInputL"/>
 		<input type="hidden" name="zip_low" id="hiddenLowInput"/>
+	</form>
+	
+	<%-- 미용실 목록 클릭시 상세정보 표시 form --%>
+	<form id="detailfrm" action="/hair/shopDetail" method="post">
+		<input type="hidden" name="zip_high" id="hiddenZipInputD"/>
+		<input type="hidden" name="zip_low" id="hiddenLowInputD"/>
+		<input type="hidden" name="has_id" id="hiddenHasId"/>
+		<input type="hidden" name="bmChk" id="bmChk" value="no"/>
+		<c:choose>
+			<c:when test="${memVo!=null }">
+				<input type="hidden" name="bmid" id="bmId" value="${memVo.mem_id }"/>
+			</c:when>
+			<c:otherwise>
+			
+				<input type="hidden" name="bmid" id="bmId" value="no"/>
+			</c:otherwise>
+		</c:choose>
+	</form>
+	
+	<%-- 문의하기 클릭시 넘어가는 form --%>
+	<form id="askfrm" action="/hair/askShop" method="post">
+		<input type="hidden" name="zip_high" id="hiddenZipInputA"/>
+		<input type="hidden" name="zip_low" id="hiddenLowInputA"/>
+		<input type="hidden" name="has_id" id="hiddenHasIdA" value="${hairShopVo.has_id }"/>
+	
+		<input type="hidden" name="hbrd_text" id="hiddenAskText"/>
+		<input type="hidden" name="hbrd_has" id="hiddenAskShop" value="${hairShopVo.has_id }"/>
+
+	<c:choose>
+		<c:when test="${memVo!=null }">
+			<input type="hidden" name="hbrd_mem" id="hiddenAskShopID" value="${memVo.mem_id }"/>
+		</c:when>
+		<c:otherwise>
+			<input type="hidden" name="hbrd_mem" id="hiddenAskShopID" value="nologin"/>
+		
+		</c:otherwise>
+	</c:choose>
+		
+		
 	</form>
 	
 		
@@ -180,7 +326,15 @@
 				<select id="zipLow" class="zipSelect" name="zip_low"> 
 					<option value=""> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :: 구  / 시 :: </option>
 					<c:forEach items="${zipLowList }" var="zll">
-						<option value="${zll.zip_low }">${zll.zip_low }</option>
+						<c:choose>
+							<c:when test="${zip_low==zll.zip_low }">
+								<option value="${zll.zip_low }" selected="selected">${zll.zip_low }</option>
+							</c:when>
+							<c:otherwise>
+								<option value="${zll.zip_low }">${zll.zip_low }</option>
+							
+							</c:otherwise>
+						</c:choose>
 					</c:forEach>
 				</select>
 			</div>
@@ -191,16 +345,21 @@
 			
 			<%-- profile list block 한세트 시작--%>
 			<%-- list 로 뿌려진 미용실의 요약정보 --%>
+			<c:forEach items="${hairShopList }" var="hs">
 			<div class="shopProfile">
+				<%-- detail 확인용 숨겨진 input id --%>
+				<input type="hidden" class="sel_id" value="${hs.has_id }"/>
 				<%--블록의 왼쪽  프로필사진 / 평점--%>
 				<div class="profileLeft">
 					
 					<div class="profileImgBlock">
-						<img src="/hairimg/testimgShop.jpg"/>
+						<img src="/hairimg/${hs.has_img }"/>
 					</div>
 					
 					<div class="profileScore">
-						☆☆☆☆☆
+						<c:forEach begin="1" end="${hs.has_score }">
+						☆
+						</c:forEach>
 					</div>
 					
 				</div>
@@ -208,99 +367,138 @@
 				<%-- 블록의 오른쪽  간략한 소개--%>
 				<div class="profileRight">
 					<div class="profileShopNm">
-						러비펫살롱
+						${hs.has_name }
 					</div>
 					<div class="profileText">
-						안녕하세요 러비펫 살롱 입니다  할로할로 방가방가 빨리와서 머리해라 여기 개좋음 리얼임 가성비 성능 지존임 ㄱㄱㄱㄱㄱㄱㄱ
+						${hs.has_ptext }
 					</div>
 				</div>
 				
 			</div>
+			</c:forEach>
 			<%-- profile list block 한세트 끝 --%>
 		
 		</div>
 		
 		<%-- 오른쪽에 클릭한 미용실의 요약정보를 보여주는 div --%>
-		<div id="shopDetail">
-			<%-- 디테일 최고 윗줄 --%>
-			<div id="sdHead">
-				<div class="shopName sdHeadCom">
-					미용실이름
-				</div>
-				<div class="shopScore sdHeadCom">
-					☆☆☆☆☆
-				</div>
-				<div class="bookMark sdHeadCom">
-					즐겨찾기등록
-				</div>	
-			
-			</div>
-			
-			<%-- 이미지, 후기, 문의, 예약 버튼 블록  / 상세정보 / 후기조회 / --%>
-			<div class="imgBlock">
-				<%-- img block --%>
-				<div class="shopImg">
-					<img src="/hairimg/testimgShop.jpg"/>
-				</div>
-				
-				<%-- 버튼 block --%>
-				<div class="shopBtnBlock">
-					<div onclick="move('.shopLoc')" class="shopBtn detailShop">
-						상세정보
-					</div>
-					<div onclick="move('.shopRv')" class="shopBtn reviewShop">
-						후기확인
-					</div>
-					<div class="shopBtn askShop">
-						문의하기
-					</div>
-					<div class="shopBtn revShop">
-						예약하기
-					</div>
-				</div>
-				
-				<%-- 가게 상세정보 부분 --%>
-				<div class="shopDetail">
-					<div class="shopLoc">
-						<p>샵의 위치</p>
-						<div id="map" style="width:500px;height:300px;"></div>
+		<c:choose>
+			<c:when test="${hairShopVo!=null }">
+				<div id="shopDetail">
+					<%-- 디테일 최고 윗줄 --%>
+					<div id="sdHead">
+						<div class="shopName sdHeadCom">
+							${hairShopVo.has_name }
+						</div>
+						<div class="shopScore sdHeadCom">
+							<c:forEach begin="1" end="${hairShopVo.has_score }">
+							☆
+							</c:forEach>
+						</div>
+						<div class="bookMark sdHeadCom">
+							즐겨찾기등록
+							<input class="bmHidden" type="hidden" value="${hairShopVo.has_id }"/>
+						</div>	
+					
 					</div>
 					
-					<div class="shopEx">
-						<p>샵 특이사항, 영업시간 등등 소개글</p>
-					</div>
-					<div class="shopStyle">
-						<p>샵에서 할수있는 스타일 목록</p>
-						<br>
-						<div class="styleList">
-							<img src="https://via.placeholder.com/350x250"/>
+					<%-- 이미지, 후기, 문의, 예약 버튼 블록  / 상세정보 / 후기조회 / --%>
+					<div class="imgBlock">
+						<%-- img block --%>
+						<div class="shopImg">
+							
+							<img src="/hairimg/${hairShopVo.has_img }"/>
+						</div>
+						
+						<%-- 버튼 block --%>
+						<div class="shopBtnBlock">
+							<div onclick="move('.shopLoc')" class="shopBtn detailShop">
+								상세정보
+							</div>
+							<div onclick="move('.shopRv')" class="shopBtn reviewShop">
+								후기확인
+							</div>
+							<div  class="shopBtn askShop">
+								문의하기
+							</div>
+							<div class="shopBtn revShop">
+								예약하기
+							</div>
+						</div>
+						
+						<%-- 숨겨져있는 문의하기 input 창 --%>
+						<div class="askInput">
+							<div class="asktt">
+								<p>문의하기</p>
+							</div>
+							<div class="askInputBox">
+								<textarea class="askta" name="hbrd_text" ></textarea>
+							</div>
+							
+							<input class="askBtn" type="submit" value="문의하기" />
+						</div>
+						
+						<%-- 가게 상세정보 부분 --%>
+						<div class="shopDetail">
+							<div class="shopLoc">
+								<p>샵의 위치</p>
+								<div id="map" style="width:500px;height:300px;"></div>
+							</div>
+							
+							<div class="shopEx">
+								<p>샵 특이사항, 영업시간 등등 소개글</p>
+								${hairShopVo.has_text }
+							</div>
+							<div class="shopStyle">
+								<p>샵에서 할수있는 스타일 목록</p>
+								<br>
+								<div class="styleList">
+									<c:forEach items="${styleList }" var="sl">
+										<div class="styleBlock">
+										<img src="/hairimg/${sl.pts_img }"/>
+										<br>
+										<span>${sl.pts_name }</span> <span>${sl.pts_price }원</span>
+										</div>
+										<br>
+									</c:forEach>
+								</div>
+							</div>
+							<br>
+							<div class="shopRv">
+									<p> 리뷰 </p>
+										<c:choose>
+											<c:when test="${reviewList!=null }">
+												<c:forEach items="${reviewList }" var="rl">
+													<div class="shopRvHd">
+													<span>작성자 : ${rl.hbrd_mem } </span> <span class="scorespan">${rl.hbrd_title }</span> <br>
+													<span>${rl.hbrd_text }</span>
+													
+													</div>
+												
+												</c:forEach>
+											
+											</c:when>
+											<c:otherwise>
+												<div class="shopRvHd">
+												<span> - 등록된 리뷰가 없습니다  -</span> 
+												
+												</div>
+											</c:otherwise>
+										</c:choose>
+									
+							</div>
 						</div>
 					</div>
+					<%-- 종료종료 이미지, 후기, 문의, 예약 버튼 블록  / 상세정보 / 후기조회 / 종료종료 --%>
 					
-					<div class="shopRv">
-							<p> 리뷰 </p>
-							<div class="shopRvHd">
-							<span>작성자 : OOO </span> <span class="scorespan">☆☆☆☆☆</span> <br>
-							<span>리뷰 내용</span>
-							
-							</div>
-							<div class="shopRvHd">
-							<span>작성자 : OOO </span> <span class="scorespan">☆☆☆☆☆</span> <br>
-							<span>리뷰 내용</span>
-							
-							</div>
-							<div class="shopRvHd">
-							<span>작성자 : OOO </span> <span class="scorespan">☆☆☆☆☆</span> <br>
-							<span>리뷰 내용</span>
-							
-							</div>
-					</div>
+					
 				</div>
-			</div>
-			<%-- 종료종료 이미지, 후기, 문의, 예약 버튼 블록  / 상세정보 / 후기조회 / 종료종료 --%>
 			
-			
-		</div>
+			</c:when>
+			<c:otherwise>
+				<div><h2>클릭안했을때의 화면</h2></div>
+				<div id="map" style="width:500px;height:300px; display:none;"></div>
+			</c:otherwise>
+		</c:choose>
 		
 	</div>
 	<a class="moveTop"><img src="/hairimg/upArrow.png"/></a>

@@ -1,0 +1,212 @@
+@charset "UTF-8";
+
+#mainmid{
+	font-family: 'Jeju Gothic', sans-serif;
+	
+}
+
+.mpLeft{
+	box-sizing: border-box;
+	width: 25%;
+	height: 800px;
+	float: left;
+	
+}
+
+.mpMain{
+	box-sizing: border-box;
+	width: 75%;
+	height: 800px;
+	float: left;
+	overflow: scroll;
+	
+}
+
+.mpMain::-webkit-scrollbar{
+	display: none;
+	
+}
+
+.mpMain p {
+	color: #848484;
+	margin-left: 10px;
+	width: 50%;
+	font-size: 18px;
+	padding-left: 20px;
+	font-family: 'Jeju Gothic', sans-serif;
+	border-bottom: 2px solid #848484;
+	margin-top: 30px;
+	
+}
+
+.mpleftBlock{
+	text-align: center;
+	border: 4px solid #ff8868;
+	border-radius: 10px;
+	width: 80%;
+	height: 30px;
+	background-color: #ff8868;
+	margin-top: 10px;
+	margin-left: 20px;
+	padding-top: 3px;
+}
+
+.mpleftBlock a {
+	font-size: 24px;
+	color: white;
+	
+	
+}
+
+.mpleftBlock:hover{
+	border: 4px solid #ff8868;
+	background-color: white;
+	
+}
+
+.mpleftBlock:hover .ina{
+	color: #ff8868;
+	
+	
+}
+
+.statTable{
+	margin-left: 10px;
+	margin-top: 20px;
+	width: 80%;
+	font-size: 16px;
+	border-collapse: collapse;
+}
+
+.statTable th{
+	height: 50px;
+	background-color: #848484;
+}
+.statTable td{
+	text-align: center;
+	height: 50px;
+	border-bottom: 2px solid black;
+	
+}
+
+.askBlock {
+	margin-top: 30px;
+	margin-left: 30px;
+	font-size: 18px;
+	width: 90%;
+	height: auto;
+	border-bottom: 4px solid black;
+	
+}
+
+.askTop{
+	padding-top: 5px;
+	border-top: 4px solid black;
+	width: 100%;
+	height: 60px;
+	border-bottom: 1px solid gray;
+	
+}
+.askTop img{
+	margin-top: 3px;
+	margin-left: 5px;
+	width: 20px;
+	height: 20px;
+	
+}
+
+.askText{
+	margin-top: 5px;
+	width: 100%;
+	height: 200px;
+	overflow: scroll;
+	border-bottom: 1px solid gray;
+	margin-bottom: 10px;
+	
+}
+
+.askText::-webkit-scrollbar{
+	display: none;
+	
+}
+
+.arrowimg{
+	box-sizing: border-box;
+	float: left;
+	width: 30px;
+	heigth: 80px;
+	
+}
+
+.askAnw {
+	margin-top: 20px;
+	margin-left: 20px;
+	box-sizing: border-box;
+	width: 80%;
+	height: 80px;
+	
+	
+}
+
+
+.bmList{
+	border-bottom: 4px solid grey;
+	width: 100%;
+	height: 150px;
+	
+}
+
+.bmImg{
+	width: 200px;
+	height: auto;
+	float: left;
+}
+.bmImg img{
+	width: 100%;
+	height: auto;
+}
+
+.bmRight{
+	margin-top: 20px;
+	margin-left: 20px;
+	width: 500px;
+	height: auto;
+	float: left;
+	
+}
+
+.bmName{
+	font-size: 24px;
+	width: 100%;
+	height: 60px;	
+	
+}
+
+.bmAddr{
+	font-size: 20px;
+	width: 100%;
+	heigth: 60px;
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

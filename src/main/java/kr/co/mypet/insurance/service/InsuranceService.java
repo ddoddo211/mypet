@@ -5,12 +5,16 @@ import java.util.List;
 import java.util.Map;
 import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
+
+import kr.co.mypet.common.model.AccountVo;
 import kr.co.mypet.common.model.MemberVo;
 import kr.co.mypet.common.model.MypetVo;
 import kr.co.mypet.common.model.PetkindVo;
 import kr.co.mypet.insurance.dao.InsuranceDaoInf;
+import kr.co.mypet.insurance.model.AccidentVo;
 import kr.co.mypet.insurance.model.InsProdVo;
 import kr.co.mypet.insurance.model.InsshoppingVo;
+import kr.co.mypet.insurance.model.InsuranceNoticeVo;
 import kr.co.mypet.insurance.model.InsurancePageVo;
 import kr.co.mypet.insurance.model.InsuranceVo;
 
@@ -310,6 +314,61 @@ public class InsuranceService implements InsuranceServiceInf {
 	@Override
 	public int shoppingJoinProd(String deleteProd) {
 		return insuranceDao.shoppingJoinProd(deleteProd);
+	}
+
+	
+	/**
+	* Method : memAccidentList
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param mem_id
+	* @return
+	* Method 설명 : 해당 회원의 이메일(pk)로 보내서 회원의 계좌번호를 가지고 오는 방법
+	*/
+	@Override
+	public List<AccountVo> memAccountList(String mem_id) {
+		return insuranceDao.memAccountList(mem_id);
+	}
+
+	
+	/**
+	* Method : insNotice
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @return
+	* Method 설명 :보상안내 공지사항 나오게 설정 
+	*/
+	@Override
+	public List<InsuranceNoticeVo> insNotice() {
+		return insuranceDao.insNotice();
+	}
+
+	
+	/**
+	* Method : claimPetJoinProd
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param isrVo
+	* @return
+	* Method 설명 :보상안내 - 보험가입할때 해당 펫의 가입되어 있는 보험상품 나오게 설정
+	*/
+	@Override
+	public List<InsuranceVo> claimPetJoinProd(InsuranceVo isrVo) {
+		return insuranceDao.claimPetJoinProd(isrVo);
+	}
+
+	
+	/**
+	* Method : insuredPerson
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param memId
+	* @return
+	* Method 설명 : 피보험자 선택하는 부분에 가입이 완료된 상품 나오게 설정
+	*/
+	@Override
+	public List<InsuranceVo> insuredPerson(String memId) {
+		return insuranceDao.insuredPerson(memId);
 	}
 
 	

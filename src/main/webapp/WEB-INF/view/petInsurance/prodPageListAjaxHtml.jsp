@@ -16,10 +16,10 @@
 			<tr class="tr1" onclick="selectTr(${prod.insp_id})">
 				<c:choose>
 					<c:when test = "${prod.insp_join == '강아지'}">
-						<td><img alt="이미지가 없습니다" src="/img/petInsurance/petKind.jpg" width="40px" height="40px">${prod.insp_join}</td>
+						<td><img alt="이미지가 없습니다" src="/img/petInsurance/petInfo.jpg" width="40px" height="40px">${prod.insp_join}</td>
 					</c:when>
 					<c:otherwise>
-						<td><img alt="이미지가 없습니다" src="/img/petInsurance/petKind2.jpg" width="40px" height="40px">${prod.insp_join}</td>
+						<td><img alt="이미지가 없습니다" src="/img/petInsurance/petInfo2.jpg" width="40px" height="40px">${prod.insp_join}</td>
 					</c:otherwise>
 				</c:choose>
 				<td>${prod.insp_kind}</td>

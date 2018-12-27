@@ -4,17 +4,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>petInsert.jsp(펫추가하기)</title>
+<title>memLoginChk.jsp(로그인으로 이동하는 팝업창)</title>
 
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript">
-
 function login(){
 	location.href ='/mem/loginPage';
 }
-
 </script>
 
 <link rel="stylesheet" href="/css/petInsuranceMenu.css">
