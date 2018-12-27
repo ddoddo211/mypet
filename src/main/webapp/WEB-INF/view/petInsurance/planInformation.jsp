@@ -18,6 +18,7 @@
 
 </head>
 <script type="text/javascript">
+
 var joinFail = <%=request.getParameter("joinFail")%>;
 	if(joinFail == "0"){
 		alert("보험상품 조건에 맞지 않습니다. 확인하시기 바랍니다.");
@@ -60,16 +61,28 @@ $(document).ready(function(){
 		var prodId = $(this).data("inssp_insp");
 		var prodId2 = $(this).data("insp_id");
 		
+		// 같은행을 클릭했는지 확인하기 위해서 입력 
+		var selectProdRow = $(this).data("ins_id");
+		var selectPetRow = $("#selectPet").data("ins_id2");
+		
 			for(var i = 1; i <= ${memIsrListSize}; i++){
 					if($("#prodLabel"+i).data("inssp_insp") == prodId){
 								// 원래 체크 되어 있다면 또 다시 클릭한다면 해제하는 부분
 								if($(this).hasClass("activeCb")){
 									$("#prodId").val("");
 									$("#prodJoinId").val("");
+									
+									//같은행 클릭했는지 확인하기 위해서 입력
+									$("#selectProdRow").val("");
+									$("#selectPetRow").val("");
 								}else{
 									// 선택한 보험 상품 pk 담아주기 
 									$("#prodId").val(prodId);
 									$("#prodJoinId").val(prodId2);
+									
+									//같은행 클릭했는지 확인하기 위해서 입력
+									$("#selectProdRow").val(selectProdRow);
+									$("#selectPetRow").val(selectProdRow);
 								}							
 								$("#prodLabel"+i).toggleClass("activeCb");
 								
@@ -89,12 +102,17 @@ $(document).ready(function(){
 		select = $(this).val();
 		// 마이펫 id 넘겨주기
 		$("#mypetId").val(select);
+	
 	});
 	
 	$("#insuranceJoinBtn").click(function(){
 		
 		var prodId = $("#prodId").val();
 		var prodId2 = $("#prodJoinId").val();
+		
+		// 보험상품 가입하기 전에 같은 행을 선택했는지 확인하는 부분
+		var selectProdRow = $("#selectProdRow").val();
+		var selectPetRow = $("#selectPetRow").val();
 		
 		// 나의 펫 선택 부분이 선택을 안했을때 나오는 알림창
 		if(select == null || select == "나의 펫 선택"){
@@ -105,14 +123,20 @@ $(document).ready(function(){
 			alert("가입할 보험의 상품을 체크하시기 바랍니다.");
 			return ;
 		}else{
+			
 			// 동일한 값이 있는지 확인하는 변수
 			var chkDu = 0;
 		
 			// 해당 펫의 이미 가입되어 있는 상품이 있을떄에는 변수의 값을 1씩 증가한다
 			for(var i = 1 ; i < ${mypetIsrJoinSize}; i++){
-				if( prodId2 == $("#isr"+i+select).val()){
+				// 펫이 해당 줄의 보험상품을 선태했는지 확인하는 부분
+				if( selectProdRow != selectPetRow){
+					alert("펫과 동일한 보험상품 행의 체크박스를 선택하시기 바랍니다.");
+					return;
+				}else if(prodId2 == $("#isr"+i+select).val()){
 					chkDu += 1;
 				}
+				
 			}
 			
 			// 가입되어 있는 보험상품이 없을때에는 아래 부분이 실행된다
@@ -198,6 +222,10 @@ function petInsert(){
 	<!--보험상품 id 넘겨주기-->
 	<input type="hidden" id="prodJoinId" name="prodJoinId" value="">
 </form>
+
+<!-- 보험상품 가입할때 같은행을 클릭했는지 확인하려고 만든것 -->
+<input type="hidden" id="selectProdRow" value="">
+<input type="hidden" id="selectPetRow" value="">
 
 <!-- header 시작 -->
 <%@include file="../common/header.jsp"%>
@@ -394,13 +422,13 @@ function petInsert(){
 							<tr class="tr7">
 								<td class="td11">
 									<input type="checkbox" name="cb2" class="cb2" value="${prodVo.inssp_id}" />
-									<label class="cb2_label" id="prodLabel${index.count}" data-inssp_insp="${prodVo.inssp_id}" data-insp_id="${prodVo.insp_id}"></label>
+									<label class="cb2_label" id="prodLabel${index.count}" data-ins_id="${index.count}" data-inssp_insp="${prodVo.inssp_id}" data-insp_id="${prodVo.insp_id}"></label>
 								</td>
 								<td class="td8">
 									<select name="petSelect" class="option">
 									  <option selected="selected" id="petSelectMenu">나의 펫 선택</option>
-									  <c:forEach items="${mypetList}" var="petSelect">
-									  	<option value="${petSelect.myp_id}">${petSelect.myp_name}</option>
+									  <c:forEach items="${mypetList}" var="petSelect" varStatus="index">
+									  	<option value="${petSelect.myp_id}" id="selectPet" data-ins_id2="${index.count}">${petSelect.myp_name}</option>
 									  </c:forEach>
 									</select>
 								</td>

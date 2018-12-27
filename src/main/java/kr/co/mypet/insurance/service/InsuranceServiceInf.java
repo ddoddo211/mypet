@@ -223,6 +223,26 @@ public interface InsuranceServiceInf {
 	* Method 설명 :보상안내 공지사항 나오게 설정 
 	*/
 	List<InsuranceNoticeVo> insNotice();
+	
+	/**
+	* Method : claimPetJoinProd
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param isrVo
+	* @return
+	* Method 설명 :보상안내 - 보험가입할때 해당 펫의 가입되어 있는 보험상품 나오게 설정
+	*/
+	List<InsuranceVo> claimPetJoinProd (InsuranceVo isrVo);
+	
+	/**
+	* Method : insuredPerson
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param memId
+	* @return
+	* Method 설명 : 피보험자 선택하는 부분에 가입이 완료된 상품 나오게 설정
+	*/
+	List<InsuranceVo> insuredPerson (String memId);
 
 
 }
