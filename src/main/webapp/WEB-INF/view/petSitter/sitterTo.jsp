@@ -35,6 +35,38 @@
 #hidden {
 	display: none;
 }
+
+.noticeWord{
+	font-size : 28px;
+}
+
+#noticeColor1{
+	color : #9c9c9c;
+	width : 170px;
+	font-size : 20px;
+}
+#noticeColor2{
+	color : orange;
+	width : 170px;
+	font-size : 20px;
+}
+.noticeSV{
+	text-align: center
+}
+#noticeAdd{
+   	margin-top: 20px;
+   	width: 10%;
+   	height: 60px;
+   	font-family: 'Nanum Brush Script', cursive;
+   	font-size : 26px;
+   	float:left;
+   	color : #fff;
+   	text-align: center;
+   	line-height: 60px;
+   	background-color: #4f87ff;
+   	border-radius: 15px;
+   	cursor: pointer;
+}
 </style>
 <script type="text/javascript">
 	$(document).ready(function(){
@@ -49,8 +81,18 @@
 			alert("상세페이지 전환");
 			$("#frm").submit();
 		});
+		
+		$("#noticeAddBtn").click(function(){
+			var mem_id = "${memVo.mem_id}";
+			if(mem_id == ""){
+				$("#loginPopup").slideDown("fast");
+			} else{
+				location.href="/sit/sitterToInsertView";
+			}
+		});
 	});
 </script>
+
 </head>
 <body>
 
@@ -124,6 +166,9 @@
 							</li>
 						</ul>
 					</div>
+					<div id="noticeAdd">
+						<span id="noticeAddBtn">게시글 등록</span>
+					</div>
 				</div>
 			</div>
 		</div><!-- // searchMain -->
@@ -141,17 +186,27 @@
 						<tbody id="noticeList">
 							<c:forEach items="${sitList }" var="list">
 								<tr class="noticeClick noticeTr">
-									<td rowspan="3" class="noticeAttr"><img alt="이미지" src="${list.pst_img }" width="370px" height="270px"/></td>
+									<c:choose>
+										<c:when test="${list.pst_img == '' || list.pst_img == null}">
+											<td rowspan="3" class="noticeAttr"><img src="/img/petimg/noimg.jpg" style="width:370px; height:270px;" /></td>
+										</c:when>
+										<c:otherwise>
+											<td rowspan="3" class="noticeAttr"><img src="${list.pst_img}" style="width:370px; height:270px;" /></td>
+										</c:otherwise>
+									</c:choose>
 									<td id="hidden" rowspan="3">${list.pst_id }</td>
-									<td colspan="3"><span>설명글 : ${list.pst_text }</span></td>
+									<td colspan="3"><span class="noticeWord noticeTitle">&nbsp;제목 : ${list.pst_title }</span></td>
 								</tr>
 								<tr class="noticeTr">
-									<td colspan="3"><span>가격정보</span></td>
+									<td><span class="noticeWord">&nbsp;가격정보</span></td>
+									<td id="noticeColor1">day care / <span class="noticeWord">${list.pst_price1 }원</span></td>
+									<td id="noticeColor2">1박 / <span class="noticeWord">${list.pst_price2 }원</span></td>
 								</tr>
 								<tr class="noticeTr" id="noticeLast">
-									<td><fmt:formatDate value="${list.pst_date }" pattern="yyyy-MM-dd" /></td>
-									<td><span>평정 : ${list.pst_score }</span></td>
-									<td><span>조회수 : ${list.pst_view }</span></td>
+									<td></td>
+									<td class="noticeWord noticeSV"><span>평정 : ${list.pst_score }</span></td>
+									<td class="noticeWord noticeSV"><span>조회수 : ${list.pst_view }</span></td>
+									<td id="hidden"><fmt:formatDate value="${list.pst_date }" pattern="yyyy-MM-dd" /></td>
 								</tr>
 							</c:forEach>
 						</tbody>

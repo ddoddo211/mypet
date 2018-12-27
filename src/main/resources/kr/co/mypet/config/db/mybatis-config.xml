@@ -32,6 +32,7 @@
 			<typeAlias type="kr.co.mypet.shopping.model.DivisionVo" alias="dvsVo"/>
 			<typeAlias type="kr.co.mypet.common.model.AccountVo" alias="accountVo"/>
 			<typeAlias type="kr.co.mypet.shopping.model.ProdOptionVo" alias="prodoVo"/>
+			<typeAlias type="kr.co.mypet.sitter.model.SitterRevVo" alias="revVo"/>
 	</typeAliases>
 
   <mappers>
