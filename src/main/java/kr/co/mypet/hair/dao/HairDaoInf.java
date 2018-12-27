@@ -2,6 +2,7 @@ package kr.co.mypet.hair.dao;
 
 import java.util.List;
 
+import kr.co.mypet.hair.model.BookmarkVo;
 import kr.co.mypet.hair.model.HairBoardVo;
 import kr.co.mypet.hair.model.HairShopVo;
 import kr.co.mypet.hair.model.PetStyleVo;
@@ -24,5 +25,9 @@ public interface HairDaoInf {
 	List<HairBoardVo> selectReview(String hbrd_has);
 	
 	List<PetStyleVo> selectStyle(String pts_has);
+
+	int insertHairBoard(HairBoardVo hairBoardVo);
+	
+	int insertBookMark(BookmarkVo bmVo);
 
 }

@@ -12,7 +12,9 @@ import org.springframework.stereotype.Service;
 import kr.co.mypet.common.model.PageVo;
 import kr.co.mypet.shopping.dao.ShoppingDaoInf;
 import kr.co.mypet.shopping.model.DivisionVo;
+import kr.co.mypet.shopping.model.ProdOptionVo;
 import kr.co.mypet.shopping.model.ProdVo;
+import kr.co.mypet.shopping.model.ProddvVo;
 import kr.co.mypet.shopping.model.ShopNoticeVo;
 
 @Service
@@ -239,6 +241,97 @@ public class ShoppingService implements ShoppingServiceInf {
 	public int chkSize(Map<String, Object> map) {
 		return shoppingDao.chkSize(map);
 	}
+	
+	/**
+	* Method : animalList
+	* 작성자 : pc25
+	* 변경이력 :
+	* @return
+	* Method 설명 : 펫쇼핑몰 메인화면 사료검색 동물List
+	*/
+	@Override
+	public List<DivisionVo> animalList(){
+		return shoppingDao.animalList();
+	}
+	
+	/**
+	* Method : animalSaryo
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param dvs_id
+	* @return
+	* Method 설명 : 동물의 아이디를 받아 해당 동물의 사료메뉴 id 찾기
+	*/
+	@Override
+	public String animalSaryo(String dvs_id) {
+		return shoppingDao.animalSaryo(dvs_id);
+	}
+	
+	/**
+	* Method : brandSearch
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param dvs_parent
+	* @return
+	* Method 설명 : 동물의 아이디를 받아 찾은 사료id를 가지고 브랜드List 찾기
+	*/
+	@Override
+	public List<DivisionVo> brandSearch(String dvs_parent) {
+		return shoppingDao.brandSearch(dvs_parent);
+	}
+	
+	/**
+	* Method : prodOpList
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param prod_id
+	* @return
+	* Method 설명 : 상품의 상세 옵션(ex. 상품 : 티셔츠 - 옵션 : 그레이,화이트)
+	*/
+	@Override
+	public List<ProdOptionVo> prodOpList(String prod_id) {
+		return shoppingDao.prodOpList(prod_id);
+	}
+	
+	/**
+	* Method : prodCre
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param prodVo
+	* @return
+	* Method 설명 : 상품 등록
+	*/
+	@Override
+	public int prodCre(ProdVo prodVo) {
+		return shoppingDao.prodCre(prodVo);
+	}
+	
+	/**
+	* Method : pddCre
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param pddVo
+	* @return
+	* Method 설명 : 상품 분류 등록
+	*/
+	@Override
+	public int pddCre(ProddvVo pddVo) {
+		return shoppingDao.pddCre(pddVo);
+	}
+	
+	/**
+	* Method : prodoCre
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param prodoVo
+	* @return
+	* Method 설명 : 상품옵션 등록
+	*/
+	@Override
+	public int prodoCre(ProdOptionVo prodoVo) {
+		return shoppingDao.prodoCre(prodoVo);
+	};
+	
 	
 	
 }
