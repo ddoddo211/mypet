@@ -14,8 +14,8 @@ public class MemberVo {
 	private int mem_hair;
 	private int mem_point;
 	private int mem_black;
+	private String mem_profile;
 	
-
 	
 	
 	@Override
@@ -23,8 +23,18 @@ public class MemberVo {
 		return "MemberVo [mem_id=" + mem_id + ", mem_pass=" + mem_pass + ", mem_name=" + mem_name + ", mem_addr="
 				+ mem_addr + ", mem_addr2=" + mem_addr2 + ", mem_hp=" + mem_hp + ", mem_exit=" + mem_exit
 				+ ", mem_admin=" + mem_admin + ", mem_sit=" + mem_sit + ", mem_shop=" + mem_shop + ", mem_hair="
-				+ mem_hair + ", mem_point=" + mem_point + ", mem_black=" + mem_black + "]";
+				+ mem_hair + ", mem_point=" + mem_point + ", mem_black=" + mem_black + ", mem_profile=" + mem_profile
+				+ "]";
 	}
+
+	public String getMem_profile() {
+		return mem_profile;
+	}
+
+	public void setMem_profile(String mem_profile) {
+		this.mem_profile = mem_profile;
+	}
+
 	public String getMem_addr2() {
 		return mem_addr2;
 	}

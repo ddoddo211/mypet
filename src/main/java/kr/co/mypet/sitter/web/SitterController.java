@@ -24,9 +24,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.mypet.common.model.MemberVo;
 import kr.co.mypet.common.model.MypetVo;
+import kr.co.mypet.common.model.PageVo;
 import kr.co.mypet.common.model.PetkindVo;
 import kr.co.mypet.sitter.model.FaqVo;
 import kr.co.mypet.sitter.model.PetSitterVo;
+import kr.co.mypet.sitter.model.SitterRevVo;
 import kr.co.mypet.sitter.model.ZipVo;
 import kr.co.mypet.sitter.service.SitterServiceInf;
 import kr.co.mypet.util.StringUtil;
@@ -181,7 +183,16 @@ public class SitterController {
 	@RequestMapping("/mypetDel")
 	public String mypetDel(Model model, @RequestParam("mypet_id")String mypet_id) {
 		System.out.println("여기왔니? 혼자왔니?");
-		int deleteCnt = sitterService.deleteMypet(mypet_id);
+		
+		String[] mypetId = mypet_id.split(" ");
+		
+		for(int i=0;i<mypetId.length;i++) {
+			System.out.println("mypet : "+mypetId[i]);
+		}
+		
+		for(int i=0;i<mypetId.length;i++) {
+			int deleteCnt = sitterService.deleteMypet(mypetId[i]);
+		}
 		
 		return "redirect:/sit/sitterFrom";
 	}
@@ -203,7 +214,7 @@ public class SitterController {
 		
 		int nomalPrice = 28000;
 		int addPrice = 15000;
-		int price = (nomalPrice * mypets.length)+(mypets.length * (addPrice * Integer.parseInt(timeChk))); 
+		int price = (nomalPrice)+((addPrice * Integer.parseInt(timeChk))); 
 
 		for(int i=0; i< mypets.length;i++) {
 			mVo = sitterService.getPetInfo(mypets[i]);
@@ -215,17 +226,20 @@ public class SitterController {
 			param.put("str_time", time);
 			param.put("str_atime", timeChk);
 			param.put("str_arr", arr);
-			param.put("str_pst", null);
+			param.put("str_pst", "");
 			param.put("str_mem", mem_id);
 			param.put("str_myp", mVo.getMyp_id());
 			
-			int resCnt = sitterService.insertReservation(param);
+//			int resCnt = sitterService.insertReservation(param);
 		}
 		
 		model.addAttribute("list", list);
 		model.addAttribute("time", time);
 		model.addAttribute("timeChk", timeChk);
 		model.addAttribute("spec", spec);
+		model.addAttribute("nomalPrice", nomalPrice);
+		model.addAttribute("addPrice", addPrice);
+		model.addAttribute("mypetCnt", mypets.length);
 		
 		return "petSitter/reservation";
 	}
@@ -249,10 +263,160 @@ public class SitterController {
 	public String sitterDetail(Model model, @RequestParam("pst_id")String pst_id) {
 		
 		PetSitterVo pstVo = sitterService.petToHomeDetail(pst_id);
-		System.out.println("sitDetail : "+pst_id);
+		pstVo.getPst_text();
 		model.addAttribute("pstVo", pstVo);
 		
 		return "petSitter/sitterDetail";
+	}
+	
+	// 펫시터 집에 맡기기 - 게시글 등록 화면
+	@RequestMapping("/sitterToInsertView")
+	public String sitterToInsertView() {
+		
+		return "petSitter/sitterToInsert";
+	}
+	
+	// 펫시터 집에 맡기기 - 후기글 리스트 조회
+	@RequestMapping("/reviewPageListAjaxHtml")
+	public String reviewPageListAjaxHtml(PageVo pageVo, @RequestParam("pst_id")String pst_id, Model model) {
+		
+		String stv_pst = pst_id;
+		
+		Map<String, Object> param = new HashMap<>();
+		param.put("page", pageVo.getPage());
+		param.put("pageSize", pageVo.getPageSize());
+		param.put("stv_pst", stv_pst);
+		
+		Map<String, Object> resultMap = sitterService.getReviewList(param);
+		
+		List<SitterRevVo> reviewList = (List<SitterRevVo>) resultMap.get("reviewList");
+		model.addAttribute("reviewList", reviewList);
+		
+		return "/petSitter/reviewPageListAjaxHtml";				
+	}
+	@RequestMapping("/reviewPaginationAjaxHtml")
+	public String reviewPaginationAjaxHtml(PageVo pageVo, @RequestParam("pst_id")String pst_id, Model model) {
+				
+			String stv_pst = pst_id;
+			
+			Map<String, Object> param = new HashMap<>();
+			param.put("page", pageVo.getPage());
+			param.put("pageSize", pageVo.getPageSize());
+			param.put("stv_pst", stv_pst);
+			
+			Map<String, Object> resultMap = sitterService.getReviewList(param);
+			
+			List<SitterRevVo> reviewList = (List<SitterRevVo>) resultMap.get("reviewList");
+			int pageCnt = (int) resultMap.get("pageCnt");
+			
+			model.addAttribute("reviewList", reviewList);
+			model.addAttribute("pageCnt", pageCnt);
+			model.addAttribute("page", pageVo.getPage());
+			model.addAttribute("stv_pst", stv_pst);
+			
+			return "/petSitter/reviewPaginationAjaxHtml";
+	}
+	
+	// 후기 게시글 등록
+	@RequestMapping("/insertReview")
+	public String insertReview(@RequestParam("pst_id")String pst_id, @RequestParam("stv_text")String stv_text, HttpSession session) {
+		
+		MemberVo memVo = (MemberVo) session.getAttribute("memVo");
+		
+		System.out.println("insertReview : "+pst_id);
+		System.out.println("insertReview : "+stv_text);
+		System.out.println("insertReview : "+memVo.getMem_id());
+		
+		Map<String, Object> param = new HashMap<>();
+		param.put("stv_pst", pst_id);
+		param.put("stv_text", stv_text);
+		param.put("stv_mem", memVo.getMem_id());
+		
+		int insertCnt = sitterService.insertReview(param);
+		
+		return "redirect:/sit/sitDetail?pst_id="+pst_id;
+	}
+	
+	// 후기 게시글 수정
+	@RequestMapping("/updateReview")
+	public String updateReview(@RequestParam("revText")String revText, @RequestParam("stv_id")String stv_id, @RequestParam("pst_id")String pst_id) {
+		System.out.println("여기왔니?");
+		System.out.println("revText : "+revText);
+		Map<String, Object> param = new HashMap<>();
+		param.put("stv_text", revText);
+		param.put("stv_id", stv_id);
+		
+		int updateCnt = sitterService.updateReview(param);
+		
+		return "redirect:/sit/sitDetail?pst_id="+pst_id;
+	}
+	
+	@RequestMapping("/deleteReview")
+	public String deleteReview(@RequestParam("stvID")String stv_id, @RequestParam("pst_id")String pst_id) {
+		
+		int deleteCnt = sitterService.deleteReview(stv_id);
+		
+		return "redirect:/sit/sitDetail?pst_id="+pst_id;
+	}
+	
+	@RequestMapping("/sitterToInsert")
+	public String sitterToInsert(@RequestParam("notice_title")String notice_title, @RequestParam("pst_text")String pst_text,
+			@RequestParam("chkIn")String pst_cidate,@RequestParam("chkOut")String pst_codate, @RequestParam("chkIn2")String pst_cidate2,@RequestParam("chkOut2")String pst_codate2,
+			@RequestPart("notice_file")MultipartFile part, @RequestParam("price_dc")String price_dc, @RequestParam("price_1d")String price_1d, HttpSession session) throws Exception, IOException {
+
+		MemberVo memVo = (MemberVo) session.getAttribute("memVo");
+
+		PetSitterVo pstVo = new PetSitterVo();
+
+		// 로그인을 안한 회원일 경우에는 로그인 화면으로 이동
+		if (memVo == null) {
+			return "petSitter/sitterDetail";
+		} else {
+
+			// 실제 파일 저장될 경로 설정하기
+			String path = "D:\\A_TeachingMaterial\\7.LastProject\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\mypet\\img\\petSitterImg";
+			String str = part.getOriginalFilename();
+
+			// 파일명 가지고 오기
+			if (str == "") {
+				pstVo.setPst_img("/img/petimg/noimg.jpg");
+			} else {
+				// 확장자만 빼기(확장자는 저장해줘야 한다)
+				String fileExt = StringUtil.getFileExt(str);
+				String fileName = UUID.randomUUID().toString() + fileExt; // 충돌 방지를 위한 임의의 파일명
+
+				File file = new File(path + File.separator + fileName);
+
+				part.transferTo(file);
+
+				str = "/img/petSitterImg/" + fileName;
+
+				// DB 넣어주기
+				pstVo.setPst_img(str);
+			}
+			
+			String cidate = pst_cidate + " ~ "+ pst_codate2;
+			String codate = pst_codate + " ~ "+ pst_codate2;
+			
+			String[] string = pst_text.split("\\r\\n");
+			for(int i=0;i<string.length;i++) {
+				System.out.println("string : "+string[i]);
+			}
+			
+			pstVo.setPst_mem(memVo.getMem_id());
+			pstVo.setPst_price1(Integer.parseInt(price_dc));
+			pstVo.setPst_price2(Integer.parseInt(price_1d));
+			pstVo.setPst_text(pst_text);
+			pstVo.setPst_title(notice_title);
+			pstVo.setPst_cidate(cidate);
+			pstVo.setPst_codate(codate);
+
+//			int insertCnt = sitterService.insertSitterTo(pstVo);
+			
+			return "redirect:/sit/sitterTo";
+
+		}
+
 	}
 	
 	// FAQ 게시판 화면

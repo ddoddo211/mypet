@@ -268,15 +268,17 @@ body, option, select{
 }
 
 #list1{
-	width : 1000px;
+	width : 1200px;
 	heigth : 200px;
+	overflow: hidden;
 }
 
 #list2{
 	margin-top : 20px;
-	width : 100%;
+	width : 88%;
 	height : 70px;
 	font-family: 'Nanum Brush Script', cursive;
+	float:left;
 }
 
 #list2 > ul > li{
@@ -356,6 +358,12 @@ td {
 	padding : 0px;
 	width : 370px;
 	height : 270px !important;
+	cursor: pointer;
+}
+
+.noticeTitle{
+	
+	cursor : pointer;
 }
 
 #noticeLast{
@@ -387,6 +395,7 @@ td {
 
 #contentleft{
 	width : 64%;
+	margin-left : 10px;
 	float : left;
 }
 
@@ -397,12 +406,66 @@ td {
 
 #contentset{
 	margin-top : 30px;
-	border : 1px solid pink;
 }
 
 #contentImg{
 	width : 100%;
 	height : 100%;
+}
+
+#contentleft3{
+	border : 1px solid black;
+	margin-top : 20px;
+	overflow : hidden;
+}
+
+#left3_1{
+	border : 1px solid green;
+	width : 42%;
+	margin-left : 4%;
+	margin-right : 4%;
+	float : left;
+}
+
+#left3_1_img{
+	width : 23%;
+	height : 100px;
+	background-image: url('/img/petSitterImg/petSitterToImg1.jpg');
+	background-repeat: no-repeat; 
+	background-size: contain;
+	float:left;
+}
+
+#left3_1_text{
+	font-size : 24px;
+	float:left;
+	
+}
+
+#left3_1_textPre{
+	
+	font-size : 24px;
+	font-family: 'Nanum Brush Script', cursive;
+}
+
+#left3_2{
+	border : 1px solid blue;
+	width : 42%;
+	float : left;
+}
+
+#left3_2_img{
+	width : 30%;
+	height : 100px;
+	background-image: url('/img/petSitterImg/petSitterToImg2.jpg');
+	background-repeat: no-repeat; 
+	background-size: contain;
+	float : left;
+}
+
+#left3_2_text{
+	float : left;
+	font-size : 24px;
 }
 
 #contentright{
@@ -413,13 +476,14 @@ td {
 }
 
 #contentright1{
-	border : 1px solid green;
+	border : 1px solid #d1d1d1;
+	border-radius: 5px;
 	
 }
 
 #contentDate{
 	margin : 0 auto;
-	width : 270px;
+	width : 350px;
 	height : 25px;
 	border : 1px solid gray;
 	border-radius: 5px;
@@ -429,7 +493,14 @@ td {
 #dateStart, #dateEnd{
 	margin-top : 2px;
 	outline : none;
-	width : 120px;
+	width : 100px;
+	height : 20px;
+	border : none;
+}
+#timeStart, #timeEnd{
+	margin-top : 2px;
+	outline : none;
+	width : 50px;
 	height : 20px;
 	border : none;
 }
@@ -468,7 +539,8 @@ td {
 
 #contentright2{ 
 	margin-top : 30px; 
-	border : 1px solid green;
+	border : 1px solid #d1d1d1;
+	border-radius: 5px;
 }
 
 #faqSearch{
@@ -734,6 +806,7 @@ input[name="mypet1"] {
 	border-radius: 10px;
 	box-shadow: 2px 2px 3px 4px #ccc;
 	text-align: center;
+	outline: none;
 }
 
 .timeSelect{
@@ -745,6 +818,7 @@ input[name="mypet1"] {
 	border-radius: 10px;
 	box-shadow: 2px 2px 3px 4px #ccc;
 	text-align-last: center;
+	outline: none;
 }
 
 #mypetOk{

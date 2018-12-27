@@ -15,21 +15,115 @@
 
 <style type="text/css">
 	#resMain{
-		border : 1px solid green;
 		width : 1000px;
 		overflow: hidden;
 		margin : 0 auto;
 	}
 	#resTitle{
 		width : 100%;
+	}
+	
+	#resTitle1{
 		border-bottom : 1px solid black;
 	}
 	
-	#resTitle > span {
-		font-size : 16px;
+	.res  {
+		font-size : 26px;
+		font-weight: bold;
+		font-family: 'Work Sans', sans-serif;
+	}
+	
+	#resTitle2{
+		margin : 0 auto;
+		height : 250px;
+		text-align: center;
+		line-height: 250px;	
+	}
+	
+	.resWord{
+		font-size : 42px;
+		font-family : 'Work Sans', sans-serif;
+	}
+	
+	.resColor{
+		color : red;
 		font-weight: bold;
 	}
+	
+	#resMid{
+		border-top : 1px solid black;
+		border-bottom : 1px solid black;
+		overflow : hidden;
+	}
+	
+	#resLeft{
+		float : left;
+		border-right : 1px solid black;
+		margin-right : 10px;
+		width : 55%;
+	}
+	
+	#resRight {
+		float : left;
+		width : 35%;
+	}
+	
+	.resInfoWord{
+		font-size : 18px;
+		font-family: 'Work Sans', sans-serif;
+	}
+	
+	#resBottom{
+		margin-top : 30px;
+		text-align: center;
+		overflow:hidden;
+		height : 80px;
+	}
+	
+	#resOk{
+		float:left;
+	}
+	
+	#resHome{
+		margin-left : 20px;
+		float:left;
+	}
+	
+	.resBtn{
+		padding : 5px 30px 5px 30px;
+		font-size : 30px;
+		font-family: 'Work Sans', sans-serif; 
+		color : #fff;
+		background-color: #b1b1b1;
+		border-radius: 10px;
+		box-shadow: 2px 2px 0px #868686;
+		cursor: pointer;
+	}
+	
+	.resBtn:active{
+		padding : 5px 30px 5px 30px;
+		font-size : 30px;
+		font-family: 'Work Sans', sans-serif; 
+		color : #fff;
+		background-color: #2f2f2f;
+		border-radius: 10px;
+		box-shadow: -2px -2px 0px #868686;
+		cursor: pointer;
+	}
 </style>
+<script type="text/javascript">
+	function Home(){
+		$("#resHomeBtn").click(function(){
+			location.href="/sit/sitMain";
+		});
+	}	
+	
+	function Ok(){
+		$("#resOkBtn").click(function(){
+			$("#frm").submit();
+		});
+	}
+</script>
 </head>
 <body>
 <%@include file="/WEB-INF/view/common/header.jsp"%>
@@ -64,29 +158,53 @@
 			<%@include file="/WEB-INF/view/petSitter/petSitterMenu.jsp" %>
 		</div>
 		<div id="resMain">
-			<c:choose>
-				<c:when test="">
+			<form id="frm" action="/sit/payment" method="post">
+<%-- 			<c:choose> --%>
+<%-- 				<c:when test=""> --%>
 					<div id="resTitle">
-						<span>예약 완료</span>
-					</div>
-					<div id="">
-						<span>고객님의 <p>예약이 정상적으로 완료</p>되었습니다.</span>
-					</div>
-					<div id="">
-						<div id="">
-							<span>예약정보</span>
-							<span>예약번호 : </span>
-							<span>예약자/반려동물 정보 : </span>
+						<div id="resTitle1">
+							<span class="res">예약 완료</span>
 						</div>
-						<div id="">
-							<span>결제금액</span>
+						<div id="resTitle2">
+							<span class="resWord">고객님의 <span class="resWord resColor">예약이 정상적으로 완료</span>되었습니다.</span>
 						</div>
 					</div>
-				</c:when>
-				<c:otherwise>
+					<div id="resMid">
+						<div id="resLeft">
+							<span class="res">⊙예약정보</span> <br><br>
+							<span class="resInfoWord">	
+									▶예약자 정보  <br>
+									&nbsp;&nbsp;&nbsp;&nbsp;-. ${memVo.mem_name } / ${memVo.mem_hp } / ${memVo.mem_id }</span> <br>
+							<span class="resInfoWord">
+									▶반려동물 정보  <br>
+								<c:forEach items="${list }" var="mypet">
+									&nbsp;&nbsp;&nbsp;&nbsp;<span class="resInfoWord">-. ${mypet.myp_name } / <fmt:formatDate pattern = "yy.MM.dd" value = "${mypet.myp_birth}" /> / ${mypet.myp_gender } </span><br>
+								</c:forEach>
+							</span> <br>
+						</div>
+						<div id="resRight">
+							<span class="res">⊙결제금액</span><br><br>
+							<span class="resInfoWord">▶기본요금 : ${nomalPrice } x ${mypetCnt }  = ${nomalPrice * mypetCnt }원  </span><br>
+							<span class="resInfoWord">▶추가요금 : ${addPrice } x ${mypetCnt }  = ${addPrice * mypetCnt }원 </span><br>
+							<span class="resInfoWord">▶총 합계금액 : ${nomalPrice*mypetCnt + addPrice*mypetCnt }원</span>
+						</div>
+					</div>
+					</form>
+					<div id="resBottom">
+						<div style="margin : 0 auto; overflow:hidden; width:355px; height:55px;">
+							<div id="resOk">
+								<button class="resBtn" id="resOkBtn">결제하기</button>
+							</div>
+							<div id="resHome">
+								<button class="resBtn" id="resHomeBtn" onclick="Home()">홈으로</button>
+							</div>
+						</div>
+					</div>
+<%-- 				</c:when> --%>
+<%-- 				<c:otherwise> --%>
 				
-				</c:otherwise>
-			</c:choose>
+<%-- 				</c:otherwise> --%>
+<%-- 			</c:choose> --%>
 		</div>
 	</div>
 	
