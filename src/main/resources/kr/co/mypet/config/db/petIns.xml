@@ -173,5 +173,33 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<select id="insNotice" resultType="insNoticeVo">
 			select * from insNotice 
 		</select>
+		
+		<!-- 피보험자 선택하는 부분에 가입이 완료된 상품 나오게 설정 -->
+		<select id="insuredPerson" parameterType="String" resultType="insVo">
+	          select a.*
+	               , b.*
+	               , c.*
+	               , d.*
+				from mypet a 
+	               , petkind b
+	               , insurance c
+	               , insprod d
+				where a.myp_petk = b.petk_id
+	              and a.myp_id = c.myp_id
+	              and c.inssp_id = d.insp_id
+				  and a.myp_mem = #{mem_id}
+	              and c.ins_stat = '완료'
+				order by a.myp_id
+		</select>
+		
+		<!-- 보상안내 - 보험가입할때 해당 펫의 가입되어 있는 보험상품 나오게 설정 -->
+		<select id="claimPetJoinProd" parameterType="insVo" resultType="insVo">
+			select * from insurance , insprod
+			where inssp_id = insp_id
+			and myp_id = #{myp_id}
+			and mem_id = #{mem_id}
+		</select>
+		
+		
 
 </mapper>

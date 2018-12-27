@@ -728,5 +728,64 @@ public class InsuranceController {
 				return "petInsurance/compensationGuide";
 			}
 			
+			// 인터넷 청구 화면으로 이동하는부분
+			@RequestMapping("/insuranceClaim")
+			public String insuranceClaim(HttpSession session , Model model) {
+				// 회원 정보 받아오는 부분
+				MemberVo memVo = (MemberVo) session.getAttribute("memVo");
+				
+				// 로그인을 안한 회원일 경우에는 로그인 화면으로 이동
+				if (memVo == null) {
+					return "petInsurance/memLoginChk";
+				} else {
+					
+					// 보험가입이 완료된 펫 정보 가지고 오기
+					List<InsuranceVo> mypetList = insuranceService.insuredPerson(memVo.getMem_id());
+					model.addAttribute("mypetList", mypetList);
+					
+					// 나의 펫 에서 삭제 할때 for문 돌리기 위해서 펫의 수가 필요하기 떄문에 설정
+					model.addAttribute("mypetListSize" , mypetList.size());
+							
+					return "petInsurance/insuranceClaim";
+				}
+			}
+			
+			// 인터넷청구 (피보험자 선택한 다음페이지로 넘어가는 컨트롤러)
+			@RequestMapping("/claim2")
+			public String claim2(HttpServletRequest request, HttpSession session, Model model) {
+				
+				// 인터넷 청구 할때 피보험자 선택한후 다음페이지 넘겨 줄것을 입력한다
+				String petId = request.getParameter("petId");
+				
+				// 회원 정보 받아오는 부분
+				MemberVo memVo = (MemberVo) session.getAttribute("memVo");
+				// 다음 화면에서 회원정보를 사용해야 하기 때문에 model에 담아주기 
+				model.addAttribute("memVo" , memVo);
+				
+				// 객체 만들어주기
+				InsuranceVo isrVo = new InsuranceVo();
+				
+				// 회원의 아이디와 나의 펫의 아이디 담아주기
+				isrVo.setMem_id(memVo.getMem_id());
+				isrVo.setMyp_id(petId);
+				
+				// 서비스 연결하여 해당 펫의 가입되어 있는 상품 가지고 오기 
+				List<InsuranceVo> isrVoList =  insuranceService.claimPetJoinProd(isrVo);
+				// 다음 화면에서 펫 보험정보를 사용해야 하기 때문에 model에 담아주기 
+				model.addAttribute("isrVoList" , isrVoList);
+				model.addAttribute("isrVoListSize" , isrVoList.size());
+				
+				// 가입을 진행하고 있는 펫 정보 가지고 오기
+				MypetVo mypetInfo = insuranceService.mypetInfo(petId);
+				// 가입 진행하고 있는 펫의 정보 담아주기
+				model.addAttribute("mypetInfo" , mypetInfo);
+				
+				// 해당 회원의 이메일(pk)로 보내서 회원의 계좌번호를 가지고 오는 방법(매개변수를 회원의 아이디로 설정한다) 
+				List<AccountVo> memAccidentList = insuranceService.memAccountList(memVo.getMem_id());
+				model.addAttribute("memAccidentList", memAccidentList);
+				
+				return "petInsurance/insuranceClaim2";
+			}
+			
 
 }
