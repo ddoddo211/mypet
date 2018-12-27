@@ -32,8 +32,8 @@
 <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic" rel="stylesheet">
 <div id="menu">
 	<ul class="menu_ul">
-		<li class="mainmenu-li" id="mainmenu-li-1"><a href="/sit/sitterFrom"><span class="menuWord">펫 미용</span></a></li>
-		<li class="mainmenu-li"><a href="/sit/sitterTo"><span class="menuWord">펫 편의시설</span></a></li>
-		<li class="mainmenu-li"><a href="/sit/faq"><span class="menuWord">Mypage(펫미용)</span></a></li>
+		<li class="mainmenu-li" id="mainmenu-li-1"><a href="/hair/hairMain"><span class="menuWord">펫 미용</span></a></li>
+		<li class="mainmenu-li"><a href="/fac/facMain"><span class="menuWord">펫 편의시설</span></a></li>
+		<li class="mainmenu-li"><a href="/hairMem/myPage"><span class="menuWord">Mypage(펫미용)</span></a></li>
 	</ul>
 </div>

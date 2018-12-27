@@ -145,7 +145,7 @@ body {
 						onMouseout="this.style.background='#f4f6f9', this.style.color='black';">펫시터</a></li>
 
 					<li class="petHair"><a href="/hair/hairMain"
-						onMouseover="this.style.background='#ffba00', this.style.color='white';"
+						onMouseover="this.style.background='#b13737', this.style.color='white';"
 						onMouseout="this.style.background='#f4f6f9', this.style.color='black';">펫미용실</a></li>
 
 					<li class="petShop"><a href="/shop/shopMain"

@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import kr.co.mypet.hair.model.BookmarkVo;
 import kr.co.mypet.hair.model.HairBoardVo;
 import kr.co.mypet.hair.model.HairShopVo;
 import kr.co.mypet.hair.model.PetStyleVo;
@@ -68,6 +69,24 @@ public class HairDao implements HairDaoInf {
 	public List<PetStyleVo> selectStyle(String pts_has) {
 		List<PetStyleVo> styleList = template.selectList("petHair.selectStyle", pts_has);
 		return styleList;
+	}
+
+	//insert 성공하면 1(갯수), 실패하면 0
+	@Override
+	public int insertHairBoard(HairBoardVo hairBoardVo) {
+		int chk = 0;
+		
+		chk = template.insert("petHair.insertHairBoard", hairBoardVo);
+		
+		
+		
+		return chk;
+	}
+
+	@Override
+	public int insertBookMark(BookmarkVo bmVo) {
+		int chk = template.insert("petHair.insertBookMark",bmVo);
+		return chk;
 	}
 	
 }

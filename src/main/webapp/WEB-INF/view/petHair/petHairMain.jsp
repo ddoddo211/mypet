@@ -1,3 +1,4 @@
+<%@page import="kr.co.mypet.common.model.MemberVo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -155,7 +156,84 @@
 			
 		});
 		
+		//문의하기
+		$(".askShop").click(function(){
+			$(".askInput").toggle("fast");
+		});
+		
+		$(".askBtn").click(function(){
+			
+			if(<%=session.getAttribute("memVo")==null%>){
+				alert("로그인이 필요합니다 로그인해주세요");
+				return;
+			}
+			
+			if($(".askta").val()==""){
+				alert("내용을 입력해 주세요");
+				return;
+				
+			}
+			
+			$("#hiddenLowInputA").val(
+					$("#zipLow").val()		
+			);
+			
+			$("#hiddenZipInputA").val(
+					$("#zipHigh").val()		
+			);
+			
+			$("#hiddenAskText").val(
+				$(".askta").val()		
+			);
+			
+				
+			
+			$("#askfrm").submit();
+			
+		});
+		
+		
+		//즐겨찾기 등록 (detail 과 유사하며 bookmart insert실행)
+		//리스트 클릭시 가게의 detail 표시 function
+		$(".bookMark").click(function(){
+			
+			if(<%=session.getAttribute("memVo")==null%>){
+				alert("로그인이 필요합니다 로그인해주세요");
+				return;
+			}
+			
+			var has_name = $(".shopName").text().trim();
+			var result=confirm(has_name + " 을 즐겨찾기에 등록하시겠습니까?????")
+			
+			if(!result){
+				return;
+			}
+			
+			
+			$("#hiddenLowInputD").val(
+					$("#zipLow").val()		
+				);
+			
+			$("#hiddenZipInputD").val(
+					$("#zipHigh").val()		
+				);
+			
+			$("#hiddenHasId").val(
+				$(this).children(".bmHidden").val()		
+			);
+			console.log("넘겨줄 has_id : "+$("hiddenHasId").val());
+			
+			$("#bmChk").val("yes");
+			
+				$("#detailfrm").submit();
+			
+		});
+		
+		
+		
 	});
+	
+	
 
 </script>
 
@@ -188,6 +266,38 @@
 		<input type="hidden" name="zip_high" id="hiddenZipInputD"/>
 		<input type="hidden" name="zip_low" id="hiddenLowInputD"/>
 		<input type="hidden" name="has_id" id="hiddenHasId"/>
+		<input type="hidden" name="bmChk" id="bmChk" value="no"/>
+		<c:choose>
+			<c:when test="${memVo!=null }">
+				<input type="hidden" name="bmid" id="bmId" value="${memVo.mem_id }"/>
+			</c:when>
+			<c:otherwise>
+			
+				<input type="hidden" name="bmid" id="bmId" value="no"/>
+			</c:otherwise>
+		</c:choose>
+	</form>
+	
+	<%-- 문의하기 클릭시 넘어가는 form --%>
+	<form id="askfrm" action="/hair/askShop" method="post">
+		<input type="hidden" name="zip_high" id="hiddenZipInputA"/>
+		<input type="hidden" name="zip_low" id="hiddenLowInputA"/>
+		<input type="hidden" name="has_id" id="hiddenHasIdA" value="${hairShopVo.has_id }"/>
+	
+		<input type="hidden" name="hbrd_text" id="hiddenAskText"/>
+		<input type="hidden" name="hbrd_has" id="hiddenAskShop" value="${hairShopVo.has_id }"/>
+
+	<c:choose>
+		<c:when test="${memVo!=null }">
+			<input type="hidden" name="hbrd_mem" id="hiddenAskShopID" value="${memVo.mem_id }"/>
+		</c:when>
+		<c:otherwise>
+			<input type="hidden" name="hbrd_mem" id="hiddenAskShopID" value="nologin"/>
+		
+		</c:otherwise>
+	</c:choose>
+		
+		
 	</form>
 	
 		
@@ -286,6 +396,7 @@
 						</div>
 						<div class="bookMark sdHeadCom">
 							즐겨찾기등록
+							<input class="bmHidden" type="hidden" value="${hairShopVo.has_id }"/>
 						</div>	
 					
 					</div>
@@ -294,6 +405,7 @@
 					<div class="imgBlock">
 						<%-- img block --%>
 						<div class="shopImg">
+							
 							<img src="/hairimg/${hairShopVo.has_img }"/>
 						</div>
 						
@@ -305,12 +417,24 @@
 							<div onclick="move('.shopRv')" class="shopBtn reviewShop">
 								후기확인
 							</div>
-							<div class="shopBtn askShop">
+							<div  class="shopBtn askShop">
 								문의하기
 							</div>
 							<div class="shopBtn revShop">
 								예약하기
 							</div>
+						</div>
+						
+						<%-- 숨겨져있는 문의하기 input 창 --%>
+						<div class="askInput">
+							<div class="asktt">
+								<p>문의하기</p>
+							</div>
+							<div class="askInputBox">
+								<textarea class="askta" name="hbrd_text" ></textarea>
+							</div>
+							
+							<input class="askBtn" type="submit" value="문의하기" />
 						</div>
 						
 						<%-- 가게 상세정보 부분 --%>
@@ -328,10 +452,17 @@
 								<p>샵에서 할수있는 스타일 목록</p>
 								<br>
 								<div class="styleList">
-									<img src="https://via.placeholder.com/350x250"/>
+									<c:forEach items="${styleList }" var="sl">
+										<div class="styleBlock">
+										<img src="/hairimg/${sl.pts_img }"/>
+										<br>
+										<span>${sl.pts_name }</span> <span>${sl.pts_price }원</span>
+										</div>
+										<br>
+									</c:forEach>
 								</div>
 							</div>
-							
+							<br>
 							<div class="shopRv">
 									<p> 리뷰 </p>
 										<c:choose>
