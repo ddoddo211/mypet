@@ -61,6 +61,7 @@
 	border:none;
 	font-size: 25px;
 	font-family: 'Jeju Gothic', sans-serif;
+	outline: none;
 }
 
 
@@ -236,13 +237,16 @@
 	padding-top: 10px;
 }
 
-#label1{
-	float: left;
-	margin-right: 180px;
+#seach{
 	font-size: 17px;
 	display: block;
     font-size: 1.5em;
     font-weight: bold;
+    float: left;
+}
+
+#seach2{
+	margin-left: 280px;
 }
 
 .label2{
@@ -353,8 +357,7 @@ table tr td {
 	border-bottom:1px solid #e0e0e0;
 	border-left: 1px solid #e0e0e0;
 	
-	background: #fafafa;
-	background: -webkit-gradient(linear, left top, left bottom, from(#fbfbfb), to(#fafafa));
+	background: white;
 	background: -moz-linear-gradient(top,  #fbfbfb,  #fafafa);
 }
 
@@ -774,7 +777,7 @@ table tr:hover td{
 }
 
 .td9{
-	width: 200px;
+	width: 140px;
 }
 .td11{
 	width: 80px;
@@ -1183,7 +1186,7 @@ input[name="cb2"] {
 /* 펫 보험가입내용 작성 화면*/
 #petJoinForm{
 	width: 1200px;
-	height: 840px;
+	height: 975px;
 }
 
 #petJoinForm2{
@@ -1294,6 +1297,7 @@ input[name="cb2"] {
     border-right: none;
 }
 
+
 .isrJoinNotice3{
 	font-family: 'Jeju Gothic', sans-serif;
 	font-size: 18px;
@@ -1310,11 +1314,31 @@ input[name="cb2"] {
 	margin-left: 20px;
 }
 
+#contractorInfo{
+	width: 1200px;
+	height: 150px;
+}
+
+#contractor{
+	margin-bottom:35px;
+	margin-top:50px;
+	text-align: center;
+	font-family: 'Nanum Pen Script', cursive;
+	font-size: 50px;
+	width: 700px;
+    height: 50px;
+    background-color: #fff6dd;
+    text-align: center;
+    border-radius: 3px;
+    box-shadow: 3px 3px 3px 3px #999;
+    border-right: none;
+    border: 1px solid black;
+}
+
 
 #isrJoinBtn{
 	width: 1200px;
-	height: 80px;
-	margin-top: 58px;
+	height: 50px;
 }
 
 #isrJoinBtn2{
@@ -1332,6 +1356,7 @@ input[name="cb2"] {
 	font-family: 'Jeju Gothic', sans-serif;
 	font-size: 18px;
 	border-radius: 50px;
+	outline: none;
 }
 
 #isrJoinInfo3{
@@ -1368,8 +1393,653 @@ input[name="cb2"] {
 	text-align: center;
 }
 
+#accountInfo{
+	height: 100px;
+
+}
+
+
+.span1{
+	float: left;
+    height: 32px;
+    line-height: 32px;
+}
+
+#memAccidentList{
+	width: 1200px;
+	height: 100px;
+}
+
+#accountInfo1{
+	width: 700px;
+	height: 30px;
+}
+
+#accountInfo2{
+	font-family: 'Jeju Gothic', sans-serif;
+    font-size: 20px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    background-color: #ffcce7;
+    color: white;
+    width: 150px;
+    border-radius: 50px;
+    text-align: center;
+    padding: 5px;
+    float: left;
+    margin-right: 30px;
+    
+}
+
+
+.memAccidentSelect{
+	height: 30px;
+	font-family: 'Jeju Gothic', sans-serif;
+    font-size: 17px;
+    float: left;
+    
+}
 
 
 
+/*보상안내*/
+
+#guideMain{
+	width: 1200px;
+	height: 2160px;
+}
+
+#guideMain1{
+	height: 240px;
+}
 
 
+#compensationBtn{
+	height: 80px;
+	margin-bottom: 20px;
+	margin-top: 5px;
+}
+
+#compensationBtn1{
+	width: 10850px;
+	height: 80px;
+	margin-left: 80px;
+}
+
+
+.compensationBtn1_1{
+	margin : 0 auto;
+	width: 300px;
+	height: 70px;
+	margin-top: 10px;
+	border-radius: 30px;
+	background-color: white;
+	color: black;
+	font-family: 'Jeju Gothic', sans-serif;
+	font-size: 25px;
+	border: 3px solid #ff569c;
+	outline: none;
+}
+
+.compensationBtn1_1:hover{
+	margin : 0 auto;
+	width: 300px;
+	height: 70px;
+	margin-top: 10px;
+	border-radius: 30px;
+	background-color: #ff569c;
+	color: white;
+	font-family: 'Jeju Gothic', sans-serif;
+	font-size: 25px;
+	border: 3px solid #ff569c;
+}
+
+#compensationBtn1_2{
+	margin-left: 35px;
+}
+
+#guideMain2{
+	height: 50px;
+	margin-top: 10px;
+	background-color : #f9f9f9;
+	border: 1px solid #c4c4c4;
+}
+
+#guideMain2_1{
+	font-family: 'Jeju Gothic', sans-serif;
+	font-size: 25px;
+	text-align: center;
+	margin-top: 10px;
+}
+
+#guideMain2_2{
+	height: 350px;
+	margin-top : 40px;
+	text-align : center;
+}
+
+#guideMain2_3{
+	text-align : center;
+}
+
+
+#guideNotice{
+	height: 400px;
+	margin-top : 15px;
+}
+
+#guideNoticeTitle{
+	width: 1200px;
+	height: 50px;
+	margin-left: 125px;
+}
+
+#guideNoticeTitle1{
+	width: 450px;
+    font-family: 'Nanum Pen Script', cursive;
+    font-size: 50px;
+    background-color: #fff6dd;
+    text-align: center;
+    float: left;
+    border-radius: 3px;
+    box-shadow: 3px 3px 3px 3px #999;
+    border-right: none;
+}
+
+#guideNotice1{
+	height: 300px;
+	margin-top: 40px;
+}
+
+#guideNotice2_2{
+	width: 935px;
+	text-align: left;
+	background-color: white;
+	height: 30px;
+	font-size: 15px;
+	line-height: 30px;
+}
+
+#guideNotice3{
+	width: 800px;
+	text-align: left;
+	background-color: #ffe8f1;
+	font-size: 15px;
+}
+
+
+
+/*인터넷 보험가입 화면*/
+#claimMain{
+	width: 1200px;
+	height: 0 auto;
+}
+
+#claimTitle{
+	width:1200px;
+	height: 60px;
+}
+
+#claimTitle1{
+	width: 450px;
+    font-family: 'Nanum Pen Script', cursive;
+    font-size: 50px;
+    background-color: #fff6dd;
+    text-align: center;
+    border-radius: 3px;
+    box-shadow: 3px 3px 3px 3px #999;
+    border-right: none;	
+}
+
+#claimTitle2{
+	width: 1200px;
+	margin-top: 10px;
+}
+
+#claimTitle2_1{
+	margin-left: 200px;
+	margin-bottom: 10px;
+}
+
+#claimTitle3{
+	width: 1200px;
+	height: 30px;
+}
+
+#claimTitle3_1{
+	width: 500px;
+	height: 25px;
+	background-color: #f9f9f9;
+	font-family: 'Jeju Gothic', sans-serif;
+    font-size: 25px;
+    border: 1px solid #7c7c7c;
+}
+
+#claimTitle3_2{
+	margin-left: 20px;
+    line-height: 30px;
+}
+
+#petInfoTableClaim{
+	height: 400px;
+}
+
+.claimTitle4{
+	width: 1200px;
+	height: 30px;
+	margin-top: 20px;
+}
+
+.claimTitle4_1{
+	width: 1200px;
+	height: 25px;
+	background-color: #f9f9f9;
+	font-family: 'Jeju Gothic', sans-serif;
+    font-size: 25px;
+}
+
+.claimTitle4_2{
+	margin-left: 20px;
+	line-height: 30px;
+}
+
+#claimTitle5{
+	height: 40px;
+	margin-top : 20px;
+}
+
+.claimTitle5_1{
+	height: 30px;
+}
+
+.claimTitle5_1_1{
+	width: 150px;
+	margin-left: 10px;
+	float: left;
+	font-family: 'Jeju Gothic', sans-serif;
+    font-size: 20px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    background-color: #ffcce7;
+    color: white;
+    width: 150px;
+    border-radius: 50px;
+    text-align: center;
+    padding: 5px;
+	
+}
+
+#claimTitle5_2{
+	height: 30px;
+	margin-top: 15px;
+}
+
+#claimTitle5_3{
+	height: 30px;
+	margin-top: 15px;
+}
+
+#claimTitle5_1_2{
+	width: 200px;
+	height: 32px;
+}
+
+#notice{
+	width: 1200px;
+	height: 30px;
+	margin-top : 25px;
+}
+
+#notice1{
+	width: 600px;
+	height: 30px;
+	font-family: 'Jeju Gothic', sans-serif;
+	font-size: 18px;
+	float: left;
+}
+
+#nextBtn{
+	margin-top:25px;
+	margin-bottom:30px;
+	width: 1200px;
+	height: 50px;
+}
+
+#nextBtn1{
+	width: 200px;
+	height: 50px;
+	margin : 0 auto;
+}
+
+#nextBtn2{
+	background-color: black;
+    color: white;
+    width: 200px;
+    height: 50px;
+    font-family: 'Jeju Gothic', sans-serif;
+    font-size: 18px;
+    border-radius: 50px;
+    outline: none;
+}
+
+#notice2{
+	font-family: 'Jeju Gothic', sans-serif;
+    font-size: 18px;
+}
+
+.noticeY{
+	margin-left: 20px;
+}
+
+
+/*보상청구 2번째 화면 */
+#claimMain2{
+	width: 1200px;
+	height: 800px;
+	border: 1px solid black;
+}
+
+#claimPetInfo{
+	width: 1200px;
+	background-color: #ff569c;
+    height: 30px;
+    font-family: 'Jeju Gothic', sans-serif;
+    font-size: 20px;
+    text-align: center;
+    margin-top: 10px;
+    color: white;
+    padding: 5px;
+}
+
+.option{
+	height: 30px;
+}
+
+.optionProd{
+	height: 30px;
+	margin-left: 15px;
+}
+
+#accident{
+	height: 230px;
+	margin-top: 20px;
+}
+
+
+#accident1{
+	height: 230px;
+	width: 800px;
+	margin-left: 10px;
+}
+
+.accident2{
+	height: 50px;
+	width: 800px;
+}
+
+.accident2_1{
+	width: 150px;
+    float: left;
+    font-family: 'Jeju Gothic', sans-serif;
+    font-size: 20px;
+    margin-bottom: 10px;
+    background-color: #ffcce7;
+    color: white;
+    width: 150px;
+    border-radius: 50px;
+    text-align: center;
+    padding: 5px;
+}
+
+.accident2_2{
+	width: 200px;
+	height: 30px;
+	margin-left: 180px;
+}
+
+.accident2_2_1{
+	width: 800px;
+	height: 30px;
+	margin-left: 180px;
+}
+
+.accident2_2_1_1{
+	width: 800px;
+	height: 100px;
+	margin-left: 180px;
+}
+
+#accidentInput{
+	width: 1000px;
+	height: 30px;
+	border-radius: 5px;
+	outline: none;
+}
+
+#accidentInput2{
+	width: 1000px;
+	height: 100px;
+	outline: none;	
+}
+
+#claimDay{
+	font-family: 'Jeju Gothic', sans-serif;
+	font-size: 18px;
+	width: 210px;
+	text-align: center;
+	outline: none;
+	height: 30px;
+    border-radius: 5px;
+}
+
+#insurer{
+	width: 1200px;
+	height: 50px;
+	margin-top: 20px;
+}
+
+#insurer1{
+	width: 1180px;
+	height: 30px;
+	margin-left: 10px;
+}
+
+.insurer2{
+	width: 160px;
+    float: left;
+    font-family: 'Jeju Gothic', sans-serif;
+    font-size: 20px;
+    margin-bottom: 10px;
+    background-color: #ffcce7;
+    color: white;
+    width: 150px;
+    border-radius: 50px;
+    text-align: center;
+    padding: 5px;
+}
+
+.insurer2_1{
+	width: 320px; 
+	height: 30px;
+	margin-left: 35px;
+	float: left;
+}
+
+.insurer2_2{
+	margin-left: 95px;
+	width: 160px;
+    float: left;
+    font-family: 'Jeju Gothic', sans-serif;
+    font-size: 20px;
+    margin-bottom: 10px;
+    background-color: #ffcce7;
+    color: white;
+    width: 150px;
+    border-radius: 50px;
+    text-align: center;
+    padding: 5px;
+}
+
+.insurer2_3{
+	width: 320px; 
+	height: 30px;
+	margin-left: 805px;
+}
+
+.insurer2_4{
+	font-family: 'Jeju Gothic', sans-serif;
+    font-size: 20px;
+    line-height: 30px;
+}
+
+#deposit{
+	width: 1200px;
+	height: 50px;
+	margin-top: 20px;
+}
+
+
+#document{
+	width: 1200px;
+	height: 200px;
+	margin-top: 20px;
+}
+
+#document1{
+	width: 900px;
+	height: 200px;
+	margin-left: 10px;
+}
+
+#document2{
+	width: 900px;
+	height: 90px;
+}
+
+#document3{
+	margin-top: 10px;
+	width: 900px;
+	height: 90px;
+}
+
+.document2_1{
+	width: 160px;
+    font-family: 'Jeju Gothic', sans-serif;
+    font-size: 20px;
+    margin-bottom: 10px;
+    background-color: #c1c1c1;
+    color: white;
+    width: 150px;
+    border-radius: 50px;
+    text-align: center;
+    padding: 5px;
+	
+}
+
+.document2_2{
+	width: 500px;
+	height: 30px;
+	margin-top: 15px;
+}
+
+#agree{
+	width: 1200px;
+	height: 340px;
+	margin-top : 20px;
+}
+
+
+#agreeCheck{
+	margin-top: 10px;
+}
+
+#agreeWrite{
+	outline: none;
+}
+
+
+
+/*파일업로드 css*/
+input#upload_text {/*읽기전용 인풋텍스트*/
+	float:left;
+	width:400px;/* 버튼 포함 전체 가로 길이*/
+	height:30px;
+	line-height:19px;
+	padding:0 3px;
+	border:1px solid #bbb;
+}
+
+div#upload-btn_wrap input#input_file {/*파일찾기 폼 투명하게*/
+	position:absolute;
+	top:0;
+	right:0;
+	cursor:pointer;
+	opacity:0;
+	filter:alpha(opacity=0);
+	-ms-filter:"alpha(opacity=0)";
+	-moz-opacity:0;
+}
+div#upload-btn_wrap {/*버튼테두리 감싼 div*/
+	overflow:hidden;
+	position:relative;
+	float:left;
+	width:80px;/*width, height 값은 button(찾아보기)값과 같아야함 */
+	height:30px;
+	padding-left:3px;
+}
+div#upload-btn_wrap button {/*버튼 div*/
+	width:80px;
+	height:30px;
+	font-weight:bold;
+	background:#333;
+	border:1px solid #333;
+	color:#fff;
+	margin-left: 5px;
+}
+
+input#upload_text2 {/*읽기전용 인풋텍스트*/
+	float:left;
+	width:400px;/* 버튼 포함 전체 가로 길이*/
+	height:30px;
+	line-height:19px;
+	padding:0 3px;
+	border:1px solid #bbb;
+}
+
+div#upload-btn_wrap2 input#input_file2 {/*파일찾기 폼 투명하게*/
+	position:absolute;
+	top:0;
+	right:0;
+	cursor:pointer;
+	opacity:0;
+	filter:alpha(opacity=0);
+	-ms-filter:"alpha(opacity=0)";
+	-moz-opacity:0;
+}
+div#upload-btn_wrap2 {/*버튼테두리 감싼 div*/
+	overflow:hidden;
+	position:relative;
+	float:left;
+	width:80px;/*width, height 값은 button(찾아보기)값과 같아야함 */
+	height:30px;
+	padding-left:3px;
+}
+div#upload-btn_wrap2 button {/*버튼 div*/
+	width:80px;
+	height:30px;
+	font-weight:bold;
+	background:#333;
+	border:1px solid #333;
+	color:#fff;
+	margin-left: 5px;
+}
+
+
+/*펫 추가하기 보더 없애기*/
+#img{
+	border: none;
+}
+
+.img_wrap{
+	border: none !important; 
+}

@@ -33,9 +33,26 @@
 		height: 280px;
 	}
 	
-	.mainSearch{
-		border: 1px solid;
+	.petSearch{
 		width: 150px;
+	    height: 20px;
+	    font-size: 13px;
+	    color: #0e135e;
+	    border: 1px solid black;
+	    border-radius: 5px;
+	    margin-top: 5px;
+	    font-family: 'Karla', sans-serif;
+	}
+	
+	.brdSearch{
+		width: 150px;
+	    height: 20px;
+	    font-size: 13px;
+	    color: #0e135e;
+	    border: 1px solid black;
+	    border-radius: 5px;
+	    margin-top: 5px;
+	    font-family: 'Karla', sans-serif;
 	}
 	
 	p {
@@ -114,18 +131,6 @@
 		margin: 0 auto;
 	}
 	
-	.mainSearch {
-		width: 150px;
-	    height: 20px;
- 	    padding-left: 31px; 
-	    font-size: 13px;
-	    color: #0e135e;
-	    border: 1px solid black;
-	    border-radius: 5px;
-	    margin-top: 5px;
-	    font-family: 'Karla', sans-serif;
-	}
-	
 	.saryoSearch{
 		background-color: #ff8800;
 		border: 1px solid black;
@@ -143,10 +148,48 @@
 		margin-top: 4px;
 	}
 </style>
+<script type="text/javascript">
+	
+	$(document).ready(function() {
+		
+		if($("#searchPet").val() == 'ani'){
+			$("#brdSearch").prop("disabled",true);
+		}
+		
+		$("#searchPet").change(function() {
+			if($("#searchPet").val() == 'ani'){
+				$("#dvs_id").val($("#searchPet").val());
+				$("#brdSearch").val("brd").prop("selected",true);
+				$("#frm").submit();
+			}else{
+				$("#brdSearch").prop("disabled",false);
+				$("#dvs_id").val($("#searchPet").val());
+				$("#frm").submit();
+			}
+		})
+		
+		$(".saryoSearch").click(function() {
+			if($("#searchPet").val() == 'ani'){
+				alert("품종을 선택해주세요");
+			}else{
+				if($("#brdSearch").val()== 'brd'){
+					alert("브랜드를 선택해주세요")
+				}else{
+					location.href = "/shop/petShopList?dvs_id=${dvs_id }&dvs_parent=${dvs_parent }&value="+$("#brdSearch").val();
+				}
+			}
+		})
 
+	});
+	
+</script>
 </head>
 
 <body>
+<!-- 사료검색에서 동물 선택시 이동 -->
+<form action="/shop/saryoSearch" id="frm">
+	<input type="hidden" id="dvs_id" name="dvs_id">
+</form>
 		<%@include file="/WEB-INF/view/petshop/petShopH.jsp"%>
 		
 		<div id="maintop">
@@ -176,20 +219,30 @@
 				<img alt="간편 사료 찾기" src="/shopimg/shopsaryo.png" width="190">
 				<div class="search">
 					<form method="get" action="/shop/petShopList">
-						<select class="mainSearch" name="">
-							<option>품종선택</option>
-							<option>강아지</option>
-							<option>고양이</option>
+						<select class="petSearch" id = "searchPet" name="searchPet">
+							<option value="ani">품종선택</option>
+							<c:forEach items="${aniList }" var="list">
+								<c:choose>
+									<c:when test="${dvs_id==list.dvs_id }">
+										<option value="${list.dvs_id }" selected="selected">${list.dvs_name }</option>
+									</c:when>
+									<c:otherwise>
+										<option value="${list.dvs_id }">${list.dvs_name }</option>
+									</c:otherwise>
+								</c:choose>
+							</c:forEach>
 						</select>
 						<br/>
-						<select class="mainSearch" name="">
-							<option>브랜드선택</option>
-							<option>건강백서</option>
-							<option>개사료</option>
+						<select class="brdSearch" name="brdSearch" id="brdSearch">
+							<option value="brd">브랜드선택</option>
+							<c:forEach items="${brdList }" var="list">
+								<option value="${list.dvs_id }">${list.dvs_name }</option>
+							</c:forEach>
 						</select>
 						<br>
 						<div class="saryogo">
-							<button class="saryoSearch" type="submit">사료 검색하기</button>
+							<a class="saryoSearch">사료 검색하기</a>
+<!-- 							<input type="submit" id="saryoSearch" name="saryoSearch" class="saryoSearch"/> -->
 						</div>
 					</form>
 				</div>

@@ -6,23 +6,26 @@ public class InsPaymentVo {
 	
 	private String ipm_id;
 	private String ipm_mem;
-	private String ipm_ins;
 	private Date ipm_date;
 	private Date ipm_ndate;
 	private String ipm_chk;
 	private String ipm_nonpay;
-	
-	
+	private String ins_id;
 	
 	
 	@Override
 	public String toString() {
-		return "InsPaymentVo [ipm_id=" + ipm_id + ", ipm_mem=" + ipm_mem + ", ipm_ins=" + ipm_ins + ", ipm_date="
-				+ ipm_date + ", ipm_ndate=" + ipm_ndate + ", ipm_chk=" + ipm_chk + ", ipm_nonpay=" + ipm_nonpay + "]";
+		return "InsPaymentVo [ipm_id=" + ipm_id + ", ipm_mem=" + ipm_mem + ", ipm_date=" + ipm_date + ", ipm_ndate="
+				+ ipm_ndate + ", ipm_chk=" + ipm_chk + ", ipm_nonpay=" + ipm_nonpay + ", ins_id=" + ins_id + "]";
 	}
 	
 	
-	
+	public String getIns_id() {
+		return ins_id;
+	}
+	public void setIns_id(String ins_id) {
+		this.ins_id = ins_id;
+	}
 	public String getIpm_id() {
 		return ipm_id;
 	}
@@ -35,12 +38,7 @@ public class InsPaymentVo {
 	public void setIpm_mem(String ipm_mem) {
 		this.ipm_mem = ipm_mem;
 	}
-	public String getIpm_ins() {
-		return ipm_ins;
-	}
-	public void setIpm_ins(String ipm_ins) {
-		this.ipm_ins = ipm_ins;
-	}
+
 	public Date getIpm_date() {
 		return ipm_date;
 	}

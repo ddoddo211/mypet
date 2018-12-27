@@ -56,6 +56,25 @@
 		margin-bottom: 20px;
 	}
 	
+	.price{
+		width: 80px;
+	    height: 30px;
+	    text-align: center;
+	    float: left;
+	    background-color: #f1f1f1;
+	    border-radius: 10px;
+	    margin-right: 10px;
+	}
+	
+	.price span {
+		font-size: 15px;
+	}
+	
+	.priceb{
+		text-decoration:line-through;
+		font-size: 13px;
+	}
+	
 	.share{
 		display: flex;
 	    justify-content: flex-end;
@@ -119,6 +138,12 @@
 	.qtyPrice span{
 		font-size: 15px;
 		font-weight: bold;
+	}
+	
+	.opSelect{
+		width:500px;
+		height:25px;
+		border: 1px solid #eee;
 	}
 	
 	.totalbtn{
@@ -297,26 +322,38 @@
 				</div>
 				<div class="prodName">
 					<h1>
-						<span>[브랜드]</span>
 						<span>${prodVo.prod_name }</span>
 					</h1>
 				</div>
-				<div class="prodPrice">
-					<span>가격</span>
-					<span>${prodVo.prod_price }원</span>
-					<br>
-					<span>할인가</span>
-					<span>${prodVo.prod_sprice }원</span>
-				</div>
-				<p>옵션선택</p>
-				<div class="prodOption">
-					<select style="width:500px;height:25px;border: 1px solid #eee;">
-						<option>1kg</option>
-						<option>3kg</option>
-						<option>5kg</option>
-						<option>10kg</option>
-					</select>
-				</div>
+				<c:choose>
+					<c:when test="${prodVo.prod_sprice != 0 }">
+						<div class="prodPrice">
+							<div>
+								<span class="priceb">${prodVo.prod_price }원</span>&nbsp<span>${prodVo.prod_sprice }원</span>
+							</div>
+						</div>
+					</c:when>
+					<c:otherwise>
+						<div class="prodPrice">
+							<div>
+								<span>${prodVo.prod_price }원</span>
+							</div>
+						</div>
+					</c:otherwise>
+				</c:choose>
+			
+				<c:if test="${prodoList.size() != 0 }">
+					<div class="option">
+						<div class="prodOption">
+							<select class="opSelect">
+								<option>옵션 선택</option>
+								<c:forEach items="${prodoList }" var="list">
+									<option>${list.prodo_name }</option>
+								</c:forEach>
+							</select>
+						</div>
+					</div>
+				</c:if>
 				<div class="prodQty">
 					<div class="qtyChk">
 						<button class="minusBtn"><img src="/shopimg/minus.png" height="20" /></button>
@@ -351,19 +388,41 @@
 						<span>총 상품금액 </span>
 						<span>150,000</span><span>원</span>
 					</div>
-					<div class="bsBtn">
-						<div class="buyBtn">
-							<form action="#">
-								<input type="hidden">
-								<input type="hidden">
-								<input type="submit" value="장바구니" class="btnBS">
-							</form>
-						</div>
-						<div class="saveBtn">
-							<form>
-								<input type="submit" value="주문하기" class="btnBS">
-							</form>
-						</div>
+					<c:choose>
+						<c:when test="${memVo.mem_id == prodVo.prod_mem }">
+							<div class="bsBtn">
+								<div class="buyBtn">
+									<form action="#">
+										<input type="hidden">
+										<input type="hidden">
+										<input type="submit" value="상품 수정" class="btnBS">
+									</form>
+								</div>
+								<div class="saveBtn">
+									<form>
+										<input type="submit" value="상품 삭제" class="btnBS">
+									</form>
+								</div>
+							</div>
+						</c:when>
+						<c:otherwise>
+							<div class="bsBtn">
+								<div class="buyBtn">
+									<form action="#">
+										<input type="hidden">
+										<input type="hidden">
+										<input type="submit" value="장바구니" class="btnBS">
+									</form>
+								</div>
+								<div class="saveBtn">
+									<form>
+										<input type="submit" value="주문하기" class="btnBS">
+									</form>
+								</div>
+							</div>
+						</c:otherwise>
+					</c:choose>
+					
 					</div>
 				</div>
 			</div>

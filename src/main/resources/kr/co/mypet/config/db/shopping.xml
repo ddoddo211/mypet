@@ -85,19 +85,68 @@
 		)
 	</select>
 	
+	<!-- 상품에 옵션List -->
+	<select id="prodOpList" parameterType="String" resultType="prodoVo">
+		select * from prodoption
+		where prodo_prod = #{prod_id}
+	</select>
+	
+	<select resultType="String" id="opChk" parameterType="Map">
+		select DVS_ID from division WHERE DVS_PARENT = #{opid} AND dvs_id in 
+		<foreach index="index" item="item" collection="valueGo" close=")" open="(" separator=","> 
+			#{item} 
+		</foreach>
+	</select>
+	
 	<!-- 상품의 대한 상세정보 -->
 	<select id="prodDetail" parameterType="String" resultType="prodVo">
 		select * from prod
 		where prod_id = #{prod_id}
 	</select>
 	
-	<select id="opChk" parameterType="Map" resultType="String"> 
-		select DVS_ID from division
-		WHERE DVS_PARENT = #{opid}
-		AND dvs_id in 
-		<foreach collection="valueGo" item="item" index="index" separator="," open="(" close=")">
-			#{item}
-		</foreach>
+	
+	<!--펫쇼핑몬 메인 사료검색 필요 XML  -->
+	
+	<!-- 동물 구분 -->
+	<select id="animalList" resultType="dvsVo">
+		select * from division
+		where dvs_parent is null
 	</select>
+	
+	<!-- 동물의 아이디를 받아 해당 동물의 사료id찾기 -->
+	<select id="animalSaryo" resultType="String" parameterType="String">
+		select * from division
+		where dvs_name = '사료'
+		start with dvs_parent = #{dvs_id}
+		connect by prior dvs_id = dvs_parent
+	</select>
+	
+	<!-- 해당 동물의 브랜드 종류List -->
+	<select id="brandSearch" resultType="dvsVo" parameterType="String">
+		select * from division
+		where dvs_parent = (select dvs_id from division where dvs_name = '브랜드' start with dvs_parent = #{dvs_parent} connect by dvs_id = dvs_parent)
+	</select>
+	
+	
+	<!-- 상품 등록  -->
+	<insert id="prodCre" parameterType="prodVo">
+		insert into prod
+		values ('PROD'||PROD_ID.NEXTVAL,#{prod_name},#{prod_price},#{prod_sprice},#{prod_qty},#{prod_pimg},#{prod_img},sysdate,#{prod_mem})
+	</insert>
+	
+	<!-- 상품분류 등록 -->
+	<insert id="pddCre" parameterType="pddVo">
+		<selectKey resultType="string" keyProperty="pdd_prod" order="BEFORE">
+			select max(substr(prod_id,5,4)) from prod
+		</selectKey>
+		insert into proddv
+		values('PDD'||PDD_ID.NEXTVAL,#{pdd_dvs},'PROD'||#{pdd_prod})
+	</insert>
+	
+	<!-- 상품 옵션 등록 -->
+	<insert id="prodoCre" parameterType="prodoVo">
+		insert into prodoption
+		values ('OPTION'||PRODOP_ID.NEXTVAL,#{prodo_name},#{prodo_price},#{prodo_qty},#{prodo_prod})
+	</insert>
 </mapper>
  

@@ -19,6 +19,38 @@
   	select * from hairshop
   </select>
   
+  <!-- 주소로 미용실 목록 표시 -->
+  <select id="selectHairShopLoc" resultType="hairShopVo" parameterType="String">
+  	select * from hairshop where has_addr like '%'||#{has_addr}||'%'
+  </select>
+  
+  <!--  특정 비용실의 정보 -->
+  <select id="selectShop" resultType="hairShopVo" parameterType="String">
+  	select * from hairshop where has_id = #{has_id}
+  </select>
+  
+  <!-- 특정 미용실에 달려있는 후기목록 -->
+  <select id="selectReview" parameterType="String" resultType="hairBoardVo">
+  	select * from hairboard where hbrd_has=#{hbrd_has} and hbrd_brdt='1'
+  </select>
+  
+  <!-- 해당샵의 스타일을 읽어온다 -->
+  <select id="selectStyle" parameterType="String" resultType="styleVo">
+  	select * from petstyle where pts_has=#{pts_has}
+  </select>
+  
+  <!-- insertBoard -->
+  <insert id="insertHairBoard" parameterType="hairBoardVo">
+  	insert into hairboard
+	values('hbrd'||seq_hairboard.nextval,'',#{hbrd_text},seq_hairboardGN.nextval,sysdate,'',#{hbrd_has},#{hbrd_mem},'2','')
+  </insert>
+  
+  <!-- 북마크 등록하기 -->
+  <insert id="insertBookMark" parameterType="bmVo">
+  	insert into bookmark
+	values('bmk'||seq_bookmark.nextval,#{bmk_mem},#{bmk_has},#{bmk_fac})
+  </insert>
+  
 </mapper>
 
 

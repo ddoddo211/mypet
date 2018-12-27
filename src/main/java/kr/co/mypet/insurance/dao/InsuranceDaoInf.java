@@ -2,11 +2,14 @@ package kr.co.mypet.insurance.dao;
 
 import java.util.List;
 
+import kr.co.mypet.common.model.AccountVo;
 import kr.co.mypet.common.model.MemberVo;
 import kr.co.mypet.common.model.MypetVo;
 import kr.co.mypet.common.model.PetkindVo;
+import kr.co.mypet.insurance.model.AccidentVo;
 import kr.co.mypet.insurance.model.InsProdVo;
 import kr.co.mypet.insurance.model.InsshoppingVo;
+import kr.co.mypet.insurance.model.InsuranceNoticeVo;
 import kr.co.mypet.insurance.model.InsurancePageVo;
 import kr.co.mypet.insurance.model.InsuranceVo;
 
@@ -224,5 +227,62 @@ public interface InsuranceDaoInf {
 	* Method 설명 :보험가입이 완료 된다면 해당 플랜정보(장바구니)화면에 해당 상품이 삭제 되도록 만들기
 	*/
 	int shoppingJoinProd(String deleteProd);
+	
+	
+	/**
+	* Method : memAccidentList
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param mem_id
+	* @return
+	* Method 설명 : 해당 회원의 이메일(pk)로 보내서 회원의 계좌번호를 가지고 오는 방법
+	*/
+	List<AccountVo> memAccountList(String mem_id);
+	
+	
+	/**
+	* Method : insNotice
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @return
+	* Method 설명 :보상안내 공지사항 나오게 설정 
+	*/
+	List<InsuranceNoticeVo> insNotice();
+	
+	
+	
+	/**
+	* Method : claimPetJoinProd
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param isrVo
+	* @return
+	* Method 설명 :보상안내 - 보험가입할때 해당 펫의 가입되어 있는 보험상품 나오게 설정
+	*/
+	List<InsuranceVo> claimPetJoinProd (InsuranceVo isrVo);
+	
+	
+	/**
+	* Method : insuredPerson
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param memId
+	* @return
+	* Method 설명 : 피보험자 선택하는 부분에 가입이 완료된 상품 나오게 설정
+	*/
+	List<InsuranceVo> insuredPerson (String memId);
+	
+	
+	/**
+	* Method : accidentInsert
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param acdVo
+	* @return
+	* Method 설명 : 보험청구 신청하는 부분
+	*/
+	int accidentInsert(AccidentVo acdVo);
+	
+	
 
 }

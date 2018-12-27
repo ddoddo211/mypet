@@ -7,6 +7,6 @@
 <title>myPetInsurance.jsp</title>
 </head>
 <body>
-
+	나의 펫 보험 화면
 </body>
 </html>
