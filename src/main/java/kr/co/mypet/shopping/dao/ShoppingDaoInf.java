@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.Map;
 
 import kr.co.mypet.shopping.model.DivisionVo;
+import kr.co.mypet.shopping.model.ProdOptionVo;
 import kr.co.mypet.shopping.model.ProdVo;
+import kr.co.mypet.shopping.model.ProddvVo;
 import kr.co.mypet.shopping.model.ShopNoticeVo;
 
 public interface ShoppingDaoInf {
@@ -16,6 +18,35 @@ public interface ShoppingDaoInf {
 	* Method 설명 : 펫쇼핑몰 공지사항 불러오기
 	*/
 	public List<ShopNoticeVo> shopNoticeList();
+	
+	/**
+	* Method : animalList
+	* 작성자 : pc25
+	* 변경이력 :
+	* @return
+	* Method 설명 : 펫쇼핑몰 메인화면 사료검색 동물List
+	*/
+	public List<DivisionVo> animalList();
+	
+	/**
+	* Method : animalSaryo
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param dvs_id
+	* @return
+	* Method 설명 : 동물의 아이디를 받아 해당 동물의 사료메뉴 id 찾기
+	*/
+	public String animalSaryo(String dvs_id);
+	
+	/**
+	* Method : brandSearch
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param dvs_parent
+	* @return
+	* Method 설명 : 동물의 아이디를 받아 찾은 사료id를 가지고 브랜드List 찾기
+	*/
+	public List<DivisionVo> brandSearch(String dvs_parent);
 	
 	/**
 	* Method : shopNoticeDetail
@@ -116,4 +147,44 @@ public interface ShoppingDaoInf {
 	* Method 설명 : 체크박스 조건이 있을 경우 상품리스트 SIZE
 	*/
 	public int chkSize(Map<String,Object> map);
+	
+	/**
+	* Method : prodOpList
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param prod_id
+	* @return
+	* Method 설명 : 상품의 상세 옵션(ex. 상품 : 티셔츠 - 옵션 : 그레이,화이트)
+	*/
+	public List<ProdOptionVo> prodOpList(String prod_id);
+	
+	/**
+	* Method : prodCre
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param prodVo
+	* @return
+	* Method 설명 : 상품 등록
+	*/
+	public int prodCre(ProdVo prodVo);
+	
+	/**
+	* Method : pddCre
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param pddVo
+	* @return
+	* Method 설명 : 상품 분류 등록
+	*/
+	public int pddCre(ProddvVo pddVo);
+	
+	/**
+	* Method : prodoCre
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param prodoVo
+	* @return
+	* Method 설명 : 상품옵션 등록
+	*/
+	public int prodoCre(ProdOptionVo prodoVo);
 }
