@@ -243,6 +243,17 @@ public interface InsuranceServiceInf {
 	* Method 설명 : 피보험자 선택하는 부분에 가입이 완료된 상품 나오게 설정
 	*/
 	List<InsuranceVo> insuredPerson (String memId);
+	
+	
+	/**
+	* Method : accidentInsert
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param acdVo
+	* @return
+	* Method 설명 : 보험청구 신청하는 부분
+	*/
+	int accidentInsert(AccidentVo acdVo);
 
 
 }

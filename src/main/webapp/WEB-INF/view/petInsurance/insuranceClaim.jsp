@@ -70,8 +70,7 @@ $(document).ready(function(){
 
 		}
 	});
-	
-	
+		
 	
 });
 
@@ -201,7 +200,7 @@ function goNext(){
 										<td class="td4">
 												<!-- 펫의 가입보험 부분에 값이 있다면 -->
 												<input type="hidden" id="petIsrNumber${pet.myp_id}" value="${pet.myp_id}">
-												* <span> ${pet.insp_kind }(${pet.ins_stat})</span>
+												<span> ${pet.insp_kind }</span>
 										</td>
 									</tr>
 								</c:forEach>

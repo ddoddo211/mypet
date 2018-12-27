@@ -787,5 +787,94 @@ public class InsuranceController {
 				return "petInsurance/insuranceClaim2";
 			}
 			
+			// 보험금 청구 신청 완료되는 컨트롤러 
+			@RequestMapping("/claimApply")
+			public String claimApply(HttpServletRequest request , @RequestPart("diagnosis")MultipartFile part,
+					@RequestPart("accidentPhoto")MultipartFile part2 , HttpSession session) throws Exception, Exception {				
+
+				// 파라미터 가져오기 
+				String selectProd = request.getParameter("selectProd");
+				
+				String petId = request.getParameter("petId");
+				String accidentDate = request.getParameter("accidentDate");
+				String accidentPlace = request.getParameter("accidentPlace");
+				String accidentContent = request.getParameter("accidentContent");
+				String selectAccident = request.getParameter("selectAccident");
+				
+				// 사고 vo에 담아주기
+				//	사고일자 , 사고장소 , 사고설명 , 사고사진 , 진단서 ,이메일아이디 , 내반려동물ID , 보험ID
+				AccidentVo acdVo = new AccidentVo();
+				
+				acdVo.setAccd_myp(petId);
+				acdVo.setAccd_act(selectAccident);
+				
+				// String 을 Date로 변경하는 작업 
+				SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
+				Date accidentDay = date.parse(accidentDate);
+				acdVo.setAccd_date(accidentDay);
+				
+				acdVo.setAccd_addr(accidentPlace);
+				acdVo.setAccd_text(accidentContent);
+				
+				// 회원의 아이디를 매개변수로 설정한다
+				MemberVo memVo = (MemberVo) session.getAttribute("memVo");
+				acdVo.setAccd_mem(memVo.getMem_id());
+				
+				acdVo.setAccd_ins(selectProd);
+				
+				// 사고사진 하고 진단서는 아래 부분에서 처리 
+				// 파일 저장되기
+				
+				// 실제 파일 저장될 경로 설정하기
+				String path = "C:\\Users\\PC\\6.Spring\\LastProjectWorkSpace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\mypet\\img\\petInsuranceAccident";
+				// 진단서
+				String str = part.getOriginalFilename();
+				// 사고 사진
+				String str2 = part2.getOriginalFilename();
+				
+				// 진단서 처리
+				// 파일명 가지고 오기
+				if(str == "") {
+					acdVo.setAccd_recp("/img/petimg/noimg.jpg");
+				}else {
+					// 확장자만 빼기(확장자는 저장해줘야 한다)
+					String fileExt = StringUtil.getFileExt(str);
+					String fileName = UUID.randomUUID().toString() + fileExt;	// 충돌 방지를 위한 임의의 파일명 
+					
+					File file = new File(path + File.separator + fileName);
+					
+					part.transferTo(file);
+					
+					str = "/img/petInsuranceAccident/"+fileName;
+					
+					// DB 넣어주기
+					acdVo.setAccd_recp(str);
+				}
+				
+				// 사고 사진 처리
+				// 파일명 가지고 오기
+				if(str2 == "") {
+					acdVo.setAccd_img("/img/petimg/noimg.jpg");
+				}else {
+					// 확장자만 빼기(확장자는 저장해줘야 한다)
+					String fileExt = StringUtil.getFileExt(str2);
+					String fileName = UUID.randomUUID().toString() + fileExt;	// 충돌 방지를 위한 임의의 파일명 
+					
+					File file = new File(path + File.separator + fileName);
+					
+					part.transferTo(file);
+					
+					str2 = "/img/petInsuranceAccident/"+fileName;
+					
+					// DB 넣어주기
+					acdVo.setAccd_img(str2);
+				}
+				
+				// 사고 접수 하는 서비스에 전달하기 
+				insuranceService.accidentInsert(acdVo);
+
+				return "petInsurance/myPetInsurance";
+			}
+			
 
 }

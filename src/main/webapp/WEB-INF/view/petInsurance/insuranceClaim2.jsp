@@ -24,8 +24,8 @@ $(document).ready(function(){
 
 	
 	// 첨부파일 미리 보여 주는 텍스트 떄문에 입력
-					$('#upload_text').val('미리보여줄 텍스트.');
-					$('#upload_text2').val('미리보여줄 텍스트.');
+					$('#upload_text').val('');
+					$('#upload_text2').val('');
 					
 					$('#input_file').change(function() {
 						var i = $(this).val();
@@ -36,6 +36,74 @@ $(document).ready(function(){
 						var i = $(this).val();
 						$('#upload_text2').val(i);
 					});
+					
+	// 보험가입 상품 select를 클릭하였을때 값을 담아 주는 부분 
+	$(".optionProd").click(function(){
+		var selectProd = $(this).val();
+		$("#selectProd").val(selectProd);
+	});
+	
+	// 보험금 입금계좌 클릭하였을때 값을 담아주는 부분
+	$(".memAccidentSelect").click(function(){
+		var selectAccident = $(this).val();
+		$("#selectAccident").val(selectAccident);
+	});
+	
+				
+	// 보험금 청구 하기 버튼을 클릭할시 
+		$("#nextBtn2").click(function(){
+			
+			var selectProd = $("#selectProd").val();
+			
+			var accidentDate = $("#claimDay").val();
+			var accidentPlace = $("#accidentInput").val();
+			var accidentContent = $("#accidentInput2").val();
+			
+			var selectAccident = $("#selectAccident").val();
+			
+			var diagnosis = $("#upload_text").val();
+			var accidentPhoto = $("#upload_text2").val();
+						
+			// 보험가입 상품을 선택하였는지 확인하기 
+			if(selectProd == 0 || selectProd == "" ){
+				alert("보험금을 청구할 보험가입 상품을 선택하시기 바랍니다");
+				return;
+			}else if(accidentDate == ""){
+				alert("사고 일자를 선택하시기 바랍니다.");
+				return;
+			}else if(accidentPlace == ""){
+				alert("사고 장소를 선택하시기 바랍니다.");
+				return;
+			}else if(accidentContent == ""){
+				alert("사고 내용을 입력하시기 바랍니다.");
+				return;
+			}else if(selectAccident == 0 || selectAccident == "" ){
+				alert("보험금을 받으실 계좌번호를 선택하시기 바랍니다.");
+				return;
+			}else if(diagnosis == ""){
+				alert("진단서는 필수 입니다. 첨부하시기 바랍니다.");
+				return;
+			}else if (!$("input[name='req']:checked").val()) {
+				alert("개인정보 처리 동의 부분에 체크가 되어야 진행하실수 있습니다.\n체크하시기 바랍니다");
+				return;
+			}else{
+				// 사고 일자 form에 담아주기 
+				$("#accidentDate").val(accidentDate);
+				// 사고 장소 form에 담아주기
+				$("#accidentPlace").val(accidentPlace);
+				// 사고 내용 form에 담아주기
+				$("#accidentContent").val(accidentContent);
+				// 진단서 form에 담아주기
+				$("#diagnosis").val(diagnosis);
+				// 진단서 form에 담아주기
+				$("#accidentPhoto").val(accidentPhoto);
+				
+				$("#frm").submit();
+			}
+
+			
+			
+		});
 
 });
 </script>
@@ -46,6 +114,8 @@ $(document).ready(function(){
 
 </head>
 <body>
+
+
 <!-- header 시작 -->
 <%@include file="../common/header.jsp"%>
 <!-- header 끝-->
@@ -107,9 +177,9 @@ $(document).ready(function(){
 						</div>
 						<div class="claimTitle5_1_2">
 							<select class="optionProd">
-								<option selected="selected">보험금 신청할 상품을 선택해주세요.</option>
+								<option selected="selected" value="0">보험금 신청할 상품을 선택해주세요.</option>
 								<c:forEach items="${isrVoList}" var="isrVo">
-									<option>${isrVo.insp_kind}</option>
+									<option value="${isrVo.ins_id}">${isrVo.insp_kind}</option>
 								</c:forEach>
 							</select>
 						</div>
@@ -206,6 +276,14 @@ $(document).ready(function(){
 					</div>
 				</div>
 				
+				<form action="/isr/claimApply" method="post" id="frm" enctype="multipart/form-data">
+
+					<input type="hidden" id="selectProd"  name="selectProd" value="">
+					<input type="hidden" id="petId" name="petId" value="${mypetInfo.myp_id}">
+					<input type="hidden" id="accidentDate" name="accidentDate" value="">
+					<input type="hidden" id="accidentPlace"  name="accidentPlace" value="">
+					<input type="hidden" id="accidentContent" name="accidentContent"  value="">
+					<input type="hidden" id="selectAccident" name="selectAccident" value="">
 				<div id="document">
 					<div id="document1">
 						<div id="document2">
@@ -219,7 +297,7 @@ $(document).ready(function(){
 								  <button type="button" title="파일찾기">
 								   <span>파일찾기</span>  
 								  </button>
-								  <input type="file" id="input_file" title="파일찾기">
+								  <input type="file" id="input_file" title="파일찾기" name="diagnosis">
 								</div>
 							</div>
 						
@@ -229,13 +307,13 @@ $(document).ready(function(){
 								사고사진
 							</div>
 							<div class="document2_2">
-								<input type="text" id="upload_text2" readonly="readonly">
+								<input type="text" id="upload_text2" readonly="readonly" >
 								<!--button-->
 								<div id="upload-btn_wrap2">
 								  <button type="button" title="파일찾기">
 								   <span>파일찾기</span>  
 								  </button>
-								  <input type="file" id="input_file2" title="파일찾기">
+								  <input type="file" id="input_file2" title="파일찾기" name="accidentPhoto">
 								</div>
 							</div>						
 						</div>
@@ -279,6 +357,9 @@ $(document).ready(function(){
 					<input type="button" id="nextBtn2" value="보험금 청구하기">
 				</div>
 			</div>
+			
+			
+			</form>
 			
 			
 	</div>

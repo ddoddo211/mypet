@@ -3,6 +3,8 @@ package kr.co.mypet.insurance.model;
 import java.util.Date;
 
 public class AccidentVo {
+	
+	// 보험 청구할때 사고 추가하는 Vo
 
 	private String accd_id;
 	private Date accd_date;
@@ -12,25 +14,21 @@ public class AccidentVo {
 	private String accd_recp;
 	private String accd_stat;
 	private String accd_res;
-	private int accd_insp;
+	private String accd_insp;
 	private String accd_mem;
 	private String accd_myp; 
-	private String ins_id;
-	
+	private String accd_ins;
+	private String accd_act;
 	
 	@Override
 	public String toString() {
 		return "AccidentVo [accd_id=" + accd_id + ", accd_date=" + accd_date + ", accd_addr=" + accd_addr
 				+ ", accd_text=" + accd_text + ", accd_img=" + accd_img + ", accd_recp=" + accd_recp + ", accd_stat="
 				+ accd_stat + ", accd_res=" + accd_res + ", accd_insp=" + accd_insp + ", accd_mem=" + accd_mem
-				+ ", accd_myp=" + accd_myp + ", ins_id=" + ins_id + "]";
+				+ ", accd_myp=" + accd_myp + ", accd_ins=" + accd_ins + ", accd_act=" + accd_act + "]";
 	}
-	public String getIns_id() {
-		return ins_id;
-	}
-	public void setIns_id(String ins_id) {
-		this.ins_id = ins_id;
-	}
+	
+	
 	public String getAccd_id() {
 		return accd_id;
 	}
@@ -79,10 +77,10 @@ public class AccidentVo {
 	public void setAccd_res(String accd_res) {
 		this.accd_res = accd_res;
 	}
-	public int getAccd_insp() {
+	public String getAccd_insp() {
 		return accd_insp;
 	}
-	public void setAccd_insp(int accd_insp) {
+	public void setAccd_insp(String accd_insp) {
 		this.accd_insp = accd_insp;
 	}
 	public String getAccd_mem() {
@@ -97,6 +95,19 @@ public class AccidentVo {
 	public void setAccd_myp(String accd_myp) {
 		this.accd_myp = accd_myp;
 	}
+	public String getAccd_ins() {
+		return accd_ins;
+	}
+	public void setAccd_ins(String accd_ins) {
+		this.accd_ins = accd_ins;
+	}
+	public String getAccd_act() {
+		return accd_act;
+	}
+	public void setAccd_act(String accd_act) {
+		this.accd_act = accd_act;
+	}
+	
 
 	
 	

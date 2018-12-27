@@ -372,5 +372,19 @@ public class InsuranceService implements InsuranceServiceInf {
 	}
 
 	
+	/**
+	* Method : accidentInsert
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param acdVo
+	* @return
+	* Method 설명 : 보험청구 신청하는 부분
+	*/
+	@Override
+	public int accidentInsert(AccidentVo acdVo) {
+		return insuranceDao.accidentInsert(acdVo);
+	}
+
+	
 	
 }
