@@ -254,6 +254,57 @@ public interface InsuranceServiceInf {
 	* Method 설명 : 보험청구 신청하는 부분
 	*/
 	int accidentInsert(AccidentVo acdVo);
+	
+	/**
+	* Method : isuranceStatus
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param memId
+	* @return
+	* Method 설명 : 나의 펫 보험 - 회원이 현재까지 받은 보험금 현황
+	*/
+	int isuranceStatus(String memId);
+	
+	
+	/**
+	* Method : monthlyPremium
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param memId
+	* @return
+	* Method 설명 :나의펫 보험 - 월 전체 보험료 나오는 부분
+	*/
+	int monthlyPremium(String memId);
+	
+	/**
+	* Method : isrApply
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param memId
+	* @return
+	* Method 설명 : 나의 펫 보험 - 현재보험금 신청현황(신청)
+	*/
+	List<AccidentVo> isrApply (String memId);
+	
+	/**
+	* Method : underExamination
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param memId
+	* @return
+	* Method 설명 : 나의 펫 보험 - 현재보험금현황(심사중)
+	*/
+	List<AccidentVo> underExamination (String memId);
+	
+	/**
+	* Method : isrComplete
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param memId
+	* @return
+	* Method 설명 : 나의 펫 보험 - 현재보험금현황(완료)
+	*/
+	List<AccidentVo> isrComplete (String memId);
 
 
 }

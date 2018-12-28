@@ -791,7 +791,7 @@ public class InsuranceController {
 			// 보험금 청구 신청 완료되는 컨트롤러 
 			@RequestMapping("/claimApply")
 			public String claimApply(HttpServletRequest request , @RequestPart("diagnosis")MultipartFile part,
-					@RequestPart("accidentPhoto")MultipartFile part2 , HttpSession session) throws Exception, Exception {				
+					@RequestPart("accidentPhoto")MultipartFile part2 , HttpSession session, Model model) throws Exception, Exception {				
 
 				// 파라미터 가져오기 
 				String selectProd = request.getParameter("selectProd");
@@ -873,6 +873,31 @@ public class InsuranceController {
 				
 				// 사고 접수 하는 서비스에 전달하기 
 				insuranceService.accidentInsert(acdVo);
+				
+				// 사고 접수 후에 마이페이지로 갔을때 있어야 하는것들 
+				//회원의 펫 가지고 오기
+				List<InsshoppingVo> mypetList = insuranceService.petList(memVo.getMem_id());
+				model.addAttribute("mypetList", mypetList);
+				
+				// 나의펫 보험 화면에서 현재까지 받은 보험금 현황 부분에 나와야 하는 부분
+				int isuranceStatus = insuranceService.isuranceStatus(memVo.getMem_id());
+				model.addAttribute("money",isuranceStatus );
+				
+				// 월 전체 보험료가 나오는 부분
+				int monthlyPremium = insuranceService.monthlyPremium(memVo.getMem_id());
+				model.addAttribute("money2",monthlyPremium);
+				
+				// 현재 보험금 신청현황(신청)- 신청 건수가 나와야 하기 때문에
+				List<AccidentVo> isrApply =  insuranceService.isrApply(memVo.getMem_id());
+				model.addAttribute("isrApplySize",isrApply.size());
+				
+				// 현재 보험금 신청현황(심사중)- 심사중 건수가 나와야 하기 때문에
+				List<AccidentVo> underExamination =  insuranceService.underExamination(memVo.getMem_id());
+				model.addAttribute("ueSize",underExamination.size());
+				
+				// 현재 보험금 신청현황(완료)- 완료 건수가 나와야 하기 때문에
+				List<AccidentVo> isrComplete =  insuranceService.isrComplete(memVo.getMem_id());
+				model.addAttribute("isrCompleteSize",isrComplete.size());
 
 				return "petInsurance/myPetInsurance";
 			}
@@ -892,6 +917,26 @@ public class InsuranceController {
 					//회원의 펫 가지고 오기
 					List<InsshoppingVo> mypetList = insuranceService.petList(memVo.getMem_id());
 					model.addAttribute("mypetList", mypetList);
+					
+					// 나의펫 보험 화면에서 현재까지 받은 보험금 현황 부분에 나와야 하는 부분
+					int isuranceStatus = insuranceService.isuranceStatus(memVo.getMem_id());
+					model.addAttribute("money",isuranceStatus );
+					
+					// 월 전체 보험료가 나오는 부분
+					int monthlyPremium = insuranceService.monthlyPremium(memVo.getMem_id());
+					model.addAttribute("money2",monthlyPremium);
+					
+					// 현재 보험금 신청현황(신청)- 신청 건수가 나와야 하기 때문에
+					List<AccidentVo> isrApply =  insuranceService.isrApply(memVo.getMem_id());
+					model.addAttribute("isrApplySize",isrApply.size());
+					
+					// 현재 보험금 신청현황(심사중)- 심사중 건수가 나와야 하기 때문에
+					List<AccidentVo> underExamination =  insuranceService.underExamination(memVo.getMem_id());
+					model.addAttribute("ueSize",underExamination.size());
+					
+					// 현재 보험금 신청현황(완료)- 완료 건수가 나와야 하기 때문에
+					List<AccidentVo> isrComplete =  insuranceService.isrComplete(memVo.getMem_id());
+					model.addAttribute("isrCompleteSize",isrComplete.size());
 					
 					return "petInsurance/myPetInsurance";
 				}				
@@ -967,6 +1012,17 @@ public class InsuranceController {
 					//회원의 펫 가지고 오기
 					List<InsshoppingVo> mypetList = insuranceService.petList(memVo.getMem_id());
 					model.addAttribute("mypetList", mypetList);
+										
+					// 나의 펫 에서 삭제 할때 for문 돌리기 위해서 펫의 수가 필요하기 떄문에 설정
+					model.addAttribute("mypetListSize" , mypetList.size());
+					
+					//회원의 펫 가입되어 있는 현재 보험 상품 나오게 하기 
+					List<InsuranceVo> mypetIsrJoin = insuranceService.petIsrAlready(memVo.getMem_id());
+					model.addAttribute("mypetIsrJoin", mypetIsrJoin);
+					
+					
+					// 보험상품 선택한 보험가입이 되어 있는지 확인하려고 for문 돌리기 위해서 필요
+					model.addAttribute("mypetIsrJoinSize", mypetIsrJoin.size());
 					
 					insuranceService.insertPet(mypetVo);
 				
@@ -975,6 +1031,25 @@ public class InsuranceController {
 				}
 				
 			}
+			
+			// 나의 펫 정보 처음 시작할때 안내 글 나오게 설정하는것 
+			@RequestMapping("/petInfoFormAjaxHtml")
+			public String petInfoFormAjaxHtml() {
+				return "petInsurance/petInfoFormAjaxHtml";
+				
+			}
+			
+			// 나의 펫 정보에서 펫보이게 설정한후 해당 petId 받아서 나오게 설정하기 
+			@RequestMapping("/petInfoAjaxHtml")
+			public String petInfoAjaxHtml(HttpServletRequest request , Model model , @RequestParam("petId")String petId) {
+				
+				// 펫의 정보 가지고 오기 
+				MypetVo mypetInfo = insuranceService.mypetInfo(petId);
+				model.addAttribute("mypetInfo" , mypetInfo);
+				
+				return "petInsurance/petInfoAjaxHtml";
+				
+			}		
 			
 
 }
