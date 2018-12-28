@@ -4,7 +4,9 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="petSitter">
 	<select id="petSitterToHomeList" resultType="pstVo">
-		select * from petsitter		
+		select m.mem_addr, p.* 
+		from petsitter p, member m
+		where p.pst_mem = m.mem_id		
 	</select>
 	
 	<select id="petSitterZip" resultType="zipVo">

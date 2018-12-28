@@ -24,18 +24,18 @@ $(document).ready(function(){
 
 	
 	// 첨부파일 미리 보여 주는 텍스트 떄문에 입력
-					$('#upload_text').val('');
-					$('#upload_text2').val('');
-					
-					$('#input_file').change(function() {
-						var i = $(this).val();
-						$('#upload_text').val(i);
-					});
-					
-					$('#input_file2').change(function() {
-						var i = $(this).val();
-						$('#upload_text2').val(i);
-					});
+	$('#upload_text').val('');
+	$('#upload_text2').val('');
+	
+	$('#input_file').change(function() {
+		var i = $(this).val();
+		$('#upload_text').val(i);
+	});
+	
+	$('#input_file2').change(function() {
+		var i = $(this).val();
+		$('#upload_text2').val(i);
+	});
 					
 	// 보험가입 상품 select를 클릭하였을때 값을 담아 주는 부분 
 	$(".optionProd").click(function(){
