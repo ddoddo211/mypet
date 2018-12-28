@@ -465,6 +465,7 @@ public class InsuranceController {
 				return "petInsurance/petKindAjaxHtml";
 				
 			}
+			
 		// 펫 추가 처리 하는 부분
 			@RequestMapping("/mypetInsert")
 			public String mypetInsert(@RequestPart("petImgForm")MultipartFile part,HttpSession session, Model model, HttpServletRequest request
@@ -874,6 +875,105 @@ public class InsuranceController {
 				insuranceService.accidentInsert(acdVo);
 
 				return "petInsurance/myPetInsurance";
+			}
+			
+			
+			
+			// 나의 펫 보험 화면으로 이동
+			@RequestMapping("/mypetPage")
+			public String mypetPage(Model model, HttpSession session) {
+				// 회원 정보 받아오는 부분
+				MemberVo memVo = (MemberVo) session.getAttribute("memVo");
+				
+				// 로그인을 안한 회원일 경우에는 로그인 화면으로 이동
+				if (memVo == null) {
+					return "petInsurance/memLoginChk";
+				} else {
+					//회원의 펫 가지고 오기
+					List<InsshoppingVo> mypetList = insuranceService.petList(memVo.getMem_id());
+					model.addAttribute("mypetList", mypetList);
+					
+					return "petInsurance/myPetInsurance";
+				}				
+			}
+			
+			// 나의 펫 보험에서 펫 추가하는 화면으로 이동하기
+			@RequestMapping("/petInsert2")
+			public String petInsert2(HttpSession session) {
+				// 회원 정보 받아오는 부분
+				MemberVo memVo = (MemberVo) session.getAttribute("memVo");
+				// 로그인을 안한 회원일 경우에는 로그인 화면으로 이동
+				if (memVo == null) {
+					return "petInsurance/memLoginChk";
+				}
+				return "petInsurance/petInsert2";
+			}
+			
+			// 펫 추가 처리 하는 부분
+			@RequestMapping("/mypetInsert2")
+			public String mypetInsert2(@RequestPart("petImgForm")MultipartFile part,HttpSession session, Model model, HttpServletRequest request
+					) throws ParseException, IOException, ServletException {
+				
+				// 회원 정보 받아오는 부분
+				MemberVo memVo = (MemberVo) session.getAttribute("memVo");
+				
+				// 로그인을 안한 회원일 경우에는 로그인 화면으로 이동
+				if (memVo == null) {
+					return "petInsurance/memLoginChk";
+				} else {
+					// 나의 펫에 추가하려며 있어야 하는 부분 
+					// myp_mem , myp_petk ,myp_birth , myp_sick ,myp_img ,myp_neu ,myp_gender,myp_name
+					//	myp_id -> 시퀀스로 처리
+					// mypetVo에 입력하기
+					MypetVo mypetVo = new MypetVo();
+					
+					// 생년월일 Date 타입으로 변경하기
+					String birth = request.getParameter("petBirthForm");
+					SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
+					Date dateBirth = date.parse(birth);
+
+					mypetVo.setMyp_mem(memVo.getMem_id());
+					mypetVo.setMyp_name(request.getParameter("petName"));
+					mypetVo.setMyp_gender(request.getParameter("petGender"));
+					mypetVo.setMyp_petk(request.getParameter("petKindForm"));
+					mypetVo.setMyp_birth(dateBirth);
+					mypetVo.setMyp_neu(request.getParameter("petNTL"));
+					mypetVo.setMyp_sick(request.getParameter("petSick"));
+					
+					// 파일 저장되기
+					
+					// 실제 파일 저장될 경로 설정하기
+					String path = "C:\\Users\\PC\\6.Spring\\LastProjectWorkSpace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\mypet\\img\\petimg";
+					String str = part.getOriginalFilename();
+					
+					// 파일명 가지고 오기
+					if(str == "") {
+						mypetVo.setMyp_img("/img/petimg/noimg.jpg");
+					}else {
+						// 확장자만 빼기(확장자는 저장해줘야 한다)
+						String fileExt = StringUtil.getFileExt(str);
+						String fileName = UUID.randomUUID().toString() + fileExt;	// 충돌 방지를 위한 임의의 파일명 
+						
+						File file = new File(path + File.separator + fileName);
+						
+						part.transferTo(file);
+						
+						str = "/img/petimg/"+fileName;
+						
+						// DB 넣어주기
+						mypetVo.setMyp_img(str);
+					}
+					
+					//회원의 펫 가지고 오기
+					List<InsshoppingVo> mypetList = insuranceService.petList(memVo.getMem_id());
+					model.addAttribute("mypetList", mypetList);
+					
+					insuranceService.insertPet(mypetVo);
+				
+					return "redirect:/isr/mypetPage";
+					
+				}
+				
 			}
 			
 

@@ -28,6 +28,10 @@ function goInsuranceClaim(){
 	location.href = '/isr/insuranceClaim';
 }
 
+function goMypetPage(){
+	location.href = '/isr/mypetPage';
+}
+
 </script>
 
 <link rel="stylesheet" href="/css/petInsuranceMenu.css">
@@ -78,7 +82,7 @@ function goInsuranceClaim(){
 			<div id="compensationBtn">
 				<div id="compensationBtn1">
 					<input type="button" value="인터넷 보험청구" class="compensationBtn1_1" id="compensationBtn1_2" onclick="goInsuranceClaim()">
-					<input type="button" value="보험 청구 현황" class="compensationBtn1_1" id="compensationBtn1_2">
+					<input type="button" value="보험 청구 현황" class="compensationBtn1_1" id="compensationBtn1_2" onclick="goMypetPage()">
 					<a href="#name01"><input type="button" value="자주하는 질문(FAQ)" class="compensationBtn1_1" id="compensationBtn1_2"></a>
 				</div>
 			</div>
