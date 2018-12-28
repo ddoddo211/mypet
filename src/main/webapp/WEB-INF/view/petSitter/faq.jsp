@@ -36,6 +36,11 @@
 		min-height : 240px;
 		margin : 0 auto;
 	}
+	
+	.click {
+		cursor: pointer;
+		border-bottom : 1px solid black;
+	}
 </style>
 </head>
 <body>
@@ -75,23 +80,21 @@
 		</div>
 	</div>
 	<div id="faqSearch">
-		<div id="faqSearchMain">
-			<input type="text" id="faqSearchWord" value="검색어를 입력하세요" onfocus="this.value=''" style="color: #c1c1c1" />
-		</div>
-	</div>
-	<div id="faqMain">
-		<div id="faqTable">
-			<span>자주 묻는 질문</span><br>
-			<table id="faq">
-				<tbody id="faqList">
-					<c:forEach items="${faqList }" var="faqlist">
-						<tr class="click">
-							<td id="hidden">${faqlist.psf_id }</td>
-							<td>${faqlist.psf_name }</td>
-						</tr>
-					</c:forEach>
-				</tbody>
-			</table>
+		<div id="faqMain">
+			<div id="faqTable">
+				<span>자주 묻는 질문</span><br>
+				<table id="faq">
+					<tbody id="faqList">
+						<c:forEach items="${faqList }" var="faqlist">
+							<tr class="click">
+								<td id="hidden">${faqlist.psf_id }</td>
+								<td>${faqlist.psf_name }</td>
+								<td style="text-align: right;"><fmt:formatDate value="${faqlist.psf_date }" pattern ="yyyy-MM-dd"/></td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+			</div>
 		</div>
 	</div>
 	<%@ include file="/WEB-INF/view/common/footer.jsp" %>

@@ -263,7 +263,7 @@ public class SitterController {
 	public String sitterDetail(Model model, @RequestParam("pst_id")String pst_id) {
 		
 		PetSitterVo pstVo = sitterService.petToHomeDetail(pst_id);
-		pstVo.getPst_text();
+		
 		model.addAttribute("pstVo", pstVo);
 		
 		return "petSitter/sitterDetail";
@@ -436,6 +436,14 @@ public class SitterController {
 		model.addAttribute("fVo", fVo);
 		
 		return "petSitter/faqDetail";
+	}
+	
+	// faq 수정화면 이동
+	@RequestMapping("/faqUpdateView")
+	public String faqUpdateView(Model model, @RequestParam("faq_id")String psf_id) {
+		FaqVo faqVo =  sitterService.getFaqOne(psf_id);
+		model.addAttribute("faqVo", faqVo);
+		return "petSitter/faqUpdate";
 	}
 	
 	// 펫시터 지원하기 화면

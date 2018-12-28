@@ -12,225 +12,270 @@
 <link href="https://fonts.googleapis.com/css?family=Nanum+Brush+Script" rel="stylesheet">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <style type="text/css">
-	#noticeInsertMain{
-		width : 95%;
-		margin : 0 auto;
-		border-radius: 20px;
-		border: 3px dashed #ffc0c0;
-	}
-	
-	#noticeTitle{
-		width : 90%;
-		margin : 0 auto;
-		margin-bottom : 20px;
-		text-align: center;
-		height : 70px;
-	}
-	
-	#noticeTitle > span {
-		font-size : 40px;
-		font-weight: bold;
-	}
-	
-	#noticeInsertMenu{
-		width : 95%;
-		margin : 0 auto;
-		background-color: #e1fbff6e;
-   		border-radius: 10px;
-	}
-	
-	.insertMenu{
-		overflow : hidden;
-		margin-bottom : 10px;
-	}
-	
-	.menuTitle{
-		width : 100px;
-		height : 64px;
- 		background-color: #93bcff;
-		text-align: center;
-		line-height: 64px;
-		color :#fff;
-		float: left;
-		font-size: 18px
-	}
-	
-	.menuText{
-		width : 400px;
-		height : 64px;
-		margin-left : 20px;
-		line-height : 64px;
-		float:left;
-	}
-	
-	#explanation{
-		width : 950px;
-		margin-left : 20px;
-		height : 64px;
-		float:left;
-		display: table;
-	}
-	
-	#explanation_1{
-		width : 350px;
-		display: table-cell;
-		vertical-align: middle;		
-	}
-	
-	.explanation_menu{
-		width : 100px;
-		height : 40px;
-		border-radius: 20px;
-		text-align: center;
-		line-height: 40px;
-		color : #fff;
-		background-color: #b1b1b1;
-		float:left;
-	}
-	
-	.explanation_menu_text{
-		margin-left : 10px;
-		float:left;
-	}
-	
-	#explanation_2{
-		width : 550px;
-		display: table-cell;
-		vertical-align: middle;
-	}
-	
-	#explanation_time{
-		margin-left : 20px;
-		float:left;
-		width : 450px;
-		height : 40px;
-	}
-	.time_select {
-		float : left;
-		margin-left: 5px;
-		margin-top : 5px;
-	}
-	
-	.time_select > select {
-		width : 80px;
-		height : 30px;
-		font-size : 24px;
-	}
-	
-	#priceMain{
-		float : left;
-		margin-left : 20px;
-		width : 800px;
-		height : 64px;
-		display: table;
-	}
-	
-	.priceMenu{
-		display: table-cell;
-		vertical-align: middle;
-		width : 350px;
-	}
-	
-	.priceKind{
-		background-color: #b1b1b1;
-		width : 100px;
-		height : 40px;
-		border-radius: 20px;
-		color : #fff;
-		text-align: center;
-		line-height: 40px;
-		float:left;
-	}
-	
-	.price{
-		margin-left : 10px;
-		margin-top : 10px;
-		float:left;
-	}
-	
-	#noticeBtn{
-		width : 90%;
-		margin : 0 auto;
-		overflow: hidden;
-		margin-top : 30px;
-		margin-bottom : 20px;
-	}
-	
-	#noticeBtnMain{
-		width : 500px;
-		overflow : hidden;
-		margin : 0 auto;
-	}
-	
-	#btnKind1{
-		margin-left : 30px;
-		width : 200px;
-		height : 50px;
-		float:left;
-	}
-	
-	#btnKind2{
-		width : 200px;
-		height : 50px;
-		float: left;
-		margin-left : 30px;
-	}
-	
-	.notice_btn{
-		width : 100%;
-		height : 100%;
-		border: none;
-		background-color: #bebebe;
-		border-radius: 30px;
-		color : #fff;
-		cursor: pointer;
-		outline: none;
-	}
-	
-	.notice_btn:active{
-		width : 100%;
-		height : 100%;
-		border: none;
-		background-color: #7b7b7b;
-		border-radius: 30px;
-		color : #fff;
-		cursor: pointer;
-		outline: none;
-	}
+#noticeInsertMain {
+	width: 95%;
+	margin: 0 auto;
+	border-radius: 20px;
+	border: 3px dashed #ffc0c0;
+}
+
+#noticeTitle {
+	width: 90%;
+	margin: 0 auto;
+	margin-bottom: 20px;
+	text-align: center;
+	height: 70px;
+}
+
+#noticeTitle>span {
+	font-size: 40px;
+	font-weight: bold;
+}
+
+#noticeInsertMenu {
+	width: 95%;
+	margin: 0 auto;
+	background-color: #e1fbff6e;
+	border-radius: 10px;
+}
+
+.insertMenu {
+	overflow: hidden;
+	margin-bottom: 10px;
+}
+
+.menuTitle {
+	width: 100px;
+	height: 64px;
+	background-color: #93bcff;
+	text-align: center;
+	line-height: 64px;
+	color: #fff;
+	float: left;
+	font-size: 18px
+}
+
+.menuText {
+	width: 400px;
+	height: 64px;
+	margin-left: 20px;
+	line-height: 64px;
+	float: left;
+}
+
+#explanation {
+	width: 950px;
+	margin-left: 20px;
+	height: 64px;
+	float: left;
+	display: table;
+}
+
+#explanation_1 {
+	width: 350px;
+	display: table-cell;
+	vertical-align: middle;
+}
+
+.explanation_menu {
+	width: 100px;
+	height: 40px;
+	border-radius: 20px;
+	text-align: center;
+	line-height: 40px;
+	color: #fff;
+	background-color: #b1b1b1;
+	float: left;
+}
+
+.explanation_menu_text {
+	margin-left: 10px;
+	float: left;
+}
+
+#explanation_2 {
+	width: 550px;
+	display: table-cell;
+	vertical-align: middle;
+}
+
+#explanation_time {
+	margin-left: 20px;
+	float: left;
+	width: 450px;
+	height: 40px;
+}
+
+.time_select {
+	float: left;
+	margin-left: 5px;
+	margin-top: 5px;
+}
+
+.time_select>select {
+	width: 80px;
+	height: 30px;
+	font-size: 24px;
+}
+
+#priceMain {
+	float: left;
+	margin-left: 20px;
+	width: 800px;
+	height: 64px;
+	display: table;
+}
+
+.priceMenu {
+	display: table-cell;
+	vertical-align: middle;
+	width: 350px;
+}
+
+.priceKind {
+	background-color: #b1b1b1;
+	width: 100px;
+	height: 40px;
+	border-radius: 20px;
+	color: #fff;
+	text-align: center;
+	line-height: 40px;
+	float: left;
+}
+
+.price {
+	margin-left: 10px;
+	margin-top: 10px;
+	float: left;
+}
+
+#noticeBtn {
+	width: 90%;
+	margin: 0 auto;
+	overflow: hidden;
+	margin-top: 30px;
+	margin-bottom: 20px;
+}
+
+#noticeBtnMain {
+	width: 500px;
+	overflow: hidden;
+	margin: 0 auto;
+}
+
+#btnKind1 {
+	margin-left: 30px;
+	width: 200px;
+	height: 50px;
+	float: left;
+}
+
+#btnKind2 {
+	width: 200px;
+	height: 50px;
+	float: left;
+	margin-left: 30px;
+}
+
+.notice_btn {
+	width: 100%;
+	height: 100%;
+	border: none;
+	background-color: #bebebe;
+	border-radius: 30px;
+	color: #fff;
+	cursor: pointer;
+	outline: none;
+}
+
+.notice_btn:active {
+	width: 100%;
+	height: 100%;
+	border: none;
+	background-color: #7b7b7b;
+	border-radius: 30px;
+	color: #fff;
+	cursor: pointer;
+	outline: none;
+}
+
+input#upload_text {/*읽기전용 인풋텍스트*/
+	float:left;
+	width:200px;/* 버튼 포함 전체 가로 길이*/
+	height:30px;
+	line-height:19px;
+	padding:0 3px;
+	border:1px solid #bbb;
+	margin-top : 15px;
+}
+
+div#upload-btn_wrap input#notice_file {/*파일찾기 폼 투명하게*/
+	position:absolute;
+	top:20px;
+	right:0;
+	cursor:pointer;
+	opacity:0;
+	filter:alpha(opacity=0);
+	-ms-filter:"alpha(opacity=0)";
+	-moz-opacity:0;
+}
+div#upload-btn_wrap {/*버튼테두리 감싼 div*/
+	position:relative;
+	float:left;
+	width:80px;/*width, height 값은 button(찾아보기)값과 같아야함 */
+	height:30px;
+	padding-left:3px;
+}
+div#upload-btn_wrap button {/*버튼 div*/
+	width:80px;
+	height:30px;
+	font-weight:bold;
+	background:#333;
+	border:1px solid #333;
+	color:#fff;
+	margin-left: 5px;
+}
 </style>
 
 <script type="text/javascript">
-
-	$(document).ready(function(){
-		$("#noticeAddBtn").click(function(){
-			var title = $("#notice_title").val();
-			var text = $("#explanation_text").val();
-			var img  = $("#notice_file").val();
-			var price1 = $("#price_dc").val();
-			var price2 = $("#price_1d").val();
-			
-			if(title == "" || title == null){
-				alert("제목을 입력하세요.");
-				return;
-			} else if(text == "" || text == null){
-				alert("특이사항을 입력하세요.");
-				return;
-			} else if(img == "" || img == null){
-				alert("이미지를 넣어주세요.");
-				return;
-			} else if(price1 == "" || price1==null || price2 == "" || price2 == null){
-				alert("가격을 입력해주세요.");
-				return;
-			}
-			
-			$("#frm").submit();
-			
-		});
-	});
 	
-	
+	$(document).ready(
+			function() {
 
+				$('#upload_text').val('');
 
+				$('#notice_file').change(function() {
+					var i = $(this).val();
+					$('#upload_text').val(i);
+				});
+
+				$("#noticeAddBtn").click(
+						function() {
+							var title = $("#notice_title").val();
+							var text = $("#explanation_text").val();
+							var img = $("#notice_file").val();
+							var price1 = $("#price_dc").val();
+							var price2 = $("#price_1d").val();
+
+							if (title == "" || title == null) {
+								alert("제목을 입력하세요.");
+								return;
+							} else if (text == "" || text == null) {
+								alert("특이사항을 입력하세요.");
+								return;
+							} else if (img == "" || img == null) {
+								alert("이미지를 넣어주세요.");
+								return;
+							} else if (price1 == "" || price1 == null
+									|| price2 == "" || price2 == null) {
+								alert("가격을 입력해주세요.");
+								return;
+							}
+
+							$("#frm").submit();
+
+						});
+			});
 </script>
 </head>
 <body>
@@ -370,7 +415,14 @@
 							<span>이미지</span>
 						</div>
 						<div class="menuText">
-							<input type="file" name="notice_file" id="notice_file"/>
+							<input type="text" id="upload_text" readonly="readonly">
+							<!--button-->
+							<div id="upload-btn_wrap">
+							  <button type="button" title="파일찾기">
+						   	  <span>파일찾기</span>  
+							  </button>
+							  <input type="file" id="notice_file" title="파일찾기" name="notice_file">
+							</div>
 						</div>
 					</div>
 					<div class="insertMenu">

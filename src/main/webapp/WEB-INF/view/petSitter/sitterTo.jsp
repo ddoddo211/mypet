@@ -67,6 +67,17 @@
    	border-radius: 15px;
    	cursor: pointer;
 }
+
+.addr{
+	border : 1px solid black;
+	width : 200px;
+	height : 30px;
+	z-index: 1;
+	background-color: #000;
+	opacity: 0.5;
+	color: #fff;
+	font-size : 22px;
+}
 </style>
 <script type="text/javascript">
 	$(document).ready(function(){
@@ -182,16 +193,19 @@
 			</div>
 			<div id="list">
 				<div class="notice">
-					<table id="noticeTable" cellspacing="0" cellpadding="0">
+					<table id="noticeTable">
 						<tbody id="noticeList">
 							<c:forEach items="${sitList }" var="list">
 								<tr class="noticeClick noticeTr">
 									<c:choose>
 										<c:when test="${list.pst_img == '' || list.pst_img == null}">
-											<td rowspan="3" class="noticeAttr"><img src="/img/petimg/noimg.jpg" style="width:370px; height:270px;" /></td>
+											<td rowspan="3" class="noticeAttr"><div style="width:370px; height:270px; background-image: url('/img/petimg/noimg.jpg');  background-size: cover;" ></div></td>
 										</c:when>
 										<c:otherwise>
-											<td rowspan="3" class="noticeAttr"><img src="${list.pst_img}" style="width:370px; height:270px;" /></td>
+											<td rowspan="3" class="noticeAttr">
+												<div style="width:370px; height:270px; background-image: url('${list.pst_img}'); background-repeat: no-repeat; background-size: cover;" >
+												<div class="addr">${list.mem_addr }</div>
+											</td>
 										</c:otherwise>
 									</c:choose>
 									<td id="hidden" rowspan="3">${list.pst_id }</td>
