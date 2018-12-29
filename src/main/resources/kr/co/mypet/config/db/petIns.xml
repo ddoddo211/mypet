@@ -246,7 +246,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<select id="underExamination" parameterType="String" resultType="accidentVo">
 			select * from accident
 			 where accd_mem = #{mem_id}
-			   and accd_stat = '심사중'
+			   and accd_stat = '반려'
 		</select>
 		
 		<!-- 나의 펫 보험 - 현재보험금 신청현황(완료) -->

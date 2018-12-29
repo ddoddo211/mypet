@@ -15,16 +15,15 @@ $(document).ready(function(){
 	// 나의 펫 보험을 시작을 했을때 펫 정보에는 무조건 실행되어야 하기때문에 설정 
 	getPetInfoFormHtml();
 	
-	
 	// 펫의 사진을 클릭하였을때 
 	$(".petImg").click(function(){
 		var petId = $(this).parents(".mypetPage2_3_1").children(".petId").val();
 		getPetInfoHtml(petId);
 	});
+	
 });
 
-
-// 페이지 리스트가 나오는 html
+// 처음에 나의 펫 보험 페이지가 실행되었을때 셋팅되는 부분
 function getPetInfoFormHtml() {
 	$.ajax({
 		url : "/isr/petInfoFormAjaxHtml",
@@ -47,9 +46,23 @@ function getPetInfoHtml(petId) {
 	});
 }
 
+// 펫 추가하는 화면으로 이동하기 
 function gopetInsert(){
 	location.href ='/isr/petInsert2';
 }
+
+// 펫 정보 수정하는 화면으로 이동하기
+function goMypetInfoUpdate(petId){
+	$.ajax({
+		url : "/isr/petInfoUpdateAjaxHtml",
+		type : "get",
+		data : "petId="+ petId ,
+		success : function(dt) {
+			$("#petInfo").html(dt);
+		}
+	});	
+}
+
 </script>
 
 <link rel="stylesheet" href="/css/petInsuranceMenu.css">
@@ -71,6 +84,10 @@ function gopetInsert(){
 
 </head>
 <body>
+
+
+<!-- 나의 펫을 클릭하였을때 아이디를 담아주는 input -->
+<input type="hidden" id="petIdInput" value="" >
 
 
 <!-- header 시작 -->
@@ -131,9 +148,19 @@ function gopetInsert(){
 								<img class="petImg" alt="이미지가 없습니다" src="${pet.myp_img}">
 								<input class="petId" type="hidden" value="${pet.myp_id}">
 							</div>
+							
+<!-- 가입가능한 나의 펫 부분에서 고양이 일때에는 입력되지 견종크기 나오지 않게 설정 -->
 							<div class="mypetPage2_3_2">
-								${pet.myp_name}
+								<c:choose>
+									<c:when test="${pet.petk_am == 1 }">				
+										${pet.petk_name}(${pet.petk_size})
+									</c:when>
+									<c:otherwise>
+										${pet.petk_name}(고양이)
+									</c:otherwise>
+								</c:choose>		
 							</div>
+							
 						</c:forEach>
 					</div>
 				</div>
@@ -186,7 +213,7 @@ function gopetInsert(){
 							<table id="currentStatus">
 								<tr>
 									<th class="currentStatus1">신청</th>
-									<th class="currentStatus1">심사중</th>
+									<th class="currentStatus1">반려</th>
 									<th class="currentStatus1">심사완료</th>
 								</tr>
 								<tr>

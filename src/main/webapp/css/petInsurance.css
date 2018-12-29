@@ -1982,7 +1982,7 @@ div#upload-btn_wrap {/*버튼테두리 감싼 div*/
 	padding-left:3px;
 }
 div#upload-btn_wrap button {/*버튼 div*/
-	width:80px;
+	width:75px;
 	height:30px;
 	font-weight:bold;
 	background:#333;
@@ -2026,6 +2026,36 @@ div#upload-btn_wrap2 button {/*버튼 div*/
 	border:1px solid #333;
 	color:#fff;
 	margin-left: 5px;
+}
+
+
+div#upload-btnPet_wrap input#input_filePet {/*파일찾기 폼 투명하게*/
+	position:absolute;
+	top:0;
+	right:0;
+	cursor:pointer;
+	opacity:0;
+	filter:alpha(opacity=0);
+	-ms-filter:"alpha(opacity=0)";
+	-moz-opacity:0;
+}
+div#upload-btnPet_wrap {/*버튼테두리 감싼 div*/
+	overflow:hidden;
+	position:relative;
+	float:left;
+	width:80px;/*width, height 값은 button(찾아보기)값과 같아야함 */
+	height:30px;
+	padding-left:3px;
+}
+div#upload-btnPet_wrap button {/*버튼 div*/
+	width:75px;
+	height:30px;
+	font-weight:bold;
+	background:#333;
+	border:1px solid #333;
+	color:#fff;
+	margin-left: 5px;
+	border-radius: 20px;
 }
 
 
@@ -2140,8 +2170,9 @@ div#upload-btn_wrap2 button {/*버튼 div*/
 
 .mypetPage2_3_2{
 	font-family: 'Jeju Gothic', sans-serif;
-    font-size: 18px;
+    font-size: 15px;
     text-align: center;
+    margin-bottom: 10px;
 }
 
 .mypetPage3_1{
@@ -2324,6 +2355,7 @@ div#upload-btn_wrap2 button {/*버튼 div*/
     font-family: 'Jeju Gothic', sans-serif;
     border-radius: 50px;
     border: 1px solid gray;
+    outline: none;
 }
 
 .mypetPageBtn1_1:hover{
@@ -2335,6 +2367,7 @@ div#upload-btn_wrap2 button {/*버튼 div*/
     font-family: 'Jeju Gothic', sans-serif;
     border-radius: 50px;
     border: 1px solid gray;
+    outline: none;
 }
 
 .mypetPage3_3{
@@ -2397,14 +2430,16 @@ div#upload-btn_wrap2 button {/*버튼 div*/
 }
 
 #mypetPage4_2_1{
-	width: 200px;
-	height: 30px;
-	font-size: 20px;
+	width: 90px;
+    height: 30px;
+    font-size: 20px;
     font-family: 'Jeju Gothic', sans-serif;
-	text-align: center;
-	padding-top: 5px;
-	background-color: #efefef;
+    text-align: center;
+    padding-top: 5px;
+    float: left;
+    margin-left: 55px;
 }
+
 
 .mypetPage4_3_1{
 	width: 650px;
@@ -2490,4 +2525,30 @@ div#upload-btn_wrap2 button {/*버튼 div*/
 	border: 3px dashed #ffcce7;
 }
 
+#manG2{
+	margin-left: 20px;
+}
+
+#petSickN2{
+	margin-left: 20px;
+}
+
+#neuYn{
+	font-size: 10px;
+    font-family: 'Jeju Gothic', sans-serif;
+}
+
+#petUpdateName{
+	width: 155px;
+	height: 30px;
+	outline: none;
+	border-radius: 10px;
+}
+
+#petBirthSelect{
+	width: 155px;
+	height: 30px;
+	outline: none;	
+	border-radius: 10px;
+}
 

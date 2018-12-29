@@ -1051,5 +1051,69 @@ public class InsuranceController {
 				
 			}		
 			
+			// 나의 펫 보험에서 - 펫 삭제버튼을 클릭하였을때 적용되는 부분 
+			@RequestMapping("/mypageMypetDel")
+			public String mypageMypetDel(HttpServletRequest request,HttpSession session,Model model) {
+				// 보험상품의 아이디를 매개변수로 담아준다
+				String petId = request.getParameter("mypetId");
+				
+				insuranceService.mypetDel(petId);
+				
+				// 회원 정보 받아오는 부분
+				MemberVo memVo = (MemberVo) session.getAttribute("memVo");
+				
+					//회원의 펫 가지고 오기
+					List<InsshoppingVo> mypetList = insuranceService.petList(memVo.getMem_id());
+					model.addAttribute("mypetList", mypetList);
+					
+					// 나의펫 보험 화면에서 현재까지 받은 보험금 현황 부분에 나와야 하는 부분
+					int isuranceStatus = insuranceService.isuranceStatus(memVo.getMem_id());
+					model.addAttribute("money",isuranceStatus );
+					
+					// 월 전체 보험료가 나오는 부분
+					int monthlyPremium = insuranceService.monthlyPremium(memVo.getMem_id());
+					model.addAttribute("money2",monthlyPremium);
+					
+					// 현재 보험금 신청현황(신청)- 신청 건수가 나와야 하기 때문에
+					List<AccidentVo> isrApply =  insuranceService.isrApply(memVo.getMem_id());
+					model.addAttribute("isrApplySize",isrApply.size());
+					
+					// 현재 보험금 신청현황(반려)- 반려 건수가 나와야 하기 때문에
+					List<AccidentVo> underExamination =  insuranceService.underExamination(memVo.getMem_id());
+					model.addAttribute("ueSize",underExamination.size());
+					
+					// 현재 보험금 신청현황(완료)- 완료 건수가 나와야 하기 때문에
+					List<AccidentVo> isrComplete =  insuranceService.isrComplete(memVo.getMem_id());
+					model.addAttribute("isrCompleteSize",isrComplete.size());
+					
+					return "petInsurance/myPetInsurance";		
+					
+			
+			}
+			
+			// 나의 펫 정보에서 선택한 펫의 정보 수정하는 화면으로 보내기 
+			@RequestMapping("/petInfoUpdateAjaxHtml")
+			public String petInfoUpdateAjaxHtml(HttpServletRequest request , Model model , @RequestParam("petId")String petId) {
+				
+				// 펫의 정보 가지고 오기 
+				MypetVo mypetInfo = insuranceService.mypetInfo(petId);
+				model.addAttribute("mypetInfo" , mypetInfo);
+				
+				// 생년월일 미리 표시하게 필요하기 때문에 설정
+				model.addAttribute("petBirth" , mypetInfo.getMyp_birth());
+				
+				// 성별 미리 표시하기 위해 필요 
+				model.addAttribute("petGender" , mypetInfo.getMyp_gender());
+				
+				// 질별여부 미리 표시하기 위해 필요 
+				model.addAttribute("petSick" , mypetInfo.getMyp_sick());
+				
+				// 중성화 여부 미리 표시하기 위해 필요 
+				model.addAttribute("petNeu" , mypetInfo.getMyp_neu());
+				
+				return "petInsurance/petInfoUpdateAjaxHtml";
+				
+			}	
+			
 
 }

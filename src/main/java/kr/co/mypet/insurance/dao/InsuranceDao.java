@@ -432,7 +432,7 @@ public class InsuranceDao implements InsuranceDaoInf {
 	* 변경이력 :
 	* @param memId
 	* @return
-	* Method 설명 : 나의 펫 보험 - 현재보험금현황(심사중)
+	* Method 설명 : 나의 펫 보험 - 현재보험금현황(반려)
 	*/
 	@Override
 	public List<AccidentVo> underExamination(String memId) {

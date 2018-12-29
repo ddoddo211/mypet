@@ -6,11 +6,16 @@
 
 						<div class="mypetPageBtn">
 							<div id="mypetPageBtn">
+							
+								<form action="/isr/mypageMypetDel" method="get">
+								<input type="hidden" value="${mypetInfo.myp_id}" name="mypetId">
 								<div id="mypetPageBtn1">
-									<input class="mypetPageBtn1_1" type="button" value="펫 삭제하기">
+									<input class="mypetPageBtn1_1" type="submit" value="펫 삭제하기">
 								</div>
+								</form>
+								
 								<div id="mypetPageBtn2">
-									<input class="mypetPageBtn1_1" type="button" value="펫 정보 수정하기">
+									<input class="mypetPageBtn1_1" id="petInfoUpdate" type="button" value="펫 정보 수정하기" onclick="goMypetInfoUpdate(${mypetInfo.myp_id})">
 								</div>
 							</div>
 						</div>
