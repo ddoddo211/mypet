@@ -187,4 +187,64 @@ public interface ShoppingDaoInf {
 	* Method 설명 : 상품옵션 등록
 	*/
 	public int prodoCre(ProdOptionVo prodoVo);
+	
+	/**
+	* Method : prodSearch
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param map
+	* @return
+	* Method 설명 : 해당 메뉴와 검색어를 받아 상품List 조회
+	*/
+	public List<ProdVo> prodSearch(Map<String,Object> map);
+	
+	/**
+	* Method : prodSearchChk
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param map
+	* @return
+	* Method 설명 : 상품 검색 후 체크 박스
+	*/
+	public List<ProdVo> prodSearchChk(Map<String,Object> map);
+	
+	/**
+	* Method : deleteProd
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param prod_id
+	* @return
+	* Method 설명 : 상품 삭제
+	*/
+	public int deleteProd(String prod_id);
+	
+	/**
+	* Method : deletePdd
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param prod_id
+	* @return
+	* Method 설명 :상품 삭제 시 상품의 옵션 등록 부분도 같이 삭제
+	*/
+	public int deletePdd(String prod_id);
+	
+	/**
+	* Method : prodUpdate
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param prodVo
+	* @return
+	* Method 설명 : 상품 수정
+	*/
+	public int prodUpdate(ProdVo prodVo);
+	
+	/**
+	* Method : deleteOption
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param prod_id
+	* @return
+	* Method 설명 : 상품 수정 할 시 기존 옵션을 삭제하고 다시 옵션을 받기 위해서 
+	*/
+	public int deleteOption(String prod_id);
 }

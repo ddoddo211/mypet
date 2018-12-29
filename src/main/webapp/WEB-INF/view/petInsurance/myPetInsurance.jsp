@@ -12,8 +12,40 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	
-
+	// 나의 펫 보험을 시작을 했을때 펫 정보에는 무조건 실행되어야 하기때문에 설정 
+	getPetInfoFormHtml();
+	
+	
+	// 펫의 사진을 클릭하였을때 
+	$(".petImg").click(function(){
+		var petId = $(this).parents(".mypetPage2_3_1").children(".petId").val();
+		getPetInfoHtml(petId);
+	});
 });
+
+
+// 페이지 리스트가 나오는 html
+function getPetInfoFormHtml() {
+	$.ajax({
+		url : "/isr/petInfoFormAjaxHtml",
+		type : "get",
+		success : function(dt) {
+			$("#petInfo").html(dt);
+		}
+	});
+}
+
+// 나의펫을 클릭할시 나의 펫 정보에 나와야 하기 때문에 
+function getPetInfoHtml(petId) {
+	$.ajax({
+		url : "/isr/petInfoAjaxHtml",
+		type : "get",
+		data : "petId="+ petId ,
+		success : function(dt) {
+			$("#petInfo").html(dt);
+		}
+	});
+}
 
 function gopetInsert(){
 	location.href ='/isr/petInsert2';
@@ -23,6 +55,19 @@ function gopetInsert(){
 <link rel="stylesheet" href="/css/petInsuranceMenu.css">
 <link href="/css/commonCss.css" rel="stylesheet">
 <link rel="stylesheet" href="/css/petInsurance.css">
+
+<style type="text/css">
+#main { display: table;}
+#mypetPage1 { height: auto !important; display: table;}
+#mypetPage {display: table;}
+#mypetPage3 {height: auto !important; display: inline-block; margin-left: 20px;}
+.mypetPage3_1 { height: auto !important; background: #fff; }
+.mypetPage3_1_1 { background: #ffefef; margin-left: 0; padding-left: 30px;}
+
+.mypetPage3_2 { box-sizing: border-box; border-left: none; border-right: none;}
+
+#mypetPage4 { height: auto !important; min-height: 200px;}
+</style>
 
 </head>
 <body>
@@ -81,8 +126,11 @@ function gopetInsert(){
 					</div>
 					
 					<div id="mypetPage2_3">
-						<c:forEach items="${mypetList}" var="pet">
-							<div class="mypetPage2_3_1"><img class="petImg" alt="이미지가 없습니다" src="${pet.myp_img}"></div>
+						<c:forEach items="${mypetList}" var="pet" varStatus="index">
+							<div class="mypetPage2_3_1">
+								<img class="petImg" alt="이미지가 없습니다" src="${pet.myp_img}">
+								<input class="petId" type="hidden" value="${pet.myp_id}">
+							</div>
 							<div class="mypetPage2_3_2">
 								${pet.myp_name}
 							</div>
@@ -90,8 +138,83 @@ function gopetInsert(){
 					</div>
 				</div>
 				<div id="mypetPage3">
-					<div id="mypetPage3_1">
-					
+					<div class="mypetPage3_1">
+						<div class="mypetPage3_1_1">
+							나의 보험금 / 보험료 현황
+						</div>
+						
+						<div id="mypetPage3_1_2">
+							<div id="mypetPage3_1_2_1">
+								<div id="mypetPage3_1_2_1_1">
+									<img id="mypetPage3_1_2_1_1Img" alt="이미지가 없습니다." src="/img/petInsurance/money2.jpg">
+								</div>
+								<div id="mypetPage3_1_2_1_2">
+									<div id="mypetPage3_1_2_1_2_1">
+										<label id="mypetPage3_1_2_1_2_2">현재 까지 받은 보험금 현황</label>
+										<div class="isrMoney">
+										<label id="mypetPage3_1_2_1_2_3">${money}원</label>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div id="mypetPage3_1_2_2">
+								<div id="mypetPage3_1_2_2_1">
+									<div id="mypetPage3_1_2_2_2">
+										전체 월 보험료 
+									</div>
+								</div>
+								<div id="mypetPage3_1_2_3">
+									<div class="isrMoney">
+									<label id="mypetPage3_1_2_3_1">${money2}원</label>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<div class="mypetPage3_2">
+							<div class="mypetPage3_2_1">
+								현재 보험금 신청 현황
+							</div>
+						</div>
+						<div class="mypetPage3_3">
+							<div class="mypetPage3_2_2">
+								건수를 클릭하면 상세 내용을 확인 하실 수 있습니다.
+							</div>
+						</div>
+						
+						<div id="mypetPage3_2_3">
+							<table id="currentStatus">
+								<tr>
+									<th class="currentStatus1">신청</th>
+									<th class="currentStatus1">심사중</th>
+									<th class="currentStatus1">심사완료</th>
+								</tr>
+								<tr>
+									<td><a class="isrApplySize">${isrApplySize}건</a></td>
+									<td><a class="isrApplySize">${ueSize}건</a></td>
+									<td><a class="isrApplySize">${isrCompleteSize}건</a></td>
+								</tr>
+							</table>
+						</div>
+						
+						<div class="mypetPage3_2">
+							<div class="mypetPage3_2_1">
+								나의 펫 정보
+							</div>
+						</div>
+						
+						<div class="mypetPage3_3">
+							<div class="mypetPage3_2_2">
+								등록되어 있는 나의 펫을 선택하시면 나의 펫 정보에서 펫의 정보를 확인하실 수 있습니다.
+							</div>
+						</div>
+						
+<!-- ajax 처리해야 하는곳(시작) -->	
+				<div id="petInfo">
+					<!-- 보험상품 리스트 아작스 처리한곳 -->
+				</div>	
+<!-- ajax 처리해야 하는곳(끝) -->
+						
 					</div>
 				</div>
 			</div>

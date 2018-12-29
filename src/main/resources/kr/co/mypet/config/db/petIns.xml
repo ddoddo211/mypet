@@ -215,8 +215,46 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<!-- 보험청구 신청하는 부분 -->
 		<insert id="accidentInsert" parameterType="insShVo">
 			insert into accident
-			values(accident_num.nextval ,#{accd_date},#{accd_addr},#{accd_text},#{accd_img},#{accd_recp},'신청','','',#{accd_mem},#{accd_myp},#{accd_ins},#{accd_act})
+			values(accident_num.nextval ,#{accd_date},#{accd_addr},#{accd_text},#{accd_img},#{accd_recp},'신청','','0',#{accd_mem},#{accd_myp},#{accd_ins},#{accd_act})
 		</insert>
+		
+		
+		<!-- 나의 펫 보험 - 회원이 현재까지 받은 보험금 현황 -->
+		<select id="isuranceStatus" parameterType="String" resultType="int">
+			select nvl(sum(accd_insp),0) as inspNum
+			  from accident
+			 where ACCD_MEM = #{mem_id}
+			   and ACCD_STAT = '완료'
+		</select>
+		
+		<!--나의펫 보험 - 월 전체 보험료 나오는 부분-->
+		<select id="monthlyPremium" parameterType="String" resultType="int">
+			select sum(insp_fees) from insurance , insprod
+		     where inssp_id = insp_id
+			   and mem_id =  #{mem_id}
+			   and INS_STAT = '완료'
+		</select>
+		
+		<!-- 나의 펫 보험 - 현재보험금 신청현황(신청) -->
+		<select id="isrApply" parameterType="String" resultType="accidentVo">
+			select * from accident
+		  	 where accd_mem = #{mem_id}
+			   and accd_stat = '신청'
+		</select>
+		
+		<!-- 나의 펫 보험 - 현재보험금 신청현황(심사중) -->
+		<select id="underExamination" parameterType="String" resultType="accidentVo">
+			select * from accident
+			 where accd_mem = #{mem_id}
+			   and accd_stat = '심사중'
+		</select>
+		
+		<!-- 나의 펫 보험 - 현재보험금 신청현황(완료) -->
+		<select id="isrComplete" parameterType="String" resultType="accidentVo">
+			select * from accident
+			 where accd_mem = #{mem_id}
+			   and accd_stat = '완료'
+		</select>
 		
 		
 

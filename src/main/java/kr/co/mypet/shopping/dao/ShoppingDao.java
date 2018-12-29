@@ -270,4 +270,88 @@ public class ShoppingDao implements ShoppingDaoInf {
 		return result;
 	}
 	
+	/**
+	* Method : prodSearch
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param map
+	* @return
+	* Method 설명 : 해당 메뉴와 검색어를 받아 상품List 조회
+	*/
+	@Override
+	public List<ProdVo> prodSearch(Map<String, Object> map) {
+		List<ProdVo> prodList = template.selectList("shop.prodSearch",map);
+		return prodList;
+	}
+	
+	/**
+	* Method : prodSearchChk
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param map
+	* @return
+	* Method 설명 : 상품 검색 후 체크 박스
+	*/
+	@Override
+	public List<ProdVo> prodSearchChk(Map<String, Object> map) {
+		List<ProdVo> prodList= template.selectList("shop.prodSearchChk",map);
+		return prodList;
+	}
+	
+	/**
+	* Method : deleteProd
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param prod_id
+	* @return
+	* Method 설명 : 상품 삭제
+	*/
+	@Override
+	public int deleteProd(String prod_id) {
+		int result = template.delete("shop.deleteProd",prod_id);
+		return result;
+	}
+	
+	/**
+	* Method : deletePdd
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param prod_id
+	* @return
+	* Method 설명 :상품 삭제 시 상품의 옵션 등록 부분도 같이 삭제
+	*/
+	@Override
+	public int deletePdd(String prod_id) {
+		int result = template.delete("shop.deletePdd",prod_id);
+		return result;
+	}
+	
+	/**
+	* Method : prodUpdate
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param prodVo
+	* @return
+	* Method 설명 : 상품 수정
+	*/
+	@Override
+	public int prodUpdate(ProdVo prodVo) {
+		int result = template.update("shop.prodUpdate",prodVo);
+		return result;
+	}
+	
+	/**
+	* Method : deleteOption
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param prod_id
+	* @return
+	* Method 설명 : 상품 수정 할 시 기존 옵션을 삭제하고 다시 옵션을 받기 위해서 
+	*/
+	@Override
+	public int deleteOption(String prod_id) {
+		int result = template.delete("shop.deleteOption",prod_id);
+		return result;
+	}
+	
 }

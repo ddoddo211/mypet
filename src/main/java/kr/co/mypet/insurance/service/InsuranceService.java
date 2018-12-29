@@ -386,5 +386,76 @@ public class InsuranceService implements InsuranceServiceInf {
 	}
 
 	
+	/**
+	* Method : isuranceStatus
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param memId
+	* @return
+	* Method 설명 : 나의 펫 보험 - 회원이 현재까지 받은 보험금 현황
+	*/	
+	@Override
+	public int isuranceStatus(String memId) {
+		return insuranceDao.isuranceStatus(memId);
+	}
+
+	
+	/**
+	* Method : monthlyPremium
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param memId
+	* @return
+	* Method 설명 :나의펫 보험 - 월 전체 보험료 나오는 부분
+	*/
+	@Override
+	public int monthlyPremium(String memId) {
+		return insuranceDao.monthlyPremium(memId);
+	}
+
+	/**
+	* Method : isrApply
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param memId
+	* @return
+	* Method 설명 : 나의 펫 보험 - 현재보험금 신청현황(신청)
+	*/
+	@Override
+	public List<AccidentVo> isrApply(String memId) {
+		return insuranceDao.isrApply(memId);
+	}
+
+	
+	/**
+	* Method : underExamination
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param memId
+	* @return
+	* Method 설명 : 나의 펫 보험 - 현재보험금현황(심사중)
+	*/
+	@Override
+	public List<AccidentVo> underExamination(String memId) {
+		return insuranceDao.underExamination(memId);
+	}
+
+	
+	/**
+	* Method : isrComplete
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param memId
+	* @return
+	* Method 설명 : 나의 펫 보험 - 현재보험금현황(완료)
+	*/
+	@Override
+	public List<AccidentVo> isrComplete(String memId) {
+		return insuranceDao.isrComplete(memId);
+	}
+	
+
+
+	
 	
 }
