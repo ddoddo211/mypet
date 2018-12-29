@@ -176,6 +176,7 @@
 	}
 	
 	.explain{
+		margin-left: 5px;
 		color: #ca1f66;
 	}
 	
@@ -205,14 +206,63 @@
 		align-items: center;
 	}
 	
+	input.upload_text {/*읽기전용 인풋텍스트*/
+		float:left;
+		width:200px;/* 버튼 포함 전체 가로 길이*/
+		height:24px;
+		line-height:19px;
+		border:1px solid #bbb;
+	}
+
+	div#upload-btn_wrap input.imgBtn {/*파일찾기 폼 투명하게*/
+		position:absolute;
+		top:1px;
+		right:0;
+		cursor:pointer;
+		opacity:0;
+	}
+	div#upload-btn_wrap {/*버튼테두리 감싼 div*/
+		position:relative;
+		float:left;
+		width:80px;/*width, height 값은 button(찾아보기)값과 같아야함 */
+		height:30px;
+		padding-left:3px;
+	}
+	div#upload-btn_wrap button {/*버튼 div*/
+		width:80px;
+		height:24px;
+		font-weight:bold;
+		background:#333;
+		border:1px solid #333;
+		color:#fff;
+		margin-top: 1px;
+	}
+	
 </style>
 <script type="text/javascript">
 	$(document).ready(function() {
+		
+		$('#upload_text').val('');
+
+		$('#prod_pimg').change(function() {
+			var i = $(this).val();
+			$('#upload_text').val(i);
+		});
+		
+		$('#prod_img').change(function() {
+			var i = $(this).val();
+			$('#upload_text2').val(i);
+		});
+		
 		if($("#menuSelect").val() == 'menu'){
 			$(".pOne").hide();
 		}else{
 			$(".pOne").show();
 		}
+		
+		$("#prodCancel").click(function() {
+			location.href = "/shop/petShopList?page=1&pagesize=12&dvs_id=${dvs_id}&dvs_parent=${dvs_parent}";
+		})
 		
 		var values = [];
 		$("#prodSubmit").click(function(event) {
@@ -277,14 +327,14 @@
 		$("#plus").click(function() {
 			$(".radioChK").append(
 					"<div class=\"proda\"> <div class=\"opDvs1\"><div class=\"prodName\"><label>옵션명</label></div>"
-					+"<div class=\"prodText\"><input type=\"text\" id=\"opName"+chk+"\"><span class=\"explain\"></span></div></div>"
+					+"<div class=\"prodText\"><input type=\"text\" name=\"opName"+chk+"\"></div></div>"
 					+"<div class=\"opDvs2\"><div class=\"prodName\"><label>옵션수량</label></div>"
 					+"<div class=\"prodText\"><input type=\"text\" class=\"qtyText\" name=\"opQty"+chk+"\"><span class=\"prodSpan\">개</span></div></div>"
 					+"<div class=\"opDvs3\"><div class=\"prodName\"><label>추가금액</label></div><div class=\"prodText\">"
 					+"<input type=\"text\" class=\"priceText\" name=\"opPrice"+chk+"\">"
 					+"<span class=\"prodSpan\">원</span>	</div></div></div>"
 				);
-			++chk;
+			chk++;
 			$("#chkNum").val(chk);
 		})
 	})
@@ -412,7 +462,14 @@
 								<label>상품이미지</label>
 							</div>
 							<div class="prodText">
-								<input type="file" id="prod_pimg" name="pimg">
+								<input type="text" id="upload_text" class="upload_text" readonly="readonly">
+								<!--button-->
+								<div id="upload-btn_wrap">
+								  <button type="button" title="파일찾기">
+							   	  <span>파일찾기</span>  
+								  </button>
+								  <input type="file" id="prod_pimg" class="imgBtn" title="파일찾기" name="pimg">
+								</div>
 								<span class="explain">(상품리스트에 나타나는 상품이미지 입니다.)</span>
 							</div>
 						</div>
@@ -422,7 +479,14 @@
 								<label>상품정보 이미지</label>
 							</div>
 							<div class="prodText">
-								<input type="file" id="prod_img" name="img">
+								<input type="text" id="upload_text2" class="upload_text" readonly="readonly">
+								<!--button-->
+								<div id="upload-btn_wrap">
+								  <button type="button" title="파일찾기">
+							   	  <span>파일찾기</span>  
+								  </button>
+								  <input type="file" id="prod_img" class="imgBtn" title="파일찾기" name="img">
+								</div>
 								<span class="explain">(상품상세화면에 상품정보이미지 입니다.)</span>
 							</div>
 						</div>

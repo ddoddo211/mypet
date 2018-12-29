@@ -5,7 +5,7 @@
     
 <c:forEach items="${prodList }" var = "list">
 	<li>
-		<a href="/shop/prodDetail?prod_id=${list.prod_id }">
+		<a href="/shop/prodDetail?dvs_id=${dvsVo.dvs_id }&dvs_parent=${dvsVo.dvs_parent }&prod_id=${list.prod_id }">
 			<img src="${list.prod_pimg }" width="250" height="250">
 		<br>
 		<span class="prodName">${list.prod_name }</span>

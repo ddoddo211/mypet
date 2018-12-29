@@ -545,7 +545,7 @@ td {
 	background-image: url("/img/petSitterImg/faqImage.png");
 	background-position: center;
     background-size: cover;
-    height: 400px;
+    height: 500px;
     text-align: center;
     width: 100%;
 }
@@ -573,20 +573,24 @@ td {
 	margin : 0 auto;
 	font-family : 'Nanum Brush Script', cursive;
 	margin-top : 20px;
+	padding-top: 20px;
 	text-align: left;
+	min-height: 350px;
 }
 
 #faqTable > span {
-	font-size : 32px;
+	font-size : 40px;
 	font-weight: bold;
 }
 
 #faq{
-	width : 900px;
-	border-collapse: collapse;
-	border-spacing: 0px;
-	font-size : 30px;
-	margin-top : 20px;
+	width: 900px;
+    border-collapse: collapse;
+    border-spacing: 0px;
+    font-size: 30px;
+    margin-top: 20px;
+    color: #fff;
+    min-height : 200px;
 }
 
 #topMove{

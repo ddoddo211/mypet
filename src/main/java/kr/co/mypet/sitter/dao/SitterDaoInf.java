@@ -49,4 +49,16 @@ public interface SitterDaoInf {
 	int deleteReview(String stv_id);
 
 	int insertSitterTo(PetSitterVo pstVo);
+
+	int updateFaq(Map<String, Object> param);
+
+	int deleteFaq(String psf_id);
+
+	int insertFaq(Map<String, Object> param);
+
+	List<PetSitterVo> petNoticeListDate();
+
+	List<PetSitterVo> petNoticeListCount();
+
+	int petNoticeCountUpdate(Map<String, Object> param);
 }

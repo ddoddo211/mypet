@@ -114,4 +114,40 @@
 		insert into petsitter
 		values('PST' || lpad(pst_no.nextVal, 3, '0'), #{pst_mem}, #{pst_img}, #{pst_text}, sysdate, 0, 0, #{pst_title}, #{pst_price1}, #{pst_price2}, #{pst_cidate}, #{pst_codate})
 	</insert>
+	
+	<update id="updateFaq" parameterType="map">
+		update petsitfaq set
+		psf_text = #{psf_text}, psf_name = #{psf_name}, psf_date = sysdate, psf_mem = 'admin'
+		where psf_id = #{psf_id}
+	</update>
+	
+	<delete id="deleteFaq" parameterType="String">
+		delete from petsitfaq
+		where psf_id = #{psf_id}
+	</delete>
+	
+	<insert id="insertFaq" parameterType="map">
+		insert into petsitfaq
+		values('F' || lpad(faq_no.nextval,3,'0'), #{psf_text}, #{psf_name}, sysdate, 'admin')
+	</insert>
+	
+	<select id="petNoticeListDate" resultType="pstVo">
+		select m.mem_addr, p.* 
+		from petsitter p, member m
+		where p.pst_mem = m.mem_id	
+		order by p.pst_date desc
+	</select>
+	
+	<select id="petNoticeListCount" resultType="pstVo">
+		select m.mem_addr, p.* 
+		from petsitter p, member m
+		where p.pst_mem = m.mem_id	
+		order by p.pst_view desc
+	</select>
+	
+	<update id="petNoticeCountUpdate" parameterType="map">
+		update petsitter set
+		pst_view = ${pst_view}
+		where pst_id = #{pst_id}
+	</update>
 </mapper>

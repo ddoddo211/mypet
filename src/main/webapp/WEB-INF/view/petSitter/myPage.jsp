@@ -17,7 +17,13 @@
 			alert("로그인이 되어있지 않습니다.");
 			history.back();
 		}
+		
+		$("#faq_insert").click(function(){
+			
+		});
 	});
+	
+	
 	
 </script>
 <style type="text/css">
@@ -149,6 +155,12 @@
 					<div class="menu">
 						<span>게시글 관리</span>
 					</div>
+					<c:if test="${memVo.mem_id == 'admin' }">
+						<div class="menu"> 
+							<span>FAQ 관리</span>
+							<input type="button" id="faq_insert" value="FAQ등록"/>
+						</div>
+					</c:if>
 				</div>
 			</div>
 			<div id="mypageRight">

@@ -247,22 +247,44 @@ public class SitterController {
 	// 펫시터 집에 맡기기 화면
 	@RequestMapping("/sitterTo")
 	public String sitterTo(Model model, HttpServletRequest request) {
-		List<PetSitterVo> sitList = sitterService.petNoticeList();
-		
+		List<PetSitterVo> sitList = new ArrayList<>();
+		System.out.println("sitterTo : "+request.getParameter("sort"));
+		if(request.getParameter("sort") != null) {
+			int sortCnt = Integer.parseInt(request.getParameter("sort"));
+			
+			if(sortCnt == 1) {
+				sitList = sitterService.petNoticeListDate();
+				
+				model.addAttribute("sitList", sitList);
+			} else if(sortCnt == 2) {
+				sitList = sitterService.petNoticeListCount();
+				
+				model.addAttribute("sitList", sitList);
+			} 
+		} else {
+			sitList = sitterService.petNoticeList();
+			
+			model.addAttribute("sitList", sitList);
+		}
+				
 		List<ZipVo> zipList = sitterService.zipList();
 		
 		request.getServletContext().setAttribute("zipList", zipList);
-		
-		model.addAttribute("sitList", sitList);
 		
 		return "petSitter/sitterTo";
 	}
 	
 	// 펫시터 집에 맡기기 상세화면
 	@RequestMapping("/sitDetail")
-	public String sitterDetail(Model model, @RequestParam("pst_id")String pst_id) {
+	public String sitterDetail(Model model, @RequestParam("pst_id")String pst_id, @RequestParam("count")int count) {
 		
 		PetSitterVo pstVo = sitterService.petToHomeDetail(pst_id);
+		
+		Map<String, Object> param = new HashMap<>();
+		param.put("pst_id", pst_id);
+		param.put("pst_view", count);
+		
+		int updateCnt = sitterService.petNoticeCountUpdate(param);
 		
 		model.addAttribute("pstVo", pstVo);
 		
@@ -444,6 +466,45 @@ public class SitterController {
 		FaqVo faqVo =  sitterService.getFaqOne(psf_id);
 		model.addAttribute("faqVo", faqVo);
 		return "petSitter/faqUpdate";
+	}
+	
+	// faq 수정처리
+	@RequestMapping("/faqUpdate")
+	public String faqUpdate(@RequestParam("psf_id")String psf_id, @RequestParam("faq_name")String psf_name, @RequestParam("smarteditor")String psf_text) {
+		Map<String, Object> param = new HashMap<>();
+		param.put("psf_id", psf_id);
+		param.put("psf_name", psf_name);
+		param.put("psf_text", psf_text);
+		
+		int updateCnt = sitterService.updateFaq(param);
+		
+		return "redirect:/sit/faq";
+	}
+	
+	// faq 삭제 처리
+	@RequestMapping("/faqDelete")
+	public String faqDelete(@RequestParam("faq_id")String psf_id) {
+		
+		int deleteCnt = sitterService.deleteFaq(psf_id);
+		
+		return "redirect:/sit/faq";
+	}
+	
+	// faq 등록화면 이동
+	@RequestMapping("/faqInsertView")
+	public String faqInsertView() {
+		return "petSitter/faqInsert";
+	}
+	
+	// faq 등록 처리
+	@RequestMapping("/faqInsert")
+	public String faqInsert(@RequestParam("faq_name")String psf_name, @RequestParam("smarteditor")String psf_text) {
+		Map<String, Object> param = new HashMap<>();
+		param.put("psf_name", psf_name);
+		param.put("psf_text", psf_text);
+		
+		int insertCnt = sitterService.insertFaq(param); 
+		return "redirect:/sit/faq";
 	}
 	
 	// 펫시터 지원하기 화면

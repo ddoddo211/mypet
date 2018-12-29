@@ -33,7 +33,7 @@
 	
 	.mainleft {
 		width: 21%;
-		min-height: 1550px;
+		min-height: 1658px;
 		float: left;
 		background-color: #f1f1f1;
 	}
@@ -169,9 +169,11 @@
 	}
 	
 	.prodMenu ul li {
-		padding-left: 11px;
 		float: left;
-		margin-bottom: 10px;
+	    margin-bottom: 10px;
+	    max-width: 266px;
+	    min-width: 266px;
+	    min-height: 320px;
 	}
 	
 	.page{
@@ -202,12 +204,15 @@
 	}
 	
 </style>
+
 <script type="text/javascript">
 	$(document).ready(function() {
-		prodListHtml(1,'${dvs_id}','${dvs_parent}');
+		var prod_name = '${prod_name}';
+		
+		prodListHtml(1,'${dvs_id}','${dvs_parent}',prod_name);
 		
 		$(".chkbox").click(function() {
-			prodListHtml(1,'${dvs_id}','${dvs_parent}');
+			prodListHtml(1,'${dvs_id}','${dvs_parent}',prod_name);
 		}); 
 		
 		
@@ -230,9 +235,13 @@
 			}
 		})
 		
+		$("#prodSearch").click(function() {
+			$("#prod_name").val($("#shopSearch").val());
+			$("#fm").submit();
+		});
 	})
 	
-	function prodListHtml(page,dvs_id,dvs_parent) {
+	function prodListHtml(page,dvs_id,dvs_parent,prod_name) {
 		var pageSize = 12;
 		var values = [];
 		var opValues = [];
@@ -243,21 +252,19 @@
 			opValues.push($(this).val());
 		});
 		
-		//상품명 검색
-		var search = $("#shopSearch").val();
-		console.log(search + "서치")
 		$.ajax({
 			url : "/shop/prodListHtml",
 			type : "get",
-			data : "page=" + page + "&pageSize=" + pageSize + "&dvs_id="+dvs_id+"&dvs_parent="+dvs_parent+"&values="+values+"&opValues="+opValues,
+			data : "page=" + page + "&pageSize=" + pageSize + "&dvs_id="+dvs_id+"&dvs_parent="+dvs_parent+"&values="+values+"&opValues="+opValues+"&prod_name="
+			+prod_name,
 			success : function(dt) {
 				$("#prodList").html(dt);
-				prodPageHtml(page,dvs_id,dvs_parent);
+				prodPageHtml(page,dvs_id,dvs_parent,prod_name);
 			}
 		});
 	}
 	
-	function prodPageHtml(page,dvs_id,dvs_parent) {
+	function prodPageHtml(page,dvs_id,dvs_parent,prod_name) {
 		var pageSize = 12;
 		var values = [];
 		var opValues = [];
@@ -270,7 +277,8 @@
 		$.ajax({
 			url : "/shop/prodPageHtml",
 			type : "get",
-			data : "page=" + page + "&pageSize=" + pageSize + "&dvs_id="+dvs_id+"&dvs_parent="+dvs_parent+"&values="+values+"&opValues="+opValues,
+			data : "page=" + page + "&pageSize=" + pageSize + "&dvs_id="+dvs_id+"&dvs_parent="+dvs_parent+"&values="+values+"&opValues="+opValues+"&prod_name="
+			+prod_name,
 			success : function(dt) {
 				$(".pagination").html(dt);
 				scrollgo();
@@ -288,9 +296,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form>
-	<input type="hidden" name="dvs_id">
-	<input type="hidden" name="dvs_parent">
+<form id ="fm" action="/shop/petShopList" method="post">
+	<input type="hidden" name="dvs_id" value="${dvs_id }">
+	<input type="hidden" name="dvs_parent" value="${dvs_parent }">
+	<input type="hidden" name="prod_name" id="prod_name">
 </form>
 	<%@include file="/WEB-INF/view/petshop/petShopH.jsp"%>
 	<div id="maintop">
@@ -300,8 +309,8 @@
 	<div id="mainmid">
 		<div class ="mainleft">
 			<div class="listSearch">
-				<input type="text" id="shopSearch" name = "prod_name" placeholder="메뉴 내 상품명 검색" onfocus="this.value=''" style="color:#c1c1c1" />
-				<a></a>
+				<input type="text" id="shopSearch" name ="shopSearch" placeholder="메뉴 내 상품명 검색" onfocus="this.value=''" style="color:#c1c1c1" />
+				<a id="prodSearch"></a>
 			</div>
 			<div class="listMenu">
 				<p>Menu</p>
@@ -313,6 +322,7 @@
 			</div>
 			<div class="creProd">
 				<form method="get" action="/shop/prodCre">
+					<input type="hidden" value=${dvs_parent } name="dvs_parent">
 					<input type="hidden" value="${dvs_id }" name="dvs_id">
 					<input type="submit" value = "상품등록" id ="submit">
 				</form>
