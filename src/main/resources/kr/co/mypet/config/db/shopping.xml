@@ -89,6 +89,7 @@
 	<select id="prodOpList" parameterType="String" resultType="prodoVo">
 		select * from prodoption
 		where prodo_prod = #{prod_id}
+		order by substr(prodo_id,7)
 	</select>
 	
 	<select resultType="String" id="opChk" parameterType="Map">
@@ -145,8 +146,66 @@
 	
 	<!-- 상품 옵션 등록 -->
 	<insert id="prodoCre" parameterType="prodoVo">
+		<selectKey resultType="string" keyProperty="prodo_prod" order="BEFORE">
+			select max(substr(prod_id,5,4)) from prod
+		</selectKey>
 		insert into prodoption
-		values ('OPTION'||PRODOP_ID.NEXTVAL,#{prodo_name},#{prodo_price},#{prodo_qty},#{prodo_prod})
+		values ('OPTION'||PRODOP_ID.NEXTVAL,#{prodo_name},#{prodo_price},#{prodo_qty},'PROD'||#{prodo_prod})
 	</insert>
+	
+ 	<!-- 상품검색 후 상품List --> 
+	<select id="prodSearch" resultType="prodVo" parameterType="Map">
+		select * from (
+			select rownum as rnum,a.* from
+			(select * from prod
+			where prod_id in (select pdd_prod from proddv where pdd_dvs = #{dvsVo.dvs_parent})
+			and prod_name like '%'||#{prod_name}||'%'
+			order by prod_date desc)a
+		)
+		where rnum between #{pageVo.page} *#{pageVo.pageSize}-(#{pageVo.pageSize}-1) and #{pageVo.page}*#{pageVo.pageSize}
+	</select>
+	
+	<!-- 상품검색 후 체크박스 조건 있는 상품List -->
+	<select id="prodSearchChk" resultType="prodVo" parameterType="Map">
+		select * from (
+		    select rownum as rnum,a.* from prod a
+		    where prod_id in (select pdd_prod from proddv where pdd_dvs= #{dvsVo.dvs_parent})
+		    and prod_name like '%'||#{prod_name}||'%'
+		    <foreach collection="opChkList" item="item" index="index">
+		    	and prod_id in (select pdd_prod from proddv where pdd_dvs in (${item}))
+		    </foreach>
+		    )
+		where rnum between ${pageVo.page} *${pageVo.pageSize}-(${pageVo.pageSize}-1) and ${pageVo.page}*${pageVo.pageSize}
+	</select>
+	
+	<!-- 상품 삭제  -->
+	<delete id="deleteProd" parameterType="String">
+		delete from prod
+		where prod_id = #{prod_id}
+	</delete>
+	
+	<!-- 상품 삭제할 때 fk로 등록된 상품도 삭제  -->
+	<delete id="deletePdd" parameterType="String">
+		delete from proddv
+		where pdd_prod = #{prod_id}
+	</delete>
+	
+	<!-- 상품 수정 -->
+	<update id="prodUpdate" parameterType="prodVo">
+		update prod
+		set prod_name = #{prod_name},
+		   	prod_price  = #{prod_price},
+		    prod_sprice = #{prod_sprice},
+		    prod_qty = #{prod_qty},
+		    prod_pimg = #{prod_pimg},
+		    prod_img = #{prod_img},
+		    prod_date= #{prod_date}
+		where prod_id = #{prod_id}
+	</update>
+	
+	<delete id="deleteOption" parameterType="String">
+		delete from prodoption
+		where prodo_prod = #{prod_id}
+	</delete>
 </mapper>
  
