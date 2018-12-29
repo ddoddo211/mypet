@@ -14,14 +14,14 @@
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <style type="text/css">
   	#faqDetail{
-	    border: 3px dotted #f99;
-    	border-radius: 30px;
     	width : 1000px;
     	margin : 0 auto;
+    	margin-top : 30px;
+    	overflow: hidden;
   	}
   </style>
 </head>
-<body>
+<body>+
 <%@include file="/WEB-INF/view/common/header.jsp"%>
 
 <!-- 각자 화면 -->

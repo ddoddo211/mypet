@@ -132,4 +132,34 @@ public class SitterService implements SitterServiceInf {
 	public int insertSitterTo(PetSitterVo pstVo) {
 		return sitterDao.insertSitterTo(pstVo);
 	}
+
+	@Override
+	public int updateFaq(Map<String, Object> param) {
+		return sitterDao.updateFaq(param);
+	}
+
+	@Override
+	public int deleteFaq(String psf_id) {
+		return sitterDao.deleteFaq(psf_id);
+	}
+
+	@Override
+	public int insertFaq(Map<String, Object> param) {
+		return sitterDao.insertFaq(param);
+	}
+
+	@Override
+	public List<PetSitterVo> petNoticeListDate() {
+		return sitterDao.petNoticeListDate();
+	}
+
+	@Override
+	public List<PetSitterVo> petNoticeListCount() {
+		return sitterDao.petNoticeListCount();
+	}
+
+	@Override
+	public int petNoticeCountUpdate(Map<String, Object> param) {
+		return sitterDao.petNoticeCountUpdate(param);
+	}
 }

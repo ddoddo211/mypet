@@ -20,6 +20,10 @@
 			alert(faqId);
 			$("#faqFrm").submit();
 		});
+		
+		$("#faq_insert_btn").click(function(){
+			location.href="/sit/faqInsertView";
+		});
 	});
 </script>
 <style type="text/css">
@@ -38,8 +42,26 @@
 	}
 	
 	.click {
-		cursor: pointer;
-		border-bottom : 1px solid black;
+	    cursor: pointer;
+    	border-bottom: 1px solid #5f5f5f;
+    	margin-bottom: 10px;
+	}
+	
+	.click > td {
+		padding : 15px;
+	}
+	
+	#faq_insert{
+		float:right;
+		margin-top : 6px;
+	}
+	
+	#faq_insert_btn{
+		padding : 10px 30px 10px 30px;
+		border : 1px dashed #c14e4e;
+		color : #fff;
+		background-color: #ec8e8e;
+		border-radius: 10px;
 	}
 </style>
 </head>
@@ -47,6 +69,7 @@
 <form action="/sit/faqDetail" method="post" id="faqFrm">
 	<input type="hidden" id="faq_id" name="faqId" />
 </form>
+
 <%@include file="/WEB-INF/view/common/header.jsp"%>
 
 <!-- 각자 화면 -->
@@ -89,14 +112,21 @@
 							<tr class="click">
 								<td id="hidden">${faqlist.psf_id }</td>
 								<td>${faqlist.psf_name }</td>
-								<td style="text-align: right;"><fmt:formatDate value="${faqlist.psf_date }" pattern ="yyyy-MM-dd"/></td>
 							</tr>
 						</c:forEach>
 					</tbody>
 				</table>
+				<div id="faq_insert_main">
+					<c:if test="${memVo.mem_id == 'admin' }">
+						<div id="faq_insert">
+							<input type="button" id="faq_insert_btn" value="FAQ등록" />
+						</div>
+					</c:if>
+				</div>
 			</div>
 		</div>
 	</div>
+	<div style="min-height : 140px;"></div>
 	<%@ include file="/WEB-INF/view/common/footer.jsp" %>
 </body>
 </html>

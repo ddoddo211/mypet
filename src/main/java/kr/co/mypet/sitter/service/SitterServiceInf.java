@@ -189,6 +189,64 @@ public interface SitterServiceInf {
 	* Method 설명 : 펫시터 집에 맡기기 게시글 등록 
 	*/
 	int insertSitterTo(PetSitterVo pstVo);
+
+	/**
+	* Method : updateFaq
+	* 작성자 : pc24
+	* 변경이력 :
+	* @param param
+	* @return
+	* Method 설명 : faq 게시글 수정 처리 
+	*/
+	int updateFaq(Map<String, Object> param);
+
+	/**
+	* Method : deleteFaq
+	* 작성자 : pc24
+	* 변경이력 :
+	* @param psf_id
+	* @return
+	* Method 설명 : faq 게시글 삭제 처리 
+	*/
+	int deleteFaq(String psf_id);
+
+	/**
+	* Method : insertFaq
+	* 작성자 : pc24
+	* 변경이력 :
+	* @param param
+	* @return
+	* Method 설명 : faq 게시글 등록 처리 
+	*/
+	int insertFaq(Map<String, Object> param);
+
+	/**
+	* Method : petNoticeListDate
+	* 작성자 : pc24
+	* 변경이력 :
+	* @return
+	* Method 설명 : 펫시터 집에 맡기기 최신순 정렬 리스트
+	*/
+	List<PetSitterVo> petNoticeListDate();
+
+	/**
+	* Method : petNoticeListCount
+	* 작성자 : pc24
+	* 변경이력 :
+	* @return
+	* Method 설명 : 펫시터 집에 맡기기 조회순 정렬 리스트
+	*/
+	List<PetSitterVo> petNoticeListCount();
+
+	/**
+	* Method : petNoticeCountUpdate
+	* 작성자 : pc24
+	* 변경이력 :
+	* @param param
+	* @return
+	* Method 설명 : 펫시터 집에 맡기기 조회수 변경 처리 
+	*/
+	int petNoticeCountUpdate(Map<String, Object> param);
 	
 	
 }

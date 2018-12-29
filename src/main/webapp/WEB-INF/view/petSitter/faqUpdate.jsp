@@ -8,7 +8,9 @@
 <link href="/css/commonCss.css" rel ="stylesheet">
 <link href="/css/petSitter.css" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="/SE2/js/HuskyEZCreator.js"></script>
 <script type="text/javascript">
+var oEditors = []; // 개발되어 있는 소스에 맞추느라, 전역변수로 사용하였지만, 지역변수로 사용해도 전혀 무관 함.
 	$(document).ready(function(){
 		nhn.husky.EZCreator.createInIFrame({
 			oAppRef : oEditors, // 전역변수 명과 동일해야 함.
@@ -26,7 +28,7 @@
 		});
 		
 		// 전송버튼 클릭이벤트
-		$("#savebutton").click(function(){
+		$("#faq_update").click(function(){
 			if(confirm("저장하시겠습니까?")) {
 				// id가 smarteditor인 textarea에 에디터에서 대입
 				oEditors.getById["smarteditor"].exec("UPDATE_CONTENTS_FIELD", []);
@@ -36,6 +38,10 @@
 				}
 			}
 		})
+		
+		$("#faq_cancle").click(function(){
+			history.back();
+		});
 	});
 	
 	function validation(){
@@ -60,21 +66,105 @@
 		width : 100%;
 		min-height : 650px;
 		margin : 0 auto;
+		overflow: hidden;
+		padding-left: 45px;
 	}
 	
 	#faq_Title{
+		margin-top : 20px;
+		overflow : hidden;
+	}
+	
+	.f_menu{
 		border : 2px dashed #91aaff;
 		width : 100px;
+		height : 50px;
 		text-align: center;
-		background-color: #91aaff69;
+		background-color: #91aaff80;
 		color : #fff;
 		font-size : 20px;
-		margin-top : 20px;
 		border-radius: 10px;
+		line-height: 50px;
+		float : left;
+	}
+	
+	#f_title_input{
+		float:left;
+		margin-left : 20px;
+		height : 50px;
+		line-height: 50px;
+		width : 900px;
+	}
+	
+	#f_title_input > input {
+		width : 300px;
+		height : 30px;
+		border-radius: 10px;
+		box-shadow: 1px 1px #c1c1c1;
+		padding-left : 10px;
+	}
+	
+	#faq_text{
+		margin-top : 20px;
+		width : 100%;
+		overflow: hidden;
+	}
+	
+	#f_text_smartEditer{
+		width : 890px;
+		margin-left : 20px;
+		float:left;
+	}
+	
+	#faq_btn{
+		width : 100%;
+		overflow: hidden;
+		margin-top : 20px;
+	}
+	
+	#faq_btn_main{
+		width : 260px;
+		overflow: hidden;
+		text-align : center;
+		margin:0 auto;
+	}
+	
+	#faq_btn_left{
+		margin : 0 auto;
+		float:left;
+		height : 50px;
+	}
+	
+	#faq_btn_right {
+		float: left;
+		height : 50px;
+		margin-left : 30px;
+	}
+	
+	.faq_btn_style{
+		padding : 10px 40px 10px 40px;
+		border : 1px solid #f1f1f1;
+		border-radius: 10px;
+		box-shadow: 1px 1px #000;
+		background-color: #c1c1c1;
+		font-size : 16px;
+		outline: none;
+		color : #fff;
+	}
+	.faq_btn_style:active{
+		padding : 10px 40px 10px 40px;
+		border : 1px solid #a1a1a1;
+		border-radius: 10px;
+		box-shadow: 1px 1px #000;
+		background-color: #a1a1a1;
+		font-size : 16px;
+		outline : none;
+		color : #fff;
 	}
 </style>
 </head>
 <body>
+
 <%@include file="/WEB-INF/view/common/header.jsp"%>
 
 <!-- 각자 화면 -->
@@ -106,18 +196,43 @@
 		<div id="petSitterMenu">
 			<%@include file="/WEB-INF/view/petSitter/petSitterMenu.jsp" %>
 		</div>
-		<div id="faqUpdate">
-			<div id="faqMain">
-				<div id="faq_Title">
-					<div id="f_title">
-						<span>제목</span>
+		<form action="/sit/faqUpdate" method="post" id="frm">
+			<input type="hidden" name="psf_id" value="${faqVo.psf_id }" />
+			<div id="faqUpdate">
+				<div id="faqMain">
+					<div id="faq_Title">
+						<div class="f_menu">
+							<span>제목</span>
+						</div>
+						<div id="f_title_input">
+							<input type="text" id="f_title_text" name="faq_name"
+								value="${faqVo.psf_name }" />
+						</div>
 					</div>
-					<div>
-						
+					<div id="faq_text">
+						<div class="f_menu">
+							<span>내용</span>
+						</div>
+						<div id="f_text_smartEditer">
+							<textarea name="smarteditor" id="smarteditor" rows="10"
+								cols="100" style="width: 766px; height: 412px;">"${faqVo.psf_text }"</textarea>
+						</div>
+					</div>
+					<div id="faq_btn">
+						<div id="faq_btn_main">
+							<div id="faq_btn_left">
+								<input type="button" class="faq_btn_style" id="faq_update"
+									value="수정" />
+							</div>
+							<div id="faq_btn_right">
+								<input type="button" class="faq_btn_style" id="faq_cancle"
+									value="취소" />
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
+		</form>
 	</div>
 	<%@ include file="/WEB-INF/view/common/footer.jsp" %>
 </body>

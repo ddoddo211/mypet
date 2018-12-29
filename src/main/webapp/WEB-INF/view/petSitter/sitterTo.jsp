@@ -82,15 +82,13 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		var ev = "click";
+		var cnt = 0;
 		$("#noticeList").on(ev,".noticeClick", function(){
 			var pstId = $(this).children()[1].innerText;
 			$("#pstId").val(pstId);
-			alert(pstId);
-			$("#frm").submit();
-		});
-		$("#content1").click(function(){
-			alert("상세페이지 전환");
-			$("#frm").submit();
+			cnt++;
+			$("#count").val(cnt);
+			$("#frm1").submit();
 		});
 		
 		$("#noticeAddBtn").click(function(){
@@ -101,12 +99,20 @@
 				location.href="/sit/sitterToInsertView";
 			}
 		});
+		
+		$(".btn").click(function(){
+			var i = $(this).children('input').val();
+			$("#sort").val(i);
+			$("#frm2").submit();
+		});
 	});
 </script>
 
 </head>
 <body>
-
+<form action="" method="post" id="frm2">
+	<input type="hidden" id="sort" name="sort" />
+</form>
 <%@include file="/WEB-INF/view/common/header.jsp"%>
 
 <!-- 각자 화면 -->
@@ -187,8 +193,8 @@
 		<div id="petToList">
 			<div id="listMenu">
 				<div id="sort">
-					<label class="btn">최신순</label> <input type="hidden" name="latest" value="" />
-					<label class="btn">조회순</label> <input type="hidden" name="inquiry" value="" />
+					<label class="btn" >최신순<input type="hidden" id="latest" name="latest" value="1" /></label> 
+					<label class="btn" >조회순<input type="hidden" id="inquiry" name="inquiry" value="2" /></label> 
 				</div>
 			</div>
 			<div id="list">
@@ -231,8 +237,9 @@
 	</div>
 	
 	
-	<form id="frm" method="get" action="/sit/sitDetail">
+	<form id="frm1" method="get" action="/sit/sitDetail">
 		<input type="hidden" id="pstId" name="pst_id" />
+		<input type="hidden" id="count" name="count" />
 	</form>
 	<div id="topMove">
 		<a href="#header">

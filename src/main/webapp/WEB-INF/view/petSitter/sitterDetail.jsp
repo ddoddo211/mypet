@@ -449,14 +449,14 @@
 							<dt class="priceDt">초과금액</dt>
 							<dd class="priceDd">0원</dd>
 							<dt class="priceDt">부가세</dt>
-							<c:choose>
-								<c:when test="${pstVo.pst_price }">
+<%-- 							<c:choose> --%>
+<%-- 								<c:when test="${pstVo.pst_price }"> --%>
 								
-								</c:when>
-								<c:otherwise>
+<%-- 								</c:when> --%>
+<%-- 								<c:otherwise> --%>
 								
-								</c:otherwise>
-							</c:choose>
+<%-- 								</c:otherwise> --%>
+<%-- 							</c:choose> --%>
 							<dd class="priceDd"><fmt:formatNumber value="${pstVo.pst_price2/10 }" type="number" />원</dd>
 							<dt class="priceDt dlLast">총 합계</dt>
 							<dd class="priceDd dlLast"><fmt:formatNumber value="${pstVo.pst_price2+pstVo.pst_price2/10 }" type="number" />원</dd>

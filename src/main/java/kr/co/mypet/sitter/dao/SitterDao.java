@@ -114,5 +114,35 @@ public class SitterDao implements SitterDaoInf {
 	@Override
 	public int insertSitterTo(PetSitterVo pstVo) {
 		return template.insert("petSitter.insertSitterTo", pstVo);
+	}
+
+	@Override
+	public int updateFaq(Map<String, Object> param) {
+		return template.update("petSitter.updateFaq", param);
+	}
+
+	@Override
+	public int deleteFaq(String psf_id) {
+		return template.delete("petSitter.deleteFaq", psf_id);
+	}
+
+	@Override
+	public int insertFaq(Map<String, Object> param) {
+		return template.insert("petSitter.insertFaq", param);
+	}
+
+	@Override
+	public List<PetSitterVo> petNoticeListDate() {
+		return template.selectList("petSitter.petNoticeListDate");
+	}
+
+	@Override
+	public List<PetSitterVo> petNoticeListCount() {
+		return template.selectList("pstSitter.petNoticeListCount");
+	}
+
+	@Override
+	public int petNoticeCountUpdate(Map<String, Object> param) {
+		return template.update("petSitter.petNoticeCountUpdate", param);
 	}	
 }
