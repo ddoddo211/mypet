@@ -711,6 +711,7 @@ table tr:last-child td:last-child{
 
 .td2{
 	width: 120px;
+	height: 30px;
 }
 
 
@@ -1406,7 +1407,7 @@ input[name="cb2"] {
 }
 
 #accountInfo1{
-	width: 700px;
+	width: 1170px;
 	height: 30px;
 }
 
@@ -1432,7 +1433,7 @@ input[name="cb2"] {
 	font-family: 'Jeju Gothic', sans-serif;
     font-size: 17px;
     float: left;
-    
+    margin-left: 10px;
 }
 
 
@@ -1702,7 +1703,8 @@ input[name="cb2"] {
 #nextBtn1{
 	width: 200px;
 	height: 50px;
-	margin : 0 auto;
+	margin-left: 400px;
+	float: left;
 }
 
 #nextBtn2{
@@ -1807,13 +1809,11 @@ input[name="cb2"] {
 	width: 1000px;
 	height: 30px;
 	border-radius: 5px;
-	outline: none;
 }
 
 #accidentInput2{
 	width: 1000px;
 	height: 100px;
-	outline: none;	
 }
 
 #claimDay{
@@ -2449,7 +2449,7 @@ div#upload-btnPet_wrap button {/*버튼 div*/
 }
 
 .mypetPage4_3_2{
-	width: 140px;
+	width: 135px;
 	height: 30px;
 	float : left;
 	margin-top: 10px;
@@ -2474,7 +2474,7 @@ div#upload-btnPet_wrap button {/*버튼 div*/
 }
 
 .mypetPage4_3_2_2{
-	width: 140px;
+	width: 135px;
 	height: 30px;
 	float : left;
 	margin-top: 10px;
@@ -2489,7 +2489,7 @@ div#upload-btnPet_wrap button {/*버튼 div*/
 }
 
 .mypetPage4_3_2_3{
-	width: 165px;
+	width: 180px;
 	height: 30px;
 	margin-top: 10px;
 	margin-left: 10px;
@@ -2552,3 +2552,336 @@ div#upload-btnPet_wrap button {/*버튼 div*/
 	border-radius: 10px;
 }
 
+
+
+/*보험금 신청 현황 (신청)*/
+
+#isrApplyMain{
+	width: 1200px;
+	height: 0 auto;
+}
+
+#isrApplyTitle{
+	width: 1200px;
+	height: 50px;
+}
+
+#isrApplyTitle1{
+	width: 450px;
+    height: 50px;
+    font-family: 'Nanum Pen Script', cursive;
+    font-size: 50px;
+    background-color: #fff6dd;
+    text-align: center;
+    float: left;
+    border-radius: 3px;
+    box-shadow: 3px 3px 3px 3px #999;
+    border-right: none;
+}
+
+#isrApplyTitle2{
+	width: 1200px;
+	height: 30px;
+	margin-top: 20px;
+	background-color: #f9f9f9;
+}
+
+#isrApplyTitle2_1{
+    font-size: 20px;
+    font-family: 'Jeju Gothic', sans-serif;
+    margin-left: 30px;	
+    line-height: 30px;
+}
+
+#isrApplyTitle3{
+	width: 1200px;
+	height: 30px;
+	font-size: 16px;
+    font-family: 'Jeju Gothic', sans-serif;
+    line-height: 30px;
+    background-color: #ffefef;
+}
+
+#isrApplyTitle3_1{
+	width: 800px;
+	height: 30px;
+	margin-left: 30px;
+	color: gray;
+}
+
+#isrApplyTitle3_1_1{
+	width: 1200px;
+	height: 30px;
+	font-size: 16px;
+    font-family: 'Jeju Gothic', sans-serif;
+    line-height: 30px;
+    background-color: #f9efff;
+}
+
+#isrApplyTitle3_1_2{
+	width: 1040px;
+	height: 30px;
+	margin-top: 5px;
+	margin-left: 30px;
+	color: gray;
+}
+
+#isrApplyTable{
+	width: 1200px;
+	margin-top: 20px;
+	margin-bottom: 30px;
+	min-height: 143px;
+}
+
+#isrApplyTable1{
+	width: 1200px;
+}
+
+#isrApplyBtn{
+	width: 1200px;
+	height: 30px;
+	margin-bottom: 30px;
+}
+
+#isrApplyBtn1{
+	width: 175px;
+	height: 30px;
+	margin-left: 835px;
+	float: left;
+    font-family: 'Jeju Gothic', sans-serif;
+    font-size: 20px;
+    background-color: #ffcce7;
+    color: white;
+    border-radius: 50px;
+    text-align: center;
+    line-height: 30px;
+    border: 2px solid #ffcce7;
+}
+
+#isrApplyBtn1:hover{
+	width: 175px;
+	height: 30px;
+	margin-left: 835px;
+	float: left;
+    font-family: 'Jeju Gothic', sans-serif;
+    font-size: 20px;
+    background-color: white;
+    color: black;
+    border-radius: 50px;
+    text-align: center;
+    line-height: 30px;
+    border: 2px solid #ffcce7;
+}
+
+#isrApplyBtn2{
+	margin-left: 1035px;
+	width: 160px;
+	height: 30px;
+    font-family: 'Jeju Gothic', sans-serif;
+    font-size: 20px;
+    background-color: #ffcce7;
+    color: white;
+    border-radius: 50px;
+    text-align: center;
+    line-height: 30px;
+    border: 2px solid #ffcce7;
+}
+
+#isrApplyBtn2:hover{
+	margin-left: 1035px;
+	width: 160px;
+	height: 30px;
+    font-family: 'Jeju Gothic', sans-serif;
+    font-size: 20px;
+    background-color: white;
+    color: black;
+    border-radius: 50px;
+    text-align: center;
+    line-height: 30px;
+    border: 2px solid #ffcce7;
+}
+
+.td1{
+	height: 40px;
+}
+
+.tdTable3{
+	height: 77px;
+}
+
+.tdTable4{
+	height: 30px;
+}
+
+.td5{
+	width: 80px;
+}
+
+#companionTable{
+	width: 1200px;
+	margin-top: 20px;
+	margin-bottom: 30px;
+	min-height: 165px;
+}
+
+#completedTable{
+	width: 1200px;
+	margin-top: 20px;
+	margin-bottom: 30px;
+	min-height: 165px;
+}
+
+#isrApplyBtn0{
+	width: 175px;
+	height: 30px;
+	margin-left: 640px;
+	float: left;
+    font-family: 'Jeju Gothic', sans-serif;
+    font-size: 20px;
+    background-color: #ffcce7;
+    color: white;
+    border-radius: 50px;
+    text-align: center;
+    line-height: 30px;
+    border: 2px solid #ffcce7;
+    outline: none;
+}
+
+#isrApplyBtn0:hover{
+	width: 175px;
+	height: 30px;
+	margin-left: 640px;
+	float: left;
+    font-family: 'Jeju Gothic', sans-serif;
+    font-size: 20px;
+    background-color: white;
+    color: black;
+    border-radius: 50px;
+    text-align: center;
+    line-height: 30px;
+    border: 2px solid #ffcce7;
+    outline: none;
+}
+
+#isrApplyBtn1_1{
+	width: 175px;
+	height: 30px;
+	margin-left: 25px;
+	float: left;
+    font-family: 'Jeju Gothic', sans-serif;
+    font-size: 20px;
+    background-color: #ffcce7;
+    color: white;
+    border-radius: 50px;
+    text-align: center;
+    line-height: 30px;
+    border: 2px solid #ffcce7;
+     outline: none;
+}
+
+#isrApplyBtn1_1:hover{
+	width: 175px;
+	height: 30px;
+	margin-left: 25px;
+	float: left;
+    font-family: 'Jeju Gothic', sans-serif;
+    font-size: 20px;
+    background-color: white;
+    color: black;
+    border-radius: 50px;
+    text-align: center;
+    line-height: 30px;
+    border: 2px solid #ffcce7;
+     outline: none;
+}
+
+#isrApplyBtn2_1{
+	margin-left: 1035px;
+	width: 160px;
+	height: 30px;
+    font-family: 'Jeju Gothic', sans-serif;
+    font-size: 20px;
+    background-color: #ffcce7;
+    color: white;
+    border-radius: 50px;
+    text-align: center;
+    line-height: 30px;
+    border: 2px solid #ffcce7;
+     outline: none;
+}
+
+#isrApplyBtn2_1:hover{
+	margin-left: 1035px;
+	width: 160px;
+	height: 30px;
+    font-family: 'Jeju Gothic', sans-serif;
+    font-size: 20px;
+    background-color: white;
+    color: black;
+    border-radius: 50px;
+    text-align: center;
+    line-height: 30px;
+    border: 2px solid #ffcce7;
+     outline: none;
+}
+
+.history2_2_1_1{
+	width: 800px;
+	height: 100px;
+	margin-left: 180px;
+}
+
+#history{
+	height: 145px;
+	margin-top: 20px;
+}
+
+.history2_4{
+	margin-left: 20px;
+	font-family: 'Jeju Gothic', sans-serif;
+    font-size: 20px;
+    line-height: 30px;
+}
+
+#historyAct{
+	width: 330px;
+	height: 30px;
+	float : left;
+	font-family: 'Jeju Gothic', sans-serif;
+    font-size: 17px;
+    line-height: 30px;
+    margin-right: 10px;
+}
+
+.history2_2{
+	width: 180px; 
+	height: 30px;
+	margin-left: 80px;
+	float: left;
+    font-family: 'Jeju Gothic', sans-serif;
+    font-size: 20px;
+    margin-bottom: 10px;
+    background-color: #ffcce7;
+    color: white;
+    border-radius: 50px;
+    text-align: center;
+    line-height: 30px;
+}
+
+
+#nextBtn1_1{
+	width: 200px;
+	height: 50px;
+	margin-left: 620px;
+}
+
+#nextBtn2_1{
+	background-color: black;
+    color: white;
+    width: 200px;
+    height: 50px;
+    font-family: 'Jeju Gothic', sans-serif;
+    font-size: 18px;
+    border-radius: 50px;
+    outline: none;
+}

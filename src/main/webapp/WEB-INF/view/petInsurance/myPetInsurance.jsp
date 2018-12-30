@@ -63,6 +63,21 @@ function goMypetInfoUpdate(petId){
 	});	
 }
 
+// 보험신청 현황 부분에서 해당 신청 상태의 건수를 확인하는 화면으로 이동하게 설정
+function goisrApply(){
+	location.href ='/isr/goisrApply';
+}
+
+// 보험신청 현황 부분에서 해당 반려 상태의 건수를 확인하는 화면으로 이동하게 설정
+function gocompanion(){
+	location.href ='/isr/gocompanion';
+}
+
+// 보험신청 현황 부분에서 해당 심사완료 상태의 건수를 확인하는 화면으로 이동하게 설정
+function gocompleted(){
+	location.href ='/isr/gocompleted';
+}
+
 </script>
 
 <link rel="stylesheet" href="/css/petInsuranceMenu.css">
@@ -217,9 +232,9 @@ function goMypetInfoUpdate(petId){
 									<th class="currentStatus1">심사완료</th>
 								</tr>
 								<tr>
-									<td><a class="isrApplySize">${isrApplySize}건</a></td>
-									<td><a class="isrApplySize">${ueSize}건</a></td>
-									<td><a class="isrApplySize">${isrCompleteSize}건</a></td>
+									<td><a class="isrApplySize" onclick="goisrApply()">${isrApplySize}건</a></td>
+									<td><a class="isrApplySize" onclick="gocompanion()">${ueSize}건</a></td>
+									<td><a class="isrApplySize" onclick="gocompleted()">${isrCompleteSize}건</a></td>
 								</tr>
 							</table>
 						</div>

@@ -213,9 +213,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		
 		
 		<!-- 보험청구 신청하는 부분 -->
-		<insert id="accidentInsert" parameterType="insShVo">
+		<insert id="accidentInsert" parameterType="accidentVo">
 			insert into accident
-			values(accident_num.nextval ,#{accd_date},#{accd_addr},#{accd_text},#{accd_img},#{accd_recp},'신청','','0',#{accd_mem},#{accd_myp},#{accd_ins},#{accd_act})
+			values(accident_num.nextval ,#{accd_date},#{accd_addr},#{accd_text},#{accd_img},#{accd_recp},'신청','','0',#{accd_mem},#{accd_myp},#{accd_ins},#{accd_act},'')
 		</insert>
 		
 		
@@ -237,24 +237,57 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		
 		<!-- 나의 펫 보험 - 현재보험금 신청현황(신청) -->
 		<select id="isrApply" parameterType="String" resultType="accidentVo">
-			select * from accident
-		  	 where accd_mem = #{mem_id}
-			   and accd_stat = '신청'
+				select * from accident a , mypet b , insurance c , insprod d , account e
+				where a.accd_myp = b.myp_id
+				and a.accd_ins = c.ins_id
+				and c.inssp_id = d.insp_id
+				and a.accd_act = e.act_id
+				and a.accd_mem = #{mem_id}
+				and a.accd_stat = '신청'
 		</select>
 		
-		<!-- 나의 펫 보험 - 현재보험금 신청현황(심사중) -->
+		<!-- 나의 펫 보험 - 현재보험금 신청현황(반려) -->
 		<select id="underExamination" parameterType="String" resultType="accidentVo">
-			select * from accident
-			 where accd_mem = #{mem_id}
-			   and accd_stat = '반려'
+				select * from accident a , mypet b , insurance c , insprod d , account e
+				where a.accd_myp = b.myp_id
+				and a.accd_ins = c.ins_id
+				and c.inssp_id = d.insp_id
+				and a.accd_act = e.act_id
+				and a.accd_mem = #{mem_id}
+				and a.accd_stat = '반려'
 		</select>
 		
 		<!-- 나의 펫 보험 - 현재보험금 신청현황(완료) -->
 		<select id="isrComplete" parameterType="String" resultType="accidentVo">
-			select * from accident
-			 where accd_mem = #{mem_id}
-			   and accd_stat = '완료'
+				select * from accident a , mypet b , insurance c , insprod d , account e
+				where a.accd_myp = b.myp_id
+				and a.accd_ins = c.ins_id
+				and c.inssp_id = d.insp_id
+				and a.accd_act = e.act_id
+				and a.accd_mem = #{mem_id}
+				and a.accd_stat = '완료'
 		</select>
+		
+		<!--보험금 신청 현황 화면에서 보험금 신청 취소를 클릭하였을떄 적용되는 부분-->
+		<delete id="goAccidentDel" parameterType="String">
+			delete from accident 
+			where accd_id = #{accd_id}
+		</delete>
+		
+		<!-- 보험금 내역 확인 버튼을 클릭하였을때 나오는 부분 -->
+		<select id="history" parameterType="String" resultType="accidentVo">
+				select * from accident a , mypet b , insurance c ,insprod d , account e
+			   	 where a.accd_myp = b.myp_id
+                   and a.ACCD_INS = c.INS_ID
+                   and c.inssp_id = d.INSP_ID
+                   and a.accd_act = e.act_id
+			       and a.accd_id = #{accd_id}
+		</select>
+		
+		<!-- 보험금내역 부분에서 계좌번호를 변경하였을떄 실행  -->
+		<update id="accountChange" parameterType="accidentVo">
+			update accident set accd_act=#{accd_act} where accd_id=#{accd_id}
+		</update>
 		
 		
 

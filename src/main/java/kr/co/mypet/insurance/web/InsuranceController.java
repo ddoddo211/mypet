@@ -863,7 +863,7 @@ public class InsuranceController {
 					
 					File file = new File(path + File.separator + fileName);
 					
-					part.transferTo(file);
+					part2.transferTo(file);
 					
 					str2 = "/img/petInsuranceAccident/"+fileName;
 					
@@ -1093,7 +1093,8 @@ public class InsuranceController {
 			
 			// 나의 펫 정보에서 선택한 펫의 정보 수정하는 화면으로 보내기 
 			@RequestMapping("/petInfoUpdateAjaxHtml")
-			public String petInfoUpdateAjaxHtml(HttpServletRequest request , Model model , @RequestParam("petId")String petId) {
+			public String petInfoUpdateAjaxHtml(HttpServletRequest request , Model model , 
+												@RequestParam("petId")String petId) {
 				
 				// 펫의 정보 가지고 오기 
 				MypetVo mypetInfo = insuranceService.mypetInfo(petId);
@@ -1114,6 +1115,155 @@ public class InsuranceController {
 				return "petInsurance/petInfoUpdateAjaxHtml";
 				
 			}	
+			
+			// 나의 펫 정보 수정에 해당 내용을 수정하는 쿼리문에 넣어 주는 부분
+			@RequestMapping("/mypetInfoUpdateS")
+			public String mypetInfoUpdateS(HttpServletRequest request,HttpSession session,Model model) {
+				
+				String petId = request.getParameter("petId");
+				String petName = request.getParameter("petName");
+				String petBirth = request.getParameter("petBirth");
+				String petGender = request.getParameter("petGender");
+				String petSick = request.getParameter("petSick");
+				String petNeu = request.getParameter("petNeu");
+				
+				// 나옴
+				System.out.println(petId);
+				// 나옴
+				System.out.println(petName);
+				// 안나옴
+				System.out.println(petBirth);
+				// 안나옴
+				System.out.println(petGender);
+				// 안나옴 -> N으로 하였을때에는 안나옴
+				System.out.println("petSick: "+petSick);
+				// 안나옴
+				System.out.println("petNeu: "+petNeu);
+					
+				return "";
+			}
+			
+			// 보험금 신청현황 부분에서 신청 화면으로 이동하는 부분
+			@RequestMapping("/goisrApply")
+			public String goisrApply(Model model ,HttpSession session) {
+				
+				// 회원 정보 받아오는 부분
+				MemberVo memVo = (MemberVo) session.getAttribute("memVo");
+				
+				// 현재 보험금 신청현황(신청)- 신청 건수가 나와야 하기 때문에
+				List<AccidentVo> isrApply =  insuranceService.isrApply(memVo.getMem_id());
+				model.addAttribute("isrApply",isrApply);
+				
+				// 만약 0건일때 나와야 하는 화면때문에 설정 
+				model.addAttribute("isrApplySize",isrApply.size());
+				
+				return "petInsurance/isrApply";
+			}
+			
+			// 보험금 신청 현황 - 신청 화면에서 보험금 신청 취소를 클릭하였을떄 적용되는 부분
+			@RequestMapping("/goisrApplyDel")
+			public String goisrApplyDel(Model model ,HttpSession session,HttpServletRequest request) {
+				
+				// 삭제되는 쿼리문 들어가는부분 (사고 pk를 매개변수로 설정하기)
+				String accd_id = request.getParameter("accd_id");
+				insuranceService.goAccidentDel(accd_id);
+				
+				// 회원 정보 받아오는 부분
+				MemberVo memVo = (MemberVo) session.getAttribute("memVo");
+				
+				// 현재 보험금 신청현황(신청)- 신청 리스트가 나와야 하기 때문에
+				List<AccidentVo> isrApply =  insuranceService.isrApply(memVo.getMem_id());
+				model.addAttribute("isrApply",isrApply);
+				
+				// 만약 0건일때 나와야 하는 화면때문에 설정 
+				model.addAttribute("isrApplySize",isrApply.size());
+				
+				return "petInsurance/isrApply";
+			}
+			
+			// 보험금 신청현황 부분에서 반려 화면으로 이동하는 부분
+			@RequestMapping("/gocompanion")
+			public String gocompanion(Model model ,HttpSession session) {
+				
+				// 회원 정보 받아오는 부분
+				MemberVo memVo = (MemberVo) session.getAttribute("memVo");
+				
+				// 현재 보험금 신청현황(신청)- 신청 건수가 나와야 하기 때문에
+				List<AccidentVo> companion =  insuranceService.underExamination(memVo.getMem_id());
+				model.addAttribute("companion",companion);
+				
+				// 만약 0건일때 나와야 하는 화면때문에 설정 
+				model.addAttribute("companionSize",companion.size());
+				
+				return "petInsurance/companion";
+			}
+			
+			// 보험금 신청현황 부분에서 심사완료 화면으로 이동하는 부분
+			@RequestMapping("/gocompleted")
+			public String gocompleted(Model model ,HttpSession session) {
+				
+				// 회원 정보 받아오는 부분
+				MemberVo memVo = (MemberVo) session.getAttribute("memVo");
+				
+				// 현재 보험금 신청현황(신청)- 신청 건수가 나와야 하기 때문에
+				List<AccidentVo> completed =  insuranceService.isrComplete(memVo.getMem_id());
+				model.addAttribute("completed",completed);
+				
+				// 만약 0건일때 나와야 하는 화면때문에 설정 
+				model.addAttribute("completedSize",completed.size());
+				
+				return "petInsurance/completed";
+			}
+			
+			// 보험금 내역 확인 버튼을 클릭하였을떄 작동하는 부분 
+			@RequestMapping("/gohistory")
+			public String gohistory(Model model ,HttpSession session,HttpServletRequest request) {
+				
+				String accd_id = request.getParameter("accd_id2");
+				
+				// 현재 보험금 신청현황(신청)- 신청 건수가 나와야 하기 때문에
+				AccidentVo history =  insuranceService.history(accd_id);
+				model.addAttribute("history",history);
+				
+				// 회원 정보 받아오는 부분
+				MemberVo memVo = (MemberVo) session.getAttribute("memVo");
+				// 해당 회원의 이메일(pk)로 보내서 회원의 계좌번호를 가지고 오는 방법(매개변수를 회원의 아이디로 설정한다) 
+				List<AccountVo> memAccidentList = insuranceService.memAccountList(memVo.getMem_id());
+				model.addAttribute("memAccidentList", memAccidentList);
+								
+				return "petInsurance/history";
+			}
+			
+			// 보험금내역 부분에서 계좌번호를 변경하였을떄 실행 
+			@RequestMapping("/accountChange")
+			public String accountChange(Model model ,HttpSession session,HttpServletRequest request) {
+				
+				//계좌번호 받아온 부분
+				String accd_act = request.getParameter("selectAc");
+				
+				// 다시 보험금 청구 내역 확인화면으로 접속해야 하기 때문에 설정 
+				String accd_id = request.getParameter("accd_id");
+				
+				AccidentVo acdVo = new AccidentVo();
+				acdVo.setAccd_act(accd_act);
+				acdVo.setAccd_id(accd_id);
+				
+				// 계좌번호 변경하는 쿼리문 전달 
+				insuranceService.accountChange(acdVo);
+				
+				// 현재 보험금 신청현황(신청)- 신청 건수가 나와야 하기 때문에
+				AccidentVo history =  insuranceService.history(accd_id);
+				model.addAttribute("history",history);
+				
+				// 회원 정보 받아오는 부분
+				MemberVo memVo = (MemberVo) session.getAttribute("memVo");
+				// 해당 회원의 이메일(pk)로 보내서 회원의 계좌번호를 가지고 오는 방법(매개변수를 회원의 아이디로 설정한다) 
+				List<AccountVo> memAccidentList = insuranceService.memAccountList(memVo.getMem_id());
+				model.addAttribute("memAccidentList", memAccidentList);
+								
+				return "petInsurance/history";
+			}	
+			
 			
 
 }

@@ -2,6 +2,10 @@ package kr.co.mypet.insurance.model;
 
 import java.util.Date;
 
+/**
+ * @author Yumint
+ *
+ */
 public class AccidentVo {
 	
 	// 보험 청구할때 사고 추가하는 Vo
@@ -19,16 +23,147 @@ public class AccidentVo {
 	private String accd_myp; 
 	private String accd_ins;
 	private String accd_act;
+	private Date accd_pay;
+	
+	// 보험청구대상 부분에 나와야 하기 때문에 설정
+	private String myp_name;
+	private String insp_name;
+	
+	// 계좌번호 나와야 하기떄문에 설정
+	private String act_id;
+	private String act_bank;
+	private String act_num;
+	private String act_name;
+	private String act_mem;
+	
+	// 보험금 확인내역 부분에 나와야 하기 때문에 설정
+	private String myp_id;
+	private String myp_mem;
+	private String myp_petk;
+	private Date myp_birth;
+	private String myp_sick;
+	private String myp_img;
+	private String myp_neu;
+	private String myp_gender;
+	
+	private String insp_kind;
 	
 	@Override
 	public String toString() {
 		return "AccidentVo [accd_id=" + accd_id + ", accd_date=" + accd_date + ", accd_addr=" + accd_addr
 				+ ", accd_text=" + accd_text + ", accd_img=" + accd_img + ", accd_recp=" + accd_recp + ", accd_stat="
 				+ accd_stat + ", accd_res=" + accd_res + ", accd_insp=" + accd_insp + ", accd_mem=" + accd_mem
-				+ ", accd_myp=" + accd_myp + ", accd_ins=" + accd_ins + ", accd_act=" + accd_act + "]";
+				+ ", accd_myp=" + accd_myp + ", accd_ins=" + accd_ins + ", accd_act=" + accd_act + ", accd_pay="
+				+ accd_pay + ", myp_name=" + myp_name + ", insp_name=" + insp_name + ", act_id=" + act_id
+				+ ", act_bank=" + act_bank + ", act_num=" + act_num + ", act_name=" + act_name + ", act_mem=" + act_mem
+				+ ", myp_id=" + myp_id + ", myp_mem=" + myp_mem + ", myp_petk=" + myp_petk + ", myp_birth=" + myp_birth
+				+ ", myp_sick=" + myp_sick + ", myp_img=" + myp_img + ", myp_neu=" + myp_neu + ", myp_gender="
+				+ myp_gender + ", insp_kind=" + insp_kind + "]";
 	}
 	
 	
+	public String getInsp_kind() {
+		return insp_kind;
+	}
+	public void setInsp_kind(String insp_kind) {
+		this.insp_kind = insp_kind;
+	}
+	public String getMyp_id() {
+		return myp_id;
+	}
+	public void setMyp_id(String myp_id) {
+		this.myp_id = myp_id;
+	}
+	public String getMyp_mem() {
+		return myp_mem;
+	}
+	public void setMyp_mem(String myp_mem) {
+		this.myp_mem = myp_mem;
+	}
+	public String getMyp_petk() {
+		return myp_petk;
+	}
+	public void setMyp_petk(String myp_petk) {
+		this.myp_petk = myp_petk;
+	}
+	public Date getMyp_birth() {
+		return myp_birth;
+	}
+	public void setMyp_birth(Date myp_birth) {
+		this.myp_birth = myp_birth;
+	}
+	public String getMyp_sick() {
+		return myp_sick;
+	}
+	public void setMyp_sick(String myp_sick) {
+		this.myp_sick = myp_sick;
+	}
+	public String getMyp_img() {
+		return myp_img;
+	}
+	public void setMyp_img(String myp_img) {
+		this.myp_img = myp_img;
+	}
+	public String getMyp_neu() {
+		return myp_neu;
+	}
+	public void setMyp_neu(String myp_neu) {
+		this.myp_neu = myp_neu;
+	}
+	public String getMyp_gender() {
+		return myp_gender;
+	}
+	public void setMyp_gender(String myp_gender) {
+		this.myp_gender = myp_gender;
+	}
+	public String getAct_id() {
+		return act_id;
+	}
+	public void setAct_id(String act_id) {
+		this.act_id = act_id;
+	}
+	public String getAct_bank() {
+		return act_bank;
+	}
+	public void setAct_bank(String act_bank) {
+		this.act_bank = act_bank;
+	}
+	public String getAct_num() {
+		return act_num;
+	}
+	public void setAct_num(String act_num) {
+		this.act_num = act_num;
+	}
+	public String getAct_name() {
+		return act_name;
+	}
+	public void setAct_name(String act_name) {
+		this.act_name = act_name;
+	}
+	public String getAct_mem() {
+		return act_mem;
+	}
+	public void setAct_mem(String act_mem) {
+		this.act_mem = act_mem;
+	}
+	public Date getAccd_pay() {
+		return accd_pay;
+	}
+	public void setAccd_pay(Date accd_pay) {
+		this.accd_pay = accd_pay;
+	}
+	public String getMyp_name() {
+		return myp_name;
+	}
+	public void setMyp_name(String myp_name) {
+		this.myp_name = myp_name;
+	}
+	public String getInsp_name() {
+		return insp_name;
+	}
+	public void setInsp_name(String insp_name) {
+		this.insp_name = insp_name;
+	}
 	public String getAccd_id() {
 		return accd_id;
 	}

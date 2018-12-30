@@ -64,8 +64,40 @@
 		$("#neuYnChk").attr('checked',true);
 	}
 	
+	// 성별 부분을 원래 선택되어 있는 값이 아닌 다른 부분으로 클릭하여 선택하였다면 담아주기 
+		$(".wr1_2_2").click(function(){
+			var petGender = $(this).val();
+			$("#petGender").val(petGender);
+		});	
+		
+	// 질병여부 부분을 원래 선택되어 있는 값이 아닌 다른 부분으로 클릭하여 선택하였다면 담아주기 	
+		$(".wr1_2_2_1").click(function(){
+			var petSick = $(this).val();
+			$("#petSick").val(petSick);
+		});
 	
+	// 중성화 부분을 원래 선택되어 있는 값이 아닌 다른 부분으로 클릭하여 선택하였다면 담아주기
+		var petNeutralization = null;
+		// 중성화 부분이 체크 되지 않았을때는 N으로 넘겨진다. 체크되었다면 Y로 담긴다.
+		if ($("input[id='neuYnChk']:checked").val()== 'Y') {
+			petNeutralization = $("input[id='neuYnChk']:checked").val();
+			$("#petNeu").val(petNeutralization);
+		}else{
+			petNeutralization = "N";
+			$("#petNeu").val(petNeutralization);
+		}
+		
+		$("#petBirthSelect").click(function(){
+			var petBirth = $("#petBirthSelect").val();
+			$("#petBirth").val(petBirth);
+		});
+				
 </script>
+
+<!-- form에 input에 name을 담아서 submit으로 보내기 -->
+<form id="frm" action="/isr/mypetInfoUpdateS" method="post">
+<input type="hidden" name="petId" value="${mypetInfo.myp_id}">		
+<input type="hidden" id="petBirth" name="petBirth" value="${mypetInfo.myp_id}">		
 
 						<div class="mypetPageBtn">
 							<div id="mypetPageBtn">
@@ -79,7 +111,7 @@
 								</div>
 							</div>
 						</div>
-						
+				
 						<div id="mypetPage4">
 							<div id="mypetPage4_1">
 								<div id="mypetPage4_2">
@@ -103,13 +135,13 @@
 											이름
 										</div>
 										<div class="mypetPage4_3_2_1">
-											<input id="petUpdateName" type="text" value="${mypetInfo.myp_name }">
+											<input id="petUpdateName" type="text" value="${mypetInfo.myp_name }" name="petName">
 										</div>
 										<div class="mypetPage4_3_2_2">
 											생년월일
 										</div>
 										<div class="mypetPage4_3_2_3">
-											<input type="text" name ="petBirth" id="petBirthSelect" readonly="readonly" placeholder="<fmt:formatDate value='${petBirth}' pattern='yyyy년 MM월 dd일'></fmt:formatDate>">
+											<input type="text" name ="petBirthSelect" value="" id="petBirthSelect" readonly="readonly" placeholder="<fmt:formatDate value='${petBirth}' pattern='yyyy년 MM월 dd일'></fmt:formatDate>">
 										</div>
 									</div>
 									<div class="mypetPage4_3_1">
@@ -123,8 +155,9 @@
 											성별
 										</div>
 										<div class="mypetPage4_3_2_3">
-											<input  type="radio" name="gender" value="여" id="womenG2" /> 여
-											<input type="radio" name="gender" value="남" id="manG2" /> 남
+											<input type="hidden" value="" id="petGender" name="petGender">
+											<input  type="radio" class="wr1_2_2" name="gender" value="여" id="womenG2" /> 여
+											<input type="radio" class="wr1_2_2" name="gender" value="남" id="manG2" /> 남
 										</div>
 									</div>
 									<div class="mypetPage4_3_1">
@@ -132,18 +165,20 @@
 											질병여부
 										</div>
 										<div class="mypetPage4_3_2_1">
-											<input  type="radio" value="Y" id="petSickY1"/> Y 
-											<input type="radio" value="N" id="petSickN2"/> N
+											<input type="hidden" value="" id="petSick" name="petSick">
+											<input class="wr1_2_2_1" name="petSick" type="radio" value="Y" id="petSickY1"/> Y 
+											<input class="wr1_2_2_1" name="petSick" type="radio" value="N" id="petSickN2"/> N
 										</div>
 										<div class="mypetPage4_3_2_2">
 											중성화 여부
 										</div>
 										<div class="mypetPage4_3_2_3">
+											<input type="hidden" value="" id="petNeu" name="petNeu">
 											<input type="checkbox" value="Y" id="neuYnChk"> Y
 											<label id="neuYn">(*중성화 수술을 했을경우 체크)</label>
 										</div>
 									</div>
-		
 								</div>
 							</div>
 						</div>
+</form>
