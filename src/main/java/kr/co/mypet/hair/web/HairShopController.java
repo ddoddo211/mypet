@@ -1,5 +1,9 @@
 package kr.co.mypet.hair.web;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -12,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import kr.co.mypet.common.model.MemberVo;
 import kr.co.mypet.hair.model.BookmarkVo;
 import kr.co.mypet.hair.model.HairBoardVo;
+import kr.co.mypet.hair.model.HairResVo;
 import kr.co.mypet.hair.model.HairShopVo;
 import kr.co.mypet.hair.model.PetStyleVo;
 import kr.co.mypet.hair.service.HairServiceInf;
@@ -233,10 +238,71 @@ public class HairShopController {
 		String mem_id = memVo.getMem_id();
 		String has_id = hairShopVo.getHas_id();
 		
+		//db로 넘길 parameter vo
+		HairResVo hrVo = new HairResVo();
+		hrVo.setHres_has(has_id);
+		
+		//시간대별 list
+		model.addAttribute("has_id", has_id);
 		
 		
 		
 		return "petHair/petHairResOp";
+	}
+	
+	
+	
+	@RequestMapping("/resDate")
+	public String resDate(HairShopVo hairShopVo,Model model,HttpServletRequest request) throws ParseException {
+		
+		String has_id = hairShopVo.getHas_id();
+		String date = request.getParameter("date");
+		
+		String temp = "";
+		temp = date.substring(date.lastIndexOf("/")+1);
+		date = date.replace("/"+temp, "");
+		date = temp+"/"+date;
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		
+		System.out.println(date);
+		
+		//db로 넘길 parameter vo
+		HairResVo hrVo = new HairResVo();
+		hrVo.setHres_has(has_id);
+		hrVo.setHres_date(date);
+		
+		//시간대별 list
+		List<List<HairResVo>> allList = new ArrayList<>();
+		List<HairResVo> resList8 = null;
+		List<HairResVo> resList10 = null;
+		List<HairResVo> resList12 = null;
+		List<HairResVo> resList14 = null;
+		List<HairResVo> resList16 = null;
+		List<HairResVo> resList18 = null;
+		
+		allList.add(resList8);
+		allList.add(resList10);
+		allList.add(resList12);
+		allList.add(resList14);
+		allList.add(resList16);
+		allList.add(resList18);
+		
+		//받아온 shop 아이디로 시간대별 예약 유무 체크
+		for(int i = 0 ; i < allList.size() ; i++) {
+			List<HairResVo> tempList = allList.get(i);
+			hrVo.setHres_time(""+(i+1));
+			tempList = hairService.selRes(hrVo);
+			
+			if(tempList!=null) {
+				model.addAttribute("resList"+(i+1), tempList);
+			}
+			
+			
+			
+		}
+		
+		return "petHair/ajaxRes";
 	}
 	
 	

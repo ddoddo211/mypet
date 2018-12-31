@@ -13,6 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import kr.co.mypet.hair.model.HairBoardVo;
+import kr.co.mypet.hair.model.HairResVo;
 import kr.co.mypet.hair.model.HairShopVo;
 import kr.co.mypet.hair.model.PetStyleVo;
 import kr.co.mypet.sitter.model.ZipVo;
@@ -98,18 +99,34 @@ public class HairDaoTest{
 		
 	}
 	
-	//스타일 조회
-	public void selectStyleTest() {
-		/***Given***/
-		String pts_has = "has2";
-		
-
-		/***When***/
-		List<PetStyleVo> styleList = hairDao.selectStyle(pts_has);
-
-		/***Then***/
-		assertEquals(3,styleList.size());
-		
-	}
+//	//스타일 조회
+//	public void selectStyleTest() {
+//		/***Given***/
+//		String pts_has = "has2";
+//		
+//
+//		/***When***/
+//		List<PetStyleVo> styleList = hairDao.selectStyle(pts_has);
+//
+//		/***Then***/
+//		assertEquals(3,styleList.size());
+//		
+//	}
+	
+	
+//	//예약 조회
+//	@Test
+//	public void selResTest() {
+//		/***Given***/
+//		String style = "pts1";
+//
+//		/***When***/
+//		List<HairResVo> hrList = hairDao.selRes();
+//
+//		/***Then***/
+//		assertEquals(style, hrList.get(0).getHres_pts());
+//		
+//	}
+	
 
 }

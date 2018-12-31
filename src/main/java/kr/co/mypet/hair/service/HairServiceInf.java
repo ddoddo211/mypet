@@ -4,6 +4,7 @@ import java.util.List;
 
 import kr.co.mypet.hair.model.BookmarkVo;
 import kr.co.mypet.hair.model.HairBoardVo;
+import kr.co.mypet.hair.model.HairResVo;
 import kr.co.mypet.hair.model.HairShopVo;
 import kr.co.mypet.hair.model.PetStyleVo;
 import kr.co.mypet.sitter.model.ZipVo;
@@ -40,5 +41,8 @@ public interface HairServiceInf {
 	
 	//bookmart 중복체크
 	int bmDup (BookmarkVo bmVo);
+
+	//예약내역 전체조회
+	public List<HairResVo> selRes(HairResVo hrVo);
 	
 }
