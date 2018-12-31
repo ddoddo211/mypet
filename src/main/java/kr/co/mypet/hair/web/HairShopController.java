@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import kr.co.mypet.common.model.MemberVo;
 import kr.co.mypet.hair.model.BookmarkVo;
 import kr.co.mypet.hair.model.HairBoardVo;
 import kr.co.mypet.hair.model.HairShopVo;
@@ -148,9 +149,9 @@ public class HairShopController {
 					
 				}
 				
+				
+				
 				//북마크에 이미있는지 중복체크 해야됨
-				
-				
 				//bookmark 여부 확인
 				String bmChk = request.getParameter("bmChk");
 				if(bmChk.equals("yes")) {
@@ -159,7 +160,15 @@ public class HairShopController {
 					bmVo.setBmk_has(hairShopVo.getHas_id());
 					bmVo.setBmk_mem(mem_id);
 					bmVo.setBmk_fac("");
-					int chk = hairService.insertBookMark(bmVo);
+					
+					//중복체크
+					int dupChk = hairService.bmDup(bmVo);
+					
+					if(dupChk==0) {
+						int chk = hairService.insertBookMark(bmVo);
+					} else {
+						model.addAttribute("bmDup", "dup");
+					}
 					
 				}
 		
@@ -214,6 +223,20 @@ public class HairShopController {
 		
 		
 		return "petHair/petHairMain";
+	}
+	
+	//상세보기에서 예약화기 화면으로 화면이동
+	@RequestMapping("/revShop")
+	public String revShop(MemberVo memVo,HairShopVo hairShopVo,Model model) {
+
+		//넘겨준 사용자 id, 미용실 id
+		String mem_id = memVo.getMem_id();
+		String has_id = hairShopVo.getHas_id();
+		
+		
+		
+		
+		return "petHair/petHairResOp";
 	}
 	
 	

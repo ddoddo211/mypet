@@ -38,4 +38,7 @@ public interface HairServiceInf {
 	//insert bookmark
 	int insertBookMark(BookmarkVo bmVo);
 	
+	//bookmart 중복체크
+	int bmDup (BookmarkVo bmVo);
+	
 }
