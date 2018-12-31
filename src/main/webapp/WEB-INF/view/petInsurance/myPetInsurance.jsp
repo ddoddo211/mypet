@@ -15,6 +15,12 @@ $(document).ready(function(){
 	// 나의 펫 보험을 시작을 했을때 펫 정보에는 무조건 실행되어야 하기때문에 설정 
 	getPetInfoFormHtml();
 	
+	// 이전화면에서 model에 값을 담아준다면 실행되게 설정 (보험해지를 한후 다시 화면으로 접속되어야 하기 때문에 설정)
+	var petIdRelay = '${petId}';
+	if(petIdRelay != ''){
+		getPetInfoHtml(petIdRelay);
+	}
+	
 	// 펫의 사진을 클릭하였을때 
 	$(".petImg").click(function(){
 		var petId = $(this).parents(".mypetPage2_3_1").children(".petId").val();

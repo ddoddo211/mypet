@@ -14,6 +14,22 @@
 <script type="text/javascript">
 $(document).ready(function() {
 	
+	// 체크박스 클릭한 부분으로 보험금청구 신청 취소 하게 설정
+	$(".isrApplyChk").click(function(){
+		var accd_id = $(this).val();
+		$("#accd_id").val(accd_id);
+	});
+	
+	// 보험금 내역 확인 버튼을 클릭할시 이동하는 부분
+	$("#isrApplyBtn1").click(function(){
+		var accd_id = $("#accd_id").val();
+		if(accd_id == ""){
+			alert("보험금 내역 확인을 원하시는 목록의 체크박스를 선택하시기 바랍니다.");
+		}else{
+			$("#frm").submit();
+		}
+	});
+	
 });
 
 // 목록으로 가는 화면으로 이동하는 부분
@@ -28,6 +44,11 @@ $(document).ready(function() {
 
 </head>
 <body>
+
+<!-- 보험금 내역 확인 버튼을 클릭하였을떄 작동하는 부분 -->
+<form action="/isr/gohistory3" method="get" id="frm">
+	<input type="hidden" id="accd_id" name="accd_id" value="">
+</form>
 
 <!-- header 시작 -->
 <%@include file="../common/header.jsp"%>

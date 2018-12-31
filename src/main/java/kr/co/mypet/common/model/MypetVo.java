@@ -13,6 +13,7 @@ public class MypetVo {
 	private String myp_neu;
 	private String myp_gender;
 	private String myp_name;
+	private String myp_del;
 
 	// 품종을 꺼내 오기위해 입력
 	private String petk_id;
@@ -24,13 +25,22 @@ public class MypetVo {
 	private String am_id;
 	private String am_name;
 
+
 	@Override
 	public String toString() {
 		return "MypetVo [myp_id=" + myp_id + ", myp_mem=" + myp_mem + ", myp_petk=" + myp_petk + ", myp_birth="
 				+ myp_birth + ", myp_sick=" + myp_sick + ", myp_img=" + myp_img + ", myp_neu=" + myp_neu
-				+ ", myp_gender=" + myp_gender + ", myp_name=" + myp_name + ", petk_id=" + petk_id + ", petk_name="
-				+ petk_name + ", petk_am=" + petk_am + ", petk_size=" + petk_size + ", am_id=" + am_id + ", am_name="
-				+ am_name + "]";
+				+ ", myp_gender=" + myp_gender + ", myp_name=" + myp_name + ", myp_del=" + myp_del + ", petk_id="
+				+ petk_id + ", petk_name=" + petk_name + ", petk_am=" + petk_am + ", petk_size=" + petk_size
+				+ ", am_id=" + am_id + ", am_name=" + am_name + "]";
+	}
+
+	public String getMyp_del() {
+		return myp_del;
+	}
+
+	public void setMyp_del(String myp_del) {
+		this.myp_del = myp_del;
 	}
 
 	public String getAm_id() {

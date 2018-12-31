@@ -367,4 +367,45 @@ public interface InsuranceDaoInf {
 	* Method 설명 :보험금내역 부분에서 계좌번호를 변경하였을떄 실행
 	*/
 	int accountChange(AccidentVo acdVo);
+	
+	
+	/**
+	* Method : claimPetJoinProd1
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param isrVo
+	* @return
+	* Method 설명 : 나의 펫 보험 부분에서 가입이 완료된 상품만 나오게 설정
+	*/
+	List<InsuranceVo> claimPetJoinProd1 (InsuranceVo isrVo);
+	
+	/**
+	* Method : mypetIsrDel
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param ins_id
+	* @return
+	* Method 설명 :나의 펫 보험 화면에서 해당 펫의 가입되어 있는 보험상품 해지 하는 부분
+	*/
+	int mypetIsrDel(String ins_id);
+	
+	/**
+	* Method : claimPetJoinProd2
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param isrVo
+	* @return
+	* Method 설명 : 나의 펫 보험 - 보험 해지 되어 있는 가입내역이 나오는 부분
+	*/
+	List<InsuranceVo> claimPetJoinProd2 (InsuranceVo isrVo);
+	
+	/**
+	* Method : mypetInfoUpdate
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param petVo
+	* @return
+	* Method 설명 :나의 펫 보험 화면에서 펫의 정보 수정하는 부분
+	*/
+	int mypetInfoUpdate (MypetVo petVo);
 }
