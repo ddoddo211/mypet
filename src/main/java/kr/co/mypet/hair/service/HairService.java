@@ -72,6 +72,12 @@ public class HairService implements HairServiceInf {
 			// TODO Auto-generated method stub
 			return hairDao.insertBookMark(bmVo);
 		}
+
+		@Override
+		public int bmDup(BookmarkVo bmVo) {
+			// TODO Auto-generated method stub
+			return hairDao.bmDup(bmVo);
+		}
 		
 		
 		

@@ -29,5 +29,7 @@ public interface HairDaoInf {
 	int insertHairBoard(HairBoardVo hairBoardVo);
 	
 	int insertBookMark(BookmarkVo bmVo);
+	
+	int bmDup (BookmarkVo bmVo);
 
 }

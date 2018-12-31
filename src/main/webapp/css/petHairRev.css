@@ -1,0 +1,85 @@
+@charset "UTF-8";
+
+@import url(//fonts.googleapis.com/earlyaccess/nanumpenscript.css);
+@import url(//fonts.googleapis.com/earlyaccess/jejugothic.css);
+
+	
+	
+.selOpTop{
+	width: 100%;
+	height: auto;
+	border-bottom: 1px solid black;
+	padding-bottom: 10px;
+	font-size: 20px; 
+	font-weight: bold;
+	
+}	
+
+.testBlock{
+	width: 100%;
+	height: auto;
+	overflow: hidden;
+}
+
+.testBlock img{
+	display:none;
+	width: 33.33333%;
+	height: 300px;
+	float:left;
+	
+}
+
+.testBtnBlock{
+	margin-top: 30px;
+	text-align: center;
+	width: 100%;
+	
+	
+}
+
+.w3-button{
+	width: 50px;
+}
+
+
+.clickImg {
+	
+	
+}
+
+.radiod{
+	width: 33%;
+	
+}
+
+.radioBlock{
+	margin-top: 10px;
+	clear: both;
+	width: 100%;
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	

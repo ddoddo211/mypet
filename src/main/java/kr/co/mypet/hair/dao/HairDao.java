@@ -88,5 +88,11 @@ public class HairDao implements HairDaoInf {
 		int chk = template.insert("petHair.insertBookMark",bmVo);
 		return chk;
 	}
+
+	@Override
+	public int bmDup(BookmarkVo bmVo) {
+		int chk = template.selectOne("petHair.bmDup", bmVo);
+		return chk;
+	}
 	
 }
