@@ -4,13 +4,63 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<script type="text/javascript">
+$(document).ready(function(){
+	
+	// 체크 박스 클릭한 부분
+	$(".petProdSelect").click(function(){
+		var petProdSelect = $(this).val();
+		$("#petProdSelect").val(petProdSelect);
+	});
+	
+	
+	// 보험해지 하기 버튼을 클릭할시에 적용되는 부분
+	$("#Termination").click(function(){
+		
+		var petProdSelect = $("#petProdSelect").val();
+		
+		if(petProdSelect == ""){
+			alert("보험해지를 원하시는 보험상품을 선택하시기 바랍니다.");
+			return;
+		}else{
+			$("#frm").submit();
+		}
+		
+	});
+	
+	// 펫 삭제하기 버튼을 클릭하였을때 
+	$("#petDel").click(function(){
+		var petIsrJoin = ${isrVoListSize};
+		
+		if(petIsrJoin != 0){
+			alert("해당 펫은 보험에 가입되어 있는 펫입니다.\n보험을 해지한후 삭제하시기 바랍니다.");
+			return;
+		}else{
+			$("#frm2").submit();
+		}
+	});
+	
+	
+});
+
+
+</script>
+<form action="/isr/mypetIsrDel" method="get" id="frm">
+	<input type="hidden" id="petProdSelect" name="petProdSelect" value="">
+	<input type="hidden" id="petId" name="petId" value="${mypetInfo.myp_id}">
+</form>
+
 						<div class="mypetPageBtn">
 							<div id="mypetPageBtn">
-								<div id="mypetPageBtn1">
-									<input class="mypetPageBtn1_1" type="button" value="펫 삭제하기">
-								</div>
+								<form action="/isr/mypageMypetDel" method="get" id="frm2">
+									<input type="hidden" value="${mypetInfo.myp_id}" name="mypetId">
+								</form>
+									<div id="mypetPageBtn1">
+										<input class="mypetPageBtn1_1" id="petDel" type="button" value="펫 삭제하기">
+									</div>
+								
 								<div id="mypetPageBtn2">
-									<input class="mypetPageBtn1_1" type="button" value="펫 정보 수정하기">
+									<input class="mypetPageBtn1_1" id="petInfoUpdate" type="button" value="펫 정보 수정하기" onclick="goMypetInfoUpdate(${mypetInfo.myp_id})">
 								</div>
 							</div>
 						</div>
@@ -68,7 +118,113 @@
 											${mypetInfo.myp_neu }
 										</div>
 									</div>
-		
 								</div>
+<!-- 펫의 보험가입 정보  -->						
+										<div id="mypetIsrJoin">
+											<div id="mypetIsrJoin1">
+												<div id="mypetIsrJoin1_1">
+													  해당 펫에 가입되어 있는 보험
+												</div>
+												
+												<div id="mypetIsrJoin2">
+													<table>
+														<tr>
+															<th class="mypetTd0">체크</th>
+															<th class="mypetTd">가입대상</th>
+															<th class="mypetTd">보험상품</th>
+															<th class="mypetTd">월 보험료 가격</th>
+															<th class="mypetTd">가입연령</th>
+															<th class="mypetTd1">보장기간</th>
+															<th class="mypetTd">질병여부(Y/N)</th>
+															<th class="mypetTd">가입일</th>
+															<th class="mypetTd">보험상품  만료여부</th>
+														</tr>
+										
+<!-- 펫에 가입되어 있는 상품이 없을 경우 -->	
+	<c:choose>		
+		<c:when test="${isrVoListSize == 0 }">
+			<tr class="mypetTr">
+				<td colspan="9"> 해당 펫에 가입되어 있는 보험상품이 없습니다.</td>
+			</tr>
+		</c:when>	
+		<c:otherwise>
+				
+															<c:forEach items="${isrVoList}" var="list">	
+																	<tr>
+																		<td class="mypetTd2"><input type="radio" name="petProd" class="petProdSelect" value="${list.ins_id}"></td>
+																		<td class="mypetTd2">${list.insp_join}</td>
+																		<td class="mypetTd2">${list.insp_kind}</td>
+																		<td class="mypetTd2"><%="월 "%>${list.insp_fees}<%="원"%></td>
+																		<td class="mypetTd2">${list.insp_minage}<%="~"%>${list.insp_maxage}<%="세"%></td>
+																		<td class="mypetTd2"><%="가입부터 ~"%>${list.insp_period}<%="세 까지"%></td>
+																		<td class="mypetTd2">${list.insp_sick}</td>
+																		<td class="mypetTd2"><fmt:formatDate value="${list.ins_start}" pattern="yy년 MM월 dd일"></fmt:formatDate></td>
+																		<td class="mypetTd2">${list.ins_dis}</td>
+																	<tr>
+															</c:forEach>
+		</c:otherwise>	
+	</c:choose>		
+													</table>
+												</div>
+												
+												<div id="mypetIsrJoin3">
+													<div id="mypetIsrJoin3_1">
+														<div id="mypetIsrJoin3_1_1">
+															<input type="button" id="Termination" value="보험해지하기">
+														</div>
+													</div>
+												</div>
+												
+												<!-- 펫의 보험가입 정보  -->						
+										<div id="mypetIsrJoin">
+											<div id="mypetIsrJoin1">
+												<div id="mypetIsrJoin1_1">
+													  해당 펫이 해지한 보험가입 내역
+												</div>
+												
+												<div id="mypetIsrJoin2">
+													<table>
+														<tr>
+															<th class="mypetTd">가입대상</th>
+															<th class="mypetTd">보험상품</th>
+															<th class="mypetTd">월 보험료 가격</th>
+															<th class="mypetTd">가입연령</th>
+															<th class="mypetTd1">보장기간</th>
+															<th class="mypetTd">질병여부(Y/N)</th>
+															<th class="mypetTd">가입일</th>
+															<th class="mypetTd">보험상품  만료여부</th>
+															<th class="mypetTd">해지상태</th>
+														</tr>
+										
+<!-- 펫에 가입되어 있는 상품이 없을 경우 -->	
+	<c:choose>		
+		<c:when test="${isrVoList2Size == 0 }">
+			<tr class="mypetTr">
+				<td colspan="9"> 해당 펫에 해지되어 있는 보험상품이 없습니다.</td>
+			</tr>
+		</c:when>	
+		<c:otherwise>
+				
+															<c:forEach items="${isrVoList2}" var="list">	
+																	<tr>
+																		<td class="mypetTd2">${list.insp_join}</td>
+																		<td class="mypetTd2">${list.insp_kind}</td>
+																		<td class="mypetTd2"><%="월 "%>${list.insp_fees}<%="원"%></td>
+																		<td class="mypetTd2">${list.insp_minage}<%="~"%>${list.insp_maxage}<%="세"%></td>
+																		<td class="mypetTd2"><%="가입부터 ~"%>${list.insp_period}<%="세 까지"%></td>
+																		<td class="mypetTd2">${list.insp_sick}</td>
+																		<td class="mypetTd2"><fmt:formatDate value="${list.ins_start}" pattern="yy년 MM월 dd일"></fmt:formatDate></td>
+																		<td class="mypetTd2">${list.ins_dis}</td>
+																		<td class="mypetTd2">${list.ins_dis}</td>
+																	<tr>
+															</c:forEach>
+		</c:otherwise>	
+	</c:choose>		
+															</table>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
 							</div>
 						</div>

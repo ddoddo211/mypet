@@ -51,6 +51,18 @@
 	values('bmk'||seq_bookmark.nextval,#{bmk_mem},#{bmk_has},#{bmk_fac})
   </insert>
   
+  <!--  bookmark 중복체크 -->
+  <select id="bmDup" parameterType="bmVo" resultType="int">
+  	select count(*) from bookmark where bmk_mem=#{bmk_mem} and bmk_has=#{bmk_has}
+  </select>
+  
+  <!-- 예약 전체조회 -->
+  <select id="selRes" parameterType="hrVo" resultType="hrVo">
+  	select * from hairres where hres_has = #{hres_has} and hres_time = #{hres_time} and  hres_date= #{hres_date}
+  </select>
+  
+  
+  
 </mapper>
 
 

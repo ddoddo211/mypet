@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import kr.co.mypet.hair.model.BookmarkVo;
 import kr.co.mypet.hair.model.HairBoardVo;
+import kr.co.mypet.hair.model.HairResVo;
 import kr.co.mypet.hair.model.HairShopVo;
 import kr.co.mypet.hair.model.PetStyleVo;
 import kr.co.mypet.sitter.model.ZipVo;
@@ -87,6 +88,18 @@ public class HairDao implements HairDaoInf {
 	public int insertBookMark(BookmarkVo bmVo) {
 		int chk = template.insert("petHair.insertBookMark",bmVo);
 		return chk;
+	}
+
+	@Override
+	public int bmDup(BookmarkVo bmVo) {
+		int chk = template.selectOne("petHair.bmDup", bmVo);
+		return chk;
+	}
+
+	@Override
+	public List<HairResVo> selRes(HairResVo hrVo) {
+		List<HairResVo> hrList = template.selectList("petHair.selRes",hrVo);
+		return hrList;
 	}
 	
 }
