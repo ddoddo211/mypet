@@ -582,6 +582,7 @@ table tr:last-child td:last-child{
 	width: 1200px;
 	height: 0 auto;
 	margin-top: 10px;
+	
 }
 
 #petInfoTableTop{
@@ -1698,6 +1699,7 @@ input[name="cb2"] {
 	margin-bottom:30px;
 	width: 1200px;
 	height: 50px;
+	margin-left: 100px;
 }
 
 #nextBtn1{
@@ -2049,7 +2051,7 @@ div#upload-btnPet_wrap {/*버튼테두리 감싼 div*/
 }
 div#upload-btnPet_wrap button {/*버튼 div*/
 	width:75px;
-	height:30px;
+	height:20px;
 	font-weight:bold;
 	background:#333;
 	border:1px solid #333;
@@ -2411,8 +2413,7 @@ div#upload-btnPet_wrap button {/*버튼 div*/
 
 #mypetPage4_1{
 	width: 915px;
-	height: 220px;
-	border: 2px dotted #808080;
+	height: 0 auto;
 }
 
 #mypetPage4_2{
@@ -2420,7 +2421,6 @@ div#upload-btnPet_wrap button {/*버튼 div*/
 	height: 200px;
 	float:left;
 	margin-left:15px;
-	margin-top: 10px;
 }
 
 #mypetPage4_3{
@@ -2431,13 +2431,12 @@ div#upload-btnPet_wrap button {/*버튼 div*/
 
 #mypetPage4_2_1{
 	width: 90px;
-    height: 30px;
-    font-size: 20px;
+    height: 20px;
+    font-size: 15px;
     font-family: 'Jeju Gothic', sans-serif;
     text-align: center;
-    padding-top: 5px;
     float: left;
-    margin-left: 55px;
+    margin-left: 60px;
 }
 
 
@@ -2521,7 +2520,6 @@ div#upload-btnPet_wrap button {/*버튼 div*/
 	width: 160px;
 	height: 160px;
 	border-radius: 50px;
-	margin-top: 5px;
 	border: 3px dashed #ffcce7;
 }
 
@@ -2656,6 +2654,7 @@ div#upload-btnPet_wrap button {/*버튼 div*/
     text-align: center;
     line-height: 30px;
     border: 2px solid #ffcce7;
+    outline: none;
 }
 
 #isrApplyBtn1:hover{
@@ -2671,6 +2670,7 @@ div#upload-btnPet_wrap button {/*버튼 div*/
     text-align: center;
     line-height: 30px;
     border: 2px solid #ffcce7;
+    outline: none;
 }
 
 #isrApplyBtn2{
@@ -2885,3 +2885,159 @@ div#upload-btnPet_wrap button {/*버튼 div*/
     border-radius: 50px;
     outline: none;
 }
+
+#history2{
+	width: 1200px;
+	height: 100px;
+}
+
+.history2_1{
+	width: 160px;
+    float: left;
+    font-family: 'Jeju Gothic', sans-serif;
+    font-size: 20px;
+    margin-bottom: 10px;
+    background-color: #ffcce7;
+    color: white;
+    width: 150px;
+    border-radius: 50px;
+    text-align: center;
+    padding: 5px;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+.history2_1_1{
+	width: 320px; 
+	height: 30px;
+	margin-left: 35px;
+	float: left;
+	margin-top: 10px;
+}
+
+#nextHistoryBtn{
+	margin-top:25px;
+	margin-bottom:30px;
+	width: 1200px;
+	height: 50px;
+}
+
+#nextHistoryBtn1_1{
+	width: 200px;
+	height: 50px;
+	margin: 0 auto;
+}
+
+.history2_4{
+	font-family: 'Jeju Gothic', sans-serif;
+    font-size: 20px;
+    line-height: 30px;
+    margin-left: 20px;
+}
+
+.history3{
+	width: 160px; 
+	height: 30px;
+	margin-left: 80px;
+	float: left;
+    font-family: 'Jeju Gothic', sans-serif;
+    font-size: 20px;
+    margin-bottom: 10px;
+    background-color: #ffcce7;
+    color: white;
+    border-radius: 50px;
+    text-align: center;
+    line-height: 30px;
+}
+
+
+/*나의 펫 보험 - 나의 펫 정보 부분에 보험가입 상품 나오세 설정*/
+#mypetIsrJoin{
+	width: 915px;
+    min-height : 448px;
+    margin-top: 10px;
+}
+
+#mypetIsrJoin1{
+	width: 915px;
+    height: 30px;
+	background-color: #ffefef;
+}
+
+#mypetIsrJoin1_1{
+	width: 300px;
+	height: 30px;
+	margin-left: 30px;
+	font-size: 16px;
+    font-family: 'Jeju Gothic', sans-serif;
+    color: gray;
+    line-height: 30px;
+    text-align: center;
+}
+
+#mypetIsrJoin2{
+	width: 915px;
+    margin-top: 10px;
+    min-height : 100px;
+}
+
+.mypetTd{
+	width: 70px;
+}
+
+.mypetTd1{
+	width: 125px;
+}
+
+.mypetTd2{
+	height: 30px;
+}
+
+.mypetTd0{
+	width: 20px; 
+}
+
+#mypetIsrJoin3{
+	width: 915px;
+    margin-top: 10px;
+}
+
+#mypetIsrJoin3_1{
+	width: 915px;
+	height: 30px;
+	margin: 0 auto;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+#mypetIsrJoin3_1_1{
+	width: 200px;
+	height: 30px;
+	float: left;
+    background-color: black;
+    color: white;
+    font-size: 20px;
+    font-family: 'Jeju Gothic', sans-serif;
+    text-align: center;
+    line-height: 30px;
+    border-radius: 50px;
+    margin-left: 340px;
+}
+
+.mypetTr{
+	height: 60px;	
+}
+
+#Termination{
+	width: 200px;
+	height: 30px;
+    background-color: black;
+    color: white;
+    font-size: 20px;
+    font-family: 'Jeju Gothic', sans-serif;
+    text-align: center;
+    line-height: 30px;
+    border-radius: 50px;
+    outline: none;
+}
+

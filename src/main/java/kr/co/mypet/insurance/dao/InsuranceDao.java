@@ -193,7 +193,7 @@ public class InsuranceDao implements InsuranceDaoInf {
 	*/
 	@Override
 	public int mypetDel(String myp_id) {
-		return template.delete("petIns.mypetDel", myp_id);
+		return template.update("petIns.mypetDel", myp_id);
 	}
 
 
@@ -493,6 +493,64 @@ public class InsuranceDao implements InsuranceDaoInf {
 	@Override
 	public int accountChange(AccidentVo acdVo) {
 		return template.update("petIns.accountChange",acdVo);
+	}
+
+
+
+	/**
+	* Method : claimPetJoinProd1
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param isrVo
+	* @return
+	* Method 설명 : 나의 펫 보험 부분에서 가입이 완료된 상품만 나오게 설정
+	*/
+	@Override
+	public List<InsuranceVo> claimPetJoinProd1(InsuranceVo isrVo) {
+		return template.selectList("petIns.claimPetJoinProd1",isrVo);
+	}
+
+
+	/**
+	* Method : mypetIsrDel
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param ins_id
+	* @return
+	* Method 설명 :나의 펫 보험 화면에서 해당 펫의 가입되어 있는 보험상품 해지 하는 부분
+	*/
+	@Override
+	public int mypetIsrDel(String ins_id) {
+		return template.update("petIns.mypetIsrDel",ins_id);
+	}
+
+
+
+	/**
+	* Method : claimPetJoinProd2
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param isrVo
+	* @return
+	* Method 설명 : 나의 펫 보험 - 보험 해지 되어 있는 가입내역이 나오는 부분
+	*/
+	@Override
+	public List<InsuranceVo> claimPetJoinProd2(InsuranceVo isrVo) {
+		return template.selectList("petIns.claimPetJoinProd2",isrVo);
+	}
+
+
+	/**
+	* Method : mypetInfoUpdate
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param petVo
+	* @return
+	* Method 설명 :나의 펫 보험 화면에서 펫의 정보 수정하는 부분
+	*/
+	@Override
+	public int mypetInfoUpdate(MypetVo petVo) {
+		return template.update("petIns.mypetInfoUpdate",petVo);
 	}
 
 

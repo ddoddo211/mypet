@@ -65,40 +65,45 @@
 	}
 	
 	// 성별 부분을 원래 선택되어 있는 값이 아닌 다른 부분으로 클릭하여 선택하였다면 담아주기 
+	var petGender = '${petGender}';
+	$("#petGender").val(petGender);
+	
 		$(".wr1_2_2").click(function(){
 			var petGender = $(this).val();
 			$("#petGender").val(petGender);
 		});	
 		
 	// 질병여부 부분을 원래 선택되어 있는 값이 아닌 다른 부분으로 클릭하여 선택하였다면 담아주기 	
+	var petSick = '${petSick}';
+	$("#petSick").val(petSick);
+	
 		$(".wr1_2_2_1").click(function(){
 			var petSick = $(this).val();
 			$("#petSick").val(petSick);
 		});
 	
 	// 중성화 부분을 원래 선택되어 있는 값이 아닌 다른 부분으로 클릭하여 선택하였다면 담아주기
-		var petNeutralization = null;
-		// 중성화 부분이 체크 되지 않았을때는 N으로 넘겨진다. 체크되었다면 Y로 담긴다.
-		if ($("input[id='neuYnChk']:checked").val()== 'Y') {
-			petNeutralization = $("input[id='neuYnChk']:checked").val();
-			$("#petNeu").val(petNeutralization);
-		}else{
-			petNeutralization = "N";
-			$("#petNeu").val(petNeutralization);
-		}
+		var petNeutralization = '${petNeu}';
+		$("#petNeutralization").val(petNeutralization);
 		
-		$("#petBirthSelect").click(function(){
-			var petBirth = $("#petBirthSelect").val();
-			$("#petBirth").val(petBirth);
+	// 수정완료 하기 버튼을 클릭하였을떄 중성화 여부 담아주기 
+		$(".mypetPageBtn1_1").click(function(){
+			// 중성화 부분이 체크 되지 않았을때는 N으로 넘겨진다. 체크되었다면 Y로 담긴다.
+			if ($("input[id='neuYnChk']:checked").val()== 'Y') {
+				petNeutralization = "Y";
+				$("#petNeutralization").val(petNeutralization);
+			}else{
+				petNeutralization = "N";
+				$("#petNeutralization").val(petNeutralization);
+			}
 		});
-				
+							
 </script>
 
 <!-- form에 input에 name을 담아서 submit으로 보내기 -->
-<form id="frm" action="/isr/mypetInfoUpdateS" method="post">
-<input type="hidden" name="petId" value="${mypetInfo.myp_id}">		
-<input type="hidden" id="petBirth" name="petBirth" value="${mypetInfo.myp_id}">		
-
+<form id="frm" action="/isr/mypetInfoUpdateS" method="post" enctype="multipart/form-data">
+<input type="hidden" name="petId" value="${mypetInfo.myp_id}">			
+<input type="hidden" name="petNeutralization" id="petNeutralization" value="">			
 						<div class="mypetPageBtn">
 							<div id="mypetPageBtn">
 							
@@ -121,10 +126,10 @@
 											  <button type="button" title="사진변경">
 											   <span>사진변경</span>  
 											  </button>
-											  <input type="file" id="input_filePet" title="사진변경" name="diagnosis">
+											  <input type="file" id="input_filePet" title="사진변경" name="petImg">
 											</div>
 									</div>
-				
+
 									<div class="mypetPage4_2_2">
 										<img class="mypetPage4_2_2_1" alt="이미지가 없습니다" src="${mypetInfo.myp_img}">
 									</div>
@@ -141,7 +146,7 @@
 											생년월일
 										</div>
 										<div class="mypetPage4_3_2_3">
-											<input type="text" name ="petBirthSelect" value="" id="petBirthSelect" readonly="readonly" placeholder="<fmt:formatDate value='${petBirth}' pattern='yyyy년 MM월 dd일'></fmt:formatDate>">
+											<input type="text" name ="petBirthSelect" value="<fmt:formatDate value='${petBirth}' pattern='yyyy-MM-dd'></fmt:formatDate>" id="petBirthSelect" readonly="readonly" placeholder="<fmt:formatDate value='${petBirth}' pattern='yyyy년 MM월 dd일'></fmt:formatDate>">
 										</div>
 									</div>
 									<div class="mypetPage4_3_1">
@@ -173,7 +178,6 @@
 											중성화 여부
 										</div>
 										<div class="mypetPage4_3_2_3">
-											<input type="hidden" value="" id="petNeu" name="petNeu">
 											<input type="checkbox" value="Y" id="neuYnChk"> Y
 											<label id="neuYn">(*중성화 수술을 했을경우 체크)</label>
 										</div>
