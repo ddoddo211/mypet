@@ -6,6 +6,7 @@ import kr.co.mypet.common.model.AccountVo;
 import kr.co.mypet.common.model.MemberVo;
 import kr.co.mypet.common.model.MypetVo;
 import kr.co.mypet.common.model.PetkindVo;
+import kr.co.mypet.insurance.model.AccidentVo;
 import kr.co.mypet.insurance.model.InsProdVo;
 import kr.co.mypet.insurance.model.InsshoppingVo;
 import kr.co.mypet.insurance.model.InsuranceNoticeVo;
@@ -272,5 +273,98 @@ public interface InsuranceDaoInf {
 	List<InsuranceVo> insuredPerson (String memId);
 	
 	
-
+	/**
+	* Method : accidentInsert
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param acdVo
+	* @return
+	* Method 설명 : 보험청구 신청하는 부분
+	*/
+	int accidentInsert(AccidentVo acdVo);
+	
+	
+	/**
+	* Method : isuranceStatus
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param memId
+	* @return
+	* Method 설명 : 나의 펫 보험 - 회원이 현재까지 받은 보험금 현황
+	*/
+	int isuranceStatus(String memId);
+	
+	/**
+	* Method : monthlyPremium
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param memId
+	* @return
+	* Method 설명 :나의펫 보험 - 월 전체 보험료 나오는 부분
+	*/
+	int monthlyPremium(String memId);
+	
+	
+	/**
+	* Method : isrApply
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param memId
+	* @return
+	* Method 설명 : 나의 펫 보험 - 현재보험금 신청현황(신청)
+	*/
+	List<AccidentVo> isrApply (String memId);
+	
+	/**
+	* Method : underExamination
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param memId
+	* @return
+	* Method 설명 : 나의 펫 보험 - 현재보험금현황(반려)
+	*/
+	List<AccidentVo> underExamination (String memId);
+	
+	/**
+	* Method : isrComplete
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param memId
+	* @return
+	* Method 설명 : 나의 펫 보험 - 현재보험금현황(완료)
+	*/
+	List<AccidentVo> isrComplete (String memId);
+	
+	
+	/**
+	* Method : goAccidentDel
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param accd_id
+	* @return
+	* Method 설명 : 보험금 신청 현황 화면에서 보험금 신청 취소를 클릭하였을떄 적용되는 부분
+	*/
+	int goAccidentDel(String accd_id);
+	
+	
+	
+	/**
+	* Method : history
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param accd_id
+	* @return
+	* Method 설명 :보험금 내역 확인 버튼을 클릭하였을때 나오는 부분
+	*/
+	AccidentVo history(String accd_id);
+	
+	/**
+	* Method : accountChange
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param acdVo
+	* @return
+	* Method 설명 :보험금내역 부분에서 계좌번호를 변경하였을떄 실행
+	*/
+	int accountChange(AccidentVo acdVo);
 }

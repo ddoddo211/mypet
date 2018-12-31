@@ -35,25 +35,84 @@
 #hidden {
 	display: none;
 }
+
+.noticeWord{
+	font-size : 28px;
+}
+
+#noticeColor1{
+	color : #9c9c9c;
+	width : 170px;
+	font-size : 20px;
+}
+#noticeColor2{
+	color : orange;
+	width : 170px;
+	font-size : 20px;
+}
+.noticeSV{
+	text-align: center
+}
+#noticeAdd{
+   	margin-top: 20px;
+   	width: 10%;
+   	height: 60px;
+   	font-family: 'Nanum Brush Script', cursive;
+   	font-size : 26px;
+   	float:left;
+   	color : #fff;
+   	text-align: center;
+   	line-height: 60px;
+   	background-color: #4f87ff;
+   	border-radius: 15px;
+   	cursor: pointer;
+}
+
+.addr{
+	border : 1px solid black;
+	width : 200px;
+	height : 30px;
+	z-index: 1;
+	background-color: #000;
+	opacity: 0.5;
+	color: #fff;
+	font-size : 22px;
+}
 </style>
 <script type="text/javascript">
 	$(document).ready(function(){
 		var ev = "click";
+		var cnt = 0;
 		$("#noticeList").on(ev,".noticeClick", function(){
 			var pstId = $(this).children()[1].innerText;
 			$("#pstId").val(pstId);
-			alert(pstId);
-			$("#frm").submit();
+			cnt++;
+			$("#count").val(cnt);
+			$("#frm1").submit();
 		});
-		$("#content1").click(function(){
-			alert("상세페이지 전환");
-			$("#frm").submit();
+		
+		$("#noticeAddBtn").click(function(){
+			var mem_id = "${memVo.mem_id}";
+			if(mem_id == ""){
+				$("#loginPopup").slideDown("fast");
+			} else{
+				location.href="/sit/sitterToInsertView";
+			}
+		});
+		
+		$(".btn").click(function(){
+			var i = $(this).children('input').val();
+			$("#sort").val(i);
+			$("#frm2").submit();
 		});
 	});
 </script>
+
 </head>
 <body>
-
+<form action="" method="post" id="frm2">
+	<input type="hidden" id="sort" name="sort" />
+</form>
 <%@include file="/WEB-INF/view/common/header.jsp"%>
 
 <!-- 각자 화면 -->
@@ -124,6 +183,9 @@
 							</li>
 						</ul>
 					</div>
+					<div id="noticeAdd">
+						<span id="noticeAddBtn">게시글 등록</span>
+					</div>
 				</div>
 			</div>
 		</div><!-- // searchMain -->
@@ -131,27 +193,40 @@
 		<div id="petToList">
 			<div id="listMenu">
 				<div id="sort">
-					<label class="btn">최신순</label> <input type="hidden" name="latest" value="" />
-					<label class="btn">조회순</label> <input type="hidden" name="inquiry" value="" />
+					<label class="btn" >최신순<input type="hidden" id="latest" name="latest" value="1" /></label> 
+					<label class="btn" >조회순<input type="hidden" id="inquiry" name="inquiry" value="2" /></label> 
 				</div>
 			</div>
 			<div id="list">
 				<div class="notice">
-					<table id="noticeTable" cellspacing="0" cellpadding="0">
+					<table id="noticeTable">
 						<tbody id="noticeList">
 							<c:forEach items="${sitList }" var="list">
 								<tr class="noticeClick noticeTr">
-									<td rowspan="3" class="noticeAttr"><img alt="이미지" src="${list.pst_img }" width="370px" height="270px"/></td>
+									<c:choose>
+										<c:when test="${list.pst_img == '' || list.pst_img == null}">
+											<td rowspan="3" class="noticeAttr"><div style="width:370px; height:270px; background-image: url('/img/petimg/noimg.jpg');  background-size: cover;" ></div></td>
+										</c:when>
+										<c:otherwise>
+											<td rowspan="3" class="noticeAttr">
+												<div style="width:370px; height:270px; background-image: url('${list.pst_img}'); background-repeat: no-repeat; background-size: cover;" >
+												<div class="addr">${list.mem_addr }</div>
+											</td>
+										</c:otherwise>
+									</c:choose>
 									<td id="hidden" rowspan="3">${list.pst_id }</td>
-									<td colspan="3"><span>설명글 : ${list.pst_text }</span></td>
+									<td colspan="3"><span class="noticeWord noticeTitle">&nbsp;제목 : ${list.pst_title }</span></td>
 								</tr>
 								<tr class="noticeTr">
-									<td colspan="3"><span>가격정보</span></td>
+									<td><span class="noticeWord">&nbsp;가격정보</span></td>
+									<td id="noticeColor1">day care / <span class="noticeWord">${list.pst_price1 }원</span></td>
+									<td id="noticeColor2">1박 / <span class="noticeWord">${list.pst_price2 }원</span></td>
 								</tr>
 								<tr class="noticeTr" id="noticeLast">
-									<td><fmt:formatDate value="${list.pst_date }" pattern="yyyy-MM-dd" /></td>
-									<td><span>평정 : ${list.pst_score }</span></td>
-									<td><span>조회수 : ${list.pst_view }</span></td>
+									<td></td>
+									<td class="noticeWord noticeSV"><span>평정 : ${list.pst_score }</span></td>
+									<td class="noticeWord noticeSV"><span>조회수 : ${list.pst_view }</span></td>
+									<td id="hidden"><fmt:formatDate value="${list.pst_date }" pattern="yyyy-MM-dd" /></td>
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -162,8 +237,9 @@
 	</div>
 	
 	
-	<form id="frm" method="get" action="/sit/sitDetail">
+	<form id="frm1" method="get" action="/sit/sitDetail">
 		<input type="hidden" id="pstId" name="pst_id" />
+		<input type="hidden" id="count" name="count" />
 	</form>
 	<div id="topMove">
 		<a href="#header">

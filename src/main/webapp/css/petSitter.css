@@ -8,7 +8,6 @@ body, option, select{
 	margin: 0 auto;
 	width: 1200px;
 	position: relative;
-	border : 1px solid red;
 	min-height: 728px;
 }
 
@@ -268,15 +267,17 @@ body, option, select{
 }
 
 #list1{
-	width : 1000px;
+	width : 1200px;
 	heigth : 200px;
+	overflow: hidden;
 }
 
 #list2{
 	margin-top : 20px;
-	width : 100%;
+	width : 88%;
 	height : 70px;
 	font-family: 'Nanum Brush Script', cursive;
+	float:left;
 }
 
 #list2 > ul > li{
@@ -356,6 +357,11 @@ td {
 	padding : 0px;
 	width : 370px;
 	height : 270px !important;
+	cursor: pointer;
+}
+
+.noticeTitle{
+	cursor : pointer;
 }
 
 #noticeLast{
@@ -387,6 +393,7 @@ td {
 
 #contentleft{
 	width : 64%;
+	margin-left : 10px;
 	float : left;
 }
 
@@ -397,12 +404,63 @@ td {
 
 #contentset{
 	margin-top : 30px;
-	border : 1px solid pink;
 }
 
 #contentImg{
 	width : 100%;
 	height : 100%;
+}
+
+#contentleft3{
+	margin-top : 20px;
+	overflow : hidden;
+}
+
+#left3_1{
+	width : 42%;
+	margin-left : 4%;
+	margin-right : 4%;
+	float : left;
+}
+
+#left3_1_img{
+	width : 23%;
+	height : 100px;
+	background-image: url('/img/petSitterImg/petSitterToImg1.jpg');
+	background-repeat: no-repeat; 
+	background-size: contain;
+	float:left;
+}
+
+#left3_1_text{
+	font-size : 24px;
+	float:left;
+	
+}
+
+#left3_1_textPre{
+	
+	font-size : 24px;
+	font-family: 'Nanum Brush Script', cursive;
+}
+
+#left3_2{
+	width : 42%;
+	float : left;
+}
+
+#left3_2_img{
+	width : 30%;
+	height : 100px;
+	background-image: url('/img/petSitterImg/petSitterToImg2.jpg');
+	background-repeat: no-repeat; 
+	background-size: contain;
+	float : left;
+}
+
+#left3_2_text{
+	float : left;
+	font-size : 24px;
 }
 
 #contentright{
@@ -413,13 +471,16 @@ td {
 }
 
 #contentright1{
-	border : 1px solid green;
-	
+	border : 1px solid #d1d1d1;
+	border-radius: 5px;
+	font-family:'Nanum Brush Script', sans-serif;
+	position: fixed;
+	max-width: 371px;
 }
 
 #contentDate{
 	margin : 0 auto;
-	width : 270px;
+	width : 350px;
 	height : 25px;
 	border : 1px solid gray;
 	border-radius: 5px;
@@ -429,9 +490,17 @@ td {
 #dateStart, #dateEnd{
 	margin-top : 2px;
 	outline : none;
-	width : 120px;
+	width : 80px;
 	height : 20px;
 	border : none;
+}
+#timeStart, #timeEnd{
+	margin-top : 2px;
+	outline : none;
+	width : 60px;
+	height : 20px;
+	border : none;
+	text-align: center;
 }
 
 #contentPrice{
@@ -464,18 +533,19 @@ td {
 	border-bottom : 1px solid gray;
 }
 
-#res { position:relative; margin-top : 90px; margin-bottom : 20px;}
+#res { position:relative; margin-top : 120px; margin-bottom : 20px;}
 
 #contentright2{ 
 	margin-top : 30px; 
-	border : 1px solid green;
+	border : 1px solid #d1d1d1;
+	border-radius: 5px;
 }
 
 #faqSearch{
 	background-image: url("/img/petSitterImg/faqImage.png");
 	background-position: center;
     background-size: cover;
-    height: 400px;
+    height: 500px;
     text-align: center;
     width: 100%;
 }
@@ -503,19 +573,24 @@ td {
 	margin : 0 auto;
 	font-family : 'Nanum Brush Script', cursive;
 	margin-top : 20px;
-	text-align: center;
+	padding-top: 20px;
+	text-align: left;
+	min-height: 350px;
 }
 
 #faqTable > span {
-	font-size : 32px;
+	font-size : 40px;
 	font-weight: bold;
 }
 
 #faq{
-	width : 900px;
-	border : 1px solid black;
-	border-collapse: collapse;
-	border-spacing: 0px;
+	width: 900px;
+    border-collapse: collapse;
+    border-spacing: 0px;
+    font-size: 30px;
+    margin-top: 20px;
+    color: #fff;
+    min-height : 200px;
 }
 
 #topMove{
@@ -561,30 +636,43 @@ td {
 	text-align: left;
 	font-size : 16px;
 	margin-top : 10px;	
+	min-height: 520px;
 }
 
 #index {
-	width : 50px;
+	width : 900px;
 	height : 20px;
-	float : right;
+	margin : 0 auto;
 	text-align: center;
-	margin-top : 50px;
-	margin-right : 150px;
+	margin-top : 20px;
+	margin-bottom : 20px;
+	cursor: pointer;
 }
 
-#indexMove{
+.indexMove{
 	border : 1px solid black;
+	width : 50px;
 	display : block;
 	border-radius: 10px;
+	float: right;
 	font-size : 16px;
 }
 
-#indexMove:hover{
+.indexMove:hover{
 	border : 1px solid #17aaff;
 	display:bloack;
 	border-radius : 10px;
 	font-size : 16px;
 	background-color : #17aaff;
+	color : #fff;
+}
+
+.indexMove:active{
+	border : 1px solid #0081cc;
+	display:bloack;
+	border-radius : 10px;
+	font-size : 16px;
+	background-color : #0081cc;
 	color : #fff;
 }
 
@@ -734,6 +822,7 @@ input[name="mypet1"] {
 	border-radius: 10px;
 	box-shadow: 2px 2px 3px 4px #ccc;
 	text-align: center;
+	outline: none;
 }
 
 .timeSelect{
@@ -745,6 +834,7 @@ input[name="mypet1"] {
 	border-radius: 10px;
 	box-shadow: 2px 2px 3px 4px #ccc;
 	text-align-last: center;
+	outline: none;
 }
 
 #mypetOk{

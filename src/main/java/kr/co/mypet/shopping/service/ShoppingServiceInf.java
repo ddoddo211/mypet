@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.Map;
 
 import kr.co.mypet.shopping.model.DivisionVo;
+import kr.co.mypet.shopping.model.ProdOptionVo;
 import kr.co.mypet.shopping.model.ProdVo;
+import kr.co.mypet.shopping.model.ProddvVo;
 import kr.co.mypet.shopping.model.ShopNoticeVo;
 
 public interface ShoppingServiceInf {
@@ -17,6 +19,35 @@ public interface ShoppingServiceInf {
 	* Method 설명 : 펫쇼핑몰 공지사항 불러오기
 	*/
 	public List<ShopNoticeVo> shopNoticeList();
+	
+	/**
+	* Method : animalList
+	* 작성자 : pc25
+	* 변경이력 :
+	* @return
+	* Method 설명 : 펫쇼핑몰 메인화면 사료검색 동물List
+	*/
+	public List<DivisionVo> animalList();
+	
+	/**
+	* Method : animalSaryo
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param dvs_id
+	* @return
+	* Method 설명 : 동물의 아이디를 받아 해당 동물의 사료메뉴 id 찾기
+	*/
+	public String animalSaryo(String dvs_id);
+	
+	/**
+	* Method : brandSearch
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param dvs_parent
+	* @return
+	* Method 설명 : 동물의 아이디를 받아 찾은 사료id를 가지고 브랜드List 찾기
+	*/
+	public List<DivisionVo> brandSearch(String dvs_parent);
 	
 	/**
 	* Method : shopNoticeDetail
@@ -127,4 +158,105 @@ public interface ShoppingServiceInf {
 	* Method 설명 : 옵션(연령,브랜드)과 관련된 해당분류id(성견,퍼피등) 찾기
 	*/
 	public List<String> opChk(Map<String,Object> map);
+	
+	/**
+	* Method : prodOpList
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param prod_id
+	* @return
+	* Method 설명 : 상품의 상세 옵션(ex. 상품 : 티셔츠 - 옵션 : 그레이,화이트)
+	*/
+	public List<ProdOptionVo> prodOpList(String prod_id);
+	
+	/**
+	* Method : prodCre
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param prodVo
+	* @return
+	* Method 설명 : 상품 등록
+	*/
+	public int prodCre(ProdVo prodVo);
+	
+	/**
+	* Method : pddCre
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param pddVo
+	* @return
+	* Method 설명 : 상품 분류 등록
+	*/
+	public int pddCre(ProddvVo pddVo);
+	
+	/**
+	* Method : prodoCre
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param prodoVo
+	* @return
+	* Method 설명 : 상품옵션 등록
+	*/
+	public int prodoCre(ProdOptionVo prodoVo);
+	
+	/**
+	* Method : prodSearch
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param map
+	* @return
+	* Method 설명 : 해당 메뉴와 검색어를 받아 상품List 조회
+	*/
+	public List<ProdVo> prodSearch(Map<String,Object> map);
+	
+	/**
+	* Method : prodSearchChk
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param map
+	* @return
+	* Method 설명 : 상품 검색 후 체크 박스
+	*/
+	public List<ProdVo> prodSearchChk(Map<String,Object> map);
+	
+	
+	/**
+	* Method : deleteProd
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param prod_id
+	* @return
+	* Method 설명 : 상품 삭제
+	*/
+	public int deleteProd(String prod_id);
+	
+	/**
+	* Method : deletePdd
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param prod_id
+	* @return
+	* Method 설명 :상품 삭제 시 상품의 옵션 등록 부분도 같이 삭제
+	*/
+	public int deletePdd(String prod_id);
+	
+	/**
+	* Method : prodUpdate
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param prodVo
+	* @return
+	* Method 설명 : 상품 수정
+	*/
+	public int prodUpdate(ProdVo prodVo);
+	
+	/**
+	* Method : deleteOption
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param prod_id
+	* @return
+	* Method 설명 : 상품 수정 할 시 기존 옵션을 삭제하고 다시 옵션을 받기 위해서 
+	*/
+	public int deleteOption(String prod_id);
 }

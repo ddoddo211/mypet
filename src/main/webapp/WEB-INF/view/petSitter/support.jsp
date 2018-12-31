@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>support.jsp</title>
+<title>myPage.jsp</title>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <link href="/css/commonCss.css" rel ="stylesheet">
 <link href="/css/petSitter.css" rel="stylesheet">
@@ -42,10 +42,6 @@
 	<div id="body">
 		<div id="petSitterMenu">
 			<%@include file="/WEB-INF/view/petSitter/petSitterMenu.jsp" %>
-		</div>
-		
-		<div>
-			
 		</div>
 	</div>
 </body>

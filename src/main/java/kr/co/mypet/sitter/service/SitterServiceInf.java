@@ -7,6 +7,7 @@ import kr.co.mypet.common.model.MypetVo;
 import kr.co.mypet.common.model.PetkindVo;
 import kr.co.mypet.sitter.model.FaqVo;
 import kr.co.mypet.sitter.model.PetSitterVo;
+import kr.co.mypet.sitter.model.SitterRevVo;
 import kr.co.mypet.sitter.model.ZipVo;
 
 public interface SitterServiceInf {
@@ -128,4 +129,124 @@ public interface SitterServiceInf {
 	* Method 설명 : 반려동물 예약하기 처리
 	*/
 	int insertReservation(Map<String, Object> param);
+
+	/**
+	* Method : getReviewList
+	* 작성자 : pc24
+	* 변경이력 :
+	* @param param
+	* @return
+	* Method 설명 : 펫시터 집에 맡기기 게시글에 따른 후기글 리스트 조회
+	*/
+	Map<String, Object> getReviewList(Map<String, Object> param);
+	
+	/**
+	* Method : getReviewCnt
+	* 작성자 : pc24
+	* 변경이력 :
+	* @param stv_pst
+	* @return
+	* Method 설명 : 게시물에 따른 후기게시글의 갯수 
+	*/
+	int getReviewCnt(String stv_pst);
+
+	/**
+	* Method : insertReview
+	* 작성자 : pc24
+	* 변경이력 :
+	* @param param
+	* @return
+	* Method 설명 : 후기 게시글 등록
+	*/
+	int insertReview(Map<String, Object> param);
+
+	/**
+	* Method : updateReview
+	* 작성자 : pc24
+	* 변경이력 :
+	* @param param
+	* @return
+	* Method 설명 : 후기 게시글 수정 
+	*/
+	int updateReview(Map<String, Object> param);
+
+	/**
+	* Method : deleteReview
+	* 작성자 : pc24
+	* 변경이력 :
+	* @param stv_id
+	* @return
+	* Method 설명 : 후기 게시글 삭제 
+	*/
+	int deleteReview(String stv_id);
+
+	/**
+	* Method : insertSitterTo
+	* 작성자 : pc24
+	* 변경이력 :
+	* @param pstVo
+	* @return
+	* Method 설명 : 펫시터 집에 맡기기 게시글 등록 
+	*/
+	int insertSitterTo(PetSitterVo pstVo);
+
+	/**
+	* Method : updateFaq
+	* 작성자 : pc24
+	* 변경이력 :
+	* @param param
+	* @return
+	* Method 설명 : faq 게시글 수정 처리 
+	*/
+	int updateFaq(Map<String, Object> param);
+
+	/**
+	* Method : deleteFaq
+	* 작성자 : pc24
+	* 변경이력 :
+	* @param psf_id
+	* @return
+	* Method 설명 : faq 게시글 삭제 처리 
+	*/
+	int deleteFaq(String psf_id);
+
+	/**
+	* Method : insertFaq
+	* 작성자 : pc24
+	* 변경이력 :
+	* @param param
+	* @return
+	* Method 설명 : faq 게시글 등록 처리 
+	*/
+	int insertFaq(Map<String, Object> param);
+
+	/**
+	* Method : petNoticeListDate
+	* 작성자 : pc24
+	* 변경이력 :
+	* @return
+	* Method 설명 : 펫시터 집에 맡기기 최신순 정렬 리스트
+	*/
+	List<PetSitterVo> petNoticeListDate();
+
+	/**
+	* Method : petNoticeListCount
+	* 작성자 : pc24
+	* 변경이력 :
+	* @return
+	* Method 설명 : 펫시터 집에 맡기기 조회순 정렬 리스트
+	*/
+	List<PetSitterVo> petNoticeListCount();
+
+	/**
+	* Method : petNoticeCountUpdate
+	* 작성자 : pc24
+	* 변경이력 :
+	* @param param
+	* @return
+	* Method 설명 : 펫시터 집에 맡기기 조회수 변경 처리 
+	*/
+	int petNoticeCountUpdate(Map<String, Object> param);
+	
+	
 }

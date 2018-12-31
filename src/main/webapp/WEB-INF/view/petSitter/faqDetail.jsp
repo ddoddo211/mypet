@@ -12,8 +12,16 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <style type="text/css">
+  	#faqDetail{
+    	width : 1000px;
+    	margin : 0 auto;
+    	margin-top : 30px;
+    	overflow: hidden;
+  	}
+  </style>
 </head>
-<body>
+<body>+
 <%@include file="/WEB-INF/view/common/header.jsp"%>
 
 <!-- 각자 화면 -->
@@ -58,9 +66,13 @@
 			<div id="faqDetailMain">
 				<span>${fVo.psf_text }</span>
 			</div>
-		</div>
-		<div id="index">
-			<a id="indexMove">목록</a>
+			<div id="index">
+				<c:if test="${memVo.mem_id == 'admin' }">
+					<a class="indexMove" href="/sit/faqUpdateView?faq_id=${fVo.psf_id }">수정</a>
+					<a class="indexMove" href="/sit/faqDelete?faq_id=${fVo.psf_id }">삭제</a>
+				</c:if>
+				<a class="indexMove" href="/sit/faq">목록</a>
+			</div>
 		</div>
 	</div>
 	<div id="topMove">

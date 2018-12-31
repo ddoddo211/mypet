@@ -12,6 +12,7 @@ import kr.co.mypet.common.model.MypetVo;
 import kr.co.mypet.common.model.PetkindVo;
 import kr.co.mypet.sitter.model.FaqVo;
 import kr.co.mypet.sitter.model.PetSitterVo;
+import kr.co.mypet.sitter.model.SitterRevVo;
 import kr.co.mypet.sitter.model.ZipVo;
 
 @Repository
@@ -83,5 +84,65 @@ public class SitterDao implements SitterDaoInf {
 	@Override
 	public int insertReservation(Map<String, Object> param) {
 		return template.insert("petSitter.insertReservation", param);
+	}
+
+	@Override
+	public List<SitterRevVo> getReviewList(Map<String, Object> param) {
+		return template.selectList("petSitter.getReviewList", param);
+	}
+
+	@Override
+	public int getReviewCnt(String stv_pst) {
+		return template.selectOne("petSitter.getReviewCnt", stv_pst);
+	}
+
+	@Override
+	public int insertReview(Map<String, Object> param) {
+		return template.insert("petSitter.insertReview", param);
+	}
+
+	@Override
+	public int updateReview(Map<String, Object> param) {
+		return template.update("petSitter.updateReview", param);
+	}
+
+	@Override
+	public int deleteReview(String stv_id) {
+		return template.delete("petSitter.deleteReview", stv_id);
+	}
+
+	@Override
+	public int insertSitterTo(PetSitterVo pstVo) {
+		return template.insert("petSitter.insertSitterTo", pstVo);
+	}
+
+	@Override
+	public int updateFaq(Map<String, Object> param) {
+		return template.update("petSitter.updateFaq", param);
+	}
+
+	@Override
+	public int deleteFaq(String psf_id) {
+		return template.delete("petSitter.deleteFaq", psf_id);
+	}
+
+	@Override
+	public int insertFaq(Map<String, Object> param) {
+		return template.insert("petSitter.insertFaq", param);
+	}
+
+	@Override
+	public List<PetSitterVo> petNoticeListDate() {
+		return template.selectList("petSitter.petNoticeListDate");
+	}
+
+	@Override
+	public List<PetSitterVo> petNoticeListCount() {
+		return template.selectList("pstSitter.petNoticeListCount");
+	}
+
+	@Override
+	public int petNoticeCountUpdate(Map<String, Object> param) {
+		return template.update("petSitter.petNoticeCountUpdate", param);
 	}	
 }

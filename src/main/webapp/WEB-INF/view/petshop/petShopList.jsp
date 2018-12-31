@@ -33,7 +33,7 @@
 	
 	.mainleft {
 		width: 21%;
-		min-height: 1400px;
+		min-height: 1658px;
 		float: left;
 		background-color: #f1f1f1;
 	}
@@ -45,6 +45,7 @@
     	text-align: center;
     	padding-top: 15px;
 	}
+	
 	
 	#mainmid .mainleft .listSearch a{
 		width: 34px;
@@ -76,25 +77,30 @@
 	}
 	
 	.listMenu ul li{
-		padding-top: 5px;
-		padding-bottom: 10px;
+		padding-top: 10px;
+		padding-bottom: 15px;
 	}
 	.listMenu ul li a{
-		color : #000;
-		font-size:15px;
-		border-bottom: 1px solid;
+		color: #000;
+	    font-size: 15px;
+	    border: 1px solid;
+	    border-radius: 5px;
+	    padding: 5px;
+	}
+	
+	.listMenu ul li a:active {
+		color: red;
 	}
 	
 	.creProd {
-		margin-top : 100px;
+		margin-top : 50px;
 		text-align:center;
 	}
 	
 	.creProd #submit{
 		width: 100px;
 	    height: 50px;
-	    background-color: darkgray;
-	    border: 1px solid #f1f1f1;
+	    background-color: #cec7c7;
    		border-radius: 10px;
 	}
 	
@@ -163,8 +169,11 @@
 	}
 	
 	.prodMenu ul li {
-		padding-left: 11px;
 		float: left;
+	    margin-bottom: 10px;
+	    max-width: 266px;
+	    min-width: 266px;
+	    min-height: 320px;
 	}
 	
 	.page{
@@ -180,13 +189,30 @@
 		font-size: 15px;
 	}
 	
+	.price{
+		text-decoration:line-through;
+		font-size: 13px;
+	}
+	
+	.sprice{
+		font-size: 16px;
+		font-weight: bold;
+	}
+	
+	.prodName{
+		font-size: 17px;
+	}
+	
 </style>
+
 <script type="text/javascript">
 	$(document).ready(function() {
-		prodListHtml(1,'${dvs_id}','${dvs_parent}');
+		var prod_name = '${prod_name}';
+		
+		prodListHtml(1,'${dvs_id}','${dvs_parent}',prod_name);
 		
 		$(".chkbox").click(function() {
-			prodListHtml(1,'${dvs_id}','${dvs_parent}');
+			prodListHtml(1,'${dvs_id}','${dvs_parent}',prod_name);
 		}); 
 		
 		
@@ -209,9 +235,13 @@
 			}
 		})
 		
+		$("#prodSearch").click(function() {
+			$("#prod_name").val($("#shopSearch").val());
+			$("#fm").submit();
+		});
 	})
 	
-	function prodListHtml(page,dvs_id,dvs_parent) {
+	function prodListHtml(page,dvs_id,dvs_parent,prod_name) {
 		var pageSize = 12;
 		var values = [];
 		var opValues = [];
@@ -221,18 +251,20 @@
 		$("input[name=op_id]").each(function(i){
 			opValues.push($(this).val());
 		});
+		
 		$.ajax({
 			url : "/shop/prodListHtml",
 			type : "get",
-			data : "page=" + page + "&pageSize=" + pageSize + "&dvs_id="+dvs_id+"&dvs_parent="+dvs_parent+"&values="+values+"&opValues="+opValues,
+			data : "page=" + page + "&pageSize=" + pageSize + "&dvs_id="+dvs_id+"&dvs_parent="+dvs_parent+"&values="+values+"&opValues="+opValues+"&prod_name="
+			+prod_name,
 			success : function(dt) {
 				$("#prodList").html(dt);
-				prodPageHtml(page,dvs_id,dvs_parent);
+				prodPageHtml(page,dvs_id,dvs_parent,prod_name);
 			}
 		});
 	}
 	
-	function prodPageHtml(page,dvs_id,dvs_parent) {
+	function prodPageHtml(page,dvs_id,dvs_parent,prod_name) {
 		var pageSize = 12;
 		var values = [];
 		var opValues = [];
@@ -245,7 +277,8 @@
 		$.ajax({
 			url : "/shop/prodPageHtml",
 			type : "get",
-			data : "page=" + page + "&pageSize=" + pageSize + "&dvs_id="+dvs_id+"&dvs_parent="+dvs_parent+"&values="+values+"&opValues="+opValues,
+			data : "page=" + page + "&pageSize=" + pageSize + "&dvs_id="+dvs_id+"&dvs_parent="+dvs_parent+"&values="+values+"&opValues="+opValues+"&prod_name="
+			+prod_name,
 			success : function(dt) {
 				$(".pagination").html(dt);
 				scrollgo();
@@ -257,11 +290,17 @@
 		var offset = $("#mainmid").offset();
 	    $('html, body').animate({scrollTop : offset.top}, 400);
 	}
+	
 </script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
+<form id ="fm" action="/shop/petShopList" method="post">
+	<input type="hidden" name="dvs_id" value="${dvs_id }">
+	<input type="hidden" name="dvs_parent" value="${dvs_parent }">
+	<input type="hidden" name="prod_name" id="prod_name">
+</form>
 	<%@include file="/WEB-INF/view/petshop/petShopH.jsp"%>
 	<div id="maintop">
 		<p>강아지</p>
@@ -270,8 +309,8 @@
 	<div id="mainmid">
 		<div class ="mainleft">
 			<div class="listSearch">
-				<input type="text" id="shopSearch" name = "prod_name" placeholder="상품명 검색" onfocus="this.value=''" style="color:#c1c1c1" />
-				<a href="#"></a>
+				<input type="text" id="shopSearch" name ="shopSearch" placeholder="메뉴 내 상품명 검색" onfocus="this.value=''" style="color:#c1c1c1" />
+				<a id="prodSearch"></a>
 			</div>
 			<div class="listMenu">
 				<p>Menu</p>
@@ -282,8 +321,9 @@
 				</ul>
 			</div>
 			<div class="creProd">
-				<form method="post">
-					<input type="hidden" value="${dvs_id }">
+				<form method="get" action="/shop/prodCre">
+					<input type="hidden" value=${dvs_parent } name="dvs_parent">
+					<input type="hidden" value="${dvs_id }" name="dvs_id">
 					<input type="submit" value = "상품등록" id ="submit">
 				</form>
 			</div>
@@ -297,14 +337,13 @@
 							<span class="petchk">${list.dvs_name }</span>
 							<input type="hidden" value="${list.dvs_id }" name ="op_id">
 						</div>
-						<c:set var="i" value="0" />
 						<c:forEach items="${opMenuList}" var="list2">
 							<c:if test="${list.dvs_id == list2.dvs_parent }">
 								<div class="ageChk">
 									<ul>
 										<li>
-											<input type="checkbox" id="chkbox" class="chkbox" name="chkbox" value="${list2.dvs_id }">
-											<label class="label" style="cursor:pointer">${list2.dvs_name }</label>
+ 											<input type="checkbox" id="chkbox" class="chkbox" name="chkbox" value="${list2.dvs_id }" ${value ==list2.dvs_id ? 'checked' : '' }> 
+ 											<label class="label" style="cursor:pointer">${list2.dvs_name }</label> 
 										</li>
 									</ul>
 								</div>
@@ -328,6 +367,5 @@
 	<!-- footer 시작 -->
 	<%@include file="/WEB-INF/view/common/footer.jsp"%>
 	<!-- footer 끝 -->
-	<input type="checkbox" id="cbox" /><label for="cbox" style="cursor:pointer;title:'테스트'">테스트</label>
 </body>
 </html>

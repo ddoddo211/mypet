@@ -85,19 +85,127 @@
 		)
 	</select>
 	
+	<!-- 상품에 옵션List -->
+	<select id="prodOpList" parameterType="String" resultType="prodoVo">
+		select * from prodoption
+		where prodo_prod = #{prod_id}
+		order by substr(prodo_id,7)
+	</select>
+	
+	<select resultType="String" id="opChk" parameterType="Map">
+		select DVS_ID from division WHERE DVS_PARENT = #{opid} AND dvs_id in 
+		<foreach index="index" item="item" collection="valueGo" close=")" open="(" separator=","> 
+			#{item} 
+		</foreach>
+	</select>
+	
 	<!-- 상품의 대한 상세정보 -->
 	<select id="prodDetail" parameterType="String" resultType="prodVo">
 		select * from prod
 		where prod_id = #{prod_id}
 	</select>
 	
-	<select id="opChk" parameterType="Map" resultType="String"> 
-		select DVS_ID from division
-		WHERE DVS_PARENT = #{opid}
-		AND dvs_id in 
-		<foreach collection="valueGo" item="item" index="index" separator="," open="(" close=")">
-			#{item}
-		</foreach>
+	
+	<!--펫쇼핑몬 메인 사료검색 필요 XML  -->
+	
+	<!-- 동물 구분 -->
+	<select id="animalList" resultType="dvsVo">
+		select * from division
+		where dvs_parent is null
 	</select>
+	
+	<!-- 동물의 아이디를 받아 해당 동물의 사료id찾기 -->
+	<select id="animalSaryo" resultType="String" parameterType="String">
+		select * from division
+		where dvs_name = '사료'
+		start with dvs_parent = #{dvs_id}
+		connect by prior dvs_id = dvs_parent
+	</select>
+	
+	<!-- 해당 동물의 브랜드 종류List -->
+	<select id="brandSearch" resultType="dvsVo" parameterType="String">
+		select * from division
+		where dvs_parent = (select dvs_id from division where dvs_name = '브랜드' start with dvs_parent = #{dvs_parent} connect by dvs_id = dvs_parent)
+	</select>
+	
+	
+	<!-- 상품 등록  -->
+	<insert id="prodCre" parameterType="prodVo">
+		insert into prod
+		values ('PROD'||PROD_ID.NEXTVAL,#{prod_name},#{prod_price},#{prod_sprice},#{prod_qty},#{prod_pimg},#{prod_img},sysdate,#{prod_mem})
+	</insert>
+	
+	<!-- 상품분류 등록 -->
+	<insert id="pddCre" parameterType="pddVo">
+		<selectKey resultType="string" keyProperty="pdd_prod" order="BEFORE">
+			select max(substr(prod_id,5,4)) from prod
+		</selectKey>
+		insert into proddv
+		values('PDD'||PDD_ID.NEXTVAL,#{pdd_dvs},'PROD'||#{pdd_prod})
+	</insert>
+	
+	<!-- 상품 옵션 등록 -->
+	<insert id="prodoCre" parameterType="prodoVo">
+		<selectKey resultType="string" keyProperty="prodo_prod" order="BEFORE">
+			select max(substr(prod_id,5,4)) from prod
+		</selectKey>
+		insert into prodoption
+		values ('OPTION'||PRODOP_ID.NEXTVAL,#{prodo_name},#{prodo_price},#{prodo_qty},'PROD'||#{prodo_prod})
+	</insert>
+	
+ 	<!-- 상품검색 후 상품List --> 
+	<select id="prodSearch" resultType="prodVo" parameterType="Map">
+		select * from (
+			select rownum as rnum,a.* from
+			(select * from prod
+			where prod_id in (select pdd_prod from proddv where pdd_dvs = #{dvsVo.dvs_parent})
+			and prod_name like '%'||#{prod_name}||'%'
+			order by prod_date desc)a
+		)
+		where rnum between #{pageVo.page} *#{pageVo.pageSize}-(#{pageVo.pageSize}-1) and #{pageVo.page}*#{pageVo.pageSize}
+	</select>
+	
+	<!-- 상품검색 후 체크박스 조건 있는 상품List -->
+	<select id="prodSearchChk" resultType="prodVo" parameterType="Map">
+		select * from (
+		    select rownum as rnum,a.* from prod a
+		    where prod_id in (select pdd_prod from proddv where pdd_dvs= #{dvsVo.dvs_parent})
+		    and prod_name like '%'||#{prod_name}||'%'
+		    <foreach collection="opChkList" item="item" index="index">
+		    	and prod_id in (select pdd_prod from proddv where pdd_dvs in (${item}))
+		    </foreach>
+		    )
+		where rnum between ${pageVo.page} *${pageVo.pageSize}-(${pageVo.pageSize}-1) and ${pageVo.page}*${pageVo.pageSize}
+	</select>
+	
+	<!-- 상품 삭제  -->
+	<delete id="deleteProd" parameterType="String">
+		delete from prod
+		where prod_id = #{prod_id}
+	</delete>
+	
+	<!-- 상품 삭제할 때 fk로 등록된 상품도 삭제  -->
+	<delete id="deletePdd" parameterType="String">
+		delete from proddv
+		where pdd_prod = #{prod_id}
+	</delete>
+	
+	<!-- 상품 수정 -->
+	<update id="prodUpdate" parameterType="prodVo">
+		update prod
+		set prod_name = #{prod_name},
+		   	prod_price  = #{prod_price},
+		    prod_sprice = #{prod_sprice},
+		    prod_qty = #{prod_qty},
+		    prod_pimg = #{prod_pimg},
+		    prod_img = #{prod_img},
+		    prod_date= #{prod_date}
+		where prod_id = #{prod_id}
+	</update>
+	
+	<delete id="deleteOption" parameterType="String">
+		delete from prodoption
+		where prodo_prod = #{prod_id}
+	</delete>
 </mapper>
  

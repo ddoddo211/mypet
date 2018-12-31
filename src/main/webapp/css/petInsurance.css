@@ -380,11 +380,6 @@ table tr:last-child td:last-child{
 	-webkit-border-bottom-right-radius:3px;
 	border-bottom-right-radius:3px;
 }
-table tr:hover td{
-	background: #f2f2f2;
-	background: -webkit-gradient(linear, left top, left bottom, from(#f2f2f2), to(#f0f0f0));
-	background: -moz-linear-gradient(top,  #f2f2f2,  #f0f0f0);	
-}
 
 
 /*보험상품안내 리스트 - 페이징 처리*/
@@ -716,6 +711,7 @@ table tr:hover td{
 
 .td2{
 	width: 120px;
+	height: 30px;
 }
 
 
@@ -1411,7 +1407,7 @@ input[name="cb2"] {
 }
 
 #accountInfo1{
-	width: 700px;
+	width: 1170px;
 	height: 30px;
 }
 
@@ -1437,7 +1433,7 @@ input[name="cb2"] {
 	font-family: 'Jeju Gothic', sans-serif;
     font-size: 17px;
     float: left;
-    
+    margin-left: 10px;
 }
 
 
@@ -1607,12 +1603,11 @@ input[name="cb2"] {
 }
 
 #claimTitle3_1{
-	width: 500px;
+	width: 1200px;
 	height: 25px;
 	background-color: #f9f9f9;
 	font-family: 'Jeju Gothic', sans-serif;
     font-size: 25px;
-    border: 1px solid #7c7c7c;
 }
 
 #claimTitle3_2{
@@ -1708,7 +1703,8 @@ input[name="cb2"] {
 #nextBtn1{
 	width: 200px;
 	height: 50px;
-	margin : 0 auto;
+	margin-left: 400px;
+	float: left;
 }
 
 #nextBtn2{
@@ -1813,13 +1809,11 @@ input[name="cb2"] {
 	width: 1000px;
 	height: 30px;
 	border-radius: 5px;
-	outline: none;
 }
 
 #accidentInput2{
 	width: 1000px;
 	height: 100px;
-	outline: none;	
 }
 
 #claimDay{
@@ -1988,7 +1982,7 @@ div#upload-btn_wrap {/*버튼테두리 감싼 div*/
 	padding-left:3px;
 }
 div#upload-btn_wrap button {/*버튼 div*/
-	width:80px;
+	width:75px;
 	height:30px;
 	font-weight:bold;
 	background:#333;
@@ -2035,11 +2029,859 @@ div#upload-btn_wrap2 button {/*버튼 div*/
 }
 
 
-/*펫 추가하기 보더 없애기*/
-#img{
-	border: none;
+div#upload-btnPet_wrap input#input_filePet {/*파일찾기 폼 투명하게*/
+	position:absolute;
+	top:0;
+	right:0;
+	cursor:pointer;
+	opacity:0;
+	filter:alpha(opacity=0);
+	-ms-filter:"alpha(opacity=0)";
+	-moz-opacity:0;
+}
+div#upload-btnPet_wrap {/*버튼테두리 감싼 div*/
+	overflow:hidden;
+	position:relative;
+	float:left;
+	width:80px;/*width, height 값은 button(찾아보기)값과 같아야함 */
+	height:30px;
+	padding-left:3px;
+}
+div#upload-btnPet_wrap button {/*버튼 div*/
+	width:75px;
+	height:30px;
+	font-weight:bold;
+	background:#333;
+	border:1px solid #333;
+	color:#fff;
+	margin-left: 5px;
+	border-radius: 20px;
 }
 
-.img_wrap{
-	border: none !important; 
+
+/* 나의 펫 보험 페이지 */
+#mypetPage{
+	width: 1200px;
+	height: 0 auto;
+}
+
+#mypetPageTitle{
+	width: 1200px;
+	height: 50px;
+}
+
+#mypetPageTitle1{
+	width: 450px;
+    height: 50px;
+    font-family: 'Nanum Pen Script', cursive;
+    font-size: 50px;
+    background-color: #fff6dd;
+    text-align: center;
+    float: left;
+    border-radius: 3px;
+    box-shadow: 3px 3px 3px 3px #999;
+    border-right: none;
+}
+
+#mypetPage1{
+	width: 1200px;
+	height: 800px;
+	margin-top: 20px;
+}
+
+#mypetPage2{
+	width: 250px;
+	height: 815px;
+	float: left;
+	border: 2px dotted #808080;
+}
+
+#mypetPage3{
+	width: 915px;
+	height: 815px;
+	margin-left: 280px;
+}
+
+#mypetPage2_1{
+	width: 250px;
+	height: 30px;
+	background-color : #f9f9f9;
+	font-size: 30px;
+	font-family: 'Nanum Pen Script', cursive;
+	text-align: center;
+	border-bottom: 1px solid #808080;
+}
+
+#mypetPage2_1_1{
+	width: 250px;
+	height: 20px;
+	background-color : #737373;
+	font-family: 'Jeju Gothic', sans-serif;
+    font-size: 12px;
+	text-align: center;
+	border-bottom: 2px dashed #808080;
+	line-height: 20px;
+	color: white;
+}
+
+.mypetPage2_2{
+	width: 250px;
+	height: 30px;
+	margin-top: 10px;
+	
+}
+
+#mypetPage2_2_1{
+	width: 235px;
+	height: 30px;
+	background-color: #7c6ee9;
+	color: white;
+	font-family: 'Jeju Gothic', sans-serif;
+    font-size: 20px;
+    margin-left: 7px;
+    outline: none;
+    border-radius: 10px;
+}
+
+#mypetPage2_3{
+	width: 250px;
+	height: 600px;
+	margin-top: 20px;
+}
+
+.mypetPage2_3_1{
+	width: 250px;
+	height: 130px;
+	margin-bottom: 20px;
+}
+
+.petImg{
+	width: 130px;
+	height: 130px;
+	margin-left: 60px;
+	border: 3px dashed #7c6ee9;
+	border-radius: 50px;
+}
+
+#mypetPage3_1{
+	width: 915px;
+	height: 30px;
+}
+
+.mypetPage2_3_2{
+	font-family: 'Jeju Gothic', sans-serif;
+    font-size: 15px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.mypetPage3_1{
+	width: 915px;
+	height: 30px;
+	background-color: #f9f9f9;
+}
+
+.mypetPage3_1_1{
+	margin-left: 30px;
+	font-size: 30px;
+    font-family: 'Nanum Pen Script', cursive;
+}
+
+
+#mypetPage3_1_2{
+	width: 915px;
+	height: 100px;
+	margin-top: 10px;
+}
+
+#mypetPage3_1_2_1{
+	width: 450px;
+	height: 100px;
+	margin-left: 50px;
+	float : left;
+}
+
+#mypetPage3_1_2_2{
+	width: 240px;
+	height: 100px;
+	margin-left: 455px;
+}
+
+#mypetPage3_1_2_1_1{
+	width: 200px;
+	height: 100px;
+	float: left;
+}
+
+#mypetPage3_1_2_1_2{
+	width: 240px;
+	height: 100px;
+	margin-left: 210px;
+}
+
+#mypetPage3_1_2_1_1Img{
+	width: 100px;
+	height: 100px;
+	margin-left: 50px;
+}
+
+#mypetPage3_1_2_1_2_1{
+	height: 40px;
+	width: 240px;
+	background-color: #efefef;
+}
+
+#mypetPage3_1_2_1_2_2{
+	font-size: 19px;
+    font-family: 'Jeju Gothic', sans-serif;
+    margin-left: 12px;
+    line-height: 40px;
+}
+
+
+#mypetPage3_1_2_1_2_3{
+	font-size: 19px;
+    font-family: 'Jeju Gothic', sans-serif;
+    line-height: 60px;	
+}
+
+
+.mypetPage3_2{
+	width: 915px;
+	height: 30px;
+	background-color: #ffefef;
+    margin-top: 30px;
+}
+
+.mypetPage3_2_1{
+	margin-left: 30px;
+	font-size: 30px;
+    font-family: 'Nanum Pen Script', cursive;
+}
+
+#mypetPage3_2_3{
+	width: 915px;
+	height: 200px;
+	margin-top: 20px;
+}
+
+#mypetPage3_1_2_2_1{
+	width: 240px;
+    height: 40px;
+    margin-left: 140px;
+    background-color: #efefef;
+}
+
+#mypetPage3_1_2_2_2{
+	font-size: 19px;
+    font-family: 'Jeju Gothic', sans-serif;
+    line-height: 40px;
+    margin: 0 auto;
+    width: 150px;
+    text-align: center;
+}
+
+#mypetPage3_2{
+	width: 450px;
+	height: 60px;
+}
+
+#mypetPage3_1_2_3{
+	width: 200px;
+	height: 60px;
+	margin-left: 140px;
+}
+
+#mypetPage3_1_2_3_1{
+	font-size: 19px;
+    font-family: 'Jeju Gothic', sans-serif;
+    margin: 0 auto;
+    line-height: 60px;
+}
+
+#currentStatus{
+	width: 800px;
+	height: 200px;
+}
+
+.currentStatus1{
+	height: 30px;
+	width: 260px;
+	font-size: 15px;
+}
+
+#mypetPage4{
+	width: 915px;
+	height: 600px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+#mypetTable{
+	width: 800px;
+}
+
+.mypetPageBtn{
+	width: 915px;
+	height: 30px;
+    margin-top: 10px;
+}
+
+#mypetPageBtn{
+	width: 300px;
+	height: 30px;
+	margin-left: 620px;
+}
+
+#mypetPageBtn1{
+	width: 130px;
+	height: 30px;
+	float: left;
+	margin-left: 10px;
+}
+
+#mypetPageBtn2{
+	width: 130px;
+	height: 30px;
+	margin-left: 160px;
+}
+
+.mypetPageBtn1_1{
+	background-color: gray;
+	color: white;
+	width: 130px;
+	height: 30px;
+	font-size: 16px;
+    font-family: 'Jeju Gothic', sans-serif;
+    border-radius: 50px;
+    border: 1px solid gray;
+    outline: none;
+}
+
+.mypetPageBtn1_1:hover{
+	background-color: white;
+	color: gray;
+	width: 130px;
+	height: 30px;
+	font-size: 16px;
+    font-family: 'Jeju Gothic', sans-serif;
+    border-radius: 50px;
+    border: 1px solid gray;
+    outline: none;
+}
+
+.mypetPage3_3{
+	width: 915px;
+	height: 25px;
+	background-color: #f9efff;
+	border: 2px dashed #f9efff;
+	box-sizing: border-box;
+}
+
+.mypetPage3_2_2{
+	margin-left: 30px;
+	font-size: 16px;
+    font-family: 'Jeju Gothic', sans-serif;
+    margin-top: 5px;
+	margin-bottom: 10px;
+	line-height: 15px;
+	color: gray;
+}
+
+.isrMoney{
+	text-align: center;
+	width: 240px;
+	height: 60px;
+}
+
+.isrApplySize{
+	width: 270px;
+	height: 120px;
+	font-size: 30px;
+    font-family: 'Jeju Gothic', sans-serif;
+    color: gray;
+    cursor:pointer;
+    text-decoration:none;
+}
+
+.isrApplySize:hover{
+	text-decoration: none;
+	color: #7c6ee9;
+}
+
+#mypetPage4_1{
+	width: 915px;
+	height: 220px;
+	border: 2px dotted #808080;
+}
+
+#mypetPage4_2{
+	width: 200px;
+	height: 200px;
+	float:left;
+	margin-left:15px;
+	margin-top: 10px;
+}
+
+#mypetPage4_3{
+	width: 650px;
+	height: 200px;
+	margin-left: 250px;
+}
+
+#mypetPage4_2_1{
+	width: 90px;
+    height: 30px;
+    font-size: 20px;
+    font-family: 'Jeju Gothic', sans-serif;
+    text-align: center;
+    padding-top: 5px;
+    float: left;
+    margin-left: 55px;
+}
+
+
+.mypetPage4_3_1{
+	width: 650px;
+	height: 50px;
+	margin-bottom: 10px;
+	margin-top: 18px;
+}
+
+.mypetPage4_3_2{
+	width: 135px;
+	height: 30px;
+	float : left;
+	margin-top: 10px;
+	background-color: #ffcce7;
+	color: white;
+	font-size: 20px;
+    font-family: 'Jeju Gothic', sans-serif;
+    text-align: center;
+    line-height: 30px;
+    border-radius: 50px;
+}
+
+.mypetPage4_3_2_1{
+	width: 165px;
+	height: 30px;
+	margin-top: 10px;
+	margin-left: 10px;
+	float: left;
+	font-size: 15px;
+    font-family: 'Jeju Gothic', sans-serif;
+    line-height: 30px;
+}
+
+.mypetPage4_3_2_2{
+	width: 135px;
+	height: 30px;
+	float : left;
+	margin-top: 10px;
+	background-color: #ffcce7;
+	color: white;
+	font-size: 20px;
+    font-family: 'Jeju Gothic', sans-serif;
+    text-align: center;
+    line-height: 30px;
+    border-radius: 50px;
+    margin-left: 10px;
+}
+
+.mypetPage4_3_2_3{
+	width: 180px;
+	height: 30px;
+	margin-top: 10px;
+	margin-left: 10px;
+	float: left;
+	font-size: 15px;
+    font-family: 'Jeju Gothic', sans-serif;
+    line-height: 30px;
+}
+
+#petInfoMyPet{
+	width: 915px;
+	height: 284px;
+	font-size: 20px;
+    font-family: 'Jeju Gothic', sans-serif;
+    text-align: center;
+    line-height: 300px;
+    border: 2px dotted #808080;
+    box-sizing: border-box;
+    background-color: #fafafa;
+}
+
+
+.mypetPage4_2_2{
+	width: 160px;
+	height: 160px;
+	margin-left: 20px;
+}
+.mypetPage4_2_2_1{
+	width: 160px;
+	height: 160px;
+	border-radius: 50px;
+	margin-top: 5px;
+	border: 3px dashed #ffcce7;
+}
+
+#manG2{
+	margin-left: 20px;
+}
+
+#petSickN2{
+	margin-left: 20px;
+}
+
+#neuYn{
+	font-size: 10px;
+    font-family: 'Jeju Gothic', sans-serif;
+}
+
+#petUpdateName{
+	width: 155px;
+	height: 30px;
+	outline: none;
+	border-radius: 10px;
+}
+
+#petBirthSelect{
+	width: 155px;
+	height: 30px;
+	outline: none;	
+	border-radius: 10px;
+}
+
+
+
+/*보험금 신청 현황 (신청)*/
+
+#isrApplyMain{
+	width: 1200px;
+	height: 0 auto;
+}
+
+#isrApplyTitle{
+	width: 1200px;
+	height: 50px;
+}
+
+#isrApplyTitle1{
+	width: 450px;
+    height: 50px;
+    font-family: 'Nanum Pen Script', cursive;
+    font-size: 50px;
+    background-color: #fff6dd;
+    text-align: center;
+    float: left;
+    border-radius: 3px;
+    box-shadow: 3px 3px 3px 3px #999;
+    border-right: none;
+}
+
+#isrApplyTitle2{
+	width: 1200px;
+	height: 30px;
+	margin-top: 20px;
+	background-color: #f9f9f9;
+}
+
+#isrApplyTitle2_1{
+    font-size: 20px;
+    font-family: 'Jeju Gothic', sans-serif;
+    margin-left: 30px;	
+    line-height: 30px;
+}
+
+#isrApplyTitle3{
+	width: 1200px;
+	height: 30px;
+	font-size: 16px;
+    font-family: 'Jeju Gothic', sans-serif;
+    line-height: 30px;
+    background-color: #ffefef;
+}
+
+#isrApplyTitle3_1{
+	width: 800px;
+	height: 30px;
+	margin-left: 30px;
+	color: gray;
+}
+
+#isrApplyTitle3_1_1{
+	width: 1200px;
+	height: 30px;
+	font-size: 16px;
+    font-family: 'Jeju Gothic', sans-serif;
+    line-height: 30px;
+    background-color: #f9efff;
+}
+
+#isrApplyTitle3_1_2{
+	width: 1040px;
+	height: 30px;
+	margin-top: 5px;
+	margin-left: 30px;
+	color: gray;
+}
+
+#isrApplyTable{
+	width: 1200px;
+	margin-top: 20px;
+	margin-bottom: 30px;
+	min-height: 143px;
+}
+
+#isrApplyTable1{
+	width: 1200px;
+}
+
+#isrApplyBtn{
+	width: 1200px;
+	height: 30px;
+	margin-bottom: 30px;
+}
+
+#isrApplyBtn1{
+	width: 175px;
+	height: 30px;
+	margin-left: 835px;
+	float: left;
+    font-family: 'Jeju Gothic', sans-serif;
+    font-size: 20px;
+    background-color: #ffcce7;
+    color: white;
+    border-radius: 50px;
+    text-align: center;
+    line-height: 30px;
+    border: 2px solid #ffcce7;
+}
+
+#isrApplyBtn1:hover{
+	width: 175px;
+	height: 30px;
+	margin-left: 835px;
+	float: left;
+    font-family: 'Jeju Gothic', sans-serif;
+    font-size: 20px;
+    background-color: white;
+    color: black;
+    border-radius: 50px;
+    text-align: center;
+    line-height: 30px;
+    border: 2px solid #ffcce7;
+}
+
+#isrApplyBtn2{
+	margin-left: 1035px;
+	width: 160px;
+	height: 30px;
+    font-family: 'Jeju Gothic', sans-serif;
+    font-size: 20px;
+    background-color: #ffcce7;
+    color: white;
+    border-radius: 50px;
+    text-align: center;
+    line-height: 30px;
+    border: 2px solid #ffcce7;
+}
+
+#isrApplyBtn2:hover{
+	margin-left: 1035px;
+	width: 160px;
+	height: 30px;
+    font-family: 'Jeju Gothic', sans-serif;
+    font-size: 20px;
+    background-color: white;
+    color: black;
+    border-radius: 50px;
+    text-align: center;
+    line-height: 30px;
+    border: 2px solid #ffcce7;
+}
+
+.td1{
+	height: 40px;
+}
+
+.tdTable3{
+	height: 77px;
+}
+
+.tdTable4{
+	height: 30px;
+}
+
+.td5{
+	width: 80px;
+}
+
+#companionTable{
+	width: 1200px;
+	margin-top: 20px;
+	margin-bottom: 30px;
+	min-height: 165px;
+}
+
+#completedTable{
+	width: 1200px;
+	margin-top: 20px;
+	margin-bottom: 30px;
+	min-height: 165px;
+}
+
+#isrApplyBtn0{
+	width: 175px;
+	height: 30px;
+	margin-left: 640px;
+	float: left;
+    font-family: 'Jeju Gothic', sans-serif;
+    font-size: 20px;
+    background-color: #ffcce7;
+    color: white;
+    border-radius: 50px;
+    text-align: center;
+    line-height: 30px;
+    border: 2px solid #ffcce7;
+    outline: none;
+}
+
+#isrApplyBtn0:hover{
+	width: 175px;
+	height: 30px;
+	margin-left: 640px;
+	float: left;
+    font-family: 'Jeju Gothic', sans-serif;
+    font-size: 20px;
+    background-color: white;
+    color: black;
+    border-radius: 50px;
+    text-align: center;
+    line-height: 30px;
+    border: 2px solid #ffcce7;
+    outline: none;
+}
+
+#isrApplyBtn1_1{
+	width: 175px;
+	height: 30px;
+	margin-left: 25px;
+	float: left;
+    font-family: 'Jeju Gothic', sans-serif;
+    font-size: 20px;
+    background-color: #ffcce7;
+    color: white;
+    border-radius: 50px;
+    text-align: center;
+    line-height: 30px;
+    border: 2px solid #ffcce7;
+     outline: none;
+}
+
+#isrApplyBtn1_1:hover{
+	width: 175px;
+	height: 30px;
+	margin-left: 25px;
+	float: left;
+    font-family: 'Jeju Gothic', sans-serif;
+    font-size: 20px;
+    background-color: white;
+    color: black;
+    border-radius: 50px;
+    text-align: center;
+    line-height: 30px;
+    border: 2px solid #ffcce7;
+     outline: none;
+}
+
+#isrApplyBtn2_1{
+	margin-left: 1035px;
+	width: 160px;
+	height: 30px;
+    font-family: 'Jeju Gothic', sans-serif;
+    font-size: 20px;
+    background-color: #ffcce7;
+    color: white;
+    border-radius: 50px;
+    text-align: center;
+    line-height: 30px;
+    border: 2px solid #ffcce7;
+     outline: none;
+}
+
+#isrApplyBtn2_1:hover{
+	margin-left: 1035px;
+	width: 160px;
+	height: 30px;
+    font-family: 'Jeju Gothic', sans-serif;
+    font-size: 20px;
+    background-color: white;
+    color: black;
+    border-radius: 50px;
+    text-align: center;
+    line-height: 30px;
+    border: 2px solid #ffcce7;
+     outline: none;
+}
+
+.history2_2_1_1{
+	width: 800px;
+	height: 100px;
+	margin-left: 180px;
+}
+
+#history{
+	height: 145px;
+	margin-top: 20px;
+}
+
+.history2_4{
+	margin-left: 20px;
+	font-family: 'Jeju Gothic', sans-serif;
+    font-size: 20px;
+    line-height: 30px;
+}
+
+#historyAct{
+	width: 330px;
+	height: 30px;
+	float : left;
+	font-family: 'Jeju Gothic', sans-serif;
+    font-size: 17px;
+    line-height: 30px;
+    margin-right: 10px;
+}
+
+.history2_2{
+	width: 180px; 
+	height: 30px;
+	margin-left: 80px;
+	float: left;
+    font-family: 'Jeju Gothic', sans-serif;
+    font-size: 20px;
+    margin-bottom: 10px;
+    background-color: #ffcce7;
+    color: white;
+    border-radius: 50px;
+    text-align: center;
+    line-height: 30px;
+}
+
+
+#nextBtn1_1{
+	width: 200px;
+	height: 50px;
+	margin-left: 620px;
+}
+
+#nextBtn2_1{
+	background-color: black;
+    color: white;
+    width: 200px;
+    height: 50px;
+    font-family: 'Jeju Gothic', sans-serif;
+    font-size: 18px;
+    border-radius: 50px;
+    outline: none;
 }

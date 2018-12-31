@@ -372,5 +372,132 @@ public class InsuranceService implements InsuranceServiceInf {
 	}
 
 	
+	/**
+	* Method : accidentInsert
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param acdVo
+	* @return
+	* Method 설명 : 보험청구 신청하는 부분
+	*/
+	@Override
+	public int accidentInsert(AccidentVo acdVo) {
+		return insuranceDao.accidentInsert(acdVo);
+	}
+
+	
+	/**
+	* Method : isuranceStatus
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param memId
+	* @return
+	* Method 설명 : 나의 펫 보험 - 회원이 현재까지 받은 보험금 현황
+	*/	
+	@Override
+	public int isuranceStatus(String memId) {
+		return insuranceDao.isuranceStatus(memId);
+	}
+
+	
+	/**
+	* Method : monthlyPremium
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param memId
+	* @return
+	* Method 설명 :나의펫 보험 - 월 전체 보험료 나오는 부분
+	*/
+	@Override
+	public int monthlyPremium(String memId) {
+		return insuranceDao.monthlyPremium(memId);
+	}
+
+	/**
+	* Method : isrApply
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param memId
+	* @return
+	* Method 설명 : 나의 펫 보험 - 현재보험금 신청현황(신청)
+	*/
+	@Override
+	public List<AccidentVo> isrApply(String memId) {
+		return insuranceDao.isrApply(memId);
+	}
+
+	
+	/**
+	* Method : underExamination
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param memId
+	* @return
+	* Method 설명 : 나의 펫 보험 - 현재보험금현황(반려)
+	*/
+	@Override
+	public List<AccidentVo> underExamination(String memId) {
+		return insuranceDao.underExamination(memId);
+	}
+
+	
+	/**
+	* Method : isrComplete
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param memId
+	* @return
+	* Method 설명 : 나의 펫 보험 - 현재보험금현황(완료)
+	*/
+	@Override
+	public List<AccidentVo> isrComplete(String memId) {
+		return insuranceDao.isrComplete(memId);
+	}
+
+	
+	/**
+	* Method : goAccidentDel
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param accd_id
+	* @return
+	* Method 설명 : 보험금 신청 현황 화면에서 보험금 신청 취소를 클릭하였을떄 적용되는 부분
+	*/
+	@Override
+	public int goAccidentDel(String accd_id) {
+		return insuranceDao.goAccidentDel(accd_id);
+	}
+
+	
+	/**
+	* Method : history
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param accd_id
+	* @return
+	* Method 설명 :보험금 내역 확인 버튼을 클릭하였을때 나오는 부분
+	*/
+	@Override
+	public AccidentVo history(String accd_id) {
+		return insuranceDao.history(accd_id);
+	}
+
+	
+	/**
+	* Method : accountChange
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param acdVo
+	* @return
+	* Method 설명 :보험금내역 부분에서 계좌번호를 변경하였을떄 실행
+	*/
+	@Override
+	public int accountChange(AccidentVo acdVo) {
+		return insuranceDao.accountChange(acdVo);
+	}
+	
+
+
+	
 	
 }

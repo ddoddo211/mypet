@@ -99,7 +99,7 @@ body {
 		<div class="dimpetSitting"></div>
 		<div id="petSittingWord">
 			<span>당신의 반려동물을 <br> 믿을 수 있는 펫시터가 <br> 대신 돌봐드립니다.
-			</span> <br> <a href="#"><button id="reservation">
+			</span> <br> <a href="/sit/sitterFrom"><button id="reservation">
 					펫시터 예약하러 가기 <i class="icon-arrow-right icons"></i>
 				</button></a>
 		</div>
@@ -116,7 +116,7 @@ body {
 			<div id="fromHome2">
 				<span id="fromWord">펫시터 집으로 부르기</span><br>
 				<p>도그메이트 펫시터가 집으로 찾아와 반려동물을 돌봐드려요.</p>
-				<br> <a><button id="detail1">
+				<br> <a href="/sit/sitFrom"><button id="detail1">
 						자세히 알아보기<i class="icon-arrow-right icons"></i>
 					</button></a>
 			</div>
@@ -125,7 +125,7 @@ body {
 			<div id="toHome1">
 				<span id="fromWord">펫시터 집에 맡기기</span><br>
 				<p>도그메이트 펫시터의 가정집에서 편안하고 자유롭게 지낼 수 있어요.</p>
-				<br> <a><button id="detail1">
+				<br> <a href="/sit/sitTo"><button id="detail1">
 						자세히 알아보기<i class="icon-arrow-right icons"></i>
 					</button></a>
 			</div>
@@ -141,45 +141,7 @@ body {
 					<span>평점 높은 펫시팅 후기들을 확인해보세요.</span>
 				</div>
 			</div>
-			<!--
-			<div id="postImage">
-				<div id="pList">
-					<div class="pNotice">
-						<div id="post1Image">
-							<img class="pImg" name="pos1" alt="이미지" src="/img/petSitterImg/petSitterPost1.jpg" />
-						</div>
-						<div>
-							<span> 
-							     하루종일 같이 놀아주시고, 배식과 간식 먹는 사진과 즐겁게 노는 사진을 <br> 
-							     많이 보내주셔서 안심하고 맡길 수 있어서 너무 안심이 됐습니다.
-							</span>
-						</div>
-					</div>
-					<div class="pNotice">
-						<div id="post1Image">
-							<img class="pImg" name="pos2" alt="이미지" src="/img/petSitterImg/petSitterPost2.jpg" />
-						</div>
-						<div>
-							<span> 
-								하루종일 같이 놀아주시고, 배식과 간식 먹는 사진과 즐겁게 노는 사진을 <br> 
-								많이	보내주셔서 안심하고 맡길 수 있어서 너무 안심이 됐습니다.
-							</span>
-						</div>
-					</div>
-					<div class="pNotice">
-						<div id="post1Image">
-							<img class="pImg" name="pos3" alt="이미지" src="/img/petSitterImg/petSitterPost3.jpg" />
-						</div>
-						<div>
-							<span> 
-								하루종일 같이 놀아주시고, 배식과 간식 먹는 사진과 즐겁게 노는 사진을 <br> 
-								많이	보내주셔서 안심하고 맡길 수 있어서 너무 안심이 됐습니다.
-							</span>
-						</div>
-					</div>
-				</div>
-				-->
-
+			
 			<div id="slide">
 				<div class="swiper-container">
 					<div class="swiper-wrapper">

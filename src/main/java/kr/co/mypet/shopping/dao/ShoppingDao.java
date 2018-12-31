@@ -9,7 +9,9 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import kr.co.mypet.shopping.model.DivisionVo;
+import kr.co.mypet.shopping.model.ProdOptionVo;
 import kr.co.mypet.shopping.model.ProdVo;
+import kr.co.mypet.shopping.model.ProddvVo;
 import kr.co.mypet.shopping.model.ShopNoticeVo;
 
 @Repository
@@ -169,6 +171,187 @@ public class ShoppingDao implements ShoppingDaoInf {
 	public int chkSize(Map<String, Object> map) {
 		int chkSize = template.selectOne("shop.chkSize",map);
 		return chkSize;
+	}
+	
+	/**
+	* Method : animalList
+	* 작성자 : pc25
+	* 변경이력 :
+	* @return
+	* Method 설명 : 펫쇼핑몰 메인화면 사료검색 동물List
+	*/
+	@Override
+	public List<DivisionVo> animalList() {
+		List<DivisionVo> aniList = template.selectList("shop.animalList");
+		return aniList;
+	}
+	
+	/**
+	* Method : animalSaryo
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param dvs_id
+	* @return
+	* Method 설명 : 동물의 아이디를 받아 해당 동물의 사료메뉴 id 찾기
+	*/
+	@Override
+	public String animalSaryo(String dvs_id) {
+		String dvs_parent = template.selectOne("shop.animalSaryo",dvs_id);
+		return dvs_parent;
+	}
+	
+	/**
+	* Method : brandSearch
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param dvs_parent
+	* @return
+	* Method 설명 : 동물의 아이디를 받아 찾은 사료id를 가지고 브랜드List 찾기
+	*/
+	@Override
+	public List<DivisionVo> brandSearch(String dvs_parent) {
+		List<DivisionVo> brdList = template.selectList("shop.brandSearch",dvs_parent);
+		return brdList;
+	}
+	
+	/**
+	* Method : prodOpList
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param prod_id
+	* @return
+	* Method 설명 : 상품의 상세 옵션(ex. 상품 : 티셔츠 - 옵션 : 그레이,화이트)
+	*/
+	@Override
+	public List<ProdOptionVo> prodOpList(String prod_id) {
+		List<ProdOptionVo> prodoList = template.selectList("shop.prodOpList",prod_id);
+		return prodoList;
+	}
+	
+	/**
+	* Method : prodCre
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param prodVo
+	* @return
+	* Method 설명 : 상품 등록
+	*/
+	@Override
+	public int prodCre(ProdVo prodVo) {
+		int result = template.insert("shop.prodCre",prodVo);
+		return result;
+	}
+	
+	/**
+	* Method : pddCre
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param pddVo
+	* @return
+	* Method 설명 : 상품 분류 등록
+	*/
+	@Override
+	public int pddCre(ProddvVo pddVo) {
+		int result = template.insert("shop.pddCre",pddVo);
+		return result;
+	}
+	
+	/**
+	* Method : prodoCre
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param prodoVo
+	* @return
+	* Method 설명 : 상품옵션 등록
+	*/
+	@Override
+	public int prodoCre(ProdOptionVo prodoVo) {
+		int result = template.insert("shop.prodoCre",prodoVo);
+		return result;
+	}
+	
+	/**
+	* Method : prodSearch
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param map
+	* @return
+	* Method 설명 : 해당 메뉴와 검색어를 받아 상품List 조회
+	*/
+	@Override
+	public List<ProdVo> prodSearch(Map<String, Object> map) {
+		List<ProdVo> prodList = template.selectList("shop.prodSearch",map);
+		return prodList;
+	}
+	
+	/**
+	* Method : prodSearchChk
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param map
+	* @return
+	* Method 설명 : 상품 검색 후 체크 박스
+	*/
+	@Override
+	public List<ProdVo> prodSearchChk(Map<String, Object> map) {
+		List<ProdVo> prodList= template.selectList("shop.prodSearchChk",map);
+		return prodList;
+	}
+	
+	/**
+	* Method : deleteProd
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param prod_id
+	* @return
+	* Method 설명 : 상품 삭제
+	*/
+	@Override
+	public int deleteProd(String prod_id) {
+		int result = template.delete("shop.deleteProd",prod_id);
+		return result;
+	}
+	
+	/**
+	* Method : deletePdd
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param prod_id
+	* @return
+	* Method 설명 :상품 삭제 시 상품의 옵션 등록 부분도 같이 삭제
+	*/
+	@Override
+	public int deletePdd(String prod_id) {
+		int result = template.delete("shop.deletePdd",prod_id);
+		return result;
+	}
+	
+	/**
+	* Method : prodUpdate
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param prodVo
+	* @return
+	* Method 설명 : 상품 수정
+	*/
+	@Override
+	public int prodUpdate(ProdVo prodVo) {
+		int result = template.update("shop.prodUpdate",prodVo);
+		return result;
+	}
+	
+	/**
+	* Method : deleteOption
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param prod_id
+	* @return
+	* Method 설명 : 상품 수정 할 시 기존 옵션을 삭제하고 다시 옵션을 받기 위해서 
+	*/
+	@Override
+	public int deleteOption(String prod_id) {
+		int result = template.delete("shop.deleteOption",prod_id);
+		return result;
 	}
 	
 }

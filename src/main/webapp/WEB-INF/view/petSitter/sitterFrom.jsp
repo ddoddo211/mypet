@@ -19,27 +19,26 @@
 <link href="https://fonts.googleapis.com/css?family=Work+Sans" rel="stylesheet">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script type="text/javascript">
-
-	function popUp(){
+	function popUp() {
 		var popUrl = "/sit/sitFromAddrPopUp";
 		var popOption = "width=370, height=360, resizable=no, scrollbars=no, status=no;";
 		window.open(popUrl, "주소변경", popOption);
 	};
-	
-	$(document).ready(function(){
+
+	$(document).ready(function() {
 		// 나의 펫 선택할떄 값 담아주기
-		$(".cb1_label").click(function(){
+		$(".cb1_label").click(function() {
 			//값을 초기화
 			$("#mypet_id").val("");
-			
+
 			//기존 체크되어 있는 체크박스 전체 해제
 			$(".cb1_label").removeClass("activeCb");
-			
+
 			// 원래 체크 되어 있다면 또 다시 클릭한다면 해제하는 부분
-			if($(this).hasClass("activeCb")){
+			if ($(this).hasClass("activeCb")) {
 				$("#mypet_id").val("");
 				$(".cb1_label").removeClass("activeCb");
-			}else{
+			} else {
 				$(this).addClass("activeCb")
 			}
 			//hasClass -> 클래스가 있는지 확인하는것
@@ -47,46 +46,54 @@
 			var mypet_id = $(this).data("myp_id");
 
 			$("#mypet_id").val(mypet_id);
-			
-			
+
+		});
+
+	});
+
+	$(function() {
+		// 달력 옵션 설정
+		$("#dateChooice").datepicker(
+				{
+					// 달력에 옵션 설정하기
+					dayNamesMin : [ "일", "월", "화", "수", "목", "금", "토" ], // 요일에 표시되는 형식 설정
+					dateFormat : "yy-mm-dd", //날짜 형식 설정
+					monthNames : [ "1월", "2월", "3월", "4월", "5월", "6월", "7월",
+							"8월", "9월", "10월", "11월", "12월" ], //월표시 형식 설정
+					showAnim : "fold", //애니메이션효과
+					minDate : 0,
+					maxDate : "+3M"
+				});
+	});
+	
+	$(function() {
+		$('#sitFromBtn').click(function() {
+			var val = [];
+			var k = "";
+			$(':checkbox:checked').each(function(i) {
+				val[i] = $(this).val();
+				k += val[i] + " ";
+			});
+			$("#mypet").val(k);
+		});
+	});
+
+	function mypetDelete() {
+		var val = [];
+		var k = "";
+		$(':checkbox:checked').each(function(i) {
+			val[i] = $(this).val();
+			k += val[i] + " ";
 		});
 		
+		$("mypet_id").val(k);
 		
-				
-	});
-	function mypetDelete(){
-		if($("#mypet_id").val() == "" || $("#mypet_id").val() == null){
+		if ($("#mypet_id").val(k) == "" || $("#mypet_id").val(k) == null) {
 			alert("삭제할 반려동물의 정보를 선택하세요");
 			return;
 		} 
-		$("#frm").submit();
+		$("#frm").submit();                                                                                                
 	};
-	$(function(){
-		// 달력 옵션 설정
-		$("#dateChooice").datepicker({ 
-			// 달력에 옵션 설정하기
-			dayNamesMin : [ "일", "월", "화", "수", "목",	"금", "토" ], // 요일에 표시되는 형식 설정
-			dateFormat : "yy-mm-dd", //날짜 형식 설정
-			monthNames : [ "1월", "2월", "3월", "4월","5월", "6월", "7월", "8월", "9월","10월", "11월", "12월" ], //월표시 형식 설정
-			showAnim : "fold", //애니메이션효과
-			minDate : 0,
-			maxDate : "+3M"
-		});
-	});
-	
-	 $(function(){
-	      $('#sitFromBtn').click(function(){
-	        var val = [];
-	        var k = "";
-	        $(':checkbox:checked').each(function(i){
-	          val[i] = $(this).val();
-
-				k += val[i] + " ";
-	        });
-	        $("#mypet").val(k);
-	      });
-	    });
-	
 </script>
 <style type="text/css">
 	#mypetDel{
@@ -130,7 +137,7 @@
 			<%@include file="/WEB-INF/view/petSitter/petSitterMenu.jsp" %>
 		</div>
 		<div id="sitToMain">
-			<form action="/sit/reservation" method="post" >
+			<form action="/sit/reservation" method="post" autocomplete="off" >
 			<input type="hidden" name="mypet" id="mypet" />
 			<input type="hidden" name="arr" value="1" />
 				<div id="addressDiv">
@@ -186,7 +193,7 @@
 						<span>● 돌봄 신청 일정을 선택해 주세요. </span>
 					</div>
 					<div id="schedule">
-						<input type="text" id="dateChooice" name="dateChooice" />
+						<input type="text" id="dateChooice" name="dateChooice"/>
 						<select class="timeSelect" name="time">
 							<option value="9">09시</option>
 							<option value="10">10시</option>

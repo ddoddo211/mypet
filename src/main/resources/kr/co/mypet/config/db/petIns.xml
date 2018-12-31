@@ -176,20 +176,31 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		
 		<!-- 피보험자 선택하는 부분에 가입이 완료된 상품 나오게 설정 -->
 		<select id="insuredPerson" parameterType="String" resultType="insVo">
-	          select a.*
-	               , b.*
-	               , c.*
-	               , d.*
-				from mypet a 
-	               , petkind b
-	               , insurance c
-	               , insprod d
-				where a.myp_petk = b.petk_id
-	              and a.myp_id = c.myp_id
-	              and c.inssp_id = d.insp_id
-				  and a.myp_mem = #{mem_id}
-	              and c.ins_stat = '완료'
-				order by a.myp_id
+			select * 
+			  from (
+			        select a.*
+			             , b.*
+			             , (
+			                select listagg(knd, '<![CDATA[<br>]]>') within group (order by knd) insp_kind
+			                  from (
+			                        select d.insp_kind ||'('|| c.ins_stat ||')' AS knd
+			                             , c.myp_id
+			                          from insurance c
+			                             , insprod d
+			                         where c.INSSP_ID = d.INSP_ID
+			                           and c.MEM_ID =  #{mem_id}
+			                           and c.ins_stat = '완료'
+			                        )
+			                 group by  myp_id 
+			                 having myp_id = a.myp_id
+			               ) AS insp_kind
+			          from mypet a 
+			             , petkind b 
+			         where a.myp_petk = b.petk_id
+			           and a.myp_mem = #{mem_id}
+			         order by a.myp_id
+			       )
+			 where insp_kind is not null
 		</select>
 		
 		<!-- 보상안내 - 보험가입할때 해당 펫의 가입되어 있는 보험상품 나오게 설정 -->
@@ -199,6 +210,84 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			and myp_id = #{myp_id}
 			and mem_id = #{mem_id}
 		</select>
+		
+		
+		<!-- 보험청구 신청하는 부분 -->
+		<insert id="accidentInsert" parameterType="accidentVo">
+			insert into accident
+			values(accident_num.nextval ,#{accd_date},#{accd_addr},#{accd_text},#{accd_img},#{accd_recp},'신청','','0',#{accd_mem},#{accd_myp},#{accd_ins},#{accd_act},'')
+		</insert>
+		
+		
+		<!-- 나의 펫 보험 - 회원이 현재까지 받은 보험금 현황 -->
+		<select id="isuranceStatus" parameterType="String" resultType="int">
+			select nvl(sum(accd_insp),0) as inspNum
+			  from accident
+			 where ACCD_MEM = #{mem_id}
+			   and ACCD_STAT = '완료'
+		</select>
+		
+		<!--나의펫 보험 - 월 전체 보험료 나오는 부분-->
+		<select id="monthlyPremium" parameterType="String" resultType="int">
+			select sum(insp_fees) from insurance , insprod
+		     where inssp_id = insp_id
+			   and mem_id =  #{mem_id}
+			   and INS_STAT = '완료'
+		</select>
+		
+		<!-- 나의 펫 보험 - 현재보험금 신청현황(신청) -->
+		<select id="isrApply" parameterType="String" resultType="accidentVo">
+				select * from accident a , mypet b , insurance c , insprod d , account e
+				where a.accd_myp = b.myp_id
+				and a.accd_ins = c.ins_id
+				and c.inssp_id = d.insp_id
+				and a.accd_act = e.act_id
+				and a.accd_mem = #{mem_id}
+				and a.accd_stat = '신청'
+		</select>
+		
+		<!-- 나의 펫 보험 - 현재보험금 신청현황(반려) -->
+		<select id="underExamination" parameterType="String" resultType="accidentVo">
+				select * from accident a , mypet b , insurance c , insprod d , account e
+				where a.accd_myp = b.myp_id
+				and a.accd_ins = c.ins_id
+				and c.inssp_id = d.insp_id
+				and a.accd_act = e.act_id
+				and a.accd_mem = #{mem_id}
+				and a.accd_stat = '반려'
+		</select>
+		
+		<!-- 나의 펫 보험 - 현재보험금 신청현황(완료) -->
+		<select id="isrComplete" parameterType="String" resultType="accidentVo">
+				select * from accident a , mypet b , insurance c , insprod d , account e
+				where a.accd_myp = b.myp_id
+				and a.accd_ins = c.ins_id
+				and c.inssp_id = d.insp_id
+				and a.accd_act = e.act_id
+				and a.accd_mem = #{mem_id}
+				and a.accd_stat = '완료'
+		</select>
+		
+		<!--보험금 신청 현황 화면에서 보험금 신청 취소를 클릭하였을떄 적용되는 부분-->
+		<delete id="goAccidentDel" parameterType="String">
+			delete from accident 
+			where accd_id = #{accd_id}
+		</delete>
+		
+		<!-- 보험금 내역 확인 버튼을 클릭하였을때 나오는 부분 -->
+		<select id="history" parameterType="String" resultType="accidentVo">
+				select * from accident a , mypet b , insurance c ,insprod d , account e
+			   	 where a.accd_myp = b.myp_id
+                   and a.ACCD_INS = c.INS_ID
+                   and c.inssp_id = d.INSP_ID
+                   and a.accd_act = e.act_id
+			       and a.accd_id = #{accd_id}
+		</select>
+		
+		<!-- 보험금내역 부분에서 계좌번호를 변경하였을떄 실행  -->
+		<update id="accountChange" parameterType="accidentVo">
+			update accident set accd_act=#{accd_act} where accd_id=#{accd_id}
+		</update>
 		
 		
 
