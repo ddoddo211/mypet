@@ -14,6 +14,7 @@ import kr.co.mypet.common.model.PetkindVo;
 import kr.co.mypet.sitter.dao.SitterDaoInf;
 import kr.co.mypet.sitter.model.FaqVo;
 import kr.co.mypet.sitter.model.PetSitterVo;
+import kr.co.mypet.sitter.model.SitterResVo;
 import kr.co.mypet.sitter.model.SitterRevVo;
 import kr.co.mypet.sitter.model.ZipVo;
 
@@ -161,5 +162,40 @@ public class SitterService implements SitterServiceInf {
 	@Override
 	public int petNoticeCountUpdate(Map<String, Object> param) {
 		return sitterDao.petNoticeCountUpdate(param);
+	}
+
+	@Override
+	public List<PetSitterVo> petNoticeListSearch(Map<String, Object> param) {
+		return sitterDao.petNoticeListSearch(param);
+	}
+
+	@Override
+	public List<PetSitterVo> petNoticeListSearchDate(Map<String, Object> param) {
+		return sitterDao.petNoticeListSearchDate(param);
+	}
+
+	@Override
+	public List<PetSitterVo> petNoticeListSearchCount(Map<String, Object> param) {
+		return sitterDao.petNoticeListSearchCount(param);
+	}
+
+	@Override
+	public List<SitterResVo> getReservationList(String mem_id) {
+		return sitterDao.getReservationList(mem_id);
+	}
+
+	@Override
+	public int deleteReservation(String resId) {
+		return sitterDao.deleteReservation(resId);
+	}
+
+	@Override
+	public List<SitterRevVo> getMyReviewList(String mem_id) {
+		return sitterDao.getMyReviewList(mem_id);
+	}
+
+	@Override
+	public String getMaxFaq() {
+		return sitterDao.getMaxFaq();
 	}
 }

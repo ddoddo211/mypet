@@ -59,7 +59,7 @@
    	height: 60px;
    	font-family: 'Nanum Brush Script', cursive;
    	font-size : 26px;
-   	float:left;
+   	float:right;
    	color : #fff;
    	text-align: center;
    	line-height: 60px;
@@ -72,7 +72,7 @@
 	border : 1px solid black;
 	width : 200px;
 	height : 30px;
-	z-index: 1;
+	z-index: 2;
 	background-color: #000;
 	opacity: 0.5;
 	color: #fff;
@@ -87,8 +87,11 @@
 			var pstId = $(this).children()[1].innerText;
 			$("#pstId").val(pstId);
 			cnt++;
-			$("#count").val(cnt);
 			$("#frm1").submit();
+		});
+		$("#content1").click(function(){
+			alert("상세페이지 전환");
+			$("#frm").submit();
 		});
 		
 		$("#noticeAddBtn").click(function(){
@@ -103,15 +106,31 @@
 		$(".btn").click(function(){
 			var i = $(this).children('input').val();
 			$("#sort").val(i);
-			$("#frm2").submit();
+			$("#frm").submit();
+		});
+		
+
+		$("#ui-id-1").click(function(){
+			$(this).removeAttr("href");
+			location.href = "/sit/sitterTo";
 		});
 	});
 </script>
 
 </head>
 <body>
-<form action="" method="post" id="frm2">
+<form action="/sit/sitterTo" method="post" id="frm">
 	<input type="hidden" id="sort" name="sort" />
+	<c:choose>
+		<c:when test="${zip == '' }">
+			<input type="hidden" id="zip" name="zip" />
+			<input type="hidden" id="zipHigh" name="zipHigh"  />		
+		</c:when>
+		<c:otherwise>
+			<input type="hidden" id="zip" name="zip" value="${zip }"/>
+			<input type="hidden" id="zipHigh" name="zipHigh" value="${zipHigh }" />
+		</c:otherwise>
+	</c:choose>
 </form>
 <%@include file="/WEB-INF/view/common/header.jsp"%>
 
@@ -147,51 +166,15 @@
 		</div>
 		<div id="searchMain">
 			<%@include file="/WEB-INF/view/petSitter/searchHeader.jsp" %>
-			
-			<div id="searchList">
-				<div id="list1">
-					<div id="list2">
-						<ul>
-							<li>
-								<span>서비스 구분</span> <br>
-								<select class="service">
-									<option value="0" selected>전체</option>
-									<option value="12">데이케어</option>
-									<option value="24">24시간 돌봄</option>
-								</select>
-							</li>
-							<li>
-								<span>반려견 나이</span> <br>
-								<select class="service">
-									<option value="0" selected>모든 연령</option>
-									<option value="1">강아지(1살이하)</option>
-									<option value="2">성견(2~6살)</option>
-									<option value="3">노견(7살이상)</option>
-								</select>
-							</li>
-							<li>
-								<span>반려견 크기</span> <br>
-								<select class="service">
-									<option value="0" selected>모든 크기</option>
-									<option value="1" >소형견(0~4.9kg)</option>
-									<option value="2" >중형견(5~14.9kg)</option>
-									<option value="3" >대형견(15kg이상)</option>
-								</select>
-							</li>
-							<li id="lstBtn">
-								<button id="listButton" type="submit">찾기</button>
-							</li>
-						</ul>
-					</div>
-					<div id="noticeAdd">
-						<span id="noticeAddBtn">게시글 등록</span>
-					</div>
-				</div>
-			</div>
 		</div><!-- // searchMain -->
 		
 		<div id="petToList">
 			<div id="listMenu">
+				<div id="list1">
+					<div id="noticeAdd">
+						<span id="noticeAddBtn">게시글 등록</span>
+					</div>
+				</div>
 				<div id="sort">
 					<label class="btn" >최신순<input type="hidden" id="latest" name="latest" value="1" /></label> 
 					<label class="btn" >조회순<input type="hidden" id="inquiry" name="inquiry" value="2" /></label> 
@@ -239,7 +222,6 @@
 	
 	<form id="frm1" method="get" action="/sit/sitDetail">
 		<input type="hidden" id="pstId" name="pst_id" />
-		<input type="hidden" id="count" name="count" />
 	</form>
 	<div id="topMove">
 		<a href="#header">

@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>faqUpdate.jsp</title>
+<title>faqInsert.jsp</title>
 <link href="/css/commonCss.css" rel ="stylesheet">
 <link href="/css/petSitter.css" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>

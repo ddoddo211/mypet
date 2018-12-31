@@ -126,7 +126,7 @@
   	margin : 0 auto;
   }
   
-  .review_text{
+  #review_text{
   	width : 530px;
   	height : 40px;
   }

@@ -3,11 +3,21 @@ package kr.co.mypet.sitter.model;
 import java.util.Date;
 
 public class FaqVo {
+	
+	private int rnum;
+	
 	private String psf_id;
 	private String psf_text;
 	private String psf_name;
 	private Date psf_date;
 	private String psf_mem;
+	
+	public int getRnum() {
+		return rnum;
+	}
+	public void setRnum(int rnum) {
+		this.rnum = rnum;
+	}
 	public String getPsf_id() {
 		return psf_id;
 	}
@@ -41,8 +51,8 @@ public class FaqVo {
 	
 	@Override
 	public String toString() {
-		return "FaqVo [psf_id=" + psf_id + ", psf_text=" + psf_text + ", psf_name=" + psf_name + ", psf_date="
-				+ psf_date + ", psf_mem=" + psf_mem + "]";
+		return "FaqVo [rnum=" + rnum + ", psf_id=" + psf_id + ", psf_text=" + psf_text + ", psf_name=" + psf_name
+				+ ", psf_date=" + psf_date + ", psf_mem=" + psf_mem + "]";
 	}
 	
 	

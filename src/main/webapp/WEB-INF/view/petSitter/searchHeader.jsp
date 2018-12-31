@@ -4,19 +4,26 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		$(".closeBtn").click(function(){
-			$("#tabs-2").hide();
-			$("#tabs-3").hide();
-			$("#tabs-4").hide();
-			$("#tabs-5").hide();
-			$("#tabs-6").hide();
-			$("#tabs-7").hide();
-			$("#tabs-8").hide();
+			$(this).parent().parent().parent().attr("aria-hidden", "true");
+			$(this).parent().parent().parent().attr("style", "display:none;");
+			
+ 			$(this).parent().parent().parent().children().children("li").attr("class", "ui-tabs-tab ui-corner-top ui-state-default ui-tab");
+ 			$(this).parent().parent().parent().children().children("li").attr("aria-selected", "false");
+ 			$(this).parent().parent().parent().children().children("li").attr("aria-expanded", "false");
+ 			$(this).parent().parent().parent().children().children("li").attr("tabindex", "-1");
 		});
+		
+		$(".tabOk").click(function(){
+			$(this).parent().parent().submit();
+		});
+						
 	});
+	
 </script>
 <style>
 	#tabs-2, #tabs-3, #tabs-4, #tabs-5, #tabs-6, #tabs-7, #tabs-8{
 		width: 720px;
+		z-index: 1;
 	}
 	.zipKind {
 		float : left;
@@ -72,91 +79,116 @@
 		<li><a href="#tabs-8">부산</a></li>
 	</ul>
 	<div id="tabs-2">
-		<ul class="tab_ul">
-			<c:forEach items="${zipList }" var="zlist">
-				<c:if test="${zlist.zip_high == '서울' }">
-					<li class="zipKind"><input type = "radio" name="zip" id="zipchk"/><span class="tabFont">${zlist.zip_low }</span></li>
-				</c:if>
-			</c:forEach>
-		</ul>
-		<div id="tab_ok">
-			<button class="tab_btn"><span class="tabFont">확인</span></button> 
-			<button class="tab_btn closeBtn"><span class="tabFont">취소</span></button>
-		</div>
+		<form action="/sit/sitterTo" method="post">
+			<ul class="tab_ul">
+				<c:forEach items="${zipList }" var="zlist">
+					<c:if test="${zlist.zip_high == '서울' }">
+						<li class="zipKind"><input type = "radio" name="zip" id="zipchk" value="${zlist.zip_low }"/><span class="tabFont">${zlist.zip_low }</span></li>
+						<input type="hidden" name="zipHigh" value="${zlist.zip_high }" />
+					</c:if>
+				</c:forEach>
+			</ul>
+			<div id="tab_ok">
+				<input type="button" class="tab_btn tabFont tabOk" value="확인" /> 
+				<input type="button" class="tab_btn tabFont closeBtn" value="취소" />
+			</div>
+		</form>
 	</div>
 	<div id="tabs-3">
-		<div >
-		<ul class="tab_ul">
-			<c:forEach items="${zipList }" var="zlist">
-				<c:if test="${zlist.zip_high == '대전' }">
-					<li class="zipKind"><input type = "radio" name="zip" id="zipchk"/><span class="tabFont">${zlist.zip_low }</span></li>
-				</c:if>
-			</c:forEach>
-		</ul>
-		</div>
-		<div id="tab_ok">
-			<button class="tab_btn"><span class="tabFont">확인</span></button> <button class="tab_btn closeBtn"><span class="tabFont">취소</span></button>
-		</div>
+		<form action="/sit/sitterTo" method="post">
+			<ul class="tab_ul">
+				<c:forEach items="${zipList }" var="zlist">
+					<c:if test="${zlist.zip_high == '대전' }">
+						<li class="zipKind"><input type = "radio" name="zip" id="zipchk" value="${zlist.zip_low }"/><span class="tabFont" >${zlist.zip_low }</span></li>
+						<input type="hidden" name="zipHigh" value="${zlist.zip_high }" />
+					</c:if>
+				</c:forEach>
+			</ul>
+			<div id="tab_ok">
+				<input type="button" class="tab_btn tabFont tabOk" value="확인" /> 
+				<input type="button" class="tab_btn tabFont closeBtn" value="취소" />
+			</div>
+		</form>
 	</div>
 	<div id="tabs-4">
-		<ul class="tab_ul">
-			<c:forEach items="${zipList }" var="zlist">
-				<c:if test="${zlist.zip_high == '경기' }">
-					<li class="zipKind"><input type = "radio" name="zip" id="zipchk"/><span class="tabFont">${zlist.zip_low }</span></li>
-				</c:if>
-			</c:forEach>
-		</ul>
-		<div id="tab_ok">
-			<button class="tab_btn"><span class="tabFont">확인</span></button> <button class="tab_btn closeBtn"><span class="tabFont">취소</span></button>
-		</div>
+		<form action="/sit/sitterTo" method="post">
+			<ul class="tab_ul">
+				<c:forEach items="${zipList }" var="zlist">
+					<c:if test="${zlist.zip_high == '경기' }">
+						<li class="zipKind"><input type = "radio" name="zip" id="zipchk" value="${zlist.zip_low }"/><span class="tabFont">${zlist.zip_low }</span></li>
+						<input type="hidden" name="zipHigh" value="${zlist.zip_high }" />
+					</c:if>
+				</c:forEach>
+			</ul>
+			<div id="tab_ok">
+				<input type="button" class="tab_btn tabFont tabOk" value="확인" /> 
+				<input type="button" class="tab_btn tabFont closeBtn" value="취소" />
+			</div>
+		</form>
 	</div>
 	<div id="tabs-5">
-		<ul class="tab_ul">
-			<c:forEach items="${zipList }" var="zlist">
-				<c:if test="${zlist.zip_high == '인천' }">
-					<li class="zipKind"><input type = "radio" name="zip" id="zipchk"/><span class="tabFont">${zlist.zip_low }</span></li>
-				</c:if>
-			</c:forEach>
-		</ul>
-		<div id="tab_ok">
-			<button class="tab_btn"><span class="tabFont">확인</span></button> <button class="tab_btn closeBtn"><span class="tabFont">취소</span></button>
-		</div>
+		<form action="/sit/sitterTo" method="post">
+			<ul class="tab_ul">
+				<c:forEach items="${zipList }" var="zlist">
+					<c:if test="${zlist.zip_high == '인천' }">
+						<li class="zipKind"><input type = "radio" name="zip" id="zipchk" value="${zlist.zip_low }"/><span class="tabFont">${zlist.zip_low }</span></li>
+						<input type="hidden" name="zipHigh" value="${zlist.zip_high }" />
+					</c:if>
+				</c:forEach>
+			</ul>
+			<div id="tab_ok">
+				<input type="button" class="tab_btn tabFont tabOk" value="확인" /> 
+				<input type="button" class="tab_btn tabFont closeBtn" value="취소" />
+			</div>
+		</form>
 	</div>
 	
 	<div id="tabs-6">
-		<ul class="tab_ul">
-			<c:forEach items="${zipList }" var="zlist">
-				<c:if test="${zlist.zip_high == '광주' }">
-					<li class="zipKind"><input type = "radio" name="zip" id="zipchk"/><span class="tabFont">${zlist.zip_low }</span></li>
-				</c:if>
-			</c:forEach>
-		</ul>
-		<div id="tab_ok">
-			<button class="tab_btn"><span class="tabFont">확인</span></button> <button class="tab_btn closeBtn"><span class="tabFont">취소</span></button>
-		</div>
+		<form action="/sit/sitterTo" method="post">
+			<ul class="tab_ul">
+				<c:forEach items="${zipList }" var="zlist">
+					<c:if test="${zlist.zip_high == '광주' }">
+						<li class="zipKind"><input type = "radio" name="zip" id="zipchk" value="${zlist.zip_low }"/><span class="tabFont">${zlist.zip_low }</span></li>
+						<input type="hidden" name="zipHigh" value="${zlist.zip_high }" />
+					</c:if>
+				</c:forEach>
+			</ul>
+			<div id="tab_ok">
+				<input type="button" class="tab_btn tabFont tabOk" value="확인" /> 
+				<input type="button" class="tab_btn tabFont closeBtn" value="취소" />
+			</div>
+		</form>
 	</div>
 	<div id="tabs-7">
-		<ul class="tab_ul">
-			<c:forEach items="${zipList }" var="zlist">
-				<c:if test="${zlist.zip_high == '대구' }">
-					<li class="zipKind"><input type = "radio" name="zip" id="zipchk"/><span class="tabFont">${zlist.zip_low }</span></li>
-				</c:if>
-			</c:forEach>
-		</ul>
-		<div id="tab_ok">
-			<button class="tab_btn"><span class="tabFont">확인</span></button> <button class="tab_btn closeBtn"><span class="tabFont">취소</span></button>
-		</div>
+		<form action="/sit/sitterTo" method="post">
+			<ul class="tab_ul">
+				<c:forEach items="${zipList }" var="zlist">
+					<c:if test="${zlist.zip_high == '대구' }">
+						<li class="zipKind"><input type = "radio" name="zip" id="zipchk" value="${zlist.zip_low }"/><span class="tabFont">${zlist.zip_low }</span></li>
+						<input type="hidden" name="zipHigh" value="${zlist.zip_high }" />
+					</c:if>
+				</c:forEach>
+			</ul>
+			<div id="tab_ok">
+				<input type="button" class="tab_btn tabFont tabOk" value="확인" /> 
+				<input type="button" class="tab_btn tabFont closeBtn" value="취소" />
+			</div>
+		</form>
 	</div>
 	<div id="tabs-8">
-		<ul class="tab_ul">
-			<c:forEach items="${zipList }" var="zlist">
-				<c:if test="${zlist.zip_high == '부산' }">
-					<li class="zipKind"><input type = "radio" name="zip" id="zipchk"/><span class="tabFont">${zlist.zip_low }</span></li>
-				</c:if>
-			</c:forEach>
-		</ul>
-		<div id="tab_ok">
-			<button class="tab_btn"><span class="tabFont">확인</span></button> <button class="tab_btn closeBtn"><span class="tabFont">취소</span></button>
-		</div>
+		<form action="/sit/sitterTo" method="post">
+			<ul class="tab_ul">
+				<c:forEach items="${zipList }" var="zlist">
+					<c:if test="${zlist.zip_high == '부산' }">
+						<li class="zipKind"><input type = "radio" name="zip" id="zipchk" value="${zlist.zip_low }"/><span class="tabFont">${zlist.zip_low }</span></li>
+						<input type="hidden" name="zipHigh" value="${zlist.zip_high }" />
+					</c:if>
+				</c:forEach>
+			</ul>
+			<div id="tab_ok">
+				<input type="button" class="tab_btn tabFont tabOk" value="확인" /> 
+				<input type="button" class="tab_btn tabFont closeBtn" value="취소" />
+			</div>
+		</form>
 	</div>
 </div>
