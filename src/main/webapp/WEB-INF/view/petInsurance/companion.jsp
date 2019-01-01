@@ -58,7 +58,7 @@ $(document).ready(function() {
 			<div id="header">
 				<%--main --%>
 				<div id="logo">
-					<a href="/common/main.jsp"><img alt="이미지가 없습니다" src="/img/petInsuranceLogo2.jpg" width="200px;"></a>
+					<a href="/isr/isrMain"><img alt="이미지가 없습니다" src="/img/petInsuranceLogo2.jpg" width="200px;"></a>
 				</div>
 				<div id="petSearch">
 					<div id="word">
@@ -124,7 +124,7 @@ $(document).ready(function() {
 <c:choose>	
 	<c:when test="${companionSize == 0}">
 		<tr class="tdTable4">
-			<td colspan="6" class="tdTable3">현재 반려되어 있는 내역이 없습니다.</td>
+			<td colspan="7" class="tdTable3">현재 반려되어 있는 내역이 없습니다.</td>
 		</tr>
 	</c:when>
 	<c:otherwise>		

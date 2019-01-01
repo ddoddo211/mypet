@@ -149,7 +149,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<select id="petIrsJoinKind" parameterType="String" resultType="petkindVo">
             select * from petkind , mypet ,animal
 			where myp_petk = petk_id 
-            and petk_am = am_id
+			and PETK_AM = AM_ID
+ 			and myp_del = 'N'
             and petk_id = #{petk_id}
 		</select>
 		
@@ -209,6 +210,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<select id="claimPetJoinProd" parameterType="insVo" resultType="insVo">
 			select * from insurance , insprod
 			where inssp_id = insp_id
+			and ins_stat = '완료'
+			and ins_dis= 'N'
 			and myp_id = #{myp_id}
 			and mem_id = #{mem_id}
 		</select>
@@ -231,7 +234,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		
 		<!--나의펫 보험 - 월 전체 보험료 나오는 부분-->
 		<select id="monthlyPremium" parameterType="String" resultType="int">
-			select sum(insp_fees) from insurance , insprod
+			select nvl(sum(insp_fees),0) from insurance , insprod
 		     where inssp_id = insp_id
 			   and mem_id =  #{mem_id}
 			   and INS_STAT = '완료'

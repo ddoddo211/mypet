@@ -79,7 +79,7 @@ $(document).ready(function() {
 			<div id="header">
 				<%--main --%>
 				<div id="logo">
-					<a href="/common/main.jsp"><img alt="이미지가 없습니다" src="/img/petInsuranceLogo2.jpg" width="200px;"></a>
+					<a href="/isr/isrMain"><img alt="이미지가 없습니다" src="/img/petInsuranceLogo2.jpg" width="200px;"></a>
 				</div>
 				<div id="petSearch">
 					<div id="word">
@@ -169,7 +169,7 @@ $(document).ready(function() {
 						보험가입을 위해 고지사항을 확인해주세요
 					</div>
 					<div class="isrJoinNotice3">
-						* 애완/ 반려 외의 목적으로 양육하고 있습니까?
+						* 애완/ 반려  목적으로 양육하고 있습니까?
 						<span class="isrJoinNotice3_1">
 							<input class="YesNo" type="radio" value="Y" name="name"/><label>예</label>
 							<input class="isrJoinNotice3_1_1 YesNo" type="radio" value="N" name="name"/><label>아니요</label>
