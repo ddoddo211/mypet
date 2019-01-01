@@ -549,6 +549,20 @@ public class InsuranceService implements InsuranceServiceInf {
 	public int mypetInfoUpdate(MypetVo petVo) {
 		return insuranceDao.mypetInfoUpdate(petVo);
 	}
+
+	
+	/**
+	* Method : petDelCondition
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param accd_myp
+	* @return
+	* Method 설명 : 나의 펫 보험 - 펫 삭제할떄 보험금 청구 신청을 하였을때 삭제 못하도록 하는것
+	*/
+	@Override
+	public List<AccidentVo> petDelCondition(String accd_myp) {
+		return insuranceDao.petDelCondition(accd_myp);
+	}
 	
 
 

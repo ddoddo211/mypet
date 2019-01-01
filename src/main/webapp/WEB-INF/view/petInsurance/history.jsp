@@ -87,7 +87,7 @@ function goBack(){
 	<div id="claimMain">
 			<div id="claimTitle">
 				<div id="claimTitle1">
-					보험금 청구 내역 확인
+					보험금 신청 내역 확인
 				</div>
 			</div>
 

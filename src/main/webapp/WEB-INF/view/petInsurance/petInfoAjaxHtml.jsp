@@ -17,9 +17,16 @@ $(document).ready(function(){
 	// 보험해지 하기 버튼을 클릭할시에 적용되는 부분
 	$("#Termination").click(function(){
 		
+		// 보험해지시 해지를 원하는 체크박스를 클릭하였는지 확인할때 필요
 		var petProdSelect = $("#petProdSelect").val();
 		
-		if(petProdSelect == ""){
+		// 보험해지버튼 클릭시 보험금 신청을 해 놓은 건이 있는지 확인
+		var petAc = ${acVoSize};
+		
+		if(petAc != 0){
+			alert("해당 펫은 보험금 신청을 한 건이 있습니다.\n보험금을 받지 않는다면 보험금 (신청)현황에서 \n보험금 신청 취소를 하신후 보험해지를 진행하시기 바랍니다.");
+			return;
+		}else if(petProdSelect == ""){
 			alert("보험해지를 원하시는 보험상품을 선택하시기 바랍니다.");
 			return;
 		}else{
@@ -30,9 +37,16 @@ $(document).ready(function(){
 	
 	// 펫 삭제하기 버튼을 클릭하였을때 
 	$("#petDel").click(function(){
+		// 펫 삭제하기 클릭시 보험에 가입되어 있다면 삭제가 안되도록 한 부분 
 		var petIsrJoin = ${isrVoListSize};
 		
-		if(petIsrJoin != 0){
+		// 펫 삭제하기 클릭시 보험금 신청을 해 놓은 건이 있는지 확인
+		var petAc = ${acVoSize};
+		
+		if(petAc != 0){
+			alert("해당 펫은 보험금 신청을 한 건이 있습니다.\n보험금을 받지 않는다면 보험금 (신청)현황에서 \n보험금 신청 취소를 하신후 펫 삭제를 진행하시기 바랍니다.");
+			return;
+		}else if(petIsrJoin != 0){
 			alert("해당 펫은 보험에 가입되어 있는 펫입니다.\n보험을 해지한후 삭제하시기 바랍니다.");
 			return;
 		}else{

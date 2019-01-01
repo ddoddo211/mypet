@@ -1065,6 +1065,10 @@ public class InsuranceController {
 				model.addAttribute("isrVoList2" , isrVoList2);
 				model.addAttribute("isrVoList2Size" , isrVoList2.size());
 				
+				//펫 삭제할떄 보험금 청구 신청 건이 있을때 삭제 못하도록 하는것
+				List<AccidentVo> acVo = insuranceService.petDelCondition(petId);
+				model.addAttribute("acVoSize",acVo.size());
+				
 				return "petInsurance/petInfoAjaxHtml";
 				
 			}		

@@ -408,4 +408,14 @@ public interface InsuranceDaoInf {
 	* Method 설명 :나의 펫 보험 화면에서 펫의 정보 수정하는 부분
 	*/
 	int mypetInfoUpdate (MypetVo petVo);
+	
+	/**
+	* Method : petDelCondition
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param accd_myp
+	* @return
+	* Method 설명 : 나의 펫 보험 - 펫 삭제할떄 보험금 청구 신청을 하였을때 삭제 못하도록 하는것
+	*/
+	List<AccidentVo> petDelCondition (String accd_myp);
 }

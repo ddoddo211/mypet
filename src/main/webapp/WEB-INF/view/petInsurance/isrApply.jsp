@@ -148,7 +148,7 @@ $(document).ready(function() {
 								<tr>
 									<td class="td1"><input class="isrApplyChk" type="radio" name="isrApplyChk" value="${list.accd_id }"/></td>
 									<td class="td1">${list.myp_name}</td>
-									<td class="td1">${list.insp_name}</td>
+									<td class="td1">${list.insp_kind}</td>
 									<td class="td1"><fmt:formatDate value="${list.accd_date}" pattern="yyyy년 MM월 dd일"></fmt:formatDate></td>
 									<td class="td1">${list.accd_addr}</td>
 									<td class="td1">${list.accd_stat}</td>
@@ -164,7 +164,7 @@ $(document).ready(function() {
 			
 			<div id="isrApplyBtn">
 				<div>
-					<input type="button" id="isrApplyBtn0" value="보험금 내역  확인"/>
+					<input type="button" id="isrApplyBtn0" value="신청 내역  확인"/>
 				</div>
 				<div>
 					<input type="button" id="isrApplyBtn1_1" value="보험금 신청 취소" />
