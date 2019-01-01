@@ -221,9 +221,7 @@ body, option, select{
 
 <!-- -->
 #searchMain {
-	
 	width : 100%;
-	height : 200px;
 }
 
 #regSearch{
@@ -268,7 +266,7 @@ body, option, select{
 
 #list1{
 	width : 1200px;
-	heigth : 200px;
+	height : 80px;
 	overflow: hidden;
 }
 
@@ -315,7 +313,7 @@ body, option, select{
 }
 #listMenu{
 	width : 100%;
-	height : 40px;
+	height : 120px;
 	border-bottom : 1px solid black;
 	
 }
@@ -852,6 +850,7 @@ input[name="mypet1"] {
 	border-radius: 10px;
 	box-shadow: 2px 2px 0px #868686;
 	cursor: pointer;
+	outline: none;
 }
 
 /* #sitFromBtn:hover{ */
@@ -874,6 +873,7 @@ input[name="mypet1"] {
 	border-radius: 10px;
 	box-shadow: -2px -2px 0px #868686;
 	cursor: pointer;
+	outline: none;
 }
 
 #difficulty{

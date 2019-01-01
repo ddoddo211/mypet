@@ -7,6 +7,7 @@ import kr.co.mypet.common.model.MypetVo;
 import kr.co.mypet.common.model.PetkindVo;
 import kr.co.mypet.sitter.model.FaqVo;
 import kr.co.mypet.sitter.model.PetSitterVo;
+import kr.co.mypet.sitter.model.SitterResVo;
 import kr.co.mypet.sitter.model.SitterRevVo;
 import kr.co.mypet.sitter.model.ZipVo;
 
@@ -61,4 +62,18 @@ public interface SitterDaoInf {
 	List<PetSitterVo> petNoticeListCount();
 
 	int petNoticeCountUpdate(Map<String, Object> param);
+
+	List<PetSitterVo> petNoticeListSearch(Map<String, Object> param);
+
+	List<PetSitterVo> petNoticeListSearchDate(Map<String, Object> param);
+
+	List<PetSitterVo> petNoticeListSearchCount(Map<String, Object> param);
+
+	List<SitterResVo> getReservationList(String mem_id);
+
+	int deleteReservation(String resId);
+
+	List<SitterRevVo> getMyReviewList(String mem_id);
+
+	String getMaxFaq();
 }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import kr.co.mypet.hair.dao.HairDaoInf;
 import kr.co.mypet.hair.model.BookmarkVo;
 import kr.co.mypet.hair.model.HairBoardVo;
+import kr.co.mypet.hair.model.HairResVo;
 import kr.co.mypet.hair.model.HairShopVo;
 import kr.co.mypet.hair.model.PetStyleVo;
 import kr.co.mypet.sitter.model.ZipVo;
@@ -77,6 +78,12 @@ public class HairService implements HairServiceInf {
 		public int bmDup(BookmarkVo bmVo) {
 			// TODO Auto-generated method stub
 			return hairDao.bmDup(bmVo);
+		}
+
+		@Override
+		public List<HairResVo> selRes(HairResVo hrVo) {
+			// TODO Auto-generated method stub
+			return hairDao.selRes(hrVo);
 		}
 		
 		

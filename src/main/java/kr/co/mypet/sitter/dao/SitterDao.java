@@ -12,6 +12,7 @@ import kr.co.mypet.common.model.MypetVo;
 import kr.co.mypet.common.model.PetkindVo;
 import kr.co.mypet.sitter.model.FaqVo;
 import kr.co.mypet.sitter.model.PetSitterVo;
+import kr.co.mypet.sitter.model.SitterResVo;
 import kr.co.mypet.sitter.model.SitterRevVo;
 import kr.co.mypet.sitter.model.ZipVo;
 
@@ -138,11 +139,46 @@ public class SitterDao implements SitterDaoInf {
 
 	@Override
 	public List<PetSitterVo> petNoticeListCount() {
-		return template.selectList("pstSitter.petNoticeListCount");
+		return template.selectList("petSitter.petNoticeListCount");
 	}
 
 	@Override
 	public int petNoticeCountUpdate(Map<String, Object> param) {
 		return template.update("petSitter.petNoticeCountUpdate", param);
+	}
+
+	@Override
+	public List<PetSitterVo> petNoticeListSearch(Map<String, Object> param) {
+		return template.selectList("petSitter.petNoticeListSearch", param);
+	}
+
+	@Override
+	public List<PetSitterVo> petNoticeListSearchDate(Map<String, Object> param) {
+		return template.selectList("petSitter.petNoticeListSearchDate", param);
+	}
+
+	@Override
+	public List<PetSitterVo> petNoticeListSearchCount(Map<String, Object> param) {
+		return template.selectList("petSitter.petNoticeListSearchCount", param);
+	}
+
+	@Override
+	public List<SitterResVo> getReservationList(String mem_id) {
+		return template.selectList("petSitter.getReservationList", mem_id);
+	}
+
+	@Override
+	public int deleteReservation(String resId) {
+		return template.delete("petSitter.deleteReservation", resId);
+	}
+
+	@Override
+	public List<SitterRevVo> getMyReviewList(String mem_id) {
+		return template.selectList("petSitter.getMyReviewList", mem_id);
+	}
+
+	@Override
+	public String getMaxFaq() {
+		return template.selectOne("petSitter.getMaxFaq");
 	}	
 }

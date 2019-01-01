@@ -7,6 +7,7 @@ public class SitterAppVo {
 	private String sta_suc;
 	private String sta_num;
 	private int sta_kind;
+	
 	public String getSta_id() {
 		return sta_id;
 	}

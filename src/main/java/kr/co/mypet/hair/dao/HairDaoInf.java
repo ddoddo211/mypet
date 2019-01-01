@@ -4,6 +4,7 @@ import java.util.List;
 
 import kr.co.mypet.hair.model.BookmarkVo;
 import kr.co.mypet.hair.model.HairBoardVo;
+import kr.co.mypet.hair.model.HairResVo;
 import kr.co.mypet.hair.model.HairShopVo;
 import kr.co.mypet.hair.model.PetStyleVo;
 import kr.co.mypet.sitter.model.ZipVo;
@@ -31,5 +32,7 @@ public interface HairDaoInf {
 	int insertBookMark(BookmarkVo bmVo);
 	
 	int bmDup (BookmarkVo bmVo);
+
+	List<HairResVo> selRes(HairResVo hrVo);
 
 }

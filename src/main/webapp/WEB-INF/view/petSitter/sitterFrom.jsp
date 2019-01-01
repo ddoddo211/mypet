@@ -75,6 +75,7 @@
 				k += val[i] + " ";
 			});
 			$("#mypet").val(k);
+			$("#revFrm").submit();
 		});
 	});
 
@@ -137,7 +138,7 @@
 			<%@include file="/WEB-INF/view/petSitter/petSitterMenu.jsp" %>
 		</div>
 		<div id="sitToMain">
-			<form action="/sit/reservation" method="post" autocomplete="off" >
+			<form action="/sit/reservation" method="post" autocomplete="off" id="revFrm">
 			<input type="hidden" name="mypet" id="mypet" />
 			<input type="hidden" name="arr" value="1" />
 				<div id="addressDiv">
@@ -225,7 +226,7 @@
 						</div>
 					</div>
 					<div id="mypetOk">
-						<button id="sitFromBtn" type="submit">예약하기</button>
+						<input type="button" id="sitFromBtn" value="예약하기" />
 					</div>
 				</div>
 			</form>
