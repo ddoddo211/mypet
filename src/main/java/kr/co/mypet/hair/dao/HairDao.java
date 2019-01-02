@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import kr.co.mypet.common.model.MypetVo;
 import kr.co.mypet.hair.model.BookmarkVo;
 import kr.co.mypet.hair.model.HairBoardVo;
 import kr.co.mypet.hair.model.HairResVo;
@@ -67,7 +68,7 @@ public class HairDao implements HairDaoInf {
 	}
 
 	@Override
-	public List<PetStyleVo> selectStyle(String pts_has) {
+	public List<PetStyleVo> selectStyleList(String pts_has) {
 		List<PetStyleVo> styleList = template.selectList("petHair.selectStyle", pts_has);
 		return styleList;
 	}
@@ -100,6 +101,30 @@ public class HairDao implements HairDaoInf {
 	public List<HairResVo> selRes(HairResVo hrVo) {
 		List<HairResVo> hrList = template.selectList("petHair.selRes",hrVo);
 		return hrList;
+	}
+
+	@Override
+	public List<MypetVo> selectMypet(String myp_mem) {
+		List<MypetVo> selChk = template.selectList("petHair.selectMypet", myp_mem);
+		return selChk;
+	}
+
+	@Override
+	public int insertRev(HairResVo hairResVo) {
+		int chk = template.insert("petHair.insertRev",hairResVo);
+		return chk;
+	}
+
+	@Override
+	public List<HairResVo> selectRev(String mem_id) {
+		List<HairResVo> hrList = template.selectList("petHair.selectRev", mem_id);
+		return hrList;
+	}
+
+	@Override
+	public PetStyleVo selectStyle(String pts_id) {
+		PetStyleVo psVo = template.selectOne("petHair.selectStyleOne", pts_id);
+		return psVo;
 	}
 	
 }

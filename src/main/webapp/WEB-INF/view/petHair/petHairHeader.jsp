@@ -34,6 +34,6 @@
 	<ul class="menu_ul">
 		<li class="mainmenu-li" id="mainmenu-li-1"><a href="/hair/hairMain"><span class="menuWord">펫 미용</span></a></li>
 		<li class="mainmenu-li"><a href="/fac/facMain"><span class="menuWord">펫 편의시설</span></a></li>
-		<li class="mainmenu-li"><a href="/hairMem/myPage"><span class="menuWord">Mypage(펫미용)</span></a></li>
+		<li class="mainmenu-li"><a href="/hairMem/myPage?mem_id=${memVo.mem_id }"><span class="menuWord">Mypage(펫미용)</span></a></li>
 	</ul>
 </div>

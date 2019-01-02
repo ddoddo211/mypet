@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.co.mypet.common.model.MemberVo;
+import kr.co.mypet.common.model.MypetVo;
 import kr.co.mypet.hair.model.BookmarkVo;
 import kr.co.mypet.hair.model.HairBoardVo;
 import kr.co.mypet.hair.model.HairResVo;
@@ -310,6 +311,41 @@ public class HairShopController {
 		
 		return "petHair/ajaxRes";
 	}
+	
+	@RequestMapping("/insertRev")
+	public String insertRev(HairResVo hairResVo, Model model) {
+		String myp_mem = hairResVo.getHres_mem();
+		String hres_myp = "";
+		
+		//hres_myp >> 나의 펫 조회해서 입력하는 부분
+			//실제 펫조회 쿼리
+//			List<MypetVo> petChk = hairService.selectMypet(myp_mem);
+//			//임시로 0번방꺼만 수행
+//			if(petChk!=null) {
+//				hres_myp = petChk.get(0).getMyp_id();
+//			}
+//			hairResVo.setHres_myp(hres_myp);
+			
+			
+			//임시로 1로 지정
+			hairResVo.setHres_myp("1");
+			hairResVo.setHres_stat("미용의뢰");
+			hairResVo.setHres_spec("-");
+			
+			int chk = hairService.insertRev(hairResVo);
+			
+			if(chk==0) {
+				System.out.println("insert실패");
+			} else {
+				System.out.println("rev insert 성공!");
+			}
+			
+			model.addAttribute("mem_id", hairResVo.getHres_mem());
+		
+		
+		return "redirect:/hairMem/myPage";
+	}
+	
 	
 	
 }
