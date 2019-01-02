@@ -120,7 +120,7 @@ function gocompleted(){
 			<div id="header">
 				<%--main --%>
 				<div id="logo">
-					<a href="/common/main.jsp"><img alt="이미지가 없습니다" src="/img/petInsuranceLogo2.jpg" width="200px;"></a>
+					<a href="/isr/isrMain"><img alt="이미지가 없습니다" src="/img/petInsuranceLogo2.jpg" width="200px;"></a>
 				</div>
 				<div id="petSearch">
 					<div id="word">

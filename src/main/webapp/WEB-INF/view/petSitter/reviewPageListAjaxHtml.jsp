@@ -21,7 +21,7 @@
 			<div id="reviewText">
 				<input type="hidden" id="stvId" value="${list.stv_id }" />
 				<span style="display:block; width:530px;" id="revtext">${list.stv_text }</span>
-				<input type="text" class="review_text" name="review_text" style="display: none;"/>
+				<input type="text" id="review_text" name="review_text" style="display: none;"/>
 			</div>
 			<div id="reviewDate">
 				<span style="display:block;"><fmt:formatDate pattern = "yyyy-MM-dd" value = "${list.stv_date }" /></span>

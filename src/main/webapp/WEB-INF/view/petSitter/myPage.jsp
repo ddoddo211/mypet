@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>support.jsp</title>
+<title>mypage.jsp</title>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <link href="/css/commonCss.css" rel ="stylesheet">
 <link href="/css/petSitter.css" rel="stylesheet">
@@ -13,24 +13,88 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script type="text/javascript">
 	$(document).ready(function(){
-		if(${memVo.mem_id == null}){
+		var memId = "${memVo.mem_id}";
+		if(memId == ""){
 			alert("로그인이 되어있지 않습니다.");
 			history.back();
 		}
 		
-		$("#faq_insert").click(function(){
-			
-		});
+		getMypageReservation();
+		
 	});
 	
+	function getMypageReservation(){
+		$.ajax({
+			type : "POST",
+			url  : "/sit/mypageReservationAjaxHtml",
+			success : function(dt){
+				$("#mypageRight").html(dt);
+			}
+		});
+	}
 	
+	function getMypagePoint(){
+		$.ajax({
+			type : "POST",
+			url  : "/sit/mypagePointAjaxHtml",
+			success : function(dt){
+				$("#mypageRight").html(dt);
+			}
+		});
+	}
+	
+	function getMypageNotice(){
+		$.ajax({
+			type : "POST",
+			url  : "/sit/mypageNoticeAjaxHtml",
+			success : function(dt){
+				$("#mypageRight").html(dt);
+			}
+		});
+	}
+	
+	function getMypageFaq(){
+		$.ajax({
+			type : "POST",
+			url  : "/sit/mypageFaqAjaxHtml",
+			success : function(dt){
+				$("#mypageRight").html(dt);
+			}
+		});
+	}
+	
+	function getFaqDelete(faq_id){
+		$.ajax({
+			type : "POST",
+			url  : "/sit/mypageFaqDelete",
+			data : "faq_id="+faq_id,
+			success : function(dt){
+				$("#mypageRight").html(dt);
+			}
+		});
+	}
+	
+	function reserv(){
+		getMypageReservation();
+	}
+	
+	function point(){
+		getMypagePoint();
+	}
+	
+	function notice(){
+		getMypageNotice();
+	}
+	
+	function faq(){
+		getMypageFaq();
+	}
 	
 </script>
 <style type="text/css">
 	#mypageMain{
 		width : 100%;
 		margin : 0 auto;
-		border : 1px solid blue;
 		overflow : hidden;
 	}
 	
@@ -39,10 +103,10 @@
 		width : 25%;
 		min-height : 658px; 
 		float: left;
+		background-color : #f1f1f1;
 	}
 	
 	#mypageRight{
-		border : 1px solid pink;
 		width : 72%;
 		min-height : 658px; 
 		margin-left : 25px;
@@ -52,7 +116,6 @@
 	#profile{
 		width : 100%;
 		overflow : hidden;
-		background-color : #f1f1f1;
 		border-bottom : 1px solid #c1c1c1;
 		padding-top : 10px;
 	}
@@ -90,15 +153,59 @@
 	}
 	
 	.menu{
-		border : 1px solid black;
+		border-bottom : 1px solid black;
 		width : 100%;
-		margin-bottom : 10px;
+		margin-top : 20px;
 		text-align: center;
+		cursor: pointer;
 	}
 	
 	.menu > span {
 		font-size : 20px;
 		font-family: 'Work Sans', sans-serif;
+	}
+	
+	#reservationTable{
+		width : 100%;
+		border-collapse : collapse;
+	}
+	
+	.th {
+		border : 1px solid #d1d1d1;
+		font-size : 20px;
+		background-color: #fff3f3;
+	}
+		
+	.td {
+		border : 1px solid #d1d1d1;
+		text-align: center;
+		vertical-align: middle;
+		font-size : 16px;
+		height : 30px;
+	}
+	
+	.mypageBtn{
+		width : 100px;
+		height : 40px;
+		border : 1px solid black;
+		background-color: #000;
+		color : #fff;
+		font-size : 16px;
+		border-radius: 15px;
+		box-shadow: 2px 2px #a1a1a1;
+		outline: none;
+	}
+	
+	.mypageBtn:active{
+		width : 100px;
+		height : 40px;
+		border : 1px solid #a1a1a1;
+		background-color: #a1a1a1;
+		color : #fff;
+		font-size : 16px;
+		border-radius: 15px;
+		box-shadow: 2px 2px #000;
+		outline: none;
 	}
 </style>
 </head>
@@ -147,18 +254,17 @@
 				</div>
 				<div id="menuList">
 					<div class="menu">
-						<span>예약 내역 관리</span>
+						<span onclick="reserv()">예약 관리</span>
 					</div>
 					<div class="menu">
-						<span>포인트 관리</span>
+						<span onclick="point()">포인트 관리</span>
 					</div>
 					<div class="menu">
-						<span>게시글 관리</span>
+						<span onclick="notice()">게시글 관리</span>
 					</div>
 					<c:if test="${memVo.mem_id == 'admin' }">
 						<div class="menu"> 
-							<span>FAQ 관리</span>
-							<input type="button" id="faq_insert" value="FAQ등록"/>
+							<span onclick="faq()">FAQ 관리</span>
 						</div>
 					</c:if>
 				</div>

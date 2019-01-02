@@ -74,7 +74,7 @@ $(document).ready(function() {
 			<div id="header">
 				<%--main --%>
 				<div id="logo">
-					<a href="/common/main.jsp"><img alt="이미지가 없습니다" src="/img/petInsuranceLogo2.jpg" width="200px;"></a>
+					<a href="/isr/isrMain"><img alt="이미지가 없습니다" src="/img/petInsuranceLogo2.jpg" width="200px;"></a>
 				</div>
 				<div id="petSearch">
 					<div id="word">
@@ -140,7 +140,7 @@ $(document).ready(function() {
 <c:choose>	
 	<c:when test="${isrApplySize == 0}">
 		<tr class="tdTable4">
-			<td colspan="6" class="tdTable3">현재 신청되어 있는 보험금 청구건이 없습니다.</td>
+			<td colspan="7" class="tdTable3">현재 신청되어 있는 보험금 청구건이 없습니다.</td>
 		</tr>
 	</c:when>
 	<c:otherwise>		
@@ -148,7 +148,7 @@ $(document).ready(function() {
 								<tr>
 									<td class="td1"><input class="isrApplyChk" type="radio" name="isrApplyChk" value="${list.accd_id }"/></td>
 									<td class="td1">${list.myp_name}</td>
-									<td class="td1">${list.insp_name}</td>
+									<td class="td1">${list.insp_kind}</td>
 									<td class="td1"><fmt:formatDate value="${list.accd_date}" pattern="yyyy년 MM월 dd일"></fmt:formatDate></td>
 									<td class="td1">${list.accd_addr}</td>
 									<td class="td1">${list.accd_stat}</td>
@@ -164,7 +164,7 @@ $(document).ready(function() {
 			
 			<div id="isrApplyBtn">
 				<div>
-					<input type="button" id="isrApplyBtn0" value="보험금 내역  확인"/>
+					<input type="button" id="isrApplyBtn0" value="신청 내역  확인"/>
 				</div>
 				<div>
 					<input type="button" id="isrApplyBtn1_1" value="보험금 신청 취소" />

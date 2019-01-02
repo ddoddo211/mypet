@@ -1,6 +1,5 @@
 package kr.co.mypet.insurance.web;
 
-import java.awt.font.TransformAttribute;
 import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
@@ -9,13 +8,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-
 import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.servlet.http.Part;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
-
 import kr.co.mypet.common.model.AccountVo;
 import kr.co.mypet.common.model.MemberVo;
 import kr.co.mypet.common.model.MypetVo;
@@ -1069,6 +1064,10 @@ public class InsuranceController {
 				// 다음 화면에서 펫 보험정보를 사용해야 하기 때문에 model에 담아주기 
 				model.addAttribute("isrVoList2" , isrVoList2);
 				model.addAttribute("isrVoList2Size" , isrVoList2.size());
+				
+				//펫 삭제할떄 보험금 청구 신청 건이 있을때 삭제 못하도록 하는것
+				List<AccidentVo> acVo = insuranceService.petDelCondition(petId);
+				model.addAttribute("acVoSize",acVo.size());
 				
 				return "petInsurance/petInfoAjaxHtml";
 				

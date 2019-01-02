@@ -7,6 +7,7 @@ import kr.co.mypet.common.model.MypetVo;
 import kr.co.mypet.common.model.PetkindVo;
 import kr.co.mypet.sitter.model.FaqVo;
 import kr.co.mypet.sitter.model.PetSitterVo;
+import kr.co.mypet.sitter.model.SitterResVo;
 import kr.co.mypet.sitter.model.SitterRevVo;
 import kr.co.mypet.sitter.model.ZipVo;
 
@@ -247,6 +248,75 @@ public interface SitterServiceInf {
 	* Method 설명 : 펫시터 집에 맡기기 조회수 변경 처리 
 	*/
 	int petNoticeCountUpdate(Map<String, Object> param);
+
+	/**
+	* Method : petNoticeListSearch
+	* 작성자 : pc24
+	* 변경이력 :
+	* @param param
+	* @return
+	* Method 설명 : 펫시터 집에 맡기기 주소 검색 시 처리
+	*/
+	List<PetSitterVo> petNoticeListSearch(Map<String, Object> param);
+
+	/**
+	* Method : petNoticeListSearchDate
+	* 작성자 : pc24
+	* 변경이력 :
+	* @param param
+	* @return
+	* Method 설명 : 펫시터 집에 맡기기 주소 검색 후 최신순 정렬 처리
+	*/
+	List<PetSitterVo> petNoticeListSearchDate(Map<String, Object> param);
+
+	/**
+	* Method : petNoticeListSearchCount
+	* 작성자 : pc24
+	* 변경이력 :
+	* @param param
+	* @return
+	* Method 설명 : 펫시터 집에 맡기기 주소 검색 후 조회순 정렬 처리
+	*/
+	List<PetSitterVo> petNoticeListSearchCount(Map<String, Object> param);
+
+	/**
+	* Method : getReservationList
+	* 작성자 : pc24
+	* 변경이력 :
+	* @param mem_id
+	* @return
+	* Method 설명 : 마이페이지 예약관리 예약내역리스트
+	*/
+	List<SitterResVo> getReservationList(String mem_id);
+
+	/**
+	* Method : deleteReservation
+	* 작성자 : pc24
+	* 변경이력 :
+	* @param resId
+	* @return
+	* Method 설명 : 마이페이지 예약내역 취소처리
+	*/
+	int deleteReservation(String resId);
+
+	/**
+	* Method : getMyReviewList
+	* 작성자 : pc24
+	* 변경이력 :
+	* @param mem_id
+	* @return
+	* Method 설명 : 나의 후기글 리스트
+	*/
+	List<SitterRevVo> getMyReviewList(String mem_id);
+
+	/**
+	* Method : getMaxFaq
+	* 작성자 : pc24
+	* 변경이력 :
+	* @return
+	* Method 설명 : FAQ 게시글 최대값 구하기
+	*/
+	String getMaxFaq();
 	
 	
 }

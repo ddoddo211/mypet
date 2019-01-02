@@ -28,6 +28,7 @@ import kr.co.mypet.common.model.PageVo;
 import kr.co.mypet.common.model.PetkindVo;
 import kr.co.mypet.sitter.model.FaqVo;
 import kr.co.mypet.sitter.model.PetSitterVo;
+import kr.co.mypet.sitter.model.SitterResVo;
 import kr.co.mypet.sitter.model.SitterRevVo;
 import kr.co.mypet.sitter.model.ZipVo;
 import kr.co.mypet.sitter.service.SitterServiceInf;
@@ -230,7 +231,7 @@ public class SitterController {
 			param.put("str_mem", mem_id);
 			param.put("str_myp", mVo.getMyp_id());
 			
-//			int resCnt = sitterService.insertReservation(param);
+			int resCnt = sitterService.insertReservation(param);
 		}
 		
 		model.addAttribute("list", list);
@@ -247,11 +248,33 @@ public class SitterController {
 	// 펫시터 집에 맡기기 화면
 	@RequestMapping("/sitterTo")
 	public String sitterTo(Model model, HttpServletRequest request) {
+		String zip = request.getParameter("zip");
+		String ziphigh = request.getParameter("zipHigh");
+		
+		Map<String, Object> param = new HashMap<>();
+		param.put("zip_low", zip);
+		param.put("zip_high", ziphigh);
+		
+		String sort = request.getParameter("sort");
 		List<PetSitterVo> sitList = new ArrayList<>();
-		System.out.println("sitterTo : "+request.getParameter("sort"));
-		if(request.getParameter("sort") != null) {
+		
+		if( (sort != null) && (ziphigh != null || ziphigh != "")) {
 			int sortCnt = Integer.parseInt(request.getParameter("sort"));
-			
+			if(sortCnt ==1) {
+				sitList = sitterService.petNoticeListSearchDate(param);
+				
+				model.addAttribute("sitList", sitList);
+				model.addAttribute("zip",zip);
+				model.addAttribute("zipHigh", ziphigh);
+			} else if(sortCnt == 2) {
+				sitList = sitterService.petNoticeListSearchCount(param);
+				
+				model.addAttribute("sitList", sitList);
+				model.addAttribute("zip",zip);
+				model.addAttribute("zipHigh", ziphigh);
+			}
+		} else if(sort != null && (ziphigh == null || ziphigh == "")) {
+			int sortCnt = Integer.parseInt(request.getParameter("sort"));
 			if(sortCnt == 1) {
 				sitList = sitterService.petNoticeListDate();
 				
@@ -261,10 +284,20 @@ public class SitterController {
 				
 				model.addAttribute("sitList", sitList);
 			} 
-		} else {
+			
+		} else if(sort == null && ziphigh != null) {
+			sitList = sitterService.petNoticeListSearch(param);
+			
+			model.addAttribute("sitList", sitList);
+			model.addAttribute("zip",zip);
+			model.addAttribute("zipHigh", ziphigh);
+			
+		} else if(sort == null && ziphigh == null){
+			
 			sitList = sitterService.petNoticeList();
 			
 			model.addAttribute("sitList", sitList);
+			
 		}
 				
 		List<ZipVo> zipList = sitterService.zipList();
@@ -276,13 +309,17 @@ public class SitterController {
 	
 	// 펫시터 집에 맡기기 상세화면
 	@RequestMapping("/sitDetail")
-	public String sitterDetail(Model model, @RequestParam("pst_id")String pst_id, @RequestParam("count")int count) {
+	public String sitterDetail(Model model, @RequestParam("pst_id")String pst_id) {
 		
 		PetSitterVo pstVo = sitterService.petToHomeDetail(pst_id);
 		
+		int count = pstVo.getPst_view();
+		
+		pstVo.setPst_view(count+1);
+		
 		Map<String, Object> param = new HashMap<>();
 		param.put("pst_id", pst_id);
-		param.put("pst_view", count);
+		param.put("pst_view", pstVo.getPst_view());
 		
 		int updateCnt = sitterService.petNoticeCountUpdate(param);
 		
@@ -432,8 +469,10 @@ public class SitterController {
 			pstVo.setPst_title(notice_title);
 			pstVo.setPst_cidate(cidate);
 			pstVo.setPst_codate(codate);
+			
+			System.out.println("pstVo : " +pstVo);
 
-//			int insertCnt = sitterService.insertSitterTo(pstVo);
+			int insertCnt = sitterService.insertSitterTo(pstVo);
 			
 			return "redirect:/sit/sitterTo";
 
@@ -484,12 +523,12 @@ public class SitterController {
 	// faq 삭제 처리
 	@RequestMapping("/faqDelete")
 	public String faqDelete(@RequestParam("faq_id")String psf_id) {
-		
 		int deleteCnt = sitterService.deleteFaq(psf_id);
 		
 		return "redirect:/sit/faq";
 	}
 	
+
 	// faq 등록화면 이동
 	@RequestMapping("/faqInsertView")
 	public String faqInsertView() {
@@ -504,7 +543,15 @@ public class SitterController {
 		param.put("psf_text", psf_text);
 		
 		int insertCnt = sitterService.insertFaq(param); 
-		return "redirect:/sit/faq";
+		
+		if(insertCnt !=0) {
+			String psf_id = sitterService.getMaxFaq();
+			
+			return "redirect:/sit/faqDetail?faqId="+psf_id;
+		}
+		
+		return "redirect:/sit/faqInsertView";
+		
 	}
 	
 	// 펫시터 지원하기 화면
@@ -519,4 +566,71 @@ public class SitterController {
 		return "petSitter/myPage";
 	}
 	
+	// 마이페이지 예약관리 화면
+	@RequestMapping("/mypageReservationAjaxHtml")
+	public String mypageAjaxHtml(HttpSession session, Model model) {
+		MemberVo memVo = (MemberVo) session.getAttribute("memVo");
+		List<SitterResVo> resList = sitterService.getReservationList(memVo.getMem_id());
+		model.addAttribute("resList", resList);
+		return "petSitter/mypageReservation";
+	}
+	
+	// 마이페이지 예약관리 예약취소 처리
+	@RequestMapping("/reservationDelete")
+	public String reservationDelete(@RequestParam("resId")String resId) {
+		String[] res_id = resId.split(" ");
+		
+		for(int i=0;i<res_id.length;i++) {
+			sitterService.deleteReservation(res_id[i]);
+		}
+		
+		return "redirect:/sit/myPage";
+	}
+	
+	// 마이페이지 포인트 관리 화면
+	@RequestMapping("/mypagePointAjaxHtml")
+	public String mypagePointAjaxHtml() {
+		return "petSitter/mypagePoint";
+	}
+	
+	// 마이페이지 게시글 관리 화면
+	@RequestMapping("/mypageNoticeAjaxHtml")
+	public String mypageNoticeAjaxHtml(HttpSession session, Model model) {
+		
+		MemberVo memVo = (MemberVo) session.getAttribute("memVo");
+		
+		List<SitterRevVo> myReviewList = sitterService.getMyReviewList(memVo.getMem_id());
+		
+		model.addAttribute("myReviewList",myReviewList);
+		
+		return "petSitter/mypageNotice";
+	}
+	
+	// 마이페이지 FAQ 관리 화면
+	@RequestMapping("/mypageFaqAjaxHtml")
+	public String mypageFaqAjaxHtml(Model model) {
+		
+		List<FaqVo> faqList = sitterService.getFaqList();
+		
+		model.addAttribute("faqList", faqList);
+		
+		return "petSitter/mypageFaq";
+	}
+	
+	// 마이페이지 FAQ 삭제 처리
+	@RequestMapping("/mypageFaqDelete")
+	public String mypageFaqDelete(@RequestParam("faq_id")String psf_id, Model model) {
+		
+		String[] psfId = psf_id.split(" ");
+		
+		for(int i=0;i<psfId.length;i++) {
+			sitterService.deleteFaq(psfId[i]);
+		}
+		
+		List<FaqVo> faqList = sitterService.getFaqList();
+		
+		model.addAttribute("faqList", faqList);
+		
+		return "petSitter/mypageFaq";
+	}
 }

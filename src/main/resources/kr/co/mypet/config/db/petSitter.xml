@@ -20,8 +20,8 @@
 	</select>
 	
 	<select id="getFaqList" resultType="fVo">
-		select *
-		from petsitFaq
+		select rownum rnum, p.*
+		from petsitFaq p
 	</select>
 	
 	<select id="getFaqOne" parameterType="String" resultType="fVo">
@@ -112,7 +112,7 @@
 	
 	<insert id="insertSitterTo" parameterType="pstVo">
 		insert into petsitter
-		values('PST' || lpad(pst_no.nextVal, 3, '0'), #{pst_mem}, #{pst_img}, #{pst_text}, sysdate, 0, 0, #{pst_title}, #{pst_price1}, #{pst_price2}, #{pst_cidate}, #{pst_codate})
+		values('PST' || lpad(pst_no.nextVal, 3, '0'), #{pst_mem}, #{pst_img}, #{pst_text}, sysdate, 0, 0, #{pst_title}, #{pst_price1}, #{pst_price2}, #{pst_cidate}, #{pst_codate}, '')
 	</insert>
 	
 	<update id="updateFaq" parameterType="map">
@@ -145,9 +145,54 @@
 		order by p.pst_view desc
 	</select>
 	
+	<select id="petNoticeListSearch" parameterType="map" resultType="pstVo">
+		select m.mem_addr, p.*
+		from petsitter p, member m
+		where p.pst_mem = m.mem_id
+		and m.mem_addr like '%' || #{zip_high} || '%' || #{zip_low} || '%'
+	</select>
+	
+	<select id="petNoticeListSearchDate" parameterType="map" resultType="pstVo">
+		select m.mem_addr, p.*
+		from petsitter p, member m
+		where p.pst_mem = m.mem_id
+		and m.mem_addr like '%' || #{zip_high} || '%' || #{zip_low} || '%'
+		order by p.pst_date desc
+	</select>
+	
+	<select id="petNoticeListSearchCount" parameterType="map" resultType="pstVo">
+		select m.mem_addr, p.*
+		from petsitter p, member m
+		where p.pst_mem = m.mem_id
+		and m.mem_addr like '%' || #{zip_high} || '%' || #{zip_low} || '%'
+		order by p.pst_view desc
+	</select>
+	
 	<update id="petNoticeCountUpdate" parameterType="map">
 		update petsitter set
 		pst_view = ${pst_view}
 		where pst_id = #{pst_id}
 	</update>
+	
+	<select id="getReservationList" parameterType="String" resultType="resVo">
+		select (select myp_name from mypet where myp_id = s.str_myp) myp_name, (select mem_name from member where mem_id = #{mem_id}) mem_name, s.*
+		from sitterres s
+		where str_mem = #{mem_id}
+	</select>
+	
+	<delete id="deleteReservation" parameterType="String">
+		delete from sitterres
+		where str_id = #{str_id}
+	</delete>
+	
+	<select id="getMyReviewList" parameterType="String" resultType="revVo">
+		select rownum rnum, p.pst_id, s.*
+		from sitterrev s, petsitter p
+		where stv_mem = #{stv_mem}
+		and stv_pst = pst_id
+	</select>
+	
+	<select id="getMaxFaq" resultType="String">
+		select Max(psf_id) from petsitfaq
+	</select>
 </mapper>

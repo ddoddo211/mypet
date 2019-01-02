@@ -149,7 +149,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<select id="petIrsJoinKind" parameterType="String" resultType="petkindVo">
             select * from petkind , mypet ,animal
 			where myp_petk = petk_id 
-            and petk_am = am_id
+			and PETK_AM = AM_ID
+ 			and myp_del = 'N'
             and petk_id = #{petk_id}
 		</select>
 		
@@ -209,6 +210,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<select id="claimPetJoinProd" parameterType="insVo" resultType="insVo">
 			select * from insurance , insprod
 			where inssp_id = insp_id
+			and ins_stat = '완료'
+			and ins_dis= 'N'
 			and myp_id = #{myp_id}
 			and mem_id = #{mem_id}
 		</select>
@@ -231,7 +234,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		
 		<!--나의펫 보험 - 월 전체 보험료 나오는 부분-->
 		<select id="monthlyPremium" parameterType="String" resultType="int">
-			select sum(insp_fees) from insurance , insprod
+			select nvl(sum(insp_fees),0) from insurance , insprod
 		     where inssp_id = insp_id
 			   and mem_id =  #{mem_id}
 			   and INS_STAT = '완료'
@@ -325,6 +328,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			       myp_sick=#{myp_sick} , myp_neu=#{myp_neu}  
 			 where myp_id=#{myp_id}
 		</update>
+		
+		<!-- 나의 펫 보험 - 펫 삭제할떄 보험금 청구 신청을 하였을때 삭제 못하도록 하는것 -->
+		<select id="petDelCondition" parameterType="String" resultType="accidentVo">
+				select * from accident a , mypet b , insurance c , insprod d , account e
+				where a.accd_myp = b.myp_id
+				and a.accd_ins = c.ins_id
+				and c.inssp_id = d.insp_id
+				and a.accd_act = e.act_id
+				and a.accd_myp = #{accd_myp}
+				and a.accd_stat = '신청'
+		</select>
 		
 		
 
