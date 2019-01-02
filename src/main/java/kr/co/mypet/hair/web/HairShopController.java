@@ -245,6 +245,12 @@ public class HairShopController {
 		//시간대별 list
 		model.addAttribute("has_id", has_id);
 		
+		//style list
+		List<PetStyleVo> styleList = hairService.selectStyleList(has_id);
+		if(styleList != null) {
+			model.addAttribute("styleList", styleList);
+		}
+		
 		
 		
 		return "petHair/petHairResOp";

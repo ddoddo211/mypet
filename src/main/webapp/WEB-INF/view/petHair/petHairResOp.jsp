@@ -18,6 +18,8 @@
 <%-- daum 지도 관련 api --%>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e12a015bea1b6b11bb0fd0d1e78cc44c&libraries=services,clusterer"></script>
 
+<%-- im'port 결제 스크립트 --%>
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 
 
 
@@ -45,10 +47,12 @@
 		 } );
 		
 		var has_id=$("#hiddenId").val();
+		var selDate="";
 		
 		//datepicker select event 
 		$("#datepicker").datepicker({
 			  onSelect: function(dateText) {
+				  selDate = dateText;
 				  //select event 
 				   $(".resPickBlock").hide();
 				  $(".resPickBlockR").hide();
@@ -67,6 +71,47 @@
 				  
 			  }
 			});
+		
+		//예약하기 클릭 event
+		$("#resBtn").click(function(){
+			var name_price = $(':input[name=has_id]:radio:checked').val();
+			alert(name_price);
+			alert(selDate);
+			
+			var selTime = $(':input[name=selRes]:radio:checked').val();
+			alert(selTime);
+
+			IMP.request_pay({
+			    pg : 'inicis', // version 1.1.0부터 지원.
+			    pay_method : 'card',
+			    merchant_uid : 'merchant_' + new Date().getTime(),
+			    name : '주문명:결제테스트',
+			    amount : 111,
+			    buyer_email : 'iamport@siot.do',
+			    buyer_name : '구매자이름',
+			    buyer_tel : '010-1234-5678',
+			    buyer_addr : '서울특별시 강남구 삼성동',
+			    buyer_postcode : '123-456',
+			    m_redirect_url : 'https://www.yourdomain.com/payments/complete'
+			}, function(rsp) {
+			    if ( rsp.success ) {
+			        var msg = '결제가 완료되었습니다.';
+			        msg += '고유ID : ' + rsp.imp_uid;
+			        msg += '상점 거래ID : ' + rsp.merchant_uid;
+			        msg += '결제 금액 : ' + rsp.paid_amount;
+			        msg += '카드 승인번호 : ' + rsp.apply_num;
+			    } else {
+			        var msg = '결제에 실패하였습니다.';
+			        msg += '에러내용 : ' + rsp.error_msg;
+			    }
+			    alert(msg);
+			});
+		});
+		
+		//im'port 결제모듈
+		var IMP = window.IMP; // 생략가능
+		IMP.init('imp09203705'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
+		
 		
 	});
 		
@@ -97,31 +142,31 @@
 		<p>스타일 선택</p>
 		
 		<div class="testBlock">
-			<img class="mySlides" src="/hairimg/testImg.jpg">
-			<img class="mySlides" src="/hairimg/teststyle1.jpg">
-			<img class="mySlides" src="/hairimg/teststyle2.png">
-			<img class="mySlides" src="/hairimg/teststyle3.png">
-			<img class="mySlides" src="/hairimg/teststyle3.png">
+		
+			<c:choose>
+				<c:when test="${styleList!=null }">
+					<c:forEach items="${styleList }" var="sl">
+						<img class="mySlides" src="/hairimg/${sl.pts_img }">
+					
+					</c:forEach>
+						<div class="radioBlock">
+					<c:forEach items="${styleList }" var="sl">
+							<input type="radio" class="radiod" value="${sl.pts_name}/${sl.pts_price}" name="has_id"/>
+							
+					</c:forEach>
+						</div>
+						<div class="labelBlock">
+					<c:forEach items="${styleList }" var="sl">
+						<div class="label" >${sl.pts_name}/${sl.pts_price }원</div>
+					</c:forEach>
+						</div>
+				</c:when>
+				<c:otherwise>
+					등록된 펫 스타일이 없습니다 
+				</c:otherwise>
+			</c:choose>
+		
 			
-			<div class="radioBlock">
-			<input type="radio" class="radiod" value="" name="has_id"/>
-			
-			<input type="radio" class="radiod" value="" name="has_id"/>
-			
-			<input type="radio" class="radiod" value="" name="has_id"/>
-			
-			<input type="radio" class="radiod" value="" name="has_id"/>
-			
-			<input type="radio" class="radiod" value="" name="has_id"/>
-			</div>
-			
-			<div class="labelBlock">
-			<div class="label" >oo컷 - 35000원</div>
-			<div class="label" >oo컷 - 35000원</div>
-			<div class="label" >oo컷 - 35000원</div>
-			<div class="label" >oo컷 - 35000원</div>
-			<div class="label" >oo컷 - 35000원</div>
-			</div>
 		
 		</div>
 		
@@ -177,7 +222,7 @@ function showDivs(n) {
   z = new Array();
   var z = document.getElementsByClassName("label");
   if (n > x.length) {slideIndex = 1} 
-  if (n < 1) {slideIndex = x.length} ;
+  if (n < 1) {slideIndex = 1} ;
   for (i = 0; i < x.length; i++) {
     x[i].style.display = "none"; 
     y[i].style.display= "none";
