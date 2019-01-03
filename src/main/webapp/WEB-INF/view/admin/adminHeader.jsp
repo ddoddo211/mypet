@@ -7,6 +7,9 @@
 						<div id="adminMain1">
 							<div id="adminMain1_1">
 								<div>
+									<a class="adminHeaderA" href="/mem/petManagerMain">홈</a>
+								</div>
+								<div>
 									<a class="adminHeaderA" href="#">펫 시터</a>
 								</div>
 								<div>

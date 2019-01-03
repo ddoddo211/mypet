@@ -335,6 +335,12 @@ public class MemberController {
 	}
 	
 	// 관리자용 화면에서 해당 메뉴 버튼을 클릭하였을때 이동 하는부분
+	@RequestMapping("/petManagerMain")
+	public String petManagerMain() {
+		return "admin/adminMain";
+	}
+	
+	// 관리자용 화면에서 해당 메뉴 버튼을 클릭하였을때 이동 하는부분
 	@RequestMapping("/petInsManager")
 	public String petInsManager() {
 		return "admin/petInsurance/petInsuranceMain";

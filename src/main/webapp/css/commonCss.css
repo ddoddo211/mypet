@@ -397,11 +397,11 @@ a.innerborder:hover img {
 }
 
 .adminHeaderA{
-	width: 200px;
+	width: 170px;
 	height: 40px;
 	margin-top: 17px;
 	margin-bottom: 15px;
-	margin-left: 75px;
+	margin-left: 53px;
 	font-size: 30px;
 	font-family: 'Nanum Pen Script', cursive;
 	text-align: center;
@@ -414,11 +414,11 @@ a.innerborder:hover img {
 }
 
 .adminHeaderA:hover{
-	width: 200px;
+	width: 170px;
 	height: 40px;
 	margin-top: 17px;
 	margin-bottom: 15px;
-	margin-left: 75px;
+	margin-left: 53px;
 	font-size: 30px;
 	font-family: 'Nanum Pen Script', cursive;
 	text-align: center;
