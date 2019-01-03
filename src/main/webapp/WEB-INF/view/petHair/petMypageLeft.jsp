@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <div class="mpLeft">
-			<div class="mpleftBlock"><a href="/hairMem/myPage" class="ina">마이페이지</a></div> 
+			<div class="mpleftBlock"><a href="/hairMem/myPage?mem_id=${memVo.mem_id }" class="ina">마이페이지</a></div> 
 			<div class="mpleftBlock"><a href="/hairMem/bookMark" class="ina">즐겨찾기 (미용실)		 </a></div> 
 			<div class="mpleftBlock"><a class="ina">즐겨찾기 (편의시설)	 </a></div> 
 			<div class="mpleftBlock"><a class="ina">이용내역			 </a></div> 

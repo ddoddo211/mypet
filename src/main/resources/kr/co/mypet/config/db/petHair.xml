@@ -61,6 +61,27 @@
   	select * from hairres where hres_has = #{hres_has} and hres_time = #{hres_time} and  hres_date= #{hres_date}
   </select>
   
+  <!-- 예약 insert -->
+  <insert id="insertRev" parameterType="hrVo" >
+  	insert into hairres
+	values('hres'||seq_hairres.nextval,#{hres_pts},#{hres_has},#{hres_mem},#{hres_myp},#{hres_date},#{hres_price},#{hres_stat},#{hres_spec},#{hres_time})
+  </insert>
+  
+  <!-- 나의 펫 조회 -->
+  <select id="selectMypet" parameterType="String" resultType="mypetVo">
+  	select * from mypet where myp_mem = #{myp_mem}
+  </select>
+  
+  <!-- 예약 선택조회 -->
+  <select id="selectRev" parameterType="String" resultType="hrVo">
+  	select * from hairres where hres_mem=#{mem_id} and hres_stat IN ('진행중','미용의뢰')
+  </select>
+  
+  <!-- 스타일 한개 선택 -->
+  <select id="selectStyleOne" parameterType="String" resultType="styleVo">
+  	select * from petstyle where pts_id = #{pts_id}
+  </select>
+  
   
   
 </mapper>

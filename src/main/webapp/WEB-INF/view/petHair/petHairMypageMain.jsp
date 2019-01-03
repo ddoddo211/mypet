@@ -12,11 +12,16 @@
 
 
 
-
 <%-- 스크립트 위치 --%>
 
 <script type="text/javascript">
+		if('${memVo}'==''){
+			alert("로그인이 필요합니다");
+			history.back();
+		}
 	$(document).ready(function(){
+		
+		
 		$(".askBottom").hide();	
 		
 		
@@ -49,21 +54,37 @@
 						<th>특이사항</th>
 						<th>진행상태</th>
 					</tr>
-					<tr>
-						<td>ㅇㅇ미용실	</td>
-						<td>무슴수컷	</td>
-						<td>10~11시	</td>
-						<td>35000원		</td>
-						<td>특이사항없음	</td>
-						<td>진행중	</td>
-					</tr>
+					
+					<c:choose>
+						<c:when test="${hairResList!=null }">
+							<c:forEach items="${hairResList }" var="hr">
+								<tr>
+									<td>${hr.has_name }	</td>
+									<td>${hr.pts_name }</td>
+									<td>${hr.hres_time }</td>
+									<td>${hr.pts_price }원		</td>
+									<td>${hr.hres_spec }	</td>
+									<td>${hr.hres_stat }</td>
+								</tr>
+							
+							</c:forEach>
+						
+						</c:when>
+						<c:otherwise>
+							<tr>
+								<td colspan="6">이용중인 미용실이없습니다	</td>
+							</tr>
+						
+						</c:otherwise>
+					</c:choose>
+					
 				</table>
 			
 			<p>문의내역</p>
 			
 			<div class="askBlock">
 				<div class="askTop">
-				<span>>>> 미미미용실</span><span style="color: gray; font-size:10px;"> 내용보기</span><img class="plusToggle" src="/hairimg/plus.png"/>
+				<span>>>> 미미미용실</span><span style="color: gray; font-size:10px;"> 내용확인</span><img class="plusToggle" src="/hairimg/plus.png"/>
 				</div>
 				<div class="askBottom">
 				<div class="askText">
