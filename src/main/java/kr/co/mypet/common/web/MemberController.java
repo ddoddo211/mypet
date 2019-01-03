@@ -159,10 +159,20 @@ public class MemberController {
 		int chk = commonService.login(memVo);
 		
 		if(chk==0) {
-			//조회 성공
-			url="common/main";
+			
 			memVo = commonService.memberInfo(memVo.getMem_id());
 			session.setAttribute("memVo", memVo);
+			
+			
+			// 멤버의 아이디가 admin일경우에는 관리자용 화면으로 접속해야 한다.
+			if(memVo.getMem_id().equals("admin")) {
+				// 관리자용 화면으로 접속
+				url="admin/adminMain";
+			}else {
+				//조회 성공
+				url="common/main";
+			}
+			
 		} else {
 			url="common/login";
 			
@@ -322,6 +332,18 @@ public class MemberController {
 	@RequestMapping("/petShop")
 	public String shopping() {
 		return "petShop";
+	}
+	
+	// 관리자용 화면에서 해당 메뉴 버튼을 클릭하였을때 이동 하는부분
+	@RequestMapping("/petManagerMain")
+	public String petManagerMain() {
+		return "admin/adminMain";
+	}
+	
+	// 관리자용 화면에서 해당 메뉴 버튼을 클릭하였을때 이동 하는부분
+	@RequestMapping("/petInsManager")
+	public String petInsManager() {
+		return "admin/petInsurance/petInsuranceMain";
 	}
 
 }

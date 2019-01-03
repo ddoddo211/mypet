@@ -298,12 +298,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<select id="claimPetJoinProd1" parameterType="insVo" resultType="insVo">
 			select * from insurance , insprod
 			where inssp_id = insp_id
-			and ins_stat = '완료'
 			and ins_dis= 'N'
 			and myp_id = #{myp_id}
 			and mem_id = #{mem_id}
 		</select>
-		
+				
 		<!-- 나의 펫 보험 화면에서 해당 펫의 가입되어 있는 보험상품 해지 하는 부분(실질적으로 삭제하는 부분이아닌 해지여부에 해지로 변경 -->
 		<update id="mypetIsrDel" parameterType="String">
 			update insurance 

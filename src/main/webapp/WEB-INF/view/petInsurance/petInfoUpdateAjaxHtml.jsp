@@ -20,6 +20,7 @@
 	
 	$("#input_filePet").on("change" , handleImgFileSelect);
 	
+	
 	function handleImgFileSelect(e){
 		var files = e.target.files;
 		var filesArr = Array.prototype.slice.call(files);
@@ -63,6 +64,7 @@
 	if(petNeu == 'Y'){
 		$("#neuYnChk").attr('checked',true);
 	}
+
 	
 	// 성별 부분을 원래 선택되어 있는 값이 아닌 다른 부분으로 클릭하여 선택하였다면 담아주기 
 	var petGender = '${petGender}';
@@ -86,6 +88,7 @@
 		var petNeutralization = '${petNeu}';
 		$("#petNeutralization").val(petNeutralization);
 		
+
 	// 수정완료 하기 버튼을 클릭하였을떄 중성화 여부 담아주기 
 		$(".mypetPageBtn1_1").click(function(){
 			// 중성화 부분이 체크 되지 않았을때는 N으로 넘겨진다. 체크되었다면 Y로 담긴다.
@@ -104,6 +107,7 @@
 <form id="frm" action="/isr/mypetInfoUpdateS" method="post" enctype="multipart/form-data">
 <input type="hidden" name="petId" value="${mypetInfo.myp_id}">			
 <input type="hidden" name="petNeutralization" id="petNeutralization" value="">			
+		
 						<div class="mypetPageBtn">
 							<div id="mypetPageBtn">
 							
@@ -132,6 +136,7 @@
 
 									<div class="mypetPage4_2_2">
 										<img class="mypetPage4_2_2_1" alt="이미지가 없습니다" src="${mypetInfo.myp_img}">
+										<input type="hidden" name ="petPreImg" value="${mypetInfo.myp_img}">
 									</div>
 								</div>
 								<div id="mypetPage4_3">

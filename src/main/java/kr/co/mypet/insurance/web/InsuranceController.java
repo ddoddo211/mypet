@@ -1122,6 +1122,9 @@ public class InsuranceController {
 				MypetVo mypetInfo = insuranceService.mypetInfo(petId);
 				model.addAttribute("mypetInfo" , mypetInfo);
 				
+				// 해당 펫의 이미를 표시하기 위해 필요 
+				model.addAttribute("petImg" , mypetInfo.getMyp_img());
+				
 				// 생년월일 미리 표시하게 필요하기 때문에 설정
 				model.addAttribute("petBirth" , mypetInfo.getMyp_birth());
 				
@@ -1142,6 +1145,8 @@ public class InsuranceController {
 			@RequestMapping("/mypetInfoUpdateS")
 			public String mypetInfoUpdateS(HttpServletRequest request,HttpSession session,Model model,
 					@RequestPart("petImg")MultipartFile part) throws Exception {
+				
+				String petPreImg = request.getParameter("petPreImg");
 				
 				String petId = request.getParameter("petId");
 				String petName = request.getParameter("petName");
@@ -1177,7 +1182,7 @@ public class InsuranceController {
 				
 				// 파일명 가지고 오기
 				if(str == "") {
-					petVo.setMyp_img("/img/petimg/noimg.jpg");
+					petVo.setMyp_img(petPreImg);
 				}else {
 					// 확장자만 빼기(확장자는 저장해줘야 한다)
 					String fileExt = StringUtil.getFileExt(str);
