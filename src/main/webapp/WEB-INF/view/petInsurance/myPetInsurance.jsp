@@ -174,10 +174,10 @@ function gocompleted(){
 							<div class="mypetPage2_3_2">
 								<c:choose>
 									<c:when test="${pet.petk_am == 1 }">				
-										${pet.petk_name}(${pet.petk_size})
+										${pet.myp_name}
 									</c:when>
 									<c:otherwise>
-										${pet.petk_name}(고양이)
+										${pet.myp_name}
 									</c:otherwise>
 								</c:choose>		
 							</div>

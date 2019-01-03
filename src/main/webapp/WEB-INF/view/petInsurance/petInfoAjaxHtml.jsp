@@ -47,7 +47,7 @@ $(document).ready(function(){
 			alert("해당 펫은 보험금 신청을 한 건이 있습니다.\n보험금을 받지 않는다면 보험금 (신청)현황에서 \n보험금 신청 취소를 하신후 펫 삭제를 진행하시기 바랍니다.");
 			return;
 		}else if(petIsrJoin != 0){
-			alert("해당 펫은 보험에 가입되어 있는 펫입니다.\n보험을 해지한후 삭제하시기 바랍니다.");
+			alert("해당 펫은 보험에 가입(신청/완료)되어 있는 펫입니다.\n보험을 해지한후 삭제하시기 바랍니다.");
 			return;
 		}else{
 			$("#frm2").submit();
@@ -152,13 +152,14 @@ $(document).ready(function(){
 															<th class="mypetTd">질병여부(Y/N)</th>
 															<th class="mypetTd">가입일</th>
 															<th class="mypetTd">보험상품  만료여부</th>
+															<th class="mypetTd">보험가입상태</th>
 														</tr>
 										
 <!-- 펫에 가입되어 있는 상품이 없을 경우 -->	
 	<c:choose>		
 		<c:when test="${isrVoListSize == 0 }">
 			<tr class="mypetTr">
-				<td colspan="9"> 해당 펫에 가입되어 있는 보험상품이 없습니다.</td>
+				<td colspan="10"> 해당 펫에 가입되어 있는 보험상품이 없습니다.</td>
 			</tr>
 		</c:when>	
 		<c:otherwise>
@@ -174,6 +175,7 @@ $(document).ready(function(){
 																		<td class="mypetTd2">${list.insp_sick}</td>
 																		<td class="mypetTd2"><fmt:formatDate value="${list.ins_start}" pattern="yy년 MM월 dd일"></fmt:formatDate></td>
 																		<td class="mypetTd2">${list.ins_dis}</td>
+																		<td class="mypetTd2">${list.ins_stat}</td>
 																	<tr>
 															</c:forEach>
 		</c:otherwise>	
