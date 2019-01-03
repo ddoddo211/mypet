@@ -77,12 +77,39 @@
   	select * from hairres where hres_mem=#{mem_id} and hres_stat IN ('진행중','미용의뢰')
   </select>
   
+  <!-- 예약 완료건 조회 -->
+  <select id="selectRevCom" parameterType="map" resultType="hrVo">
+  	
+  	 select *
+		 from
+		 (select rownum rnum, a.*
+		 from
+		    (
+		    select * from hairres where hres_mem = #{mem_id} and hres_stat = '완료'
+		    ) a 
+		)
+		where rnum between ${page}*5-(5-1) and ${page}*5
+  </select>
+  
+  <!-- count 예약 완료건 -->
+  <select id="revComCnt" resultType="int" parameterType="String">
+  	select count(*) from hairres where hres_mem = #{mem_id} and hres_stat = '완료'
+  </select>
+  
   <!-- 스타일 한개 선택 -->
   <select id="selectStyleOne" parameterType="String" resultType="styleVo">
   	select * from petstyle where pts_id = #{pts_id}
   </select>
   
+  <!-- 즐겨찾기 목록 선택 -->
+  <select id="selectBookMark" parameterType="String" resultType="bmVo">
+  	select * from bookmark where bmk_mem=#{mem_id}
+  </select>
   
+  <!-- 내가한 문의를 select -->
+  <select id="selectAsk" parameterType="String" resultType="hairBoardVo">
+  	select * from hairboard where hbrd_mem = #{mem_id} and hbrd_brdt='2'
+  </select>
   
 </mapper>
 

@@ -204,7 +204,7 @@
 		<div class="testBlock">
 		
 			<c:choose>
-				<c:when test="${styleList!=null }">
+				<c:when test="${styleList.size() !=0 }">
 					<c:forEach items="${styleList }" var="sl">
 						<img class="mySlides" src="/hairimg/${sl.pts_img }">
 					
@@ -289,7 +289,9 @@ function showDivs(n) {
     z[i].style.display= "none";
   }
   
-  x[slideIndex-1].style.display = "block";
+  if(x[slideIndex-1]!=null){
+	  x[slideIndex-1].style.display = "block";
+  }
   
   if(x[slideIndex]!=null){
   	x[slideIndex].style.display = "block"; 
@@ -298,7 +300,9 @@ function showDivs(n) {
   	x[slideIndex+1].style.display = "block"; 
   }
   
-  y[slideIndex-1].style.display = "inline"; 
+  if(y[slideIndex-1]!=null){
+	  y[slideIndex-1].style.display = "inline"; 
+  }
   
   if(y[slideIndex]!=null){
   	y[slideIndex].style.display = "inline"; 
@@ -308,7 +312,9 @@ function showDivs(n) {
 	  y[slideIndex+1].style.display = "inline"; 
   }
   
-  z[slideIndex-1].style.display = "inline"; 
+  if(z[slideIndex-1]!=null){
+	  z[slideIndex-1].style.display = "inline"; 
+  }
   
   if(z[slideIndex]!=null){
   	z[slideIndex].style.display = "inline"; 

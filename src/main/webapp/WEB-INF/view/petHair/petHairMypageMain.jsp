@@ -61,8 +61,8 @@
 								<tr>
 									<td>${hr.has_name }	</td>
 									<td>${hr.pts_name }</td>
-									<td>${hr.hres_time }</td>
-									<td>${hr.pts_price }원		</td>
+									<td>${hr.hres_date }<br>${hr.hres_time }</td>
+									<td>${hr.pts_price }원	</td>
 									<td>${hr.hres_spec }	</td>
 									<td>${hr.hres_stat }</td>
 								</tr>
@@ -82,38 +82,46 @@
 			
 			<p>문의내역</p>
 			
-			<div class="askBlock">
-				<div class="askTop">
-				<span>>>> 미미미용실</span><span style="color: gray; font-size:10px;"> 내용확인</span><img class="plusToggle" src="/hairimg/plus.png"/>
-				</div>
-				<div class="askBottom">
-				<div class="askText">
-					몇시까지하나여?
-				</div>
+			<c:choose>
+				<c:when test="${askList.size()!=0 }">
+					<c:forEach items="${askList }" var="al">
+						<div class="askBlock">
+							<div class="askTop">
+							<span>>>> ${al.has_name }</span><span style="color: gray; font-size:10px;"> 내용확인</span><img class="plusToggle" src="/hairimg/plus.png"/>
+							</div>
+							<div class="askBottom">
+								<div class="askText">
+									${al.hbrd_text }
+							</div>
+								
+								<img class="arrowimg" src="/hairimg/RightArrow.png"/>
+							<div class="askAnw">
+								<c:choose>
+									<c:when test="${al.hbrd_rep!=null }">
+										${al.hbrd_rep }
+									</c:when>
+									<c:otherwise>
+										 - 답변이 아직 등록되지 않았습니다 - 
+									</c:otherwise>
+								</c:choose>
+							</div>
+							</div>
+						</div>
+					
+					</c:forEach>
 				
-				<img class="arrowimg" src="/hairimg/RightArrow.png"/>
-				<div class="askAnw">
-					밤 8시까지해요
-				</div>
-				</div>
-			</div>
+				</c:when>
+				
+				<c:otherwise>
+					<div class="askBlock">
+					문의한 내역이 없습니다
+					</div>
+					
+				</c:otherwise>
+			</c:choose>
+			
 			<br><br>
 			
-			<div class="askBlock">
-				<div class="askTop">
-				<span>>>> 미미미용실</span><span style="color: gray; font-size:10px;"> 내용확인</span><img class="plusToggle" src="/hairimg/plus.png"/>
-				</div>
-				<div class="askBottom">
-				<div class="askText">
-					몇시까지하나여?
-				</div>
-				
-				<img class="arrowimg" src="/hairimg/RightArrow.png"/>
-				<div class="askAnw">
-					밤 8시까지해요
-				</div>
-				</div>
-			</div>
 			<br><br>
 			
 			

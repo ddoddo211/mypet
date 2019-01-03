@@ -5,6 +5,38 @@ public class BookmarkVo {
 	private String bmk_mem;
 	private String bmk_has;
 	private String bmk_fac;
+	
+	private String has_name;
+	private String has_addr;
+	private String has_addr2;
+	private String has_img;
+	
+	
+	
+	public String getHas_img() {
+		return has_img;
+	}
+	public void setHas_img(String has_img) {
+		this.has_img = has_img;
+	}
+	public String getHas_name() {
+		return has_name;
+	}
+	public void setHas_name(String has_name) {
+		this.has_name = has_name;
+	}
+	public String getHas_addr() {
+		return has_addr;
+	}
+	public void setHas_addr(String has_addr) {
+		this.has_addr = has_addr;
+	}
+	public String getHas_addr2() {
+		return has_addr2;
+	}
+	public void setHas_addr2(String has_addr2) {
+		this.has_addr2 = has_addr2;
+	}
 	public String getBmk_id() {
 		return bmk_id;
 	}
