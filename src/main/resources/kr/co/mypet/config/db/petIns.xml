@@ -339,6 +339,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				and a.accd_stat = '신청'
 		</select>
 		
+		<!-- 관리자용 - 보험상품관리 : 전체 가입가능한 보험상품 수 -->
+		<select id="caninsured" resultType="insProdVo">
+			select *  from insprod where INSP_DEL= 'N'
+		</select>
+		
+		<!-- 관리자용 - 보험상품관리 : 강아지 보험 상품 수가 나오는 부분 -->
+		<select id="dogProd" resultType="insProdVo">
+			select *  from insprod where INSP_DEL= 'N' and INSP_JOIN = '강아지'
+		</select>
+		
+		<!-- 관리자용 - 보험상품관리 : 고양이 보험 상품 수가 나오는 부분 -->
+		<select id="catProd" resultType="insProdVo">
+			select *  from insprod where INSP_DEL= 'N' and INSP_JOIN = '고양이'
+		</select>
+		
+		<!-- 관리자용 - 보험상품관리 : 가입만료된 보험상품 수가 나오는 부분 -->
+		<select id="expiration" resultType="insProdVo">
+			select *  from insprod where INSP_DEL= 'Y'
+		</select>
+		
 		
 
 </mapper>

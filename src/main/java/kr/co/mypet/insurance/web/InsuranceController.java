@@ -1439,5 +1439,225 @@ public class InsuranceController {
 			}
 			
 			
+/*펫 관리자 페이지*/
+			
+			// 보험상품 관리 버튼을 클릭하였을때  보험상품 관리 화면으로 이동
+			@RequestMapping("/goProdManager")
+			public String goProdManager(Model model ,HttpSession session,HttpServletRequest request) {
+				
+				// 전체 보험가입 가능 수 나오게 설정
+				List<InsProdVo> caninsured = insuranceService.caninsured();
+				model.addAttribute("caninsured",caninsured.size());
+				
+				// 강아지 보험 상품 수 나오게 설정
+				List<InsProdVo> dogProd = insuranceService.dogProd();
+				model.addAttribute("dogProd",dogProd.size());
+				
+				// 고양이 보험 상품 수 나오게 설정
+				List<InsProdVo> catProd = insuranceService.catProd();
+				model.addAttribute("catProd",catProd.size());
+				
+				// 가입만료된 보험상품 수가 나오는 부분
+				List<InsProdVo> expiration = insuranceService.expiration();
+				model.addAttribute("expiration",expiration.size());
+				
+				return "admin/petInsurance/goProdManager";
+			}
+			
+			// 보험상품 관리
+			@RequestMapping("/prodPageListAjaxHtml2")
+			public String prodPageListAjaxHtml2(Model model, InsurancePageVo pageVo, HttpServletRequest request) {
+
+				// 페이지로 만들어주기 (pageVo로 만들기)
+				pageVo.setPage(Integer.parseInt(request.getParameter("page")));
+				pageVo.setPageSize(Integer.parseInt(request.getParameter("pageSize")));
+
+				// 쿼리문으로 연결하여 전달하기
+				Map<String, Object> resultMap = insuranceService.prodPageList(pageVo);
+
+				// 해당 페이지에 맞게 리스트 가지고 오기
+				List<InsProdVo> pageList = (List<InsProdVo>) resultMap.get("pageList");
+
+				int pageSize = 0;
+				if (pageList.size() == 0) {
+					pageSize = 0;
+				} else {
+					pageSize = pageList.size();
+				}
+
+				// model 객체에 저장
+				model.addAttribute("pageSize", pageSize);
+
+				// model 객체에 저장
+				model.addAttribute("pageList", pageList);
+
+				int page2 = Integer.parseInt(request.getParameter("page"));
+				request.setAttribute("page", page2);
+
+				return "admin/petInsurance/prodPageListAjaxHtml2";
+			}
+
+			// 보험상품 아작스 이용(페이징)
+			@RequestMapping("/paginationHtml2")
+			public String paginationHtml2(Model model, InsurancePageVo pageVo, HttpServletRequest request) {
+
+				// 페이지로 만들어주기 (pageVo로 만들기)
+				pageVo.setPage(Integer.parseInt(request.getParameter("page")));
+				pageVo.setPageSize(Integer.parseInt(request.getParameter("pageSize")));
+
+				// 쿼리문으로 연결하여 전달하기
+				Map<String, Object> resultMap = insuranceService.prodPageList(pageVo);
+
+				// 페이지 건수
+				int pageCnt = (int) resultMap.get("pageCnt");
+
+				if (resultMap.get("pageList") == null) {
+					pageCnt = 0;
+				}
+
+				model.addAttribute("pageCnt", pageCnt);
+
+				int page2 = Integer.parseInt(request.getParameter("page"));
+				request.setAttribute("page", page2);
+
+				model.addAttribute("pageSelect", 0);
+
+				return "admin/petInsurance/paginationHtml2";
+			}
+			
+			// 아작스 사용하여 리스트 나오게 설정하기(조회조건을 클릭하였을때 - 리스트 나오는 부분)
+			@RequestMapping("/prodKindPageListAjaxHtml2")
+			public String prodKindPageListAjaxHtml2(Model model, InsurancePageVo pageVo, HttpServletRequest request) {
+
+				// 페이지로 만들어주기 (pageVo로 만들기)
+				pageVo.setPage(Integer.parseInt(request.getParameter("page")));
+				pageVo.setPageSize(Integer.parseInt(request.getParameter("pageSize")));
+				pageVo.setPetKind(request.getParameter("petKind"));
+
+				// 쿼리문으로 연결하여 전달하기
+				Map<String, Object> resultMap = insuranceService.prodKindPageList(pageVo);
+
+				// 해당 페이지에 맞게 리스트 가지고 오기
+				List<InsProdVo> pageList = (List<InsProdVo>) resultMap.get("pageList");
+
+				int pageSize = 0;
+				if (pageList.size() == 0) {
+					pageSize = 0;
+				} else {
+					pageSize = pageList.size();
+				}
+
+				// model 객체에 저장
+				model.addAttribute("pageSize", pageSize);
+
+				// model 객체에 저장
+				model.addAttribute("pageList", pageList);
+
+				// 페이지 건수
+				int pageCnt = (int) resultMap.get("pageCnt");
+				model.addAttribute("pageCnt", pageCnt);
+
+				int page2 = Integer.parseInt(request.getParameter("page"));
+				request.setAttribute("page", page2);
+
+				return "admin/petInsurance/prodPageListAjaxHtml2";
+			}
+
+			// 아작스 사용하여 리스트 나오게 설정하기(조회조건을 클릭하였을때 - 페이징 나오는 부분)
+			@RequestMapping("/kindPaginationHtml2")
+			public String kindPaginationHtml2(Model model, InsurancePageVo pageVo, HttpServletRequest request) {
+
+				// 페이지로 만들어주기 (pageVo로 만들기)
+				pageVo.setPage(Integer.parseInt(request.getParameter("page")));
+				pageVo.setPageSize(Integer.parseInt(request.getParameter("pageSize")));
+				pageVo.setPetKind(request.getParameter("petKind"));
+
+				// 쿼리문으로 연결하여 전달하기
+				Map<String, Object> resultMap = insuranceService.prodKindPageList(pageVo);
+
+				// 페이지 건수
+				int pageCnt = (int) resultMap.get("pageCnt");
+
+				// model 객체에 저장
+				model.addAttribute("pageCnt", pageCnt);
+
+				int page2 = Integer.parseInt(request.getParameter("page"));
+				request.setAttribute("page", page2);
+
+				model.addAttribute("pageSelect", 1);
+				model.addAttribute("petKind", pageVo.getPetKind());
+				model.addAttribute("pageSize", pageVo.getPageSize());
+
+				return "admin/petInsurance/paginationHtml2";
+			}
+			
+			/* 보험상품 관리 화면에서 - 해당 보험 상세보기 버튼을 클릭하였을때 나오는 부분*/
+			@RequestMapping("/productDetail2")
+			public String productDetail2(Model model, InsurancePageVo pageVo, HttpServletRequest request, HttpSession session , 
+					InsshoppingVo insShVo) {
+
+				String prodId = request.getParameter("prodId");
+
+				// 회원 정보 받아오는 부분
+				MemberVo memVo = (MemberVo) session.getAttribute("memVo");
+				
+				// 펫사이즈가 0이라면 펫추가하기 화면으로 이동한다.
+				if (memVo != null) {
+					// 회원의 플랜정보부분의 추가된 상품 중복 플랜정보 추가 막기 위해서 입력 (보험상품 아이디 하고 회원 정보만 주면된다)
+					insShVo = new InsshoppingVo();
+					insShVo.setInssp_mem(memVo.getMem_id());
+					insShVo.setInssp_insp(prodId);
+					
+					
+					// 플랜정보에 이미 추가되어 있는 부분 확인하기(상품)
+					InsshoppingVo insShList = insuranceService.insShList(insShVo);
+					
+					if(insShList == null) {
+						model.addAttribute("insShList", 0);
+					}else {
+						model.addAttribute("insShList", insShList);
+					}
+					
+				}
+				
+				// 서비스 연결해서 해당 상품 정보 가지고 오기
+				InsProdVo prodVo = insuranceService.getProdInfo(prodId);
+				model.addAttribute("prodVo", prodVo);
+				
+				return "admin/petInsurance/insuranceProduct2";
+			}
+			
+			/* 보험상품 관리 화면에서 - 해당 보험 상품 삭제 버튼을 클릭하였을때 나오는 부분*/
+			@RequestMapping("/goInsProdDel")
+			public String goInsProdDel(Model model, InsurancePageVo pageVo, HttpServletRequest request, HttpSession session , 
+					InsshoppingVo insShVo) {
+
+				String prodId = request.getParameter("prodId");
+				
+				// 서비스 연결해서 해당 상품 정보 가지고 오기
+				InsProdVo prodVo = insuranceService.getProdInfo(prodId);
+				model.addAttribute("prodVo", prodVo);
+				
+				return "admin/petInsurance/goProdManager";
+			}
+			
+			/* 보험상품 관리 화면에서 -  보험상품 추가하기 버튼을 클릭 하였을때 반응하는 부분*/
+			@RequestMapping("/goInsProdInsert")
+			public String goInsProdInsert() {
+				return "admin/petInsurance/goInsProdInsert";
+			}
+			
+			/* 보험상품 관리 화면에서 -  보험상품 추가하기 버튼을 클릭 하였을때 값을 받아와서 db에 저장해주는것*/
+			@RequestMapping("/goInsProdInsert2")
+			public String goInsProdInsert2() {
+				
+				
+				return "admin/petInsurance/goProdManager";
+			}
+			
+			
+			
+			
+			
 
 }

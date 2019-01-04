@@ -563,6 +563,58 @@ public class InsuranceService implements InsuranceServiceInf {
 	public List<AccidentVo> petDelCondition(String accd_myp) {
 		return insuranceDao.petDelCondition(accd_myp);
 	}
+
+	
+	/**
+	* Method : caninsured
+	* 작성자 : Yumint
+	* 변경이력 : 
+	* @return
+	* Method 설명 : 관리자용 - 보험상품관리 : 전체 가입가능한 보험상품 수
+	*/
+	@Override
+	public  List<InsProdVo> caninsured() {
+		return insuranceDao.caninsured();
+	}
+
+	
+	/**
+	 * Method : dogProd
+	 * 작성자 : Yumint
+	 * 변경이력 : 
+	 * @return
+	 * Method 설명 : 관리자용 - 보험상품관리 : 강아지 보험 상품 수가 나오는 부분
+	 */
+	@Override
+	public List<InsProdVo> dogProd() {
+		return insuranceDao.dogProd();
+	}
+
+	
+	/**
+	 * Method : catProd
+	 * 작성자 : Yumint
+	 * 변경이력 : 
+	 * @return
+	 * Method 설명 : 관리자용 - 보험상품관리 : 고양이 보험 상품 수가 나오는 부분
+	 */
+	@Override
+	public List<InsProdVo> catProd() {
+		return insuranceDao.catProd();
+	}
+
+	
+	/**
+	 * Method : catProd
+	 * 작성자 : Yumint
+	 * 변경이력 : 
+	 * @return
+	 * Method 설명 : 관리자용 - 보험상품관리 : 가입만료된 보험상품 수가 나오는 부분
+	 */
+	@Override
+	public List<InsProdVo> expiration() {
+		return insuranceDao.expiration();
+	}
 	
 
 

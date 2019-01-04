@@ -206,8 +206,9 @@ a {
 
 #menu {
 	width: 1200px;
-	height: 750px;
+	height: 790px;
 	margin: 0 auto;
+	margin-top: 50px;
 }
 
 #menu .menu1Last {
@@ -333,7 +334,7 @@ a.innerborder:hover img {
 /*관리자용 메인화면*/
 #adminMain{
 	width: 1200px;
-	height: 940px;
+	height: 0 auto;
 }
 
 #adminMain1{
@@ -351,6 +352,7 @@ a.innerborder:hover img {
 	height: 80px;
 	margin-top: 10px;
 	border: 3px dashed #cecece;
+	box-sizing: border-box;
 }
 
 #adminMain2_1{
