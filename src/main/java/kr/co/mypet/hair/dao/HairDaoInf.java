@@ -1,6 +1,7 @@
 package kr.co.mypet.hair.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import kr.co.mypet.common.model.MypetVo;
 import kr.co.mypet.hair.model.BookmarkVo;
@@ -43,5 +44,13 @@ public interface HairDaoInf {
 	List<HairResVo> selectRev(String mem_id);
 
 	PetStyleVo selectStyle(String pts_id);
+
+	List<BookmarkVo> selectBookMark(String mem_id);
+
+	List<HairBoardVo> selectAsk(String mem_id);
+
+	List<HairResVo> selectRevCom(Map<Object, Object> param);
+	
+	int revComCnt(String mem_id);
 
 }

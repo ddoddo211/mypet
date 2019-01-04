@@ -1,6 +1,7 @@
 package kr.co.mypet.hair.service;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -109,6 +110,30 @@ public class HairService implements HairServiceInf {
 		public PetStyleVo selectStyle(String pts_id) {
 			// TODO Auto-generated method stub
 			return hairDao.selectStyle(pts_id);
+		}
+
+		@Override
+		public List<BookmarkVo> selectBookMark(String mem_id) {
+			// TODO Auto-generated method stub
+			return hairDao.selectBookMark(mem_id);
+		}
+
+		@Override
+		public List<HairBoardVo> selectAsk(String mem_id) {
+			// TODO Auto-generated method stub
+			return hairDao.selectAsk(mem_id);
+		}
+
+		@Override
+		public List<HairResVo> selectRevCom(Map<Object, Object> param) {
+			// TODO Auto-generated method stub
+			return hairDao.selectRevCom(param);
+		}
+
+		@Override
+		public int revComCnt(String mem_id) {
+			// TODO Auto-generated method stub
+			return hairDao.revComCnt(mem_id);
 		}
 		
 		

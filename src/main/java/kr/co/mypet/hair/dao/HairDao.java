@@ -1,6 +1,7 @@
 package kr.co.mypet.hair.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -125,6 +126,35 @@ public class HairDao implements HairDaoInf {
 	public PetStyleVo selectStyle(String pts_id) {
 		PetStyleVo psVo = template.selectOne("petHair.selectStyleOne", pts_id);
 		return psVo;
+	}
+
+	@Override
+	public List<BookmarkVo> selectBookMark(String mem_id) {
+		
+		List<BookmarkVo> bmList = template.selectList("petHair.selectBookMark", mem_id);
+		
+		return bmList;
+	}
+
+	@Override
+	public List<HairBoardVo> selectAsk(String mem_id) {
+		List<HairBoardVo> askList = template.selectList("petHair.selectAsk", mem_id);
+		return askList;
+	}
+
+	@Override
+	public List<HairResVo> selectRevCom(Map<Object, Object> param) {
+		
+		List<HairResVo> resList = template.selectList("petHair.selectRevCom", param);
+		
+		return resList;
+	}
+
+	@Override
+	public int revComCnt(String mem_id) {
+		int cnt = template.selectOne("petHair.revComCnt", mem_id);
+		System.out.println("dao cnt : " + cnt);
+		return cnt;
 	}
 	
 }

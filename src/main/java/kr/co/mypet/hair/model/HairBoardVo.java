@@ -12,7 +12,24 @@ public class HairBoardVo {
 	private String hbrd_has;
 	private String hbrd_mem;
 	private String hbrd_brdt;
-	private String hbrd_fac;
+	private String hbrd_rep;
+	private String has_name;
+	
+	
+	
+	
+	public String getHbrd_rep() {
+		return hbrd_rep;
+	}
+	public void setHbrd_rep(String hbrd_rep) {
+		this.hbrd_rep = hbrd_rep;
+	}
+	public String getHas_name() {
+		return has_name;
+	}
+	public void setHas_name(String has_name) {
+		this.has_name = has_name;
+	}
 	public String getHbrd_id() {
 		return hbrd_id;
 	}
@@ -67,17 +84,11 @@ public class HairBoardVo {
 	public void setHbrd_brdt(String hbrd_brdt) {
 		this.hbrd_brdt = hbrd_brdt;
 	}
-	public String getHbrd_fac() {
-		return hbrd_fac;
-	}
-	public void setHbrd_fac(String hbrd_fac) {
-		this.hbrd_fac = hbrd_fac;
-	}
 	@Override
 	public String toString() {
 		return "HairBoardVo [hbrd_id=" + hbrd_id + ", hbrd_title=" + hbrd_title + ", hbrd_text=" + hbrd_text
 				+ ", hbrd_gn=" + hbrd_gn + ", hbrd_date=" + hbrd_date + ", hbrd_pid=" + hbrd_pid + ", hbrd_has="
-				+ hbrd_has + ", hbrd_mem=" + hbrd_mem + ", hbrd_brdt=" + hbrd_brdt + ", hbrd_fac=" + hbrd_fac + "]";
+				+ hbrd_has + ", hbrd_mem=" + hbrd_mem + ", hbrd_brdt=" + hbrd_brdt + ", hbrd_fac=" + hbrd_rep + "]";
 	}
 	
 	
