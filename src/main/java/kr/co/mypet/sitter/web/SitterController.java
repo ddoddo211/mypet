@@ -1,7 +1,14 @@
 package kr.co.mypet.sitter.web;
 
+import java.awt.BorderLayout;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -12,8 +19,16 @@ import java.util.UUID;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
+import org.apache.tomcat.util.http.fileupload.IOUtils;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,12 +37,28 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.adobe.acrobat.Viewer;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.BaseFont;
+import com.itextpdf.text.pdf.PdfContentByte;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.pdf.codec.Base64.InputStream;
+import com.itextpdf.text.pdf.parser.PathPaintingRenderInfo;
+import com.itextpdf.tool.xml.XMLWorkerHelper;
+
 import kr.co.mypet.common.model.MemberVo;
 import kr.co.mypet.common.model.MypetVo;
 import kr.co.mypet.common.model.PageVo;
 import kr.co.mypet.common.model.PetkindVo;
 import kr.co.mypet.sitter.model.FaqVo;
 import kr.co.mypet.sitter.model.PetSitterVo;
+import kr.co.mypet.sitter.model.SitterAppVo;
 import kr.co.mypet.sitter.model.SitterResVo;
 import kr.co.mypet.sitter.model.SitterRevVo;
 import kr.co.mypet.sitter.model.ZipVo;
@@ -77,8 +108,6 @@ public class SitterController {
 	// 펫시터 집으로 부르기 -> 주소변경 화면 -> 수정완료 처리
 	@RequestMapping(value= {"/addressUpdate"}, method= {RequestMethod.POST})
 	public String sitFromAddrPopUp(Model model, HttpSession session, @RequestParam("mem_addr1")String mem_addr, @RequestParam("mem_addr2")String mem_addr2) {
-		System.out.println("mem_addr : "+mem_addr);
-		System.out.println("mem_addr2 : "+mem_addr2);
 		
 		MemberVo memVo = (MemberVo) session.getAttribute("memVo");
 		Map<String, Object> param = new HashMap<>();
@@ -92,11 +121,9 @@ public class SitterController {
 			model.addAttribute("updateCnt", updateCnt);
 			memVo.setMem_addr(mem_addr);
 			memVo.setMem_addr2(mem_addr2);
-			System.out.println("수정성공!!");
 			return "petSitter/addressUpdate";
 		}
 		else {
-			System.out.println("수정실패!!");
 			return "petSitter/addressUpdate";
 		}
 	}
@@ -107,13 +134,8 @@ public class SitterController {
 		request.setCharacterEncoding("utf-8");
 		
 		String petKind = request.getParameter("petKind");
-		System.out.println("petKind : "+ petKind);
 		
 		List<PetkindVo> petKindList = sitterService.getPetKindList(petKind);
-		
-		for(int i=0;i<petKindList.size();i++) {
-			System.out.println("list : "+petKindList.get(i));
-		}
 		
 		model.addAttribute("petKindList", petKindList);
 		
@@ -125,6 +147,8 @@ public class SitterController {
 	public String mypetInsert(HttpSession session, HttpServletRequest request, @RequestPart("petImgForm")MultipartFile part) throws Exception, IOException {
 		// 회원 정보 받아오는 부분
 		MemberVo memVo = (MemberVo) session.getAttribute("memVo");
+		
+		String cnt = request.getParameter("cnt");
 		
 		// 로그인을 안한 회원일 경우에는 로그인 화면으로 이동
 		if (memVo == null) {
@@ -175,27 +199,94 @@ public class SitterController {
 			
 			int insertCnt = sitterService.insertMyPet(mypetVo);
 			
-			return "redirect:/sit/sitterFrom";
+			if(cnt == "0") {
+				return "redirect:/sit/sitterFrom";
+			} else {
+				return "redirect:/sit/myPage";
+			}
 			
 		}
 	}
 	
+	// 나의 반려동물 정보 수정
+	@RequestMapping("/mypetUpdateView")
+	public String mypetUpdate(@RequestParam("mypet_id")String mypet_id, Model model) {
+		
+		MypetVo mypVo = sitterService.getPetInfo(mypet_id);
+		
+		System.out.println("mypVo : "+mypVo);
+		
+		model.addAttribute("mypVo", mypVo);
+		
+		return "petSitter/mypetUpdate";
+	}
+	
+	// 나의 반려동물 정보 수정 처리
+	@RequestMapping("/mypetUpdate")
+	public String mypetUpdate(@RequestParam("petId")String petId, @RequestParam("petName")String petName, @RequestParam("petGender")String petGender, @RequestParam("petNTL")String petNTL,
+			@RequestParam("petBirthForm")String petBirthForm, @RequestParam("petSick")String petSick, @RequestPart("petImgForm")MultipartFile part,
+			@RequestParam("petPreImg")String petPreImg) throws Exception {
+		
+		MypetVo mypetVo = new MypetVo();
+		mypetVo.setMyp_id(petId);
+		mypetVo.setMyp_name(petName);
+		mypetVo.setMyp_gender(petGender);
+		mypetVo.setMyp_neu(petNTL);
+		SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = dt.parse(petBirthForm);
+		mypetVo.setMyp_birth(date);
+		mypetVo.setMyp_sick(petSick);
+		
+		// 실제 파일 저장될 경로 설정하기
+		String path = "D:\\A_TeachingMaterial\\7.LastProject\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\mypet\\img\\petimg";
+		String str = part.getOriginalFilename();
+		
+		// 파일명 가지고 오기
+		if(str == "") {
+			mypetVo.setMyp_img(petPreImg);
+		}else {
+			// 확장자만 빼기(확장자는 저장해줘야 한다)
+			String fileExt = StringUtil.getFileExt(str);
+			String fileName = UUID.randomUUID().toString() + fileExt;	// 충돌 방지를 위한 임의의 파일명 
+			
+			File file = new File(path + File.separator + fileName);
+			
+			part.transferTo(file);
+			
+			str = "/img/petimg/"+fileName;
+			
+			// DB 넣어주기
+			mypetVo.setMyp_img(str);
+		}
+		
+		System.out.println("mypetVo :" + mypetVo);
+		
+		int updateCnt = sitterService.updateMypetInfo(mypetVo);
+		
+		return "redirect:/sit/myPage";
+	}
+	
 	// 나의 반려동물 정보 삭제
 	@RequestMapping("/mypetDel")
-	public String mypetDel(Model model, @RequestParam("mypet_id")String mypet_id) {
-		System.out.println("여기왔니? 혼자왔니?");
+	public String mypetDel(HttpSession session, Model model, @RequestParam("mypet_id")String mypet_id, @RequestParam("cnt")String cnt) {
 		
 		String[] mypetId = mypet_id.split(" ");
 		
 		for(int i=0;i<mypetId.length;i++) {
-			System.out.println("mypet : "+mypetId[i]);
-		}
-		
-		for(int i=0;i<mypetId.length;i++) {
 			int deleteCnt = sitterService.deleteMypet(mypetId[i]);
 		}
-		
-		return "redirect:/sit/sitterFrom";
+		System.out.println("cnt : "+cnt);
+		if(cnt.equals("0")) {
+			return "redirect:/sit/sitterFrom";
+		} else {
+			MemberVo memVo = (MemberVo) session.getAttribute("memVo");
+			
+			List<MypetVo> mypetList = sitterService.getMypetList(memVo.getMem_id());
+			
+			model.addAttribute("mypetList", mypetList);
+			
+			return "petSitter/mypageMypet";
+		}
 	}
 	
 	// 펫시터 집으로 부르기 -> 예약하기
@@ -206,6 +297,7 @@ public class SitterController {
 		String timeChk = request.getParameter("timeSelect");
 		String spec = request.getParameter("spec");
 		String arr = request.getParameter("arr");
+		String date = request.getParameter("dateChooice");
 		
 		MemberVo memVo = (MemberVo) request.getSession().getAttribute("memVo");		
 		String mem_id = memVo.getMem_id();
@@ -224,14 +316,46 @@ public class SitterController {
 			Map<String, Object> param = new HashMap<>();
 			param.put("str_spec", spec);
 			param.put("str_price", price);
+			param.put("str_date", date);
 			param.put("str_time", time);
 			param.put("str_atime", timeChk);
 			param.put("str_arr", arr);
 			param.put("str_pst", "");
 			param.put("str_mem", mem_id);
 			param.put("str_myp", mVo.getMyp_id());
+			param.put("str_start", "");
+			param.put("str_stop", "");
 			
 			int resCnt = sitterService.insertReservation(param);
+		}
+		
+//		model.addAttribute("list", list);
+		
+		model.addAttribute("mypet", mypet);
+		model.addAttribute("time", time);
+		model.addAttribute("timeChk", timeChk);
+		model.addAttribute("spec", spec);
+		model.addAttribute("nomalPrice", nomalPrice);
+		model.addAttribute("addPrice", addPrice);
+		model.addAttribute("mypetCnt", mypets.length);
+		model.addAttribute("date",date);
+		
+		return "redirect:/sit/reservationView";
+	}
+	
+	@RequestMapping("/reservationView")
+	public String reservationView(HttpServletRequest request, @RequestParam("time")String time, @RequestParam("timeChk")String timeChk,
+			@RequestParam("spec")String spec, @RequestParam("nomalPrice")int nomalPrice, @RequestParam("addPrice")int addPrice, @RequestParam("mypetCnt")int mypetCnt,
+			@RequestParam("date")String date, Model model) {
+		
+		String mypet = request.getParameter("mypet");
+		String[] mypets = mypet.split(" ");
+		List<MypetVo> list = new ArrayList<>();
+		MypetVo mypVo = null;
+		
+		for(int i=0;i<mypets.length;i++) {
+			mypVo = sitterService.getPetInfo(mypets[i]);
+			list.add(mypVo);
 		}
 		
 		model.addAttribute("list", list);
@@ -240,7 +364,8 @@ public class SitterController {
 		model.addAttribute("spec", spec);
 		model.addAttribute("nomalPrice", nomalPrice);
 		model.addAttribute("addPrice", addPrice);
-		model.addAttribute("mypetCnt", mypets.length);
+		model.addAttribute("mypetCnt", mypetCnt);
+		model.addAttribute("date",date);
 		
 		return "petSitter/reservation";
 	}
@@ -250,6 +375,11 @@ public class SitterController {
 	public String sitterTo(Model model, HttpServletRequest request) {
 		String zip = request.getParameter("zip");
 		String ziphigh = request.getParameter("zipHigh");
+		
+		if(ziphigh != null) {
+			ziphigh = ziphigh.substring(0, 2);
+			System.out.println("ziphigh : "+ziphigh);
+		}
 		
 		Map<String, Object> param = new HashMap<>();
 		param.put("zip_low", zip);
@@ -382,10 +512,6 @@ public class SitterController {
 		
 		MemberVo memVo = (MemberVo) session.getAttribute("memVo");
 		
-		System.out.println("insertReview : "+pst_id);
-		System.out.println("insertReview : "+stv_text);
-		System.out.println("insertReview : "+memVo.getMem_id());
-		
 		Map<String, Object> param = new HashMap<>();
 		param.put("stv_pst", pst_id);
 		param.put("stv_text", stv_text);
@@ -399,8 +525,6 @@ public class SitterController {
 	// 후기 게시글 수정
 	@RequestMapping("/updateReview")
 	public String updateReview(@RequestParam("revText")String revText, @RequestParam("stv_id")String stv_id, @RequestParam("pst_id")String pst_id) {
-		System.out.println("여기왔니?");
-		System.out.println("revText : "+revText);
 		Map<String, Object> param = new HashMap<>();
 		param.put("stv_text", revText);
 		param.put("stv_id", stv_id);
@@ -458,9 +582,6 @@ public class SitterController {
 			String codate = pst_codate + " ~ "+ pst_codate2;
 			
 			String[] string = pst_text.split("\\r\\n");
-			for(int i=0;i<string.length;i++) {
-				System.out.println("string : "+string[i]);
-			}
 			
 			pstVo.setPst_mem(memVo.getMem_id());
 			pstVo.setPst_price1(Integer.parseInt(price_dc));
@@ -470,8 +591,6 @@ public class SitterController {
 			pstVo.setPst_cidate(cidate);
 			pstVo.setPst_codate(codate);
 			
-			System.out.println("pstVo : " +pstVo);
-
 			int insertCnt = sitterService.insertSitterTo(pstVo);
 			
 			return "redirect:/sit/sitterTo";
@@ -560,6 +679,37 @@ public class SitterController {
 		return "petSitter/support";
 	}
 	
+	// 펫시터 지원하기 화면1
+	@RequestMapping("/supportApplicationAjaxHtml")
+	public String supportApplicationAjaxHtml() {
+		return "petSitter/supportApplication";
+	}
+	
+	// 펫시터 지원하기 화면2
+	@RequestMapping("/supportApplicationAjaxHtml2")
+	public String supportApplicationAjaxHtml2() {
+		return "petSitter/supportApplication2";
+	}
+	
+	// 펫시터 지원하기
+	@RequestMapping("/supportInsert")
+	public String supportInsert(HttpSession session, @RequestParam("memName")String memName, @RequestParam("memTel")String memTel, @RequestParam("memBirth")String memBirth,
+			@RequestParam("memAddr")String memAddr, @RequestParam("memJob")String memJob, @RequestParam("memQna1")String memQna1, @RequestParam("memQna2")String memQna2,
+			@RequestParam("memQna3")String memQna3, @RequestParam("memQna4")String memQna4, @RequestParam("memQna5")String memQna5) {
+		
+		MemberVo memVo = (MemberVo) session.getAttribute("memVo");
+		
+		String sta_text = memName + memTel + memBirth + memAddr + memJob + memQna1 + memQna2 + memQna3 + memQna4 + memQna5;
+		
+		Map<String, Object> param = new HashMap<>();
+		param.put("sta_mem", memVo.getMem_id());
+		param.put("sta_text", sta_text);
+		
+		int insertCnt = sitterService.insertSupport(param);
+		
+		return "petSitter/petSitter";
+	}
+	
 	// 마이페이지 화면
 	@RequestMapping("/myPage")
 	public String myPage() {
@@ -571,7 +721,9 @@ public class SitterController {
 	public String mypageAjaxHtml(HttpSession session, Model model) {
 		MemberVo memVo = (MemberVo) session.getAttribute("memVo");
 		List<SitterResVo> resList = sitterService.getReservationList(memVo.getMem_id());
+		
 		model.addAttribute("resList", resList);
+		
 		return "petSitter/mypageReservation";
 	}
 	
@@ -585,12 +737,6 @@ public class SitterController {
 		}
 		
 		return "redirect:/sit/myPage";
-	}
-	
-	// 마이페이지 포인트 관리 화면
-	@RequestMapping("/mypagePointAjaxHtml")
-	public String mypagePointAjaxHtml() {
-		return "petSitter/mypagePoint";
 	}
 	
 	// 마이페이지 게시글 관리 화면
@@ -633,4 +779,218 @@ public class SitterController {
 		
 		return "petSitter/mypageFaq";
 	}
+	
+	// 마이페이지 반려동물 관리 화면
+	@RequestMapping("/mypageMypetAjaxHtml")
+	public String mypageMypetAjaxHtml(HttpSession session, Model model) {
+		
+		MemberVo memVo = (MemberVo) session.getAttribute("memVo");
+		
+		List<MypetVo> mypetList = sitterService.getMypetList(memVo.getMem_id());
+		
+		model.addAttribute("mypetList", mypetList);
+		
+		return "/petSitter/mypageMypet";
+	}
+	
+	// 마이페이지 펫시터 지원관리
+	@RequestMapping("/mypageSupportAjaxHtml")
+	public String mypageSupportAjaxHtml(HttpSession session, Model model) {
+		
+		MemberVo memVo = (MemberVo) session.getAttribute("memVo");
+		
+		SitterAppVo staVo = sitterService.getMySupport(memVo.getMem_id());
+		
+		if(staVo != null) {
+			String[] sta_text = staVo.getSta_text().split("- ");
+			for(int i=0;i<sta_text.length;i++) {
+				model.addAttribute("sta_text"+i, sta_text[i]);
+			}
+		}
+		model.addAttribute("staVo", staVo);
+		
+		return "petSitter/mypageSupport";
+	}
+	
+	// 마이페이지 펫시터 지원 취소 처리
+	@RequestMapping("/supportCancle")
+	public String supportCancle(@RequestParam("sta_id")String sta_id) {
+		int deleteCnt = sitterService.deleteSupport(sta_id);
+		
+		return "petSitter/mypageSupport";
+	}
+	
+	// 마이페이지 펫시터 지원관리 -> PDF 출력
+	@RequestMapping("/supportPDF")
+	public String supportPDF(HttpServletRequest request, Model model) {
+		
+		String sta_id = request.getParameter("staId");
+		String[] staId = sta_id.split(" ");
+		String[] staID = new String[staId.length];
+		
+		for(int i=0; i<staId.length;i++) {
+			int updateCnt = sitterService.updateSupportSuc(staId[i]);
+			staID[i] = staId[i];
+		}
+		
+		String sta_mem = request.getParameter("sta_mem");
+		String[] staMem = sta_mem.split(" ");
+
+		String[] memName = new String[staMem.length];
+		String[] memBirth = new String[staMem.length];
+		String[] memId = new String[staMem.length];
+		
+		for(int i=0; i<staMem.length; i++) {
+			SitterAppVo staVo = sitterService.getMySupport(staMem[i]);
+			String[] text = staVo.getSta_text().split("- ");
+			String[] mem_name = text[1].split("/");
+			memName[i] = mem_name[0];
+			memBirth[i] = text[3];
+			memId[i] = staMem[i];
+		}
+		
+		System.out.println("memName : "+memName);
+		System.out.println("memBirth : "+memBirth);
+		
+		model.addAttribute("memName", memName);
+		model.addAttribute("memBirth", memBirth);
+		model.addAttribute("staId", staID);
+		
+		return "redirect:/sit/supportPDFCreate";
+//		return "petSitter/mypageSupport";
+	}
+	
+	// 펫시터 지원 합격증 생성
+	@RequestMapping("/supportPDFCreate")
+	public String pdfCreate(@RequestParam("memName")String[] memName, @RequestParam("memBirth")String[] memBirth, @RequestParam("staId")String[] staId) throws DocumentException, IOException {
+		
+		String[] name = memName;
+		String[] birth = memBirth;
+		String[] sta_id = staId;
+		
+		for(int i=0; i<name.length; i++) {
+			String fileName = "";
+			String dir = "D:\\A_TeachingMaterial\\7.LastProject\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\mypet\\upload\\petSitter_SUC";
+			fileName = UUID.randomUUID().toString()+".pdf";
+			
+			File directory = new File(dir);
+			if(!directory.exists()) {
+				directory.mkdirs(); // 파일경로 없으면 생성
+			}
+			Document document = new Document(PageSize.A4,75,50,120,0); // 용지 및 여백 설정
+			PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(dir+"/"+fileName));
+			document.open();
+			
+			Image jpg = Image.getInstance("D:\\A_TeachingMaterial\\7.LastProject\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\mypet\\img\\petSitterImg\\petsitter_suc.jpg");
+			document.add(jpg);
+			
+			BaseFont bf = BaseFont.createFont("D:\\A_TeachingMaterial\\7.LastProject\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\mypet\\font\\korean.h2gtrm.ttf", BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
+			
+			PdfContentByte cb = writer.getDirectContent();
+			cb.beginText();
+			cb.setColorFill(new BaseColor(0,0,0));
+			cb.setFontAndSize(bf, 20);
+			cb.setTextMatrix(210,559);
+			cb.showText("펫시터");
+			cb.setTextMatrix(210,517);
+			cb.showText(name[i]);
+			cb.setTextMatrix(210,475);
+			cb.showText(birth[i]);
+			cb.endText();
+			
+			document.close();
+			writer.close();
+			
+			Map<String, Object> param = new HashMap<>();
+			param.put("sta_id", staId[i]);
+			param.put("sta_file", fileName);
+			
+			int updateCnt = sitterService.updateSupportFile(param);
+		}
+		
+		return "redirect:/sit/myPage";
+	}
+	
+	// 마이페이지 ADMIN 예약 관리 화면
+	@RequestMapping("/mypageADReservationAjaxHtml")
+	public String mypageADReservationAjaxHtml(Model model, PageVo pageVo) {
+		
+		List<SitterResVo> resList = sitterService.getReservationListAll(pageVo);
+		
+		model.addAttribute("resList", resList);
+		
+		return "petSitter/mypageADReservation";
+	}
+	
+	// 마이페이지 ADMIN 예약 관리 화면 페이징 처리
+	@RequestMapping("/mypageADReservationPageAjaxHtml")
+	public String mypageADReservationPageAjaxHtml(PageVo pageVo, Model model) {
+		
+		int pageSize = pageVo.getPageSize();
+		int totalCnt = sitterService.getReservationListCount();
+		
+		int pageCnt = (int)Math.ceil(((double)totalCnt/pageSize));
+		
+		model.addAttribute("page", pageVo.getPage());
+		model.addAttribute("pageCnt", pageCnt);
+		
+		return "petSitter/mypageADReservationPage";
+	}
+	
+	// 마이페이지 ADMIN 지원관리 화면
+	@RequestMapping("/mypageADSupportAjaxHtml")
+	public String mypageADSupportAjaxHtml(Model model, PageVo pageVo) {
+		
+		List<SitterAppVo> staList = sitterService.getSupportListAll(pageVo);
+				
+		model.addAttribute("staList", staList);
+		
+		return "petSitter/mypageADSupport";
+	}
+	
+	// 마이페이지 ADMIN 지원관리 화면
+	@RequestMapping("/mypageADSupportPageAjaxHtml")
+	public String mypageADSupportPageAjaxHtml(Model model, PageVo pageVo) {
+		
+		int pageSize = pageVo.getPageSize();
+		
+		int totalCnt = sitterService.getSupportListCount();
+		
+		int pageCnt = (int)Math.ceil(((double)totalCnt/pageSize));
+		
+		model.addAttribute("page", pageVo.getPage());
+		model.addAttribute("pageCnt", pageCnt);
+		
+		return "petSitter/mypageADSupportPage";
+	}
+	
+	@RequestMapping("/supportPDFfileViewer")
+	public void supportPDFfileViewer(@RequestParam("fileName")String fileName, HttpSession session,HttpServletResponse response) throws Exception {
+		
+//		HttpHeaders headers = new HttpHeaders();
+//		
+//		headers.setContentType(MediaType.parseMediaType("application/pdf"));
+//		String file_name = fileName;
+//		
+//		headers.add("content-disposition", "inline;filename="+file_name);
+//		
+//		headers.setCacheControl("must-revalidate, post-check=0, pre-check=0");
+//		ResponseEntity<byte[]> response = new ResponseEntity<byte[]>(, headers, HttpStatus.OK );
+		
+		try {
+            String filePathToBeServed = "D:\\A_TeachingMaterial\\7.LastProject\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\mypet\\upload\\petSitter_SUC\\";
+            File fileToDownload = new File(filePathToBeServed+fileName);
+
+            FileInputStream inputStream = new FileInputStream(fileToDownload);
+            response.setContentType("application/force-download");
+            response.setHeader("Content-Disposition", "attachment; filename="+fileName); 
+            IOUtils.copy(inputStream, response.getOutputStream());
+            response.flushBuffer();
+            inputStream.close();
+        } catch (Exception exception){
+            System.out.println(exception.getMessage());
+        }
+		
+	}
+	
 }

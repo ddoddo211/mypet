@@ -14,13 +14,22 @@
 				<th class="th">내용</th>
 				<th class="th">작성일자</th>
 			</tr>
-			<c:forEach items="${myReviewList }" var="list">
-				<tr>
-					<td class="td">${list.rnum }</td>
-					<td class="td"><a href="/sit/sitDetail?pst_id=${list.pst_id }">${list.stv_text }</a></td>
-					<td class="td"><fmt:formatDate value="${list.stv_date }" pattern="yyyy-MM-dd" /></td>
-				</tr>			
-			</c:forEach>	
+			<c:choose>
+				<c:when test="${myReviewList.size() == 0 }">
+					<tr>
+						<td colspan="3" class="td">등록한 후기글이 없습니다.</td>
+					</tr>
+				</c:when>
+				<c:otherwise>
+					<c:forEach items="${myReviewList }" var="list">
+						<tr>
+							<td class="td">${list.rnum }</td>
+							<td class="td"><a href="/sit/sitDetail?pst_id=${list.pst_id }">${list.stv_text }</a></td>
+							<td class="td"><fmt:formatDate value="${list.stv_date }" pattern="yyyy-MM-dd" /></td>
+						</tr>			
+					</c:forEach>	
+				</c:otherwise>
+			</c:choose>
 		</table>
 	</div>
 </div>

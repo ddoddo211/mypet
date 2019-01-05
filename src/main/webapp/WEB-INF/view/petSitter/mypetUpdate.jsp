@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>petInsert.jsp(펫추가하기)</title>
+<title>petUpdate.jsp(펫수정하기)</title>
 
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -13,6 +13,16 @@
 
 	$(document).ready(
 			function() {
+				
+				var myp_gender = "${mypVo.myp_gender}";
+
+				if(myp_gender == '남'){
+					$("#manG").addClass("activePet");
+				} else{
+					$("#womanG").addClass("activePet");
+				}
+				
+				var myp_img = "${mypVo.myp_img}";
 				// 펫 사진을 선택했을때 미리 보이게 설정하는 부분 
 				var sel_file;
 				
@@ -93,7 +103,9 @@
 											"5월", "6월", "7월", "8월", "9월",
 											"10월", "11월", "12월" ], //월표시 형식 설정
 									showAnim : "fold", //애니메이션효과
-									maxDate : "0D"
+									maxDate : "0D",
+									changeMonth: true, 
+							        changeYear: true
 								});
 
 				// 여자아이 , 남자아이 선택한 부분 색 유지 해주는 부분
@@ -113,7 +125,7 @@
 					}
 				});
 
-				var petSick = null;
+				var petSick = "${mypVo.myp_sick}";
 				// 질병여부 선택한 부분 색 유지 해주는 부분
 				$(".wr1_2_2_1").click(function() {
 
@@ -136,12 +148,15 @@
 
 				// 펫 등록하기 버튼을 클릭할시에 내용을 입력한후 추가되도록 값을 담아준는 기능 
 				// 성별 담아주기
-				var petGender = null;
+				var petGender = "${mypVo.myp_gender}";
 				$(".wr1_2_2").click(function() {
 					petGender = $(this).val();
 				});
 
-				// 펫추가하는 버튼
+				var petname = "${mypVo.myp_name }";
+				$("#wr1_2_1").val(petname);
+				
+				// 펫수정하는 버튼
 				$("#petJoin").click(
 						function() {
 							// 이름담기
@@ -160,9 +175,9 @@
 							var petBirth = $("#wr1_2_3").val();
 
 							// ajax에 품종 담아줌 
-							var cnt = "${cnt}";
-							var petImg = null;
-							petImg = $("#petPs").val();
+							var petImg = "";
+							var img = $("#petPs").val();
+							petImg = img;
 
 							var petKind = $("#petKindForm").val();
 
@@ -176,9 +191,6 @@
 							} else if (petBirth == "") {
 								alert("생일을 선택해주시기 바랍니다.");
 								return;
-							} else if (petKind == "0") {
-								alert("품종을 선택하시기 바랍니다.");
-								return;
 							} else if (petSick == null) {
 								alert("질병여부 부분에 체크 되지 않았습니다.");
 								return;
@@ -189,13 +201,6 @@
 							$("#petBirthForm").val(petBirth);
 							$("#petNTL").val(petNeutralization);
 							$("#petSick").val(petSick);
-							
-							if(cnt == ''){
-								cnt = "0";
-								$("#cnt").val(cnt);
-							} else {
-								$("#cnt").val(cnt);
-							}
 							
 							$("#frm").submit();
 						});
@@ -245,41 +250,77 @@
 		<div id="petInfoInsert">
 			<div id="petInfoForm">
 				<div id="petInfoFormTop">
-					<div id="petInfoTitle">나의 펫 추가(반려동물에 대한 정보입력)</div>
+					<div id="petInfoTitle">나의 펫 수정(반려동물에 대한 정보입력)</div>
 				</div>
 					<div class="wr1">
-						<input id="petK1" class="petK" type="button" value="강아지">
-						<input class="petK" type="button" value="고양이">
+						<c:choose>
+							<c:when test="${mypVo.am_id eq 'AM001' }">
+								<input id="petK1" class="petK" type="button" value="강아지">
+							</c:when>
+							<c:otherwise>
+								<input id="petK1" class="petK" type="button" value="고양이">
+							</c:otherwise>
+						</c:choose>
 					</div>
 				<div id="petInfoWrite" >
-						<div class="wr1" id="wr1_1">사랑스런 우리 아이의 이름은<input type="text" id="wr1_2_1" class="ip1"/> 입니다</div>
+						<div class="wr1" id="wr1_1">사랑스런 우리 아이의 이름은<input type="text" id="wr1_2_1" class="ip1"  /> 입니다</div>
 						<div class="wr1" id="gender0">성별은
 							<input  type="button" class="wr1_2_2 ip1" value="여" id="womenG" /> 
-							<input type="button" class="wr1_2_2 ip1" value="남" id="manG" /> 입니다
+							<input type="button" class="wr1_2_2 ip1 " value="남" id="manG" /> 입니다
 						</div>
-						<div class="wr1"><label id="wr3">* 중성화 수술을 했을 경우에는 체크해주세요</label><input id="wr3_1" type="checkbox" value="Y"></div>
+						<div class="wr1">
+							<label id="wr3">* 중성화 수술을 했을 경우에는 체크해주세요</label>
+							<c:choose>
+								<c:when test="${mypVo.myp_neu == 'Y' }">
+									<input id="wr3_1" type="checkbox" value="Y" checked>	
+								</c:when>
+								<c:otherwise>
+									<input id="wr3_1" type="checkbox" value="Y">
+								</c:otherwise>
+							</c:choose>
+						</div>
 						<div class="wr1">생일은
-							<input type="text" name ="petBirth" id="wr1_2_3" readonly="readonly"> 입니다
+							<input type="text" name ="petBirth" id="wr1_2_3" readonly="readonly" value='<fmt:formatDate value='${mypVo.myp_birth }' pattern='yyyy-MM-dd'/>'> 입니다
 						</div>
-						<div class="wr1" id="petKindAjax">
-<!-- ajax 처리한곳 -->				
-<!-- 품종나오는 부분 -->
-					</div>
-					<div class="wr1">질병여부							
-						<input  type="button" class="wr1_2_2_1 ip1" value="Y" id="petSickY" /> 
-						<input type="button" class="wr1_2_2_1 ip1" value="N" id="petSickN" /> 
+					<div class="wr1">질병여부
+						<c:choose>
+							<c:when test="${mypVo.myp_sick eq 'N' }">
+								<input  type="button" class="wr1_2_2_1 ip1" value="Y" id="petSickY" /> 
+								<input type="button" class="wr1_2_2_1 ip1 activePet" value="N" id="petSickN" />	
+							</c:when>
+							<c:otherwise>
+								<input  type="button" class="wr1_2_2_1 ip1 activePet" value="Y" id="petSickY"  /> 
+								<input type="button" class="wr1_2_2_1 ip1" value="N" id="petSickN" />
+							</c:otherwise>
+						</c:choose>							
+						 
 					</div>
 					
-					<form action="/sit/mypetInsert" id="frm" method="post" enctype="multipart/form-data">
+					<form action="/sit/mypetUpdate" id="frm" method="post" enctype="multipart/form-data">
+						<input type="hidden" id="petId" name="petId" value="${mypVo.myp_id }">
 						<input type="hidden" id="petName" name="petName" value="">
 						<input type="hidden" id="petGender" name="petGender" value="">
 						<input type="hidden" id="petNTL" name="petNTL" value="">
 						<input type="hidden" id="petBirthForm" name="petBirthForm" value="">
 						<input type="hidden" id="petKindForm" name="petKindForm" value="0">
 						<input type="hidden" id="petSick" name="petSick" value="">
-						<div class="wr1">반려동물사진<input type="file" id="petPs" name="petImgForm"> </div>
-						<div class="wr1" id="petPrH"><img alt="이미지가 없습니다" src="/img/petimg/noimg.jpg" id="petPr"> </div>
-						<div class="wr2"><input type="button" value="펫 등록 " id="petJoin"> </div>
+						<div class="wr1">
+							반려동물사진
+							<input type="file" id="petPs" name="petImgForm"> 
+							<input type="hidden" id="petPreImg" name="petPreImg" value="${mypVo.myp_img }" />
+						</div>
+						<div class="wr1" id="petPrH">
+							<c:choose>
+								<c:when test="${mypVo.myp_img ne null || mypVo.myp_img ne '' }">
+									<img alt="이미지가 없습니다" src="${mypVo.myp_img }" id="petPr">
+								</c:when>
+								<c:otherwise>
+									<img alt="이미지가 없습니다" src="/img/petimg/noimg.jpg" id="petPr">
+								</c:otherwise>
+							</c:choose>
+							 
+						</div>
+						<div class="wr2"><input type="button" value="펫 수정 " id="petJoin"> </div>
 						<input type="hidden" id="cnt" name="cnt" />
 					</form>
 					

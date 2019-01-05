@@ -15,6 +15,12 @@
 $(document).ready(function() {
 	
 });
+
+//보험상품 관리 버튼을 클릭하였을때  보험상품 관리 화면으로 이동
+function goProdManager(){
+	location.href ='/isr/goProdManager';
+}
+
 </script>
 
 <link rel="stylesheet" href="/css/petInsuranceMenu.css">
@@ -33,6 +39,40 @@ $(document).ready(function() {
 	<div id="adminMain">
 		<!-- 관리자 메뉴 -->
 		<%@include file="../adminHeader.jsp"%>
+		
+		<!-- 입력하여 content 넣는 부분 -->
+			<div id="insTitle">
+				펫 보험 관리자용
+			</div>
+			<div id="insTitle2">
+				원하시는 항목의 버튼을 클릭하시면 이동됩니다.
+			</div>
+		
+			<div id="adminInsMenu">
+				<div id="adminInsMenu1">
+					<div id="adminInsMenu1_1">
+						<div class="adminInsMenu2">
+							<input type="button" class="prodManagement" onclick="goProdManager()" value="보험 상품 관리">
+						</div>
+						<div class="adminInsMenu2">
+							<input type="button" class="prodManagement" value="보험 신청 /가입자 관리">
+						</div>
+						<div class="adminInsMenu2">
+							<input type="button" class="prodManagement" value="보험 공지사항 관리">
+						</div>
+					</div>
+					<div id="adminInsMenu1_2">
+						<div class="adminInsMenu2">
+							<input type="button" class="prodManagement" value="보험 청구 관리">
+						</div>
+						<div class="adminInsMenu2">
+							<input type="button" class="prodManagement" value="보험 입금 관리">
+						</div>
+					</div>
+				
+				</div>
+			</div>
+			
 		
 	</div>
 
