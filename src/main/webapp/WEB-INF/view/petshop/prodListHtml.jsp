@@ -14,15 +14,15 @@
 			<c:when test="${list.prod_sprice != 0 }">
 				
 				<span class="price">
-					<fmt:formatNumber type="number" maxFractionDigits="3" value="${list.prod_price }" />원
+					<fmt:formatNumber type="number" value="${list.prod_price }" pattern="#,###" />원
 				</span>
 				<span class= "sprice">
-					<fmt:formatNumber type="number" maxFractionDigits="3" value="${list.prod_sprice }" />원
+					<fmt:formatNumber type="number" value="${list.prod_sprice }" pattern="#,###" />원
 				</span>
 			</c:when>
 			<c:otherwise>
 				<span class="sprice">
-					<fmt:formatNumber type="number" maxFractionDigits="3" value="${list.prod_price }" />원
+					<fmt:formatNumber type="number" value="${list.prod_price }" pattern="#,###" />원
 				</span>
 			</c:otherwise>
 		</c:choose>

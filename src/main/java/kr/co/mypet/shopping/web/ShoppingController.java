@@ -20,11 +20,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.co.mypet.common.model.MemberVo;
 import kr.co.mypet.common.model.PageVo;
+import kr.co.mypet.shopping.model.CartVo;
+import kr.co.mypet.shopping.model.DeliveryAddrVo;
 import kr.co.mypet.shopping.model.DivisionVo;
+import kr.co.mypet.shopping.model.OrderSheetVo;
 import kr.co.mypet.shopping.model.ProdOptionVo;
+import kr.co.mypet.shopping.model.ProdRevVo;
 import kr.co.mypet.shopping.model.ProdVo;
 import kr.co.mypet.shopping.model.ProddvVo;
 import kr.co.mypet.shopping.model.ShopNoticeVo;
@@ -224,10 +229,25 @@ public class ShoppingController {
 		MemberVo memVo = (MemberVo) session.getAttribute("memVo");
 		ProdVo prodVo = shoppingService.prodDetail(prod_id);
 		List<ProdOptionVo> prodoList = shoppingService.prodOpList(prod_id);
+		List<ProdRevVo> revList = shoppingService.revList(prod_id);
+		
+		
+		//해당 상품이 장바구니에 등록되어있는 확인
+		int cartChk = 0;
+		if(memVo != null) {
+			List<CartVo> cartList = shoppingService.cartList(memVo.getMem_id());
+			for (int i = 0; i < cartList.size(); i++) {
+				if(cartList.get(i).getCart_prod().equals(prod_id)) {
+					cartChk = 1;
+				}
+			}
+		}
 		
 		model.addAttribute("prodVo",prodVo);
 		model.addAttribute("prodoList",prodoList);
 		model.addAttribute("dvsVo",dvsVo);
+		model.addAttribute("revList",revList);
+		model.addAttribute("cartChk",cartChk);
 		
 		return "petshop/petProdDetail";
 	}
@@ -246,19 +266,6 @@ public class ShoppingController {
 		MemberVo memVo = (MemberVo) session.getAttribute("memVo");
 		
 		return "petshop/recentProd";
-	}
-	
-	/**
-	* Method : basketProd
-	* 작성자 : pc25
-	* 변경이력 :
-	* @return
-	* Method 설명 : 장바구니로 이동
-	*/
-	@RequestMapping("/basketProd")
-	public String basketProd(){
-		
-		return "petshop/basketProd";
 	}
 	
 	/**
@@ -417,12 +424,6 @@ public class ShoppingController {
 	@RequestMapping(value="/prodDelete",method=RequestMethod.POST)
 	public String prodDelete(@RequestParam("prod_id")String prod_id,DivisionVo dvsVo) {
 		
-		// 상품과 이어진 분류 삭제
-		shoppingService.deletePdd(prod_id);
-		
-		// 상품에 해당하는 상품옵션 삭제
-		shoppingService.deleteOption(prod_id);
-		
 		// 상품 삭제
 		shoppingService.deleteProd(prod_id);
 		
@@ -472,7 +473,6 @@ public class ShoppingController {
 			@RequestPart("pimg")MultipartFile pimg, @RequestPart("img")MultipartFile img) throws IllegalStateException, IOException {
 		
 		String path = "D:\\A_TeachingMaterial\\7.LastProject\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\mypet\\shopimg";
-		
 		// 상품프로필 이미지 변경
 		if(!(pimg.getOriginalFilename().equals(""))) {
 			// 상품 이미지 업로드
@@ -499,16 +499,15 @@ public class ShoppingController {
 		
 		//상품 수정
 		shoppingService.prodUpdate(prodVo);
-		
 		//옵션 수정 --------------------------------
-		System.out.println(request.getParameter("chkNum") + " : 밖에서");
 		if(!(request.getParameter("chkNum").equals(""))){
 			int chkNum = Integer.parseInt(request.getParameter("chkNum"));
 			int result = shoppingService.deleteOption(prodVo.getProd_id());
 			if(result != 0) {
 				for (int i = 1; i <= chkNum; i++) {
 					ProdOptionVo prodoVo = new ProdOptionVo();
-					if(!(request.getParameter("opName"+i).equals(""))) {
+					if(request.getParameter("opName"+i) == null || request.getParameter("opName"+i).equals("") ) {
+					}else {
 						prodoVo.setProdo_name(request.getParameter("opName"+i));
 						prodoVo.setProdo_qty(Integer.parseInt(request.getParameter("opQty"+i)));
 						
@@ -521,11 +520,360 @@ public class ShoppingController {
 						shoppingService.prodoCre(prodoVo);
 					}
 				}
-			}else {
-				System.out.println("옵션삭제 실패");
 			}
 		}
 		
-		return "redirect:/shop/prodDetail?dvs_id=DVS1&dvs_parent=DVS3&prod_id=PROD1016";
+		return "redirect:/shop/prodDetail?dvs_id="+dvsVo.getDvs_id() + "&dvs_parent=" +dvsVo.getDvs_parent() + "&prod_id="+prodVo.getProd_id();
 	}
+	
+	
+	/**
+	* Method : revCre
+	* 작성자 : pc25
+	* 변경이력 :
+	* @return
+	* Method 설명 : 상품후기 등록
+	*/
+	@RequestMapping(value="/revCre",method=RequestMethod.POST)
+	public String revCre(ProdRevVo prevVo,HttpSession session,DivisionVo dvsVo) {
+		MemberVo memVo = (MemberVo) session.getAttribute("memVo");
+		prevVo.setPrev_mem(memVo.getMem_id());
+		
+		int result = shoppingService.revInsert(prevVo);
+		
+		return "redirect:/shop/prodDetail?dvs_id="+dvsVo.getDvs_id() + "&dvs_parent=" +dvsVo.getDvs_parent() + "&prod_id="+prevVo.getPrev_prod();
+	}
+	
+	/**
+	* Method : revUpdate
+	* 작성자 : pc25
+	* 변경이력 :
+	* @return
+	* Method 설명 : 상품 후기 수정
+	*/
+	@RequestMapping(value="/revUpdate",method=RequestMethod.POST)
+	public String revUpdate(DivisionVo dvsVo,ProdRevVo prevVo) {
+		shoppingService.revUpdate(prevVo);
+		
+		return "redirect:/shop/prodDetail?dvs_id="+dvsVo.getDvs_id() + "&dvs_parent=" +dvsVo.getDvs_parent() + "&prod_id="+prevVo.getPrev_prod();
+	}
+	
+	/**
+	* Method : revDelete
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param prev_id
+	* @param prod_id
+	* @param dvsVo
+	* @return
+	* Method 설명 : 상품 후기 삭제
+	*/
+	@RequestMapping("/revDelete")
+	public String revDelete(@RequestParam("prev_id")String prev_id,@RequestParam("prod_id")String prod_id,DivisionVo dvsVo) {
+		shoppingService.revDelete(prev_id);
+		return "redirect:/shop/prodDetail?dvs_id="+dvsVo.getDvs_id() + "&dvs_parent=" +dvsVo.getDvs_parent() + "&prod_id="+prod_id;
+	}
+	
+	/**
+	* Method : prodQtyHtml
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param dvsVo
+	* @param prodVo
+	* @param model
+	* @return
+	* Method 설명 : 상품상세화면 수량 변경시 가격 고치기
+	*/
+	@RequestMapping("/prodQtyHtml")
+	public String prodQtyHtml(DivisionVo dvsVo,ProdVo prodVo,Model model,@RequestParam("qty")String[] qty,@RequestParam("prodo_ids")String[] prodo_ids) {
+		ProdVo prod = shoppingService.prodDetail(prodVo.getProd_id());
+		int price = 0;
+		if(prodo_ids.length != 0) {
+			for (int i = 0; i < prodo_ids.length; i++) {
+				ProdOptionVo prodoVo = shoppingService.prodoVo(prodo_ids[i]);
+				if(prod.getProd_sprice() == 0) {
+					if(prodoVo.getProdo_price() == 0) {
+						price += prod.getProd_price() * Integer.parseInt(qty[i]);
+					}else {
+						price += (prod.getProd_price() * Integer.parseInt(qty[i])) + (Integer.parseInt(qty[i]) * prodoVo.getProdo_price()); 
+					}
+				}else {
+					if(prodoVo.getProdo_price() == 0) {
+						price += prod.getProd_sprice() * Integer.parseInt(qty[i]);
+					}else {
+						price += (prod.getProd_sprice() * Integer.parseInt(qty[i])) + (Integer.parseInt(qty[i]) * prodoVo.getProdo_price()); 
+					}
+				}
+			}
+		}else {
+			if(prod.getProd_sprice() == 0) {
+				price = prod.getProd_price() * Integer.parseInt(qty[0]);
+			}else {
+				price = prod.getProd_sprice() * Integer.parseInt(qty[0]);
+			}
+		}
+		
+		
+		
+		model.addAttribute("price",price);
+		
+		return "/petshop/prodQtyHtml";
+	}
+	
+	/**
+	* Method : prodOpHtml
+	* 작성자 : pc25
+	* 변경이력 :
+	* @return
+	* Method 설명 : 상품 옵션 추가 
+	*/
+	@RequestMapping("/prodOpHtml")
+	public String prodOpHtml(DivisionVo dvsVo,@RequestParam("prod_id")String prod_id,@RequestParam("prodo_id")String prodo_id,Model model) {
+		
+		ProdOptionVo prodoVo = shoppingService.prodoVo(prodo_id);
+		model.addAttribute("prodoVo",prodoVo);
+		return "/petshop/prodOpHtml";
+	}
+	
+	/**
+	* Method : cartList
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param session
+	* @param model
+	* @return
+	* Method 설명 : 장바구니 이동
+	*/
+	@RequestMapping("/cartList")
+	public String cartList(HttpSession session,Model model,CartVo cartVo,HttpServletRequest request) {
+		
+		
+		String prodo_ids = request.getParameter("prodo_ids");
+		if(prodo_ids == null) {
+			model.addAttribute("prodo_ids",prodo_ids);
+		}
+		
+		MemberVo memVo = (MemberVo) session.getAttribute("memVo");
+		if(memVo != null) {
+			List<CartVo> cartList = shoppingService.cartList(memVo.getMem_id());
+			model.addAttribute("cartList",cartList);
+		}
+		
+		return "/petshop/basketProd";
+	}
+	
+	/**
+	* Method : cartAdd
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param cartVo
+	* @param session
+	* @param model
+	* @return
+	* Method 설명 : 장바구니 등록
+	*/
+	@RequestMapping(value ="/cartAdd" , method = RequestMethod.POST)
+	public String cartAdd(CartVo cartVo,HttpSession session,Model model,HttpServletRequest request) {
+		
+		String prodo_ids = request.getParameter("prodo_ids");
+		if(!(prodo_ids.equals(""))) {
+			model.addAttribute("prodo_ids",prodo_ids);
+			System.out.println(prodo_ids + " : ids");
+		}
+		MemberVo memVo = (MemberVo) session.getAttribute("memVo");
+		cartVo.setCart_mem(memVo.getMem_id());
+		shoppingService.cartAdd(cartVo);
+		
+		return "redirect:/shop/cartList";
+	}
+	
+	@RequestMapping("/cartDel")
+	public String cartDel(@RequestParam("cart_ids")String cart_ids,Model model,HttpSession session) {
+		MemberVo memVo = (MemberVo) session.getAttribute("memVo");
+		
+		if(!(cart_ids.equals("")) || cart_ids != null) {
+			String[] cart_id = cart_ids.split(",");
+			for (int i = 0; i < cart_id.length; i++) {
+				shoppingService.cartDel(cart_id[i]);
+			}
+			List<CartVo> cartList = shoppingService.cartList(memVo.getMem_id());
+			model.addAttribute("cartList",cartList);
+		}
+		
+		
+		return "redirect:/shop/cartList";
+	}
+	
+	@RequestMapping(value = "/prodOrder",method=RequestMethod.GET)
+	public String prodOrder(Model model,OrderSheetVo ordsVo,HttpServletRequest request,HttpSession session) {
+		
+		MemberVo memVo = (MemberVo) session.getAttribute("memVo");
+		
+		DeliveryAddrVo basicAddress = null;
+		
+		if(memVo != null) {
+			 if(shoppingService.basicAddress(memVo.getMem_id()) == null) {
+				basicAddress = new DeliveryAddrVo();
+			}else {
+				basicAddress = shoppingService.basicAddress(memVo.getMem_id());
+			}
+			 List<DeliveryAddrVo> otherAddrList = shoppingService.otherAddress(memVo.getMem_id());
+			 
+			 model.addAttribute("basicAddress",basicAddress);
+			 model.addAttribute("otherAddrList",otherAddrList);
+		}
+		
+		String cart_id = request.getParameter("cart_ids");
+		String totalPrice= request.getParameter("totalPrice");
+		
+		if(cart_id == null) {
+			String prod_id = request.getParameter("prod_id");
+			ProdVo prodVo = shoppingService.prodDetail(prod_id);
+			
+			model.addAttribute("ordsVo",ordsVo);
+			model.addAttribute("prodVo",prodVo);
+		}else {
+			String cart_ids = "'"+cart_id.replaceAll(",","','")+"'";
+			List<CartVo> cartList = shoppingService.cartBuyList(cart_ids);
+			model.addAttribute("cartList",cartList);
+		}
+		
+		
+		model.addAttribute("totalPrice",totalPrice);
+		return "/petshop/prodOrder";
+	}
+	
+	@RequestMapping(value="/payment",method=RequestMethod.POST)
+	public String payment(DeliveryAddrVo daddrVo,HttpServletRequest request,HttpSession session) {
+		
+		MemberVo memVo = (MemberVo) session.getAttribute("memVo");
+		if(memVo != null) {
+			
+			String ids = request.getParameter("ids");	
+			String qty = request.getParameter("qtys");
+			String prices = request.getParameter("prices");
+			String[] prod_qty = qty.split(",");
+			String[] prod_id = ids.split(",");
+			String[] prod_price = prices.split(",");
+			ProdVo prodVo = new ProdVo();
+			OrderSheetVo ordsVo = new OrderSheetVo();
+			
+			//주문서 회원
+			ordsVo.setOrds_mem(memVo.getMem_id());
+
+			//기존배송지 변경/배송지 저장
+			daddrVo.setDaddr_mem(memVo.getMem_id());
+			
+			
+			if(daddrVo.getDaddr_chk() == 1) {
+				ordsVo.setOrds_daddr(daddrVo.getDaddr_id());
+				//기존 배송지 처리
+				DeliveryAddrVo basicAddr = shoppingService.basicAddress(memVo.getMem_id());
+				
+				// 기존 배송지 있을 경우 변경
+				if(basicAddr == null) {
+						for (int i = 0; i < prod_id.length; i++) {
+							//배송지 생성
+							shoppingService.daddrCre(daddrVo);
+							//하나의 상품들을 주문서 만들기
+							ordsVo.setOrds_qty(Integer.parseInt(prod_qty[i]));
+							ordsVo.setOrds_price(Integer.parseInt(prod_price[i]));
+							ordsVo.setOrds_prod(prod_id[i]);
+							int insert = shoppingService.orderInsert(ordsVo);
+							if(insert != 0) {
+								prodVo = shoppingService.prodDetail(prod_id[i]);
+								prodVo.setProd_qty(prodVo.getProd_qty()-Integer.parseInt(prod_qty[i]));
+								shoppingService.qtyUpdate(prodVo);
+							}
+						}
+				}else {
+					int update = shoppingService.updateDaddr(basicAddr.getDaddr_id());
+					
+					if(update != 0) {
+						for (int i = 0; i < prod_id.length; i++) {
+							//배송지 생성
+							shoppingService.daddrCre(daddrVo);
+							//하나의 상품들을 주문서 만들기
+							ordsVo.setOrds_qty(Integer.parseInt(prod_qty[i]));
+							ordsVo.setOrds_price(Integer.parseInt(prod_price[i]));
+							ordsVo.setOrds_prod(prod_id[i]);
+							int insert = shoppingService.orderInsert(ordsVo);
+							if(insert != 0) {
+								prodVo = shoppingService.prodDetail(prod_id[i]);
+								prodVo.setProd_qty(prodVo.getProd_qty()-Integer.parseInt(prod_qty[i]));
+								shoppingService.qtyUpdate(prodVo);
+							}
+						}
+					}
+				}
+			}
+			//저장된 배송지 사용 
+			else if(daddrVo.getDaddr_chk() == 2) {
+				
+				// 기존에 저장된 배송지 아이디 넣어주기
+				ordsVo.setOrds_daddr(daddrVo.getDaddr_id());
+				
+				for (int i = 0; i < prod_id.length; i++) {
+					//하나의 상품들을 주문서 만들기
+					ordsVo.setOrds_qty(Integer.parseInt(prod_qty[i]));
+					ordsVo.setOrds_price(Integer.parseInt(prod_price[i]));
+					ordsVo.setOrds_prod(prod_id[i]);
+					int otherAddr = shoppingService.orderInsert2(ordsVo);
+					if(otherAddr != 0) {
+						prodVo = shoppingService.prodDetail(prod_id[i]);
+						prodVo.setProd_qty(prodVo.getProd_qty()-Integer.parseInt(prod_qty[i]));
+						shoppingService.qtyUpdate(prodVo);
+					}
+				}
+			}
+			//배송지 저장
+			else if(daddrVo.getDaddr_chk() == 3) {
+				daddrVo.setDaddr_chk(2);
+				shoppingService.daddrCre(daddrVo);
+				for (int i = 0; i < prod_id.length; i++) {
+					
+					ordsVo.setOrds_qty(Integer.parseInt(prod_qty[i]));
+					ordsVo.setOrds_price(Integer.parseInt(prod_price[i]));
+					ordsVo.setOrds_prod(prod_id[i]);
+					int result = shoppingService.orderInsert(ordsVo);
+					if(result != 0) {
+						prodVo = shoppingService.prodDetail(prod_id[i]);
+						prodVo.setProd_qty(prodVo.getProd_qty()-Integer.parseInt(prod_qty[i]));
+						shoppingService.qtyUpdate(prodVo);
+					}
+				}
+			}else {
+				shoppingService.daddrCre(daddrVo);
+				for (int i = 0; i < prod_id.length; i++) {
+					
+					ordsVo.setOrds_qty(Integer.parseInt(prod_qty[i]));
+					ordsVo.setOrds_price(Integer.parseInt(prod_price[i]));
+					ordsVo.setOrds_prod(prod_id[i]);
+					int result = shoppingService.orderInsert(ordsVo);
+					if(result != 0) {
+						prodVo = shoppingService.prodDetail(prod_id[i]);
+						prodVo.setProd_qty(prodVo.getProd_qty()-Integer.parseInt(prod_qty[i]));
+						shoppingService.qtyUpdate(prodVo);
+					}
+				}
+			}
+		}
+		
+		return "";
+	}
+	
+	@RequestMapping("/saveAddrHtml")
+	public String saveAddrHtml(@RequestParam("daddr_id")String daddr_id,Model model,HttpSession session) {
+		
+		MemberVo memVo = (MemberVo) session.getAttribute("memVo");
+		
+		DeliveryAddrVo daddrVo = shoppingService.saveAddr(daddr_id);
+		List<DeliveryAddrVo> otherAddrList = shoppingService.otherAddress(memVo.getMem_id());
+		 
+		model.addAttribute("otherAddrList",otherAddrList);
+		model.addAttribute("basicAddress",daddrVo);
+		
+		return "petshop/saveAddrHtml";
+	}
+	
 }

@@ -33,6 +33,10 @@
 			<typeAlias type="kr.co.mypet.common.model.AccountVo" alias="accountVo"/>
 			<typeAlias type="kr.co.mypet.shopping.model.ProdOptionVo" alias="prodoVo"/>
 			<typeAlias type="kr.co.mypet.sitter.model.SitterRevVo" alias="revVo"/>
+			<typeAlias type="kr.co.mypet.shopping.model.ProdRevVo" alias="prevVo"/>
+			<typeAlias type="kr.co.mypet.shopping.model.CartVo" alias="cartVo"/>
+			<typeAlias type="kr.co.mypet.shopping.model.OrderSheetVo" alias="ordsVo"/>
+			<typeAlias type="kr.co.mypet.shopping.model.DeliveryAddrVo" alias="daddrVo"/>
 	</typeAliases>
 
   <mappers>

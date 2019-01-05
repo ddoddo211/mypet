@@ -87,13 +87,13 @@
 		float:left;
 	}
 	
-	#mainbottom > .bascketBuy > a{
+	#mainbottom > .bascketBuy > #orderGo > #cartBuy{
 		display:block;
 		padding: 10px;
 		background-color: #f1f1f1;
 		border: 1px solid gray;
 		font-size: 15px;
-		width: 60px;
+		width: 82px;
 	}
 	
 	#mainbottom .basketDel{
@@ -101,13 +101,68 @@
 		margin-left: 20px;
 	}
 	
-	#mainbottom > .basketDel > form > #submit{
+	#mainbottom > .basketDel > #cartDel > #cartDelBtn{
 		padding: 10px;
 	    background-color: #f1f1f1;
 	    border: 1px solid gray;
 	    width: 82px;
 	}
 </style>
+<script type="text/javascript">
+	$(document).ready(function() {
+		
+		$("#cartDelBtn").click(function() {
+			var values = [];
+			$("input[name=chkbox]:checked").each(function(i){
+				values.push($(this).val());
+			});
+			if(values.length == 0){
+				alert("삭제할 상품이 없습니다.")
+			}else{
+				$("#cart_ids").val(values);
+				$("#cartDel").submit();
+			}
+		})
+		
+		$("#cartBuy").click(function() {
+			var values = [];
+			$("input[name=chkbox]:checked").each(function(i){
+				values.push($(this).val());
+			});
+			if(values.length == 0){
+				alert("주문하실 상품을 선택 해주세요.")
+			}else{
+				$("#cart_idss").val(values);
+				$("#orderGo").submit();
+			}
+			
+		})
+		
+		$(".chkbox").change(function() {
+			var totalPrice = 0;
+			$("input[name=chkbox]:checked").each(function(i){
+				totalPrice += parseInt($(this).parent().parent(".orderList").children()[5].innerHTML);
+			});
+			var commaPirce = commify(totalPrice);
+			//주문할때 보내는 가격
+			$("#totalPrice").val(totalPrice);
+			// 컴마찍어서 보여주는 가격
+			$(".chkPrice").text(commaPirce);
+		})
+		
+	})
+	
+	// 천단위마다 콤마
+	function commify(n) {
+		  var reg = /(^[+-]?\d+)(\d{3})/;   // 정규식
+		  n += '';                          // 숫자를 문자열로 변환
+
+		  while (reg.test(n))
+		    n = n.replace(reg, '$1' + ',' + '$2');
+
+		  return n;
+	}
+</script>
 <title>Insert title here</title>
 </head>
 <body>
@@ -128,25 +183,43 @@
 				</tr>
 			</thead>
 			<tbody id="lastList">
-				<tr>
-					<td>
-						<input type="checkbox" />
-					</td>
-					<td width="50" height="50">
-						<a href="/shop/prodDetail?prod_id=${list.prod_id }">
-							<img src="/shopimg/facebook.png" width="50" height="50">
-						</a>
-					</td>
-					<td><a href=#>상품명</a></td>
-					<td>5000원</td>
-					<td>2개</td>
-					<td>10000원</td>
-				<tr>
+				<c:choose>
+					<c:when test="${cartList == null || cartList.size() == 0}">
+						<tr>
+							<td colspan="6">장바구니 등록한 상품이 없습니다.</td>
+						</tr>
+					</c:when>
+					<c:otherwise>
+						<c:forEach items="${cartList }" var="list">
+							<tr class="orderList">
+								<td>
+									<input type="checkbox" value="${list.cart_id }" name="chkbox" class="chkbox"/>
+								</td>
+								<td width="50" height="50">
+									<a href="/shop/prodDetail?prod_id=${list.cart_prod }">
+										<img src="${list.prod_pimg }" width="50" height="50">
+									</a>
+								</td>
+								<td><a href="/shop/prodDetail?prod_id=${list.cart_prod }">${list.prod_name }</a></td>
+								<c:choose>
+									<c:when test="${list.prod_sprice == 0 }">
+										<td>${list.prod_price }</td>
+									</c:when>
+									<c:otherwise>
+										<td>${list.prod_sprice }</td>
+									</c:otherwise>
+								</c:choose>
+								<td>${list.cart_qty }</td>
+								<td>${list.cart_price }</td>
+							<tr>
+						</c:forEach>
+					</c:otherwise>
+				</c:choose>
 			</tbody>
 		</table>
 		<div class = "totalPrice">
-			<span>총 주문 금액 :</span>
-			<span>　10000원</span>
+			<span>총 주문 금액 : </span>&nbsp
+			<span class="chkPrice">0</span><span>원</span>
 		</div>
 	</div>
 	
@@ -155,11 +228,16 @@
 			<a href="#">견적서 출력</a>
 		</div>
 		<div class="bascketBuy">
-			<a>주문하기</a>
+			<form method="get" action="/shop/prodOrder" id="orderGo">
+				<input type="hidden" id="totalPrice" name="totalPrice"/>
+				<input type="hidden" id="cart_idss" name="cart_ids"/>
+				<input type="button" value="주문하기" id="cartBuy">
+			</form>
 		</div>
 		<div class="basketDel">
-			<form>
-				<input type="submit" value="삭제" id="submit">
+			<form method="post" id="cartDel" action="/shop/cartDel">
+				<input type="hidden" id="cart_ids" name="cart_ids">
+				<input type="button" value="삭제" id="cartDelBtn">
 			</form>
 		</div>
 	</div>
