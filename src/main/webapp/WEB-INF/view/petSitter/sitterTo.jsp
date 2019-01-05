@@ -70,7 +70,7 @@
 
 .addr{
 	border : 1px solid black;
-	width : 200px;
+	width : 250px;
 	height : 30px;
 	z-index: 2;
 	background-color: #000;
@@ -171,9 +171,11 @@
 		<div id="petToList">
 			<div id="listMenu">
 				<div id="list1">
-					<div id="noticeAdd">
-						<span id="noticeAddBtn">게시글 등록</span>
-					</div>
+					<c:if test="${memVo.mem_sit == 2 }">
+						<div id="noticeAdd">
+							<span id="noticeAddBtn">게시글 등록</span>
+						</div>
+					</c:if>
 				</div>
 				<div id="sort">
 					<label class="btn" >최신순<input type="hidden" id="latest" name="latest" value="1" /></label> 
@@ -184,34 +186,44 @@
 				<div class="notice">
 					<table id="noticeTable">
 						<tbody id="noticeList">
-							<c:forEach items="${sitList }" var="list">
-								<tr class="noticeClick noticeTr">
-									<c:choose>
-										<c:when test="${list.pst_img == '' || list.pst_img == null}">
-											<td rowspan="3" class="noticeAttr"><div style="width:370px; height:270px; background-image: url('/img/petimg/noimg.jpg');  background-size: cover;" ></div></td>
-										</c:when>
-										<c:otherwise>
-											<td rowspan="3" class="noticeAttr">
-												<div style="width:370px; height:270px; background-image: url('${list.pst_img}'); background-repeat: no-repeat; background-size: cover;" >
-												<div class="addr">${list.mem_addr }</div>
-											</td>
-										</c:otherwise>
-									</c:choose>
-									<td id="hidden" rowspan="3">${list.pst_id }</td>
-									<td colspan="3"><span class="noticeWord noticeTitle">&nbsp;제목 : ${list.pst_title }</span></td>
-								</tr>
-								<tr class="noticeTr">
-									<td><span class="noticeWord">&nbsp;가격정보</span></td>
-									<td id="noticeColor1">day care / <span class="noticeWord">${list.pst_price1 }원</span></td>
-									<td id="noticeColor2">1박 / <span class="noticeWord">${list.pst_price2 }원</span></td>
-								</tr>
-								<tr class="noticeTr" id="noticeLast">
-									<td></td>
-									<td class="noticeWord noticeSV"><span>평정 : ${list.pst_score }</span></td>
-									<td class="noticeWord noticeSV"><span>조회수 : ${list.pst_view }</span></td>
-									<td id="hidden"><fmt:formatDate value="${list.pst_date }" pattern="yyyy-MM-dd" /></td>
-								</tr>
-							</c:forEach>
+							<c:choose>
+								<c:when test="${sitList.size() == 0 }">
+									<tr>
+										<td colspan="3"><span style="font-size : 40px; font-weight: bold;">검색 결과가 없습니다.</span></td>
+									</tr>
+								</c:when>
+								<c:otherwise>
+									<c:forEach items="${sitList }" var="list">
+										<tr class="noticeClick noticeTr">
+											<c:choose>
+												<c:when test="${list.pst_img == '' || list.pst_img == null}">
+													<td rowspan="3" class="noticeAttr"><div style="width:370px; height:270px; background-image: url('/img/petimg/noimg.jpg');  background-size: cover;" ></div></td>
+												</c:when>
+												<c:otherwise>
+													<td rowspan="3" class="noticeAttr">
+														<div style="width:370px; height:270px; background-image: url('${list.pst_img}'); background-repeat: no-repeat; background-size: cover;" >
+														<div class="addr">${list.mem_addr }</div>
+													</td>
+												</c:otherwise>
+											</c:choose>
+											<td id="hidden" rowspan="3">${list.pst_id }</td>
+											<td colspan="3"><span class="noticeWord noticeTitle">&nbsp;제목 : ${list.pst_title }</span></td>
+										</tr>
+										<tr class="noticeTr">
+											<td><span class="noticeWord">&nbsp;가격정보</span></td>
+											<td id="noticeColor1">day care / <span class="noticeWord">${list.pst_price1 }원</span></td>
+											<td id="noticeColor2">1박 / <span class="noticeWord">${list.pst_price2 }원</span></td>
+										</tr>
+										<tr class="noticeTr" id="noticeLast">
+											<td></td>
+											<td class="noticeWord noticeSV"><span>평정 : ${list.pst_score }</span></td>
+											<td class="noticeWord noticeSV"><span>조회수 : ${list.pst_view }</span></td>
+											<td id="hidden"><fmt:formatDate value="${list.pst_date }" pattern="yyyy-MM-dd" /></td>
+										</tr>
+									</c:forEach>
+								
+								</c:otherwise>
+							</c:choose>
 						</tbody>
 					</table>
 				</div>

@@ -172,6 +172,9 @@
 					<div id="resMid">
 						<div id="resLeft">
 							<span class="res">⊙예약정보</span> <br><br>
+							<span class="resInfoWord">
+									▶예약일  <br>
+									&nbsp;&nbsp;&nbsp;&nbsp;-. ${date }</span> <br>
 							<span class="resInfoWord">	
 									▶예약자 정보  <br>
 									&nbsp;&nbsp;&nbsp;&nbsp;-. ${memVo.mem_name } / ${memVo.mem_hp } / ${memVo.mem_id }</span> <br>
@@ -184,9 +187,17 @@
 						</div>
 						<div id="resRight">
 							<span class="res">⊙결제금액</span><br><br>
-							<span class="resInfoWord">▶기본요금 : ${nomalPrice } x ${mypetCnt }  = ${nomalPrice * mypetCnt }원  </span><br>
-							<span class="resInfoWord">▶추가요금 : ${addPrice } x ${mypetCnt }  = ${addPrice * mypetCnt }원 </span><br>
-							<span class="resInfoWord">▶총 합계금액 : ${nomalPrice*mypetCnt + addPrice*mypetCnt }원</span>
+							<span class="resInfoWord">
+								▶기본요금  <br>
+								&nbsp;&nbsp;&nbsp;&nbsp;${nomalPrice } x ${mypetCnt }마리  = <fmt:formatNumber value="${nomalPrice * mypetCnt }" pattern="###,###"/>원  </span><br>
+							<c:if test="${timeChk > 0}">
+								<span class="resInfoWord">
+									▶추가요금  <br>
+									&nbsp;&nbsp;&nbsp;&nbsp;<fmt:formatNumber value="${addPrice }" pattern="###,###"/> x ${mypetCnt }마리 x ${timeChk }시간  = <fmt:formatNumber value="${addPrice * mypetCnt * timeChk }" pattern="###,###" />원 </span><br>
+							</c:if>
+							<span class="resInfoWord" style="font-weight: bold;">
+								▶총 합계금액  <br>
+								&nbsp;&nbsp;&nbsp;&nbsp;<fmt:formatNumber value="${nomalPrice*mypetCnt + addPrice*mypetCnt*timeChk }" pattern="###,###"/>원</span>
 						</div>
 					</div>
 					</form>

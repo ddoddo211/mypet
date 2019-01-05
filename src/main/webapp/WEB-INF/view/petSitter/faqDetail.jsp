@@ -21,7 +21,7 @@
   	}
   </style>
 </head>
-<body>+
+<body>
 <%@include file="/WEB-INF/view/common/header.jsp"%>
 
 <!-- 각자 화면 -->

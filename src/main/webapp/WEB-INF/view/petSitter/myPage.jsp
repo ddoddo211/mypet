@@ -19,24 +19,19 @@
 			history.back();
 		}
 		
-		getMypageReservation();
+		if(memId == "admin"){
+			getMypageADReservation(1);
+		} else{
+			getMypageReservation();
+		}
+		
 		
 	});
-	
+	<%-- 일반,펫시터 마이페이지 화면 --%>
 	function getMypageReservation(){
 		$.ajax({
 			type : "POST",
 			url  : "/sit/mypageReservationAjaxHtml",
-			success : function(dt){
-				$("#mypageRight").html(dt);
-			}
-		});
-	}
-	
-	function getMypagePoint(){
-		$.ajax({
-			type : "POST",
-			url  : "/sit/mypagePointAjaxHtml",
 			success : function(dt){
 				$("#mypageRight").html(dt);
 			}
@@ -53,6 +48,67 @@
 		});
 	}
 	
+	
+	
+	function getMypageMypet(){
+		$.ajax({
+			type : "POST",
+			url  : "/sit/mypageMypetAjaxHtml",
+			success : function(dt){
+				$("#mypageRight").html(dt);
+			}
+		});
+	}
+	
+	function getMypageSupport(){
+		$.ajax({
+			type : "POST",
+			url  : "/sit/mypageSupportAjaxHtml",
+			success : function(dt){
+				$("#mypageRight").html(dt);
+			}
+		});
+	}
+	
+	function supportDelete(sta_id){
+		$.ajax({
+			type : "POST",
+			url  : "/sit/supportCancle",
+			data : "sta_id="+sta_id,
+			success : function(dt){
+				$("#mypageRight").html(dt);
+			}
+		});
+	}
+	
+	function mypetDelete(mypet_id){
+		$.ajax({
+			type : "POST",
+			url  : "/sit/mypetDel?cnt=1",
+			data : "mypet_id="+mypet_id,
+			success : function(dt){
+				$("#mypageRight").html(dt);
+			}
+		});
+	}
+	
+	function reserv(){
+		getMypageReservation();
+	}
+	
+	function notice(){
+		getMypageNotice();
+	}
+	
+	function mypet(){
+		getMypageMypet();		
+	}
+	
+	function Support(){
+		getMypageSupport();
+	}
+	
+	<%-- 관리자 마이페이지 화면 --%>
 	function getMypageFaq(){
 		$.ajax({
 			type : "POST",
@@ -74,21 +130,80 @@
 		});
 	}
 	
-	function reserv(){
-		getMypageReservation();
+	function fileDownload(fileName){
+		$.ajax({
+			type : "POST",
+			url  : "/sit/supportPDFfileViewer",
+			data : "fileName="+fileName,
+			success : function(dt){
+				$("#mypageRight").html(dt);
+			}
+		});
 	}
 	
-	function point(){
-		getMypagePoint();
+	function getMypageADReservation(page){
+		var pageSize = 5;
+		$.ajax({
+			type : "POST",
+			url  : "/sit/mypageADReservationAjaxHtml",
+			data : "page="+page+"&pageSize="+pageSize,
+			success : function(dt){
+				$("#mypageRight").html(dt);
+				getMypageADReservationPage(page);
+			}
+		});
 	}
 	
-	function notice(){
-		getMypageNotice();
+	function getMypageADReservationPage(page){
+		var pageSize = 5;
+		$.ajax({
+			type : "POST",
+			url  : "/sit/mypageADReservationPageAjaxHtml",
+			data : "page="+page+"&pageSize="+pageSize,
+			success : function(dt){
+				$(".pagination").html(dt);
+			}
+		});
+		
+	}
+	
+	function getMypageADSupport(page){
+		var pageSize = 10;
+		$.ajax({
+			type : "POST",
+			url  : "/sit/mypageADSupportAjaxHtml",
+			data : "page="+page+"&pageSize="+pageSize,
+			success : function(dt){
+				$("#mypageRight").html(dt);
+				getMypageADSupportPage(page);
+			}
+		});
+	}
+	
+	function getMypageADSupportPage(page){
+		var pageSize = 10;
+		$.ajax({
+			type : "POST",
+			url  : "/sit/mypageADSupportPageAjaxHtml",
+			data : "page="+page+"&pageSize="+pageSize,
+			success : function(dt){
+				$(".supPage").html(dt);
+			}
+		});
 	}
 	
 	function faq(){
 		getMypageFaq();
 	}
+	
+	function adreserv(){
+		getMypageADReservation(1);
+	}
+	
+	function adSupport(){
+		getMypageADSupport(1);
+	}
+	
 	
 </script>
 <style type="text/css">
@@ -207,6 +322,37 @@
 		box-shadow: 2px 2px #000;
 		outline: none;
 	}
+	.pagination{
+  	padding : 0;
+  	font-family: 'Work Sans', sans-serif;
+  	font-size : 20px;
+  	text-align: center;
+  }
+  
+  .pagination > li {
+  	display: inline-block;
+  }
+  
+  .pagination > li > a {
+  	float : left;
+  	margin : 0 auto;
+  }
+  
+  .supPage{
+  	padding : 0;
+  	font-family: 'Work Sans', sans-serif;
+  	font-size : 20px;
+  	text-align: center;
+  }
+  
+  .supPage > li {
+  	display: inline-block;
+  }
+  
+  .supPage > li > a {
+  	float : left;
+  	margin : 0 auto;
+  }
 </style>
 </head>
 <body>
@@ -253,20 +399,39 @@
 					</div>				
 				</div>
 				<div id="menuList">
-					<div class="menu">
-						<span onclick="reserv()">예약 관리</span>
-					</div>
-					<div class="menu">
-						<span onclick="point()">포인트 관리</span>
-					</div>
-					<div class="menu">
-						<span onclick="notice()">게시글 관리</span>
-					</div>
-					<c:if test="${memVo.mem_id == 'admin' }">
-						<div class="menu"> 
-							<span onclick="faq()">FAQ 관리</span>
-						</div>
-					</c:if>
+					<c:choose>
+						<c:when test="${memVo.mem_id == 'admin' }">
+							<div class="menu">
+								<span onclick="adreserv()">예약 관리</span>
+							</div>
+							<div class="menu"> 
+								<span onclick="faq()">FAQ 관리</span>
+							</div>
+							<div class="menu">
+								<span onclick="adSupport()">펫시터 지원 관리</span>
+							</div>
+							<div class="menu">
+								<span onclick="adnotice()">게시글 관리</span>
+							</div>
+							<div class="menu">
+								<span onclick="admypet()">반려동물 관리</span>
+							</div>
+						</c:when>
+						<c:otherwise>
+							<div class="menu">
+								<span onclick="reserv()">예약 관리</span>
+							</div>
+							<div class="menu">
+								<span onclick="notice()">게시글 관리</span>
+							</div>
+							<div class="menu">
+								<span onclick="mypet()">반려동물 관리</span>
+							</div>
+							<div class="menu">
+								<span onclick="Support()">펫시터 지원 관리</span>
+							</div>
+						</c:otherwise>
+					</c:choose>
 				</div>
 			</div>
 			<div id="mypageRight">

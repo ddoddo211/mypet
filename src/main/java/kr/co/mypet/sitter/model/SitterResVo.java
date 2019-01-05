@@ -18,6 +18,35 @@ public class SitterResVo {
 	private String str_pst;
 	private String str_mem;
 	private String str_myp;
+	private String str_pay;
+
+	// 펫시터 집에 맡기기 용
+	private String str_start;
+	private String str_stop;
+
+	public String getStr_start() {
+		return str_start;
+	}
+
+	public void setStr_start(String str_start) {
+		this.str_start = str_start;
+	}
+
+	public String getStr_stop() {
+		return str_stop;
+	}
+
+	public void setStr_stop(String str_stop) {
+		this.str_stop = str_stop;
+	}
+
+	public String getStr_pay() {
+		return str_pay;
+	}
+
+	public void setStr_pay(String str_pay) {
+		this.str_pay = str_pay;
+	}
 
 	public String getMyp_name() {
 		return myp_name;
@@ -120,8 +149,8 @@ public class SitterResVo {
 		return "SitterResVo [myp_name=" + myp_name + ", mem_name=" + mem_name + ", str_id=" + str_id + ", str_date="
 				+ str_date + ", str_spec=" + str_spec + ", str_price=" + str_price + ", str_time=" + str_time
 				+ ", str_atime=" + str_atime + ", str_arr=" + str_arr + ", str_pst=" + str_pst + ", str_mem=" + str_mem
-				+ ", str_myp=" + str_myp + "]";
+				+ ", str_myp=" + str_myp + ", str_pay=" + str_pay + ", str_start=" + str_start + ", str_stop="
+				+ str_stop + "]";
 	}
-
 
 }
