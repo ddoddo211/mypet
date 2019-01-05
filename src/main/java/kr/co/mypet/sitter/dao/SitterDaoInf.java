@@ -4,9 +4,11 @@ import java.util.List;
 import java.util.Map;
 
 import kr.co.mypet.common.model.MypetVo;
+import kr.co.mypet.common.model.PageVo;
 import kr.co.mypet.common.model.PetkindVo;
 import kr.co.mypet.sitter.model.FaqVo;
 import kr.co.mypet.sitter.model.PetSitterVo;
+import kr.co.mypet.sitter.model.SitterAppVo;
 import kr.co.mypet.sitter.model.SitterResVo;
 import kr.co.mypet.sitter.model.SitterRevVo;
 import kr.co.mypet.sitter.model.ZipVo;
@@ -76,4 +78,24 @@ public interface SitterDaoInf {
 	List<SitterRevVo> getMyReviewList(String mem_id);
 
 	String getMaxFaq();
+
+	int insertSupport(Map<String, Object> param);
+
+	SitterAppVo getMySupport(String mem_id);
+
+	int deleteSupport(String sta_id);
+
+	int updateMypetInfo(MypetVo mypetVo);
+
+	List<SitterResVo> getReservationListAll(PageVo pageVo);
+
+	int getReservationListCount();
+
+	List<SitterAppVo> getSupportListAll(PageVo pageVo);
+
+	int getSupportListCount();
+
+	int updateSupportSuc(String string);
+
+	int updateSupportFile(Map<String, Object> param);
 }

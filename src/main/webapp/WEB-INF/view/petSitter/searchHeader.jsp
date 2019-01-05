@@ -82,7 +82,7 @@
 		<form action="/sit/sitterTo" method="post">
 			<ul class="tab_ul">
 				<c:forEach items="${zipList }" var="zlist">
-					<c:if test="${zlist.zip_high == '서울' }">
+					<c:if test="${zlist.zip_high == '서울특별시' }">
 						<li class="zipKind"><input type = "radio" name="zip" id="zipchk" value="${zlist.zip_low }"/><span class="tabFont">${zlist.zip_low }</span></li>
 						<input type="hidden" name="zipHigh" value="${zlist.zip_high }" />
 					</c:if>
@@ -98,7 +98,7 @@
 		<form action="/sit/sitterTo" method="post">
 			<ul class="tab_ul">
 				<c:forEach items="${zipList }" var="zlist">
-					<c:if test="${zlist.zip_high == '대전' }">
+					<c:if test="${zlist.zip_high == '대전광역시' }">
 						<li class="zipKind"><input type = "radio" name="zip" id="zipchk" value="${zlist.zip_low }"/><span class="tabFont" >${zlist.zip_low }</span></li>
 						<input type="hidden" name="zipHigh" value="${zlist.zip_high }" />
 					</c:if>
@@ -114,7 +114,7 @@
 		<form action="/sit/sitterTo" method="post">
 			<ul class="tab_ul">
 				<c:forEach items="${zipList }" var="zlist">
-					<c:if test="${zlist.zip_high == '경기' }">
+					<c:if test="${zlist.zip_high == '경기도' }">
 						<li class="zipKind"><input type = "radio" name="zip" id="zipchk" value="${zlist.zip_low }"/><span class="tabFont">${zlist.zip_low }</span></li>
 						<input type="hidden" name="zipHigh" value="${zlist.zip_high }" />
 					</c:if>
@@ -130,7 +130,7 @@
 		<form action="/sit/sitterTo" method="post">
 			<ul class="tab_ul">
 				<c:forEach items="${zipList }" var="zlist">
-					<c:if test="${zlist.zip_high == '인천' }">
+					<c:if test="${zlist.zip_high == '인천광역시' }">
 						<li class="zipKind"><input type = "radio" name="zip" id="zipchk" value="${zlist.zip_low }"/><span class="tabFont">${zlist.zip_low }</span></li>
 						<input type="hidden" name="zipHigh" value="${zlist.zip_high }" />
 					</c:if>
@@ -147,7 +147,7 @@
 		<form action="/sit/sitterTo" method="post">
 			<ul class="tab_ul">
 				<c:forEach items="${zipList }" var="zlist">
-					<c:if test="${zlist.zip_high == '광주' }">
+					<c:if test="${zlist.zip_high == '광주광역시' }">
 						<li class="zipKind"><input type = "radio" name="zip" id="zipchk" value="${zlist.zip_low }"/><span class="tabFont">${zlist.zip_low }</span></li>
 						<input type="hidden" name="zipHigh" value="${zlist.zip_high }" />
 					</c:if>
@@ -163,7 +163,7 @@
 		<form action="/sit/sitterTo" method="post">
 			<ul class="tab_ul">
 				<c:forEach items="${zipList }" var="zlist">
-					<c:if test="${zlist.zip_high == '대구' }">
+					<c:if test="${zlist.zip_high == '대구광역시' }">
 						<li class="zipKind"><input type = "radio" name="zip" id="zipchk" value="${zlist.zip_low }"/><span class="tabFont">${zlist.zip_low }</span></li>
 						<input type="hidden" name="zipHigh" value="${zlist.zip_high }" />
 					</c:if>
@@ -179,7 +179,7 @@
 		<form action="/sit/sitterTo" method="post">
 			<ul class="tab_ul">
 				<c:forEach items="${zipList }" var="zlist">
-					<c:if test="${zlist.zip_high == '부산' }">
+					<c:if test="${zlist.zip_high == '부산광역시' }">
 						<li class="zipKind"><input type = "radio" name="zip" id="zipchk" value="${zlist.zip_low }"/><span class="tabFont">${zlist.zip_low }</span></li>
 						<input type="hidden" name="zipHigh" value="${zlist.zip_high }" />
 					</c:if>

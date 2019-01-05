@@ -4,9 +4,11 @@ import java.util.List;
 import java.util.Map;
 
 import kr.co.mypet.common.model.MypetVo;
+import kr.co.mypet.common.model.PageVo;
 import kr.co.mypet.common.model.PetkindVo;
 import kr.co.mypet.sitter.model.FaqVo;
 import kr.co.mypet.sitter.model.PetSitterVo;
+import kr.co.mypet.sitter.model.SitterAppVo;
 import kr.co.mypet.sitter.model.SitterResVo;
 import kr.co.mypet.sitter.model.SitterRevVo;
 import kr.co.mypet.sitter.model.ZipVo;
@@ -317,6 +319,103 @@ public interface SitterServiceInf {
 	* Method 설명 : FAQ 게시글 최대값 구하기
 	*/
 	String getMaxFaq();
+
+	/**
+	* Method : insertSupport
+	* 작성자 : pc24
+	* 변경이력 :
+	* @param param
+	* @return
+	* Method 설명 : 펫시터 지원하기 등록처리 
+	*/
+	int insertSupport(Map<String, Object> param);
+
+	/**
+	* Method : getMySupport
+	* 작성자 : pc24
+	* 변경이력 :
+	* @param mem_id
+	* @return
+	* Method 설명 : 나의 지원내역 조회 
+	*/
+	SitterAppVo getMySupport(String mem_id);
+
+	/**
+	* Method : deleteSupport
+	* 작성자 : pc24
+	* 변경이력 :
+	* @param sta_id
+	* @return
+	* Method 설명 : 나의 지원내역 취소처리 
+	*/
+	int deleteSupport(String sta_id);
+
+	/**
+	* Method : updateMypetInfo
+	* 작성자 : pc24
+	* 변경이력 :
+	* @param mypetVo
+	* @return
+	* Method 설명 : 나의 반려동물 정보 수정 처리 
+	*/
+	int updateMypetInfo(MypetVo mypetVo);
+
+	/**
+	* Method : getReservationListAll
+	* 작성자 : pc24
+	* 변경이력 :
+	* @param pageVo
+	* @return
+	* Method 설명 : 관리자 마이페이지 전체 예약 내역 조회 
+	*/
+	List<SitterResVo> getReservationListAll(PageVo pageVo);
+
+	/**
+	* Method : getReservationListCount
+	* 작성자 : pc24
+	* 변경이력 :
+	* @return
+	* Method 설명 : 관리자 마이페이지 전체 예약 수
+	*/
+	int getReservationListCount();
+
+	/**
+	* Method : getSupportListAll
+	* 작성자 : pc24
+	* 변경이력 :
+	* @return
+	* Method 설명 : 관리자 마이페이지 전체 지원리스트
+	*/
+	List<SitterAppVo> getSupportListAll(PageVo pageVo);
+
+	/**
+	* Method : getSupportListCount
+	* 작성자 : pc24
+	* 변경이력 :
+	* @return
+	* Method 설명 : 관리자 마이페이지 전체 지원 수 
+	*/
+	int getSupportListCount();
+
+	/**
+	* Method : updateSupportSuc
+	* 작성자 : pc24
+	* 변경이력 :
+	* @param string
+	* @return
+	* Method 설명 : 관리자 마이페이지 지원자 합격 처리 
+	*/
+	int updateSupportSuc(String string);
+
+	/**
+	* Method : updateSupportFile
+	* 작성자 : pc24
+	* 변경이력 :
+	* @param param
+	* @return
+	* Method 설명 :  지원자 테이블의 파일 경로 삽입
+	*/
+	int updateSupportFile(Map<String, Object> param);
 	
 	
 }

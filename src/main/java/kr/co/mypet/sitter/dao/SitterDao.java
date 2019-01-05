@@ -9,9 +9,11 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import kr.co.mypet.common.model.MypetVo;
+import kr.co.mypet.common.model.PageVo;
 import kr.co.mypet.common.model.PetkindVo;
 import kr.co.mypet.sitter.model.FaqVo;
 import kr.co.mypet.sitter.model.PetSitterVo;
+import kr.co.mypet.sitter.model.SitterAppVo;
 import kr.co.mypet.sitter.model.SitterResVo;
 import kr.co.mypet.sitter.model.SitterRevVo;
 import kr.co.mypet.sitter.model.ZipVo;
@@ -180,5 +182,55 @@ public class SitterDao implements SitterDaoInf {
 	@Override
 	public String getMaxFaq() {
 		return template.selectOne("petSitter.getMaxFaq");
+	}
+
+	@Override
+	public int insertSupport(Map<String, Object> param) {
+		return template.insert("petSitter.insertSupport", param);
+	}
+
+	@Override
+	public SitterAppVo getMySupport(String mem_id) {
+		return template.selectOne("petSitter.getMySupport", mem_id);
+	}
+
+	@Override
+	public int deleteSupport(String sta_id) {
+		return template.delete("petSitter.deleteSupport", sta_id);
+	}
+
+	@Override
+	public int updateMypetInfo(MypetVo mypetVo) {
+		return template.update("petSitter.updateMypetInfo", mypetVo);
+	}
+
+	@Override
+	public List<SitterResVo> getReservationListAll(PageVo pageVo) {
+		return template.selectList("petSitter.getReservationListAll", pageVo);
+	}
+
+	@Override
+	public int getReservationListCount() {
+		return template.selectOne("petSitter.getReservationListCount");
+	}
+
+	@Override
+	public List<SitterAppVo> getSupportListAll(PageVo pageVo) {
+		return template.selectList("petSitter.getSupportListAll", pageVo);
+	}
+
+	@Override
+	public int getSupportListCount() {
+		return template.selectOne("petSitter.getSupportListCount");
+	}
+
+	@Override
+	public int updateSupportSuc(String string) {
+		return template.update("petSitter.updateSupportSuc", string);
+	}
+
+	@Override
+	public int updateSupportFile(Map<String, Object> param) {
+		return template.update("petSitter.updateSupportFile", param);
 	}	
 }

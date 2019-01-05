@@ -15,6 +15,22 @@
 			$("#resDeleteFrm").submit();
 		});
 	});
+	
+	function payment(){
+		var chk = "";
+		var chk2 = [];
+		var k = "";
+		$(':checkbox:checked').each(function(i) {
+			chk = $(this).parent().parent().children().children(".pay").val();
+			if(chk == 'Y'){
+				alert("결제완료된 예약은 결제할 수 없습니다. 다시 선택해주세요.");
+				return;
+			}
+			chk2[i] = $(this).parent().parent().children().children(".resChk").val();
+			k += chk2[i] + " ";
+		});
+		alert(k);
+	}
 </script>
 <form action="/sit/reservationDelete" method="post" id="resDeleteFrm">
 <input type="hidden" id="resId" name="resId" />
@@ -33,11 +49,12 @@
 						<th class="th">의뢰시간</th>
 						<th class="th">추가시간</th>
 						<th class="th">가격</th>
+						<th class="th">결재상태</th>
 					</tr>
 					<c:choose>
-						<c:when test="${reslist == ''}">
+						<c:when test="${reslist.size() == 0 }">
 							<tr>
-								<td class="td" colspan="7">예약 내역이 없습니다.</td>
+								<td class="td" colspan="8">예약 내역이 없습니다.</td>
 							</tr>				
 						</c:when>
 						<c:otherwise>
@@ -46,10 +63,18 @@
 									<td class="td"><input type="checkbox" class="resChk" value="${list.str_id }"/></td>
 									<td class="td">${list.mem_name }</td>
 									<td class="td">${list.myp_name }</td>
-									<td class="td"><fmt:formatDate pattern="yyyy-MM-dd" value="${list.str_date }"  /></td>
+									<td class="td"><fmt:formatDate pattern="yyyy-MM-dd" value="${list.str_date }"  /><input type="hidden" class="date" value="${list.str_date }" /></td>
 									<td class="td">${list.str_time }시</td>
 									<td class="td">${list.str_atime }시간</td>
 									<td class="td"><fmt:formatNumber value="${list.str_price }" pattern="#,###,###" />원</td>
+									<c:choose>
+										<c:when test="${list.str_pay eq 'N'}">
+											<td class="td">결재안됨<input type="hidden" class="pay" value="${list.str_pay }" /></td>
+										</c:when>
+										<c:otherwise>
+											<td class="td">결재완료<input type="hidden" class="pay" value="${list.str_pay }" /></td>
+										</c:otherwise>
+									</c:choose>
 								</tr>
 							</c:forEach>
 						</c:otherwise>
@@ -59,8 +84,11 @@
 		</div>
 		
 		<div style="width:100%; height:70px; overflow: hidden;">
-			<div style="margin-top:20px;float:right;">
+			<div style="margin-top:20px;float:right;margin-left:20px;">
 				<input type="button" id="resDelete" class="mypageBtn" value="예약취소"/> 
+			</div>
+			<div style="margin-top:20px;float:right;">
+				<input type="button" onclick="payment()" class="mypageBtn" value="결제하기"/> 
 			</div>
 		</div>
 	</div>

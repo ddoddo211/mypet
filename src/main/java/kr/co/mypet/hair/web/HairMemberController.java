@@ -108,7 +108,7 @@ public class HairMemberController {
 		return "petHair/petHairMypageMain";
 	}
 	
-	@RequestMapping("bookMark")
+	@RequestMapping("/bookMark")
 	public String bookMark(MemberVo memVo, Model model) {
 		
 		String mem_id = memVo.getMem_id();
@@ -174,7 +174,6 @@ public class HairMemberController {
 		//총갯수
 		int totalCnt = 0;
 		totalCnt = hairService.revComCnt(mem_id);
-		System.out.println("page : " + page + " totalCnt : " + totalCnt);
 		String numTemp = Integer.toString(totalCnt);
 		hairPageVo.setTotalCnt(totalCnt);
 		model.addAttribute("hairPageVo", hairPageVo);
@@ -239,6 +238,98 @@ public class HairMemberController {
 //		
 //		return "petHair/petHairHistory";
 //	}
+	
+	
+	@RequestMapping("/insertReview")
+	public String insertReview(Model model, HairBoardVo hbVo, HttpServletRequest request) {
+		
+		//후기글 insert
+		int chk = hairService.insertReview(hbVo);
+		if(chk==1) {
+		} else {
+		}
+		
+		//별점 관련
+		//갯수 불러옴
+		//불러올 가게 id
+		String has_id = hbVo.getHbrd_has();
+		//총점
+		int totalScore = 0 ;
+		//총갯수
+		int totalCnt = 0 ; 
+		
+		
+		Map<String, Object> scoreMap = null;
+		scoreMap = hairService.getScore(has_id);
+		
+		int index = 0;
+		for(String ob : scoreMap.keySet()) {
+			HashMap<String, String> temp = (HashMap<String, String>) scoreMap.get(ob);
+			for(Object tt : temp.values()) {
+				String txt = String.valueOf(tt);
+				
+				if(index==0) {
+					totalCnt = Integer.parseInt(txt);
+				} else if(index==2) {
+					totalScore = Integer.parseInt(txt);
+				}
+				
+				index++;
+			}
+			
+		}
+		
+		totalCnt +=1;
+		totalScore += hbVo.getHbrd_score();
+		
+		HairShopVo hsVo = new HairShopVo();
+		hsVo.setHas_score(totalScore/totalCnt);
+		hsVo.setHas_id(has_id);
+		chk = hairService.updateScore(hsVo);
+		
+		if(chk == 1) {
+			//System.out.println("성공");
+		} else {
+			//System.out.println("실패");
+			
+		}
+		
+		
+		
+		//이전페이지 돌려보내기
+		String referer = request.getHeader("Referer");
+		
+		
+		return "redirect:"+referer;
+	}
+	
+	
+	@RequestMapping("/deleteBm")
+	public String deleteBm(HttpServletRequest request,BookmarkVo bmVo,MemberVo memVo,Model model) {
+		System.out.println("메서드 진입");
+		String bmk_id = bmVo.getBmk_id();
+		
+		int chk = hairService.deleteBm(bmk_id);
+		
+		if(chk==1) {
+			System.out.println("성공");
+		} else {
+			System.out.println("실패");
+		}
+		
+		model.addAttribute("mem_id", memVo.getMem_id());
+		
+		return "redirect:/hairMem/bookMark";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 } // contorller class 종료부분

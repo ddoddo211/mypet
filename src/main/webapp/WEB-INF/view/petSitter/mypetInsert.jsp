@@ -13,6 +13,33 @@
 
 	$(document).ready(
 			function() {
+				// 펫 사진을 선택했을때 미리 보이게 설정하는 부분 
+				var sel_file;
+				
+				$("#petPs").on("change" , handleImgFileSelect);
+				
+				function handleImgFileSelect(e){
+					var files = e.target.files;
+					var filesArr = Array.prototype.slice.call(files);
+					
+					filesArr.forEach(function(f){
+						if(!f.type.match("image.*")){
+							alert("확장자는 이미지 확장자만 가능합니다.");
+							$("#petPs").val("");
+							$("#petPr").attr("src","/img/petimg/noimg.jpg");
+							return;
+						}			
+						sel_file = f;
+						
+						var reader = new FileReader();
+						reader.onload = function(e){
+							$("#petPr").attr("src", e.target.result);
+						}
+						reader.readAsDataURL(f);
+						
+					});
+				}
+				
 				// 페이지가 처음에 실행될때에는 강아지로 선택이 되어 있게 설정
 				$("#petK1").addClass("activePetKind");
 				var petKind = $("#petK1").val();
@@ -133,7 +160,7 @@
 							var petBirth = $("#wr1_2_3").val();
 
 							// ajax에 품종 담아줌 
-
+							var cnt = "${cnt}";
 							var petImg = null;
 							petImg = $("#petPs").val();
 
@@ -162,7 +189,14 @@
 							$("#petBirthForm").val(petBirth);
 							$("#petNTL").val(petNeutralization);
 							$("#petSick").val(petSick);
-
+							
+							if(cnt == ''){
+								cnt = "0";
+								$("#cnt").val(cnt);
+							} else {
+								$("#cnt").val(cnt);
+							}
+							
 							$("#frm").submit();
 						});
 
@@ -244,8 +278,9 @@
 						<input type="hidden" id="petKindForm" name="petKindForm" value="0">
 						<input type="hidden" id="petSick" name="petSick" value="">
 						<div class="wr1">반려동물사진<input type="file" id="petPs" name="petImgForm"> </div>
-<!-- 						<div class="wr1" id="petPrH"><img alt="이미지가 없습니다" src="/insimg/noimg.jpg" id="petPr"> </div> -->
+						<div class="wr1" id="petPrH"><img alt="이미지가 없습니다" src="/img/petimg/noimg.jpg" id="petPr"> </div>
 						<div class="wr2"><input type="button" value="펫 등록 " id="petJoin"> </div>
+						<input type="hidden" id="cnt" name="cnt" />
 					</form>
 					
 				 </div>

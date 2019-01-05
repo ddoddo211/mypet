@@ -14,6 +14,7 @@ import kr.co.mypet.common.model.PetkindVo;
 import kr.co.mypet.sitter.dao.SitterDaoInf;
 import kr.co.mypet.sitter.model.FaqVo;
 import kr.co.mypet.sitter.model.PetSitterVo;
+import kr.co.mypet.sitter.model.SitterAppVo;
 import kr.co.mypet.sitter.model.SitterResVo;
 import kr.co.mypet.sitter.model.SitterRevVo;
 import kr.co.mypet.sitter.model.ZipVo;
@@ -197,5 +198,55 @@ public class SitterService implements SitterServiceInf {
 	@Override
 	public String getMaxFaq() {
 		return sitterDao.getMaxFaq();
+	}
+
+	@Override
+	public int insertSupport(Map<String, Object> param) {
+		return sitterDao.insertSupport(param);
+	}
+
+	@Override
+	public SitterAppVo getMySupport(String mem_id) {
+		return sitterDao.getMySupport(mem_id);
+	}
+
+	@Override
+	public int deleteSupport(String sta_id) {
+		return sitterDao.deleteSupport(sta_id);
+	}
+
+	@Override
+	public int updateMypetInfo(MypetVo mypetVo) {
+		return sitterDao.updateMypetInfo(mypetVo);
+	}
+
+	@Override
+	public List<SitterResVo> getReservationListAll(PageVo pageVo) {
+		return sitterDao.getReservationListAll(pageVo);
+	}
+
+	@Override
+	public int getReservationListCount() {
+		return sitterDao.getReservationListCount();
+	}
+
+	@Override
+	public List<SitterAppVo> getSupportListAll(PageVo pageVo) {
+		return sitterDao.getSupportListAll(pageVo);
+	}
+
+	@Override
+	public int getSupportListCount() {
+		return sitterDao.getSupportListCount();
+	}
+
+	@Override
+	public int updateSupportSuc(String string) {
+		return sitterDao.updateSupportSuc(string);
+	}
+
+	@Override
+	public int updateSupportFile(Map<String, Object> param) {
+		return sitterDao.updateSupportFile(param);
 	}
 }

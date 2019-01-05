@@ -145,9 +145,10 @@
 .statTable th{
 	height: 50px;
 	background: -webkit-gradient(linear, left top, left bottom, from(#ededed), to(#ebebeb));
+	text-align: left;
 }
 .statTable td{
-	text-align: center;
+	text-align: left;
 	height: 50px;
 	border-bottom: 2px solid black;
 	
@@ -254,22 +255,111 @@
 }
 
 
+.historyta{
+	width: 90%;
+	height: 80px;
+	margin-top: 5px;
+	resize: none;
+}
 
 
+.historyte{
+	width: 70%;
+	
+}
+
+.arr {
+	margin-top: 5px;
+	margin-left: 132px;
+	width: 30px;
+}
+
+.reviewHide{
+	vertical-align: top;
+	display: none;
+}
+
+.resContent{
+	cursor:pointer;
+	
+}
 
 
+.historyBtn{
+	background-color: #ff8868;
+	color: white;
+	border: 1px solid white;
+	border-radius: 5px;
+	cursor: pointer;
+	
+}
+
+.historyBtn:hover{
+	background-color: white;
+	color: #ff8868;
+	border: 1px solid #ff8868;
+	
+}
 
 
+.starR{
+  background: url('http://miuu227.godohosting.com/images/icon/ico_review.png') no-repeat right 0;
+  background-size: auto 100%;
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  text-indent: -9999px;
+  cursor: pointer;
+}
+.starR.on{background-position:0 0;}
 
+.bmName a {
+	display: block;
+	width: 250px;
+	float:left;
+	
+}
 
+.bmName img {
+	float:left;
+	width: 30px;
+	cursor: pointer;
+	
+	
+}
 
+[data-tooltip-text]:hover {
+	position: relative;
+}
 
+[data-tooltip-text]:hover:after {
+	background-color: #000000;
+	background-color: rgba(0, 0, 0, 0.8);
 
+	-webkit-box-shadow: 0px 0px 3px 1px rgba(50, 50, 50, 0.4);
+	-moz-box-shadow: 0px 0px 3px 1px rgba(50, 50, 50, 0.4);
+	box-shadow: 0px 0px 3px 1px rgba(50, 50, 50, 0.4);
 
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
 
+	color: #FFFFFF;
+	font-size: 12px;
+	content: attr(data-tooltip-text);
 
+  margin-bottom: 10px;
+	top: 130%;
+	left: 0;    
+	padding: 7px 12px;
+	position: absolute;
+	width: auto;
+	min-width: 70px;
+	max-width: 300px;
+	word-wrap: break-word;
 
-
+	z-index: 9999;
+}
 
 
 
