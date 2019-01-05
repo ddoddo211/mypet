@@ -126,7 +126,7 @@
   	margin : 0 auto;
   }
   
-  .review_text{
+  #review_text{
   	width : 530px;
   	height : 40px;
   }
@@ -142,6 +142,34 @@
   
   .priceDd{
   	font-size : 20px;
+  }
+  
+  .input_hidden{
+  	outline: none;
+    border: none;
+    width: 63px;
+    font-size: 19px;
+  	text-align: right;
+  	font-family: 'Nanum Brush Script', sans-serif; 
+  }
+  
+  .input_hidden_1{
+  	outline: none;
+    border: none;
+    color:#ffb813; 
+    font-size: 48px; 
+    font-family: 'Nanum Brush Script', sans-serif; 
+    text-align: right;
+    width : 105px;
+  }
+  
+  .dayLength{
+  	outline: none;
+    border: none;
+    font-size: 23px;
+    width: 13px;
+    font-family: 'Nanum Brush Script', sans-serif;
+    text-align: right;
   }
   
   </style>
@@ -184,6 +212,11 @@
 
 	});
 	
+	function AddComma(data_value) {
+		return Number(data_value).toLocaleString('en').split(".")[0];
+	}
+
+	
 	$(function(){
 		// 달력 옵션 설정
 		$("#dateStart").datepicker({ 
@@ -192,7 +225,7 @@
 			dateFormat : "yy-mm-dd", //날짜 형식 설정
 			monthNames : [ "1월", "2월", "3월", "4월","5월", "6월", "7월", "8월", "9월","10월", "11월", "12월" ], //월표시 형식 설정
 			showAnim : "fold", //애니메이션효과
-			minDate : "1D",
+			minDate : "+1D",
 			maxDate : "+3M",
 			onClose : function(){
 				$("#timeStart").timepicker({
@@ -213,41 +246,100 @@
 			dateFormat : "yy-mm-dd", //날짜 형식 설정
 			monthNames : [ "1월", "2월", "3월", "4월","5월", "6월", "7월", "8월", "9월","10월", "11월", "12월" ], //월표시 형식 설정
 			showAnim : "fold", //애니메이션효과
-			minDate : "1D",
+			minDate : "+1D",
 			maxDate : "+3M",
 			onClose : function(){
-				$("#timeEnd").timepicker({
-					timeFormat : 'HH:mm',
-					minTime: '09:00am',
-				    maxTime: '21:00pm',
-				    dynamic : false,
-				    dropdown : true,
-				    change : function(){
-				    	var dateStart = $("#dateStart").val();
-						var dateEnd = $("#dateEnd").val();
-						var timeStart = $("#timeStart").val();
-						var timeEnd = $("#timeEnd").val();
-						var dayPrice = ${pstVo.pst_price2};
-						var daycarePrice = ${pstVo.pst_price1};
-						
-						if((dateStart==dateEnd) && (timeEnd > timeStart)){
-							alert("daycare : "+daycarePrice);
+				var dateStart = $("#dateStart").val();
+				var dateEnd = $("#dateEnd").val();
+				if(dateStart > dateEnd){
+					alert("시간을 잘못 설정 하셨습니다.");
+					$("#dateStart").val("");
+					$("#dateEnd").val("");
+					$("#timeStart").val("");
+					$("#timeEnd").val("");
+					return;
+				} else{
+					var dateEndArr = dateEnd.split("-");
+					var dateStartArr = dateStart.split("-");
+					
+					var dayLength = (dateEndArr[2] - dateStartArr[2]);
+					var monthLength = (dateEndArr[1] - dateStartArr[1]);
+					
+					if((dayLength > 5) || (monthLength > 0)){
+						alert("5일 이상 예약하실 수 없습니다.");
+						$("#dateStart").val("");
+						$("#dateEnd").val("");
+						$("#timeStart").val("");
+						$("#timeEnd").val("");
+						return;
+					}
+					$("#timeEnd").timepicker({
+						timeFormat : 'HH:mm',
+						minTime: '09:00am',
+					    maxTime: '21:00pm',
+					    dynamic : false,
+					    dropdown : true,
+					    change : function(){
+							var timeStart = $("#timeStart").val();
+							var timeEnd = $("#timeEnd").val();
+							var dayPrice = ${pstVo.pst_price2};
+							var daycarePrice = ${pstVo.pst_price1};
 							
-							$("#price").val(daycarePrice);
-							$("#daycare").removeClass("hidden");
-							$("#daycare").addClass("show");
-							$("#daycarePrice").removeClass("hidden");
-							$("#daycarePrice").addClass("show");
-							
-							$("#day").removeClass("show");
-							$("#day").addClass("hidden");
-							$("#dayPrice").removeClass("show");
-							$("#dayPrice").addClass("hidden");
-							
-							$("#price").attr("value", daycarePrice);
-						}
-				    }
-				});	
+							if(dayLength == 0){
+								surtaxPrice = daycarePrice/10;
+								totalPrice = daycarePrice + surtaxPrice;
+								
+								alert(dayLength);
+								
+								daycarePrice = AddComma(daycarePrice);
+								surtaxPrice = AddComma(surtaxPrice);
+								totalPrice = AddComma(totalPrice);
+								
+								$("#daycare").removeClass("hidden");
+								$("#daycare").addClass("show");
+								$("#daycarePrice").removeClass("hidden");
+								$("#daycarePrice").addClass("show");
+								
+								$("#day").removeClass("show");
+								$("#day").addClass("hidden");
+								$("#dayPrice").removeClass("show");
+								$("#dayPrice").addClass("hidden");
+								
+								$("#carePrice").val(daycarePrice);
+								$("#surtaxPrice").val(surtaxPrice);
+								$("#totalPrice").val(totalPrice);
+								$("#totalPrice2").val(totalPrice);
+								
+							} else if((dayLength >= 1) && (dayLength < 5)){
+								alert("저기");
+								$("#daycare").addClass("hidden");
+								$("#daycare").removeClass("show");
+								$("#daycarePrice").addClass("hidden");
+								$("#daycarePrice").removeClass("show");
+								
+								$("#day").addClass("show");
+								$("#day").removeClass("hidden");
+								$("#dayPrice").addClass("show");
+								$("#dayPrice").removeClass("hidden");
+								
+								dayPrice = dayPrice * dayLength;
+								surtaxPrice = dayPrice / 10;
+								totalPrice = dayPrice + surtaxPrice;
+								
+								dayPrice = AddComma(dayPrice);
+								surtaxPrice = AddComma(surtaxPrice);
+								totalPrice = AddComma(totalPrice);
+								totalPrice2 = totalPrice;
+								
+								$("#day_Price").val(dayPrice);
+								$("#dayLength").val(dayLength);
+								$("#surtaxPrice").val(surtaxPrice);
+								$("#totalPrice").val(totalPrice);
+								$("#totalPrice2").val(totalPrice2);
+							}
+					}
+					});	
+				}
 			}
 		});
 		
@@ -334,6 +426,8 @@
 	function str(k){
 		alert(k);
 	}
+	
+	
 </script>
 </head>
 
@@ -439,29 +533,22 @@
 						<input type="text" name="timeEnd" id="timeEnd" value="" readonly="readonly"/>
 					</div>
 					<div id="contentPrice">
-						<span id="price" style="color:#ffb813; font-size: 48px;"><fmt:formatNumber value="${pstVo.pst_price2+pstVo.pst_price2/10 }" type="number" />원</span> 
-						<br><br>
-						<dl>
+						<dl style="margin-top:50px;height: 60px;">
 							<dt class="priceDt hidden" id="daycare">DayCare</dt>
-							<dd class="priceDd hidden" id="daycarePrice"><fmt:formatNumber value="${pstVo.pst_price1 }" type="number" />원</dd>
-							<dt class="priceDt show" id="day">1박</dt>
-							<dd class="priceDd show" id="dayPrice"><fmt:formatNumber value="${pstVo.pst_price2 }" type="number" />원</dd>
-							<dt class="priceDt">초과금액</dt>
-							<dd class="priceDd">0원</dd>
+							<dd class="priceDd hidden" id="daycarePrice"><input type="text" id="carePrice" class="input_hidden" value=" "/>원</dd>
+							<dt class="priceDt show" id="day"><input type="text" id="dayLength" class="dayLength">박</dt>
+							<dd class="priceDd show" id="dayPrice"><input type="text" id="day_Price" class="input_hidden" value=" "/>원</dd>
 							<dt class="priceDt">부가세</dt>
-<%-- 							<c:choose> --%>
-<%-- 								<c:when test="${pstVo.pst_price }"> --%>
-								
-<%-- 								</c:when> --%>
-<%-- 								<c:otherwise> --%>
-								
-<%-- 								</c:otherwise> --%>
-<%-- 							</c:choose> --%>
-							<dd class="priceDd"><fmt:formatNumber value="${pstVo.pst_price2/10 }" type="number" />원</dd>
+							<dd class="priceDd"><input type="text" id="surtaxPrice" class="input_hidden" value=" "/>원</dd>
 							<dt class="priceDt dlLast">총 합계</dt>
-							<dd class="priceDd dlLast"><fmt:formatNumber value="${pstVo.pst_price2+pstVo.pst_price2/10 }" type="number" />원</dd>
+							<dd class="priceDd dlLast"><input type="text" id="totalPrice" class="input_hidden" value=" "/>원</dd>
 						</dl>
+						<br><br>
+						<div style="margin-bottom:30px;">
+							<span style="color:#ffb813; font-size: 48px;"><input type="text" class="input_hidden_1" id="totalPrice2" value=" "/>원</span>
+						</div>
 						<div id="res">
+							<button id="resultRSBtn" onclick="window.location.reload()">초기화</button>
 							<button id="resultBtn">예약요청하기</button>
 						</div>
 					</div>

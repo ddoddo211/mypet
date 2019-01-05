@@ -1,0 +1,218 @@
+@charset "UTF-8";
+
+@import url(//fonts.googleapis.com/earlyaccess/nanumpenscript.css);
+@import url(//fonts.googleapis.com/earlyaccess/jejugothic.css);
+
+	
+	
+.selOpTop{
+	width: 100%;
+	height: auto;
+	border-bottom: 1px solid black;
+	padding-bottom: 10px;
+	font-size: 20px; 
+	font-weight: bold;
+	
+}	
+
+.testBlock{
+	margin-top: 20px;
+	width: 100%;
+	height: auto;
+	overflow: hidden;
+}
+
+.testBlock img{
+	box-sizing: border-box;
+	display:none;
+	width: 33.33333%;
+	height: 300px;
+	float:left;
+	border: 2px dashed grey;
+	border-radius: 10px;
+	
+}
+
+.testBtnBlock{
+	margin-top: 30px;
+	text-align: center;
+	width: 100%;
+	
+	
+}
+
+.w3-button{
+	width: 50px;
+}
+
+
+.clickImg {
+	
+	
+}
+
+.radiod{
+	width: 33%;
+	
+}
+
+.radioBlock{
+	margin-top: 10px;
+	clear: both;
+	width: 100%;
+	
+}
+
+.labelBlock{
+	width: 100%;
+	
+}
+
+.label{
+	width: 33%;
+	float: left;
+	text-align: center;
+	
+}
+
+#mainmid p {
+	color: #848484;
+    margin-left: 10px;
+    width: 50%;
+    font-size: 18px;
+    padding-left: 20px;
+    font-family: 'Jeju Gothic', sans-serif;
+    border-bottom: 2px solid #848484;
+    margin-top: 20px;
+	
+}
+
+.tdblock{
+	margin-top: 10px;
+	width: 250px;
+	height: 250px;
+	float: left;
+}
+
+#datepicker{
+	margin-left: 30px;
+	margin-top: 10px;
+	
+}
+
+#resTime{
+	display: none;
+	margin-left: 30px;
+	margin-top: 10px;
+}
+
+.resPickBlock{
+	margin-top: 10px;
+	width: 280x;
+	height: 280px;
+	float: left;
+	
+}
+
+.resPick{
+	margin-top: 5px;
+	margin-left: 5px;
+	border-radius: 10px;
+	box-sizing: border-box;
+	width: 250px;
+	height: 62.5px;
+	border: 4px dashed black;
+	
+}
+
+
+.resPickBlockR{
+	margin-top: 10px;
+	width: 280x;
+	height: 280px;
+	float: left;
+	
+}
+
+.resPick span {
+	margin-right: 20px;
+	margin-left: 10px;
+	margin-top: 20px;
+	float: left;
+	
+}
+
+.chkB{
+	margin-top: 5px;
+	float: left;
+	width: 120px;
+	height: 60px;
+	
+}
+
+.chkB img{
+	float: left;
+	width: 50px;
+	
+}
+
+.selRes{
+	margin-top: 20px;
+	margin-left: 15px;
+	
+}
+
+
+
+#resBtn{
+	
+	color: white;
+	font-size: 15px;
+	text-align: center;
+	width: 100px;
+	height: 30px;
+	margin-top: 5px;
+	margin-left: 800px;
+	border: 4px solid white;
+	border-radius: 10px;
+	background-color: #FF8868;
+	
+}
+
+#resBtn:hover {
+	color: #FF8868;
+	background-color: white;
+	border: 4px solid #FF8868;
+	
+}
+
+#btnBlock{
+	position: absolute;
+	clear: both;
+	width: 100%;
+	height: auto;
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	

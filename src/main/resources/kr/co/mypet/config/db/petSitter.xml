@@ -20,8 +20,8 @@
 	</select>
 	
 	<select id="getFaqList" resultType="fVo">
-		select *
-		from petsitFaq
+		select rownum rnum, p.*
+		from petsitFaq p
 	</select>
 	
 	<select id="getFaqOne" parameterType="String" resultType="fVo">
@@ -40,7 +40,7 @@
 		select * from mypet, petkind, animal
 		where myp_petk = petk_id
 		and am_id = petk_am
-		and myp_mem = #{mem_id}
+		and myp_mem = #{myp_mem}
 	</select>
 	
 	<select id="getPetKindList" parameterType="String" resultType="petkindVo">
@@ -52,23 +52,37 @@
 	
 	<insert id="insertMypet" parameterType="map">
 		insert into mypet
-		values('MP' || lpad(mypet_no.nextVal, 3, '0'), #{myp_mem}, #{myp_petk}, #{myp_birth}, #{myp_sick}, #{myp_img}, #{myp_neu}, #{myp_gender}, #{myp_name})	
+		values('MP' || lpad(mypet_no.nextVal, 3, '0'), #{myp_mem}, #{myp_petk}, #{myp_birth}, #{myp_sick}, #{myp_img}, #{myp_neu}, #{myp_gender}, #{myp_name}, 'N')	
 	</insert>
 	
-	<delete id="deleteMypet" parameterType="String">
-		delete from mypet
+	<update id="deleteMypet" parameterType="String">
+		update mypet set
+		myp_del = 'Y'
 		where myp_id = #{myp_id}
-	</delete>
+	</update>
+	
+	<update id="updateMypetInfo" parameterType="mypetVo">
+		update mypet set
+		myp_name = #{myp_name},
+		myp_gender = #{myp_gender},
+		myp_neu = #{myp_neu},
+		myp_birth = #{myp_birth},
+		myp_sick = #{myp_sick},
+		myp_img = #{myp_img}
+		where myp_id = #{myp_id}
+	</update>
 	
 	<select id="getPetInfo" parameterType="String" resultType="mypetVo">
 		select *
-		from mypet
+		from mypet, animal, petkind
 		where myp_id = #{myp_id}
+		and myp_petk = petk_id
+		and am_id = petk_am
 	</select>
 	
 	<insert id="insertReservation" parameterType="map">
 		insert into sitterres
-		values('STR' || lpad(res_no.nextVal,3,'0'), sysdate, #{str_spec}, #{str_price}, #{str_time}, #{str_atime}, #{str_arr}, #{str_pst}, #{str_mem}, #{str_myp})
+		values('STR' || lpad(res_no.nextVal,3,'0'), #{str_date}, #{str_spec}, #{str_price}, #{str_time}, #{str_atime}, #{str_arr}, #{str_pst}, #{str_mem}, #{str_myp}, 'N', #{str_start}, #{str_stop})
 	</insert>
 	
 	<select id="getReviewList" parameterType="map" resultType="revVo">
@@ -78,7 +92,7 @@
 		    select rownum as rnum, a.* 
 		    from 
 		    (   
-		        select m.mem_name, m.mem_profile, s.*  
+		        select m.mem_name, m.mem_img, s.*  
 		        from member m, sitterrev s
 		        where mem_id = stv_mem
 		        and stv_pst = #{stv_pst}
@@ -112,7 +126,7 @@
 	
 	<insert id="insertSitterTo" parameterType="pstVo">
 		insert into petsitter
-		values('PST' || lpad(pst_no.nextVal, 3, '0'), #{pst_mem}, #{pst_img}, #{pst_text}, sysdate, 0, 0, #{pst_title}, #{pst_price1}, #{pst_price2}, #{pst_cidate}, #{pst_codate})
+		values('PST' || lpad(pst_no.nextVal, 3, '0'), #{pst_mem}, #{pst_img}, #{pst_text}, sysdate, 0, 0, #{pst_title}, #{pst_price1}, #{pst_price2}, #{pst_cidate}, #{pst_codate}, '')
 	</insert>
 	
 	<update id="updateFaq" parameterType="map">
@@ -145,9 +159,126 @@
 		order by p.pst_view desc
 	</select>
 	
+	<select id="petNoticeListSearch" parameterType="map" resultType="pstVo">
+		select m.mem_addr, p.*
+		from petsitter p, member m
+		where p.pst_mem = m.mem_id
+		and m.mem_addr like '%' || #{zip_high} || '%' || #{zip_low} || '%'
+	</select>
+	
+	<select id="petNoticeListSearchDate" parameterType="map" resultType="pstVo">
+		select m.mem_addr, p.*
+		from petsitter p, member m
+		where p.pst_mem = m.mem_id
+		and m.mem_addr like '%' || #{zip_high} || '%' || #{zip_low} || '%'
+		order by p.pst_date desc
+	</select>
+	
+	<select id="petNoticeListSearchCount" parameterType="map" resultType="pstVo">
+		select m.mem_addr, p.*
+		from petsitter p, member m
+		where p.pst_mem = m.mem_id
+		and m.mem_addr like '%' || #{zip_high} || '%' || #{zip_low} || '%'
+		order by p.pst_view desc
+	</select>
+	
 	<update id="petNoticeCountUpdate" parameterType="map">
 		update petsitter set
 		pst_view = ${pst_view}
 		where pst_id = #{pst_id}
+	</update>
+	
+	<select id="getReservationList" parameterType="String" resultType="resVo">
+		select (select myp_name from mypet where myp_id = s.str_myp) myp_name, (select mem_name from member where mem_id = #{mem_id}) mem_name, s.*
+		from sitterres s
+		where str_mem = #{mem_id}
+		and str_date <![CDATA[>]]> sysdate
+		order by str_date
+	</select>
+	
+	<delete id="deleteReservation" parameterType="String">
+		delete from sitterres
+		where str_id = #{str_id}
+	</delete>
+	
+	<select id="getMyReviewList" parameterType="String" resultType="revVo">
+		select rownum rnum, p.pst_id, s.*
+		from sitterrev s, petsitter p
+		where stv_mem = #{stv_mem}
+		and stv_pst = pst_id
+	</select>
+	
+	<select id="getMaxFaq" resultType="String">
+		select Max(psf_id) from petsitfaq
+	</select>
+	
+	<insert id="insertSupport" parameterType="map">
+		insert into sitterApp
+		values ('STA' || lpad(sta_no.nextVal, 3, '0'), #{sta_mem}, #{sta_text}, 'N', sysdate, '')
+	</insert>
+	
+	<select id="getMySupport" parameterType="String" resultType="staVo">
+		select * 
+		from sitterApp
+		where sta_mem = #{sta_mem}
+	</select>
+	
+	<delete id="deleteSupport" parameterType="String">
+		delete from sitterapp
+		where sta_id = #{sta_id}
+	</delete>
+	
+	<select id="getReservationListAll" parameterType="pageVo" resultType="resVo">
+		select *
+		from
+		(
+		    select rownum rnum, a.*
+		    from
+		    (
+		        select (select myp_name from mypet where myp_id = s.str_myp) myp_name
+		             , (select mem_name from member where mem_id = s.str_mem) mem_name
+		             , s.* 
+		        from sitterres s
+		        order by s.str_date 
+		    ) a
+		)
+		where rnum between (${page}*${pageSize})-(${pageSize}-1) and (${page}*${pageSize})	
+	</select>
+	
+	<select id="getReservationListCount" resultType="Integer">
+		select count(*)
+		from sitterres
+	</select>
+	
+	<select id="getSupportListAll" parameterType="pageVo" resultType="staVo">
+		select *
+		from
+		(
+			select rownum rnum, a.*
+			from
+			(
+				select (select mem_name from member where mem_id = s.sta_mem) mem_name, s.*
+				from sitterapp s
+				order by s.sta_suc
+			) a
+		)
+		where rnum between (${page}*${pageSize})-(${pageSize}-1) and (${page}*${pageSize})	
+	</select>
+	
+	<select id="getSupportListCount" resultType="Integer">
+		select count(*)
+		from sitterapp
+	</select>
+	
+	<update id="updateSupportSuc" parameterType="String">
+		update sitterapp set
+		sta_suc = 'Y'
+		where sta_id = #{sta_id}
+	</update>
+	
+	<update id="updateSupportFile" parameterType="map">
+		update sitterapp set
+		sta_file = #{sta_file}
+		where sta_id = #{sta_id}
 	</update>
 </mapper>

@@ -61,7 +61,7 @@
 					monthNames : [ "1월", "2월", "3월", "4월", "5월", "6월", "7월",
 							"8월", "9월", "10월", "11월", "12월" ], //월표시 형식 설정
 					showAnim : "fold", //애니메이션효과
-					minDate : 0,
+					minDate : "+1D",
 					maxDate : "+3M"
 				});
 	});
@@ -75,6 +75,7 @@
 				k += val[i] + " ";
 			});
 			$("#mypet").val(k);
+			$("#revFrm").submit();
 		});
 	});
 
@@ -104,6 +105,7 @@
 <body>
 <form id="frm" action="/sit/mypetDel" method="post">
 	<input type="hidden" name="mypet_id" id="mypet_id" />
+	<input type="hidden" name="cnt" value="0" />
 </form>
 <%@include file="/WEB-INF/view/common/header.jsp"%>
 
@@ -137,7 +139,7 @@
 			<%@include file="/WEB-INF/view/petSitter/petSitterMenu.jsp" %>
 		</div>
 		<div id="sitToMain">
-			<form action="/sit/reservation" method="post" autocomplete="off" >
+			<form action="/sit/reservation" method="post" autocomplete="off" id="revFrm">
 			<input type="hidden" name="mypet" id="mypet" />
 			<input type="hidden" name="arr" value="1" />
 				<div id="addressDiv">
@@ -167,16 +169,18 @@
 					</div>
 					<c:forEach items="${mypetList }" var="list">
 						<c:choose>
-							<c:when test="${list != null }">
-								<div id="mypet">
-									<input type="checkbox" class="mypetchk" value="${list.myp_id }"/> <label class="cb1_label" data-myp_id="${list.myp_id}"></label>
-									<span>${list.myp_name }</span>
-									<span>(<fmt:formatDate pattern = "yy.MM.dd" value = "${list.myp_birth }" /></span>
-									<span>/ ${list.petk_name } /</span>
-									<span>${list.petk_size } /</span>
-									<span>${list.myp_gender } /</span>
-									<span style="font-weight: bold">${list.am_name }</span>)
-								</div>
+							<c:when test="${list != null}">
+								<c:if test="${ list.myp_del eq 'N'}">
+									<div id="mypet">
+										<input type="checkbox" class="mypetchk" value="${list.myp_id }"/> <label class="cb1_label" data-myp_id="${list.myp_id}"></label>
+										<span>${list.myp_name }</span>
+										<span>(<fmt:formatDate pattern = "yy.MM.dd" value = "${list.myp_birth }" /></span>
+										<span>/ ${list.petk_name } /</span>
+										<span>${list.petk_size } /</span>
+										<span>${list.myp_gender } /</span>
+										<span style="font-weight: bold">${list.am_name }</span>)
+									</div>
+								</c:if>
 							</c:when>
 							
 							<c:otherwise>
@@ -225,7 +229,7 @@
 						</div>
 					</div>
 					<div id="mypetOk">
-						<button id="sitFromBtn" type="submit">예약하기</button>
+						<input type="button" id="sitFromBtn" value="예약하기" />
 					</div>
 				</div>
 			</form>

@@ -206,10 +206,6 @@ body {
 												<label class="loginMenuLabel"><input class="loginMenuInput" type="button" value="비밀번호 찾기"></label>
 												<label class="loginMenuLabel"><input class="loginMenuInput" type="button" value="회원가입"></label>
 											</div>
-											
-											
-											
-											
 										</div>
 									</div>
 								</div>

@@ -9,9 +9,12 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import kr.co.mypet.common.model.MypetVo;
+import kr.co.mypet.common.model.PageVo;
 import kr.co.mypet.common.model.PetkindVo;
 import kr.co.mypet.sitter.model.FaqVo;
 import kr.co.mypet.sitter.model.PetSitterVo;
+import kr.co.mypet.sitter.model.SitterAppVo;
+import kr.co.mypet.sitter.model.SitterResVo;
 import kr.co.mypet.sitter.model.SitterRevVo;
 import kr.co.mypet.sitter.model.ZipVo;
 
@@ -138,11 +141,96 @@ public class SitterDao implements SitterDaoInf {
 
 	@Override
 	public List<PetSitterVo> petNoticeListCount() {
-		return template.selectList("pstSitter.petNoticeListCount");
+		return template.selectList("petSitter.petNoticeListCount");
 	}
 
 	@Override
 	public int petNoticeCountUpdate(Map<String, Object> param) {
 		return template.update("petSitter.petNoticeCountUpdate", param);
+	}
+
+	@Override
+	public List<PetSitterVo> petNoticeListSearch(Map<String, Object> param) {
+		return template.selectList("petSitter.petNoticeListSearch", param);
+	}
+
+	@Override
+	public List<PetSitterVo> petNoticeListSearchDate(Map<String, Object> param) {
+		return template.selectList("petSitter.petNoticeListSearchDate", param);
+	}
+
+	@Override
+	public List<PetSitterVo> petNoticeListSearchCount(Map<String, Object> param) {
+		return template.selectList("petSitter.petNoticeListSearchCount", param);
+	}
+
+	@Override
+	public List<SitterResVo> getReservationList(String mem_id) {
+		return template.selectList("petSitter.getReservationList", mem_id);
+	}
+
+	@Override
+	public int deleteReservation(String resId) {
+		return template.delete("petSitter.deleteReservation", resId);
+	}
+
+	@Override
+	public List<SitterRevVo> getMyReviewList(String mem_id) {
+		return template.selectList("petSitter.getMyReviewList", mem_id);
+	}
+
+	@Override
+	public String getMaxFaq() {
+		return template.selectOne("petSitter.getMaxFaq");
+	}
+
+	@Override
+	public int insertSupport(Map<String, Object> param) {
+		return template.insert("petSitter.insertSupport", param);
+	}
+
+	@Override
+	public SitterAppVo getMySupport(String mem_id) {
+		return template.selectOne("petSitter.getMySupport", mem_id);
+	}
+
+	@Override
+	public int deleteSupport(String sta_id) {
+		return template.delete("petSitter.deleteSupport", sta_id);
+	}
+
+	@Override
+	public int updateMypetInfo(MypetVo mypetVo) {
+		return template.update("petSitter.updateMypetInfo", mypetVo);
+	}
+
+	@Override
+	public List<SitterResVo> getReservationListAll(PageVo pageVo) {
+		return template.selectList("petSitter.getReservationListAll", pageVo);
+	}
+
+	@Override
+	public int getReservationListCount() {
+		return template.selectOne("petSitter.getReservationListCount");
+	}
+
+	@Override
+	public List<SitterAppVo> getSupportListAll(PageVo pageVo) {
+		return template.selectList("petSitter.getSupportListAll", pageVo);
+	}
+
+	@Override
+	public int getSupportListCount() {
+		return template.selectOne("petSitter.getSupportListCount");
+	}
+
+	@Override
+	public int updateSupportSuc(String string) {
+		return template.update("petSitter.updateSupportSuc", string);
+	}
+
+	@Override
+	public int updateSupportFile(Map<String, Object> param) {
+		return template.update("petSitter.updateSupportFile", param);
 	}	
 }

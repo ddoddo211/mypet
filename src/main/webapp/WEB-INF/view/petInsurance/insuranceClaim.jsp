@@ -53,8 +53,8 @@ $(document).ready(function(){
 		if(petSelect == ""){
 			alert("보험청구 할 펫이 선택되지 않았습니다.");
 			return;
-		}else if(true){
-			for(var i = 1 ; i < ${mypetListSize}; i++){
+		}else{
+			for(var i = 0 ; i < ${mypetListSize}; i++){
 				if(!$("input[name='noticeY']:checked").val()){
 					// 2. 체크박스를 아무것도 선택하지 않았을때에는 진행이 되지 않아야 한다.
 					alert("이전 신청 이력을 확인하는 부분에 맞게 선택하시기 바랍니다.");
@@ -67,16 +67,12 @@ $(document).ready(function(){
 					$("#frm").submit();
 				}
 			}
-
 		}
+		
 	});
 		
 	
 });
-
-function goNext(){
-	location.href ='/isr/claim2';
-}
 
 
 </script>
@@ -100,7 +96,7 @@ function goNext(){
 			<div id="header">
 				<%--main --%>
 				<div id="logo">
-					<a href="/common/main.jsp"><img alt="이미지가 없습니다" src="/img/petInsuranceLogo2.jpg" width="200px;"></a>
+					<a href="/isr/isrMain"><img alt="이미지가 없습니다" src="/img/petInsuranceLogo2.jpg" width="200px;"></a>
 				</div>
 				<div id="petSearch">
 					<div id="word">
@@ -156,9 +152,9 @@ function goNext(){
 
 						<!-- 펫이 한마리도 없을떄 실행되는 부분 -->
 						<c:choose>
-							<c:when test="${petListSize == 0}">
+							<c:when test="${mypetListSize == 0}">
 								<tr class="tr2" id="td5">
-									<td colspan="8">회원의 펫이 없습니다</td>
+									<td colspan="8">보험에 가입완료된 펫이 없습니다.</td>
 								</tr>
 							</c:when>
 							<c:otherwise>

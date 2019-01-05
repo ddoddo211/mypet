@@ -1,14 +1,17 @@
 package kr.co.mypet.hair.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import kr.co.mypet.common.model.MypetVo;
 import kr.co.mypet.hair.model.BookmarkVo;
 import kr.co.mypet.hair.model.HairBoardVo;
+import kr.co.mypet.hair.model.HairResVo;
 import kr.co.mypet.hair.model.HairShopVo;
 import kr.co.mypet.hair.model.PetStyleVo;
 import kr.co.mypet.sitter.model.ZipVo;
@@ -66,7 +69,7 @@ public class HairDao implements HairDaoInf {
 	}
 
 	@Override
-	public List<PetStyleVo> selectStyle(String pts_has) {
+	public List<PetStyleVo> selectStyleList(String pts_has) {
 		List<PetStyleVo> styleList = template.selectList("petHair.selectStyle", pts_has);
 		return styleList;
 	}
@@ -86,6 +89,120 @@ public class HairDao implements HairDaoInf {
 	@Override
 	public int insertBookMark(BookmarkVo bmVo) {
 		int chk = template.insert("petHair.insertBookMark",bmVo);
+		return chk;
+	}
+
+	@Override
+	public int bmDup(BookmarkVo bmVo) {
+		int chk = template.selectOne("petHair.bmDup", bmVo);
+		return chk;
+	}
+
+	@Override
+	public List<HairResVo> selRes(HairResVo hrVo) {
+		List<HairResVo> hrList = template.selectList("petHair.selRes",hrVo);
+		return hrList;
+	}
+
+	@Override
+	public List<MypetVo> selectMypet(String myp_mem) {
+		List<MypetVo> selChk = template.selectList("petHair.selectMypet", myp_mem);
+		return selChk;
+	}
+
+	@Override
+	public int insertRev(HairResVo hairResVo) {
+		int chk = template.insert("petHair.insertRev",hairResVo);
+		return chk;
+	}
+
+	@Override
+	public List<HairResVo> selectRev(String mem_id) {
+		List<HairResVo> hrList = template.selectList("petHair.selectRev", mem_id);
+		return hrList;
+	}
+
+	@Override
+	public PetStyleVo selectStyle(String pts_id) {
+		PetStyleVo psVo = template.selectOne("petHair.selectStyleOne", pts_id);
+		return psVo;
+	}
+
+	@Override
+	public List<BookmarkVo> selectBookMark(String mem_id) {
+		
+		List<BookmarkVo> bmList = template.selectList("petHair.selectBookMark", mem_id);
+		
+		return bmList;
+	}
+
+	@Override
+	public List<HairBoardVo> selectAsk(String mem_id) {
+		List<HairBoardVo> askList = template.selectList("petHair.selectAsk", mem_id);
+		return askList;
+	}
+
+	@Override
+	public List<HairResVo> selectRevCom(Map<Object, Object> param) {
+		
+		List<HairResVo> resList = template.selectList("petHair.selectRevCom", param);
+		
+		return resList;
+	}
+
+	@Override
+	public int revComCnt(String mem_id) {
+		int cnt = template.selectOne("petHair.revComCnt", mem_id);
+		System.out.println("dao cnt : " + cnt);
+		return cnt;
+	}
+
+	@Override
+	public int insertReview(HairBoardVo hbVo) {
+		int chk = template.insert("petHair.insertReview", hbVo);
+		return chk;
+	}
+
+	@Override
+	public Map<String, Object> getScore(String has_id) {
+		
+		Map<String, Object> scoreMap = template.selectMap("petHair.getScore", has_id,"dodo");
+		return scoreMap;
+	}
+
+	@Override
+	public int updateScore(HairShopVo hsVo) {
+		int chk = template.update("petHair.updateScore", hsVo);
+		return chk;
+	}
+
+	@Override
+	public int deleteBm(String bmk_id) {
+		int chk = template.update("petHair.deleteBm", bmk_id);
+		return chk;
+	}
+
+	@Override
+	public HairShopVo selectShopByMemId(String mem_id) {
+		HairShopVo haVo = template.selectOne("petHair.selectShopByMemId", mem_id);
+		return haVo;
+	}
+
+	@Override
+	public List<HairBoardVo> selectAskByHasIdNA(String has_id) {
+		List<HairBoardVo> askListNa = template.selectList("petHair.selectAskByHasIdNA", has_id);
+		return askListNa;
+	}
+
+	@Override
+	public List<HairBoardVo> selectAskByHasIdYA(String has_id) {
+		List<HairBoardVo> askListYa = template.selectList("petHair.selectAskByHasIdYA", has_id);
+		return askListYa;
+	}
+
+	@Override
+	public int insertAskR(HairBoardVo hbVo) {
+		int chk = template.update("petHair.insertAskR", hbVo);
 		return chk;
 	}
 	

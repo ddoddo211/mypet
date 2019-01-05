@@ -21,6 +21,40 @@ $(document).ready(function(){
 		showAnim : "fold", //애니메이션효과
 		maxDate : "0D"
 	});
+	
+	// 진단서사진을 입력할때 jpg 파일만 넣게 설정하기
+	var sel_file;
+	$("#input_file").on("change" , handleImgFileSelect);
+	
+	function handleImgFileSelect(e){
+		var files = e.target.files;
+		var filesArr = Array.prototype.slice.call(files);
+		
+		filesArr.forEach(function(f){
+			if(!f.type.match("image.*")){
+				alert("확장자는 jpg확장자만 가능합니다.");
+				$("#input_file").val("");
+				return;
+			}			
+		});
+	}
+	
+	// 사고사진을 입력할때 jpg 파일만 넣게 설정하기
+	var sel_file;
+	$("#input_file2").on("change" , handleImgFileSelect);
+	
+	function handleImgFileSelect(e){
+		var files = e.target.files;
+		var filesArr = Array.prototype.slice.call(files);
+		
+		filesArr.forEach(function(f){
+			if(!f.type.match("image.*")){
+				alert("확장자는 jpg확장자만 가능합니다.");
+				$("#input_file2").val("");
+				return;
+			}			
+		});
+	}
 
 	
 	// 첨부파일 미리 보여 주는 텍스트 떄문에 입력
@@ -125,7 +159,7 @@ $(document).ready(function(){
 			<div id="header">
 				<%--main --%>
 				<div id="logo">
-					<a href="/common/main.jsp"><img alt="이미지가 없습니다" src="/img/petInsuranceLogo2.jpg" width="200px;"></a>
+					<a href="/isr/isrMain"><img alt="이미지가 없습니다" src="/img/petInsuranceLogo2.jpg" width="200px;"></a>
 				</div>
 				<div id="petSearch">
 					<div id="word">

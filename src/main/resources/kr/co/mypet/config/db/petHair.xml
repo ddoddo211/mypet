@@ -39,17 +39,131 @@
   	select * from petstyle where pts_has=#{pts_has}
   </select>
   
-  <!-- insertBoard -->
+  <!-- insertBoard 문의-->
   <insert id="insertHairBoard" parameterType="hairBoardVo">
   	insert into hairboard
-	values('hbrd'||seq_hairboard.nextval,'',#{hbrd_text},seq_hairboardGN.nextval,sysdate,'',#{hbrd_has},#{hbrd_mem},'2','')
+	values('hbrd'||seq_hairboard.nextval,'',#{hbrd_text},seq_hairboardGN.nextval,sysdate,'',#{hbrd_has},#{hbrd_mem},'2','','')
+  </insert>
+  <!-- insertBoard 후기-->
+  <insert id="insertReview" parameterType="hairBoardVo">
+  	insert into hairboard
+	values('hbrd'||seq_hairboard.nextval,#{hbrd_title},#{hbrd_text},seq_hairboardGN.nextval,sysdate,'',#{hbrd_has},#{hbrd_mem},'1','',${hbrd_score})
   </insert>
   
   <!-- 북마크 등록하기 -->
   <insert id="insertBookMark" parameterType="bmVo">
   	insert into bookmark
-	values('bmk'||seq_bookmark.nextval,#{bmk_mem},#{bmk_has},#{bmk_fac})
+	values('bmk'||seq_bookmark.nextval,#{bmk_mem},#{bmk_has},'1')
   </insert>
+  
+  <!--  bookmark 중복체크 -->
+  <select id="bmDup" parameterType="bmVo" resultType="int">
+  	select count(*) from bookmark where bmk_mem=#{bmk_mem} and bmk_has=#{bmk_has} and bmk_fac='1'
+  </select>
+  
+  <!-- 예약 전체조회 -->
+  <select id="selRes" parameterType="hrVo" resultType="hrVo">
+  	select * from hairres where hres_has = #{hres_has} and hres_time = #{hres_time} and  hres_date= #{hres_date}
+  </select>
+  
+  <!-- 예약 insert -->
+  <insert id="insertRev" parameterType="hrVo" >
+  	insert into hairres
+	values('hres'||seq_hairres.nextval,#{hres_pts},#{hres_has},#{hres_mem},#{hres_myp},#{hres_date},#{hres_price},#{hres_stat},#{hres_spec},#{hres_time})
+  </insert>
+  
+  <!-- 나의 펫 조회 -->
+  <select id="selectMypet" parameterType="String" resultType="mypetVo">
+  	select * from mypet where myp_mem = #{myp_mem}
+  </select>
+  
+  <!-- 예약 선택조회 -->
+  <select id="selectRev" parameterType="String" resultType="hrVo">
+  	select * from hairres where hres_mem=#{mem_id} and hres_stat IN ('진행중','미용의뢰')
+  </select>
+  
+  <!-- 예약 완료건 조회 -->
+  <select id="selectRevCom" parameterType="map" resultType="hrVo">
+  	
+  	 select *
+		 from
+		 (select rownum rnum, a.*
+		 from
+		    (
+		    select * from hairres where hres_mem = #{mem_id} and hres_stat = '완료'
+		    ) a 
+		)
+		where rnum between ${page}*5-(5-1) and ${page}*5
+  </select>
+  
+  <!-- count 예약 완료건 -->
+  <select id="revComCnt" resultType="int" parameterType="String">
+  	select count(*) from hairres where hres_mem = #{mem_id} and hres_stat = '완료'
+  </select>
+  
+  <!-- 스타일 한개 선택 -->
+  <select id="selectStyleOne" parameterType="String" resultType="styleVo">
+  	select * from petstyle where pts_id = #{pts_id}
+  </select>
+  
+  <!-- 즐겨찾기 목록 선택 -->
+  <select id="selectBookMark" parameterType="String" resultType="bmVo">
+  	select * from bookmark where bmk_mem=#{mem_id} and bmk_fac='1'
+  </select>
+  
+  <!-- 내가한 문의를 select -->
+  <select id="selectAsk" parameterType="String" resultType="hairBoardVo">
+  	select * from hairboard where hbrd_mem = #{mem_id} and hbrd_brdt='2'
+  </select>
+  
+  <!-- 해당 미용실의 총 리뷰갯수와 리뷰의 합계를 구하는 select -->
+  <select id="getScore" parameterType="String"  resultType="map">
+  	select 'dodo', max(rownum) cnt, sum(hbrd_score) sums from hairboard where hbrd_has = #{has_id} and hbrd_brdt='1'
+  </select>
+  
+  <!-- 미용실 점수  update  -->
+  <update id="updateScore" parameterType="hairShopVo">
+  	update hairshop
+  	set has_score = #{has_score}
+  	where has_id = #{has_id}
+  </update>
+  
+  <!-- bookmark 삭제(update -->
+  <update id="deleteBm" parameterType="String">
+  	update bookmark
+  	set bmk_fac='2'
+  	where bmk_id=#{bmk_id}
+  
+  </update>
+  
+  
+  <!--  mem_id 를 이용해 해당사용자가 운영중인 미용실 정보 가져오는 메서드 -->
+  <select id="selectShopByMemId" parameterType="String" resultType="hairShopVo">
+  	select *
+  	from hairshop
+  	where has_mem = #{mem_id}
+  
+  </select>
+  
+  
+  <!-- 해당 미용실의 미답변 문의목록 -->
+  <select id="selectAskByHasIdNA" parameterType="String" resultType="hairBoardVo">
+  	select * from hairboard where hbrd_has=#{has_id} and hbrd_brdt='2' and hbrd_rep is null
+  </select>
+  
+  
+  <!-- 해당 미용실의 답변완료 문의목록 -->
+  <select id="selectAskByHasIdYA" parameterType="String" resultType="hairBoardVo">
+  	select * from hairboard where hbrd_has=#{has_id} and hbrd_brdt='2' and hbrd_rep is not null
+  </select>
+  
+  <!-- 답변작성 / 수정  -->
+  <update id="insertAskR" parameterType="hairBoardVo">
+  	update hairboard
+  	set hbrd_rep=#{hbrd_rep}
+  	where hbrd_id=#{hbrd_id}
+  
+  </update>
   
 </mapper>
 

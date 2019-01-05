@@ -433,7 +433,7 @@ public class InsuranceService implements InsuranceServiceInf {
 	* 변경이력 :
 	* @param memId
 	* @return
-	* Method 설명 : 나의 펫 보험 - 현재보험금현황(심사중)
+	* Method 설명 : 나의 펫 보험 - 현재보험금현황(반려)
 	*/
 	@Override
 	public List<AccidentVo> underExamination(String memId) {
@@ -452,6 +452,168 @@ public class InsuranceService implements InsuranceServiceInf {
 	@Override
 	public List<AccidentVo> isrComplete(String memId) {
 		return insuranceDao.isrComplete(memId);
+	}
+
+	
+	/**
+	* Method : goAccidentDel
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param accd_id
+	* @return
+	* Method 설명 : 보험금 신청 현황 화면에서 보험금 신청 취소를 클릭하였을떄 적용되는 부분
+	*/
+	@Override
+	public int goAccidentDel(String accd_id) {
+		return insuranceDao.goAccidentDel(accd_id);
+	}
+
+	
+	/**
+	* Method : history
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param accd_id
+	* @return
+	* Method 설명 :보험금 내역 확인 버튼을 클릭하였을때 나오는 부분
+	*/
+	@Override
+	public AccidentVo history(String accd_id) {
+		return insuranceDao.history(accd_id);
+	}
+
+	
+	/**
+	* Method : accountChange
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param acdVo
+	* @return
+	* Method 설명 :보험금내역 부분에서 계좌번호를 변경하였을떄 실행
+	*/
+	@Override
+	public int accountChange(AccidentVo acdVo) {
+		return insuranceDao.accountChange(acdVo);
+	}
+
+	
+	/**
+	* Method : claimPetJoinProd1
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param isrVo
+	* @return
+	* Method 설명 : 나의 펫 보험 부분에서 가입이 완료된 상품만 나오게 설정
+	*/
+	@Override
+	public List<InsuranceVo> claimPetJoinProd1(InsuranceVo isrVo) {
+		return insuranceDao.claimPetJoinProd1(isrVo);
+	}
+
+	/**
+	* Method : mypetIsrDel
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param ins_id
+	* @return
+	* Method 설명 :나의 펫 보험 화면에서 해당 펫의 가입되어 있는 보험상품 해지 하는 부분
+	*/
+	@Override
+	public int mypetIsrDel(String ins_id) {
+		return insuranceDao.mypetIsrDel(ins_id);
+	}
+
+	/**
+	* Method : claimPetJoinProd2
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param isrVo
+	* @return
+	* Method 설명 : 나의 펫 보험 - 보험 해지 되어 있는 가입내역이 나오는 부분
+	*/
+	@Override
+	public List<InsuranceVo> claimPetJoinProd2(InsuranceVo isrVo) {
+		return insuranceDao.claimPetJoinProd2(isrVo);
+	}
+
+	
+	/**
+	* Method : mypetInfoUpdate
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param petVo
+	* @return
+	* Method 설명 :나의 펫 보험 화면에서 펫의 정보 수정하는 부분
+	*/
+	@Override
+	public int mypetInfoUpdate(MypetVo petVo) {
+		return insuranceDao.mypetInfoUpdate(petVo);
+	}
+
+	
+	/**
+	* Method : petDelCondition
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param accd_myp
+	* @return
+	* Method 설명 : 나의 펫 보험 - 펫 삭제할떄 보험금 청구 신청을 하였을때 삭제 못하도록 하는것
+	*/
+	@Override
+	public List<AccidentVo> petDelCondition(String accd_myp) {
+		return insuranceDao.petDelCondition(accd_myp);
+	}
+
+	
+	/**
+	* Method : caninsured
+	* 작성자 : Yumint
+	* 변경이력 : 
+	* @return
+	* Method 설명 : 관리자용 - 보험상품관리 : 전체 가입가능한 보험상품 수
+	*/
+	@Override
+	public  List<InsProdVo> caninsured() {
+		return insuranceDao.caninsured();
+	}
+
+	
+	/**
+	 * Method : dogProd
+	 * 작성자 : Yumint
+	 * 변경이력 : 
+	 * @return
+	 * Method 설명 : 관리자용 - 보험상품관리 : 강아지 보험 상품 수가 나오는 부분
+	 */
+	@Override
+	public List<InsProdVo> dogProd() {
+		return insuranceDao.dogProd();
+	}
+
+	
+	/**
+	 * Method : catProd
+	 * 작성자 : Yumint
+	 * 변경이력 : 
+	 * @return
+	 * Method 설명 : 관리자용 - 보험상품관리 : 고양이 보험 상품 수가 나오는 부분
+	 */
+	@Override
+	public List<InsProdVo> catProd() {
+		return insuranceDao.catProd();
+	}
+
+	
+	/**
+	 * Method : catProd
+	 * 작성자 : Yumint
+	 * 변경이력 : 
+	 * @return
+	 * Method 설명 : 관리자용 - 보험상품관리 : 가입만료된 보험상품 수가 나오는 부분
+	 */
+	@Override
+	public List<InsProdVo> expiration() {
+		return insuranceDao.expiration();
 	}
 	
 

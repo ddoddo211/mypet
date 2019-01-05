@@ -15,6 +15,7 @@
 
 
 
+
 <%-- 스크립트 위치 --%>
 	<script type="text/javascript">
 			function move(loc){
@@ -187,7 +188,7 @@
 			);
 			
 				
-			
+			alert("문의가 접수되었습니다 (답변은 mypage 에서 확인하실수 있습니다)");
 			$("#askfrm").submit();
 			
 		});
@@ -229,6 +230,22 @@
 			
 		});
 		
+		//예약하기 메뉴 진입클릭
+		$(".revShop").click(function(){
+			
+			//로그인정보 없으면 예약하기 화면으로 갈 수 없다
+			if(<%=session.getAttribute("memVo")==null%>){
+				alert("로그인이 필요합니다 로그인해주세요");
+				return;
+			}
+			
+			
+			
+			
+			
+			$("#revfrm").submit();
+		});
+		
 		
 		
 	});
@@ -243,6 +260,13 @@
 	<%@include file="../common/header.jsp"%>
 	<!-- header 끝-->
 	
+
+<c:if test="${bmDup!=null }">
+	<script>
+		alert("이미 즐겨찾기에 등록되어있습니다");
+	</script>
+
+</c:if>
 	<!-- header 시작 -->
 	<%@include file="petHairHeader.jsp"%>
 	<!-- header 끝-->
@@ -298,6 +322,20 @@
 	</c:choose>
 		
 		
+	</form>
+	
+	<%-- 예약하기 눌렀을때 전송 form --%>
+	<form id="revfrm" action="/hair/revShop" method="get">
+		<c:choose>
+		<c:when test="${memVo!=null }">
+			<input type="hidden" name="mem_id" id="revShopMem" value="${memVo.mem_id }"/>
+		</c:when>
+		<c:otherwise>
+			<input type="hidden" name="mem_id" id="revShopMem" value="nologin"/>
+		
+		</c:otherwise>
+	</c:choose>
+		<input type="hidden" name="has_id" id="revShopHas" value="${hairShopVo.has_id }" />
 	</form>
 	
 		
@@ -469,7 +507,16 @@
 											<c:when test="${reviewList!=null }">
 												<c:forEach items="${reviewList }" var="rl">
 													<div class="shopRvHd">
-													<span>작성자 : ${rl.hbrd_mem } </span> <span class="scorespan">${rl.hbrd_title }</span> <br>
+													<span>작성자 : ${rl.hbrd_mem } </span> <span class="scorespan">제목 : ${rl.hbrd_title }</span> 
+													
+													<span>
+														 / 
+														<c:forEach begin="1" end="${rl.hbrd_score }">
+															★
+														</c:forEach>
+													</span>
+													
+													 <br>
 													<span>${rl.hbrd_text }</span>
 													
 													</div>

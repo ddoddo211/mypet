@@ -1,5 +1,9 @@
 package kr.co.mypet.hair.web;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -9,8 +13,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import kr.co.mypet.common.model.MemberVo;
+import kr.co.mypet.common.model.MypetVo;
 import kr.co.mypet.hair.model.BookmarkVo;
 import kr.co.mypet.hair.model.HairBoardVo;
+import kr.co.mypet.hair.model.HairResVo;
 import kr.co.mypet.hair.model.HairShopVo;
 import kr.co.mypet.hair.model.PetStyleVo;
 import kr.co.mypet.hair.service.HairServiceInf;
@@ -148,9 +155,9 @@ public class HairShopController {
 					
 				}
 				
+				
+				
 				//북마크에 이미있는지 중복체크 해야됨
-				
-				
 				//bookmark 여부 확인
 				String bmChk = request.getParameter("bmChk");
 				if(bmChk.equals("yes")) {
@@ -159,7 +166,15 @@ public class HairShopController {
 					bmVo.setBmk_has(hairShopVo.getHas_id());
 					bmVo.setBmk_mem(mem_id);
 					bmVo.setBmk_fac("");
-					int chk = hairService.insertBookMark(bmVo);
+					
+					//중복체크
+					int dupChk = hairService.bmDup(bmVo);
+					
+					if(dupChk==0) {
+						int chk = hairService.insertBookMark(bmVo);
+					} else {
+						model.addAttribute("bmDup", "dup");
+					}
 					
 				}
 		
@@ -215,6 +230,122 @@ public class HairShopController {
 		
 		return "petHair/petHairMain";
 	}
+	
+	//상세보기에서 예약화기 화면으로 화면이동
+	@RequestMapping("/revShop")
+	public String revShop(MemberVo memVo,HairShopVo hairShopVo,Model model) {
+
+		//넘겨준 사용자 id, 미용실 id
+		String mem_id = memVo.getMem_id();
+		String has_id = hairShopVo.getHas_id();
+		
+		//db로 넘길 parameter vo
+		HairResVo hrVo = new HairResVo();
+		hrVo.setHres_has(has_id);
+		
+		//시간대별 list
+		model.addAttribute("has_id", has_id);
+		
+		//style list
+		List<PetStyleVo> styleList = hairService.selectStyleList(has_id);
+		if(styleList != null) {
+			model.addAttribute("styleList", styleList);
+		}
+		
+		
+		
+		return "petHair/petHairResOp";
+	}
+	
+	
+	
+	@RequestMapping("/resDate")
+	public String resDate(HairShopVo hairShopVo,Model model,HttpServletRequest request) throws ParseException {
+		
+		String has_id = hairShopVo.getHas_id();
+		String date = request.getParameter("date");
+		
+		String temp = "";
+		temp = date.substring(date.lastIndexOf("/")+1);
+		date = date.replace("/"+temp, "");
+		date = temp+"/"+date;
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		
+		System.out.println(date);
+		
+		//db로 넘길 parameter vo
+		HairResVo hrVo = new HairResVo();
+		hrVo.setHres_has(has_id);
+		hrVo.setHres_date(date);
+		
+		//시간대별 list
+		List<List<HairResVo>> allList = new ArrayList<>();
+		List<HairResVo> resList8 = null;
+		List<HairResVo> resList10 = null;
+		List<HairResVo> resList12 = null;
+		List<HairResVo> resList14 = null;
+		List<HairResVo> resList16 = null;
+		List<HairResVo> resList18 = null;
+		
+		allList.add(resList8);
+		allList.add(resList10);
+		allList.add(resList12);
+		allList.add(resList14);
+		allList.add(resList16);
+		allList.add(resList18);
+		
+		//받아온 shop 아이디로 시간대별 예약 유무 체크
+		for(int i = 0 ; i < allList.size() ; i++) {
+			List<HairResVo> tempList = allList.get(i);
+			hrVo.setHres_time(""+(i+1));
+			tempList = hairService.selRes(hrVo);
+			
+			if(tempList!=null) {
+				model.addAttribute("resList"+(i+1), tempList);
+			}
+			
+			
+			
+		}
+		
+		return "petHair/ajaxRes";
+	}
+	
+	@RequestMapping("/insertRev")
+	public String insertRev(HairResVo hairResVo, Model model) {
+		String myp_mem = hairResVo.getHres_mem();
+		String hres_myp = "";
+		
+		//hres_myp >> 나의 펫 조회해서 입력하는 부분
+			//실제 펫조회 쿼리
+//			List<MypetVo> petChk = hairService.selectMypet(myp_mem);
+//			//임시로 0번방꺼만 수행
+//			if(petChk!=null) {
+//				hres_myp = petChk.get(0).getMyp_id();
+//			}
+//			hairResVo.setHres_myp(hres_myp);
+			
+			
+			//임시로 1로 지정
+			hairResVo.setHres_myp("1");
+			hairResVo.setHres_stat("미용의뢰");
+			hairResVo.setHres_spec("-");
+			
+			int chk = hairService.insertRev(hairResVo);
+			
+			if(chk==0) {
+				System.out.println("insert실패");
+			} else {
+				System.out.println("rev insert 성공!");
+			}
+			
+			model.addAttribute("mem_id", hairResVo.getHres_mem());
+		
+		
+		return "redirect:/hairMem/myPage";
+	}
+	
 	
 	
 }
