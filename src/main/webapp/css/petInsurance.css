@@ -1635,6 +1635,14 @@ input[name="cb2"] {
     font-size: 25px;
 }
 
+.claimTitle4_1_2{
+	width: 1200px;
+	height: 25px;
+	background-color: #dbf6ff;
+	font-family: 'Jeju Gothic', sans-serif;
+    font-size: 18px;
+}
+
 .claimTitle4_2{
 	margin-left: 20px;
 	line-height: 30px;
@@ -3120,7 +3128,7 @@ div#upload-btnPet_wrap button {/*버튼 div*/
 
 
 #insMenu3{
-	margin-left: 40px;
+	margin-left: 160px;
 }
 
 #insTitle2{
@@ -3154,14 +3162,15 @@ div#upload-btnPet_wrap button {/*버튼 div*/
 
 
 #adminInsMenu1{
-	width: 1000px;
-	height: 600px;
+	width: 1200px;
+	height: 0 auto;
 	margin: 0 auto;
-	margin-top: 30px;
+	margin-top: 50px;
+	margin-bottom: 50px;
 }
 
 #adminInsMenu1_1{
-	width: 1000px;
+	width: 1200px;
 	height: 300px;
 }
 
@@ -3173,10 +3182,10 @@ div#upload-btnPet_wrap button {/*버튼 div*/
 
 
 .prodManagement{
-	width: 280px;
+	width: 255px;
 	height: 300px;
 	line-height: 300px;
-	border-radius: 50%;
+	border-radius: 15%;
 	float: left;
 	text-align: center;
 	margin-right: 20px;
@@ -3190,10 +3199,10 @@ div#upload-btnPet_wrap button {/*버튼 div*/
 }
 
 .prodManagement:hover{
-	width: 280px;
+	width: 255px;
 	height: 300px;
 	line-height: 300px;
-	border-radius: 50%;
+	border-radius: 15%;
 	float: left;
 	text-align: center;
 	margin-right: 20px;
@@ -3201,8 +3210,10 @@ div#upload-btnPet_wrap button {/*버튼 div*/
 	font-size: 25px;
     font-family: 'Jeju Gothic', sans-serif;
     background-color: #ffd242;
-    color : white;
+    color: white;
 	border: 3px dashed #ffd242;
+	outline: none;
+	cursor: pointer;
 }
 
 
@@ -3217,9 +3228,9 @@ div#upload-btnPet_wrap button {/*버튼 div*/
 }
 
 #prodSelectBtn1{
-	width: 600px;
+	width: 780px;
 	height: 30px;
-	margin-left: 733px;
+	margin-left: 585px;
 }
 
 .prodSelectBtn1_1{
@@ -3367,5 +3378,73 @@ div#upload-btnPet_wrap button {/*버튼 div*/
 	outline: none;
 	height: 30px;
     border-radius: 5px;
+}
+
+#tdColor{
+	background-color: #f9f8e3;
+	font-family: 'Jeju Gothic', sans-serif;
+	font-size: 16px;
+}
+
+#tdColor2{
+	background-color: #f9f8e3;
+	font-family: 'Jeju Gothic', sans-serif;
+	font-size: 16px;
+}
+
+.trColor{
+	background-color: #e0f4ff;
+	font-family: 'Jeju Gothic', sans-serif;
+	font-size: 16px;
+}
+
+.tabel3{
+	width: 90px;
+}
+
+.tabel4{
+	width: 100px;
+}
+
+#prodDelRelease{
+	background-color: #7c6ee9;
+	height: 30px;
+	border-radius: 50px;
+	width: 200px;
+	border: 2px solid #7c6ee9;
+	color: white;
+	font-size: 20px;
+	outline: none;
+}
+
+#prodDelRelease:hover{
+	background-color: white;
+	height: 30px;
+	border-radius: 50px;
+	width: 200px;
+	border: 2px solid #7c6ee9;
+	color: black;
+	font-size: 20px;
+}
+
+#prodUpdateBtn{
+	background-color: #7c6ee9;
+	height: 30px;
+	border-radius: 50px;
+	width: 200px;
+	border: 2px solid #7c6ee9;
+	color: white;
+	font-size: 20px;
+	outline: none;
+}
+
+#prodUpdateBtn:hover{
+	background-color: white;
+	height: 30px;
+	border-radius: 50px;
+	width: 200px;
+	border: 2px solid #7c6ee9;
+	color: black;
+	font-size: 20px;
 }
 

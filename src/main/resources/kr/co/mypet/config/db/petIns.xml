@@ -21,7 +21,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			where insp_del = 'N'
 	  	</select>
 	  	
-	  	<!-- 보험상품 리스트 목록가지고 오는 부분 -->
+	  	<!-- 보험상품 리스트 목록가지고 오는 부분(조회조건) -->
 		<select id="prodKindPageList" parameterType="inspageVo" resultType="inspageVo">
 			select * from
 			(select ROWNUM rnum,
@@ -294,7 +294,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			update accident set accd_act=#{accd_act} where accd_id=#{accd_id}
 		</update>
 		
-		<!-- 나의 펫 보험 - 보험 가입 되어 있는 가입내역이 나오는 부분 -->
+		<!-- 나의 펫 보험 - 보험 신청/가입 되어 있는 가입내역이 나오는 부분 -->
 		<select id="claimPetJoinProd1" parameterType="insVo" resultType="insVo">
 			select * from insurance , insprod
 			where inssp_id = insp_id
@@ -359,6 +359,97 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			select *  from insprod where INSP_DEL= 'Y'
 		</select>
 		
+		<!-- 관리자용 - 보험상품관리 : 신청/가입수 나오는 리스트목록 -->
+		<select id="prodPageJoinList" parameterType="inspageVo" resultType="inspageVo">
+            select A.* ,(select count(*) from insurance b , mypet c  where b.INSSP_ID = A.INSP_ID and b.MYP_ID = c.MYP_ID and c.MYP_DEL='N' and INS_STAT='완료' and  INS_DIS='N') as cnt 
+            ,(select count(*) from insurance b , mypet c  where b.INSSP_ID = A.INSP_ID and b.MYP_ID = c.MYP_ID and c.MYP_DEL='N' and INS_STAT='신청' and  INS_DIS='N') as cnt2
+            from
+			(select ROWNUM rnum,
+			A.*  
+			from (select * from insProd  order by to_number(insp_id) asc) A) A
+			WHERE rnum between #{page}*#{pageSize}-(#{pageSize}-1) and #{page}*#{pageSize}
+		</select>
 		
-
+		<!-- 관리자용 - 보험상품관리 : 가입여부 상태 만료로 변경하는 부분 -->
+		<update id="goInsProdDelUpdate" parameterType="String">
+			update insprod
+			   set insp_del = 'Y'
+			 where insp_id = #{insp_id}
+		</update>	
+		
+		<!-- 관리자용 - 보험상품관리 : 가입여부 상태 해제로 변경하는 부분 -->
+		<update id="goInsProdDelRelease" parameterType="String">
+			update insprod
+			   set insp_del = 'N'
+			 where insp_id = #{insp_id}
+		</update>	
+		
+		<!-- 관리자용 - 보험상품관리 : 조회조건을 주었을때 조회되는 리스트 부분  -->
+		<select id="prodKindPageListM" parameterType="inspageVo" resultType="inspageVo">
+            select A.* ,(select count(*) from insurance b , mypet c  where b.INSSP_ID = A.INSP_ID and b.MYP_ID = c.MYP_ID and c.MYP_DEL='N' and INS_STAT='완료' and  INS_DIS='N') as cnt
+            ,(select count(*) from insurance b , mypet c  where b.INSSP_ID = A.INSP_ID and b.MYP_ID = c.MYP_ID and c.MYP_DEL='N' and INS_STAT='신청' and  INS_DIS='N') as cnt2  from
+			(select ROWNUM rnum,
+			A.*  
+			from (select * from insProd where  insp_join=#{petKind} order by to_number(insp_id) asc) A) A
+			WHERE rnum between #{page}*#{pageSize}-(#{pageSize}-1) and #{page}*#{pageSize}
+		</select>
+		
+		<!-- 관리자용 - 보험상품관리 : 보험상품 총갯수(조건) -->
+		<select id="getInsProductKindCntM" parameterType="String" resultType="int" >
+			select count(*) from insprod  where INSP_JOIN = #{petKind} 
+	  	</select>	
+	  	
+	  	<!-- 관리자용 - 보험상품관리 : 보험상품을 등록할때 이름이 동일한건이 있는지 확인 -->
+	  	<select id="prodNameSame" parameterType="insProdVo" resultType="insProdVo">
+	  	<![CDATA[
+	  		select insp_kind 
+	  		  from insprod 
+	  		 where trim(insp_kind) = trim(#{insp_kind})
+	  		 and INSP_JOIN = #{insp_join}]]>
+	  	</select>
+	  	
+	  	<!-- 관리자용 - 보험상품관리 : 보험상품 추가해주는 쿼리문 -->
+	  	<insert id="prodInsert" parameterType="insProdVo">
+	  		insert into insprod(insp_id,insp_name,insp_join,insp_kind,insp_fees,insp_maxins,insp_minage,insp_maxage
+	  		,insp_period,insp_sick,insp_del) values(insprod_num.nextval,#{insp_name},#{insp_join},trim(#{insp_kind})
+	  		,#{insp_fees},#{insp_maxins},#{insp_minage},#{insp_maxage},#{insp_period},#{insp_sick},'N')
+	  	</insert>
+	  	
+	  	
+	  	<!-- 관리자용 - 보험상품관리(보험상세화면) : 보험상품 가입완료자 수가 있는지 확인 -->
+	  	<select id="completed" parameterType="String" resultType="insProdVo">
+	  	select * from insprod a, insurance b , mypet c  
+			where b.INSSP_ID = A.INSP_ID 
+			and b.MYP_ID = c.MYP_ID 
+			and c.MYP_DEL='N' 
+			and INS_STAT='완료' 
+			and INS_DIS='N'
+			and INSSP_ID = #{inssp_id}
+	  	</select>
+	  	
+	  	<!-- 관리자용 - 보험상품관리(보험상세화면) : 보험상품 가입신청자 수가 있는지 확인 -->
+	  	<select id="applicant" parameterType="String" resultType="insProdVo">
+	  	select * from insprod a, insurance b , mypet c  
+			where b.INSSP_ID = A.INSP_ID 
+			and b.MYP_ID = c.MYP_ID 
+			and c.MYP_DEL='N' 
+			and INS_STAT='신청' 
+			and INS_DIS='N'
+			and INSSP_ID = #{inssp_id}
+	  	</select>
+	  	
+	  	<!-- 보험상품관리(보험내용수정) : 보험상품 내용수정하기 -->
+		<update id="goInsProdUpdateS" parameterType="insProdVo">
+			 update insProd 
+				set insp_fees =#{insp_fees} 
+				,	insp_maxins =#{insp_maxins} 
+				,	insp_minage =#{insp_minage} 
+				,	insp_maxage =#{insp_maxage} 
+				,	insp_period =#{insp_period} 
+				,	insp_sick =#{insp_sick}  
+			  where insp_id=#{insp_id}
+		</update>
+	  	
+	  	
+	  	
 </mapper>

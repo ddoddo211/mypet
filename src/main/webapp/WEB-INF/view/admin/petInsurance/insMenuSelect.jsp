@@ -29,13 +29,10 @@ $(document).ready(function() {
 			<input class="insMenu2" type="button" value="2.보험 신청 / 가입 관리">
 		</div>
 		<div>
-			<input class="insMenu2" type="button" value="3.보험 청구 관리">
+			<input class="insMenu2" type="button" value="3.보험 청구 /입금관리">
 		</div>
 		<div>
-			<input class="insMenu2" type="button" value="4.보험 입금 관리">
-		</div>
-		<div>
-			<input class="insMenu2" type="button" value="5.보험 공지사항 관리">
+			<input class="insMenu2" type="button" value="4.보험 공지사항 관리">
 		</div>
 	</div>
 	</div>

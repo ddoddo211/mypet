@@ -60,16 +60,10 @@ function goProdManager(){
 						<div class="adminInsMenu2">
 							<input type="button" class="prodManagement" value="보험 공지사항 관리">
 						</div>
-					</div>
-					<div id="adminInsMenu1_2">
 						<div class="adminInsMenu2">
-							<input type="button" class="prodManagement" value="보험 청구 관리">
+							<input type="button" class="prodManagement" value="보험 청구 /입금 관리">
 						</div>
-						<div class="adminInsMenu2">
-							<input type="button" class="prodManagement" value="보험 입금 관리">
-						</div>
-					</div>
-				
+					</div>				
 				</div>
 			</div>
 			

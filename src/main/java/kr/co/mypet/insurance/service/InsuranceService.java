@@ -61,7 +61,7 @@ public class InsuranceService implements InsuranceServiceInf {
 	* 작성자 : Yumint
 	* 변경이력 :
 	* @return
-	* Method 설명 : 보험상품리스트 가지고 오는 부분(페이징처리)
+	* Method 설명 : 조회조건으로 페이지 리스트 나오는 부분
 	*/
 	@Override
 	public Map<String, Object> prodKindPageList(InsurancePageVo pageVo) {
@@ -615,9 +615,162 @@ public class InsuranceService implements InsuranceServiceInf {
 	public List<InsProdVo> expiration() {
 		return insuranceDao.expiration();
 	}
+
 	
+	/**
+	* Method : prodPageList
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @return
+	* Method 설명 : 관리자용 - 보험상품관리 : 가입자수 나오는 리스트목록
+	*/
+	@Override
+	public Map<String, Object> prodPageJoinList(InsurancePageVo pageVo) {
 
+		// 페이지에 해당 하는 유저 리스트(1~10건) 
+		List<InsProdVo> pageList = insuranceDao.prodPageJoinList(pageVo);
+		
+		// 페이지 내비게이션을 위한 전체 유저 리스트 조회 
+		int totalInsProductCnt = insuranceDao.getInsProductCnt();
+		
+		
+		//리턴해야 하는게 두건일경우에는 (Map)
+		// 결과를 담는 map
+		Map<String , Object> resultMap = new HashMap<String , Object>();
+		
+		resultMap.put("pageList",pageList);
+		
+		//Math.ceil가 올림해주는 부분 
+		resultMap.put("pageCnt",
+				(int)Math.ceil((double)totalInsProductCnt / pageVo.getPageSize()));
+		
+		return resultMap;
+	}
+	
+	
+	/**
+	* Method : goInsProdDelUpdate
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param prodId
+	* @return
+	* Method 설명 :관리자용 - 보험상품관리 : 가입여부 상태 만료로 변경하는 부분
+	*/
+	@Override
+	public int goInsProdDelUpdate(String prodId) {
+		return insuranceDao.goInsProdDelUpdate(prodId);
+	}
+	
+	
+	/**
+	* Method : goInsProdDelRelease
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param prodId
+	* @return
+	* Method 설명 :관리자용 - 보험상품관리 : 가입여부 상태 해제로 변경하는 부분
+	*/
+	@Override
+	public int goInsProdDelRelease(String prodId) {
+		return insuranceDao.goInsProdDelRelease(prodId);
+	}
 
+	
+	/**
+	* Method : prodKindPageListM
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @return
+	* Method 설명 : 관리자용 - 보험상품관리 : 조회조건을 주었을때 조회되는 리스트 부분
+	*/
+	@Override
+	public Map<String, Object> prodKindPageListM(InsurancePageVo pageVo) {
+		// 페이지에 해당 하는 유저 리스트(1~10건) 
+		List<InsProdVo> pageList = insuranceDao.prodKindPageListM(pageVo);
+		
+		// 페이지 내비게이션을 위한 전체 유저 리스트 조회 
+		int totalInsProductCnt = insuranceDao.getInsProductKindCntM(pageVo.getPetKind());
+		
+		//리턴해야 하는게 두건일경우에는 (Map)
+		// 결과를 담는 map
+		Map<String , Object> resultMap = new HashMap<String , Object>();
+		
+		resultMap.put("pageList",pageList);
+		
+		//Math.ceil가 올림해주는 부분 
+		resultMap.put("pageCnt",
+				(int)Math.ceil((double)totalInsProductCnt / pageVo.getPageSize()));
+		
+		return resultMap;
+	}
+
+	/**
+	* Method : prodNameSame
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param insp_kind
+	* @return
+	* Method 설명 : 관리자용 - 보험상품관리 : 보험상품을 등록할때 이름이 동일한건이 있는지 확인
+	*/
+	@Override
+	public List<InsProdVo> prodNameSame(InsProdVo insProdVo) {
+		return insuranceDao.prodNameSame(insProdVo);
+	}
+
+	
+	/**
+	* Method : prodInsert
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param insProdVo
+	* @return
+	* Method 설명 :관리자용 - 보험상품관리 : 보험상품 추가해주는 쿼리문
+	*/
+	@Override
+	public int prodInsert(InsProdVo insProdVo) {
+		return insuranceDao.prodInsert(insProdVo);
+	}
+
+	/**
+	* Method : completed
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param inssp_id
+	* @return
+	* Method 설명 : 관리자용 - 보험상품관리(보험상세화면) : 보험상품 가입완료자 수가 있는지 확인 
+	*/
+	@Override
+	public List<InsProdVo> completed(String inssp_id) {
+		return insuranceDao.completed(inssp_id);
+	}
+
+	
+	/**
+	 * Method : applicant
+	 * 작성자 : Yumint
+	 * 변경이력 :
+	 * @param inssp_id
+	 * @return
+	 * Method 설명 : 관리자용 - 보험상품관리(보험상세화면) : 보험상품 가입신청자 수가 있는지 확인 
+	 */
+	@Override
+	public List<InsProdVo> applicant(String inssp_id) {
+		return insuranceDao.applicant(inssp_id);
+	}
+
+	
+	/**
+	* Method : goInsProdUpdateS
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param insProdVo
+	* @return
+	* Method 설명 :보험상품관리(보험내용수정) : 보험상품 내용수정하기
+	*/
+	@Override
+	public int goInsProdUpdateS(InsProdVo insProdVo) {
+		return insuranceDao.goInsProdUpdateS(insProdVo);
+	}
 	
 	
 }

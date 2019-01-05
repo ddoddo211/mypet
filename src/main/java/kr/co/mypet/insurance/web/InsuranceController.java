@@ -1473,10 +1473,12 @@ public class InsuranceController {
 				pageVo.setPageSize(Integer.parseInt(request.getParameter("pageSize")));
 
 				// 쿼리문으로 연결하여 전달하기
-				Map<String, Object> resultMap = insuranceService.prodPageList(pageVo);
+				Map<String, Object> resultMap = insuranceService.prodPageJoinList(pageVo);
 
+				
 				// 해당 페이지에 맞게 리스트 가지고 오기
 				List<InsProdVo> pageList = (List<InsProdVo>) resultMap.get("pageList");
+				
 
 				int pageSize = 0;
 				if (pageList.size() == 0) {
@@ -1506,7 +1508,7 @@ public class InsuranceController {
 				pageVo.setPageSize(Integer.parseInt(request.getParameter("pageSize")));
 
 				// 쿼리문으로 연결하여 전달하기
-				Map<String, Object> resultMap = insuranceService.prodPageList(pageVo);
+				Map<String, Object> resultMap = insuranceService.prodPageJoinList(pageVo);
 
 				// 페이지 건수
 				int pageCnt = (int) resultMap.get("pageCnt");
@@ -1535,7 +1537,7 @@ public class InsuranceController {
 				pageVo.setPetKind(request.getParameter("petKind"));
 
 				// 쿼리문으로 연결하여 전달하기
-				Map<String, Object> resultMap = insuranceService.prodKindPageList(pageVo);
+				Map<String, Object> resultMap = insuranceService.prodKindPageListM(pageVo);
 
 				// 해당 페이지에 맞게 리스트 가지고 오기
 				List<InsProdVo> pageList = (List<InsProdVo>) resultMap.get("pageList");
@@ -1573,7 +1575,7 @@ public class InsuranceController {
 				pageVo.setPetKind(request.getParameter("petKind"));
 
 				// 쿼리문으로 연결하여 전달하기
-				Map<String, Object> resultMap = insuranceService.prodKindPageList(pageVo);
+				Map<String, Object> resultMap = insuranceService.prodKindPageListM(pageVo);
 
 				// 페이지 건수
 				int pageCnt = (int) resultMap.get("pageCnt");
@@ -1597,32 +1599,18 @@ public class InsuranceController {
 					InsshoppingVo insShVo) {
 
 				String prodId = request.getParameter("prodId");
-
-				// 회원 정보 받아오는 부분
-				MemberVo memVo = (MemberVo) session.getAttribute("memVo");
-				
-				// 펫사이즈가 0이라면 펫추가하기 화면으로 이동한다.
-				if (memVo != null) {
-					// 회원의 플랜정보부분의 추가된 상품 중복 플랜정보 추가 막기 위해서 입력 (보험상품 아이디 하고 회원 정보만 주면된다)
-					insShVo = new InsshoppingVo();
-					insShVo.setInssp_mem(memVo.getMem_id());
-					insShVo.setInssp_insp(prodId);
-					
-					
-					// 플랜정보에 이미 추가되어 있는 부분 확인하기(상품)
-					InsshoppingVo insShList = insuranceService.insShList(insShVo);
-					
-					if(insShList == null) {
-						model.addAttribute("insShList", 0);
-					}else {
-						model.addAttribute("insShList", insShList);
-					}
-					
-				}
-				
+			
 				// 서비스 연결해서 해당 상품 정보 가지고 오기
 				InsProdVo prodVo = insuranceService.getProdInfo(prodId);
 				model.addAttribute("prodVo", prodVo);
+				
+				// 해당 상품에 가입완료자가 수가 있는지 확인해야 한다.
+				List<InsProdVo> completed = insuranceService.completed(prodId);
+				model.addAttribute("completed", completed.size());
+				
+				// 해당 상품에 가입신청자가 수가 있는지 확인해야 한다.
+				List<InsProdVo> applicant = insuranceService.applicant(prodId);
+				model.addAttribute("applicant", applicant.size());
 				
 				return "admin/petInsurance/insuranceProduct2";
 			}
@@ -1634,9 +1622,52 @@ public class InsuranceController {
 
 				String prodId = request.getParameter("prodId");
 				
-				// 서비스 연결해서 해당 상품 정보 가지고 오기
-				InsProdVo prodVo = insuranceService.getProdInfo(prodId);
-				model.addAttribute("prodVo", prodVo);
+				insuranceService.goInsProdDelUpdate(prodId);
+				
+				// 전체 보험가입 가능 수 나오게 설정
+				List<InsProdVo> caninsured = insuranceService.caninsured();
+				model.addAttribute("caninsured",caninsured.size());
+				
+				// 강아지 보험 상품 수 나오게 설정
+				List<InsProdVo> dogProd = insuranceService.dogProd();
+				model.addAttribute("dogProd",dogProd.size());
+				
+				// 고양이 보험 상품 수 나오게 설정
+				List<InsProdVo> catProd = insuranceService.catProd();
+				model.addAttribute("catProd",catProd.size());
+				
+				// 가입만료된 보험상품 수가 나오는 부분
+				List<InsProdVo> expiration = insuranceService.expiration();
+				model.addAttribute("expiration",expiration.size());
+				
+				return "admin/petInsurance/goProdManager";
+			}
+			
+			
+			/* 보험상품 관리 화면에서 - 해당 보험 상품 가임만료 해제버튼을 클릭하였을때 나오는 부분*/
+			@RequestMapping("/goInsProdDelRelease")
+			public String goInsProdDelRelease(Model model, InsurancePageVo pageVo, HttpServletRequest request, HttpSession session , 
+					InsshoppingVo insShVo) {
+
+				String prodId = request.getParameter("prodId");
+				
+				insuranceService.goInsProdDelRelease(prodId);
+				
+				// 전체 보험가입 가능 수 나오게 설정
+				List<InsProdVo> caninsured = insuranceService.caninsured();
+				model.addAttribute("caninsured",caninsured.size());
+				
+				// 강아지 보험 상품 수 나오게 설정
+				List<InsProdVo> dogProd = insuranceService.dogProd();
+				model.addAttribute("dogProd",dogProd.size());
+				
+				// 고양이 보험 상품 수 나오게 설정
+				List<InsProdVo> catProd = insuranceService.catProd();
+				model.addAttribute("catProd",catProd.size());
+				
+				// 가입만료된 보험상품 수가 나오는 부분
+				List<InsProdVo> expiration = insuranceService.expiration();
+				model.addAttribute("expiration",expiration.size());
 				
 				return "admin/petInsurance/goProdManager";
 			}
@@ -1649,15 +1680,143 @@ public class InsuranceController {
 			
 			/* 보험상품 관리 화면에서 -  보험상품 추가하기 버튼을 클릭 하였을때 값을 받아와서 db에 저장해주는것*/
 			@RequestMapping("/goInsProdInsert2")
-			public String goInsProdInsert2() {
+			public String goInsProdInsert2(HttpServletRequest request,Model model) {
+				// 상품이름
+				String insp_kind = request.getParameter("prodTitle");
+				// 가입대상
+				String insp_join = request.getParameter("petKindSelect");
+				// 강아지 보험인지 , 고양이 보험인지 확인하는 부분은 
+				String insp_name = "";
+				if(insp_join.equals("강아지")) {
+					insp_name = "강아지보험";
+				}else {
+					insp_name = "고양이보험";
+				}
+				// 월보험료
+				String insp_fees = request.getParameter("prodFee");
+				// 최대보험금
+				String insp_maxins = request.getParameter("insp_maxins");
+				// 최소가입연령
+				String insp_minage = request.getParameter("joinMinins");
+				// 최대 가입연령
+				String insp_maxage = request.getParameter("joinMaxins");
+				// 보장기간 
+				String insp_period = request.getParameter("guaranteePeriod");
+				// 질병여부
+				String insp_sick = request.getParameter("petSickSelect");
 				
 				
-				return "admin/petInsurance/goProdManager";
+				InsProdVo insProdVo = new InsProdVo();
+				insProdVo.setInsp_kind(insp_kind);
+				insProdVo.setInsp_join(insp_join);
+				insProdVo.setInsp_name(insp_name);
+				insProdVo.setInsp_fees(Integer.parseInt(insp_fees));
+				insProdVo.setInsp_maxins(Integer.parseInt(insp_maxins));
+				insProdVo.setInsp_minage(Integer.parseInt(insp_minage));
+				insProdVo.setInsp_maxage(Integer.parseInt(insp_maxage));
+				insProdVo.setInsp_period(Integer.parseInt(insp_period));
+				insProdVo.setInsp_sick(insp_sick);
+				
+				// 이미 등록된 보험상품일 경우에는 등록이 되지 않아야 한다.
+				List<InsProdVo> prodNameSameList = insuranceService.prodNameSame(insProdVo);
+				
+				
+				if(prodNameSameList.size() != 0 ) {
+					// 1로 값을 줘서 alert가 나오게 설정한다
+					model.addAttribute("prodNameSameList" , 1);
+					
+					return "admin/petInsurance/goInsProdInsert";
+				}else {
+					// prod테이블에 추가하기
+					insuranceService.prodInsert(insProdVo);
+					
+					// 전체 보험가입 가능 수 나오게 설정
+					List<InsProdVo> caninsured = insuranceService.caninsured();
+					model.addAttribute("caninsured",caninsured.size());
+					
+					// 강아지 보험 상품 수 나오게 설정
+					List<InsProdVo> dogProd = insuranceService.dogProd();
+					model.addAttribute("dogProd",dogProd.size());
+					
+					// 고양이 보험 상품 수 나오게 설정
+					List<InsProdVo> catProd = insuranceService.catProd();
+					model.addAttribute("catProd",catProd.size());
+					
+					// 가입만료된 보험상품 수가 나오는 부분
+					List<InsProdVo> expiration = insuranceService.expiration();
+					model.addAttribute("expiration",expiration.size());
+					return "admin/petInsurance/goProdManager";
+				}
 			}
 			
+			/* 보험상품 관리 화면(상세보기)에서 - 해당 보험 상품 가임만료 해제버튼을 클릭하였을때 나오는 부분*/
+			@RequestMapping("/goInsProdDelRelease2")
+			public String goInsProdDelRelease2(Model model, HttpServletRequest request, HttpSession session) {
+
+				String prodId = request.getParameter("prodId");
+				
+				insuranceService.goInsProdDelRelease(prodId);
+
+				// 서비스 연결해서 해당 상품 정보 가지고 오기
+				InsProdVo prodVo = insuranceService.getProdInfo(prodId);
+				model.addAttribute("prodVo", prodVo);
+				
+				return "admin/petInsurance/insuranceProduct2";
+			}
 			
+			/* 보험상품 관리 화면(상세보기)에서 - 해당 보험 상품 보험상품 내용 수정하기버튼을 클릭하였을때 나오는 부분*/
+			@RequestMapping("/goInsProdUpdate")
+			public String goInsProdUpdate(Model model,HttpServletRequest request, HttpSession session ) {
+
+				String prodId = request.getParameter("prodId");
 			
+				// 서비스 연결해서 해당 상품 정보 가지고 오기
+				InsProdVo prodVo = insuranceService.getProdInfo(prodId);
+				model.addAttribute("prodVo", prodVo);
+				
+				// 질병여부가 Y/N 으로 미리 선택되어 있어야 하기 떄문에 입력
+				model.addAttribute("prodSick" , prodVo.getInsp_sick());
+				
+				return "admin/petInsurance/goInsProdUpdate";
+			}
 			
+			/* 보험상품 관리 화면(상세보기)에서 - 해당 보험 상품 보험상품 내용 수정완료하기버튼을 클릭하였을때 나오는 부분*/
+			@RequestMapping("/goInsProdUpdateS")
+			public String goInsProdUpdateS(Model model,HttpServletRequest request, HttpSession session ) {
+				
+				// 어떤 상품을 수정해야 하는지 알아야 하기 때문에 
+				String prodId = request.getParameter("prodId");
+				String insp_fees = request.getParameter("prodFee");
+				String insp_maxins = request.getParameter("insp_maxins");
+				String insp_minage = request.getParameter("joinMinins");
+				String insp_maxage = request.getParameter("joinMaxins");
+				String insp_period = request.getParameter("guaranteePeriod");
+				String insp_sick = request.getParameter("petSickSelect");
+				
+				InsProdVo insProdVo = new InsProdVo();
+				insProdVo.setInsp_id(prodId);
+				insProdVo.setInsp_fees(Integer.parseInt(insp_fees));
+				insProdVo.setInsp_maxins(Integer.parseInt(insp_maxins));
+				insProdVo.setInsp_minage(Integer.parseInt(insp_minage));
+				insProdVo.setInsp_maxage(Integer.parseInt(insp_maxage));
+				insProdVo.setInsp_period(Integer.parseInt(insp_period));
+				insProdVo.setInsp_sick(insp_sick);
+				
+				// 내용수정한부분 쿼리전달하여 수정하기
+				int updateS =  insuranceService.goInsProdUpdateS(insProdVo);
+				
+				if(updateS == 1) {
+					//수정이 완료되었을떄 나오는 부분
+					model.addAttribute("updateS" , 1);
+				}
+				// 서비스 연결해서 해당 상품 정보 가지고 오기
+				insProdVo = insuranceService.getProdInfo(prodId);
+				model.addAttribute("prodVo", insProdVo);
+				
+				// 질병여부가 Y/N 으로 미리 선택되어 있어야 하기 떄문에 입력
+				model.addAttribute("prodSick" , insProdVo.getInsp_sick());
+				return "admin/petInsurance/goInsProdUpdate";
+			}
 			
 
 }
