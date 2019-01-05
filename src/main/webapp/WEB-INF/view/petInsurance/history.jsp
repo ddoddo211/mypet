@@ -59,7 +59,7 @@ function goBack(){
 			<div id="header">
 				<%--main --%>
 				<div id="logo">
-					<a href="/common/main.jsp"><img alt="이미지가 없습니다" src="/img/petInsuranceLogo2.jpg" width="200px;"></a>
+					<a href="/isr/isrMain"><img alt="이미지가 없습니다" src="/img/petInsuranceLogo2.jpg" width="200px;"></a>
 				</div>
 				<div id="petSearch">
 					<div id="word">
@@ -87,7 +87,7 @@ function goBack(){
 	<div id="claimMain">
 			<div id="claimTitle">
 				<div id="claimTitle1">
-					보험금 청구 내역 확인
+					보험금 신청 내역 확인
 				</div>
 			</div>
 

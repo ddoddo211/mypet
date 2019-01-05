@@ -96,7 +96,7 @@ $(document).ready(function(){
 			<div id="header">
 				<%--main --%>
 				<div id="logo">
-					<a href="/common/main.jsp"><img alt="이미지가 없습니다" src="/img/petInsuranceLogo2.jpg" width="200px;"></a>
+					<a href="/isr/isrMain"><img alt="이미지가 없습니다" src="/img/petInsuranceLogo2.jpg" width="200px;"></a>
 				</div>
 				<div id="petSearch">
 					<div id="word">
@@ -152,9 +152,9 @@ $(document).ready(function(){
 
 						<!-- 펫이 한마리도 없을떄 실행되는 부분 -->
 						<c:choose>
-							<c:when test="${petListSize == 0}">
+							<c:when test="${mypetListSize == 0}">
 								<tr class="tr2" id="td5">
-									<td colspan="8">회원의 펫이 없습니다</td>
+									<td colspan="8">보험에 가입완료된 펫이 없습니다.</td>
 								</tr>
 							</c:when>
 							<c:otherwise>

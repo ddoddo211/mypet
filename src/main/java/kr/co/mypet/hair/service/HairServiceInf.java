@@ -1,7 +1,9 @@
 package kr.co.mypet.hair.service;
 
 import java.util.List;
+import java.util.Map;
 
+import kr.co.mypet.common.model.MypetVo;
 import kr.co.mypet.hair.model.BookmarkVo;
 import kr.co.mypet.hair.model.HairBoardVo;
 import kr.co.mypet.hair.model.HairResVo;
@@ -44,5 +46,30 @@ public interface HairServiceInf {
 
 	//예약내역 전체조회
 	public List<HairResVo> selRes(HairResVo hrVo);
+
+	//나의펫 조회
+	public List<MypetVo> selectMypet(String myp_mem);
+
+	//예약 생성
+	public int insertRev(HairResVo hairResVo);
+
+	//예약 내역 선택 (멤버 id를 보냄)
+	public List<HairResVo> selectRev(String mem_id);
+
+	//스타일의 정보를 한개선택
+	public PetStyleVo selectStyle(String pts_id);
+
+	
+	//mem_id 를 이용해 즐겨찾기에 등록한 미용실 목록을 불러오는 메서드
+	public List<BookmarkVo> selectBookMark(String mem_id);
+
+	//mem_id 를 이용해 내가쓴 문의 내역을 확인하는 메서드
+	public List<HairBoardVo> selectAsk(String mem_id);
+
+	//완료된 예약건을 확인하는 메서드
+	public List<HairResVo> selectRevCom(Map<Object, Object> param);
+	
+	//완료예약건 총갯수새기
+	public int revComCnt(String mem_id);
 	
 }

@@ -1,11 +1,13 @@
 package kr.co.mypet.hair.service;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import kr.co.mypet.common.model.MypetVo;
 import kr.co.mypet.hair.dao.HairDaoInf;
 import kr.co.mypet.hair.model.BookmarkVo;
 import kr.co.mypet.hair.model.HairBoardVo;
@@ -59,7 +61,7 @@ public class HairService implements HairServiceInf {
 		@Override
 		public List<PetStyleVo> selectStyleList(String pts_has) {
 			// TODO Auto-generated method stub
-			return hairDao.selectStyle(pts_has);
+			return hairDao.selectStyleList(pts_has);
 		}
 
 		@Override
@@ -84,6 +86,54 @@ public class HairService implements HairServiceInf {
 		public List<HairResVo> selRes(HairResVo hrVo) {
 			// TODO Auto-generated method stub
 			return hairDao.selRes(hrVo);
+		}
+
+		@Override
+		public List<MypetVo> selectMypet(String myp_mem) {
+			// TODO Auto-generated method stub
+			return hairDao.selectMypet(myp_mem);
+		}
+
+		@Override
+		public int insertRev(HairResVo hairResVo) {
+			// TODO Auto-generated method stub
+			return hairDao.insertRev(hairResVo);
+		}
+
+		@Override
+		public List<HairResVo> selectRev(String mem_id) {
+			// TODO Auto-generated method stub
+			return hairDao.selectRev(mem_id);
+		}
+
+		@Override
+		public PetStyleVo selectStyle(String pts_id) {
+			// TODO Auto-generated method stub
+			return hairDao.selectStyle(pts_id);
+		}
+
+		@Override
+		public List<BookmarkVo> selectBookMark(String mem_id) {
+			// TODO Auto-generated method stub
+			return hairDao.selectBookMark(mem_id);
+		}
+
+		@Override
+		public List<HairBoardVo> selectAsk(String mem_id) {
+			// TODO Auto-generated method stub
+			return hairDao.selectAsk(mem_id);
+		}
+
+		@Override
+		public List<HairResVo> selectRevCom(Map<Object, Object> param) {
+			// TODO Auto-generated method stub
+			return hairDao.selectRevCom(param);
+		}
+
+		@Override
+		public int revComCnt(String mem_id) {
+			// TODO Auto-generated method stub
+			return hairDao.revComCnt(mem_id);
 		}
 		
 		

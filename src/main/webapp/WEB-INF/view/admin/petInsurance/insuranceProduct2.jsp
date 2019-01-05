@@ -15,7 +15,7 @@
 <script type="text/javascript">
 // 목록 버튼을 클릭하였을때 이전화면으로 보내는 함수 
 function listClick() {
-	location.href = '/isr/productInfo';
+	location.href = '/isr/goProdManager';
 }
 
 function prodAdd(){
@@ -37,47 +37,30 @@ function prodAdd(){
 
 </head>
 <body>
-
-<!-- 폼에 저장해 주기 -->
-<form  action="/isr/prodAdd" id="frm" method="post">
-	<input type="hidden" name="prodId" value="${prodVo.insp_id}">
-</form>
-
+	
 
 <!-- header 시작 -->
-<%@include file="../common/header.jsp"%>
+<%@include file="../../common/header.jsp"%>
 <!-- header 끝-->
 
-	<div id="headerMain">
-		<!-- main content -->
-			<div id="header">
-				<%--main --%>
-				<div id="logo">
-					<a href="/isr/isrMain"><img alt="이미지가 없습니다" src="/img/petInsuranceLogo2.jpg" width="200px;"></a>
-				</div>
-				<div id="petSearch">
-					<div id="word">
-						<input type="text" id="search" value="검색어를 입력하세요" onfocus="this.value=''" style="color:#c1c1c1" />
-					</div>
-					<div id="searchButton">
-						<a href="#" id="searchButton"></a>
-					</div>
-				</div>
-				
-				<!-- 우리 아이 등록하기 -->
-				<div id="petInsert">
-					<a href="#"><img alt="이미지가 없습니다" src="/img/petInsert.jpg" width="240px;" height="100px;"></a>
-				</div>
-			</div>
-	</div>
-	
 <div id="main">	
-	<!-- 여기부터 나의 body -->
 
-		<!-- petInsuranceHeaderMain -->
-		<%@include file="./petInsuranceHeaderMain.jsp"%>
-		<!-- petInsuranceHeaderMain 끝 -->
+	<div id="adminMain">
+		<!-- 관리자 메뉴 -->
+		<%@include file="../adminHeader.jsp"%>
 		
+		<!-- 입력하여 content 넣는 부분 -->
+			<div id="insTitle">
+				펫 보험 관리자용
+			</div>
+			<div id="insTitle2">
+				원하시는 항목의 버튼을 클릭하시면 이동됩니다.
+			</div>
+			
+			<!-- 관리자용 펫 보험 메뉴  -->
+			<%@include file="insMenuSelect.jsp"%>
+		
+
 		<!-- 보험상품 상세정보 나오는 부분 -->
 		<div id="detail">
 			<div id="detailtop">
@@ -123,9 +106,6 @@ function prodAdd(){
 					</div>
 				</div>
 				
-				<div id="plan">
-					<button id="planButton" onclick="prodAdd()">플랜정보 추가</button>
-				</div>
 			</div>
 			
 			<div id="insuranceGuide">
@@ -169,9 +149,16 @@ function prodAdd(){
 
 		
 </div>
+
+		`</div>
+			
+		
+	</div>
+
+</div>
 	
 	<!-- footer 시작 -->
-	<%@include file="../common/footer.jsp"%>
+	<%@include file="../../common/footer.jsp"%>
 	<!-- footer 끝 -->
 
 </body>

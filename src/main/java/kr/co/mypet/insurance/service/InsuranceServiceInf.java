@@ -379,6 +379,55 @@ public interface InsuranceServiceInf {
 	* Method 설명 :나의 펫 보험 화면에서 펫의 정보 수정하는 부분
 	*/
 	int mypetInfoUpdate (MypetVo petVo);
+	
+	
+	/**
+	* Method : petDelCondition
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param accd_myp
+	* @return
+	* Method 설명 : 나의 펫 보험 - 펫 삭제할떄 보험금 청구 신청을 하였을때 삭제 못하도록 하는것
+	*/
+	List<AccidentVo> petDelCondition (String accd_myp);
+	
+	
+	/**
+	* Method : caninsured
+	* 작성자 : Yumint
+	* 변경이력 : 
+	* @return
+	* Method 설명 : 관리자용 - 보험상품관리 : 전체 가입가능한 보험상품 수
+	*/
+	public List<InsProdVo> caninsured();
+	
+	
+	/**
+	 * Method : dogProd
+	 * 작성자 : Yumint
+	 * 변경이력 : 
+	 * @return
+	 * Method 설명 : 관리자용 - 보험상품관리 : 강아지 보험 상품 수가 나오는 부분
+	 */
+	public List<InsProdVo> dogProd();
+	
+	/**
+	 * Method : catProd
+	 * 작성자 : Yumint
+	 * 변경이력 : 
+	 * @return
+	 * Method 설명 : 관리자용 - 보험상품관리 : 고양이 보험 상품 수가 나오는 부분
+	 */
+	public List<InsProdVo> catProd();
+	
+	/**
+	 * Method : catProd
+	 * 작성자 : Yumint
+	 * 변경이력 : 
+	 * @return
+	 * Method 설명 : 관리자용 - 보험상품관리 : 가입만료된 보험상품 수가 나오는 부분
+	 */
+	public List<InsProdVo> expiration();
 
 
 }

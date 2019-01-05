@@ -120,7 +120,7 @@ function gocompleted(){
 			<div id="header">
 				<%--main --%>
 				<div id="logo">
-					<a href="/common/main.jsp"><img alt="이미지가 없습니다" src="/img/petInsuranceLogo2.jpg" width="200px;"></a>
+					<a href="/isr/isrMain"><img alt="이미지가 없습니다" src="/img/petInsuranceLogo2.jpg" width="200px;"></a>
 				</div>
 				<div id="petSearch">
 					<div id="word">
@@ -174,10 +174,10 @@ function gocompleted(){
 							<div class="mypetPage2_3_2">
 								<c:choose>
 									<c:when test="${pet.petk_am == 1 }">				
-										${pet.petk_name}(${pet.petk_size})
+										${pet.myp_name}
 									</c:when>
 									<c:otherwise>
-										${pet.petk_name}(고양이)
+										${pet.myp_name}
 									</c:otherwise>
 								</c:choose>		
 							</div>

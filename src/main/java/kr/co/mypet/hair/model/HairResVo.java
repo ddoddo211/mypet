@@ -14,7 +14,31 @@ public class HairResVo {
 	private String hres_spec;
 	private String hres_time;
 	
+	private String has_name;
+	private String pts_name;
+	private int pts_price;
 	
+	
+	
+	
+	public String getHas_name() {
+		return has_name;
+	}
+	public void setHas_name(String has_name) {
+		this.has_name = has_name;
+	}
+	public String getPts_name() {
+		return pts_name;
+	}
+	public void setPts_name(String pts_name) {
+		this.pts_name = pts_name;
+	}
+	public int getPts_price() {
+		return pts_price;
+	}
+	public void setPts_price(int pts_price) {
+		this.pts_price = pts_price;
+	}
 	public String getHres_time() {
 		return hres_time;
 	}

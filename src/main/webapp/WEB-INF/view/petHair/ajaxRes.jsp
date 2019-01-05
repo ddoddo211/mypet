@@ -33,11 +33,11 @@
 				</div> 
 				<c:choose>
 					<c:when test="${fn:length(resList1)==2 }">
-						<input type="radio" name="selRes" class="selRes" disabled="true"/>
+						<input type="radio" name="selRes" class="selRes" disabled="true" value="1"/>
 					
 					</c:when>
 					<c:otherwise>
-						<input type="radio" name="selRes" class="selRes"/>
+						<input type="radio" name="selRes" class="selRes" value="1"/>
 					
 					</c:otherwise>
 				</c:choose>
@@ -72,11 +72,11 @@
 				</div> 
 				<c:choose>
 					<c:when test="${fn:length(resList2)==2 }">
-						<input type="radio" name="selRes" class="selRes" disabled="true"/>
+						<input type="radio" name="selRes" class="selRes" disabled="true" value="2"/>
 					
 					</c:when>
 					<c:otherwise>
-						<input type="radio" name="selRes" class="selRes"/>
+						<input type="radio" name="selRes" class="selRes" value="2"/>
 					
 					</c:otherwise>
 				</c:choose>
@@ -110,11 +110,11 @@
 				</div> 
 				<c:choose>
 					<c:when test="${fn:length(resList3)==2 }">
-						<input type="radio" name="selRes" class="selRes" disabled="true"/>
+						<input type="radio" name="selRes" class="selRes" disabled="true" value="3"/>
 					
 					</c:when>
 					<c:otherwise>
-						<input type="radio" name="selRes" class="selRes"/>
+						<input type="radio" name="selRes" class="selRes" value="3"/>
 					
 					</c:otherwise>
 				</c:choose>
@@ -150,11 +150,11 @@
 				</div> 
 				<c:choose>
 					<c:when test="${fn:length(resList4)==2 }">
-						<input type="radio" name="selRes" class="selRes" disabled="true"/>
+						<input type="radio" name="selRes" class="selRes" disabled="true" value="4"/>
 					
 					</c:when>
 					<c:otherwise>
-						<input type="radio" name="selRes" class="selRes"/>
+						<input type="radio" name="selRes" class="selRes" value="4"/>
 					
 					</c:otherwise>
 				</c:choose>
@@ -188,11 +188,11 @@
 				</div> 
 				<c:choose>
 					<c:when test="${fn:length(resList5)==2 }">
-						<input type="radio" name="selRes" class="selRes" disabled="true"/>
+						<input type="radio" name="selRes" class="selRes" disabled="true" value="5"/>
 					
 					</c:when>
 					<c:otherwise>
-						<input type="radio" name="selRes" class="selRes"/>
+						<input type="radio" name="selRes" class="selRes" value="5"/>
 					
 					</c:otherwise>
 				</c:choose>
@@ -226,11 +226,11 @@
 				</div> 
 				<c:choose>
 					<c:when test="${fn:length(resList6)==2 }">
-						<input type="radio" name="selRes" class="selRes" disabled="true"/>
+						<input type="radio" name="selRes" class="selRes" disabled="true" value="6"/>
 					
 					</c:when>
 					<c:otherwise>
-						<input type="radio" name="selRes" class="selRes"/>
+						<input type="radio" name="selRes" class="selRes" value="6"/>
 					
 					</c:otherwise>
 				</c:choose>
