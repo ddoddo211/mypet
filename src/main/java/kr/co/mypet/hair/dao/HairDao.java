@@ -156,5 +156,54 @@ public class HairDao implements HairDaoInf {
 		System.out.println("dao cnt : " + cnt);
 		return cnt;
 	}
+
+	@Override
+	public int insertReview(HairBoardVo hbVo) {
+		int chk = template.insert("petHair.insertReview", hbVo);
+		return chk;
+	}
+
+	@Override
+	public Map<String, Object> getScore(String has_id) {
+		
+		Map<String, Object> scoreMap = template.selectMap("petHair.getScore", has_id,"dodo");
+		return scoreMap;
+	}
+
+	@Override
+	public int updateScore(HairShopVo hsVo) {
+		int chk = template.update("petHair.updateScore", hsVo);
+		return chk;
+	}
+
+	@Override
+	public int deleteBm(String bmk_id) {
+		int chk = template.update("petHair.deleteBm", bmk_id);
+		return chk;
+	}
+
+	@Override
+	public HairShopVo selectShopByMemId(String mem_id) {
+		HairShopVo haVo = template.selectOne("petHair.selectShopByMemId", mem_id);
+		return haVo;
+	}
+
+	@Override
+	public List<HairBoardVo> selectAskByHasIdNA(String has_id) {
+		List<HairBoardVo> askListNa = template.selectList("petHair.selectAskByHasIdNA", has_id);
+		return askListNa;
+	}
+
+	@Override
+	public List<HairBoardVo> selectAskByHasIdYA(String has_id) {
+		List<HairBoardVo> askListYa = template.selectList("petHair.selectAskByHasIdYA", has_id);
+		return askListYa;
+	}
+
+	@Override
+	public int insertAskR(HairBoardVo hbVo) {
+		int chk = template.update("petHair.insertAskR", hbVo);
+		return chk;
+	}
 	
 }

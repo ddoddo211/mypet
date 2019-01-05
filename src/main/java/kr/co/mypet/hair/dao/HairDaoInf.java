@@ -52,5 +52,21 @@ public interface HairDaoInf {
 	List<HairResVo> selectRevCom(Map<Object, Object> param);
 	
 	int revComCnt(String mem_id);
+	
+	int insertReview(HairBoardVo hbVo);
+
+	Map<String, Object> getScore(String has_id);
+
+	int updateScore(HairShopVo hsVo);
+
+	int deleteBm(String bmk_id);
+
+	HairShopVo selectShopByMemId(String mem_id);
+
+	List<HairBoardVo> selectAskByHasIdNA(String has_id);
+
+	List<HairBoardVo> selectAskByHasIdYA(String has_id);
+
+	int insertAskR(HairBoardVo hbVo);
 
 }

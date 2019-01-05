@@ -23,7 +23,48 @@
 		}
 	$(document).ready(function(){
 		
+		$(".resContent").click(function(){
+			
+			var index = $(".resContent").index(this);
+			
+			$(".reviewHide").eq(index).slideToggle("fast");
+			
+		});
 		
+		$(".historyBtn").click(function(){
+			
+			var btnIndex = $(".historyBtn").index(this);
+			
+			$("#hdtitle").val(
+				$(".historyte").eq(btnIndex).val()	
+			);
+			$("#hdtext").val(
+				$(".historyta").eq(btnIndex).val()	
+			);
+			$("#hdhas").val(
+				$(".hbrd_has").eq(btnIndex).val()		
+			);
+			$("#hdmem").val(
+				$(".hbrd_mem").eq(btnIndex).val()		
+					
+			);
+			  var cnt = $(".on").length;
+			$("#hdscore").val(
+				cnt-4		
+			);
+			
+			//alert($(".historyte").eq(btnIndex).val() + " : "+$(".historyta").eq(btnIndex).val() + " : " + $(".hbrd_has").eq(btnIndex).val());
+			alert("후기작성이 완료되었습니다 (해당 미용실 소개화면에서 후기를 확인할 수 있습니다)");
+			$("#rvfrm").submit();
+		});
+		
+		
+		$('.starRev span').click(function(){
+			  $(this).parent().children('span').removeClass('on');
+			  $(this).addClass('on').prevAll('span').addClass('on');
+			  
+			  return false;
+		});
 		
 		
 	});
@@ -44,6 +85,15 @@
 	<div id="mainmid">
 		<%@include file="petMypageLeft.jsp"%>
 		
+	<%--후기작성용 전달 parameter form --%>
+	<form action="/hairMem/insertReview" method="post" id="rvfrm">
+		<input type="hidden" name="hbrd_title" id="hdtitle" />
+		<input type="hidden" name="hbrd_text" id="hdtext" />
+		<input type="hidden" name="hbrd_has" id="hdhas" />
+		<input type="hidden" name="hbrd_mem" id="hdmem" />
+		<input type="hidden" name="hbrd_score" id="hdscore" />
+	</form>
+		
 		<div class="mpMain">
 			<p>이용 내역</p>  
 				<table class="statTable">
@@ -59,13 +109,33 @@
 					<c:choose>
 						<c:when test="${hairResList!=null }">
 							<c:forEach items="${hairResList }" var="hr">
-								<tr>
+								<tr class="resContent click">
 									<td>${hr.has_name }	</td>
 									<td>${hr.pts_name }</td>
 									<td>${hr.hres_date }<br>${hr.hres_time }</td>
 									<td>${hr.pts_price }원	</td>
 									<td>${hr.hres_spec }	</td>
 									<td>${hr.hres_stat }</td>
+								</tr>
+								<tr class="reviewHide click">
+									<td> <img class="arr" src="/hairimg/RightArrow.png"/></td>
+									<td colspan="5">
+										<div class="starRev">
+											별점주기 / 
+										  <span class="starR on">별1</span>
+										  <span class="starR">별2</span>
+										  <span class="starR">별3</span>
+										  <span class="starR">별4</span>
+										  <span class="starR">별5</span>
+										</div>
+										제목 : <input type="text" class="historyte" />
+											<input type="button" class="historyBtn" value="후기작성" />
+										<textarea class="historyta" name=""></textarea>
+										
+										
+										<input type="hidden"  class = "hbrd_has" value="${hr.hres_has }"/>
+										<input type="hidden"  class = "hbrd_mem" value="${memVo.mem_id }"/>
+									</td>
 								</tr>
 							
 							</c:forEach>
@@ -80,7 +150,8 @@
 					</c:choose>
 					
 				</table>
-			
+				<br>
+				 <span>- 클릭하여 후기를 작성할 수 있습니다 -</span>
 			
 			<br><br>
 			
@@ -89,7 +160,6 @@
 			HairPageVo hairPageVo = (HairPageVo)request.getAttribute("hairPageVo");
 			int selPage = hairPageVo.getPage();
 			String temp = request.getParameter("totalCnt");
-			System.out.print("temp jsp : " + temp);
 			int totalCnt = 0;
 			totalCnt = hairPageVo.getTotalCnt();
 			

@@ -18,16 +18,25 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		//리스트 클릭시 가게의 detail 표시 function
-		$(".bmName").click(function(){
+		$(".bma").click(function(){
 			
 			$("#hiddenHasId").val(
-				$(this).children(".has_id").val()		
+				$(this).parent(".bmName").children(".has_id").val()		
 			);
 			
-			console.log("넘겨줄 has_id : "+$("#hiddenHasId").val());
 				
 			
 			$("#detailfrm").submit();
+			
+		});
+		
+		$(".delbm").click(function(){
+			var bmk_id = $(this).parent("span").parent(".bmName").children(".bmk_id").val();
+			
+			$("#delId").val(bmk_id);
+			
+			$("#dbmfrm").submit();
+			
 			
 		});
 		
@@ -44,6 +53,13 @@
 	<!-- header 시작 -->
 	<%@include file="petHairHeader.jsp"%>
 	<!-- header 끝-->
+	
+	<%-- 북마크 삭제 form --%>
+	<form action="/hairMem/deleteBm" method="post" id="dbmfrm">
+		<input type="hidden" id="delId" name="bmk_id" />
+		<input type="hidden"  name="mem_id" value="${memVo.mem_id }" />
+		
+	</form>
 	
 	<%-- 전체 틀 div --%>
 	<div id="mainmid">
@@ -65,8 +81,9 @@
 							</div>
 							<div class="bmRight">
 								<div class="bmName">
-									<a href="#">${bl.has_name }</a>
+									<a href="#" class="bma" data-tooltip-text="클릭시 미용실 정보 페이지로 이동합니다">${bl.has_name }</a> <span style="width: 200px;" data-tooltip-text="즐겨찾기에서 삭제합니다"><img class="delbm"  src="/hairimg/x.png"/></span>
 									<input type="hidden" class="has_id" value="${bl.bmk_has }"/>
+									<input type="hidden" class="bmk_id" value="${bl.bmk_id }"/>
 								</div>
 								<div class="bmAddr">
 									${bl.has_addr } / ${bl.has_addr2 }

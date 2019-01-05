@@ -17,7 +17,7 @@
 <script type="text/javascript">
 		if('${memVo}'==''){
 			alert("로그인이 필요합니다");
-			history.back();
+			location.href="/hair/hairMain";
 		}
 	$(document).ready(function(){
 		

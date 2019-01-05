@@ -507,7 +507,16 @@
 											<c:when test="${reviewList!=null }">
 												<c:forEach items="${reviewList }" var="rl">
 													<div class="shopRvHd">
-													<span>작성자 : ${rl.hbrd_mem } </span> <span class="scorespan">${rl.hbrd_title }</span> <br>
+													<span>작성자 : ${rl.hbrd_mem } </span> <span class="scorespan">제목 : ${rl.hbrd_title }</span> 
+													
+													<span>
+														 / 
+														<c:forEach begin="1" end="${rl.hbrd_score }">
+															★
+														</c:forEach>
+													</span>
+													
+													 <br>
 													<span>${rl.hbrd_text }</span>
 													
 													</div>

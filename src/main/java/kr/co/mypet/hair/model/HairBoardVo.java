@@ -14,10 +14,19 @@ public class HairBoardVo {
 	private String hbrd_brdt;
 	private String hbrd_rep;
 	private String has_name;
+	private int hbrd_score;
 	
 	
 	
 	
+	
+	
+	public int getHbrd_score() {
+		return hbrd_score;
+	}
+	public void setHbrd_score(int hbrd_score) {
+		this.hbrd_score = hbrd_score;
+	}
 	public String getHbrd_rep() {
 		return hbrd_rep;
 	}

@@ -135,6 +135,54 @@ public class HairService implements HairServiceInf {
 			// TODO Auto-generated method stub
 			return hairDao.revComCnt(mem_id);
 		}
+
+		@Override
+		public int insertReview(HairBoardVo hbVo) {
+			// TODO Auto-generated method stub
+			return hairDao.insertReview(hbVo);
+		}
+
+		@Override
+		public Map<String, Object> getScore(String has_id) {
+			// TODO Auto-generated method stub
+			return hairDao.getScore(has_id);
+		}
+
+		@Override
+		public int updateScore(HairShopVo hsVo) {
+			// TODO Auto-generated method stub
+			return hairDao.updateScore(hsVo);
+		}
+
+		@Override
+		public int deleteBm(String bmk_id) {
+			// TODO Auto-generated method stub
+			return hairDao.deleteBm(bmk_id);
+		}
+
+		@Override
+		public HairShopVo selectShopByMemId(String mem_id) {
+			// TODO Auto-generated method stub
+			return hairDao.selectShopByMemId(mem_id);
+		}
+
+		@Override
+		public List<HairBoardVo> selectAskByHasIdNA(String has_id) {
+			// TODO Auto-generated method stub
+			return hairDao.selectAskByHasIdNA(has_id);
+		}
+
+		@Override
+		public List<HairBoardVo> selectAskByHasIdYA(String has_id) {
+			// TODO Auto-generated method stub
+			return hairDao.selectAskByHasIdYA(has_id);
+		}
+
+		@Override
+		public int insertAskR(HairBoardVo hbVo) {
+			// TODO Auto-generated method stub
+			return hairDao.insertAskR(hbVo);
+		}
 		
 		
 		

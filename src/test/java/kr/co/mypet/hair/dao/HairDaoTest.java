@@ -2,7 +2,9 @@ package kr.co.mypet.hair.dao;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -95,7 +97,7 @@ public class HairDaoTest{
 		List<HairBoardVo> reviewList = hairDao.selectReview(hbrd_has);
 
 		/***Then***/
-		assertEquals("cus1",reviewList.get(0).getHbrd_mem());
+		assertEquals("cus2",reviewList.get(0).getHbrd_mem());
 		
 	}
 	
@@ -127,6 +129,46 @@ public class HairDaoTest{
 //		assertEquals(style, hrList.get(0).getHres_pts());
 //		
 //	}
+	
+	//리뷰점수 조회
+	@Test
+	public void getScoreTest() {
+		/***Given***/
+		int totalScore = 0 ; 
+		int totalCnt = 0 ; 
+		
+		
+		/***When***/
+		Map<String, Object> scoreMap = null;
+		scoreMap = hairDao.getScore("has2");
+		System.out.println(scoreMap);
+		
+		int index = 0;
+		for(String ob : scoreMap.keySet()) {
+			System.out.println(scoreMap.get(ob));
+			HashMap<String, String> temp = (HashMap<String, String>) scoreMap.get(ob);
+			System.out.println(temp.values());
+			for(Object tt : temp.values()) {
+				String txt = String.valueOf(tt);
+				System.out.println("txt : "+ txt);
+				
+				if(index==0) {
+					totalCnt = Integer.parseInt(txt);
+				} else if(index==2) {
+					totalScore = Integer.parseInt(txt);
+				}
+				
+				index++;
+			}
+			
+		}
+		
+		System.out.println("totalScore : "+totalScore);
+		System.out.println("totalCnt"+totalCnt);
+		
+		/***Then***/
+		assertEquals("","");
+	}
 	
 
 }
