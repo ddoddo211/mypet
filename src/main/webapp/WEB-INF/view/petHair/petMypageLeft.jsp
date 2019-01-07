@@ -24,18 +24,21 @@
 			
 		<c:choose>
 			<c:when test="${memVo.mem_hair==2 }">
-				<div class="mpleftBlock"><a class="ina">접수된 의뢰		</a>			</div> 
-				<div class="mpleftBlock"><a class="ina">진행중인 의뢰		</a>			</div> 
+				<div class="mpleftBlock"><a href="/hairAdmin/respList?mem_id=${memVo.mem_id }" class="ina">접수된 의뢰		</a>			</div> 
+				<div class="mpleftBlock"><a href="/hairAdmin/onGoing?mem_id=${memVo.mem_id }" class="ina">진행중인 의뢰		</a>			</div> 
 				<div class="mpleftBlock"><a href="/hairAdmin/askList?mem_id=${memVo.mem_id }" class="ina">문의내역			</a>			</div> 
-				<div class="mpleftBlock"><a class="ina">나의 미용실 정보	</a>				</div> 
-				<div class="mpleftBlock"><a class="ina">미용실 매출		</a>			</div>
+				<div class="mpleftBlock"><a href="/hairAdmin/shopInfo?mem_id=${memVo.mem_id }" class="ina">나의 미용실 정보	</a>				</div> 
 				<br>
 			
 			</c:when>
 		</c:choose>	
 			
 			<br>
-			<div class="mpleftBlock"><a class="ina">미용사 등록하기		</a>			</div>
+			<c:choose>
+			<c:when test="${memVo.mem_hair==1 }">
+			<div class="mpleftBlock"><a class="ina" href="/hairAdmin/applyShop?mem_id=${memVo.mem_id }">미용사 등록하기		</a>			</div>
+			</c:when>
+			</c:choose>
 		</div>
 		
 		<form action="/hairMem/history" method="get" id="hisfrm">

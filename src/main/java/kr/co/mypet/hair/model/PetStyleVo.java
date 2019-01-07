@@ -7,9 +7,16 @@ public class PetStyleVo {
 	private int pts_price;
 	private String pts_has;
 	private String pts_img;
+	private String pts_del;
 	
 	
 	
+	public String getPts_del() {
+		return pts_del;
+	}
+	public void setPts_del(String pts_del) {
+		this.pts_del = pts_del;
+	}
 	public String getPts_id() {
 		return pts_id;
 	}

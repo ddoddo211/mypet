@@ -228,7 +228,7 @@
 }
 .bmImg img{
 	width: 100%;
-	height: auto;
+	max-height: 150px;
 }
 
 .bmRight{
@@ -360,6 +360,172 @@
 
 	z-index: 9999;
 }
+
+.mpMainSi{
+	box-sizing: border-box;
+	width: 75%;
+	height: 800px;
+	float: left;
+	overflow: scroll;
+	
+}
+
+.mpMainSi::-webkit-scrollbar{
+	display: none;
+	
+}
+
+.mpMainSi p {
+	color: #848484;
+	margin-left: 10px;
+	width: 50%;
+	font-size: 18px;
+	padding-left: 20px;
+	font-family: 'Jeju Gothic', sans-serif;
+	border-bottom: 2px solid #848484;
+	margin-top: 30px;
+	
+}
+
+.shopInfo{
+	margin-top: 10px;
+	width: 890px;
+	height: 700px;
+}
+
+.shopInfo img {
+	width: 300px;
+	max-height: 300px;
+	
+}
+
+.shopStyleInfo{
+	margin-top:30px;
+	width: 890px;
+	height: auto;
+}
+
+.htext{
+	width: 600px;
+	height: 70px;
+	resize: none;	
+}
+
+.updateList{
+	width: 100%;
+	height: 70px;
+}
+
+.upTitle{
+	padding-top: 10px;
+	text-align: center;
+	background-color: #f1f1f1;
+	border-radius: 10px;
+	width: 130px;
+	height: 30px;
+	float: left;
+}
+
+.upInput{
+	padding-top:5px;
+	width: 700px;
+	float:left;
+}
+
+#submitBtn{
+	margin-top: 10px;
+	margin-left: 600px;
+	
+}
+#submitBtnS{
+	margin-top: 10px;
+	margin-left: 400px;
+	
+}
+#submitBtnA{
+	margin-top: 10px;
+	margin-left: 400px;
+	
+}
+
+.updateListCtn{
+	padding: 5px;
+	width: 880px;
+	height: auto;
+	background-color: #dccccc;
+	border-radius: 20px;
+	
+}
+
+.upInput input{
+	border-radius: 5px;
+	
+}
+
+.upInput textarea{
+	border-radius: 10px;
+	
+}
+
+.upTitleS{
+	text-align: center;
+	background-color: #f1f1f1;
+	border-radius: 10px;
+	width: 130px;
+	height: 100px;
+	float: left;
+}
+
+.upTitleS img{
+	margin-top: 10px;
+	width: 90px;
+	max-height: 80px;
+}
+
+.updateListS{
+	width: 100%;
+	height: 105px;
+}
+
+.upInputS{
+	padding-top:5px;
+	height: 100px;
+	width: 70%;
+	float:left;
+}
+
+.updateListCtnS{
+	padding: 5px;
+	width: 500px;
+	height: auto;
+	background-color: #dccccc;
+	border-radius: 20px;
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -7,6 +7,7 @@ import kr.co.mypet.common.model.MypetVo;
 import kr.co.mypet.hair.model.BookmarkVo;
 import kr.co.mypet.hair.model.HairBoardVo;
 import kr.co.mypet.hair.model.HairResVo;
+import kr.co.mypet.hair.model.HairShopApplyVo;
 import kr.co.mypet.hair.model.HairShopVo;
 import kr.co.mypet.hair.model.PetStyleVo;
 import kr.co.mypet.sitter.model.ZipVo;
@@ -34,6 +35,8 @@ public interface HairServiceInf {
 	
 	//style list 조회
 	List<PetStyleVo> selectStyleList(String pts_has);
+	//style list 조회
+	List<PetStyleVo> selectStyleListAll(String pts_has);
 	
 	//ask insert
 	int insertHairBoard(HairBoardVo hairBoardVo);
@@ -95,5 +98,29 @@ public interface HairServiceInf {
 
 	//문의에 대한 답변작성, 수정 method
 	public int insertAskR(HairBoardVo hbVo);
+
+	//접수된 예약건 확인
+	public List<HairResVo> selectRespRev(String has_id);
+
+	//접수된의뢰를 취소 or 접수하는 method
+	public int updateRevStat(HairResVo hrVo);
+
+	//진행중인 건수 확인
+	public List<HairResVo> selectOgRev(String has_id);
+
+	//미용실의 정보를 수정하는 methdo
+	public int updateShopInfo(HairShopVo hsVo);
+
+	//style 관리 목록에서 update 하기
+	public int updateStyle(PetStyleVo psVo);
+	
+	//style insert
+	public int insertStyle(PetStyleVo psVo);
+	
+	//insert hairShopApply
+	public int insertHairShopApply(HairShopApplyVo hsaVo);
+	
+	//select apply hairshop 중에서 대기중인 사람
+	public HairShopApplyVo selectHsaById(String hsa_mem);
 	
 }

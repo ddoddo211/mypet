@@ -8,6 +8,7 @@
 				<typeAlias type="kr.co.mypet.hair.model.PetStyleVo" alias="styleVo"/>
 				<typeAlias type="kr.co.mypet.hair.model.BookmarkVo" alias="bmVo"/>
 				<typeAlias type="kr.co.mypet.hair.model.HairResVo" alias="hrVo"/>
+				<typeAlias type="kr.co.mypet.hair.model.HairShopApplyVo" alias="hsaVo"/>
 			
 			<!-- hair alias -->
 			
