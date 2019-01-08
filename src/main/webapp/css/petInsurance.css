@@ -263,6 +263,7 @@
 /*상품리스트*/
 #productList{
 	margin-top: 30px;
+	margin-bottom: 20px;
 }
 
 .tr1{
@@ -276,6 +277,19 @@
 	text-align: center;
 	background-color: #e0ecff;
 	
+}
+
+.tabel2{
+	width: 33px;
+	text-align: center;
+}
+
+.tabel5{
+	width: 782px;
+}
+
+.tabel6{
+	width: 150px;
 }
 
 a.no-uline { text-decoration:none }
@@ -1176,6 +1190,9 @@ input[name="cb2"] {
 	color: red;
 }
 
+#isrCondition2{
+	color: blue;
+}
 
 
 
@@ -1230,7 +1247,7 @@ input[name="cb2"] {
 }
 
 #isrJoinInfo{
-	height: 180px;
+	height: 190px;
 	margin-top: 35px;
 }
 
@@ -1301,6 +1318,7 @@ input[name="cb2"] {
 	font-size: 18px;
 	margin-bottom: 20px;
 	margin-left: 10px;	
+	line-height: 30px;
 }
 
 .isrJoinNotice3_1{
@@ -1444,7 +1462,7 @@ input[name="cb2"] {
 
 #guideMain{
 	width: 1200px;
-	height: 2160px;
+	height: 2065px;
 }
 
 #guideMain1{
@@ -1834,6 +1852,7 @@ input[name="cb2"] {
 	outline: none;
 	height: 30px;
     border-radius: 5px;
+    line-height: 30px;
 }
 
 #insurer{
@@ -1893,6 +1912,12 @@ input[name="cb2"] {
 .insurer2_4{
 	font-family: 'Jeju Gothic', sans-serif;
     font-size: 20px;
+    line-height: 30px;
+}
+
+.insurer2_5{
+	font-family: 'Jeju Gothic', sans-serif;
+    font-size: 15px;
     line-height: 30px;
 }
 
@@ -2962,7 +2987,7 @@ div#upload-btnPet_wrap button {/*버튼 div*/
 /*나의 펫 보험 - 나의 펫 정보 부분에 보험가입 상품 나오세 설정*/
 #mypetIsrJoin{
 	width: 915px;
-    min-height : 448px;
+	height: 260px;
     margin-top: 10px;
 }
 
@@ -2990,11 +3015,32 @@ div#upload-btnPet_wrap button {/*버튼 div*/
 }
 
 .mypetTd{
-	width: 70px;
+	width: 95px;
 }
 
 .mypetTd1{
 	width: 125px;
+}
+
+.mypetTd2{
+	width: 42px;
+	height: 30px;
+}
+
+.mypetTd3{
+	width: 40px;
+}
+
+.mypetTd4{
+	width: 35px;
+}
+
+.mypetTd5{
+	width: 60px;
+}
+
+.mypetTd6{
+	width: 60px;
 }
 
 
@@ -3026,7 +3072,7 @@ div#upload-btnPet_wrap button {/*버튼 div*/
 }
 
 .mypetTr{
-	height: 60px;	
+	height: 50px;	
 }
 
 #Termination{
@@ -3083,6 +3129,7 @@ div#upload-btnPet_wrap button {/*버튼 div*/
 #productManagement2{
 	width: 1200px;
 	height: 150px;
+	margin-bottom: 30px;
 }
 
 #currentStatus2{
@@ -3111,7 +3158,7 @@ div#upload-btnPet_wrap button {/*버튼 div*/
 }
 
 .insMenu2{
-	width: 190px;
+	width: 200px;
 	height: 30px;
 	line-height: 30px;
 	font-size: 18px;
@@ -3406,6 +3453,10 @@ div#upload-btnPet_wrap button {/*버튼 div*/
 	width: 100px;
 }
 
+.tabel7{
+	width: 300px;
+}
+
 #prodDelRelease{
 	background-color: #7c6ee9;
 	height: 30px;
@@ -3446,5 +3497,120 @@ div#upload-btnPet_wrap button {/*버튼 div*/
 	border: 2px solid #7c6ee9;
 	color: black;
 	font-size: 20px;
+}
+
+#applySelectBtn1{
+	width: 780px;
+	height: 30px;
+	margin-left: 880px;
+}
+
+.tdh{
+	height: 40px;
+}
+
+.tdh3{
+	height: 40px;
+	text-align: left;
+	cursor: pointer;
+}
+
+.tdh1{
+	height: 40px;
+	background-color: #ffe0ee;
+    font-family: 'Jeju Gothic', sans-serif;
+    font-size: 16px;
+}
+
+#form{
+	width: 1200px;
+	display: table;
+	margin-bottom: 20px;
+}
+
+#petInfo{
+	min-height: 500px;
+}
+
+#selectBtn1{
+	width: 850px;
+	height: 30px;
+	margin-left: 1025px;
+}
+
+#selectBlackBtn1{
+	width: 850px;
+	height: 30px;
+	margin-left: 515px;
+}
+
+.selectBtn1_1{
+	width: 160px;
+	height: 30px;
+	float: left;
+	margin-right: 10px;
+	border-radius: 50px;
+	background-color: #ffd242;
+	color: white;
+	font-size: 18px;
+    font-family: 'Jeju Gothic', sans-serif;
+    border: 1px solid #ffd242;
+    outline: none;
+}
+
+.selectBtn1_1:hover{
+	width: 160px;
+	height: 30px;
+	float: left;
+	margin-right: 10px;
+	border-radius: 50px;
+	background-color: white;
+	color: black;
+	font-size: 18px;
+    font-family: 'Jeju Gothic', sans-serif;
+    border: 1px solid #ffd242;
+    outline: none;
+}
+
+#title{
+	width: 1000px;
+	height: 30px;
+	border-radius: 5px;
+	outline: none;
+}
+
+
+#accidentInput3{
+	width: 1000px;
+	height: 500px;
+	outline: none;
+}
+
+#accidentInput4{
+	width: 1000px;
+	height: 300px;
+	outline: none;
+
+}
+
+#accident4{
+	height: 618px;
+	margin-top: 20px;
+}
+
+#accident5{
+	height: 410px;
+	margin-top: 20px;
+}
+
+#notice1{
+	width: 1180px;
+	height: 30px;
+}
+
+#noticeBtn1{
+	width: 780px;
+	height: 30px;
+	margin-left: 745px;
 }
 

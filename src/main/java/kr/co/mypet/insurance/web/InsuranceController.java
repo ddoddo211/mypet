@@ -544,64 +544,105 @@ public class InsuranceController {
 					// 회원 정보 받아오는 부분
 					MemberVo memVo = (MemberVo) session.getAttribute("memVo");
 					model.addAttribute("memVo", memVo );
+					
+					//회원이 블랙리스트일경우
+					if(memVo.getMem_black() == 2) {
+						
+						
+						//회원이 블랙리스트라면 인터넷 보험청구가 안되도록 막기
+						model.addAttribute("blackMem" , "no");
+						
+						// 회원의 추가된 보험상품 가지고 오기
+						List<InsshoppingVo> memIsrList = insuranceService.memPlan(memVo.getMem_id());
+						model.addAttribute("memIsrList", memIsrList);
+						
+						// 보험상품 에서 삭제 할때 for문 돌리기 위해서 플랜정보에 추가된 상품 수가 필요하기 떄문에 설정
+						model.addAttribute("memIsrListSize", memIsrList.size());
+						
+						
+						// 보험상품이 하나도 업을때 사이즈 보내주는것 (상품이 없을때 상품이 없다는 메세지 나오게 하기 위해서 설정) 
+						model.addAttribute("isrListSize" , memIsrList.size());
+						
+						//회원의 펫 가지고 오기
+						List<InsshoppingVo> mypetList = insuranceService.petList(memVo.getMem_id());
+						model.addAttribute("mypetList", mypetList);
+						
+						// 나의 펫 에서 삭제 할때 for문 돌리기 위해서 펫의 수가 필요하기 떄문에 설정
+						model.addAttribute("mypetListSize" , mypetList.size());
+						
+						
+						//회원의 펫 가입되어 있는 현재 보험 상품 나오게 하기 
+						List<InsuranceVo> mypetIsrJoin = insuranceService.petIsrAlready(memVo.getMem_id());
+						model.addAttribute("mypetIsrJoin", mypetIsrJoin);
+						
+						
+						// 보험상품 선택한 보험가입이 되어 있는지 확인하려고 for문 돌리기 위해서 필요
+						model.addAttribute("mypetIsrJoinSize", mypetIsrJoin.size());
+						
 				
-					// 가입을 진행하고 있는 보험상품 정보 가지고 오기
-					InsProdVo prodJoin = insuranceService.getProdInfo(prodJoinId);
-					
-					// 가입을 진행하고 있는 펫 정보 가지고 오기
-					MypetVo mypetInfo = insuranceService.mypetInfo(petId);
-					
-					
-					// 조회해온 마이펫의 품종을 준다면 그 강아지를 뽑아 올수 있어야 가입조건에 가입대상을 확인할수 있다.
-					PetkindVo petkindVo = insuranceService.petKindVo(mypetInfo.getMyp_petk());
-					
-						// 지금 부분하고 상관은 없지만 알고 있을려고 입력해 놓은것 
-						// 날짜를 구하는 부분은 parse로 이용한다
-						//String birth = request.getParameter("petBirthForm");
-						//Date dateBirth = date.parse(birth);
-					
-					// 가입대상, 가입연령 , 질병여부 맞는지 확인
-					SimpleDateFormat date = new SimpleDateFormat("yyyy");
-					// 현재 데이터 나오게 설정
-					Date  petdate = new Date();
-					
-					// string으로 변경하는 부분은 format으로 이용해야 한다
-					String petBirth1 = date.format(mypetInfo.getMyp_birth());
-					
-					// int로 변경한다.
-					int petBirth = Integer.parseInt(petBirth1);
-					
-					// 보험상품의 최소연령
-					int minage = prodJoin.getInsp_minage();
-					
-					// 보험상품의 최대연령
-					int maxage = prodJoin.getInsp_maxage();
+						// 회원의 펫이 없을떄 가입가능한 나의 펫 부분에 (펫이 없다는 메세지 나오게 하기 위해서 설정)
+						model.addAttribute("petListSize", mypetList.size());
+						
+						return "petInsurance/planInformation";
+						
+					}else {
+						// 가입을 진행하고 있는 보험상품 정보 가지고 오기
+						InsProdVo prodJoin = insuranceService.getProdInfo(prodJoinId);
+						
+						// 가입을 진행하고 있는 펫 정보 가지고 오기
+						MypetVo mypetInfo = insuranceService.mypetInfo(petId);
+						
+						
+						// 조회해온 마이펫의 품종을 준다면 그 강아지를 뽑아 올수 있어야 가입조건에 가입대상을 확인할수 있다.
+						PetkindVo petkindVo = insuranceService.petKindVo(mypetInfo.getMyp_petk());
+						
+							// 지금 부분하고 상관은 없지만 알고 있을려고 입력해 놓은것 
+							// 날짜를 구하는 부분은 parse로 이용한다
+							//String birth = request.getParameter("petBirthForm");
+							//Date dateBirth = date.parse(birth);
+						
+						// 가입대상, 가입연령 , 질병여부 맞는지 확인
+						SimpleDateFormat date = new SimpleDateFormat("yyyy");
+						// 현재 데이터 나오게 설정
+						Date  petdate = new Date();
+						
+						// string으로 변경하는 부분은 format으로 이용해야 한다
+						String petBirth1 = date.format(mypetInfo.getMyp_birth());
+						
+						// int로 변경한다.
+						int petBirth = Integer.parseInt(petBirth1);
+						
+						// 보험상품의 최소연령
+						int minage = prodJoin.getInsp_minage();
+						
+						// 보험상품의 최대연령
+						int maxage = prodJoin.getInsp_maxage();
 
-					// 현재일자
-					int b = Integer.parseInt(date.format(petdate));
+						// 현재일자
+						int b = Integer.parseInt(date.format(petdate));
+						
+						// 현재 나이 구하는 부분
+						int petage = b - petBirth;
+						
+						// 가입을 진행하고 있는 보험상품 정보 가지고 오기	
+						model.addAttribute("prodJoin", prodJoin);
+						// 가입을 진행하고 있는 펫 정보 가지고 오기
+						model.addAttribute("mypetInfo", mypetInfo);
+						
+						
+						// 해당 회원의 이메일(pk)로 보내서 회원의 계좌번호를 가지고 오는 방법(매개변수를 회원의 아이디로 설정한다) 
+						List<AccountVo> memAccidentList = insuranceService.memAccountList(memVo.getMem_id());
+						model.addAttribute("memAccidentList", memAccidentList);
+						
 					
-					// 현재 나이 구하는 부분
-					int petage = b - petBirth;
-					
-					// 가입을 진행하고 있는 보험상품 정보 가지고 오기	
-					model.addAttribute("prodJoin", prodJoin);
-					// 가입을 진행하고 있는 펫 정보 가지고 오기
-					model.addAttribute("mypetInfo", mypetInfo);
-					
-					
-					// 해당 회원의 이메일(pk)로 보내서 회원의 계좌번호를 가지고 오는 방법(매개변수를 회원의 아이디로 설정한다) 
-					List<AccountVo> memAccidentList = insuranceService.memAccountList(memVo.getMem_id());
-					model.addAttribute("memAccidentList", memAccidentList);
-					
-				
-					// 가입조건이 맞지 않는다면 가입이 안되는 메서드 사용 
-					if(insuranceAvaliable(prodJoin.getInsp_sick(), mypetInfo.getMyp_sick(), petkindVo.getAm_name(), prodJoin.getInsp_join(), minage, maxage, petage ))	
-						return "/petInsurance/prodJoin";
-					else {
-						model.addAttribute("joinFail" , 0);
-						return "redirect:/isr/goplanInformation";
+						// 가입조건이 맞지 않는다면 가입이 안되는 메서드 사용 
+						if(insuranceAvaliable(prodJoin.getInsp_sick(), mypetInfo.getMyp_sick(), petkindVo.getAm_name(), prodJoin.getInsp_join(), minage, maxage, petage ))	
+							return "/petInsurance/prodJoin";
+						else {
+							model.addAttribute("joinFail" , 0);
+							return "redirect:/isr/goplanInformation";
+						}
 					}
-					
 			}
 			
 			// 보험상품 가입을 위한 마지막 처리 (이부분을 지나면 보험가입이 완료된다)
@@ -668,7 +709,6 @@ public class InsuranceController {
 				isrVo.setMyp_id(petId);
 				isrVo.setMem_id(memId);
 				isrVo.setInssp_id(prodJoinId);
-				isrVo.setIns_end(prodDuedate);
 				isrVo.setAct_id(memAccident);
 				
 				// 쿼리문 이용하여 저장해주기
@@ -708,10 +748,6 @@ public class InsuranceController {
 			
 			
 			
-			
-			
-			
-			
 			// 보상안내로 화면이동 하는 컨트롤러
 			@RequestMapping("/compensationGuide")
 			public String compensationGuide(Model model) {
@@ -733,7 +769,13 @@ public class InsuranceController {
 				// 로그인을 안한 회원일 경우에는 로그인 화면으로 이동
 				if (memVo == null) {
 					return "petInsurance/memLoginChk";
-				} else {
+				}else if(memVo.getMem_black() == 2) {
+					
+					//회원이 블랙리스트라면 인터넷 보험청구가 안되도록 막기
+					model.addAttribute("blackMem" , "no");
+					
+					return "petInsurance/compensationGuide";
+				}else {
 					
 					// 보험가입이 완료된 펫 정보 가지고 오기
 					List<InsuranceVo> mypetList = insuranceService.insuredPerson(memVo.getMem_id());
@@ -1059,6 +1101,13 @@ public class InsuranceController {
 				model.addAttribute("isrVoList" , isrVoList);
 				model.addAttribute("isrVoListSize" , isrVoList.size());
 				
+				
+				List<InsuranceVo> joinHList =  insuranceService.claimPetJoinHandling(isrVo);
+				// 다음 화면에서 펫 보험정보를 사용해야 하기 때문에 model에 담아주기 
+				model.addAttribute("joinHList" , joinHList);
+				model.addAttribute("joinHListSize" , joinHList.size());
+				
+				
 				// 해당 펫이 해지한 보험가입 내역 나오게 설정
 				List<InsuranceVo> isrVoList2 =  insuranceService.claimPetJoinProd2(isrVo);
 				// 다음 화면에서 펫 보험정보를 사용해야 하기 때문에 model에 담아주기 
@@ -1150,26 +1199,15 @@ public class InsuranceController {
 				
 				String petId = request.getParameter("petId");
 				String petName = request.getParameter("petName");
-				String petBirth = request.getParameter("petBirthSelect");
 				String petGender = request.getParameter("petGender");
-				String petSick = request.getParameter("petSick");
-				String petNeu = request.getParameter("petNeutralization");
 				
 				// 객체 만들기
 				MypetVo petVo = new MypetVo();
 				
-				// 생년월일 Date 타입으로 변경하기
-				SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
-				Date petBirthUpdate = date.parse(petBirth);
-				
 				// 수정할수 있는 부분 펫 이름 , 생년월일 , 성별 , 질병여부 , 중성화 여부 
 				petVo.setMyp_id(petId);
 				petVo.setMyp_name(petName);
-				petVo.setMyp_birth(petBirthUpdate);
 				petVo.setMyp_gender(petGender);
-				petVo.setMyp_sick(petSick);
-				petVo.setMyp_neu(petNeu);
-				
 				
 				// 나의펫의 이미지 경로 저장
 				// 실제 파일 저장될 경로 설정하기
@@ -1818,5 +1856,514 @@ public class InsuranceController {
 				return "admin/petInsurance/goInsProdUpdate";
 			}
 			
+			
+			/* 보험 신청 /가입자 관리 화면으로 이동*/
+			@RequestMapping("/goApplyJoinManager")
+			public String goApplyJoinManager(Model model) {
+				
+				// 보험신청자 리스트 가지고 오기
+				List<InsuranceVo> applyList = insuranceService.applyList();
+				model.addAttribute("applyList" , applyList );
+				model.addAttribute("applyListSize" , applyList.size() );
+				
+				// 보험가입자자 리스트 가지고 오기
+				List<InsuranceVo> completeList = insuranceService.completeList();
+				model.addAttribute("completeList" , completeList );
+				model.addAttribute("completeListSize" , completeList.size() );
+				
+				// 보험가입 반려자 리스트 가지고 오기
+				List<InsuranceVo> terminationList = insuranceService.terminationList();
+				model.addAttribute("terminationList" , terminationList );
+				model.addAttribute("terminationListSize" , terminationList.size() );
+				
+				return "admin/petInsurance/goApplyJoinManager";
+			}
+			
+			
+			/* 보험 신청 /가입자 : 신청 승인 버튼을 클릭하였을 경우*/
+			@RequestMapping("/goApplyJoin")
+			public String goApplyJoin(Model model , HttpServletRequest request) throws Exception {
+				
+				String applyJoinProd = request.getParameter("applyJoinProd");
+				String petId = request.getParameter("petIdProd");
+				String prodIdSelect = request.getParameter("prodIdSelect");
+				
+				
+				
+				// 만기일 계산하기 
+				// 만기일을 계산할떄에는 현재 애완펫의 년생을 구한다 
+					// 가입을 진행하고 있는 펫 정보 가지고 오기
+					MypetVo mypetInfo = insuranceService.mypetInfo(petId);
+				
+					// 년도만 비교 한다
+					SimpleDateFormat date = new SimpleDateFormat("yyyy");
+					// 현재 데이터 나오게 설정
+					Date  proddate = new Date();
+					
+					// string으로 변경하는 부분은 format으로 이용해야 한다
+					String petInfoBirth = date.format(mypetInfo.getMyp_birth());
+				
+					int petBirth1 = Integer.parseInt(petInfoBirth);
+					
+					// 보험상품의 보장기간 구해오기 
+					// 가입을 진행하고 있는 보험상품 정보 가지고 오기
+					InsProdVo prodJoin = insuranceService.getProdInfo(prodIdSelect);
+				
+					// 보험상품 보장기간 넣어주기
+					int period = prodJoin.getInsp_period();
+				
+					// 만기되는 일자 구하기 (년도)
+					int duedateDay = petBirth1 + period;
+					
+						// 월을 저장하는 부분
+						SimpleDateFormat month = new SimpleDateFormat("MM");
+						String petInfoBirthmonth = month.format(mypetInfo.getMyp_birth());
+						
+						// 애완동물 월 저장되는 변수 (만기 월)
+						int petBirthMonthSub = Integer.parseInt(petInfoBirthmonth);
+						
+						// 일을 저장하는 부분
+						SimpleDateFormat day = new SimpleDateFormat("dd");
+						String petInfoBirthDay = day.format(mypetInfo.getMyp_birth());
+						
+						// 애완동물 월 일 저장되는 변수 (만기 일)
+						int petBirthDaySub = Integer.parseInt(petInfoBirthDay);
+					
+					// 년 / 월 / 일 모두 더해주기
+					String duedate = duedateDay +"-"+petBirthMonthSub +"-" + petBirthDaySub;
+					
+					// DB가 DATE형 이기 때문에 DATE형으로 변경해준다
+					Date prodDuedate = date.parse(duedate);
+					
+				// 서비스 이용하여 db 보험가입상품 테이블에 추가하기 (매개변수는 보험상품 VO로 넘겨주기)
+				InsuranceVo isrVo = new InsuranceVo();
+				
+				isrVo.setIns_id(applyJoinProd);
+				isrVo.setIns_start(proddate);
+				isrVo.setIns_end(prodDuedate);
+				
+				// 쿼리문에 신청 승인할 id 넣어주기
+				insuranceService.goApplyJoin(isrVo);
+				
+				// 보험신청자 리스트 가지고 오기
+				List<InsuranceVo> applyList = insuranceService.applyList();
+				model.addAttribute("applyList" , applyList );
+				model.addAttribute("applyListSize" , applyList.size() );
+				
+				// 보험가입자자 리스트 가지고 오기
+				List<InsuranceVo> completeList = insuranceService.completeList();
+				model.addAttribute("completeList" , completeList );
+				model.addAttribute("completeListSize" , completeList.size() );
+				
+				// 보험가입 반려자 리스트 가지고 오기
+				List<InsuranceVo> terminationList = insuranceService.terminationList();
+				model.addAttribute("terminationList" , terminationList );
+				model.addAttribute("terminationListSize" , terminationList.size() );
+				
+				return "admin/petInsurance/goApplyJoinManager";
+			}
+			
+			/* 보험 신청 /가입자 : 신청 반려 버튼을 클릭하였을 경우*/
+			@RequestMapping("/goCompanionJoin")
+			public String goCompanionJoin(Model model , HttpServletRequest request) {
+				
+				String applyJoinProd = request.getParameter("applyJoinProd");
+				
+				// 현재 데이터 나오게 설정
+				// 반려된 일자넣어주기
+				Date  proddate = new Date();
+				
+				InsuranceVo isrVo = new InsuranceVo();
+				isrVo.setIns_start(proddate);
+				isrVo.setIns_id(applyJoinProd);
+				
+				// 쿼리문에 신청 반려할 id 넣어주기
+				insuranceService.goCompanionJoin(isrVo);
+				
+				// 보험신청자 리스트 가지고 오기
+				List<InsuranceVo> applyList = insuranceService.applyList();
+				model.addAttribute("applyList" , applyList );
+				model.addAttribute("applyListSize" , applyList.size());
+				
+				// 보험가입자자 리스트 가지고 오기
+				List<InsuranceVo> completeList = insuranceService.completeList();
+				model.addAttribute("completeList" , completeList );
+				model.addAttribute("completeListSize" , completeList.size());
+				
+				// 보험가입 반려자 리스트 가지고 오기
+				List<InsuranceVo> terminationList = insuranceService.terminationList();
+				model.addAttribute("terminationList" , terminationList );
+				model.addAttribute("terminationListSize" , terminationList.size());
+				
+				return "admin/petInsurance/goApplyJoinManager";
+			}
+			
+			
+			
+			/* 보험 신청 /가입자 관리 : 보험내용 확인하기 화면으로 이동*/
+			@RequestMapping("/goJoinCheck")
+			public String goJoinCheck(Model model, HttpServletRequest request) {
+				
+				// 보험가입상품 id 
+				String prodJoinId = request.getParameter("joinCheck");
+				
+				// 펫 id 담기
+				String myp_id = request.getParameter("myp_id");
+				
+				// 보험상품 id 담기
+				String inssp_id = request.getParameter("inssp_id");
+				
+				// 보험가입자 id담기
+				String mem_id = request.getParameter("mem_id");
+				
+				// 보험계좌번호 id 담기
+				String act_id = request.getParameter("act_id");
+					
+					// 가입을 진행하고 있는 보험상품 정보 가지고 오기
+					InsProdVo prodJoin = insuranceService.getProdInfo(inssp_id);
+					
+					// 가입을 진행하고 있는 펫 정보 가지고 오기
+					MypetVo mypetInfo = insuranceService.mypetInfo(myp_id);
+					
+					// 가입을 진행하고 있는 보험상품 정보 가지고 오기	
+					model.addAttribute("prodJoin", prodJoin);
+					// 가입을 진행하고 있는 펫 정보 가지고 오기
+					model.addAttribute("mypetInfo", mypetInfo);
+					
+					// insuranceVo 넣어주기
+					InsuranceVo insVo = new InsuranceVo();
+					
+					insVo.setIns_id(prodJoinId);
+					insVo.setMem_id(mem_id);
+					insVo.setAct_id(act_id);
+					
+					InsuranceVo insVoList = insuranceService.goJoinCheck(insVo);
+					model.addAttribute("insVoList", insVoList);
+					
+					
+					// 해당 회원의 이메일(pk)로 보내서 회원의 계좌번호를 가지고 오는 방법(매개변수를 회원의 아이디로 설정한다) 
+					List<AccountVo> memAccidentList = insuranceService.memAccountList(mem_id);
+					model.addAttribute("memAccidentList", memAccidentList);
+					
+			
+				return "admin/petInsurance/goJoinCheck";
+			}
+			
+			
+			/* 보험 가입자관리 화면에서 "보험 해지하기"버튼을 클릭하였을 경우*/
+			@RequestMapping("/goJoinTermination")
+			public String goJoinTermination(Model model , HttpServletRequest request) {
+				
+				//해지할 보험가입 상품 id 가지고 오기 
+				String joinId = request.getParameter("joinTermination");
+				
+				// 보험가입화면에서 해당 보험 상품 해지여부를 해지로 변경하기 
+				insuranceService.goJoinTermination(joinId);
+				
+				// 사고 테이블에서 해당 보험가입상품 아이디로 줘서 반려처리하기 
+				insuranceService.handling(joinId);
+				
+				// 보험신청자 리스트 가지고 오기
+				List<InsuranceVo> applyList = insuranceService.applyList();
+				model.addAttribute("applyList" , applyList );
+				model.addAttribute("applyListSize" , applyList.size() );
+				
+				// 보험가입자자 리스트 가지고 오기
+				List<InsuranceVo> completeList = insuranceService.completeList();
+				model.addAttribute("completeList" , completeList );
+				model.addAttribute("completeListSize" , completeList.size() );
+				
+				// 보험가입 반려자 리스트 가지고 오기
+				List<InsuranceVo> terminationList = insuranceService.terminationList();
+				model.addAttribute("terminationList" , terminationList );
+				model.addAttribute("terminationListSize" , terminationList.size() );
+				
+				return "admin/petInsurance/goApplyJoinManager";
+			}
+			
+			/* 보험 공지사항 관리 화면으로 이동*/
+			@RequestMapping("/goNoticeBoard")
+			public String goNoticeBoard(Model model, HttpSession session) {
+				
+				// 공지사항 리스트 나오게 설정하기 
+				List<InsuranceNoticeVo> noticList = insuranceService.noticList();
+				model.addAttribute("noticList" , noticList );
+				model.addAttribute("noticListListSize" , noticList.size() );
+				
+				// 공지사항 등록자 나오게 설정 
+				// 회원 정보 받아오는 부분
+				MemberVo memVo = (MemberVo) session.getAttribute("memVo");
+				model.addAttribute("memVoName" , memVo.getMem_name() );
+				
+				
+				return "admin/petInsurance/goNoticeBoard";
+			}
+			
+			/* 보험 공지사항 관리 : 공지사항 글쓰는 화면으로 이동*/
+			@RequestMapping("/goNoticeWrite")
+			public String goNoticeWrite(Model model, HttpSession session) {
+								
+				// 공지사항 등록자 나오게 설정 
+				// 회원 정보 받아오는 부분
+				MemberVo memVo = (MemberVo) session.getAttribute("memVo");
+				model.addAttribute("memVoName" , memVo.getMem_name() );
+				
+				
+				return "admin/petInsurance/goNoticeWrite";
+			}
+			
+			/* 보험 공지사항 관리 : 공지사항 글쓰기 완료되는 부분*/
+			@RequestMapping("/goNoticeInsert")
+			public String goNoticeInsert(Model model, HttpSession session , HttpServletRequest request) {
+				
+				// 글 제목 받아오기 
+				String title = request.getParameter("title");
+				// 글 내용 받아오기 
+				String content = request.getParameter("content");
+				
+				InsuranceNoticeVo notice = new InsuranceNoticeVo();
+				Date date = new Date();
+				
+				notice.setInot_title(title);
+				notice.setInot_text(content);
+				notice.setInot_date(date);
+				
+				// db에 전달하여 글 등록하기
+				insuranceService.goNoticeInsert(notice);
+				
+								
+				// 공지사항 리스트 나오게 설정하기 
+				List<InsuranceNoticeVo> noticList = insuranceService.noticList();
+				model.addAttribute("noticList" , noticList );
+				model.addAttribute("noticListListSize" , noticList.size() );
+				
+				// 공지사항 등록자 나오게 설정 
+				// 회원 정보 받아오는 부분
+				MemberVo memVo = (MemberVo) session.getAttribute("memVo");
+				model.addAttribute("memVoName" , memVo.getMem_name() );
+				
+				
+				return "admin/petInsurance/goNoticeBoard";
+			}
+			
+			/* 보험 공지사항 관리 : 공지사항 글확인하는 화면으로 이동*/
+			@RequestMapping("/goNoticeCheck")
+			public String goNoticeCheck(Model model, HttpSession session  , HttpServletRequest request) {
+				
+				String noticeId = request.getParameter("noticeId");
+				
+				InsuranceNoticeVo insNotice = insuranceService.goNoticeCheck(noticeId);
+				
+				// 공지사항 글 나오게 설정
+				model.addAttribute("insNotice" ,insNotice );
+								
+				// 공지사항 등록자 나오게 설정 
+				// 회원 정보 받아오는 부분
+				MemberVo memVo = (MemberVo) session.getAttribute("memVo");
+				model.addAttribute("memVoName" , memVo.getMem_name() );
+				
+				
+				return "admin/petInsurance/goNoticeCheck";
+			}
+			
+			/* 보험 공지사항 관리 : 공지사항 글확인하는 화면으로 이동*/
+			@RequestMapping("/goNoticeDel")
+			public String goNoticeDel(Model model, HttpSession session  , HttpServletRequest request) {
+				
+				String noticeId = request.getParameter("noticeId");
+				
+				// 게시글 삭제하기
+				insuranceService.goNoticeDel(noticeId);
+				
+				// 삭제 완료후에 공지사항 목록 갔을떄 나오는 문구 설정하기 
+				model.addAttribute("del" , "Y" );
+				
+				// 공지사항 리스트 나오게 설정하기 
+				List<InsuranceNoticeVo> noticList = insuranceService.noticList();
+				model.addAttribute("noticList" , noticList );
+				model.addAttribute("noticListListSize" , noticList.size() );
+				
+				// 공지사항 등록자 나오게 설정 
+				// 회원 정보 받아오는 부분
+				MemberVo memVo = (MemberVo) session.getAttribute("memVo");
+				model.addAttribute("memVoName" , memVo.getMem_name() );
+				
+				return "admin/petInsurance/goNoticeBoard";
+			}
+			
+			/* 보험 공지사항 관리 : 공지사항 글 수정하는 화면으로 이동*/
+			@RequestMapping("/goNoticeUpdate")
+			public String goNoticeUpdate(Model model, HttpSession session  , HttpServletRequest request) {
+				
+				String noticeId = request.getParameter("noticeId");
+				
+				InsuranceNoticeVo insNotice = insuranceService.goNoticeCheck(noticeId);
+				
+				// 공지사항 글 나오게 설정
+				model.addAttribute("insNotice" ,insNotice );
+								
+				// 공지사항 등록자 나오게 설정 
+				// 회원 정보 받아오는 부분
+				MemberVo memVo = (MemberVo) session.getAttribute("memVo");
+				model.addAttribute("memVoName" , memVo.getMem_name() );
+				
+				return "admin/petInsurance/goNoticeUpdate";
+			}
+			
+			/* 보험 공지사항 관리 : 공지사항 글 수정한 내용 입력시키기*/
+			@RequestMapping("/goNoticeUpdateInsert")
+			public String goNoticeUpdateInsert(Model model, HttpSession session  , HttpServletRequest request) {
+				
+				String title = request.getParameter("title");
+				String content = request.getParameter("content");
+				String noticeId = request.getParameter("noticeId");
+				
+				InsuranceNoticeVo insNoticeVo = new InsuranceNoticeVo();
+				insNoticeVo.setInot_id(noticeId);
+				insNoticeVo.setInot_title(title);
+				insNoticeVo.setInot_text(content);
+				
+				// 쿼리문으로 수정하고 오기
+				insuranceService.goNoticeUpdateInsert(insNoticeVo);
+				
+				// 수정이 완료되었을떄 글 확인하는 화면에서 alert나오게 설정하기
+				model.addAttribute("update" ,"Y" );
+				
+				InsuranceNoticeVo insNotice = insuranceService.goNoticeCheck(noticeId);
+				
+				// 공지사항 글 나오게 설정
+				model.addAttribute("insNotice" ,insNotice );
+								
+				// 공지사항 등록자 나오게 설정 
+				// 회원 정보 받아오는 부분
+				MemberVo memVo = (MemberVo) session.getAttribute("memVo");
+				model.addAttribute("memVoName" , memVo.getMem_name() );
+				
+				return "admin/petInsurance/goNoticeCheck";
+			}
+			
+			
+			/* 보험금 청구 관리 : 보험금 청구관리 화면으로 이동*/
+			@RequestMapping("/goClaim")
+			public String goClaim(Model model, HttpSession session  , HttpServletRequest request) {
+				
+				// 보험금 신청내역 리스트 나오게 설정하기 
+				List<AccidentVo> accidentList = insuranceService.goClaim();
+				model.addAttribute("accidentList" , accidentList );
+				model.addAttribute("accidentListSize" , accidentList.size() );
+				
+				// 보험금 반려내역 리스트 나오게 설정하기 
+				List<AccidentVo> companionList = insuranceService.goCompanion();
+				model.addAttribute("companionList" , companionList );
+				model.addAttribute("companionListSize" , companionList.size() );
+				
+				
+				// 보험금 완료내역 리스트 나오게 설정하기
+				List<AccidentVo> completedList = insuranceService.goCompleted();
+				model.addAttribute("completedList" , completedList );
+				model.addAttribute("completedListSize" , completedList.size() );
+				
+				// 보험금 블랙리스트 리스트 나오게 설정하기
+				List<MemberVo> memBlacklist = insuranceService.memBlacklist();
+				model.addAttribute("memBlacklist" , memBlacklist );
+				model.addAttribute("memBlacklistSize" , memBlacklist.size() );
+				
+				return "admin/petInsurance/goClaim";
+			}
+			
+			
+			/* 보험 청구관리 관리 : 블랙리스트로 추가하는 부분*/
+			@RequestMapping("/goBlackAdd")
+			public String goBlackAdd(Model model, HttpSession session  , HttpServletRequest request) {
+				
+				//회원의 id 받기 
+				String accd_mem = request.getParameter("accd_mem");
+				
+				// 블랙리스트로 추가하기
+				insuranceService.goBlackAdd(accd_mem);
+				
+				// 회원이 신청해 놨던 보험금 청구 신청 부분은 반려처리하기 
+				insuranceService.handlingMemAll(accd_mem);
+				
+				// 회원이 블랙리스트에 추가되었다는부분을 알려주는 부분
+				model.addAttribute("blackListS" , "Y");
+				
+				// 보험금 신청내역 리스트 나오게 설정하기 
+				List<AccidentVo> accidentList = insuranceService.goClaim();
+				model.addAttribute("accidentList" , accidentList );
+				model.addAttribute("accidentListSize" , accidentList.size() );
+				
+				// 보험금 반려내역 리스트 나오게 설정하기 
+				List<AccidentVo> companionList = insuranceService.goCompanion();
+				model.addAttribute("companionList" , companionList );
+				model.addAttribute("companionListSize" , companionList.size() );
+				
+				
+				// 보험금 완료내역 리스트 나오게 설정하기
+				List<AccidentVo> completedList = insuranceService.goCompleted();
+				model.addAttribute("completedList" , completedList );
+				model.addAttribute("completedListSize" , completedList.size() );
+				
+				// 보험금 블랙리스트 리스트 나오게 설정하기
+				List<MemberVo> memBlacklist = insuranceService.memBlacklist();
+				model.addAttribute("memBlacklist" , memBlacklist );
+				model.addAttribute("memBlacklistSize" , memBlacklist.size() );
+				
+				return "admin/petInsurance/goClaim";
+			}
+			
+			/* 보험 청구관리 관리 : 블랙리스트로 해제하는 부분*/
+			@RequestMapping("/goBlackRelease")
+			public String goBlackRelease(Model model, HttpSession session  , HttpServletRequest request) {
+				
+				//회원의 id 받기 
+				String accd_mem = request.getParameter("accd_mem2");
+				
+				// 블랙리스트로 추가하기
+				insuranceService.goBlackRelease(accd_mem);
+				
+				// 회원이 블랙리스트에 해제되었다는부분을 알려주는 부분
+				model.addAttribute("blackListR" , "Y");
+				
+				// 보험금 신청내역 리스트 나오게 설정하기 
+				List<AccidentVo> accidentList = insuranceService.goClaim();
+				model.addAttribute("accidentList" , accidentList );
+				model.addAttribute("accidentListSize" , accidentList.size() );
+				
+				// 보험금 반려내역 리스트 나오게 설정하기 
+				List<AccidentVo> companionList = insuranceService.goCompanion();
+				model.addAttribute("companionList" , companionList );
+				model.addAttribute("companionListSize" , companionList.size() );
+				
+				
+				// 보험금 완료내역 리스트 나오게 설정하기
+				List<AccidentVo> completedList = insuranceService.goCompleted();
+				model.addAttribute("completedList" , completedList );
+				model.addAttribute("completedListSize" , completedList.size() );
+				
+				// 보험금 블랙리스트 리스트 나오게 설정하기
+				List<MemberVo> memBlacklist = insuranceService.memBlacklist();
+				model.addAttribute("memBlacklist" , memBlacklist );
+				model.addAttribute("memBlacklistSize" , memBlacklist.size() );
+				
+				return "admin/petInsurance/goClaim";
+			}
+			
+			
+			
+			
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

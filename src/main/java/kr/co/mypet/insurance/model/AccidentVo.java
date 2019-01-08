@@ -48,6 +48,9 @@ public class AccidentVo {
 	
 	private String insp_kind;
 	
+	// 관리자용에서 보험금 청구 관리 화면에 나와야 하기 때문에 설정
+	private String mem_name; 
+	
 	@Override
 	public String toString() {
 		return "AccidentVo [accd_id=" + accd_id + ", accd_date=" + accd_date + ", accd_addr=" + accd_addr
@@ -58,10 +61,14 @@ public class AccidentVo {
 				+ ", act_bank=" + act_bank + ", act_num=" + act_num + ", act_name=" + act_name + ", act_mem=" + act_mem
 				+ ", myp_id=" + myp_id + ", myp_mem=" + myp_mem + ", myp_petk=" + myp_petk + ", myp_birth=" + myp_birth
 				+ ", myp_sick=" + myp_sick + ", myp_img=" + myp_img + ", myp_neu=" + myp_neu + ", myp_gender="
-				+ myp_gender + ", insp_kind=" + insp_kind + "]";
+				+ myp_gender + ", insp_kind=" + insp_kind + ", mem_name=" + mem_name + "]";
 	}
-	
-	
+	public String getMem_name() {
+		return mem_name;
+	}
+	public void setMem_name(String mem_name) {
+		this.mem_name = mem_name;
+	}
 	public String getInsp_kind() {
 		return insp_kind;
 	}

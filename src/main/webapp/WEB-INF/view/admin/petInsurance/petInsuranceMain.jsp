@@ -12,13 +12,25 @@
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript">
-$(document).ready(function() {
-	
-});
 
 //보험상품 관리 버튼을 클릭하였을때  보험상품 관리 화면으로 이동
 function goProdManager(){
 	location.href ='/isr/goProdManager';
+}
+
+//보험신청/가입자 관리 버튼을 클릭하였을때  보험신청/가입자 관리 화면으로 이동
+function goApplyJoin(){
+	location.href ='/isr/goApplyJoinManager';
+}
+
+//보험 청구 버튼을 클릭하였을때  보험신청/가입자 관리 화면으로 이동
+function goClaim(){
+	location.href ='/isr/goClaim';
+}
+
+// 공지사항 관리 버튼을 클릭하였을때 공지사항 관리 화면으로 이동
+function goNoticeBoard(){
+	location.href ='/isr/goNoticeBoard';
 }
 
 </script>
@@ -55,13 +67,13 @@ function goProdManager(){
 							<input type="button" class="prodManagement" onclick="goProdManager()" value="보험 상품 관리">
 						</div>
 						<div class="adminInsMenu2">
-							<input type="button" class="prodManagement" value="보험 신청 /가입자 관리">
+							<input type="button" class="prodManagement" onclick="goApplyJoin()" value="보험 신청 /가입자 관리">
 						</div>
 						<div class="adminInsMenu2">
-							<input type="button" class="prodManagement" value="보험 공지사항 관리">
+							<input type="button" class="prodManagement" onclick="goClaim()" value="보험금 청구 /입금 관리">
 						</div>
 						<div class="adminInsMenu2">
-							<input type="button" class="prodManagement" value="보험 청구 /입금 관리">
+							<input type="button" class="prodManagement" onclick="goNoticeBoard()" value="보험 공지사항 관리">
 						</div>
 					</div>				
 				</div>

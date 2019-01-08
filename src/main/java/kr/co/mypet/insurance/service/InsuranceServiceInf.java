@@ -370,6 +370,17 @@ public interface InsuranceServiceInf {
 	*/
 	List<InsuranceVo> claimPetJoinProd2 (InsuranceVo isrVo);
 	
+	
+	/**
+	* Method : claimPetJoinHandling
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param isrVo
+	* @return
+	* Method 설명 : 나의 펫 보험 - 보험 신청 반려 되어 있는 가입내역이 나오는 부분
+	*/
+	List<InsuranceVo> claimPetJoinHandling (InsuranceVo isrVo);
+	
 	/**
 	* Method : mypetInfoUpdate
 	* 작성자 : Yumint
@@ -523,5 +534,208 @@ public interface InsuranceServiceInf {
 	* Method 설명 :보험상품관리(보험내용수정) : 보험상품 내용수정하기
 	*/
 	int goInsProdUpdateS(InsProdVo insProdVo);
+	
+	
+	/**
+	* Method : applyList
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @return
+	* Method 설명 :보험신청/가입자관리 화면 : 보험신청자 나오는 부분 
+	*/
+	List<InsuranceVo> applyList ();
+	
+	/**
+	 * Method : completeList
+	 * 작성자 : Yumint
+	 * 변경이력 :
+	 * @return
+	 * Method 설명 :보험신청/가입자관리 화면 : 보험가입자 나오는 부분 
+	 */
+	List<InsuranceVo> completeList();
+	
+	
+	/**
+	* Method : goApplyJoin
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param ins_id
+	* @return
+	* Method 설명 :보험신청/가입자관리 화면 : 신청 승인 버튼을 클릭하였을때 가입여부를 완료로 변경해주는 부분
+	*/
+	int goApplyJoin (InsuranceVo isrVo);
+	
+	/**
+	* Method : goCompanionJoin
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param ins_id
+	* @return
+	* Method 설명 :보험신청/가입자관리 화면 : 신청 승인 버튼을 클릭하였을때 가입여부를 반려로 변경해주는 부분
+	*/
+	int goCompanionJoin (InsuranceVo isrVo);
+	
+	/**
+	* Method : terminationList
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param ins_id
+	* @return
+	* Method 설명 : 보험신청/가입자관리 화면 : 보험반려내역 나오는 부분
+	*/
+	List<InsuranceVo> terminationList ();
+	
+	
+	/**
+	* Method : goJoinCheck
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param isrVo
+	* @return
+	* Method 설명 :관리자용 - 보험 상품 id를 줘서 해당 보험상품 정보가지고 오기 ( 보험상품 내용 & 가입자 정보
+	*/
+	InsuranceVo goJoinCheck(InsuranceVo isrVo);
+	
+	
+	/**
+	* Method : goJoinTermination
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param ins_id
+	* @return
+	* Method 설명 :보험가입자 관리 화면에서 보험해지하기 버튼을 클릭하였을 경우 해당 보험목록 해지로 변경하기
+	*/
+	int goJoinTermination(String ins_id);
+	
+	/**
+	* Method : handling
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param ins_id
+	* @return
+	* Method 설명 :보험가입자 관리 화면에서 보험해지하기 버튼을 클릭하였을 경우 사고 테이블에서 해당 보험가입상품 아이디로 줘서 반려처리하기
+	*/
+	int handling(String ins_id);
+	
+	
+	/**
+	* Method : noticList
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @return
+	* Method 설명 :보험 공지사항 나오게 설정하기 
+	*/
+	List<InsuranceNoticeVo> noticList ();
+	
+	/**
+	* Method : goNoticeInsert
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param notice
+	* @return
+	* Method 설명 :공지사항 글 등록하는 부분
+	*/
+	int goNoticeInsert(InsuranceNoticeVo notice);
+	
+	
+	/**
+	* Method : goNoticeCheck
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param inot_id
+	* @return
+	* Method 설명 :공지사항 글 확인하는 부분
+	*/
+	InsuranceNoticeVo goNoticeCheck (String inot_id);
+	
+	
+	/**
+	* Method : goNoticeDel
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param inot_id
+	* @return
+	* Method 설명 :게시글 삭제하는 쿼리문 
+	*/
+	int goNoticeDel (String inot_id);
+	
+	/**
+	* Method : goNoticeUpdateInsert
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param insNoticeVo
+	* @return
+	* Method 설명 :공지사항 글 수정한 내용 입력시키기
+	*/
+	int goNoticeUpdateInsert(InsuranceNoticeVo insNoticeVo);
+	
+	
+	/**
+	* Method : goClaim
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @return
+	* Method 설명 : 보험금 청구 관리 : 보험금 청구 (신청)리스트 나오는 부분
+	*/
+	List<AccidentVo> goClaim();
+	
+	/**
+	* Method : goCompanion
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @return
+	* Method 설명 : 보험금 청구 관리 : 보험금 청구 (반려)리스트 나오는 부분
+	*/
+	List<AccidentVo> goCompanion();
+	
+	/**
+	* Method : goCompleted
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @return
+	* Method 설명 : 보험금 청구 관리 : 보험금 청구 (완료)리스트 나오는 부분
+	*/
+	List<AccidentVo> goCompleted();
+	
+	/**
+	* Method : memBlacklist
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @return
+	* Method 설명 :보험금 청구 관리 : 블랙 리스트인 회원 조회하는부분
+	*/
+	List<MemberVo> memBlacklist();
+	
+	
+	/**
+	* Method : goBlackAdd
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param mem_id
+	* @return
+	* Method 설명 :관리자용 - 보험청구관리 :해당 회원을 블랙리스트에 추가하는 부분  
+	*/
+	int goBlackAdd(String mem_id);
+	
+	
+	/**
+	* Method : handlingMemAll
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param mem_id
+	* @return
+	* Method 설명 : 관리자용 - 보험청구관리 :해당 회원을 블랙리스트 하였을떄 회원이 신청한 보험건이 신청에서 반려로 변경되는 부분
+	*/
+	int handlingMemAll(String accd_mem);
+	
+	/**
+	* Method : goBlackRelease
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param mem_id
+	* @return
+	* Method 설명 :관리자용 - 보험청구관리 :해당 회원을 블랙리스트에 해제하는 부분  
+	*/
+	int goBlackRelease(String mem_id);
 
 }
