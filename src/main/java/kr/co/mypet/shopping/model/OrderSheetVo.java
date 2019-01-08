@@ -10,6 +10,10 @@ public class OrderSheetVo {
 	private int ords_price;
 	private String ords_date;
 	
+	//db로 prod 내용 받아올 변수
+	private String prod_name;
+	private String prod_pimg;
+	
 	public OrderSheetVo() {
 	}
 
@@ -77,11 +81,29 @@ public class OrderSheetVo {
 		this.ords_date = ords_date;
 	}
 
+	
+	
+	public String getProd_name() {
+		return prod_name;
+	}
+
+	public void setProd_name(String prod_name) {
+		this.prod_name = prod_name;
+	}
+
+	public String getProd_pimg() {
+		return prod_pimg;
+	}
+
+	public void setProd_pimg(String prod_pimg) {
+		this.prod_pimg = prod_pimg;
+	}
+
 	@Override
 	public String toString() {
 		return "OrderSheetVo [ords_id=" + ords_id + ", ords_qty=" + ords_qty + ", ords_stat=" + ords_stat
 				+ ", ords_mem=" + ords_mem + ", ords_prod=" + ords_prod + ", ords_daddr=" + ords_daddr + ", ords_price="
-				+ ords_price + ", ords_date=" + ords_date + "]";
+				+ ords_price + ", ords_date=" + ords_date + ", prod_name=" + prod_name + ", prod_pimg=" + prod_pimg + "]";
 	}
-	
+
 }

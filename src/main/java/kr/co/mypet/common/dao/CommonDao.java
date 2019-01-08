@@ -57,6 +57,20 @@ public class CommonDao implements CommonDaoInf {
 		MemberVo memVo = template.selectOne("member.memberInfo", mem_id);
 		return memVo;
 	}
+	
+	/**
+	* Method : pointUpdate
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param memVo
+	* @return
+	* Method 설명 : 멤버 포인트 적립 및 사용
+	*/
+	@Override
+	public int pointUpdate(MemberVo memVo) {
+		int result = template.update("member.pointUpdate",memVo);
+		return result;
+	}
 
 	
 

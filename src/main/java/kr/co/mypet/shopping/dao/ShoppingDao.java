@@ -16,6 +16,7 @@ import kr.co.mypet.shopping.model.ProdOptionVo;
 import kr.co.mypet.shopping.model.ProdRevVo;
 import kr.co.mypet.shopping.model.ProdVo;
 import kr.co.mypet.shopping.model.ProddvVo;
+import kr.co.mypet.shopping.model.RecentProdVo;
 import kr.co.mypet.shopping.model.ShopNoticeVo;
 
 @Repository
@@ -593,6 +594,259 @@ public class ShoppingDao implements ShoppingDaoInf {
 	@Override
 	public int updateDaddr(String daddr_id) {
 		int result = template.update("shop.updateDaddr",daddr_id);
+		return result;
+	}
+	
+	/**
+	* Method : bestProd
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param rownum
+	* @return
+	* Method 설명 : best상품 조회
+	*/
+	@Override
+	public List<ProdVo> bestProd(int rownum) {
+		List<ProdVo> prodList = template.selectList("shop.bestProd",rownum);
+		return prodList;
+	}
+	
+	/**
+	* Method : insertRecp
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param recpVo
+	* @return
+	* Method 설명 : 최근 본 상품 등록
+	*/
+	@Override
+	public int insertRecp(RecentProdVo recpVo) {
+		int result = template.insert("shop.insertRecp",recpVo);
+		return result;
+	}
+	
+	/**
+	* Method : recpList
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param mem_id
+	* @return
+	* Method 설명 :회원 최근 본상품
+	*/
+	@Override
+	public List<ProdVo> recpList(String mem_id) {
+		List<ProdVo> recpList = template.selectList("shop.recpList",mem_id);
+		return recpList;
+	}
+	
+	/**
+	* Method : delRecp
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param recpVo
+	* @return
+	* Method 설명 : 최근 본 상품 삭제
+	*/
+	@Override
+	public int delRecp(RecentProdVo recpVo) {
+		int result = template.delete("shop.delRecp",recpVo);
+		return result;
+	}
+	
+	/**
+	* Method : dvsDetail
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param dvs_id
+	* @return
+	* Method 설명 : 강아지/고양이 확인
+	*/
+	@Override
+	public DivisionVo dvsDetail(String dvs_id) {
+		DivisionVo dvsVo = template.selectOne("shop.dvsDetail",dvs_id);
+		return dvsVo;
+	}
+	
+	/**
+	* Method : orderList
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param ords_mem
+	* @return
+	* Method 설명 : 주문내역 조회
+	*/
+	@Override
+	public List<OrderSheetVo> orderList(String ords_mem) {
+		List<OrderSheetVo> orderList = template.selectList("shop.orderList",ords_mem);
+		return orderList;
+	}
+	
+	/**
+	* Method : orderCancle
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param ords_id
+	* @return
+	* Method 설명 : 마이페이지 구매취소
+	*/
+	@Override
+	public int orderCancle(String ords_id) {
+		int result = template.update("shop.orderCancle",ords_id);
+		return result;
+	}
+	
+	/**
+	* Method : buyList
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param ords_mem
+	* @return
+	* Method 설명 : 구매내역 조회
+	*/
+	@Override
+	public List<OrderSheetVo> buyList(String ords_mem) {
+		List<OrderSheetVo> buyList = template.selectList("shop.buyList",ords_mem);
+		return buyList;
+	}
+	
+	/**
+	* Method : orderDetail
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param ords_id
+	* @return
+	* Method 설명 : 주문서 내역 조회
+	*/
+	@Override
+	public OrderSheetVo orderDetail(String ords_id) {
+		OrderSheetVo ordsVo = template.selectOne("shop.orderDetail",ords_id);
+		return ordsVo;
+	}
+	
+	/**
+	* Method : searchParent
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param pddVo
+	* @return
+	* Method 설명 : 상품디테일로 가기 위해서 dvs_parent 찾기
+	*/
+	@Override
+	public String searchParent(ProddvVo pddVo) {
+		String dvs_parent = template.selectOne("shop.searchParent",pddVo);
+		return dvs_parent;
+	}
+	
+
+	/**
+	* Method : searchId
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param prod_id
+	* @return
+	* Method 설명 : 상품디테일로 가기 위해서 dvs_id 찾기
+	*/
+	@Override
+	public String searchId(String prod_id) {
+		String dvs_id = template.selectOne("shop.searchId",prod_id);
+		return dvs_id;
+	}
+	
+	/**
+	* Method : marketerList
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param mem_id
+	* @return
+	* Method 설명 : 판매자가 등록한 상품List
+	*/
+	@Override
+	public List<ProdVo> marketerList(String mem_id) {
+		List<ProdVo> marketerList = template.selectList("shop.marketerList",mem_id);
+		return marketerList;
+	}
+	
+	/**
+	* Method : marketerOrderList
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param mem_id
+	* @return
+	* Method 설명 : 판매자가 등록한 상품 주문 확인
+	*/
+	@Override
+	public List<OrderSheetVo> marketerOrderList(String mem_id) {
+		List<OrderSheetVo> ordsList = template.selectList("shop.marketerOrderList",mem_id);
+		return ordsList;
+	}
+	
+	/**
+	* Method : deliveryUpdate
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param ords_id
+	* @return
+	* Method 설명 : 배송 보내면 배송완료로 끝
+	*/
+	@Override
+	public int deliveryUpdate(String ords_id) {
+		int result = template.update("shop.deliveryUpdate",ords_id);
+		return result;
+	}
+	
+	/**
+	* Method : decideUpdate
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param ords_id
+	* @return
+	* Method 설명 : 구매확정
+	*/
+	@Override
+	public int decideUpdate(String ords_id) {
+		int result = template.update("shop.decideUpdate",ords_id);
+		return result;
+	}
+	
+	/**
+	* Method : cancleList
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param ords_mem
+	* @return
+	* Method 설명 : 취소/환불/반품 List
+	*/
+	@Override
+	public List<OrderSheetVo> cancleList(String ords_mem) {
+		List<OrderSheetVo> cancleList = template.selectList("shop.cancleList",ords_mem);
+		return cancleList;
+	}
+	
+	/**
+	* Method : swapUpdate
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param ords_id
+	* @return
+	* Method 설명 : 교환 
+	*/
+	@Override
+	public int swapUpdate(String ords_id) {
+		int result = template.update("shop.swapUpdate",ords_id);
+		return result;
+	}
+	
+	/**
+	* Method : returnUpdate
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param ords_id
+	* @return
+	* Method 설명 : 반품
+	*/
+	@Override
+	public int returnUpdate(String ords_id) {
+		int result = template.update("shop.returnUpdate",ords_id);
 		return result;
 	}
 	

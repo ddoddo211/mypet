@@ -7,12 +7,19 @@
 	<!-- 펫쇼핑몰 이벤트List 조회 -->
 	<select id="shopNoticeList" resultType="snotVo">
 		select * from shopnotice
+		where snot_chk = 1
 	</select>
 	
 	<!-- 펫쇼핑몰 이벤트글 조회 -->
 	<select id="shopNoticeDetail" parameterType="String" resultType="snotVo">
 		select * from shopnotice
 		where snot_id = #{snot_id}
+	</select>
+	
+	<!-- 강이지/고양이 -->
+	<select id="dvsDetail" parameterType="String" resultType="dvsVo">
+		select * from division
+		where dvs_id = #{dvs_id}
 	</select>
 	
 	<!-- 펫쇼핑몰 강아지/고양이 상품분류(사료,장난감등) -->
@@ -65,26 +72,26 @@
 	<select id="chkList" parameterType="Map" resultType="prodVo">
 		select * from (
 		select  rownum as rnum,a.* from prod a
-		where prod_id in (select pdd_prod from proddv where pdd_dvs in (${op0})
+		where prod_id in (select pdd_prod from proddv where pdd_dvs in (${op0}))
 		<foreach collection="opChkList" item="item" index="index">
 			and prod_id in (select pdd_prod from proddv where pdd_dvs in (${item}))
 		</foreach>
+			and prod_chk = 1
 		 )
-		)
 		where rnum between #{pageVo.page} *#{pageVo.pageSize}-(#{pageVo.pageSize}-1) and #{pageVo.page}*#{pageVo.pageSize}
 	</select>
 	
 	<!-- 펫쇼핑몰 체크박스 조건이 있을 경우 상품리스트 Size -->
 	<select id="chkSize" parameterType="Map" resultType="int">
-		select count(*) from (
-		select  rownum as rnum,a.* from prod a
-		where prod_id in (select pdd_prod from proddv where pdd_dvs in (${op0})
+		select count(*) from 
+			(
+			select  rownum as rnum,a.* from prod a
+			where prod_id in (select pdd_prod from proddv where pdd_dvs in (${op0}))
 		<foreach collection="opChkList" item="item" index="index">
 			and prod_id in (select pdd_prod from proddv where pdd_dvs in (${item}))
 		</foreach>
-		 )
-		 and prod_chk = 1
-		)
+			 and prod_chk = 1
+			 )
 	</select>
 	
 	<!-- 상품에 옵션List -->
@@ -236,7 +243,7 @@
 	<!-- 상품후기 등록 -->
 	<insert id="revInsert" parameterType="prevVo">
 		INSERT INTO PRODREV
-		VALUES ('REV'||REV_ID.NEXTVAL,#{prev_title},#{prev_text},#{prev_prod},#{prev_mem},sysdate,#{prev_num})
+		VALUES ('REV'||REV_ID.NEXTVAL,#{prev_title},#{prev_text},#{prev_prod},#{prev_mem},#{prev_num},sysdate)
 	</insert>
 	
 	<!-- 상품옵션 조회 -->
@@ -326,6 +333,145 @@
 		update deliveryaddr
 		set daddr_chk = 2
 		where daddr_id = #{daddr_id}
+	</update>
+	
+	<!-- 베스트 상품 조회 -->
+	<select id="bestProd" resultType="prodVo" parameterType="int">
+		select rownum,b.* from prod b
+		where prod_id  in (
+		    select a.ords_prod from
+		        (
+		            select ords_prod
+		                  ,sum(ords_qty)
+		            from ordersheet
+		            group by ords_prod
+		            order by 2 desc
+		        )a
+		    )
+		and rownum between 1 and ${value}
+	</select>
+	
+	<!-- 최근 본 상품 등록 -->
+	<insert id="insertRecp" parameterType="recpVo">
+		insert into recentprod
+		values ('RECP'||RECP_ID.NEXTVAL,sysdate,#{recp_mem},#{recp_prod})
+	</insert>
+	
+	<!-- 최근 본 상품 조회 -->
+	<select id="recpList" resultType="prodVo" parameterType="String">
+		select a.prod_id,a.prod_name,a.prod_price,a.prod_sprice,a.prod_pimg,max(b.recp_date) from prod a,recentprod b
+		where prod_id = recp_prod
+		and recp_mem = #{mem_id}
+		and prod_chk = 1
+		group by prod_name,prod_price,prod_sprice,prod_pimg,prod_id
+		order by max(b.recp_date) desc
+	</select>
+	
+	<!-- 최근본상품 삭제 -->
+	<delete id="delRecp" parameterType="recpVo">
+		delete from recentprod
+		where recp_mem =#{recp_mem}
+		and recp_prod = #{recp_prod}
+	</delete>
+	
+	<!-- 주문내역조회 -->
+	<select id="orderList" resultType="ordsVo" parameterType="String">
+		select a.*,b.prod_name,b.prod_pimg from ordersheet a,prod b
+		where ords_prod = prod_id
+		and ords_mem = #{ords_mem}
+		and ords_stat = '상품준비중'
+		order by ords_date desc
+	</select>
+	
+	<!-- 구매취소 -->
+	<update id="orderCancle" parameterType="String">
+		update ordersheet
+		set ords_stat = '구매취소'
+		where ords_id = #{ords_id}
+	</update>
+	
+	<!-- 구매내역 조회 -->
+	<select id="buyList" parameterType="String" resultType="ordsVo">
+		select a.*,b.prod_name,b.prod_pimg from ordersheet a,prod b
+		where prod_id = ords_prod
+		and ords_id in (select ords_id from ordersheet where ords_stat in ('배송완료','구매확정'))
+		and ords_mem = #{ords_mem}
+	</select>
+	
+	<!-- 주문서 내역 조회 -->
+	<select id="orderDetail" parameterType="String" resultType="ordsVo">
+		select * from ordersheet
+		where ords_id = #{ords_id}
+	</select>
+	
+	<!-- 주문서에서 상품디테일에 가기 위해서 해당 분류 찾기-->
+	<select id="searchParent" parameterType="pddVo" resultType="String">
+		select * from division
+		where dvs_id in (
+		select pdd_dvs from proddv
+		where pdd_prod = #{pdd_prod})
+		and dvs_parent = #{pdd_dvs}
+	</select>
+	
+	<!-- dvs_id 찾아오기 주문서 디테일로 보내기 위해 -->
+	<select id="searchId" parameterType="String" resultType="String">
+		select dvs_id from division
+		where dvs_id in (
+		select pdd_dvs from proddv
+		where pdd_prod = #{prod_id})
+		and dvs_parent is null
+	</select>
+	
+	<!-- 내가 등록한 상품 -->
+	<select id="marketerList" parameterType="String" resultType="prodVo">
+		select * from prod
+		where prod_mem = #{mem_id}
+		and prod_chk = 1
+	</select>
+	
+	<!-- 판매자가 등록한 상품 주문확인 -->
+	<select id="marketerOrderList" parameterType="String" resultType="ordsVo">
+		select b.*,a.prod_name,a.prod_pimg from prod a,ordersheet b
+		where prod_id = ords_prod  
+		and prod_id in (
+		select ords_prod from ordersheet)
+		and prod_mem = #{mem_id}
+	</select>
+	
+	<!-- 배송 중 -->
+	<update id="deliveryUpdate" parameterType="String">
+		update ordersheet
+		set ords_stat = '배송완료'
+		where ords_id = #{ords_id}
+	</update>
+	
+	<!-- 구매확정 -->
+	<update id="decideUpdate" parameterType="String">
+		update ordersheet
+		set ords_stat = '구매확정'
+		where ords_id = #{ords_id}
+	</update>
+	
+	<!-- 환불/반품/취소 List -->
+	<select id="cancleList" parameterType="String" resultType="ordsVo">
+		select a.*,b.prod_name,b.prod_pimg from ordersheet a,prod b
+		where prod_id = ords_prod 
+		and ords_stat not in ('구매확정','상품준비중','배송완료')
+		and ords_mem = #{ords_mem}
+	</select>
+	
+	<!-- 교환 -->
+	<update id="swapUpdate" parameterType="String">
+		update ordersheet
+		set ords_stat = '교환'
+		where ords_id = #{ords_id}
+	</update>
+	
+	<!-- 반품 -->
+	<update id="returnUpdate" parameterType="String">
+		update ordersheet
+		set ords_stat = '반품'
+		where ords_id = #{ords_id}
 	</update>
 </mapper>
  

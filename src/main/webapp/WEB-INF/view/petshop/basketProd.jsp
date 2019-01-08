@@ -67,7 +67,7 @@
 		width: 1200px;
 		margin:0 auto;
 		margin-top:20px;
-		min-height: 575px;
+		min-height: 441px;
 	}
 	
 	#mainbottom .estimate{
@@ -224,9 +224,9 @@
 	</div>
 	
 	<div id ="mainbottom">
-		<div class="estimate">
-			<a href="#">견적서 출력</a>
-		</div>
+<!-- 		<div class="estimate"> -->
+<!-- 			<a href="#">견적서 출력</a> -->
+<!-- 		</div> -->
 		<div class="bascketBuy">
 			<form method="get" action="/shop/prodOrder" id="orderGo">
 				<input type="hidden" id="totalPrice" name="totalPrice"/>
