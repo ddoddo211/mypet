@@ -48,15 +48,12 @@
 		    <artifactId>bcprov-jdk15on</artifactId>
 		    <version>1.56</version>
 		</dependency>
-		
 		<!-- https://mvnrepository.com/artifact/com.itextpdf/itext-asian -->
 		<dependency>
 		    <groupId>com.itextpdf</groupId>
 		    <artifactId>itext-asian</artifactId>
 		    <version>5.1.1</version>
 		</dependency>
-		
-		
 		<!-- https://mvnrepository.com/artifact/com.itextpdf.tool/xmlworker -->
 		<dependency>
 		    <groupId>com.itextpdf.tool</groupId>

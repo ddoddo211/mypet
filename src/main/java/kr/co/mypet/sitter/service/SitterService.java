@@ -249,4 +249,71 @@ public class SitterService implements SitterServiceInf {
 	public int updateSupportFile(Map<String, Object> param) {
 		return sitterDao.updateSupportFile(param);
 	}
+
+	@Override
+	public int getMySitterToCount(String mem_id) {
+		return sitterDao.getMySitterToCount(mem_id);
+	}
+
+	@Override
+	public int updateMemeberSit(String string) {
+		return sitterDao.updateMemberSit(string);
+	}
+
+	@Override
+	public int deleteMySitterTo(String mem_id) {
+		return sitterDao.deleteMySitterTo(mem_id);
+	}
+
+	@Override
+	public int getPetsitterChk(Map<String, Object> map) {
+		return sitterDao.getPetsitterChk(map);
+	}
+
+	@Override
+	public int deleteADReservation(String date) {
+		return sitterDao.deleteADReservation(date);
+	}
+	
+	@Override
+	public Map<String, Object> getReViewListAll(PageVo pageVo){
+		
+		List<SitterRevVo> reviewListAll = sitterDao.getReViewListAll(pageVo);
+		
+		int totalReviewCnt = sitterDao.getReViewAllCnt();
+		int pageSize = pageVo.getPageSize();
+		int pageCnt = (int)Math.ceil(((double)totalReviewCnt/pageSize));
+		
+		Map<String, Object> resultMap = new HashMap<>();
+		resultMap.put("reviewListAll", reviewListAll);
+		resultMap.put("pageCnt", pageCnt);
+		
+		return resultMap;
+	}
+
+	@Override
+	public int getReViewAllCnt() {
+		return sitterDao.getReViewAllCnt();
+	}
+
+	@Override
+	public Map<String, Object> getPetSitterToListAll(PageVo pageVo) {
+		
+		List<PetSitterVo> petSitterListAll = sitterDao.getPetSitterToListAll(pageVo);
+		
+		int totalPetSitterCnt = sitterDao.getPetSitterToAllCnt();
+		int pageSize = pageVo.getPageSize();
+		int pageCnt = (int)Math.ceil(((double)totalPetSitterCnt/pageSize));
+		
+		Map<String, Object> resultMap = new HashMap<>();
+		resultMap.put("petSitterListAll", petSitterListAll);
+		resultMap.put("pageCnt", pageCnt);
+		
+		return resultMap;
+	}
+
+	@Override
+	public int getPetSitterToAllCnt() {
+		return sitterDao.getPetSitterToAllCnt();
+	}
 }

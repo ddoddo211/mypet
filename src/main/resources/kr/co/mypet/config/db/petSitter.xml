@@ -6,7 +6,8 @@
 	<select id="petSitterToHomeList" resultType="pstVo">
 		select m.mem_addr, p.* 
 		from petsitter p, member m
-		where p.pst_mem = m.mem_id		
+		where p.pst_mem = m.mem_id	
+		and p.pst_chk = 'N'	
 	</select>
 	
 	<select id="petSitterZip" resultType="zipVo">
@@ -126,7 +127,7 @@
 	
 	<insert id="insertSitterTo" parameterType="pstVo">
 		insert into petsitter
-		values('PST' || lpad(pst_no.nextVal, 3, '0'), #{pst_mem}, #{pst_img}, #{pst_text}, sysdate, 0, 0, #{pst_title}, #{pst_price1}, #{pst_price2}, #{pst_cidate}, #{pst_codate}, '')
+		values('PST' || lpad(pst_no.nextVal, 3, '0'), #{pst_mem}, #{pst_img}, #{pst_text}, sysdate, 0, 0, #{pst_title}, #{pst_price2}, 'N', #{pst_price1}, #{pst_cidate}, #{pst_codate})
 	</insert>
 	
 	<update id="updateFaq" parameterType="map">
@@ -149,6 +150,7 @@
 		select m.mem_addr, p.* 
 		from petsitter p, member m
 		where p.pst_mem = m.mem_id	
+		and p.pst_chk = 'N'	
 		order by p.pst_date desc
 	</select>
 	
@@ -156,6 +158,7 @@
 		select m.mem_addr, p.* 
 		from petsitter p, member m
 		where p.pst_mem = m.mem_id	
+		and p.pst_chk = 'N'	
 		order by p.pst_view desc
 	</select>
 	
@@ -163,6 +166,7 @@
 		select m.mem_addr, p.*
 		from petsitter p, member m
 		where p.pst_mem = m.mem_id
+		and p.pst_chk = 'N'	
 		and m.mem_addr like '%' || #{zip_high} || '%' || #{zip_low} || '%'
 	</select>
 	
@@ -170,6 +174,7 @@
 		select m.mem_addr, p.*
 		from petsitter p, member m
 		where p.pst_mem = m.mem_id
+		and p.pst_chk = 'N'	
 		and m.mem_addr like '%' || #{zip_high} || '%' || #{zip_low} || '%'
 		order by p.pst_date desc
 	</select>
@@ -178,6 +183,7 @@
 		select m.mem_addr, p.*
 		from petsitter p, member m
 		where p.pst_mem = m.mem_id
+		and p.pst_chk = 'N'	
 		and m.mem_addr like '%' || #{zip_high} || '%' || #{zip_low} || '%'
 		order by p.pst_view desc
 	</select>
@@ -239,7 +245,7 @@
 		             , (select mem_name from member where mem_id = s.str_mem) mem_name
 		             , s.* 
 		        from sitterres s
-		        order by s.str_date 
+		        order by s.str_pay, s.str_date
 		    ) a
 		)
 		where rnum between (${page}*${pageSize})-(${pageSize}-1) and (${page}*${pageSize})	
@@ -276,9 +282,82 @@
 		where sta_id = #{sta_id}
 	</update>
 	
+	<update id="updateMemeberSit" parameterType="String">
+		update member set
+		mem_sit = 2
+		where mem_id = #{mem_id}
+	</update>
+	
 	<update id="updateSupportFile" parameterType="map">
 		update sitterapp set
 		sta_file = #{sta_file}
 		where sta_id = #{sta_id}
 	</update>
+	
+	<select id="getMySitterToCount" parameterType="String" resultType="Integer">
+		select count(*)
+		from petsitter
+		where pst_mem = #{pst_mem}
+		and pst_chk = 'N'
+	</select>
+	
+	<update id="deleteMySitterTo" parameterType="String">
+		update petsitter set
+		pst_chk = 'Y'
+		where pst_id = (select pst_id from petsitter where pst_mem = #{mem_id})
+	</update>
+	
+	<select id="getPetSitterChk" parameterType="map" resultType="Integer">
+		select count(*)
+		from petsitterchk
+		where pc_pst = #{pc_pst}
+		and pc_mem = #{pc_mem}
+	</select> 
+	
+	<delete id="deleteADReservation" parameterType="String">
+		delete from sitterres
+		where str_pay = 'N' 
+		and str_date <![CDATA[<]]> #{str_date}
+	</delete>
+	
+	<select id="getReViewAllCnt" resultType="Integer">
+		select count(*)
+		from sitterrev
+	</select>
+	
+	<select id="getReViewListAll" parameterType="pageVo" resultType="revVo">
+		select * 
+		from
+		(
+		    select rownum as rnum, a.* 
+		    from 
+		    (   
+		        select m.mem_name, m.mem_img, s.*  
+		        from member m, sitterrev s
+		        where m.mem_id = s.stv_mem
+		        order by s.stv_pst
+		    ) a
+		)
+		where rnum between (${page}*${pageSize})-(${pageSize}-1) and (${page}*${pageSize})		 
+	</select>
+	
+	<select id="getPetSitterToListAll" parameterType="pageVo" resultType="pstVo">
+		select *
+		from
+		(
+		    select rownum as rnum, a.*
+		    from
+		    (
+		        select *
+		        from petsitter
+		        order by pst_id
+		    ) a
+		)
+		where rnum between (${page}*${pageSize})-(${pageSize}-1) and (${page}*${pageSize})		
+	</select>
+	
+	<select id="getPetSitterToAllCnt" resultType="Integer">
+		select count(*)
+		from petSitter
+	</select>
 </mapper>

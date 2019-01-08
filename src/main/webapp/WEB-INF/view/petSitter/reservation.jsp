@@ -13,6 +13,8 @@
 <link href="https://fonts.googleapis.com/css?family=Work+Sans" rel="stylesheet">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
+<!-- 결재 -->
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <style type="text/css">
 	#resMain{
 		width : 1000px;
@@ -117,15 +119,55 @@
 			location.href="/sit/sitMain";
 		});
 	}	
-	
+	$(document).ready(function(){
+		//im'port 결제모듈
+		var IMP = window.IMP; // 생략가능
+		IMP.init('imp09203705'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
+	});
 	function Ok(){
-		$("#resOkBtn").click(function(){
-			$("#frm").submit();
+		var totalPrice = ${nomalPrice*mypetCnt + addPrice*mypetCnt*timeChk };
+		IMP.request_pay({
+		    pg : 'inicis', // version 1.1.0부터 지원.
+		    pay_method : 'card',
+		    merchant_uid : 'merchant_' + new Date().getTime(),
+		    name : '펫시터 집으로 부르기', //물건이름
+		    amount : totalPrice, // 물건가격
+		    buyer_email : '${memVo.mem_id}',
+		    buyer_name : '${memVo.mem_name}',
+		    buyer_tel : '${memVo.mem_hp}',
+		    buyer_addr : '${memVo.mem_addr}',
+		    buyer_postcode : '123-456',
+		    m_redirect_url : 'https://www.yourdomain.com/payments/complete'
+		}, function(rsp) {
+		    if ( rsp.success ) { //결재 성공 후
+		        var msg = '';
+		        msg +='${memVo.mem_name}'+'님 선택하신';
+		        msg += name+'  에 대한  ';
+		        msg += rsp.paid_amount + '원 의 ';
+		        msg += '결제가 완료되었습니다.  \n\n';
+		        msg += '@ 결제완료   카드 승인번호 : ' + rsp.apply_num;
+		    } else { // 결재 실패
+		        var msg = '결제에 실패하였습니다.';
+		        msg += '에러내용 : ' + rsp.error_msg;
+		    }
+		    alert(msg);
+		    
+		    if(rsp.success){ //결재 성공 시 페이지 이동
+		    	
+		    	$("#pay_chk").val("0");
+		    	$("#pay_price").val(totalPrice);
+		    	$("#successFrm").submit();
+		    }
+		    
 		});
 	}
 </script>
 </head>
 <body>
+<form action="/sit/paymentSuccess" method="post" id="successFrm">
+	<input type="hidden" id="pay_chk" name="pay_chk" />
+	<input type="hidden" id="pay_price" name="pay_price" />
+</form>
 <%@include file="/WEB-INF/view/common/header.jsp"%>
 
 <!-- 각자 화면 -->
@@ -204,7 +246,7 @@
 					<div id="resBottom">
 						<div style="margin : 0 auto; overflow:hidden; width:355px; height:55px;">
 							<div id="resOk">
-								<button class="resBtn" id="resOkBtn">결제하기</button>
+								<button class="resBtn" id="resOkBtn" onclick="Ok()">결제하기</button>
 							</div>
 							<div id="resHome">
 								<button class="resBtn" id="resHomeBtn" onclick="Home()">홈으로</button>

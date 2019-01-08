@@ -98,4 +98,22 @@ public interface SitterDaoInf {
 	int updateSupportSuc(String string);
 
 	int updateSupportFile(Map<String, Object> param);
+
+	int getMySitterToCount(String mem_id);
+
+	int updateMemberSit(String string);
+
+	int deleteMySitterTo(String mem_id);
+
+	int getPetsitterChk(Map<String, Object> map);
+
+	int deleteADReservation(String date);
+	
+	public List<SitterRevVo> getReViewListAll(PageVo pageVo);
+
+	int getReViewAllCnt();
+
+	List<PetSitterVo> getPetSitterToListAll(PageVo pageVo);
+
+	int getPetSitterToAllCnt();
 }
