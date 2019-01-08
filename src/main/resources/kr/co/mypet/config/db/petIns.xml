@@ -239,6 +239,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			select nvl(sum(insp_fees),0) from insurance , insprod
 		     where inssp_id = insp_id
 			   and mem_id =  #{mem_id}
+			   and INS_DIS = 'N'
 			   and INS_STAT = '완료'
 		</select>
 		
@@ -633,6 +634,35 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<!-- 관리자용 - 보험청구관리 :해당 회원을 블랙리스트에 해제하는 부분  -->
 		<update id="goBlackRelease" parameterType="String">
 			update member set mem_black='1' where mem_id=#{mem_id}
+		</update>
+		
+		<!-- 보험금 청구 관리 : 보험금청구 신청내역확인(매개변수로 해당 사고 테이블의 pk)주기 -->
+		<select id="accidentApply" parameterType="String" resultType="accidentVo">
+			select * 
+			  from accident a , mypet b , insurance c , insprod d , member e , account f
+			 where a.accd_myp = b.myp_id 
+			   and a.accd_ins = c.ins_id
+			   and c.inssp_id = d.insp_id
+			   and a.accd_mem = e.mem_id
+			   and a.accd_act = f.act_id
+			   and a.accd_id = #{accd_id}
+		</select>
+		
+		<!-- 관리자용 - 보험청구관리(신청) : 결과를 완료로 입력하는 부분 -->
+		<update id="insPayment" parameterType="accidentVo">
+			 update accident
+				set accd_stat = '완료' 
+				 , accd_pay = #{accd_pay}
+				 , accd_insp = #{accd_insp}
+			  where accd_id = #{accd_id}
+		</update>
+		
+		<!-- 관리자용 - 보험청구관리(신청) : 결과를 반려로 입력하는 부분 -->
+		<update id="unpaid" parameterType="accidentVo">
+			 update accident
+				set accd_stat = '반려' 
+				 , accd_res = #{accd_res}
+			  where accd_id = #{accd_id}
 		</update>
 		
 	  	

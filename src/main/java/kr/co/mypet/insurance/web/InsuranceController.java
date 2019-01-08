@@ -864,7 +864,8 @@ public class InsuranceController {
 				// 파일 저장되기
 				
 				// 실제 파일 저장될 경로 설정하기
-				String path = "C:\\Users\\PC\\6.Spring\\LastProjectWorkSpace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\mypet\\img\\petInsuranceAccident";
+				String path1 = request.getSession().getServletContext().getRealPath("");
+				String path = "/img/petInsuranceAccident";
 				// 진단서
 				String str = part.getOriginalFilename();
 				// 사고 사진
@@ -879,7 +880,7 @@ public class InsuranceController {
 					String fileExt = StringUtil.getFileExt(str);
 					String fileName = UUID.randomUUID().toString() + fileExt;	// 충돌 방지를 위한 임의의 파일명 
 					
-					File file = new File(path + File.separator + fileName);
+					File file = new File(path1+path + File.separator + fileName);
 					
 					part.transferTo(file);
 					
@@ -898,7 +899,7 @@ public class InsuranceController {
 					String fileExt = StringUtil.getFileExt(str2);
 					String fileName = UUID.randomUUID().toString() + fileExt;	// 충돌 방지를 위한 임의의 파일명 
 					
-					File file = new File(path + File.separator + fileName);
+					File file = new File(path1+ path + File.separator + fileName);
 					
 					part2.transferTo(file);
 					
@@ -2349,6 +2350,147 @@ public class InsuranceController {
 				return "admin/petInsurance/goClaim";
 			}
 			
+			
+			/* 보험금 청구 관리 : 보험금 청구관리 - 신청내역 확인하는 화면으로 이동*/
+			@RequestMapping("/accidentApply")
+			public String accidentApply(Model model, HttpSession session  , HttpServletRequest request) {
+				
+				//사고 pk id 받기 
+				String accd_id = request.getParameter("accd_id");
+				
+				//해당 사고 정보 조회해 오기
+				AccidentVo acdVo = insuranceService.accidentApply(accd_id);
+				model.addAttribute("acdVo" , acdVo );
+				
+				return "admin/petInsurance/accidentApply";
+				
+			}
+			
+			/* 보험금 청구 관리 : 보험금 청구관리 - 신청내역 확인 화면에서 청구 완료하기 버튼을 클릭할 경우*/
+			@RequestMapping("/insPayment")
+			public String insPayment(Model model, HttpSession session  , HttpServletRequest request) throws Exception {
+				
+				//사고 pk id 받기 
+				String accd_id = request.getParameter("accd_id");
+				//지급일 받기 
+				String date1 = request.getParameter("accd_date");
+				//지급금액 받기 
+				String accd_insp = request.getParameter("accd_insp");
+				
+				AccidentVo acdVo = new AccidentVo();
+				
+				// String 을 Date로 변경하는 작업 
+				SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
+				Date accd_date = date.parse(date1);
+				
+				acdVo.setAccd_id(accd_id);
+				acdVo.setAccd_pay(accd_date);
+				acdVo.setAccd_insp(accd_insp);
+				
+				insuranceService.insPayment(acdVo);
+				
+				// 사고 처리 결과를 변경한후 화면에 보여주는 부분
+				model.addAttribute("insPayment" , "Y" );
+	
+				// 보험금 신청내역 리스트 나오게 설정하기 
+				List<AccidentVo> accidentList = insuranceService.goClaim();
+				model.addAttribute("accidentList" , accidentList );
+				model.addAttribute("accidentListSize" , accidentList.size() );
+				
+				// 보험금 반려내역 리스트 나오게 설정하기 
+				List<AccidentVo> companionList = insuranceService.goCompanion();
+				model.addAttribute("companionList" , companionList );
+				model.addAttribute("companionListSize" , companionList.size() );
+				
+				
+				// 보험금 완료내역 리스트 나오게 설정하기
+				List<AccidentVo> completedList = insuranceService.goCompleted();
+				model.addAttribute("completedList" , completedList );
+				model.addAttribute("completedListSize" , completedList.size() );
+				
+				// 보험금 블랙리스트 리스트 나오게 설정하기
+				List<MemberVo> memBlacklist = insuranceService.memBlacklist();
+				model.addAttribute("memBlacklist" , memBlacklist );
+				model.addAttribute("memBlacklistSize" , memBlacklist.size() );
+				
+				return "redirect:/isr/goClaim";
+				
+			}
+			
+			/* 보험금 청구 관리 : 보험금 청구관리 - 신청내역 확인 화면에서 청구 반려하기 버튼을 클릭할 경우*/
+			@RequestMapping("/unpaid")
+			public String unpaid(Model model, HttpSession session  , HttpServletRequest request) throws Exception {
+				
+				//사고 pk id 받기 
+				String accd_id = request.getParameter("accd_id");
+				//미지급 사유 
+				String accd_res = request.getParameter("accd_res");
+				
+				AccidentVo acdVo = new AccidentVo();
+				
+				acdVo.setAccd_id(accd_id);
+				acdVo.setAccd_res(accd_res);
+				
+				insuranceService.unpaid(acdVo);
+				
+				// 사고 처리 결과를 변경한후 화면에 보여주는 부분
+				model.addAttribute("unpaid" , "Y" );
+	
+				// 보험금 신청내역 리스트 나오게 설정하기 
+				List<AccidentVo> accidentList = insuranceService.goClaim();
+				model.addAttribute("accidentList" , accidentList );
+				model.addAttribute("accidentListSize" , accidentList.size() );
+				
+				// 보험금 반려내역 리스트 나오게 설정하기 
+				List<AccidentVo> companionList = insuranceService.goCompanion();
+				model.addAttribute("companionList" , companionList );
+				model.addAttribute("companionListSize" , companionList.size() );
+				
+				
+				// 보험금 완료내역 리스트 나오게 설정하기
+				List<AccidentVo> completedList = insuranceService.goCompleted();
+				model.addAttribute("completedList" , completedList );
+				model.addAttribute("completedListSize" , completedList.size() );
+				
+				// 보험금 블랙리스트 리스트 나오게 설정하기
+				List<MemberVo> memBlacklist = insuranceService.memBlacklist();
+				model.addAttribute("memBlacklist" , memBlacklist );
+				model.addAttribute("memBlacklistSize" , memBlacklist.size() );
+				
+				return "admin/petInsurance/goClaim";
+				
+			}
+			
+			
+			/* 보험금 청구 관리 : 보험금 청구관리 - 반려내역 확인하는 화면으로 이동*/
+			@RequestMapping("/breakdown")
+			public String breakdown(Model model, HttpSession session  , HttpServletRequest request) {
+				
+				//사고 pk id 받기 
+				String accd_id = request.getParameter("breakdownId");
+				
+				//해당 사고 정보 조회해 오기
+				AccidentVo acdVo = insuranceService.accidentApply(accd_id);
+				model.addAttribute("acdVo" , acdVo );
+				
+				return "admin/petInsurance/breakdown";
+				
+			}
+			
+			/* 보험금 청구 관리 : 보험금 청구관리 - 완료내역 확인하는 화면으로 이동*/
+			@RequestMapping("/completion")
+			public String completion(Model model, HttpSession session  , HttpServletRequest request) {
+				
+				//사고 pk id 받기 
+				String accd_id = request.getParameter("completionId");
+				
+				//해당 사고 정보 조회해 오기
+				AccidentVo acdVo = insuranceService.accidentApply(accd_id);
+				model.addAttribute("acdVo" , acdVo );
+				
+				return "admin/petInsurance/completion";
+				
+			}
 			
 			
 			

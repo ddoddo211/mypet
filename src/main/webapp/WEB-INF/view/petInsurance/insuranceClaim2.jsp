@@ -249,7 +249,7 @@ $(document).ready(function(){
 								사고 내용
 							</div>
 							<div class="accident2_2_1_1">
-								<input type="text" id="accidentInput2">
+								<textarea  id="accidentInput2" ></textarea>
 							</div>
 						</div>
 					</div>

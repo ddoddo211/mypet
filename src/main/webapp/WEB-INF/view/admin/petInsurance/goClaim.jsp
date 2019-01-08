@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <title>goClaim(관리자용 보험금 청구 관리화면)</title>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -13,6 +14,18 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
+	
+	//사고 청구 결과를 변경(완료)한후 해당 화면에 왔을떄 나오는 메세지 팝업창 설정
+	var insPayment = '${insPayment}';
+	if(insPayment == "Y"){
+		alert("보험청구건이 완료 처리 되었습니다.");
+	}
+	
+	//사고 청구 결과를 변경(반려)한후 해당 화면에 왔을떄 나오는 메세지 팝업창 설정
+	var unpaid = '${unpaid}';
+	if(unpaid == "Y"){
+		alert("보험청구건이 반려 처리 되었습니다.");
+	}
 	
 	// 블랙리스트를 추가한후 해당 화면에 왔을떄 나오는 메세지 팝업창 설정
 	var blackListS = '${blackListS}';
@@ -31,11 +44,57 @@ $(document).ready(function() {
 	$(".check").click(function(){
 			// 블랙리스트 선택 (회원의 id 담기)
 			var accd_mem = $(this).data("accd_mem");
-			
 			// 블랙리스트 추가할때 사용할 회원의 아이디pk
 			$("#accd_mem").val(accd_mem);
-		
+			
+			// 보험금 신청 관리(사고 id 담기)
+			var accd_id = $(this).val();
+			$("#accd_id").val(accd_id);
 	});
+	
+	// 보험금 청구 반려
+	// radio박스를 클릭하였는지 확인하기 
+	$(".check1").click(function(){
+			// 보험금 신청 관리(사고 id 담기)
+			var accd_id2 = $(this).val();
+			$("#breakdownId").val(accd_id2);
+	});
+	
+	// 보험금 청구 관리 (반려) 내역 확인하는 부분
+	$("#companion").click(function(){
+		var breakdownId = $("#breakdownId").val();
+		// 체크박스를 클릭하였는지 확인하기 
+		if(breakdownId == ""){
+			alert("반려내역을 확인할 목록을 클릭하시기 바랍니다.");
+			return;
+		}else{
+			$("#breakdown").submit();
+		}
+	});
+	
+	// 보험금 청구 완료
+	// radio박스를 클릭하였는지 확인하기 
+	$(".check2").click(function(){
+			// 보험금 신청 관리(사고 id 담기)
+			var accd_id = $(this).val();
+			$("#completionId").val(accd_id);
+	});
+	
+	// 보험금 청구 관리 (완료) 내역 확인하는 부분
+	$("#completionHistory").click(function(){
+		var completionHistory = $("#completionId").val();
+		// 체크박스를 클릭하였는지 확인하기 
+		if(completionHistory == ""){
+			alert("완료내역을 확인할 목록을 클릭하시기 바랍니다.");
+			return;
+		}else{
+			$("#completion").submit();
+		}
+	});
+	
+	
+	
+	
 	
 	// 블랙리스트 관리
 	// radio박스를 클릭하였는지 확인하기 
@@ -57,6 +116,19 @@ $(document).ready(function() {
 			return ;
 		}else{
 			$("#goBlackAdd").submit();
+		}
+	});
+	
+	
+	// 보험금청구 신청 화면에서 신청내역확인 버튼을 클릭하였을떄 나오는 부분 
+	$("#accidentApply").click(function(){
+		// 체크 박스가 클릭되었는지 확인하기
+		var accd_id = $("#accd_id").val();
+		if(accd_id == ""){
+			alert("신청내역을 확인할  목록을 클릭하시기 바랍니다.");
+			return ;
+		}else{
+			$("#accidentApply2").submit();
 		}
 	});
 	
@@ -88,6 +160,21 @@ $(document).ready(function() {
 <!-- 보험금 청구 신청항목에서 블랙리스트 추가 버튼을 클릭할시 -->
 <form action="/isr/goBlackAdd" method="post" id="goBlackAdd">
 	<input type="hidden" id="accd_mem" name="accd_mem" value="">
+</form>
+
+<!-- 보험금 청구 신청항목에서 신청내역확인 버튼을 클릭할시(사고테이블의 pk넘겨주기) -->
+<form action="/isr/accidentApply" method="post" id="accidentApply2">
+	<input type="hidden" id="accd_id" name="accd_id" value="">
+</form>
+
+<!-- 보험금 청구 신청항목에서 반려내역확인 버튼을 클릭할시(사고테이블의 pk넘겨주기) -->
+<form action="/isr/breakdown" method="post" id="breakdown">
+	<input type="hidden" id="breakdownId" name="breakdownId" value="">
+</form>
+
+<!-- 보험금 청구 신청항목에서 완료내역확인 버튼을 클릭할시(사고테이블의 pk넘겨주기) -->
+<form action="/isr/completion" method="post" id="completion">
+	<input type="hidden" id="completionId" name="completionId" value="">
 </form>
 
 <!-- 보험금 청구 신청항목에서 블랙리스트 해제 버튼을 클릭할시 -->
@@ -182,7 +269,7 @@ $(document).ready(function() {
 									<input class="prodSelectBtn1_1" id="blackListInsert" type="button" value="블랙리스트 추가">
 								</div>
 								<div class="prodSelectBtn1_1">
-									<input class="prodSelectBtn1_1" id="prodSelectBtn1_1_2_1" type="button" value="신청내역 확인">
+									<input class="prodSelectBtn1_1" id="accidentApply" type="button" value="신청내역 확인">
 								</div>
 							</div>
 						</div>
@@ -230,7 +317,7 @@ $(document).ready(function() {
 						<div id="prodSelectBtn">
 							<div id="selectBtn1">
 								<div class="selectBtn1_1" id="prodSelectBtn1_2">
-									<input class="selectBtn1_1" id="prodSelectBtn1_1_1_1" onclick="goNoticeWrite()" type="button" value="반려내역 확인">
+									<input class="selectBtn1_1" id="companion"  type="button" value="반려내역 확인">
 								</div>
 							</div>
 						</div>
@@ -249,6 +336,8 @@ $(document).ready(function() {
 									<th class="tabel1">펫이름</th>
 									<th class="tabel1">보험이름</th>
 									<th class="tabel1">사고일자</th>
+									<th class="tabel1">지급금액</th>
+									<th class="tabel1">지급일자</th>
 									<th class="tabel1">상태</th>
 								</tr>
 <c:choose>
@@ -265,6 +354,8 @@ $(document).ready(function() {
 										<td class="tdh">${list.myp_name}</td>									
 										<td class="tdh">${list.insp_name}</td>
 										<td class="tdh"><fmt:formatDate value="${list.accd_date}" pattern="yyyy년 MM월 dd일"/></td>									
+										<td class="tdh">${list.accd_insp}원</td>									
+										<td class="tdh"><fmt:formatDate value="${list.accd_pay}" pattern="yyyy년 MM월 dd일"/></td>									
 										<td class="tdh">${list.accd_stat}</td>									
 									</tr>
 								</c:forEach>
@@ -276,7 +367,7 @@ $(document).ready(function() {
 						<div id="prodSelectBtn">
 							<div id="selectBtn1">
 								<div class="selectBtn1_1" id="prodSelectBtn1_2">
-									<input class="selectBtn1_1" id="prodSelectBtn1_1_1_1" onclick="goNoticeWrite()" type="button" value="완료내역 확인">
+									<input class="selectBtn1_1" id="completionHistory" type="button" value="완료내역 확인">
 								</div>
 							</div>
 						</div>
