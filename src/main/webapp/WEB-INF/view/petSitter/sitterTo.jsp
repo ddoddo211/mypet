@@ -114,6 +114,10 @@
 			$(this).removeAttr("href");
 			location.href = "/sit/sitterTo";
 		});
+		
+		$("#noticeDeleteBtn").click(function(){
+			location.href = "/sit/sitDelete";
+		});
 	});
 </script>
 
@@ -123,7 +127,7 @@
 	<input type="hidden" id="sort" name="sort" />
 	<c:choose>
 		<c:when test="${zip == '' }">
-			<input type="hidden" id="zip" name="zip" />
+			<input type="hidden" id="zip" name="zip"  />
 			<input type="hidden" id="zipHigh" name="zipHigh"  />		
 		</c:when>
 		<c:otherwise>
@@ -171,11 +175,25 @@
 		<div id="petToList">
 			<div id="listMenu">
 				<div id="list1">
-					<c:if test="${memVo.mem_sit == 2 }">
-						<div id="noticeAdd">
-							<span id="noticeAddBtn">게시글 등록</span>
-						</div>
-					</c:if>
+				<c:choose>
+					<c:when test="${memVo.mem_sit == 2}">
+						<c:choose>
+							<c:when test="${count == 0 }">
+								<div id="noticeAdd">
+									<span id="noticeAddBtn">게시글 등록</span>
+								</div>
+							</c:when>
+							<c:otherwise>
+								<div id="noticeAdd">
+									<span id="noticeDeleteBtn">게시글 삭제</span>
+								</div>
+							</c:otherwise>
+						</c:choose>
+					</c:when>
+					<c:otherwise>
+					
+					</c:otherwise>
+				</c:choose>
 				</div>
 				<div id="sort">
 					<label class="btn" >최신순<input type="hidden" id="latest" name="latest" value="1" /></label> 
@@ -221,7 +239,6 @@
 											<td id="hidden"><fmt:formatDate value="${list.pst_date }" pattern="yyyy-MM-dd" /></td>
 										</tr>
 									</c:forEach>
-								
 								</c:otherwise>
 							</c:choose>
 						</tbody>

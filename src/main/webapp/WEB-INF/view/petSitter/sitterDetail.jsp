@@ -24,6 +24,9 @@
 
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
 <script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
+
+<!-- 결재 -->
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
   <style type="text/css">
   	#calendar {
   	height : 390px;
@@ -176,6 +179,10 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
+		//im'port 결제모듈
+		var IMP = window.IMP; // 생략가능
+		IMP.init('imp09203705'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
+			
 		var price = ${pstVo.pst_price2};
 		var today = new Date();
 		$('#calendar').fullCalendar({
@@ -196,10 +203,17 @@
 		getReviewListHtml(1, "${pstVo.pst_id}");
 		
 		$("#reviewAdd").click(function(){
-			var review_text = $("#review").val();
-			$("#stv_text").val(review_text);
-			
-			$("#insertFrm").submit();
+			var chk = ${chk};
+			if(chk == 1){
+				var review_text = $("#review").val();
+				$("#stv_text").val(review_text);
+				
+				$("#insertFrm").submit();
+			} else{
+				alert("이용한 유저만 후기글이 등록가능합니다.");
+				$("#stv_text").val("");
+				return;
+			}
 		});
 		
 		$("#resultBtn").click(function(){
@@ -211,6 +225,60 @@
 		
 
 	});
+	
+	function payment(){
+		var name = "${pstVo.pst_title}";
+		var price = $("#totalPrice").val();
+		price = price.replace(",", "");
+		var prices = Number(price);
+		
+		var mem_id = "${memVo.mem_id}";
+		var pst_mem = "${pstVo.pst_mem}";
+		
+		if(price == null || price == '' || mem_id == null || mem_id == '' || mem_id == pst_mem){
+			alert("예약을 할 수 없습니다.");
+			return;
+		}
+		IMP.request_pay({
+		    pg : 'inicis', // version 1.1.0부터 지원.
+		    pay_method : 'card',
+		    merchant_uid : 'merchant_' + new Date().getTime(),
+		    name : name, //물건이름
+		    amount : prices, // 물건가격
+		    buyer_email : '${memVo.mem_id}',
+		    buyer_name : '${memVo.mem_name}',
+		    buyer_tel : '${memVo.mem_hp}',
+		    buyer_addr : '${memVo.mem_addr}',
+		    buyer_postcode : '123-456',
+		    m_redirect_url : 'https://www.yourdomain.com/payments/complete'
+		}, function(rsp) {
+		    if ( rsp.success ) { //결재 성공 후
+		        var msg = '';
+		        msg +='${memVo.mem_name}'+'님 선택하신';
+		        msg += name+'  에 대한  ';
+		        msg += rsp.paid_amount + '원 의 ';
+		        msg += '결제가 완료되었습니다.  \n\n';
+		        msg += '@ 결제완료   카드 승인번호 : ' + rsp.apply_num;
+		    } else { // 결재 실패
+		        var msg = '결제에 실패하였습니다.';
+		        msg += '에러내용 : ' + rsp.error_msg;
+		    }
+		    alert(msg);
+		    
+		    if(rsp.success){ //결재 성공 시 페이지 이동
+		    	$("#pay_price").val($("#totalPrice").val());
+		    	$("#pay_dateStart").val($("#dateStart").val());
+		    	$("#pay_dateEnd").val($("#dateEnd").val());
+		    	$("#pay_timeStart").val($("#timeStart").val());
+		    	$("#pay_timeEnd").val($("#timeEnd").val());
+		    	$("#pay_name").val("${pstVo.pst_title}");
+		    	$("#pay_chk").val("1");
+		    	
+		    	$("#successFrm").submit();
+		    }
+		    
+		});
+	}
 	
 	function AddComma(data_value) {
 		return Number(data_value).toLocaleString('en').split(".")[0];
@@ -448,6 +516,16 @@
 	<input type="hidden" name="pst_id" value="${pstVo.pst_id }" />
 	<input type="hidden" id="stvID" name="stvID" />
 </form>
+
+<form action="/sit/paymentSuccess" method="Post" id="successFrm">
+	<input type="hidden" id="pay_price" name="pay_price"   />
+	<input type="hidden" id="pay_dateStart" name="pay_dateStart"   />
+	<input type="hidden" id="pay_dateEnd" name="pay_dateEnd"   />
+	<input type="hidden" id="pay_timeStart" name="pay_timeStart"   />
+	<input type="hidden" id="pay_timeEnd" name="pay_timeEnd"   />
+	<input type="hidden" id="pay_name" name="pay_name"   />
+	<input type="hidden" id="pay_chk" name="pay_chk"   />
+</form>
 <!-- 각자 화면 -->
 	<div id="">
 		<!-- header -->
@@ -549,7 +627,7 @@
 						</div>
 						<div id="res">
 							<button id="resultRSBtn" onclick="window.location.reload()">초기화</button>
-							<button id="resultBtn">예약요청하기</button>
+							<button id="resultBtn" onclick="payment()">예약요청하기</button>
 						</div>
 					</div>
 				</div>

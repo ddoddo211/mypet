@@ -106,7 +106,13 @@
 <!-- form에 input에 name을 담아서 submit으로 보내기 -->
 <form id="frm" action="/isr/mypetInfoUpdateS" method="post" enctype="multipart/form-data">
 <input type="hidden" name="petId" value="${mypetInfo.myp_id}">			
-<input type="hidden" name="petNeutralization" id="petNeutralization" value="">			
+<input type="hidden" name="petNeutralization" id="petNeutralization" value="">	
+
+						<div class="mypetPage3_3">
+							<div class="mypetPage3_2_2">
+								사진 , 이름 , 성별만 수정이 가능합니다. 만약, 다른 정보를 수정해야 한다면 펫을 삭제한후 다시 추가하시기 바랍니다.
+							</div>
+						</div>		
 		
 						<div class="mypetPageBtn">
 							<div id="mypetPageBtn">
@@ -151,7 +157,7 @@
 											생년월일
 										</div>
 										<div class="mypetPage4_3_2_3">
-											<input type="text" name ="petBirthSelect" value="<fmt:formatDate value='${petBirth}' pattern='yyyy-MM-dd'></fmt:formatDate>" id="petBirthSelect" readonly="readonly" placeholder="<fmt:formatDate value='${petBirth}' pattern='yyyy년 MM월 dd일'></fmt:formatDate>">
+											<fmt:formatDate value='${petBirth}' pattern='yyyy년 MM월 dd일'></fmt:formatDate>
 										</div>
 									</div>
 									<div class="mypetPage4_3_1">
@@ -175,9 +181,7 @@
 											질병여부
 										</div>
 										<div class="mypetPage4_3_2_1">
-											<input type="hidden" value="" id="petSick" name="petSick">
-											<input class="wr1_2_2_1" name="petSick" type="radio" value="Y" id="petSickY1"/> Y 
-											<input class="wr1_2_2_1" name="petSick" type="radio" value="N" id="petSickN2"/> N
+											${mypetInfo.myp_sick}
 										</div>
 										<div class="mypetPage4_3_2_2">
 											중성화 여부

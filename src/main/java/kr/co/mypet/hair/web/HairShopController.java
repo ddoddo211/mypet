@@ -332,6 +332,11 @@ public class HairShopController {
 			hairResVo.setHres_stat("미용의뢰");
 			hairResVo.setHres_spec("-");
 			
+			String[] yy;
+			yy=hairResVo.getHres_date().split("/");
+			
+			hairResVo.setHres_date(yy[2]+"/"+yy[0]+"/"+yy[1]);
+			
 			int chk = hairService.insertRev(hairResVo);
 			
 			if(chk==0) {

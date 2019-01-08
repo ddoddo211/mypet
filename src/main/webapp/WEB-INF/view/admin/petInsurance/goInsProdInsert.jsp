@@ -12,6 +12,13 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	
+	// 상품을 추가할떄 이미 등록되어 있는 보험상품일 경우를 체크하는부분
+	var prodNameSameList = '${prodNameSameList}';
+	if(prodNameSameList != ""){
+		alert("이미 보험상품에 등록되어 있는 상품입니다.");
+		return;
+	}
+	
 	// 강아지인지 고양이인지 선택하는부분
 	var petKindSelect = $("#petKindSelect").val();
 		
@@ -155,9 +162,15 @@ $(document).ready(function(){
 				</div>
 			</div>
 			
-<form action="/isr/prodInsert2" id="frm">
+<form action="/isr/goInsProdInsert2" id="frm" method="post">
 
-						<div class="claimTitle4">
+				<div class="claimTitle4">
+					<div class="claimTitle4_1_2">
+						<div class="claimTitle4_2">이미 등록된 상품은 추가하실수 없습니다.(가입만료된 상품도 보험상품 이름이 같다면 추가하실수 없습니다.)</div>
+					</div>
+				</div>
+				
+				<div class="claimTitle4">
 					<div class="claimTitle4_1">
 						<div class="claimTitle4_2">Step1 . 펫 종류 선택</div>
 					</div>
@@ -216,8 +229,8 @@ $(document).ready(function(){
 								가입연령
 							</div>
 							<div class="petSelect2_2">
-								<input type="text" name ="insp_maxins" id="joinMinins" > &nbsp;세<div id="insp_maxins2"> ~ </div>
-								<input type="text" name ="insp_maxins" id="joinMaxins" >
+								<input type="text" name ="joinMinins" id="joinMinins" > &nbsp;세<div id="insp_maxins2"> ~ </div>
+								<input type="text" name ="joinMaxins" id="joinMaxins" >
 							</div>
 						</div>
 						

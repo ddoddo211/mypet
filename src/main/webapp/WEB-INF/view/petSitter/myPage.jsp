@@ -11,6 +11,9 @@
 <link href="https://fonts.googleapis.com/css?family=Nanum+Brush+Script" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Work+Sans" rel="stylesheet">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+<!-- 결재 -->
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
 		var memId = "${memVo.mem_id}";
@@ -130,6 +133,17 @@
 		});
 	}
 	
+	function reservationDelete(date){
+		$.ajax({
+			type : "POST",
+			url  : "/sit/mypageReservationDelete",
+			data : "date="+date,
+			success : function(dt){
+				getMypageADReservation(1);
+			}
+		});
+	}
+	
 	function fileDownload(fileName){
 		$.ajax({
 			type : "POST",
@@ -192,6 +206,68 @@
 		});
 	}
 	
+	function getMypageADNotice(page){
+		var pageSize = 5;
+		$.ajax({
+			type : "POST",
+			url  : "/sit/mypageADNoticeAjaxHtml",
+			data : "page="+page+"&pageSize="+pageSize,
+			success : function(dt){
+				$("#mypageRight").html(dt);
+				getMypageADNoticePage(page);
+			}
+		});
+	}
+	
+	function getMypageADNoticePage(page){
+		var pageSize = 5;
+		$.ajax({
+			type : "POST",
+			url  : "/sit/mypageADNoticePageAjaxHtml",
+			data : "page="+page+"&pageSize="+pageSize,
+			success : function(dt){
+				$(".pagination").html(dt);
+			}
+		});
+	}
+	
+	function deleteReview(stv_id, page){
+		var pageSize = 5;
+		$.ajax({
+			type : "POST",
+			url  : "/sit/mypageDeleteReview",
+			data : "stv_id="+stv_id+"&page="+page+"&pageSize="+pageSize,
+			success : function(dt){
+				getMypageADNotice(page);
+			}
+		});
+	}
+	
+	function getMypageSitterTo(page){
+		var pageSize = 5;
+		$.ajax({
+			type : "POST",
+			url  : "/sit/mypageSitterToAjaxHtml",
+			data : "page="+page+"&pageSize="+pageSize,
+			success : function(dt){
+				$("#mypageRight2").html(dt);
+				getMypageSitterToPage(page);
+			}
+		});
+	}
+	
+	function getMypageSitterToPage(page){
+		var pageSize = 5;
+		$.ajax({
+			type : "POST",
+			url  : "/sit/mypageSitterToPageAjaxHtml",
+			data : "page="+page+"&pageSize="+pageSize,
+			success : function(dt){
+				$(".pagination2").html(dt);
+			}
+		});
+	}
+	
 	function faq(){
 		getMypageFaq();
 	}
@@ -203,6 +279,11 @@
 	function adSupport(){
 		getMypageADSupport(1);
 	}
+	
+	function adNotice(){
+		getMypageADNotice(1);
+	}
+	
 	
 	
 </script>
@@ -411,7 +492,7 @@
 								<span onclick="adSupport()">펫시터 지원 관리</span>
 							</div>
 							<div class="menu">
-								<span onclick="adnotice()">게시글 관리</span>
+								<span onclick="adNotice()">게시글 관리</span>
 							</div>
 							<div class="menu">
 								<span onclick="admypet()">반려동물 관리</span>

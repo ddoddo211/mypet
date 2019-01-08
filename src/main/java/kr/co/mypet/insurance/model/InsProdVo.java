@@ -13,7 +13,8 @@ public class InsProdVo {
 	private int insp_period;
 	private String insp_sick;
 	private String insp_del;
-	
+
+
 	@Override
 	public String toString() {
 		return "InsProdVo [insp_id=" + insp_id + ", insp_name=" + insp_name + ", insp_join=" + insp_join

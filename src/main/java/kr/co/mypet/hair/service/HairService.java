@@ -12,6 +12,7 @@ import kr.co.mypet.hair.dao.HairDaoInf;
 import kr.co.mypet.hair.model.BookmarkVo;
 import kr.co.mypet.hair.model.HairBoardVo;
 import kr.co.mypet.hair.model.HairResVo;
+import kr.co.mypet.hair.model.HairShopApplyVo;
 import kr.co.mypet.hair.model.HairShopVo;
 import kr.co.mypet.hair.model.PetStyleVo;
 import kr.co.mypet.sitter.model.ZipVo;
@@ -62,6 +63,11 @@ public class HairService implements HairServiceInf {
 		public List<PetStyleVo> selectStyleList(String pts_has) {
 			// TODO Auto-generated method stub
 			return hairDao.selectStyleList(pts_has);
+		}
+		@Override
+		public List<PetStyleVo> selectStyleListAll(String pts_has) {
+			// TODO Auto-generated method stub
+			return hairDao.selectStyleListAll(pts_has);
 		}
 
 		@Override
@@ -182,6 +188,54 @@ public class HairService implements HairServiceInf {
 		public int insertAskR(HairBoardVo hbVo) {
 			// TODO Auto-generated method stub
 			return hairDao.insertAskR(hbVo);
+		}
+
+		@Override
+		public List<HairResVo> selectRespRev(String has_id) {
+			// TODO Auto-generated method stub
+			return hairDao.selectRespRev(has_id);
+		}
+
+		@Override
+		public int updateRevStat(HairResVo hrVo) {
+			// TODO Auto-generated method stub
+			return hairDao.updateRevStat(hrVo);
+		}
+
+		@Override
+		public List<HairResVo> selectOgRev(String has_id) {
+			// TODO Auto-generated method stub
+			return hairDao.selectOgRev(has_id);
+		}
+
+		@Override
+		public int updateShopInfo(HairShopVo hsVo) {
+			// TODO Auto-generated method stub
+			return hairDao.updateShopInfo(hsVo);
+		}
+
+		@Override
+		public int updateStyle(PetStyleVo psVo) {
+			// TODO Auto-generated method stub
+			return hairDao.updateStyle(psVo);
+		}
+
+		@Override
+		public int insertStyle(PetStyleVo psVo) {
+			// TODO Auto-generated method stub
+			return hairDao.insertStyle(psVo);
+		}
+
+		@Override
+		public int insertHairShopApply(HairShopApplyVo hsaVo) {
+			// TODO Auto-generated method stub
+			return hairDao.insertHairShopApply(hsaVo);
+		}
+
+		@Override
+		public HairShopApplyVo selectHsaById(String hsa_mem) {
+			// TODO Auto-generated method stub
+			return hairDao.selectHsaById(hsa_mem);
 		}
 		
 		

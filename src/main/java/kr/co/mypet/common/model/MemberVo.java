@@ -16,6 +16,9 @@ public class MemberVo {
 	private int mem_black;
 	private String mem_profile;
 	
+	// 관리자용 - 펫 보험금 청구관리화면에서 이용해야 하기 때문에 입력
+	private String cnt;
+	
 	
 	
 	@Override
@@ -26,6 +29,20 @@ public class MemberVo {
 				+ mem_hair + ", mem_point=" + mem_point + ", mem_black=" + mem_black + ", mem_profile=" + mem_profile
 				+ "]";
 	}
+	
+	
+
+	public String getCnt() {
+		return cnt;
+	}
+
+
+
+	public void setCnt(String cnt) {
+		this.cnt = cnt;
+	}
+
+
 
 	public String getMem_profile() {
 		return mem_profile;
