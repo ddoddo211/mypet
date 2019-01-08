@@ -92,7 +92,7 @@ function prodAdd(){
 					</c:choose>
 				</div>
 				<div id="detailName">
-					<label>${prodVo.insp_name}</label>
+					<label>${prodVo.insp_kind}</label>
 				</div>
 				<div id="list">
 					<button id="listButton" onclick="listClick()">목록으로 가기</button>

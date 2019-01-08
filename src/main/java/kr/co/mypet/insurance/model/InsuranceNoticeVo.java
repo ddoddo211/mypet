@@ -4,6 +4,9 @@ import java.util.Date;
 
 public class InsuranceNoticeVo {
 	
+	// 순번 처리
+	private int rnum;
+	
 	
 	private String inot_id;
 	private String inot_title;
@@ -11,15 +14,17 @@ public class InsuranceNoticeVo {
 	private Date inot_date;
 	
 	
-	
 	@Override
 	public String toString() {
-		return "InsuranceNoticeVo [inot_id=" + inot_id + ", inot_title=" + inot_title + ", inot_text=" + inot_text
-				+ ", inot_date=" + inot_date + "]";
+		return "InsuranceNoticeVo [rnum=" + rnum + ", inot_id=" + inot_id + ", inot_title=" + inot_title
+				+ ", inot_text=" + inot_text + ", inot_date=" + inot_date + "]";
 	}
-	
-	
-	
+	public int getRnum() {
+		return rnum;
+	}
+	public void setRnum(int rnum) {
+		this.rnum = rnum;
+	}
 	public String getInot_id() {
 		return inot_id;
 	}

@@ -228,10 +228,10 @@
 			
 			if($(this).siblings("input:checkbox[name='chkbox']").is(":checked") == false){
 				$(this).siblings("input:checkbox[name='chkbox']").prop("checked", true);  /* .is(":checked") == true; */
-				prodListHtml(1,'${dvs_id}','${dvs_parent}');
+				prodListHtml(1,'${dvs_id}','${dvs_parent}',prod_name);
 			}else{
 				$(this).siblings("input:checkbox[name='chkbox']").prop("checked", false);
-				prodListHtml(1,'${dvs_id}','${dvs_parent}');
+				prodListHtml(1,'${dvs_id}','${dvs_parent}',prod_name);
 			}
 		})
 		

@@ -8,14 +8,14 @@
 <c:choose>
 	<c:when test = "${pageSize == 0}">
 		<tr class="tr1" >
-			<td colspan="7">보험상품이 없습니다.</td>
+			<td colspan="9">보험상품이 없습니다.</td>
 		<tr>
 	</c:when>
 	<c:otherwise>
 		<c:forEach items="${pageList}" var="prod">
 			<tr class="tr1">
 				<td>
-					<input class="check" type="radio" name="prodSelect" value="${prod.insp_id}">
+					<input class="check" type="radio" name="prodSelect" value="${prod.insp_id}" data-cnt="${prod.cnt}" data-apply="${prod.cnt2}" data-join="${prod.insp_del}">
 				</td>
 				<c:choose>
 					<c:when test = "${prod.insp_join == '강아지'}">
@@ -30,18 +30,32 @@
 				<td>${prod.insp_minage}<%="~"%>${prod.insp_maxage}<%="세"%></td>
 				<td><%="가입부터 ~"%>${prod.insp_period}<%="세 까지"%></td>
 				<td>${prod.insp_sick}</td>
-				
 
 				<c:choose>
 					<c:when test="${prod.insp_del == 'Y'}">
-						<td>보험상품 만료</td>
+						<td class="trColor">보험상품 가입만료</td>
 					</c:when>
 					<c:otherwise>
 						<td>가입가능</td>
 					</c:otherwise>
 				</c:choose>
+				<c:choose>
+					<c:when test="${prod.cnt2 != 0}">
+							<td id="tdColor2">${prod.cnt2}</td>
+					</c:when>
+					<c:otherwise>
+							<td>${prod.cnt2}</td>
+					</c:otherwise>
+				</c:choose>
+				<c:choose>
+					<c:when test="${prod.cnt != 0}">
+							<td id="tdColor">${prod.cnt}</td>
+					</c:when>
+					<c:otherwise>
+							<td>${prod.cnt}</td>
+					</c:otherwise>
+				</c:choose>
 				
-				<td>가입자수</td>
 			</tr>
 		</c:forEach>
 	</c:otherwise>

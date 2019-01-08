@@ -26,6 +26,12 @@ var joinFail = <%=request.getParameter("joinFail")%>;
 	
 $(document).ready(function(){
 	
+	var blackMem = '${blackMem}';
+	
+	if(blackMem == 'no'){
+		alert("현재 회원은 블랙리스트임으로 보험신청을 진행하실수 없습니다.\n관리자에게 문의하시기 바랍니다.");
+	}
+	
 	
 	$(".option").change(function(){
 		$("#petSelectMenu").hide();
@@ -132,6 +138,8 @@ $(document).ready(function(){
 				// 펫이 해당 줄의 보험상품을 선태했는지 확인하는 부분
 				if( selectProdRow != selectPetRow){
 					alert("펫과 동일한 보험상품 행의 체크박스를 선택하시기 바랍니다.");
+					//해당화면에 모든 radio들의 체크를해제시킨다. 
+					$("input[type=checkbox]").prop("checked",false);
 					return;
 				}else if(prodId2 == $("#isr"+i+select).val()){
 					chkDu += 1;
@@ -144,6 +152,8 @@ $(document).ready(function(){
 				$("#frm2").submit();
 			} else {
 				alert("이미 가입된 상품입니다");
+				//해당화면에 모든 radio들의 체크를해제시킨다. 
+				$("input[type=checkbox]").prop("checked",false);
 				return;
 			}
 		}
@@ -186,6 +196,8 @@ function petDelete(){
 				$("#label"+i).removeClass("activeCb");
 			
 				alert("해당 펫은 보험에 가입되어 있는 펫입니다.\n나의 펫에서 삭제하실수 없습니다.");
+				//해당화면에 모든 radio들의 체크를해제시킨다. 
+				$("input[type=checkbox]").prop("checked",false);
 				return ;
 				
 				
@@ -348,6 +360,10 @@ function petInsert(){
 																	<c:choose>
 																		<c:when test="${mypetIsr.ins_stat == '신청'}">
 																			* <span id="isrCondition"> ${mypetIsr.insp_kind }(${mypetIsr.ins_stat})</span><br>
+																			<input id="isr${index.count}${pet.myp_id}" type="hidden" value="${mypetIsr.inssp_id }"/>
+																		</c:when>
+																		<c:when test="${mypetIsr.ins_stat == '반려'}">
+																			* <span id="isrCondition2"> ${mypetIsr.insp_kind }(${mypetIsr.ins_stat})</span><br>
 																			<input id="isr${index.count}${pet.myp_id}" type="hidden" value="${mypetIsr.inssp_id }"/>
 																		</c:when>
 																		<c:otherwise>

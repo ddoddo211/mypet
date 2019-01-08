@@ -13,7 +13,7 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
-		
+
 		// 보험상품 보러 가기 버튼을 클릭하였을때 반응하는 부분
 		$("#prodSelectBtn1_1_1").click(function(){
 			// input에 넣어 놨던 id값을 가지고 오기 
@@ -31,14 +31,66 @@ $(document).ready(function() {
 			goInsProdInsert();
 		});
 		
-		// 보험상품 삭제하기 버튼을 클릭하였을때 반응하는 부분
+		// 보험상품 가입만료로 변경 버튼을 클릭하였을때 반응하는 부분
 		$("#prodSelectBtn1_1_3").click(function(){
 			// input에 넣어 놨던 id값을 가지고 오기 
 			var prodId = $("#prodId").val();
 			if(prodId == ""){
 				alert("상세내역을 확인하실 상품의 체크박스를 클릭하시기 바랍니다.");
-			}else{
-				goInsProdDel(prodId);
+				return;
+			}else if(true){
+				// 가입신청자 수가 있을떄 보험상품을 삭제하면 안된다.
+				var prodApply = $("#prodApply").val();
+				
+				// 가입자수가 있을때에는 보험상품을 삭제하면 안된다.
+				var prodJoinSum = $("#prodJoinSum").val();
+				
+				// 보험상품이 삭제여부가 이미 Y로 되어 있는 부분은 가입여부를 변경할수 없다
+				var prodJoin = $("#prodJoin").val();
+				
+				if(prodApply != '0'){
+					alert("사용자가 가입신청 되어 보험상품은 가입만료로 변경하실수 없습니다.");
+					//해당화면에 모든 radio들의 체크를해제시킨다. 
+					$("input[type=radio]").prop("checked",false);
+					return;
+				}else if(prodJoinSum != '0'){
+					alert("사용자가 가입완료 되어 있는\n보험상품은 가입만료로 변경하실수 없습니다.");
+					//해당화면에 모든 radio들의 체크를해제시킨다. 
+					$("input[type=radio]").prop("checked",false);
+					return;
+				}else if(prodJoin == "Y"){
+					alert("이미 가입여부가 가입만료인 보험상품은 \n가입여부를 변경하실수 없습니다.");
+					//해당화면에 모든 radio들의 체크를해제시킨다. 
+					$("input[type=radio]").prop("checked",false);
+					return;
+				}else{
+					goInsProdDel(prodId);
+				}
+			}
+		});
+		
+		
+		// 보험상품 가입만료 해제 버튼을 클릭하였을때 반응하는 부분
+		$("#prodSelectBtn1_1_4").click(function(){
+			// input에 넣어 놨던 id값을 가지고 오기 
+			var prodId = $("#prodId").val();
+			if(prodId == ""){
+				alert("상세내역을 확인하실 상품의 체크박스를 클릭하시기 바랍니다.");
+				return;
+			}else if(true){
+				
+				// 보험상품이 삭제여부가 이미 Y로 되어 있는 부분은 가입여부를 변경할수 없다
+				var prodJoin = $("#prodJoin").val();
+				
+				if(prodJoin == "N"){
+					alert("해당 상품은 이미 가입이 가능한 상품입니다.");
+					//해당화면에 모든 radio들의 체크를해제시킨다. 
+					$("input[type=radio]").prop("checked",false);
+					return;
+				}else{
+					goInsProdDelRelease(prodId);
+				}
+	
 			}
 		});
 
@@ -76,10 +128,16 @@ function goInsProdInsert(){
 	location.href = '/isr/goInsProdInsert';
 }
 
-// 보험상품 삭제하기 버튼을 클릭하였을때 반영되는 부분
+// 보험상품 가입만료로 변경 버튼을 클릭하였을때 반영되는 부분
 function goInsProdDel(prodId){
 	var prodId = prodId;
 	location.href = '/isr/goInsProdDel?prodId='+prodId;
+}
+
+//보험상품 가입만료해제로 변경 버튼을 클릭하였을때 반영되는 부분
+function goInsProdDelRelease(prodId){
+	var prodId = prodId;
+	location.href = '/isr/goInsProdDelRelease?prodId='+prodId;
 }
 
 
@@ -99,6 +157,18 @@ function getProdListHtml(page) {
 			$(".check").click(function(){
 					var prodId = $(this).val();
 					$("#prodId").val(prodId);
+					
+					// 체크하였을때 가입신청수도 담아주는 부분
+					var prodApply = $(this).data("apply");
+					$("#prodApply").val(prodApply);
+					
+					// 체크하였을때 가입완료 자수도 담아주는 부분
+					var prodJoinSum = $(this).data("cnt");
+					$("#prodJoinSum").val(prodJoinSum);
+					
+					// 체크하였을때 보험상품의 가입여부도 담아주는 부분
+					var prodJoin = $(this).data("join");
+					$("#prodJoin").val(prodJoin);
 			});
 		}
 	});
@@ -136,6 +206,18 @@ function getProdKindPageListAjaxHtml(page, petKind, pageSize) {
 			$(".check").click(function(){
 					var prodId = $(this).val();
 					$("#prodId").val(prodId);
+					
+					// 체크하였을때 가입신청수도 담아주는 부분
+					var prodApply = $(this).data("apply");
+					$("#prodApply").val(prodApply);
+					
+					// 체크하였을때 가입자수도 담아주는 부분
+					var prodJoinSum = $(this).data("cnt");
+					$("#prodJoinSum").val(prodJoinSum);
+					
+					// 체크하였을때 보험상품의 가입여부도 담아주는 부분
+					var prodJoin = $(this).data("join");
+					$("#prodJoin").val(prodJoin);
 			});
 			
 			getProdKindPagenationHtml(page, petKind, pageSize);
@@ -168,6 +250,15 @@ function getProdKindPagenationHtml(page, petKind, pageSize) {
 
 <!-- 체크박스를 클릭하였을때 상품의 id값 담아주는  input -->
 <input type="hidden" value="" id="prodId">
+
+<!-- 체크박스를 클릭하였을때 상품의 가입신청자수를 담아주는 input -->
+<input type="hidden" value="" id="prodApply">
+
+<!-- 체크박스를 클릭하였을때 상품의 가입완료자수를 담아주는 input -->
+<input type="hidden" value="" id="prodJoinSum">
+
+<!-- 체크박스를 클릭하였을때 보험상품의 삭제여부를 담아주는 input -->
+<input type="hidden" value="" id="prodJoin">
 
 <!-- header 시작 -->
 <%@include file="../../common/header.jsp"%>
@@ -229,14 +320,15 @@ function getProdKindPagenationHtml(page, petKind, pageSize) {
 				<thead>
 					<tr>
 						<th class="chk">체크</th>
-						<th class="tabel1">가입대상</th>
+						<th class="tabel4">가입대상</th>
 						<th class="tabel1">보험상품</th>
 						<th class="tabel1">월 보험료 가격</th>
-						<th class="tabel1">가입연령</th>
+						<th class="tabel3">가입연령</th>
 						<th class="tabel1">보장기간</th>
 						<th class="tabel1">질병여부(Y/N)</th>
 						<th class="tabel1">보험  만료여부</th>
-						<th class="tabel1">가입자 수</th>
+						<th class="tabel1">가입신청자 수</th>
+						<th class="tabel1">가입완료자 수</th>
 					</tr>
 				</thead>
 
@@ -257,7 +349,10 @@ function getProdKindPagenationHtml(page, petKind, pageSize) {
 						<input class="prodSelectBtn1_1" id="prodSelectBtn1_1_2" type="button" value="보험상품 추가">
 					</div>
 					<div class="prodSelectBtn1_1">
-						<input class="prodSelectBtn1_1" id="prodSelectBtn1_1_3" type="button" value="삭제하기">
+						<input class="prodSelectBtn1_1" id="prodSelectBtn1_1_3" type="button" value="가입만료로 변경">
+					</div>
+					<div class="prodSelectBtn1_1">
+						<input class="prodSelectBtn1_1" id="prodSelectBtn1_1_4" type="button" value="가입만료 해제">
 					</div>
 				</div>
 			</div>

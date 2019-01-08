@@ -53,7 +53,6 @@
 		
 		 -->
 		
-		<!-- https://mvnrepository.com/artifact/com.itextpdf/itext-asian -->
 		<dependency>
 		    <groupId>com.itextpdf</groupId>
 		    <artifactId>itext-asian</artifactId>
@@ -61,14 +60,12 @@
 		</dependency>
 		
 		
-		<!-- https://mvnrepository.com/artifact/com.itextpdf.tool/xmlworker -->
 		<dependency>
 		    <groupId>com.itextpdf.tool</groupId>
 		    <artifactId>xmlworker</artifactId>
 		    <version>5.5.6</version>
 		</dependency>
 		
-		<!-- https://mvnrepository.com/artifact/com.adobe.acrobat/acrobat -->
 		<dependency>
 		    <groupId>com.adobe.acrobat</groupId>
 		    <artifactId>acrobat</artifactId>

@@ -43,6 +43,22 @@ public class InsuranceVo {
 	private String insp_sick;
 	private String insp_del;
 	
+	// 관리자용 : 보험신청자 관리 화면에서 나와야 하기 때문에 설정
+	private String mem_name;
+	
+	// 회원의 정보
+	private String mem_hp;
+	private int mem_black;
+	
+	// 계좌 정보
+	private String act_bank;
+	private String act_num;
+	private String act_name;
+
+
+
+
+
 
 	@Override
 	public String toString() {
@@ -55,10 +71,82 @@ public class InsuranceVo {
 				+ ", insp_id=" + insp_id + ", insp_name=" + insp_name + ", insp_join=" + insp_join + ", insp_kind="
 				+ insp_kind + ", insp_fees=" + insp_fees + ", insp_maxins=" + insp_maxins + ", insp_minage="
 				+ insp_minage + ", insp_maxage=" + insp_maxage + ", insp_period=" + insp_period + ", insp_sick="
-				+ insp_sick + ", insp_del=" + insp_del + "]";
+				+ insp_sick + ", insp_del=" + insp_del + ", mem_name=" + mem_name + ", mem_hp=" + mem_hp
+				+ ", mem_black=" + mem_black + ", act_bank=" + act_bank + ", act_num=" + act_num + ", act_name="
+				+ act_name + "]";
 	}
 
 
+
+	public int getMem_black() {
+		return mem_black;
+	}
+
+
+
+	public void setMem_black(int mem_black) {
+		this.mem_black = mem_black;
+	}
+
+
+
+	public String getAct_bank() {
+		return act_bank;
+	}
+
+
+
+	public void setAct_bank(String act_bank) {
+		this.act_bank = act_bank;
+	}
+
+
+
+	public String getAct_num() {
+		return act_num;
+	}
+
+
+
+	public void setAct_num(String act_num) {
+		this.act_num = act_num;
+	}
+
+
+
+	public String getAct_name() {
+		return act_name;
+	}
+
+
+
+	public void setAct_name(String act_name) {
+		this.act_name = act_name;
+	}
+
+
+
+	public String getMem_hp() {
+		return mem_hp;
+	}
+
+
+
+	public void setMem_hp(String mem_hp) {
+		this.mem_hp = mem_hp;
+	}
+
+
+
+	public String getMem_name() {
+		return mem_name;
+	}
+
+
+
+	public void setMem_name(String mem_name) {
+		this.mem_name = mem_name;
+	}
 
 
 
@@ -68,21 +156,9 @@ public class InsuranceVo {
 
 
 
-
-
-
-
-
-
 	public void setInsp_id(String insp_id) {
 		this.insp_id = insp_id;
 	}
-
-
-
-
-
-
 
 
 
@@ -92,33 +168,14 @@ public class InsuranceVo {
 
 
 
-
-
-
-
-
-
 	public void setInsp_name(String insp_name) {
 		this.insp_name = insp_name;
 	}
 
 
-
-
-
-
-
-
-
 	public String getInsp_join() {
 		return insp_join;
 	}
-
-
-
-
-
-
 
 
 

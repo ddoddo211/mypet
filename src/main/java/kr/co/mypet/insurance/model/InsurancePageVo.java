@@ -16,12 +16,39 @@ public class InsurancePageVo extends InsProdVo  {
 	private String petBirth;
 	private String petSick;
 	
+	// 관리자용 : 보험상품 리스트에서 가입자수가 나와야 하기 때문에 입력
+	private int cnt;
+	private int cnt2;
 
 	@Override
 	public String toString() {
-		return "PageVo [rnum=" + rnum + ", page=" + page + ", pageSize=" + pageSize + ", petKind=" + petKind
-				+ ", petBirth=" + petBirth + ", petSick=" + petSick + "]";
+		return "InsurancePageVo [rnum=" + rnum + ", page=" + page + ", pageSize=" + pageSize + ", petKind=" + petKind
+				+ ", petBirth=" + petBirth + ", petSick=" + petSick + ", cnt=" + cnt + ", cnt2=" + cnt2 + "]";
 	}
+
+
+	public int getCnt2() {
+		return cnt2;
+	}
+
+
+	public void setCnt2(int cnt2) {
+		this.cnt2 = cnt2;
+	}
+
+
+	public int getCnt() {
+		return cnt;
+	}
+
+
+	public void setCnt(int cnt) {
+		this.cnt = cnt;
+	}
+
+
+
+
 
 
 

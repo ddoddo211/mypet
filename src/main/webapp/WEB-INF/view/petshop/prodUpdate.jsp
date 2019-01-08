@@ -191,12 +191,20 @@
 		
 		$("#chkNum").val(chk);
 		
-		$("#minus").click(function() {
-			alert($(this).attr('id'));
-			var a = $("#prodo1").remove();
+		$(".minus").click(function() {
+			$(this).parent().parent().parent().remove();
 		})
 		
 	})
+	
+	function count() {
+		var  count = 0;
+		$(".prodoList").each(function() {
+			count++;	
+		});
+		
+		return count;
+	}
 </script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -302,12 +310,13 @@
 					</c:if>
 					
 					<c:if test="${prodoList.size() != 0}">
-						<c:set var="chk" value="${chkNum }"/>
+						<input type ="hidden" id="chkInfo" />
+						<c:set var="chk" value="${chkNum }" />
 						<c:forEach items="${prodoList }" var="list">
 							
 							<!-- 옵션을 받는 div -->
 							<div class="prodoList">
-								<div class="proda" id = "prodo1"> 
+								<div class="proda"> 
 									
 									<div class="opDvs1">
 										<div class="prodName">
@@ -337,7 +346,7 @@
 										</div>
 									</div>
 									<div class="opAdd">
-										<input type="button" id="minus" value="옵션 삭제"/>
+										<input type="button" class="minus" value="옵션 삭제"/>
 									</div>
 								</div>
 							</div>
@@ -351,8 +360,8 @@
 					<input type="hidden" name ="prod_img" value="${prodVo.prod_img }" />
 					<input type="hidden" name="prod_id" value="${prodVo.prod_id }" />
 					<input type="hidden" id="chkNum" name="chkNum" />
-					<input type="hidden" id="dvsid" name="dvs_id" value="${dvs_id }" />
-					<input type="hidden" id="dvs_parent" name="dvs_parent" />
+					<input type="hidden" id="dvsid" name="dvs_id" value="${dvsVo.dvs_id }" />
+					<input type="hidden" id="dvs_parent" name="dvs_parent" value="${dvsVo.dvs_parent }" />
 					
 					<div class="prodb">
 						<div class="prodButton">

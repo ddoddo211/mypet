@@ -61,7 +61,7 @@ public class InsuranceService implements InsuranceServiceInf {
 	* 작성자 : Yumint
 	* 변경이력 :
 	* @return
-	* Method 설명 : 보험상품리스트 가지고 오는 부분(페이징처리)
+	* Method 설명 : 조회조건으로 페이지 리스트 나오는 부분
 	*/
 	@Override
 	public Map<String, Object> prodKindPageList(InsurancePageVo pageVo) {
@@ -535,6 +535,19 @@ public class InsuranceService implements InsuranceServiceInf {
 	public List<InsuranceVo> claimPetJoinProd2(InsuranceVo isrVo) {
 		return insuranceDao.claimPetJoinProd2(isrVo);
 	}
+	
+	/**
+	* Method : claimPetJoinHandling
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param isrVo
+	* @return
+	* Method 설명 :나의 펫 보험 - 보험 신청 반려 되어 있는 가입내역이 나오는 부분
+	*/
+	@Override
+	public List<InsuranceVo> claimPetJoinHandling(InsuranceVo isrVo) {
+		return insuranceDao.claimPetJoinHandling(isrVo);
+	}
 
 	
 	/**
@@ -615,9 +628,433 @@ public class InsuranceService implements InsuranceServiceInf {
 	public List<InsProdVo> expiration() {
 		return insuranceDao.expiration();
 	}
+
 	
+	/**
+	* Method : prodPageList
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @return
+	* Method 설명 : 관리자용 - 보험상품관리 : 가입자수 나오는 리스트목록
+	*/
+	@Override
+	public Map<String, Object> prodPageJoinList(InsurancePageVo pageVo) {
 
+		// 페이지에 해당 하는 유저 리스트(1~10건) 
+		List<InsProdVo> pageList = insuranceDao.prodPageJoinList(pageVo);
+		
+		// 페이지 내비게이션을 위한 전체 유저 리스트 조회 
+		int totalInsProductCnt = insuranceDao.getInsProductCnt();
+		
+		
+		//리턴해야 하는게 두건일경우에는 (Map)
+		// 결과를 담는 map
+		Map<String , Object> resultMap = new HashMap<String , Object>();
+		
+		resultMap.put("pageList",pageList);
+		
+		//Math.ceil가 올림해주는 부분 
+		resultMap.put("pageCnt",
+				(int)Math.ceil((double)totalInsProductCnt / pageVo.getPageSize()));
+		
+		return resultMap;
+	}
+	
+	
+	/**
+	* Method : goInsProdDelUpdate
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param prodId
+	* @return
+	* Method 설명 :관리자용 - 보험상품관리 : 가입여부 상태 만료로 변경하는 부분
+	*/
+	@Override
+	public int goInsProdDelUpdate(String prodId) {
+		return insuranceDao.goInsProdDelUpdate(prodId);
+	}
+	
+	
+	/**
+	* Method : goInsProdDelRelease
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param prodId
+	* @return
+	* Method 설명 :관리자용 - 보험상품관리 : 가입여부 상태 해제로 변경하는 부분
+	*/
+	@Override
+	public int goInsProdDelRelease(String prodId) {
+		return insuranceDao.goInsProdDelRelease(prodId);
+	}
 
+	
+	/**
+	* Method : prodKindPageListM
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @return
+	* Method 설명 : 관리자용 - 보험상품관리 : 조회조건을 주었을때 조회되는 리스트 부분
+	*/
+	@Override
+	public Map<String, Object> prodKindPageListM(InsurancePageVo pageVo) {
+		// 페이지에 해당 하는 유저 리스트(1~10건) 
+		List<InsProdVo> pageList = insuranceDao.prodKindPageListM(pageVo);
+		
+		// 페이지 내비게이션을 위한 전체 유저 리스트 조회 
+		int totalInsProductCnt = insuranceDao.getInsProductKindCntM(pageVo.getPetKind());
+		
+		//리턴해야 하는게 두건일경우에는 (Map)
+		// 결과를 담는 map
+		Map<String , Object> resultMap = new HashMap<String , Object>();
+		
+		resultMap.put("pageList",pageList);
+		
+		//Math.ceil가 올림해주는 부분 
+		resultMap.put("pageCnt",
+				(int)Math.ceil((double)totalInsProductCnt / pageVo.getPageSize()));
+		
+		return resultMap;
+	}
+
+	/**
+	* Method : prodNameSame
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param insp_kind
+	* @return
+	* Method 설명 : 관리자용 - 보험상품관리 : 보험상품을 등록할때 이름이 동일한건이 있는지 확인
+	*/
+	@Override
+	public List<InsProdVo> prodNameSame(InsProdVo insProdVo) {
+		return insuranceDao.prodNameSame(insProdVo);
+	}
+
+	
+	/**
+	* Method : prodInsert
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param insProdVo
+	* @return
+	* Method 설명 :관리자용 - 보험상품관리 : 보험상품 추가해주는 쿼리문
+	*/
+	@Override
+	public int prodInsert(InsProdVo insProdVo) {
+		return insuranceDao.prodInsert(insProdVo);
+	}
+
+	/**
+	* Method : completed
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param inssp_id
+	* @return
+	* Method 설명 : 관리자용 - 보험상품관리(보험상세화면) : 보험상품 가입완료자 수가 있는지 확인 
+	*/
+	@Override
+	public List<InsProdVo> completed(String inssp_id) {
+		return insuranceDao.completed(inssp_id);
+	}
+
+	
+	/**
+	 * Method : applicant
+	 * 작성자 : Yumint
+	 * 변경이력 :
+	 * @param inssp_id
+	 * @return
+	 * Method 설명 : 관리자용 - 보험상품관리(보험상세화면) : 보험상품 가입신청자 수가 있는지 확인 
+	 */
+	@Override
+	public List<InsProdVo> applicant(String inssp_id) {
+		return insuranceDao.applicant(inssp_id);
+	}
+
+	
+	/**
+	* Method : goInsProdUpdateS
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param insProdVo
+	* @return
+	* Method 설명 :보험상품관리(보험내용수정) : 보험상품 내용수정하기
+	*/
+	@Override
+	public int goInsProdUpdateS(InsProdVo insProdVo) {
+		return insuranceDao.goInsProdUpdateS(insProdVo);
+	}
+
+	/**
+	* Method : applyList
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @return
+	* Method 설명 :보험신청/가입자관리 화면 : 보험신청자 나오는 부분 
+	*/
+	@Override
+	public List<InsuranceVo> applyList() {
+		return insuranceDao.applyList();
+	}
+	
+	
+	/**
+	 * Method : completeList
+	 * 작성자 : Yumint
+	 * 변경이력 :
+	 * @return
+	 * Method 설명 :보험신청/가입자관리 화면 : 보험가입자 나오는 부분 
+	 */
+	@Override
+	public List<InsuranceVo> completeList() {
+		return insuranceDao.completeList();
+	}
+
+	
+	/**
+	* Method : goApplyJoin
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param ins_id
+	* @return
+	* Method 설명 :보험신청/가입자관리 화면 : 신청 승인 버튼을 클릭하였을때 가입여부를 완료로 변경해주는 부분
+	*/
+	@Override
+	public int goApplyJoin(InsuranceVo isrVo) {
+		return insuranceDao.goApplyJoin(isrVo);
+	}
+
+	
+	/**
+	* Method : goCompanionJoin
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param ins_id
+	* @return
+	* Method 설명 :보험신청/가입자관리 화면 : 신청 승인 버튼을 클릭하였을때 가입여부를 반려로 변경해주는 부분
+	*/
+	@Override
+	public int goCompanionJoin(InsuranceVo isrVo) {
+		return insuranceDao.goCompanionJoin(isrVo);
+	}
+
+	
+	/**
+	* Method : terminationList
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param ins_id
+	* @return
+	* Method 설명 : 보험신청/가입자관리 화면 : 보험반려내역 나오는 부분
+	*/
+	@Override
+	public List<InsuranceVo> terminationList() {
+		return insuranceDao.terminationList();
+	}
+
+	
+	/**
+	* Method : goJoinCheck
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param isrVo
+	* @return
+	* Method 설명 :관리자용 - 보험 상품 id를 줘서 해당 보험상품 정보가지고 오기 ( 보험상품 내용 & 가입자 정보
+	*/
+	@Override
+	public InsuranceVo goJoinCheck(InsuranceVo isrVo) {
+		return insuranceDao.goJoinCheck(isrVo);
+	}
+
+	
+	/**
+	* Method : goJoinTermination
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param ins_id
+	* @return
+	* Method 설명 :보험가입자 관리 화면에서 보험해지하기 버튼을 클릭하였을 경우 해당 보험목록 해지로 변경하기
+	*/
+	@Override
+	public int goJoinTermination(String ins_id) {
+		return insuranceDao.goJoinTermination(ins_id);
+	}
+
+	
+	/**
+	* Method : handling
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param ins_id
+	* @return
+	* Method 설명 :보험가입자 관리 화면에서 보험해지하기 버튼을 클릭하였을 경우 사고 테이블에서 해당 보험가입상품 아이디로 줘서 반려처리하기
+	*/
+	@Override
+	public int handling(String ins_id) {
+		return insuranceDao.handling(ins_id);
+	}
+
+	
+	/**
+	* Method : noticList
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @return
+	* Method 설명 :보험 공지사항 나오게 설정하기 
+	*/
+	@Override
+	public List<InsuranceNoticeVo> noticList() {
+		return insuranceDao.noticList();
+	}
+
+	
+	/**
+	* Method : goNoticeInsert
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param notice
+	* @return
+	* Method 설명 :공지사항 글 등록하는 부분
+	*/
+	@Override
+	public int goNoticeInsert(InsuranceNoticeVo notice) {
+		return insuranceDao.goNoticeInsert(notice);
+	}
+
+	
+	/**
+	* Method : goNoticeCheck
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param inot_id
+	* @return
+	* Method 설명 :공지사항 글 확인하는 부분
+	*/
+	@Override
+	public InsuranceNoticeVo goNoticeCheck(String inot_id) {
+		return insuranceDao.goNoticeCheck(inot_id);
+	}
+
+	/**
+	* Method : goNoticeDel
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param inot_id
+	* @return
+	* Method 설명 :게시글 삭제하는 쿼리문 
+	*/
+	@Override
+	public int goNoticeDel(String inot_id) {
+		return insuranceDao.goNoticeDel(inot_id);
+	}
+
+	
+	/**
+	* Method : goNoticeUpdateInsert
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param insNoticeVo
+	* @return
+	* Method 설명 :공지사항 글 수정한 내용 입력시키기
+	*/
+	@Override
+	public int goNoticeUpdateInsert(InsuranceNoticeVo insNoticeVo) {
+		return insuranceDao.goNoticeUpdateInsert(insNoticeVo);
+	}
+
+	
+	/**
+	* Method : goClaim
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @return
+	* Method 설명 : 보험금 청구 관리 : 보험금 청구 (신청)리스트 나오는 부분
+	*/
+	@Override
+	public List<AccidentVo> goClaim() {
+		return insuranceDao.goClaim();
+	}
+
+	
+	/**
+	* Method : goCompanion
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @return
+	* Method 설명 : 보험금 청구 관리 : 보험금 청구 (반려)리스트 나오는 부분
+	*/
+	@Override
+	public List<AccidentVo> goCompanion() {
+		return insuranceDao.goCompanion();
+	}
+
+	
+	/**
+	* Method : goCompleted
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @return
+	* Method 설명 : 보험금 청구 관리 : 보험금 청구 (완료)리스트 나오는 부분
+	*/
+	@Override
+	public List<AccidentVo> goCompleted() {
+		return insuranceDao.goCompleted();
+	}
+
+	
+	/**
+	* Method : memBlacklist
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @return
+	* Method 설명 :보험금 청구 관리 : 블랙 리스트인 회원 조회하는부분
+	*/
+	@Override
+	public List<MemberVo> memBlacklist() {
+		return insuranceDao.memBlacklist();
+	}
+
+	
+	/**
+	* Method : goBlackAdd
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param mem_id
+	* @return
+	* Method 설명 :관리자용 - 보험청구관리 :해당 회원을 블랙리스트에 추가하는 부분  
+	*/
+	@Override
+	public int goBlackAdd(String mem_id) {
+		return insuranceDao.goBlackAdd(mem_id);
+	}
+
+	
+	/**
+	* Method : handlingMemAll
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param mem_id
+	* @return
+	* Method 설명 : 관리자용 - 보험청구관리 :해당 회원을 블랙리스트 하였을떄 회원이 신청한 보험건이 신청에서 반려로 변경되는 부분
+	*/
+	@Override
+	public int handlingMemAll(String accd_mem) {
+		return insuranceDao.handlingMemAll(accd_mem);
+	}
+
+	
+	/**
+	* Method : goBlackRelease
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param mem_id
+	* @return
+	* Method 설명 :관리자용 - 보험청구관리 :해당 회원을 블랙리스트에 해제하는 부분  
+	*/
+	@Override
+	public int goBlackRelease(String mem_id) {
+		return insuranceDao.goBlackRelease(mem_id);
+	}
 	
 	
 }

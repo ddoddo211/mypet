@@ -49,6 +49,7 @@
 			select rownum as rnum,a.* from
     			(SELECT * FROM PROD 
      			WHERE PROD_ID in (SELECT PDD_PROD FROM PRODDV WHERE PDD_DVS = #{dvsVo.dvs_parent})
+     			and prod_chk = 1
 		     	order by prod_date desc)a
 		     )
 		where rnum between #{pageVo.page} *#{pageVo.pageSize}-(#{pageVo.pageSize}-1) and #{pageVo.page}*#{pageVo.pageSize}
@@ -57,7 +58,7 @@
 	<!-- 펫쇼핑몰 체크박스 조건이 없을 경우 상품리스트 Size -->
 	<select id="prodSize" parameterType="String" resultType="int">
 		select count(*) 
-		from (select * from prod where prod_id in (select pdd_prod from proddv where pdd_dvs = #{dvs_parent}))
+		from (select * from prod where prod_id in (select pdd_prod from proddv where pdd_dvs = #{dvs_parent})and prod_chk = 1)
 	</select>
 	
 	<!-- 펫쇼핑몰 체크박스 조건이 있을 경우 상품List -->
@@ -82,6 +83,7 @@
 			and prod_id in (select pdd_prod from proddv where pdd_dvs in (${item}))
 		</foreach>
 		 )
+		 and prod_chk = 1
 		)
 	</select>
 	
@@ -132,7 +134,7 @@
 	<!-- 상품 등록  -->
 	<insert id="prodCre" parameterType="prodVo">
 		insert into prod
-		values ('PROD'||PROD_ID.NEXTVAL,#{prod_name},#{prod_price},#{prod_sprice},#{prod_qty},#{prod_pimg},#{prod_img},sysdate,#{prod_mem})
+		values ('PROD'||PROD_ID.NEXTVAL,#{prod_name},#{prod_price},#{prod_sprice},#{prod_qty},#{prod_pimg},#{prod_img},sysdate,#{prod_mem},1)
 	</insert>
 	
 	<!-- 상품분류 등록 -->
@@ -159,6 +161,7 @@
 			select rownum as rnum,a.* from
 			(select * from prod
 			where prod_id in (select pdd_prod from proddv where pdd_dvs = #{dvsVo.dvs_parent})
+			and prod_chk = 1
 			and prod_name like '%'||#{prod_name}||'%'
 			order by prod_date desc)a
 		)
@@ -170,6 +173,7 @@
 		select * from (
 		    select rownum as rnum,a.* from prod a
 		    where prod_id in (select pdd_prod from proddv where pdd_dvs= #{dvsVo.dvs_parent})
+		    and prod_chk = 1
 		    and prod_name like '%'||#{prod_name}||'%'
 		    <foreach collection="opChkList" item="item" index="index">
 		    	and prod_id in (select pdd_prod from proddv where pdd_dvs in (${item}))
@@ -179,10 +183,11 @@
 	</select>
 	
 	<!-- 상품 삭제  -->
-	<delete id="deleteProd" parameterType="String">
-		delete from prod
+	<update id="deleteProd" parameterType="String">
+		update prod
+		set prod_chk = 2
 		where prod_id = #{prod_id}
-	</delete>
+	</update>
 	
 	<!-- 상품 삭제할 때 fk로 등록된 상품도 삭제  -->
 	<delete id="deletePdd" parameterType="String">
@@ -198,14 +203,129 @@
 		    prod_sprice = #{prod_sprice},
 		    prod_qty = #{prod_qty},
 		    prod_pimg = #{prod_pimg},
-		    prod_img = #{prod_img},
-		    prod_date= #{prod_date}
+		    prod_img = #{prod_img}
 		where prod_id = #{prod_id}
 	</update>
 	
+	<!-- 상품 수정 시 기존에 있던 옵션 삭제하기 위해서 사용 -->
 	<delete id="deleteOption" parameterType="String">
 		delete from prodoption
 		where prodo_prod = #{prod_id}
 	</delete>
+	
+	<!-- 상품후기 List -->
+	<select id="revList" parameterType="String" resultType="prevVo">
+		select*from prodrev
+		where prev_prod = #{prod_id}
+	</select>
+	
+	<!-- 상품후기 수정 -->
+	<update id="revUpdate" parameterType="prevVo">
+		update prodrev
+		set prev_title = #{prev_title},
+		    prev_text = #{prev_text}
+		where prev_id = #{prev_id}
+	</update>
+	
+	<!-- 상품후기 삭제 -->
+	<delete id="revDelete" parameterType="String">
+		delete from prodrev
+		where prev_id = #{prev_id}
+	</delete>
+	
+	<!-- 상품후기 등록 -->
+	<insert id="revInsert" parameterType="prevVo">
+		INSERT INTO PRODREV
+		VALUES ('REV'||REV_ID.NEXTVAL,#{prev_title},#{prev_text},#{prev_prod},#{prev_mem},sysdate,#{prev_num})
+	</insert>
+	
+	<!-- 상품옵션 조회 -->
+	<select id="prodoVo" parameterType="String" resultType="prodoVo">
+		SELECT * FROM PRODoption
+		where prodo_id = #{prodo_id}
+	</select>
+	
+	<!-- 장바구니 조회 -->
+	<select id="cartList" parameterType="String" resultType="cartVo">
+		select a.prod_pimg,a.prod_name,a.prod_price,a.prod_sprice,b.* 
+		from prod a,cart b
+		where prod_id = cart_prod
+		and cart_mem = #{cart_mem}
+	</select>
+	
+	<!-- 장바구니 등록 -->
+	<insert id="cartAdd" parameterType="cartVo">
+		INSERT INTO CART
+		VALUES ('CART'||CART_ID.NEXTVAL,#{cart_qty},#{cart_price},#{cart_prod},#{cart_mem})
+	</insert>
+	
+	<!-- 장바구니 삭제 -->
+	<delete id="cartDel" parameterType="String">
+		delete from cart
+		where cart_id = #{cart_id}
+	</delete>
+	
+	<!-- 장바구니 주문하기 List -->
+	<select id="cartBuyList" parameterType="String" resultType="cartVo">
+		select a.prod_pimg,a.prod_name,a.prod_price,a.prod_sprice,b.* 
+		from prod a,cart b
+		where prod_id = cart_prod
+		and cart_id in (${value})
+	</select>
+	
+	<!-- 배송지 등록 -->
+	<insert id="daddrCre" parameterType="daddrVo">
+		insert into deliveryaddr
+		values ('DADDR'||DADDR_ID.NEXTVAL,#{daddr_name},#{daddr_addr},#{daddr_addr2},#{daddr_tel},#{daddr_mem},#{daddr_chk},#{daddr_title})
+	</insert>
+	
+	<!-- 기존배송지 조회 -->
+	<select id="basicAddress" parameterType="String" resultType="daddrVo">
+		select * from deliveryaddr
+		where daddr_mem = #{daddr_mem}
+		and daddr_chk = 1
+	</select>
+	
+	<!-- 저장된 배송지 리스트 -->
+	<select id="otherAddress" parameterType="String" resultType="daddrVo">
+		select * from deliveryaddr
+		where daddr_mem = #{daddr_mem}
+		and daddr_chk = 3
+	</select>
+	
+	<!-- 상품 판매시 수량 변경 -->
+	<update id="qtyUpdate" parameterType="prodVo">
+		update prod
+		set prod_qty = #{prod_qty}
+		where prod_id = #{prod_id}
+	</update>
+	
+	<!-- 배송지 확인 -->
+	<select id="saveAddr" parameterType="String" resultType="daddrVo">
+		select * from deliveryaddr
+		where daddr_id = #{daddr_id}
+	</select>
+	
+	<!-- 배송지가 새로운 경우 -->
+	<insert id="orderInsert" parameterType="ordsVo">
+		<selectKey resultType="string" keyProperty="ords_daddr" order="BEFORE">
+			select max(substr(daddr_id,6,4)) from deliveryaddr
+		</selectKey>
+		insert into ordersheet
+		values ('ORDS'||SHOPORDS_ID.NEXTVAL,#{ords_qty},'상품준비중',#{ords_mem},#{ords_prod},'DADDR'||#{ords_daddr},#{ords_price},sysdate)
+	</insert>
+	
+	<!-- 기존에 배송지가 있을 경우 -->
+	<insert id="orderInsert2" parameterType="ordsVo">
+		insert into ordersheet
+		values ('ORDS'||SHOPORDS_ID.NEXTVAL,#{ords_qty},'상품준비중',#{ords_mem},#{ords_prod},#{ords_daddr},#{ords_price},sysdate)
+	</insert>
+		
+	<!-- 업데이트  배송지-->
+	<update id="updateDaddr" parameterType="String">
+		update deliveryaddr
+		set daddr_chk = 2
+		where daddr_id = #{daddr_id}
+	</update>
 </mapper>
  
