@@ -41,7 +41,7 @@
 				<a href="/shop/recentProd">
 					<li class="mainmenu-li">최근 본 상품</li>
 				</a>
-				<a href="/shop/basketProd">
+				<a href="/shop/cartList">
 					<li class="mainmenu-li">장바구니</li>
 				</a>
 				<li class="mainmenu-li">이벤트</li>

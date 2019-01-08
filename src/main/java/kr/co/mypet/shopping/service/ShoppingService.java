@@ -11,8 +11,12 @@ import org.springframework.stereotype.Service;
 
 import kr.co.mypet.common.model.PageVo;
 import kr.co.mypet.shopping.dao.ShoppingDaoInf;
+import kr.co.mypet.shopping.model.CartVo;
+import kr.co.mypet.shopping.model.DeliveryAddrVo;
 import kr.co.mypet.shopping.model.DivisionVo;
+import kr.co.mypet.shopping.model.OrderSheetVo;
 import kr.co.mypet.shopping.model.ProdOptionVo;
+import kr.co.mypet.shopping.model.ProdRevVo;
 import kr.co.mypet.shopping.model.ProdVo;
 import kr.co.mypet.shopping.model.ProddvVo;
 import kr.co.mypet.shopping.model.ShopNoticeVo;
@@ -453,8 +457,228 @@ public class ShoppingService implements ShoppingServiceInf {
 	@Override
 	public int deleteOption(String prod_id) {
 		return shoppingDao.deleteOption(prod_id);
-	};
+	}
 	
+	/**
+	* Method : revList
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param prod_id
+	* @return
+	* Method 설명 : 상품후기 List
+	*/
+	@Override
+	public List<ProdRevVo> revList(String prod_id) {
+		return shoppingDao.revList(prod_id);
+	}
+	
+	/**
+	* Method : revUpdate
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param prevVo
+	* @return
+	* Method 설명 : 상품후기 수정
+	*/
+	@Override
+	public int revUpdate(ProdRevVo prevVo) {
+		return shoppingDao.revUpdate(prevVo);
+	}
+	
+	/**
+	* Method : revDelete
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param prev_id
+	* @return
+	* Method 설명 : 상품후기 삭제
+	*/
+	@Override
+	public int revDelete(String prev_id) {
+		return shoppingDao.revDelete(prev_id);
+	}
+	
+	/**
+	* Method : revInsert
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param prevVo
+	* @return
+	* Method 설명 : 상품후기 등록
+	*/
+	@Override
+	public int revInsert(ProdRevVo prevVo) {
+		return shoppingDao.revInsert(prevVo);
+	}
+	
+	/**
+	* Method : prodoVo
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param prodo_id
+	* @return
+	* Method 설명 : 아이디를 받아 해당 옵션 조회
+	*/
+	@Override
+	public ProdOptionVo prodoVo(String prodo_id) {
+		return shoppingDao.prodoVo(prodo_id);
+	}
+	
+	/**
+	* Method : cartAdd
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param cartVo
+	* @return
+	* Method 설명 :장바구니 등록
+	*/
+	@Override
+	public int cartAdd(CartVo cartVo) {
+		return shoppingDao.cartAdd(cartVo);
+	}
+	
+	/**
+	* Method : cartList
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param cart_mem
+	* @return
+	* Method 설명 : 해당 회원의 장바구니
+	*/
+	@Override
+	public List<CartVo> cartList(String cart_mem) {
+		return shoppingDao.cartList(cart_mem);
+	}
+	
+	/**
+	* Method : cartDel
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param cart_id
+	* @return
+	* Method 설명 : 장바구니 삭제
+	*/
+	@Override
+	public int cartDel(String cart_id) {
+		return shoppingDao.cartDel(cart_id);
+	}
+	
+	/**
+	* Method : cartBuyList
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param cart_ids
+	* @return
+	* Method 설명 :장바구니에 선택된 상품 주문하기 List
+	*/
+	@Override
+	public List<CartVo> cartBuyList(String cart_ids) {
+		return shoppingDao.cartBuyList(cart_ids);
+	}
+	
+	/**
+	* Method : daddrCre
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param daddrVo
+	* @return
+	* Method 설명 : 배송지 등록
+	*/
+	@Override
+	public int daddrCre(DeliveryAddrVo daddrVo) {
+		return shoppingDao.daddrCre(daddrVo);
+	}
+	
+	/**
+	* Method : basicAddress
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param daddr_mem
+	* @return
+	* Method 설명 : 기존배송지
+	*/
+	@Override
+	public DeliveryAddrVo basicAddress(String daddr_mem) {
+		return shoppingDao.basicAddress(daddr_mem);
+	}
+	
+	/**
+	* Method : otherAddress
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param daddr_mem
+	* @return
+	* Method 설명 : 저장된 배송지
+	*/
+	@Override
+	public List<DeliveryAddrVo> otherAddress(String daddr_mem) {
+		return shoppingDao.otherAddress(daddr_mem);
+	}
+	
+	/**
+	* Method : qtyUpdate
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param prodVo
+	* @return
+	* Method 설명 : 상품 판매시 수량 수정
+	*/
+	@Override
+	public int qtyUpdate(ProdVo prodVo) {
+		return shoppingDao.qtyUpdate(prodVo);
+	}
+	
+	/**
+	* Method : saveAddr
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param daddr_id
+	* @return
+	* Method 설명 : 저장된 배송지 조회
+	*/
+	@Override
+	public DeliveryAddrVo saveAddr(String daddr_id) {
+		return shoppingDao.saveAddr(daddr_id);
+	}
+	
+	/**
+	* Method : orderInsert
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param ordsVo
+	* @return
+	* Method 설명 : 주문내용 저장
+	*/
+	@Override
+	public int orderInsert(OrderSheetVo ordsVo) {
+		return shoppingDao.orderInsert(ordsVo);
+	}
+	
+	/**
+	* Method : orderInsert2
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param ordsVo
+	* @return
+	* Method 설명 : 기존 배송지를 사용할 경우
+	*/
+	@Override
+	public int orderInsert2(OrderSheetVo ordsVo) {
+		return shoppingDao.orderInsert2(ordsVo);
+	}
+	
+	/**
+	* Method : updateDaddr
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param daddr_id
+	* @return
+	* Method 설명 : 기존 배송지에서 저장된 배송지로 변경
+	*/
+	@Override
+	public int updateDaddr(String daddr_id) {
+		return shoppingDao.updateDaddr(daddr_id);
+	};
 	
 	
 }

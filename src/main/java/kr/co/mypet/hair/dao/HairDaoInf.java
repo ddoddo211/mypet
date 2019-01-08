@@ -7,6 +7,7 @@ import kr.co.mypet.common.model.MypetVo;
 import kr.co.mypet.hair.model.BookmarkVo;
 import kr.co.mypet.hair.model.HairBoardVo;
 import kr.co.mypet.hair.model.HairResVo;
+import kr.co.mypet.hair.model.HairShopApplyVo;
 import kr.co.mypet.hair.model.HairShopVo;
 import kr.co.mypet.hair.model.PetStyleVo;
 import kr.co.mypet.sitter.model.ZipVo;
@@ -28,6 +29,7 @@ public interface HairDaoInf {
 	List<HairBoardVo> selectReview(String hbrd_has);
 	
 	List<PetStyleVo> selectStyleList(String pts_has);
+	List<PetStyleVo> selectStyleListAll(String pts_has);
 
 	int insertHairBoard(HairBoardVo hairBoardVo);
 	
@@ -52,5 +54,37 @@ public interface HairDaoInf {
 	List<HairResVo> selectRevCom(Map<Object, Object> param);
 	
 	int revComCnt(String mem_id);
+	
+	int insertReview(HairBoardVo hbVo);
+
+	Map<String, Object> getScore(String has_id);
+
+	int updateScore(HairShopVo hsVo);
+
+	int deleteBm(String bmk_id);
+
+	HairShopVo selectShopByMemId(String mem_id);
+
+	List<HairBoardVo> selectAskByHasIdNA(String has_id);
+
+	List<HairBoardVo> selectAskByHasIdYA(String has_id);
+
+	int insertAskR(HairBoardVo hbVo);
+
+	List<HairResVo> selectRespRev(String has_id);
+
+	int updateRevStat(HairResVo hrVo);
+
+	List<HairResVo> selectOgRev(String has_id);
+
+	int updateShopInfo(HairShopVo hsVo);
+
+	int updateStyle(PetStyleVo psVo);
+
+	int insertStyle(PetStyleVo psVo);
+	
+	int insertHairShopApply(HairShopApplyVo hsaVo);
+	
+	HairShopApplyVo selectHsaById(String hsa_mem);
 
 }

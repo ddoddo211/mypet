@@ -8,6 +8,7 @@
 				<typeAlias type="kr.co.mypet.hair.model.PetStyleVo" alias="styleVo"/>
 				<typeAlias type="kr.co.mypet.hair.model.BookmarkVo" alias="bmVo"/>
 				<typeAlias type="kr.co.mypet.hair.model.HairResVo" alias="hrVo"/>
+				<typeAlias type="kr.co.mypet.hair.model.HairShopApplyVo" alias="hsaVo"/>
 			
 			<!-- hair alias -->
 			
@@ -36,6 +37,10 @@
 			<typeAlias type="kr.co.mypet.sitter.model.SitterResVo" alias="resVo"/>
 			<typeAlias type="kr.co.mypet.sitter.model.SitterAppVo" alias="staVo"/>
 			<typeAlias type="kr.co.mypet.common.model.PageVo" alias="pageVo"/>
+			<typeAlias type="kr.co.mypet.shopping.model.ProdRevVo" alias="prevVo"/>
+			<typeAlias type="kr.co.mypet.shopping.model.CartVo" alias="cartVo"/>
+			<typeAlias type="kr.co.mypet.shopping.model.OrderSheetVo" alias="ordsVo"/>
+			<typeAlias type="kr.co.mypet.shopping.model.DeliveryAddrVo" alias="daddrVo"/>
 	</typeAliases>
 
   <mappers>

@@ -13,21 +13,50 @@
 
 
 <script type="text/javascript">
+$(document).ready(function(){
+	// 보험상품 가입만료 해제 버튼을 클릭하였을때 반응하는 부분
+	$("#prodDelRelease").click(function(){
+		var prodId = '${prodVo.insp_id}';
+		goInsProdDelRelease(prodId);
+	});
+	
+	// 보험상품 내용 수정하기 버튼을 클릭하였을때 반응하는 부분
+	$("#prodUpdateBtn").click(function(){
+		var prodId = '${prodVo.insp_id}';
+		
+		// 보험신청자가 있는 보험상품은 수정하면 안된다.
+		var applicant = '${applicant}';
+		
+		// 보험가입자가 있는 보험상품은 수정하면 안된다.
+		var completed = '${completed}';
+		
+		if(applicant != 0){
+			alert("해당 보험을 신청하신 회원이 있습니다.\n보험상품을 수정하실수 없습니다.");
+			return;
+		}else if(completed != 0){
+			alert("해당 보험을 가입하신 회원이 있습니다.\n보험상품을 수정하실수 없습니다.");
+			return;
+		}else{
+			goInsProdUpdate(prodId);
+		}
+	});
+});
+
 // 목록 버튼을 클릭하였을때 이전화면으로 보내는 함수 
 function listClick() {
 	location.href = '/isr/goProdManager';
 }
 
-function prodAdd(){
-	if('${memVo.mem_id}' == ''){
-		alert("로그인이 되어 있지 않습니다.\n로그인하시기 바랍니다.");
-		location.href ='/mem/loginPage';
-	}else if('${insShList}' != 0){
-		alert("이미 플랜정보에 추가된 보험상품입니다.\n이미 추가된 상품은 추가되지 않습니다.");
-		return ;
-	}else{
-			$("#frm").submit();
-	}
+//보험상품 가입만료해제로 변경 버튼을 클릭하였을때 반영되는 부분
+function goInsProdDelRelease(prodId){
+	var prodId = prodId;
+	location.href = '/isr/goInsProdDelRelease2?prodId='+prodId;
+}
+
+// 보험상품 내용 수정하기 버튼을 클릭하였을때 반응하는 부분
+function goInsProdUpdate(prodId){
+	var prodId = prodId;
+	location.href = '/isr/goInsProdUpdate?prodId='+prodId;
 }
 </script>
 
@@ -49,14 +78,6 @@ function prodAdd(){
 		<!-- 관리자 메뉴 -->
 		<%@include file="../adminHeader.jsp"%>
 		
-		<!-- 입력하여 content 넣는 부분 -->
-			<div id="insTitle">
-				펫 보험 관리자용
-			</div>
-			<div id="insTitle2">
-				원하시는 항목의 버튼을 클릭하시면 이동됩니다.
-			</div>
-			
 			<!-- 관리자용 펫 보험 메뉴  -->
 			<%@include file="insMenuSelect.jsp"%>
 		
@@ -75,7 +96,7 @@ function prodAdd(){
 					</c:choose>
 				</div>
 				<div id="detailName">
-					<label>${prodVo.insp_name}</label>
+					<label>${prodVo.insp_kind}</label>
 				</div>
 				<div id="list">
 					<button id="listButton" onclick="listClick()">목록으로 가기</button>
@@ -105,6 +126,19 @@ function prodAdd(){
 						<label class="whiteLb"><%="월 "%>${prodVo.insp_fees}<%="원"%></label>
 					</div>
 				</div>
+				
+				<c:choose>
+					<c:when test="${prodVo.insp_del == 'Y'}">
+						<div id="plan">
+							<input type="button" id="prodDelRelease" value="가입만료 해제">
+						</div>
+					</c:when>
+					<c:otherwise>
+						<div id="plan">
+							<input type="button" id="prodUpdateBtn" value="상품 내용 수정하기">
+						</div>
+					</c:otherwise>
+				</c:choose>
 				
 			</div>
 			

@@ -10,11 +10,15 @@
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript">
-$(document).ready(function()
-		 {
-		  $("#btn1").toggle(
-		  function()
-		  {
+$(document).ready(function(){
+		// 회원이 블랙리스트일경우 인터넷 보험청구를 못하도록 막는부분
+		var blackMem = '${blackMem}';
+		if(blackMem == 'no'){
+			alert("현재 회원은 블랙리스트임으로 보험신청을 진행하실수 없습니다.\n관리자에게 문의하시기 바랍니다.");
+		}
+		
+	
+		  $("#btn1").toggle(function(){
 		   $("#content").css("display",'none');
 		  },
 		  function()

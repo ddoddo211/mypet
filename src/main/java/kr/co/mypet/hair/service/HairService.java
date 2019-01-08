@@ -12,6 +12,7 @@ import kr.co.mypet.hair.dao.HairDaoInf;
 import kr.co.mypet.hair.model.BookmarkVo;
 import kr.co.mypet.hair.model.HairBoardVo;
 import kr.co.mypet.hair.model.HairResVo;
+import kr.co.mypet.hair.model.HairShopApplyVo;
 import kr.co.mypet.hair.model.HairShopVo;
 import kr.co.mypet.hair.model.PetStyleVo;
 import kr.co.mypet.sitter.model.ZipVo;
@@ -62,6 +63,11 @@ public class HairService implements HairServiceInf {
 		public List<PetStyleVo> selectStyleList(String pts_has) {
 			// TODO Auto-generated method stub
 			return hairDao.selectStyleList(pts_has);
+		}
+		@Override
+		public List<PetStyleVo> selectStyleListAll(String pts_has) {
+			// TODO Auto-generated method stub
+			return hairDao.selectStyleListAll(pts_has);
 		}
 
 		@Override
@@ -134,6 +140,102 @@ public class HairService implements HairServiceInf {
 		public int revComCnt(String mem_id) {
 			// TODO Auto-generated method stub
 			return hairDao.revComCnt(mem_id);
+		}
+
+		@Override
+		public int insertReview(HairBoardVo hbVo) {
+			// TODO Auto-generated method stub
+			return hairDao.insertReview(hbVo);
+		}
+
+		@Override
+		public Map<String, Object> getScore(String has_id) {
+			// TODO Auto-generated method stub
+			return hairDao.getScore(has_id);
+		}
+
+		@Override
+		public int updateScore(HairShopVo hsVo) {
+			// TODO Auto-generated method stub
+			return hairDao.updateScore(hsVo);
+		}
+
+		@Override
+		public int deleteBm(String bmk_id) {
+			// TODO Auto-generated method stub
+			return hairDao.deleteBm(bmk_id);
+		}
+
+		@Override
+		public HairShopVo selectShopByMemId(String mem_id) {
+			// TODO Auto-generated method stub
+			return hairDao.selectShopByMemId(mem_id);
+		}
+
+		@Override
+		public List<HairBoardVo> selectAskByHasIdNA(String has_id) {
+			// TODO Auto-generated method stub
+			return hairDao.selectAskByHasIdNA(has_id);
+		}
+
+		@Override
+		public List<HairBoardVo> selectAskByHasIdYA(String has_id) {
+			// TODO Auto-generated method stub
+			return hairDao.selectAskByHasIdYA(has_id);
+		}
+
+		@Override
+		public int insertAskR(HairBoardVo hbVo) {
+			// TODO Auto-generated method stub
+			return hairDao.insertAskR(hbVo);
+		}
+
+		@Override
+		public List<HairResVo> selectRespRev(String has_id) {
+			// TODO Auto-generated method stub
+			return hairDao.selectRespRev(has_id);
+		}
+
+		@Override
+		public int updateRevStat(HairResVo hrVo) {
+			// TODO Auto-generated method stub
+			return hairDao.updateRevStat(hrVo);
+		}
+
+		@Override
+		public List<HairResVo> selectOgRev(String has_id) {
+			// TODO Auto-generated method stub
+			return hairDao.selectOgRev(has_id);
+		}
+
+		@Override
+		public int updateShopInfo(HairShopVo hsVo) {
+			// TODO Auto-generated method stub
+			return hairDao.updateShopInfo(hsVo);
+		}
+
+		@Override
+		public int updateStyle(PetStyleVo psVo) {
+			// TODO Auto-generated method stub
+			return hairDao.updateStyle(psVo);
+		}
+
+		@Override
+		public int insertStyle(PetStyleVo psVo) {
+			// TODO Auto-generated method stub
+			return hairDao.insertStyle(psVo);
+		}
+
+		@Override
+		public int insertHairShopApply(HairShopApplyVo hsaVo) {
+			// TODO Auto-generated method stub
+			return hairDao.insertHairShopApply(hsaVo);
+		}
+
+		@Override
+		public HairShopApplyVo selectHsaById(String hsa_mem) {
+			// TODO Auto-generated method stub
+			return hairDao.selectHsaById(hsa_mem);
 		}
 		
 		

@@ -12,6 +12,7 @@ import kr.co.mypet.common.model.MypetVo;
 import kr.co.mypet.hair.model.BookmarkVo;
 import kr.co.mypet.hair.model.HairBoardVo;
 import kr.co.mypet.hair.model.HairResVo;
+import kr.co.mypet.hair.model.HairShopApplyVo;
 import kr.co.mypet.hair.model.HairShopVo;
 import kr.co.mypet.hair.model.PetStyleVo;
 import kr.co.mypet.sitter.model.ZipVo;
@@ -71,6 +72,11 @@ public class HairDao implements HairDaoInf {
 	@Override
 	public List<PetStyleVo> selectStyleList(String pts_has) {
 		List<PetStyleVo> styleList = template.selectList("petHair.selectStyle", pts_has);
+		return styleList;
+	}
+	@Override
+	public List<PetStyleVo> selectStyleListAll(String pts_has) {
+		List<PetStyleVo> styleList = template.selectList("petHair.selectStyleAll", pts_has);
 		return styleList;
 	}
 
@@ -155,6 +161,106 @@ public class HairDao implements HairDaoInf {
 		int cnt = template.selectOne("petHair.revComCnt", mem_id);
 		System.out.println("dao cnt : " + cnt);
 		return cnt;
+	}
+
+	@Override
+	public int insertReview(HairBoardVo hbVo) {
+		int chk = template.insert("petHair.insertReview", hbVo);
+		return chk;
+	}
+
+	@Override
+	public Map<String, Object> getScore(String has_id) {
+		
+		Map<String, Object> scoreMap = template.selectMap("petHair.getScore", has_id,"dodo");
+		return scoreMap;
+	}
+
+	@Override
+	public int updateScore(HairShopVo hsVo) {
+		int chk = template.update("petHair.updateScore", hsVo);
+		return chk;
+	}
+
+	@Override
+	public int deleteBm(String bmk_id) {
+		int chk = template.update("petHair.deleteBm", bmk_id);
+		return chk;
+	}
+
+	@Override
+	public HairShopVo selectShopByMemId(String mem_id) {
+		HairShopVo haVo = template.selectOne("petHair.selectShopByMemId", mem_id);
+		return haVo;
+	}
+
+	@Override
+	public List<HairBoardVo> selectAskByHasIdNA(String has_id) {
+		List<HairBoardVo> askListNa = template.selectList("petHair.selectAskByHasIdNA", has_id);
+		return askListNa;
+	}
+
+	@Override
+	public List<HairBoardVo> selectAskByHasIdYA(String has_id) {
+		List<HairBoardVo> askListYa = template.selectList("petHair.selectAskByHasIdYA", has_id);
+		return askListYa;
+	}
+
+	@Override
+	public int insertAskR(HairBoardVo hbVo) {
+		int chk = template.update("petHair.insertAskR", hbVo);
+		return chk;
+	}
+
+	@Override
+	public List<HairResVo> selectRespRev(String has_id) {
+		
+		List<HairResVo> hairResList = template.selectList("petHair.selectRespRev", has_id);
+		
+		
+		return hairResList;
+	}
+
+	@Override
+	public int updateRevStat(HairResVo hrVo) {
+		int chk = template.update("petHair.updateRevStat", hrVo);
+		return chk;
+	}
+
+	@Override
+	public List<HairResVo> selectOgRev(String has_id) {
+		List<HairResVo> hrList = template.selectList("petHair.selectOgRev", has_id);
+		return hrList;
+	}
+
+	@Override
+	public int updateShopInfo(HairShopVo hsVo) {
+		int chk = template.update("petHair.updateShopInfo", hsVo);
+		return chk;
+	}
+
+	@Override
+	public int updateStyle(PetStyleVo psVo) {
+		int chk = template.update("petHair.updateStyle", psVo);
+		return chk;
+	}
+
+	@Override
+	public int insertStyle(PetStyleVo psVo) {
+		int chk = template.insert("petHair.insertStyle", psVo);
+		return chk;
+	}
+
+	@Override
+	public int insertHairShopApply(HairShopApplyVo hsaVo) {
+		int chk = template.insert("petHair.insertHairShopApply", hsaVo);
+		return chk;
+	}
+
+	@Override
+	public HairShopApplyVo selectHsaById(String hsa_mem) {
+		HairShopApplyVo hsaVo = template.selectOne("petHair.selectHsaById", hsa_mem);
+		return hsaVo;
 	}
 	
 }

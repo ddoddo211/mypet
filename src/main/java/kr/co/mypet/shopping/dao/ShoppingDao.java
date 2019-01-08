@@ -8,8 +8,12 @@ import javax.annotation.Resource;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import kr.co.mypet.shopping.model.CartVo;
+import kr.co.mypet.shopping.model.DeliveryAddrVo;
 import kr.co.mypet.shopping.model.DivisionVo;
+import kr.co.mypet.shopping.model.OrderSheetVo;
 import kr.co.mypet.shopping.model.ProdOptionVo;
+import kr.co.mypet.shopping.model.ProdRevVo;
 import kr.co.mypet.shopping.model.ProdVo;
 import kr.co.mypet.shopping.model.ProddvVo;
 import kr.co.mypet.shopping.model.ShopNoticeVo;
@@ -308,7 +312,7 @@ public class ShoppingDao implements ShoppingDaoInf {
 	*/
 	@Override
 	public int deleteProd(String prod_id) {
-		int result = template.delete("shop.deleteProd",prod_id);
+		int result = template.update("shop.deleteProd",prod_id);
 		return result;
 	}
 	
@@ -351,6 +355,244 @@ public class ShoppingDao implements ShoppingDaoInf {
 	@Override
 	public int deleteOption(String prod_id) {
 		int result = template.delete("shop.deleteOption",prod_id);
+		return result;
+	}
+	
+	/**
+	* Method : revList
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param prod_id
+	* @return
+	* Method 설명 : 상품후기 List
+	*/
+	@Override
+	public List<ProdRevVo> revList(String prod_id) {
+		List<ProdRevVo> revList = template.selectList("shop.revList",prod_id);
+		return revList;
+	}
+	
+	/**
+	* Method : revUpdate
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param prevVo
+	* @return
+	* Method 설명 : 상품후기 수정
+	*/
+	@Override
+	public int revUpdate(ProdRevVo prevVo) {
+		int result = template.update("shop.revUpdate",prevVo);
+		return result;
+	}
+	
+	/**
+	* Method : revDelete
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param prod_id
+	* @return
+	* Method 설명 : 상품후기 삭제
+	*/
+	@Override
+	public int revDelete(String prev_id) {
+		int result = template.delete("shop.revDelete",prev_id);
+		return result;
+	}
+	
+	/**
+	* Method : revInsert
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param prevVo
+	* @return
+	* Method 설명 : 상품후기 등록
+	*/
+	@Override
+	public int revInsert(ProdRevVo prevVo) {
+		int result = template.insert("shop.revInsert",prevVo);
+		return result;
+	}
+	
+	/**
+	* Method : prodoVo
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param prodo_id
+	* @return
+	* Method 설명 : 아이디를 받아 해당 옵션 조회
+	*/
+	@Override
+	public ProdOptionVo prodoVo(String prodo_id) {
+		ProdOptionVo prodoVo = template.selectOne("shop.prodoVo",prodo_id);
+		return prodoVo;
+	}
+	
+	/**
+	* Method : cartAdd
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param cartVo
+	* @return
+	* Method 설명 :장바구니 등록
+	*/
+	@Override
+	public int cartAdd(CartVo cartVo) {
+		int result = template.insert("shop.cartAdd",cartVo);
+		return result;
+	}
+	
+	/**
+	* Method : cartList
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param cart_mem
+	* @return
+	* Method 설명 : 해당 회원의 장바구니
+	*/
+	@Override
+	public List<CartVo> cartList(String cart_mem) {
+		List<CartVo> cartList = template.selectList("shop.cartList",cart_mem);
+		return cartList;
+	}
+	
+	/**
+	* Method : cartDel
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param cart_id
+	* @return
+	* Method 설명 : 장바구니 삭제
+	*/
+	@Override
+	public int cartDel(String cart_id) {
+		int result = template.delete("shop.cartDel",cart_id);
+		return result;
+	}
+	
+	/**
+	* Method : cartBuyList
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param cart_ids
+	* @return
+	* Method 설명 :장바구니에 선택된 상품 주문하기 List
+	*/
+	@Override
+	public List<CartVo> cartBuyList(String cart_ids) {
+		List<CartVo> cartList = template.selectList("shop.cartBuyList",cart_ids);
+		return cartList;
+	}
+	
+	/**
+	* Method : daddrCre
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param daddrVo
+	* @return
+	* Method 설명 : 배송지 등록
+	*/
+	@Override
+	public int daddrCre(DeliveryAddrVo daddrVo) {
+		int result = template.insert("shop.daddrCre",daddrVo);
+		return result;
+	}
+	
+	/**
+	* Method : basicAddress
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param daddr_mem
+	* @return
+	* Method 설명 : 기존배송지
+	*/
+	@Override
+	public DeliveryAddrVo basicAddress(String daddr_mem) {
+		DeliveryAddrVo daddrVo = template.selectOne("shop.basicAddress",daddr_mem);
+		return daddrVo;
+	}
+	
+	/**
+	* Method : otherAddress
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param daddr_mem
+	* @return
+	* Method 설명 : 저장된 배송지
+	*/
+	@Override
+	public List<DeliveryAddrVo> otherAddress(String daddr_mem) {
+		List<DeliveryAddrVo> daddrList = template.selectList("shop.otherAddress",daddr_mem);
+		return daddrList;
+	}
+	
+	/**
+	* Method : qtyUpdate
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param prodVo
+	* @return
+	* Method 설명 : 상품 판매시 수량 수정
+	*/
+	@Override
+	public int qtyUpdate(ProdVo prodVo) {
+		int result = template.update("shop.qtyUpdate",prodVo);
+		return result;
+	}
+	
+	/**
+	* Method : saveAddr
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param daddr_id
+	* @return
+	* Method 설명 : 저장된 배송지 조회
+	*/
+	@Override
+	public DeliveryAddrVo saveAddr(String daddr_id) {
+		DeliveryAddrVo daddrVo = template.selectOne("shop.saveAddr",daddr_id);
+		return daddrVo;
+	}
+	
+	/**
+	* Method : orderInsert
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param ordsVo
+	* @return
+	* Method 설명 : 주문내용 저장
+	*/
+	@Override
+	public int orderInsert(OrderSheetVo ordsVo) {
+		int result = template.insert("shop.orderInsert",ordsVo);
+		return result;
+	}
+	
+	/**
+	* Method : orderInsert2
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param ordsVo
+	* @return
+	* Method 설명 : 기존 배송지를 사용할 경우
+	*/
+	@Override
+	public int orderInsert2(OrderSheetVo ordsVo) {
+		int result = template.insert("shop.orderInsert2",ordsVo);
+		return result;
+	}
+	
+	/**
+	* Method : updateDaddr
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param daddr_id
+	* @return
+	* Method 설명 : 기존 배송지에서 저장된 배송지로 변경
+	*/
+	@Override
+	public int updateDaddr(String daddr_id) {
+		int result = template.update("shop.updateDaddr",daddr_id);
 		return result;
 	}
 	
