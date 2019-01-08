@@ -1,0 +1,46 @@
+@charset "UTF-8";
+
+.menuCtn{
+	width: 100%;
+	height: auto;
+	margin: 0 auto;
+	
+}
+
+.menuCtn p {
+	width: 50%;
+	font-size: 20px;
+	border-bottom: 2px solid grey;
+	margin-bottom: 20px;
+	margin-left: 50px;
+	
+}
+
+.ttemp{
+	margin-left: 200px;
+	
+}
+
+
+.prodManagement:hover{
+	width: 255px;
+	height: 300px;
+	line-height: 300px;
+	border-radius: 15%;
+	float: left;
+	text-align: center;
+	margin-right: 20px;
+	margin-left: 200px;
+	font-size: 25px;
+    font-family: 'Jeju Gothic', sans-serif;
+    background-color: #ffd242;
+    color: white;
+	border: 3px dashed #ffd242;
+	outline: none;
+	cursor: pointer;
+}
+
+table tr td {
+	height: 55px;
+	
+}

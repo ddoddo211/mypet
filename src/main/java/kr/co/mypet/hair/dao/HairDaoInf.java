@@ -87,4 +87,16 @@ public interface HairDaoInf {
 	
 	HairShopApplyVo selectHsaById(String hsa_mem);
 
+	List<HairShopApplyVo> selectHairShopApply();
+
+	int insertHairShop(HairShopApplyVo hsaVo);
+
+	int updateHairShopApply(HairShopApplyVo hsaVo);
+
+	int updateMember(String hsa_mem);
+
+	int updateHairShop(HairShopVo hsVo);
+
+	List<HairShopVo> selectHairShopAllR();
+
 }
