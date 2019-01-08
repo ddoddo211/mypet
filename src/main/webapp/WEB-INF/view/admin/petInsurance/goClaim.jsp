@@ -382,6 +382,12 @@ $(document).ready(function() {
 						<div class="claimTitle4_2">블랙리스트로 추가된 회원은 보험가입이나 보험금 청구 이용이 제한됩니다.</div>
 					</div>
 				</div>
+				
+				<div class="claimTitle4">
+					<div class="claimTitle4_1_2">
+						<div class="claimTitle4_2">해당 회원을 블랙리스트 해제를 하여도 이전에 신청한 보험금청구(신청)은 나오지 않습니다.</div>
+					</div>
+				</div>
 								
 					<div id="productManagement">
 						<div id="productList">

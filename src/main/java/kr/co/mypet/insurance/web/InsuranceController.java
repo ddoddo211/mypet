@@ -1,6 +1,7 @@
 package kr.co.mypet.insurance.web;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -11,7 +12,10 @@ import java.util.UUID;
 import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -2489,6 +2493,27 @@ public class InsuranceController {
 				model.addAttribute("acdVo" , acdVo );
 				
 				return "admin/petInsurance/completion";
+				
+			}
+			
+			// 첨부파일 클릭시 다운로드(펫 보험 관리용 - 보험금 청구 관리 신청화면)
+			@RequestMapping("/fileDown")
+			public void fileDown(HttpServletRequest request, HttpServletResponse response, @RequestParam("fileName")String fileName) {
+				
+				try {
+					String path1 = request.getSession().getServletContext().getRealPath("");
+					
+		            File fileToDownload = new File(path1+fileName);
+
+		            FileInputStream inputStream = new FileInputStream(fileToDownload);
+		            response.setContentType("application/force-download");
+		            response.setHeader("Content-Disposition", "attachment; filename="+fileName); 
+		            IOUtils.copy(inputStream, response.getOutputStream());
+		            response.flushBuffer();
+		            inputStream.close();
+		        } catch (Exception exception){
+		            System.out.println(exception.getMessage());
+		        }
 				
 			}
 			
