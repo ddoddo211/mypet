@@ -47,10 +47,15 @@ public class AccidentVo {
 	private String myp_gender;
 	
 	private String insp_kind;
+	private String insp_maxins;
 	
 	// 관리자용에서 보험금 청구 관리 화면에 나와야 하기 때문에 설정
 	private String mem_name; 
+	private String mem_id;
+	private String mem_hp;
 	
+
+
 	@Override
 	public String toString() {
 		return "AccidentVo [accd_id=" + accd_id + ", accd_date=" + accd_date + ", accd_addr=" + accd_addr
@@ -61,8 +66,51 @@ public class AccidentVo {
 				+ ", act_bank=" + act_bank + ", act_num=" + act_num + ", act_name=" + act_name + ", act_mem=" + act_mem
 				+ ", myp_id=" + myp_id + ", myp_mem=" + myp_mem + ", myp_petk=" + myp_petk + ", myp_birth=" + myp_birth
 				+ ", myp_sick=" + myp_sick + ", myp_img=" + myp_img + ", myp_neu=" + myp_neu + ", myp_gender="
-				+ myp_gender + ", insp_kind=" + insp_kind + ", mem_name=" + mem_name + "]";
+				+ myp_gender + ", insp_kind=" + insp_kind + ", insp_maxins=" + insp_maxins + ", mem_name=" + mem_name
+				+ ", mem_id=" + mem_id + ", mem_hp=" + mem_hp + "]";
 	}
+
+
+
+
+	public String getInsp_maxins() {
+		return insp_maxins;
+	}
+
+
+
+
+	public void setInsp_maxins(String insp_maxins) {
+		this.insp_maxins = insp_maxins;
+	}
+
+
+
+
+	public String getMem_id() {
+		return mem_id;
+	}
+
+
+
+	public void setMem_id(String mem_id) {
+		this.mem_id = mem_id;
+	}
+
+
+
+	public String getMem_hp() {
+		return mem_hp;
+	}
+
+
+
+	public void setMem_hp(String mem_hp) {
+		this.mem_hp = mem_hp;
+	}
+
+
+
 	public String getMem_name() {
 		return mem_name;
 	}

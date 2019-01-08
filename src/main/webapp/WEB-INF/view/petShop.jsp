@@ -254,85 +254,20 @@
 		</div>
 		<div id="mainmid">
 				<ul class="mainmid_ul">
-					<li>
-						<a href="/shop/prodDetail">
-						<img src="http://placehold.it/250x250">
-							<span>상품명</span>
-						</a>
-					</li>
-					<li>
-						<a href="/shop/prodDetail">
-						<img src="http://placehold.it/250x250">
-							<span>상품명</span>
-						</a>
-					</li>
-					<li>
-						<a href="/shop/prodDetail">
-						<img src="http://placehold.it/250x250">
-							<span>상품명</span>
-						</a>
-					</li>
-					<li>
-						<a href="/shop/prodDetail">
-						<img src="http://placehold.it/250x250">
-							<span>상품명</span>
-						</a>
-					</li>
-					<li>
-						<a href="/shop/prodDetail">
-						<img src="http://placehold.it/250x250">
-							<span>상품명</span>
-						</a>
-					</li>
-					<li>
-						<a href="/shop/prodDetail">
-						<img src="http://placehold.it/250x250">
-							<span>상품명</span>
-						</a>
-					</li>
-					<li>
-						<a href="/shop/prodDetail">
-						<img src="http://placehold.it/250x250">
-							<span>상품명</span>
-						</a>
-					</li>
-					<li>
-						<a href="/shop/prodDetail">
-						<img src="http://placehold.it/250x250">
-							<span>상품명</span>
-						</a>
-					</li>
-					<li>
-						<a href="/shop/prodDetail">
-						<img src="http://placehold.it/250x250">
-							<span>상품명</span>
-						</a>
-					</li>
-					<li>
-						<a href="/shop/prodDetail">
-						<img src="http://placehold.it/250x250">
-							<span>상품명</span>
-						</a>
-					</li>
-					<li>
-						<a href="/shop/prodDetail">
-						<img src="http://placehold.it/250x250">
-							<span>상품명</span>
-						</a>
-					</li>
-					<li>
-						<a href="/shop/prodDetail">
-						<img src="http://placehold.it/250x250">
-							<span>상품명</span>
-						</a>
-					</li>
+					<c:forEach items="${bestList }" var="list">
+						<li>
+							<a href="/shop/prodDetail?prod_id=${list.prod_id }">
+							<img src="${list.prod_pimg }"height="250" width="250">
+								<span>${list.prod_name }</span>
+							</a>
+						</li>
+					</c:forEach>
 				</ul>
 				<br>
 				<div class="productBtn">
 					<a href="#" onclick="return false;">더보기</a>
 				</div>
 		</div>
-	</div>
 	
 <!-- footer 시작 -->
 <%@include file="/WEB-INF/view/common/footer.jsp"%>

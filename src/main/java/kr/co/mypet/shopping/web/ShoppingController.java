@@ -22,8 +22,11 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.itextpdf.text.log.SysoCounter;
+
 import kr.co.mypet.common.model.MemberVo;
 import kr.co.mypet.common.model.PageVo;
+import kr.co.mypet.common.service.CommonServiceInf;
 import kr.co.mypet.shopping.model.CartVo;
 import kr.co.mypet.shopping.model.DeliveryAddrVo;
 import kr.co.mypet.shopping.model.DivisionVo;
@@ -32,6 +35,7 @@ import kr.co.mypet.shopping.model.ProdOptionVo;
 import kr.co.mypet.shopping.model.ProdRevVo;
 import kr.co.mypet.shopping.model.ProdVo;
 import kr.co.mypet.shopping.model.ProddvVo;
+import kr.co.mypet.shopping.model.RecentProdVo;
 import kr.co.mypet.shopping.model.ShopNoticeVo;
 import kr.co.mypet.shopping.service.ShoppingServiceInf;
 import kr.co.mypet.util.StringUtil;
@@ -42,6 +46,10 @@ public class ShoppingController {
 
 	@Resource(name="shoppingService")
 	private ShoppingServiceInf shoppingService;
+	
+	@Resource(name="commonService")
+	private CommonServiceInf commonService;
+	
 	
 	/**
 	* Method : shopMain
@@ -56,9 +64,11 @@ public class ShoppingController {
 		
 		List<ShopNoticeVo>snotList = shoppingService.shopNoticeList();
 		List<DivisionVo> aniList = shoppingService.animalList();
+		List<ProdVo> bestList = shoppingService.bestProd(12); 
 		
 		model.addAttribute("snotList",snotList);
 		model.addAttribute("aniList",aniList);
+		model.addAttribute("bestList",bestList);
 		
 		return "petShop";
 	}
@@ -133,6 +143,8 @@ public class ShoppingController {
 		// 체크박스옵션분류List(연령 - 성견,퍼피등..)
 		List<DivisionVo> opMenuList = shoppingService.opMenuList(dvsVo.getDvs_parent());
 		
+		DivisionVo dvs = shoppingService.dvsDetail(dvsVo.getDvs_id());
+		
 		String value = "";
 		if(value != null) {
 			value = request.getParameter("value");
@@ -141,6 +153,7 @@ public class ShoppingController {
 		
 		String prod_name = request.getParameter("prod_name");
 		
+		model.addAttribute("dvs",dvs);
 		model.addAttribute("dvs_id",dvsVo.getDvs_id());
 		model.addAttribute("dvs_parent",dvsVo.getDvs_parent());
 		model.addAttribute("menuList",menuList);
@@ -226,7 +239,11 @@ public class ShoppingController {
 	*/
 	@RequestMapping("/prodDetail")
 	public String prodDetail(@RequestParam("prod_id")String prod_id,Model model,HttpSession session,DivisionVo dvsVo) {
+		
 		MemberVo memVo = (MemberVo) session.getAttribute("memVo");
+		RecentProdVo recpVo = new RecentProdVo();
+		
+		
 		ProdVo prodVo = shoppingService.prodDetail(prod_id);
 		List<ProdOptionVo> prodoList = shoppingService.prodOpList(prod_id);
 		List<ProdRevVo> revList = shoppingService.revList(prod_id);
@@ -241,6 +258,10 @@ public class ShoppingController {
 					cartChk = 1;
 				}
 			}
+			recpVo.setRecp_mem(memVo.getMem_id());
+			recpVo.setRecp_prod(prod_id);
+			shoppingService.insertRecp(recpVo);
+			
 		}
 		
 		model.addAttribute("prodVo",prodVo);
@@ -265,7 +286,27 @@ public class ShoppingController {
 	public String recentProd(HttpSession session,Model model) {
 		MemberVo memVo = (MemberVo) session.getAttribute("memVo");
 		
+		if(memVo != null) {
+			List<ProdVo> recpList = shoppingService.recpList(memVo.getMem_id());
+			model.addAttribute("recpList",recpList);
+		}
+		
+		
 		return "petshop/recentProd";
+	}
+	
+	@RequestMapping("/recentProdDel")
+	public String recentProdDel(HttpSession session,@RequestParam("prod_id")String prod_id) {
+		MemberVo memVo = (MemberVo) session.getAttribute("memVo");
+		RecentProdVo recpVo = new RecentProdVo();
+		
+		if(memVo != null) {
+			recpVo.setRecp_mem(memVo.getMem_id());
+			recpVo.setRecp_prod(prod_id);
+			shoppingService.delRecp(recpVo);
+		}
+		
+		return "redirect:/shop/recentProd";
 	}
 	
 	/**
@@ -309,7 +350,8 @@ public class ShoppingController {
 		
 		//------------------------------------------------------------------------------------------------------
 		// 상품 이미지 업로드
-		String path = "D:\\A_TeachingMaterial\\7.LastProject\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\mypet\\shopimg";
+		String path1 = request.getSession().getServletContext().getRealPath("");
+		String path = path1 +"/shopimg";
 		
 		
 		String oriFileName = pimg.getOriginalFilename();
@@ -346,9 +388,11 @@ public class ShoppingController {
 		// 상품분류에 상품 추가
 		String menuOption = request.getParameter("menuOption");
 		String[] menu = menuOption.split(",");
+		ProddvVo pddVo = new ProddvVo();
 		if(cnt != 0) {
-			ProddvVo pddVo = new ProddvVo();
 			pddVo.setPdd_dvs(dvsVo.getDvs_parent());
+			shoppingService.pddCre(pddVo);
+			pddVo.setPdd_dvs(dvsVo.getDvs_id());
 			shoppingService.pddCre(pddVo);
 			if(!(menu[0].equals(""))) {
 				for (int i = 0; i < menu.length; i++) {
@@ -357,7 +401,6 @@ public class ShoppingController {
 				}
 			}
 		}
-		
 		// 상품 옵션 추가
 		// 옵션의 사용 갯수
 		if(!(request.getParameter("chkNum").equals(""))){
@@ -538,8 +581,7 @@ public class ShoppingController {
 	public String revCre(ProdRevVo prevVo,HttpSession session,DivisionVo dvsVo) {
 		MemberVo memVo = (MemberVo) session.getAttribute("memVo");
 		prevVo.setPrev_mem(memVo.getMem_id());
-		
-		int result = shoppingService.revInsert(prevVo);
+		shoppingService.revInsert(prevVo);
 		
 		return "redirect:/shop/prodDetail?dvs_id="+dvsVo.getDvs_id() + "&dvs_parent=" +dvsVo.getDvs_parent() + "&prod_id="+prevVo.getPrev_prod();
 	}
@@ -678,7 +720,6 @@ public class ShoppingController {
 		String prodo_ids = request.getParameter("prodo_ids");
 		if(!(prodo_ids.equals(""))) {
 			model.addAttribute("prodo_ids",prodo_ids);
-			System.out.println(prodo_ids + " : ids");
 		}
 		MemberVo memVo = (MemberVo) session.getAttribute("memVo");
 		cartVo.setCart_mem(memVo.getMem_id());
@@ -862,6 +903,16 @@ public class ShoppingController {
 		return "";
 	}
 	
+	/**
+	* Method : saveAddrHtml
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param daddr_id
+	* @param model
+	* @param session
+	* @return
+	* Method 설명 : 저장된 배송지 아작스 처리
+	*/
 	@RequestMapping("/saveAddrHtml")
 	public String saveAddrHtml(@RequestParam("daddr_id")String daddr_id,Model model,HttpSession session) {
 		
@@ -876,4 +927,167 @@ public class ShoppingController {
 		return "petshop/saveAddrHtml";
 	}
 	
+	/**
+	* Method : prodBest
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param model
+	* @return
+	* Method 설명 : 베스트화면 조회 
+	*/
+	@RequestMapping("/prodBest")
+	public String prodBest(Model model) {
+		
+		List<ProdVo> bestList = shoppingService.bestProd(30);
+		
+		model.addAttribute("bestList",bestList);
+		
+		return "petshop/prodBest";
+	}
+	
+	/**
+	* Method : prodEvent
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param model
+	* @return
+	* Method 설명 : 이벤트 조회
+	*/
+	@RequestMapping("/prodEvent")
+	public String prodEvent(Model model) {
+		List<ShopNoticeVo> snotList = shoppingService.shopNoticeList();
+		
+		model.addAttribute("snotList",snotList);
+		return "petshop/petShopEvent";
+	}
+	
+	/**
+	* Method : shopMypage
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param session
+	* @param model
+	* @return
+	* Method 설명 : mypage view 이동
+	*/
+	@RequestMapping("/shopMypage")
+	public String shopMypage(HttpSession session,Model model) {
+		
+		MemberVo memVo = (MemberVo) session.getAttribute("memVo");
+		
+		if(memVo != null) {
+			// 주문내역 List
+			List<OrderSheetVo> orderList = shoppingService.orderList(memVo.getMem_id());
+			List<OrderSheetVo> buyList = shoppingService.buyList(memVo.getMem_id());
+			List<OrderSheetVo> cancleList = shoppingService.cancleList(memVo.getMem_id());
+			
+			model.addAttribute("orderList",orderList);
+			model.addAttribute("buyList",buyList);
+			model.addAttribute("cancleList",cancleList);
+			
+			if(memVo.getMem_shop() == 2) {
+				List<ProdVo> marketerList = shoppingService.marketerList(memVo.getMem_id());
+				model.addAttribute("marketerList",marketerList);
+				List<OrderSheetVo> marketOrderList = shoppingService.marketerOrderList(memVo.getMem_id());
+				model.addAttribute("marketOrderList",marketOrderList);
+			}
+		}
+		
+		
+		return "petshop/shopMypage";
+	}
+	
+	/**
+	* Method : orderCancle
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param ords_id
+	* @return
+	* Method 설명 : 주문 구매 취소
+	*/
+	@RequestMapping("/orderCancle")
+	public String orderCancle(@RequestParam("ords_id")String ords_id) {
+		
+		shoppingService.orderCancle(ords_id);
+		
+		return "redirect:/shop/shopMypage";
+	}
+	
+	
+	/**
+	* Method : orderDecide
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param ords_id
+	* @param session
+	* @return
+	* Method 설명 : 주문한 상품 구매확정 포인트로 전환
+	*/
+	@RequestMapping("orderDecide")
+	public String orderDecide(@RequestParam("ords_id")String ords_id,HttpSession session) {
+		
+		MemberVo memVo = (MemberVo) session.getAttribute("memVo");
+		MemberVo memberInfo = commonService.memberInfo(memVo.getMem_id());
+		
+		// 주문서 내역 조회
+		OrderSheetVo ordsVo = shoppingService.orderDetail(ords_id);
+		
+		int result = shoppingService.decideUpdate(ords_id);
+		if(result != 0) {
+			int point  = (int) (memberInfo.getMem_point() + (ordsVo.getOrds_price() * 0.01));
+			MemberVo memberVo = new MemberVo();
+			memberVo.setMem_id(memVo.getMem_id());
+			memberVo.setMem_point(point);
+			commonService.pointUpdate(memberVo);
+		}
+		
+		
+		return "redirect:/shop/shopMypage";
+	}
+	
+	/**
+	* Method : prodRev
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param prod_id
+	* @param model
+	* @return
+	* Method 설명 : 구매확정 상품 후기 쓰러가기 , 판매자 상품 수정/삭제 하기
+	*/
+	@RequestMapping("/prodRev")
+	public String prodRev(@RequestParam("prod_id")String prod_id,Model model) {
+		
+		String dvs_id = shoppingService.searchId(prod_id);
+		ProddvVo pddVo = new ProddvVo();
+		pddVo.setPdd_dvs(dvs_id);
+		pddVo.setPdd_prod(prod_id);
+		
+		String dvs_parent = shoppingService.searchParent(pddVo);
+		
+		return "redirect:/shop/prodDetail?dvs_id="+dvs_id+ "&dvs_parent=" +dvs_parent + "&prod_id="+prod_id;
+	}
+	
+	@RequestMapping("/prodDelivery")
+	public String prodDelivery(@RequestParam("ords_id")String ords_id) {
+		
+		shoppingService.deliveryUpdate(ords_id);
+		
+		return "redirect:/shop/shopMypage";
+	}
+	
+	@RequestMapping("/swapUpdate")
+	public String swapUpdate(@RequestParam("ords_id")String ords_id) {
+		
+		shoppingService.swapUpdate(ords_id);
+		
+		return "redirect:/shop/shopMypage";
+	}
+	
+	@RequestMapping("/returnUpdate")
+	public String returnUpdate(@RequestParam("ords_id")String ords_id) {
+		
+		shoppingService.returnUpdate(ords_id);
+		
+		return "redirect:/shop/shopMypage";
+	}
 }

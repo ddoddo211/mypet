@@ -416,6 +416,92 @@ public interface SitterServiceInf {
 	* Method 설명 :  지원자 테이블의 파일 경로 삽입
 	*/
 	int updateSupportFile(Map<String, Object> param);
+
+	/**
+	* Method : getMySitterToCount
+	* 작성자 : pc24
+	* 변경이력 :
+	* @param mem_id
+	* @return
+	* Method 설명 : 펫시터 집에 맡기기 나의 글 갯수
+	*/
+	int getMySitterToCount(String mem_id);
+
+	/**
+	* Method : updateMemeberSit
+	* 작성자 : pc24
+	* 변경이력 :
+	* @param string
+	* @return
+	* Method 설명 : 펫시터 지원 합격 시 권한 수정 
+	*/
+	int updateMemeberSit(String string);
+
+	/**
+	* Method : deleteMySitterTo
+	* 작성자 : pc24
+	* 변경이력 :
+	* @param mem_id
+	* @return
+	* Method 설명 : 펫시터 집에 맡기기 나의 게시글 삭제 
+	*/
+	int deleteMySitterTo(String mem_id);
+
+	/**
+	* Method : getPetsitterChk
+	* 작성자 : pc24
+	* 변경이력 :
+	* @param map
+	* @return
+	* Method 설명 : 현재 선택한 펫시터 집에 맡기기 게시글의 이용여부확인 
+	*/
+	int getPetsitterChk(Map<String, Object> map);
+
+	/**
+	* Method : deleteADReservation
+	* 작성자 : pc24
+	* 변경이력 :
+	* @param date
+	* @return
+	* Method 설명 : 펫시터 예약관리 -> 현재 시간보다 이전날짜 예약내역 일괄 삭제
+	*/
+	int deleteADReservation(String date);
 	
+	/**
+	* Method : getReViewListAll
+	* 작성자 : pc24
+	* 변경이력 :
+	* @param pageVo
+	* @return
+	* Method 설명 : 관리자 마이페이지 게시글관리 -> 후기글 전체 조회
+	*/
+	public Map<String, Object> getReViewListAll(PageVo pageVo);
 	
+	/**
+	* Method : getReViewAllCnt
+	* 작성자 : pc24
+	* 변경이력 :
+	* @return
+	* Method 설명 : 관리자 마이페이지 게시글관리 -> 전체 후기글 갯수 
+	*/
+	int getReViewAllCnt();
+
+	/**
+	* Method : getPetSitterToListAll
+	* 작성자 : pc24
+	* 변경이력 :
+	* @param pageVo
+	* @return
+	* Method 설명 : 관리자 마이페이지 게시글관리 -> 펫시터 집에 맡기기 리스트
+	*/
+	Map<String, Object> getPetSitterToListAll(PageVo pageVo);
+	
+	/**
+	* Method : getPetSitterToAllCnt
+	* 작성자 : pc24
+	* 변경이력 :
+	* @return
+	* Method 설명 : 관리자 마이페이지 게시글관리 -> 전체 펫시터 집에 맡기기 리스트 갯수
+	*/
+	int getPetSitterToAllCnt();
 }

@@ -25,7 +25,7 @@
 		width: 1200px;
 		margin: 0 auto;
 		margin-top: 20px;
-		min-height: 575px;
+		min-height: 596px;
 	}
 	table {
 		border: 1px solid #f2f2f2;
@@ -44,47 +44,35 @@
 	}
 	
 	table tbody tr td .delete{ 
-		padding: 5px; */
+		padding: 5px; 
 		background-color: #f1f1f1;
 		border: 1px solid;
 		border-radius: 5px;
+		cursor: pointer;
 	} 
+	
+	.prodId{
+		display: none;
+	}
 </style>
 <script type="text/javascript">
-	function bulListHtml(page,bul_brd,search,bulText) {
-		var pageSize = 10;
+
+	$(document).ready(function() {
+		$(".delete").click(function() {
+			var chk = $(this).parent().parent().children()[0].innerHTML;
+			$("#prod_id").val(chk);
+			$("#fm").submit();
+		})
+	})
 	
-		$.ajax({
-			url : "/bulListHtml",
-			type : "get",
-			data : "page=" + page + "&pageSize=" + pageSize + "&bul_brd="+bul_brd+"&search="+search+"&bulText="+bulText,
-			success : function(dt) {
-				console.log(dt);
-				$("#lastList").html(dt);
-				bulPaginationHtml(page,bul_brd,search,bulText);
-			}
-		});
-	}
-	
-	
-	function bulPaginationHtml(page,bul_brd,search,bulText) {
-		var pageSize = 10;
-		
-		$.ajax({
-			url : "/bulPaginationHtml",
-			type : "get",
-			data : "page="+page+"&pageSize="+pageSize+ "&bul_brd="+bul_brd+"&search="+search+"&bulText="+bulText,
-			success : function(dt) {
-				console.log(dt);
-				$(".pagination").html(dt);
-			}
-		});
-		
-	}
 </script>
 <title>Insert title here</title>
 </head>
 <body>
+<form id="fm" action="/shop/recentProdDel">
+	<input type="hidden" name = "prod_id" id="prod_id">
+</form>
+
 	<%@include file="/WEB-INF/view/petshop/petShopH.jsp"%>
 	<div id="maintop">
 		<p>최근 본 상품</p>
@@ -94,33 +82,59 @@
 		<table>
 			<thead>
 				<tr>
+					<th class="prodId">상품아이디 숨기기</th>
 					<th width="950" height="30" colspan="2">상품 기본정보</th>
 					<th width="150">가격</th>
 					<th width="100">삭제</th>
 				</tr>
 			</thead>
-			<tbody id="lastList">
-				<tr>
-					<td width="80" height="70">
-						<a href="/shop/prodDetail">
-							<img src="" width="80" height="70">
-						</a>
-					</td>
-					<td><a href="/shop/prodDetail"></a></td>
-					<td>원</td>
-					<td><a href="#" class="delete">삭제</a></td>
-				<tr>
+			<tbody id="recpList">
+				<c:choose>
+					<c:when test="${memVo == null }">
+						<tr>
+							<td colspan="5">
+								<span>로그인 정보가 없습니다.</span>
+							</td>
+						<tr>
+					</c:when>
+					<c:otherwise>
+						<c:choose>
+							<c:when test="${recpList.size() == 0 }">
+								<tr>
+									<td colspan="5">
+										<span>최근 본 상품이 존재 하지 않습니다.(최근 본 상품 저장기간은 7일)</span>
+									</td>
+								<tr>
+							</c:when>
+							<c:otherwise>
+								<c:forEach items="${recpList }" var="list">
+									<tr>
+										<td class="prodId">${list.prod_id }</td>
+										<td width="80" height="70">
+											<a href="/shop/prodDetail?prod_id=${list.prod_id}">
+												<img src="${list.prod_pimg }" width="80" height="70">
+											</a>
+										</td>
+										<td><a href="/shop/prodDetail?prod_id=${list.prod_id}">${list.prod_name }</a></td>
+										<c:choose>
+											<c:when test="${list.prod_sprice == 0 }">
+												<td>${list.prod_price }원</td>
+											</c:when>
+											<c:otherwise>
+												<td>${list.prod_sprice }원</td>
+											</c:otherwise>
+										</c:choose>
+										<td><a class="delete">삭제</a></td>
+									<tr>
+								</c:forEach>
+							</c:otherwise>
+						</c:choose>
+					</c:otherwise>
+				</c:choose>
 			</tbody>
 		</table>
 	</div>
 	
-	<div id="pagenation">
-		<div id="pagenation1" >
-			<ul class="pagination" id="paginationHtml">  
-				<!-- 페이징 아작스 처리한곳 -->
-			</ul>
-		</div>
-	</div>
 	<!-- footer 시작 -->
 	<%@include file="/WEB-INF/view/common/footer.jsp"%>
 	<!-- footer 끝 -->
