@@ -232,5 +232,50 @@ public class SitterDao implements SitterDaoInf {
 	@Override
 	public int updateSupportFile(Map<String, Object> param) {
 		return template.update("petSitter.updateSupportFile", param);
+	}
+
+	@Override
+	public int getMySitterToCount(String mem_id) {
+		return template.selectOne("petSitter.getMySitterToCount", mem_id);
+	}
+
+	@Override
+	public int updateMemberSit(String string) {
+		return template.update("petSitter.updateMemberSit", string);
+	}
+
+	@Override
+	public int deleteMySitterTo(String mem_id) {
+		return template.update("petSitter.deleteMySitterTo", mem_id);
+	}
+
+	@Override
+	public int getPetsitterChk(Map<String, Object> map) {
+		return template.selectOne("petSitter.getPetSitterChk", map);
+	}
+
+	@Override
+	public int deleteADReservation(String date) {
+		return template.delete("petSitter.deleteADReservation", date);
 	}	
+	
+	@Override
+	public List<SitterRevVo> getReViewListAll(PageVo pageVo){
+		return template.selectList("petSitter.getReViewListAll", pageVo);
+	}
+
+	@Override
+	public int getReViewAllCnt() {
+		return template.selectOne("petSitter.getReViewAllCnt");
+	}
+
+	@Override
+	public List<PetSitterVo> getPetSitterToListAll(PageVo pageVo) {
+		return template.selectList("petSitter.getPetSitterToListAll", pageVo);
+	}
+
+	@Override
+	public int getPetSitterToAllCnt() {
+		return template.selectOne("petSitter.getPetSitterToAllCnt");
+	}
 }
