@@ -452,6 +452,7 @@ public class MemberController {
 		
 		if(chk==1) {
 			//정보수정 성공
+			memVo = commonService.memberInfo(memVo.getMem_id());
 			session.setAttribute("memVo", memVo);
 		} else {
 			//정보수정 실패
@@ -460,7 +461,7 @@ public class MemberController {
 		
 		
 		
-		return "";
+		return "common/memMypage";
 	}
 	
 	// 관리자 마이페이지(펫시터)
