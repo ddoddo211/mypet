@@ -35,6 +35,10 @@ $(document).ready(function() {
 			var mem_black = $(this).data("mem_black");
 			$("#mem_black").val(mem_black);
 			
+			// 회원 이름 
+			var mem_id = $(this).data("mem_id");
+			$("#memid").val(mem_id);
+			
 	});
 	
 	// 가입자 관리 화면에서 체크박스를 클릭하였을떄 상품의 id 담아주기
@@ -141,6 +145,7 @@ $(document).ready(function() {
 	<input type="hidden" value="" id="applyJoinProd" name="applyJoinProd">
 	<input type="hidden" value="" id="petIdProd" name="petIdProd">
 	<input type="hidden" value="" id="prodIdSelect" name="prodIdSelect">
+	<input type="hidden" value="" id="memid" name="memid">
 </form>
 
 <!--신청자관리 화면에서 반려로 변경할 가입상품 아이디 담아주기 -->
@@ -223,7 +228,7 @@ $(document).ready(function() {
 
 								<c:forEach items="${applyList }" var="list">
 									<tr>
-										<td class="tdh"><input class="check" type="radio" name="check" value="${list.ins_id}" data-myp_id="${list.myp_id}" data-inssp_id="${list.inssp_id}" data-mem_black="${list.mem_black}"></td>									
+										<td class="tdh"><input class="check" type="radio" name="check" value="${list.ins_id}" data-mem_id="${list.mem_id}" data-myp_id="${list.myp_id}" data-inssp_id="${list.inssp_id}" data-mem_black="${list.mem_black}"></td>									
 										<c:choose>
 											<c:when test="${list.mem_black == 1}">
 												<td class="tdh">${list.mem_name}</td>	
