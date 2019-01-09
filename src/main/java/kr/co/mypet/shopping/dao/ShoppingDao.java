@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import kr.co.mypet.common.model.PageVo;
 import kr.co.mypet.shopping.model.CartVo;
 import kr.co.mypet.shopping.model.DeliveryAddrVo;
 import kr.co.mypet.shopping.model.DivisionVo;
@@ -18,6 +19,7 @@ import kr.co.mypet.shopping.model.ProdVo;
 import kr.co.mypet.shopping.model.ProddvVo;
 import kr.co.mypet.shopping.model.RecentProdVo;
 import kr.co.mypet.shopping.model.ShopNoticeVo;
+import kr.co.mypet.sitter.model.SitterAppVo;
 
 @Repository
 public class ShoppingDao implements ShoppingDaoInf {
@@ -847,6 +849,35 @@ public class ShoppingDao implements ShoppingDaoInf {
 	@Override
 	public int returnUpdate(String ords_id) {
 		int result = template.update("shop.returnUpdate",ords_id);
+		return result;
+	}
+
+	@Override
+	public int insertSupport(Map<String, Object> param) {
+		return template.insert("shop.insertSupport", param);
+	}
+
+	@Override
+	public List<SitterAppVo> getSupportListAll(PageVo pageVo) {
+		return template.selectList("shop.getSupportListAll", pageVo);
+	}
+
+	@Override
+	public int getSupportListAllCnt() {
+		return template.selectOne("shop.getSupportListAllCnt");
+	}
+	
+	/**
+	* Method : shopNoticeDel
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param snot_id
+	* @return
+	* Method 설명 : 이벤트 삭제 (업데이트처리)
+	*/
+	@Override
+	public int shopNoticeDel(String snot_id) {
+		int result = template.update("shop.shopNoticeDel",snot_id);
 		return result;
 	}
 	

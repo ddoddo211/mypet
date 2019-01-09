@@ -283,8 +283,17 @@
 		height: 85px;
 	}
 	
-	.marketerCre{
-		width: 
+	.marketer{
+		width: 1200px;
+		margin-bottom: 10px;
+	}
+	
+	#marketerGo{
+		width: 1200px;
+	    height: 30px;
+	    background-color: #5f5c6d;
+	    color: white;
+	    cursor: pointer;
 	}
 </style>
 <script type="text/javascript">
@@ -341,6 +350,9 @@
 			$(".returnOrder").submit();
 		})
 		
+		$("#marketerGo").click(function(){
+			location.href = "/shop/sup";
+		});
 		
 	})
 	
@@ -385,6 +397,12 @@
 		
 		<div id="mainmid">
 			<div id="mypageMenu">
+				<c:if test="${memVo.mem_shop != 2 }">
+					<div class="marketer">
+						<input type="button" id="marketerGo" value="판매자 지원하기">
+					</div>
+				</c:if>
+			
 				<div class="tab">
 				  <button class="tablinks active" onclick="openCity(event,'orderInfo')" id="buy">주문내역</button>
 				  <button class="tablinks" onclick="openCity(event,'buyInfo')">구매내역</button>

@@ -2,7 +2,6 @@ package kr.co.mypet.shopping.web;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,7 +10,6 @@ import java.util.UUID;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.sound.midi.Synthesizer;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,9 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.itextpdf.text.log.SysoCounter;
 
 import kr.co.mypet.common.model.MemberVo;
 import kr.co.mypet.common.model.PageVo;
@@ -1090,4 +1086,36 @@ public class ShoppingController {
 		
 		return "redirect:/shop/shopMypage";
 	}
+	
+	// 마이페이지 -> 판매자 지원하기 view
+	@RequestMapping("/sup")
+	public String sup() {
+		return "petshop/shopSupport";
+	}
+	
+	// 마이페이지 -> 판매자 지원하기 처리
+	@RequestMapping("/supportInsert")
+	public String supportInsert(HttpSession session, @RequestParam("memName")String memName, @RequestParam("memTel")String memTel, @RequestParam("compChk")String compChk,
+			@RequestParam("compName")String compName, @RequestParam("compNum")String compNum) {
+		
+		String sta_text = null;
+		
+		if(compName == "") {
+			sta_text = "- "+memName+"- "+memTel;
+		} else {
+			sta_text = "- "+memName+"- "+memTel+"- "+compName;
+		}
+		MemberVo memVo = (MemberVo) session.getAttribute("memVo");
+		
+		Map<String, Object> param = new HashMap<>();
+		param.put("sta_text", sta_text);
+		param.put("sta_num", compNum);
+		param.put("sta_kind", compChk);
+		param.put("sta_mem", memVo.getMem_id());
+		
+		int insertCnt = shoppingService.insertSupport(param);
+		
+		return "petshop/shopMypage";
+	}
+	
 }

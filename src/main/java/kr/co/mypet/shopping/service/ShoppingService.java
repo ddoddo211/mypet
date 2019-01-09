@@ -21,7 +21,7 @@ import kr.co.mypet.shopping.model.ProdVo;
 import kr.co.mypet.shopping.model.ProddvVo;
 import kr.co.mypet.shopping.model.RecentProdVo;
 import kr.co.mypet.shopping.model.ShopNoticeVo;
-
+import kr.co.mypet.sitter.model.SitterAppVo;
 @Service
 public class ShoppingService implements ShoppingServiceInf {
 
@@ -913,6 +913,37 @@ public class ShoppingService implements ShoppingServiceInf {
 	@Override
 	public int returnUpdate(String ords_id) {
 		return shoppingDao.returnUpdate(ords_id);
+	}
+	
+	@Override
+	public int insertSupport(Map<String, Object> param) {
+		return shoppingDao.insertSupport(param);
+	}
+
+	@Override
+	public List<SitterAppVo> getSupportListAll(PageVo pageVo) {
+		
+		List<SitterAppVo> supportListAll = shoppingDao.getSupportListAll(pageVo);
+		
+		return supportListAll;
+	}
+
+	@Override
+	public int getSupportListAllCnt() {
+		return shoppingDao.getSupportListAllCnt();
+	}
+	
+	/**
+	* Method : shopNoticeDel
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param snot_id
+	* @return
+	* Method 설명 : 이벤트 삭제 (업데이트처리)
+	*/
+	@Override
+	public int shopNoticeDel(String snot_id) {
+		return shoppingDao.shopNoticeDel(snot_id);
 	};
 	
 	

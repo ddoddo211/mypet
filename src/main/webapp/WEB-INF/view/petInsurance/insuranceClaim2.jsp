@@ -84,9 +84,14 @@ $(document).ready(function(){
 	});
 	
 				
+	
+	// 계좌번호가 등록되어 있는지 확인
+	var account = '${size}';
+	
 	// 보험금 청구 하기 버튼을 클릭할시 
 		$("#nextBtn2").click(function(){
 			
+
 			var selectProd = $("#selectProd").val();
 			
 			var accidentDate = $("#claimDay").val();
@@ -97,7 +102,8 @@ $(document).ready(function(){
 			
 			var diagnosis = $("#upload_text").val();
 			var accidentPhoto = $("#upload_text2").val();
-						
+			
+		
 			// 보험가입 상품을 선택하였는지 확인하기 
 			if(selectProd == 0 || selectProd == "" ){
 				alert("보험금을 청구할 보험가입 상품을 선택하시기 바랍니다");
@@ -111,8 +117,8 @@ $(document).ready(function(){
 			}else if(accidentContent == ""){
 				alert("사고 내용을 입력하시기 바랍니다.");
 				return;
-			}else if(selectAccident == 0 || selectAccident == "" ){
-				alert("보험금을 받으실 계좌번호를 선택하시기 바랍니다.");
+			}else if(account == 0){
+				alert("회원의 보험금 입금계좌번호가 등록되어 있지 않습니다.\n[계좌등록하기] 버튼을 클릭하여 번호를 등록하신후에 진행하시기 바랍니다.");
 				return;
 			}else if(diagnosis == ""){
 				alert("진단서는 필수 입니다. 첨부하시기 바랍니다.");
@@ -285,11 +291,17 @@ $(document).ready(function(){
 					</div>
 				</div>
 				
+				<div class="claimTitle4">
+					<div class="claimTitle4_1_2">
+						<div class="claimTitle4_2">보험금 입금계좌가 없을때에는 보험금 청구를 진행하실수 없습니다. 계좌등록하기 버튼을 클릭하여 보험금청구를 이용하시기 바랍니다.</div>
+					</div>
+				</div>
+				
 				<div id="deposit">
 						<div id ="accountInfo">
 							<div id="accountInfo1">
 								<div id="accountInfo2">
-									보험금 입금계좌
+									보험금 입금계좌 
 								</div>
 								<div id="accountInfo3">
 									<select class="memAccidentSelect" name="accountSelect" >
@@ -299,6 +311,10 @@ $(document).ready(function(){
 										</c:forEach>
 									</select>
 								</div>
+								<div >
+									<input class="insurer2_6" type="button" value="계좌 등록하기">
+								</div>
+								
 							</div>
 						</div>	
 	

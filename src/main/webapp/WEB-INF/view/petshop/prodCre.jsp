@@ -310,7 +310,6 @@
 		
 		$("#menuSelect").change(function() {
 			var menu = $("#menuSelect").val();
-			console.log(menuSelect);
 			if(menu == 'menu'){
 				alert("메뉴를 선택해 주세요");	
 				$("#menu_id").val('menu');

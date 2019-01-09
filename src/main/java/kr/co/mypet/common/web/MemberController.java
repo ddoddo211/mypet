@@ -463,7 +463,17 @@ public class MemberController {
 		return "";
 	}
 	
+	// 관리자 마이페이지(펫시터)
+	@RequestMapping("/petSitManager")
+	public String petSitManager() {
+		return "/admin/petSitter/petSitterMain";
+	}
 	
+	// 회원 마이페이지이로 이동하는 부분
+	@RequestMapping("/memMypage")
+	public String memMypage() {
+		return "/common/memMypage";
+	}
 	
 
 } // controller class 끝나는곳

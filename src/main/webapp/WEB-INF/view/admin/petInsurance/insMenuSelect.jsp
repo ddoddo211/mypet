@@ -42,6 +42,6 @@
 			<input class="insMenu2" type="button" onclick="goNoticeBoard()" value="4.보험 공지사항 관리">
 		</div>
 	</div>
-	</div>
+</div>
 <!-- 나머지 한개의 div는 해당 화면에 있음 -->
 	

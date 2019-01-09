@@ -1,5 +1,8 @@
 @charset "UTF-8";
 
+@import url(//fonts.googleapis.com/earlyaccess/nanumpenscript.css);
+@import url(//fonts.googleapis.com/earlyaccess/jejugothic.css);
+
 * {
 	margin: 0 auto;
 }
@@ -14,6 +17,7 @@ html, body, div, a, span, button, p{
 	font-weight: inherit;
 	font-style: inherit;
 	vertical-align: baseline;
+
 }
 
 body {
@@ -83,7 +87,8 @@ body {
 }
 
 #gateway_con .gnbArea_left li a:hover {
-	text-decoration: none
+	text-decoration: none;
+	outline: none;
 }
 
 #gateway_warp ul, #gateway_warp li, #gateway_warp dl, #gateway_warp dt,
@@ -356,7 +361,7 @@ a.innerborder:hover img {
 
 #adminMain2_1{
 	width: 1200px;
-	height: 920px;
+	height: 813px;
 	margin-top: 20px;
 }
 
@@ -368,7 +373,7 @@ a.innerborder:hover img {
 
 #adminMain2_1_2{
 	width: 1200px;
-	height: 665px;
+	height: 573px;
 }
 
 #fontChange{
@@ -430,3 +435,4 @@ a.innerborder:hover img {
 	border: 3px solid #41c36d;
 	float: left;
 }
+

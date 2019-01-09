@@ -15,6 +15,7 @@
 
 <!-- 결재 -->
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+
 <style type="text/css">
 	#resMain{
 		width : 1000px;
@@ -253,11 +254,6 @@
 							</div>
 						</div>
 					</div>
-<%-- 				</c:when> --%>
-<%-- 				<c:otherwise> --%>
-				
-<%-- 				</c:otherwise> --%>
-<%-- 			</c:choose> --%>
 		</div>
 	</div>
 	

@@ -4,13 +4,28 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+
 <script type="text/javascript">
 $(document).ready(function(){
-	
+    
 	// 체크 박스 클릭한 부분
 	$(".petProdSelect").click(function(){
 		var petProdSelect = $(this).val();
 		$("#petProdSelect").val(petProdSelect);
+		
+	});
+	
+	// 클릭한 결재 버튼의 data(prod)값을 넣어주기
+	$(".approval").click(function(){
+    	var prodId = $(this).data("ins_id");
+    	$("#prodId").val(prodId);
+	});
+    
+	//신청한 보험 건을 취소하는 부분
+	$("#cancel").click(function(){
+		var prodId = $(this).data("ins_id");
+		$("#prodId").val(prodId);
+		$("#frm2").submit();
 	});
 	
 	
@@ -57,12 +72,81 @@ $(document).ready(function(){
 	});
 	
 	
+	// 진단서(필수)의 첨부파일을 클릭하였을 경우
+	$("#pdf3").click(function(){
+		// 진단서 넣어주기
+		var file = '/img/petInsurance/contract.jpg';
+		goPdf(file);
+	});
+	
 });
 
+//pdf으로 가는 부분
+function goPdf(fileName){
+	var fileName = fileName;
+	location.href = '/isr/fileDown?fileName='+fileName;
+}
+
+//결재 하기 버튼을 클릭하였을떄 나오는 부분
+function goPayment(insp_kind){
+	    var price = '100';
+	    var prodName = insp_kind;
+	    var petId = '${mypetInfo.myp_id}';
+	    
+	    var totalP = price;
+	    var prodNmae= prodName;
+	    IMP.request_pay({
+	        pg : 'inicis', // version 1.1.0부터 지원.
+	        pay_method : 'card',
+	        merchant_uid : 'merchant_' + new Date().getTime(),
+	        name : prodNmae,     // 상품명
+	        amount : parseInt(price),    // 가격
+	        buyer_email : '${memVo.mem_id}',
+	        buyer_name : '${memVo.mem_name}',
+	        buyer_tel : '${memVo.mem_hp}',
+	        buyer_addr : '${memVo.mem_addr}',
+	        buyer_postcode : '123-456',
+	        m_redirect_url : 'https://www.yourdomain.com/payments/complete'
+	    }, function(rsp) {
+	        if ( rsp.success ) {
+	            var msg = '';
+	            msg +='${memVo.mem_name}'+'님 선택하신 ';
+	            msg += prodNmae+'  에 대한  ';
+	            msg += rsp.paid_amount + '원 의 ';
+	            msg += '결제가 완료되었습니다.  \n\n';
+	            msg += '@ 결제완료   카드 승인번호 : ' + rsp.apply_num;
+	        } else {
+	            var msg = '결제에 실패하였습니다.';
+	            msg += '에러내용 : ' + rsp.error_msg;
+	        }
+	        alert(msg);
+	        
+	        if(rsp.success){
+	        	 //form으로 전달
+	        	 $("#goPay").submit();
+	        }
+	        
+	    });
+}
 
 </script>
+
+<!-- 결재완료후에 보험가입상태 변경하는 부분 -->
+<form action="/isr/goPaymentSucces" method="post" id="goPay">
+	<input type="hidden" name="prodId" id="prodId">
+	<input type="hidden" name="petId" id="petId">
+</form>
+
+
+
 <form action="/isr/mypetIsrDel" method="get" id="frm">
 	<input type="hidden" id="petProdSelect" name="petProdSelect" value="">
+	<input type="hidden" id="petId" name="petId" value="${mypetInfo.myp_id}">
+</form>
+
+<!-- 보험신청 취소하는 부분 -->
+<form action="/isr/insprodCancel" method="get" id="frm2">
+	<input type="hidden" id="prodId" name="prodId" value="">
 	<input type="hidden" id="petId" name="petId" value="${mypetInfo.myp_id}">
 </form>
 
@@ -122,36 +206,53 @@ $(document).ready(function(){
 			<div id="mypetIsrJoin">
 				<div id="mypetIsrJoin1">
 					<div id="mypetIsrJoin1_1">해당 펫에 신청/가입되어 있는 보험</div>
+					
+					<div class="claimTitle7">
+						<div class="claimTitle7_2">
+							<div class="claimTitle4_2">보험상태가 완료로 되어 있는 부분 결재하기를 진행해야 정상적인 보험가입이 완료됩니다.</div>
+						</div>
+					</div>
+					
+					<div class="claimTitle7">
+						<div class="claimTitle7_2">
+							<div class="claimTitle4_2">결재가 완료된후에는 해당 회원의 이메일로 "보험계약 증명서"가 발송됩니다.</div>
+						</div>
+					</div>
+					
+					<div class="claimTitle7">
+						<div class="claimTitle7_2">
+							<div class="claimTitle4_2">발송된 "보험계약 증명서"는 해당 화면에 보험결재 부분에서 다운도 가능합니다.</div>
+						</div>
+					</div>
 
 					<div id="mypetIsrJoin2">
 						<table>
 							<tr>
 								<th class="mypetTd0">체크</th>
-								<th class="mypetTd2">가입대상</th>
 								<th>보험상품</th>
-								<th class="mypetTd">월 보험료 가격</th>
+								<th class="mypetTd7">월 보험료 가격</th>
 								<th class="mypetTd2">가입연령</th>
 								<th class="mypetTd1">보장기간</th>
 								<th class="mypetTd2">질병여부(Y/N)</th>
 								<th>가입일</th>
 								<th class="mypetTd3">보험상품 만료여부</th>
 								<th class="mypetTd2">보험가입상태</th>
+								<th class="mypetTd2">보험신청취소</th>
+								<th class="mypetTd2">보험결재</th>
 							</tr>
 
 							<!-- 펫에 신청/가입되어 있는 상품이 없을 경우 -->
 							<c:choose>
 								<c:when test="${isrVoListSize == 0 }">
 									<tr class="mypetTr">
-										<td colspan="10">해당 펫에 신청/가입되어 있는 보험상품이 없습니다.</td>
+										<td colspan="11">해당 펫에 신청/가입되어 있는 보험상품이 없습니다.</td>
 									</tr>
 								</c:when>
 								<c:otherwise>
 
 									<c:forEach items="${isrVoList}" var="list">
 										<tr>
-											<td class="tdh"><input type="radio" name="petProd"
-												class="petProdSelect" value="${list.ins_id}"></td>
-											<td class="tdh">${list.insp_join}</td>
+											<td class="tdh"><input type="radio" name="petProd" class="petProdSelect" value="${list.ins_id}" data-insp_kind="${list.insp_kind}"></td>
 											<td class="tdh">${list.insp_kind}</td>
 											<td class="tdh"><%="월 "%>${list.insp_fees}<%="원"%></td>
 											<td class="tdh">${list.insp_minage}<%="~"%>${list.insp_maxage}<%="세"%></td>
@@ -161,6 +262,23 @@ $(document).ready(function(){
 													value="${list.ins_start}" pattern="yy년 MM월 dd일"></fmt:formatDate></td>
 											<td class="tdh">${list.ins_dis}</td>
 											<td class="tdh">${list.ins_stat}</td>
+											<c:choose>
+												<c:when test="${list.ins_stat == '신청'}">
+													<td class="tdh"><input id="cancel" type="button" value="취소" data-ins_id="${list.ins_id}"></td>
+												</c:when>
+												<c:otherwise>
+													<td class="tdh"></td>
+												</c:otherwise>
+											</c:choose>
+											
+											<c:choose>
+												<c:when test="${list.ins_stat == '결재완료'}">
+													<td class="tdh"><img id="pdf3" alt="pdf파일" src="/img/petInsurance/PDF.png"></td>
+												</c:when>
+												<c:otherwise>
+													<td class="tdh"><input class="approval" type="button" onclick="goPayment('${list.insp_kind}')" value="결재" data-ins_id="${list.ins_id }"></td>
+												</c:otherwise>
+											</c:choose>
 										<tr>
 									</c:forEach>
 								</c:otherwise>
@@ -179,7 +297,7 @@ $(document).ready(function(){
 					<!-- 펫의 보험가입 정보  -->
 					<div id="mypetIsrJoin">
 						<div id="mypetIsrJoin1">
-							<div id="mypetIsrJoin1_1">해당 펫이 신청(반려)처리된 보험가입 내역</div>
+							<div id="mypetIsrJoin1_1">해당 펫이 신청(반려)/ 신청취소처리된 보험가입 내역</div>
 
 							<div id="mypetIsrJoin2">
 								<table>

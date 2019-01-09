@@ -35,6 +35,10 @@ $(document).ready(function() {
 			var mem_black = $(this).data("mem_black");
 			$("#mem_black").val(mem_black);
 			
+			// 회원 이름 
+			var mem_id = $(this).data("mem_id");
+			$("#memid").val(mem_id);
+			
 	});
 	
 	// 가입자 관리 화면에서 체크박스를 클릭하였을떄 상품의 id 담아주기
@@ -141,6 +145,7 @@ $(document).ready(function() {
 	<input type="hidden" value="" id="applyJoinProd" name="applyJoinProd">
 	<input type="hidden" value="" id="petIdProd" name="petIdProd">
 	<input type="hidden" value="" id="prodIdSelect" name="prodIdSelect">
+	<input type="hidden" value="" id="memid" name="memid">
 </form>
 
 <!--신청자관리 화면에서 반려로 변경할 가입상품 아이디 담아주기 -->
@@ -176,6 +181,7 @@ $(document).ready(function() {
 			<!-- 관리자용 펫 보험 메뉴  -->
 			<%@include file="insMenuSelect.jsp"%>
 		
+		
 			<div id="adminInsMenu">
 			
 					<div id="productManagement2">
@@ -197,12 +203,7 @@ $(document).ready(function() {
 					<div id="productManagement1_1">보험 신청자 관리</div>
 				</div>
 				
-				<div class="claimTitle4">
-					<div class="claimTitle4_1_2">
-						<div class="claimTitle4_2">보험"가입 신청 승인"을 하신다면 해당 회원에게 보험가입완료 메일이 발송되게 됩니다.</div>
-					</div>
-				</div>
-				
+
 				<div id="productManagement">
 						<div id="productList">
 							<table id="example-table-1">
@@ -223,7 +224,7 @@ $(document).ready(function() {
 
 								<c:forEach items="${applyList }" var="list">
 									<tr>
-										<td class="tdh"><input class="check" type="radio" name="check" value="${list.ins_id}" data-myp_id="${list.myp_id}" data-inssp_id="${list.inssp_id}" data-mem_black="${list.mem_black}"></td>									
+										<td class="tdh"><input class="check" type="radio" name="check" value="${list.ins_id}" data-mem_id="${list.mem_id}" data-myp_id="${list.myp_id}" data-inssp_id="${list.inssp_id}" data-mem_black="${list.mem_black}"></td>									
 										<c:choose>
 											<c:when test="${list.mem_black == 1}">
 												<td class="tdh">${list.mem_name}</td>	
@@ -298,14 +299,15 @@ $(document).ready(function() {
 				
 				
 				<div id="productManagement1">
-					<div id="productManagement1_1">보험 가입자 관리</div>
+					<div id="productManagement1_1">보험 가입완료자 관리</div>
 				</div>
 				
 				<div class="claimTitle4">
 					<div class="claimTitle4_1_2">
-						<div class="claimTitle4_2">블랙리스트로 등록되어 있는 대상자는 미납금액이 있는 대상자입니다.</div>
+						<div class="claimTitle4_2">보험 가입완료자 관리 부분은 회원이 보험료 결재까지 완료하였을떄 보험 가입 완료자로 나오는 부분입니다.</div>
 					</div>
 				</div>
+				
 				
 				<div class="claimTitle4">
 					<div class="claimTitle4_1_2">
@@ -387,4 +389,5 @@ $(document).ready(function() {
 
 </body>
 
+>>>>>>> branch 'master' of https://github.com/ddoddo211/mypet.git
 </html>

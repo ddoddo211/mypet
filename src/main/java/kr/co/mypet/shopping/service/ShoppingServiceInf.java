@@ -15,6 +15,8 @@ import kr.co.mypet.shopping.model.ProdVo;
 import kr.co.mypet.shopping.model.ProddvVo;
 import kr.co.mypet.shopping.model.RecentProdVo;
 import kr.co.mypet.shopping.model.ShopNoticeVo;
+import kr.co.mypet.common.model.PageVo;
+import kr.co.mypet.sitter.model.SitterAppVo;
 
 
 public interface ShoppingServiceInf {
@@ -619,4 +621,44 @@ public interface ShoppingServiceInf {
 	* Method 설명 : 반품
 	*/
 	public int returnUpdate(String ords_id);
+	
+	/**
+	* Method : insertSupport
+	* 작성자 : pc24
+	* 변경이력 :
+	* @param param
+	* @return
+	* Method 설명 : 마이페이지 펫 쇼핑몰 판매자 지원하기 
+	*/
+	public int insertSupport(Map<String, Object> param);
+
+	/**
+	* Method : getSupportListAll
+	* 작성자 : pc24
+	* 변경이력 :
+	* @param pageVo
+	* @return
+	* Method 설명 : 관리자 마이페이지 펫 쇼핑몰 판매자 지원리스트 조회
+	*/
+	public List<SitterAppVo> getSupportListAll(PageVo pageVo);
+
+	/**
+	* Method : getSupportListAllCnt
+	* 작성자 : pc24
+	* 변경이력 :
+	* @return
+	* Method 설명 : 관리자 마이페이지 펫 쇼핑몰 판매자 총 지원수 
+	*/
+	public int getSupportListAllCnt();
+	
+	
+	/**
+	* Method : shopNoticeDel
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param snot_id
+	* @return
+	* Method 설명 : 이벤트 삭제 (업데이트처리)
+	*/
+	public int shopNoticeDel(String snot_id);
 }

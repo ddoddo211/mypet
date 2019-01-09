@@ -45,10 +45,7 @@ $(document).ready(function() {
 			} else if ($("input[name='name2']:checked").val() == 'N') {
 				alert("고지사항3번 부분에 Y로 체크되어 있지 않습니다.\nY로 입력하셔야만 가입 진행이 가능하십니다.");
 				return;
-			}else if(account == "0"){ 
-				alert("계좌번호를 선택하시기 바랍니다.");
-				return;
-			} else {
+			}else {
 				$("#frm").submit();
 			}
 		});
@@ -67,7 +64,6 @@ $(document).ready(function() {
 	<input type="hidden" name="petId" value="${petId}"/>
 	<input type="hidden" name="memId" value="${memVo.mem_id}"/>
 	<input type="hidden" name="prodJoinId" value="${prodJoinId}"/>
-	<input type="hidden" name="memAccount" id="memAccountId" value="0" />
 </form>
 
 <!-- header 시작 -->
@@ -190,28 +186,10 @@ $(document).ready(function() {
 						</span>
 					</div>
 					
-				<div id="contractorInfo">
-						<!-- 계약자의 계좌정보입력하기 -->
-						<div id="contractor">
-							보험료를 납부할 계좌를 선택하시기 바랍니다.
-						</div>
-						
-						<!-- 회원의 계좌번호 select박스 나오는곳 -->
-						<div id ="accountInfo">
-							<div id="accountInfo1">
-								<div id="accountInfo2">
-									계좌번호 
-								</div>
-								<div id="accountInfo3">
-									<select class="memAccidentSelect" name="accountSelect" >
-										<option selected value="0">보험료를 납부하실 계좌번호를 선택하시기 바랍니다.</option>
-										<c:forEach items="${memAccidentList }" var="account">
-											<option value="${account.act_id}">${account.act_bank}${account.act_num} 예금주 : ${account.act_name}</option>
-										</c:forEach>
-									</select>
-								</div>
-							</div>
-						</div>									
+				<div class="claimTitle4">
+					<div class="claimTitle4_1_2">
+						<div class="claimTitle4_2">회원께서 신청하신 보험은 관리자께서 가입완료로 변경해야 보험료 결재가 가능합니다.</div>
+					</div>
 				</div>
 					
 					<!-- 보험가입 버튼 -->

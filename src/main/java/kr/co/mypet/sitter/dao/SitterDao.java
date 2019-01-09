@@ -241,7 +241,7 @@ public class SitterDao implements SitterDaoInf {
 
 	@Override
 	public int updateMemberSit(String string) {
-		return template.update("petSitter.updateMemberSit", string);
+		return template.update("petSitter.updateMemeberSit", string);
 	}
 
 	@Override
@@ -277,5 +277,20 @@ public class SitterDao implements SitterDaoInf {
 	@Override
 	public int getPetSitterToAllCnt() {
 		return template.selectOne("petSitter.getPetSitterToAllCnt");
+	}
+
+	@Override
+	public int deleteSitterTo(String pst_id) {
+		return template.update("petSitter.deleteSitterTo", pst_id);
+	}
+
+	@Override
+	public List<MypetVo> getPetListAll(PageVo pageVo) {
+		return template.selectList("petSitter.getPetListAll", pageVo);
+	}
+
+	@Override
+	public int getPetListAllCnt() {
+		return template.selectOne("petSitter.getPetListAllCnt");
 	}
 }

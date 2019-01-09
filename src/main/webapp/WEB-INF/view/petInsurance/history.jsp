@@ -30,11 +30,31 @@ $(document).ready(function(){
 				$("#frm").submit();
 			}
 		});
+	
+		// 진단서(필수)의 첨부파일을 클릭하였을 경우
+		$("#pdf").click(function(){
+			// 진단서 넣어주기
+			var file = '${history.accd_recp}';
+			goPdf(file);
+		});
+		
+		// 진단서(필수)의 첨부파일을 클릭하였을 경우
+		$("#pdf2").click(function(){
+			// 진단서 넣어주기
+			var file = '${history.accd_img}';
+			goPdf(file);
+		});
 
 });
 
 function goBack(){
 	location.href ='/isr/goisrApply';
+}
+
+//pdf으로 가는 부분
+function goPdf(fileName){
+	var fileName = fileName;
+	location.href = '/isr/fileDown?fileName='+fileName;
 }
 </script>
 
@@ -236,18 +256,36 @@ function goBack(){
 							<div class="document2_1">
 								진단서(필수)
 							</div>
-							<div class="document2_2">
-								<label>${history.accd_recp}</label>
-							</div>
+								<c:choose>
+									<c:when test="${history.accd_recp != ''}">
+										<div class="document2_2">
+											<img id="pdf" alt="pdf파일" src="/img/petInsurance/PDF.png">
+										</div>
+									</c:when>
+									<c:otherwise>
+										<div class="document2_2">
+											<label class="insurer2_4">회원께서 진단서를 첨부하지 않았습니다.</label>
+										</div>
+									</c:otherwise>
+								</c:choose>	
 						
 						</div>
 						<div id="document3">
 							<div class="document2_1">
 								사고사진
 							</div>
-							<div class="document2_2">
-								<label>${history.accd_img}</label>
-							</div>						
+									<c:choose>
+										<c:when test="${history.accd_img != '/img/petimg/noimg.jpg'}">
+											<div class="document2_2">
+												<img id="pdf2" alt="pdf파일" src="/img/petInsurance/PDF.png">
+											</div>
+										</c:when>
+										<c:otherwise>
+											<div class="document2_2">
+												<label class="insurer2_4">회원께서 사고사진을 첨부하지 않았습니다.</label>
+											</div>
+										</c:otherwise>
+									</c:choose>				
 						</div>
 					</div>
 				</div>

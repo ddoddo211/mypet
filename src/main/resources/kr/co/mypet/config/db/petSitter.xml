@@ -220,13 +220,14 @@
 	
 	<insert id="insertSupport" parameterType="map">
 		insert into sitterApp
-		values ('STA' || lpad(sta_no.nextVal, 3, '0'), #{sta_mem}, #{sta_text}, 'N', sysdate, '')
+		values ('STA' || lpad(sta_no.nextVal, 3, '0'), #{sta_mem}, #{sta_text}, 'N', sysdate, '', '', '', 1)
 	</insert>
 	
 	<select id="getMySupport" parameterType="String" resultType="staVo">
 		select * 
 		from sitterApp
 		where sta_mem = #{sta_mem}
+		and sta_chk = 1
 	</select>
 	
 	<delete id="deleteSupport" parameterType="String">
@@ -265,6 +266,7 @@
 			(
 				select (select mem_name from member where mem_id = s.sta_mem) mem_name, s.*
 				from sitterapp s
+				where s.sta_chk = 1
 				order by s.sta_suc
 			) a
 		)
@@ -348,8 +350,9 @@
 		    select rownum as rnum, a.*
 		    from
 		    (
-		        select *
-		        from petsitter
+		        select mem_name, p.*
+		        from petsitter p, member
+		        where mem_id = pst_mem
 		        order by pst_id
 		    ) a
 		)
@@ -359,5 +362,37 @@
 	<select id="getPetSitterToAllCnt" resultType="Integer">
 		select count(*)
 		from petSitter
+		where pst_chk = 'N'
+	</select>
+	
+	<update id="deleteSitterTo" parameterType="String">
+		update petsitter set
+		pst_chk = 'Y'
+		where pst_id = #{pst_id}
+	</update>
+	
+	<select id="getPetListAll" parameterType="pageVo" resultType="mypetVo">
+		select *
+		from
+		(
+		    select rownum as rnum, a.*
+		    from
+		    (
+		        select petk_name, am_name, mem_name, p.*
+		        from mypet p, member, animal, petkind
+		        where mem_id = myp_mem
+		        and myp_petk = petk_id
+		        and petk_am = am_id
+		        and myp_del = 'N'
+		        order by myp_id
+		    ) a
+		)
+		where rnum between (${page}*${pageSize})-(${pageSize}-1) and (${page}*${pageSize})	
+	</select>
+	
+	<select id="getPetListAllCnt" resultType="Integer">
+		select count(*)
+		from mypet
+		where myp_del = 'N'
 	</select>
 </mapper>

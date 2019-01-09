@@ -212,14 +212,6 @@ function goPdf(fileName){
 							</div>
 						</div>
 				
-				<form action="/isr/claimApply" method="post" id="frm" enctype="multipart/form-data">
-
-					<input type="hidden" id="selectProd"  name="selectProd" value="">
-					<input type="hidden" id="petId" name="petId" value="${mypetInfo.myp_id}">
-					<input type="hidden" id="accidentDate" name="accidentDate" value="">
-					<input type="hidden" id="accidentPlace"  name="accidentPlace" value="">
-					<input type="hidden" id="accidentContent" name="accidentContent"  value="">
-					<input type="hidden" id="selectAccident" name="selectAccident" value="">
 				<div id="document">
 					<div id="document1">
 						<div id="document2">
@@ -227,7 +219,7 @@ function goPdf(fileName){
 								진단서(필수)
 							</div>
 								<c:choose>
-									<c:when test="${acdVo.accd_recp != ''}">
+									<c:when test="${history.accd_recp != ''}">
 										<div class="document2_2">
 											<img id="pdf" alt="pdf파일" src="/img/petInsurance/PDF.png">
 										</div>
@@ -245,7 +237,7 @@ function goPdf(fileName){
 								사고사진
 							</div>
 										<c:choose>
-										<c:when test="${acdVo.accd_img != '/img/petimg/noimg.jpg'}">
+										<c:when test="${history.accd_img != '/img/petimg/noimg.jpg'}">
 											<div class="document2_2">
 												<img id="pdf2" alt="pdf파일" src="/img/petInsurance/PDF.png">
 											</div>
@@ -265,10 +257,6 @@ function goPdf(fileName){
 					<input type="button" id="nextBtn2_1" value="목록으로 가기" onclick="goBack()">
 				</div>
 			</div>
-			
-			
-			</form>
-			
 			
 	</div>
 

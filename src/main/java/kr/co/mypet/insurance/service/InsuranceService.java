@@ -284,8 +284,8 @@ public class InsuranceService implements InsuranceServiceInf {
 	* Method 설명 : 마이펫에서 번호를 주면 품종 가지고 오는 쿼리문 (플랜정보에서 보험가입할때 이부분이 필요하다)
 	*/
 	@Override
-	public PetkindVo petKindVo(String petk_id) {
-		return insuranceDao.petKindVo(petk_id);
+	public PetkindVo petKindVo(PetkindVo petKindVo) {
+		return insuranceDao.petKindVo(petKindVo);
 	}
 
 	
@@ -1095,6 +1095,34 @@ public class InsuranceService implements InsuranceServiceInf {
 	@Override
 	public int unpaid(AccidentVo acdVo) {
 		return insuranceDao.unpaid(acdVo);
+	}
+
+	
+	/**
+	* Method : insprodCancel
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param ins_id
+	* @return
+	* Method 설명 :나의 펫 보험 화면에서 해당 펫의 가입되어 있는 보험상품 신청 취소 버튼을 클릭하였을 경우
+	*/
+	@Override
+	public int insprodCancel(String ins_id) {
+		return insuranceDao.insprodCancel(ins_id);
+	}
+
+	
+	/**
+	* Method : goPaymentSucces
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param accd_id
+	* @return
+	* Method 설명 :나의 펫 보험 화면에서 해당 펫의 가입되어 있는 보험상품 결재하기 버튼을 클릭하였을 경우 보험가입상태를 결재완료로 변경 
+	*/
+	@Override
+	public int goPaymentSucces(String accd_id) {
+		return insuranceDao.goPaymentSucces(accd_id);
 	}
 	
 	
