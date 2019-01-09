@@ -33,6 +33,9 @@
 	where mem_id = #{mem_id}
   </update>
  
+  <select id="getMemberList" resultType="memVo">
+  	select mem_id from member
+  </select>
 </mapper>
 
 

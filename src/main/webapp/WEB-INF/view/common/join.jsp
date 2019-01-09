@@ -6,8 +6,11 @@
 <head>
 <meta charset="UTF-8">
 <title>회원가입</title>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <style type="text/css">
 <%@include file ="/css/commonCss.css"%>
+
 .member {
 	font-size: 50px;
 	text-shadow: 0 0 10px #666;
@@ -39,6 +42,50 @@ body {
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
 $(document).ready(function(){
+	
+	var chk = "${chk}";
+	
+	if(chk == "true"){
+		alert("사용 가능한 아이디 입니다.");
+		var memID = "${memId}";
+		$("#mem_id").val(memID);
+	} else if(chk == "false"){
+		alert("사용 불가능한 아이디 입니다. 다시입력해주세요.");
+	} 
+	
+	$("#mem_pass").focus(function(){
+		if(chk == false){
+			alert("ID 중복체크를 해주세요.");
+			$("#mem_id").focus();
+			return;
+		}
+		
+	});
+	
+	$("#chk_btn").click(function(){
+		var ran = $("#random").val()+"";
+		var ran2 = "${random}";
+		
+		if(ran == ran2){
+			alert("인증되셨습니다.");
+			return;
+		} else{
+			alert("다시한번 확인해주세요.");
+			return;
+		}
+	});
+	
+	$("#addrBtn").click(function(){
+		new daum.Postcode({
+			oncomplete : function(data) {
+				// 주소 input value 설정 : data.roadAddress
+				$("#mem_addr").val(data.roadAddress);
+				// 우편 input value 설정 : data.zonecode
+				$("#zipcd").val(data.zonecode);
+			}
+		}).open();
+	});
+	
     // 회원가입처리
     $('#join-submit').click(function(e){
         e.preventDefault();
@@ -189,11 +236,20 @@ $(document).ready(function(){
 //    });
 
 
+
+	$("#checkid").click(function(){
+		var mem_id = $("#mem_id").val();
+		$("#memId").val(mem_id);
+		$("#chkMemFrm").submit();
+	});
 });
 </script>
 
 </head>
 <body>
+<form action="/mem/chkMember" method="post" id="chkMemFrm" name="">
+	<input type="hidden" id="memId" name="memId" />
+</form>
 	<!-- header 시작 -->
 	<%@include file="../common/header.jsp"%>
 	<!-- header 끝-->
@@ -236,8 +292,12 @@ $(document).ready(function(){
 				<table>
 					<tr>
 						<td>ID(E-Mail)</td>
-						<td><input type="text" size=25 name="mem_id" value="${id}" id="mem_id">
-							<input type="button" id="checkid" value="중복체크"></td>
+						<td><input type="text" size=20 name="mem_id" value="${id}" id="mem_id">
+							<input type="button" id="checkid" value="중복체크/인증"></td>
+					</tr>
+					<tr>
+						<td>인증번호</td>
+						<td><input type="password" size=20 name="random" id="random"><input type="button" id="chk_btn" value="확인" style="margin-left:4px;"/></td>
 					</tr>
 					<tr>
 						<td>비밀번호</td>
@@ -256,8 +316,16 @@ $(document).ready(function(){
 						<td><input type="text" size=37 name="mem_hp" value="" id="mem_hp"></td>
 					</tr>
 					<tr>
+						<td>우편번호</td>
+						<td><input type="text" size=15 name="zipcd" value="" id="zipcd"><input type="button" id="addrBtn" value="주소검색" style="margin-left:4px;" /></td>
+					</tr>
+					<tr>
 						<td>주소</td>
 						<td><input type="text" size=37 name="mem_addr" value="" id="mem_addr"></td>
+					</tr>
+					<tr>
+						<td>상세주소</td>
+						<td><input type="text" size=37 name="mem_addr2" value="" id="mem_addr2"></td>
 					</tr>
 					<tr>
 						<td colspan='2' align='center'><input type="button"

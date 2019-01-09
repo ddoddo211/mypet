@@ -9,6 +9,7 @@
 <head>
 <meta charset="EUC-KR">
 <title>로그인</title>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <style type="text/css">
 <%@include file ="/css/commonCss.css"%>
 .member {

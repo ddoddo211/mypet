@@ -72,6 +72,11 @@ public class CommonDao implements CommonDaoInf {
 		return result;
 	}
 
+	@Override
+	public List<MemberVo> getMemberList() {
+		return template.selectList("member.getMemberList");
+	}
+
 	
 
 
