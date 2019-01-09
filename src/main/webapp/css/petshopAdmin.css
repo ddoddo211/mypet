@@ -1,0 +1,52 @@
+@charset "UTF-8";
+@import url(//fonts.googleapis.com/earlyaccess/nanumpenscript.css);
+@import url(//fonts.googleapis.com/earlyaccess/jejugothic.css);
+
+	#adminMenu{
+		width: 1200px;
+		margin: 0 auto;
+	}
+	
+	#mainTop{
+		width: 1200px;
+		margin: 0 auto;
+	}
+	
+	#shopTitle {
+	    width: 1200px;
+	    height: 50px;
+	    line-height: 50px;
+	    background-color: #f1f1f1;
+	    text-align: center;
+	    font-size: 25px;
+	    font-family: 'Jeju Gothic', sans-serif;
+	}
+	
+	#shopMenu {
+	    width: 1200px;
+	    height: 55px;
+	    line-height: 50px;
+	    margin-bottom: 20px;
+	    border: 2px dashed #cecece;
+	    box-sizing: border-box;
+	    padding-top: 10px;
+	}
+	
+	.shopMenu1{
+		margin-left: 248px;
+	}
+	
+	.shopMenu2{
+		width: 190px;
+	    height: 30px;
+	    line-height: 30px;
+	    font-size: 18px;
+	    font-family: 'Jeju Gothic', sans-serif;
+	    text-align: center;
+	    float: left;
+	    margin-right: 20px;
+	    margin-left: 20px;
+	    background-color: #565656;
+	    border-radius: 10px;
+	    color: white;
+	    outline: none;

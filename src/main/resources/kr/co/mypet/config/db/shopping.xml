@@ -473,5 +473,13 @@
 		set ords_stat = '반품'
 		where ords_id = #{ords_id}
 	</update>
+	
+	<!-- 메뉴에 해당하는 상품List -->
+	<select id="menuList">
+		select * from prod
+		where prod_id in (
+		select pdd_prod from proddv
+		where pdd_dvs = #{pdd_dvs})
+	</select>
 </mapper>
  

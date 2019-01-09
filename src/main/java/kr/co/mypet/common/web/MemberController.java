@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.co.mypet.common.model.MemberVo;
 import kr.co.mypet.common.service.CommonServiceInf;
+import kr.co.mypet.shopping.service.ShoppingServiceInf;
 
 @RequestMapping("/mem")
 @Controller
@@ -326,12 +327,6 @@ public class MemberController {
 		
 		
 		return "common/main";
-	}
-	
-	//펫쇼핑몰로 화면이동
-	@RequestMapping("/petShop")
-	public String shopping() {
-		return "petShop";
 	}
 	
 	// 관리자용 화면에서 해당 메뉴 버튼을 클릭하였을때 이동 하는부분
