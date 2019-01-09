@@ -181,6 +181,7 @@ $(document).ready(function() {
 			<!-- 관리자용 펫 보험 메뉴  -->
 			<%@include file="insMenuSelect.jsp"%>
 		
+		
 			<div id="adminInsMenu">
 			
 					<div id="productManagement2">
