@@ -504,4 +504,33 @@ public interface SitterServiceInf {
 	* Method 설명 : 관리자 마이페이지 게시글관리 -> 전체 펫시터 집에 맡기기 리스트 갯수
 	*/
 	int getPetSitterToAllCnt();
+
+	/**
+	* Method : deleteSitterTo
+	* 작성자 : pc24
+	* 변경이력 :
+	* @param pst_id
+	* @return
+	* Method 설명 : 관리자 마이페이지 게시글 관리 -> 펫시터 집에 맡기기 리스트 중 선택삭제 
+	*/
+	int deleteSitterTo(String pst_id);
+
+	/**
+	* Method : getPetListAll
+	* 작성자 : pc24
+	* 변경이력 :
+	* @param pageVo
+	* @return
+	* Method 설명 : 관리자 마이페이지 반려동물 관리 -> 반려동물 전체 리스트 조회
+	*/
+	Map<String, Object> getPetListAll(PageVo pageVo);
+	
+	/**
+	* Method : getPetListAllCnt
+	* 작성자 : pc24
+	* 변경이력 :
+	* @return
+	* Method 설명 : 관리자 마이페이지 반려동물 관리 -> 반려동물 전체 리스트 갯수 
+	*/
+	int getPetListAllCnt();
 }

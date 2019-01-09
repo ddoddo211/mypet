@@ -244,6 +244,7 @@ body {
 		<a href="#header">
 			<img alt="화살표" src="/img/petSitterImg/top.jpg" width=50px height=50px>
 		</a>
+		<a href="/sit/sup">정현이 형 지원서</a>
 	</div>
 	<!-- footer 시작 -->
 	<%@include file="/WEB-INF/view/common/footer.jsp"%>

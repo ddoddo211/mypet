@@ -9,7 +9,6 @@ $(document).ready(function(){
 		var mem_addr = $("#mem_addr").val();
 		var radioVal = $('input[name="chk_job"]:checked').val();
 		
-		
 		if(mem_name == null || mem_name == ''){
 			alert("지원자 성명 및 성별을 입력하세요.");
 			return;

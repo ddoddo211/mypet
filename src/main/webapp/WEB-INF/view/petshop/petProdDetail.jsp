@@ -537,7 +537,7 @@
 
 					$("#facebook").click(function() {
 			 			var url = "https://www.facebook.com/sharer/sharer.php";
-			 			var url2 = "www.naver.com";
+			 			var url2 = "192.168.203.20:8081/shop/prodDetail?dvs_id=DVS1&dvs_parent=DVS3&prod_id=PROD1246";
 			 			window.open(url + "?u=" + url2, height=100, width=100);
 			 		})
 			 	

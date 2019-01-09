@@ -134,11 +134,21 @@ body {
 			<div class="gnbArea_left">
 
 				<ul>
-
-					<li><a href="/mem/main"
-						onMouseover="this.style.background='#41c16e', this.style.color='white';"
-						onMouseout="this.style.background='#f4f6f9', this.style.color='black';">홈</a>
-					</li>
+					<c:choose>
+						<c:when test="${memVo.mem_id == 'admin' }">
+							<li><a href="/mem/petManagerMain"
+								onMouseover="this.style.background='#41c16e', this.style.color='white';"
+								onMouseout="this.style.background='#f4f6f9', this.style.color='black';">홈</a>
+							</li>
+						</c:when>
+						<c:otherwise>
+							<li><a href="/mem/main"
+								onMouseover="this.style.background='#41c16e', this.style.color='white';"
+								onMouseout="this.style.background='#f4f6f9', this.style.color='black';">홈</a>
+							</li>
+						</c:otherwise>
+					</c:choose>
+				
 
 					<li class="petSitter"><a href="/sit/sitMain"
 						onMouseover="this.style.background='#17aaff', this.style.color='white';"

@@ -38,11 +38,10 @@
 			l += valmem[i] + " ";
 			
 		});
-		alert(l);
 		if(k != ""){
 			$("#staId").val(k);
 			$("#sta_mem").val(l);
-			$("#pdfFrm").submit();
+			supportPDF(k, l, 1);
 		}
 	};
 </script>
@@ -93,7 +92,7 @@
 				</c:choose>
 			</table>
 		</div>
-		<ul class="supPage">
+		<ul class="pagination">
 			
 		</ul>
 	</div>

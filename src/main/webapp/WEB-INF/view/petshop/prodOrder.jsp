@@ -385,8 +385,8 @@
 			    pg : 'inicis', // version 1.1.0부터 지원.
 			    pay_method : 'card',
 			    merchant_uid : 'merchant_' + new Date().getTime(),
-			    name : prodNmae,
-			    amount : parseInt(totalP),
+			    name : prodNmae,     // 상품명
+			    amount : parseInt(totalP),    // 가격
 			    buyer_email : '${memVo.mem_id}',
 			    buyer_name : '${memVo.mem_name}',
 			    buyer_tel : '${memVo.mem_hp}',
@@ -411,20 +411,6 @@
 // 			    	$("#hres_pts").val(
 // 			    		strArray[2]
 // 			    	);
-			    	
-// 			    	$("#hres_date").val(
-// 			    		selDate	
-// 			    	);
-			    	
-// 			    	$("#hres_price").val(
-// 			    		selPrice
-// 			    	);
-			    	
-// 			    	$("#hres_time").val(
-// 			    		selTime		
-// 			    	);
-			    	
-// 			    	$("#insrfrm").submit();
 			    	
 					$("#paymentGo").submit();
 			    }

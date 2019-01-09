@@ -443,7 +443,11 @@ public class MemberController {
 	
 	//petHair 관리자 부분 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
-	
+	// 관리자 마이페이지(펫시터)
+	@RequestMapping("/petSitManager")
+	public String petSitManager() {
+		return "/admin/petSitter/petSitterMain";
+	}
 	
 
 } // controller class 끝나는곳

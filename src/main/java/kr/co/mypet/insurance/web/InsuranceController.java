@@ -10,12 +10,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import javax.annotation.Resource;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.tomcat.util.http.fileupload.IOUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -1934,62 +1940,62 @@ public class InsuranceController {
 				
 				return "admin/petInsurance/goApplyJoinManager";
 			}
-			
+
+			@Autowired
+			private JavaMailSenderImpl mailSender;
 			
 			/* 보험 신청 /가입자 : 신청 승인 버튼을 클릭하였을 경우*/
 			@RequestMapping("/goApplyJoin")
-			public String goApplyJoin(Model model , HttpServletRequest request) throws Exception {
+			public String goApplyJoin(Model model ,final HttpServletRequest request) throws Exception {
 				
 				String applyJoinProd = request.getParameter("applyJoinProd");
 				String petId = request.getParameter("petIdProd");
 				String prodIdSelect = request.getParameter("prodIdSelect");
 				
-				
-				
 				// 만기일 계산하기 
 				// 만기일을 계산할떄에는 현재 애완펫의 년생을 구한다 
-					// 가입을 진행하고 있는 펫 정보 가지고 오기
-					MypetVo mypetInfo = insuranceService.mypetInfo(petId);
+				// 가입을 진행하고 있는 펫 정보 가지고 오기
+				MypetVo mypetInfo = insuranceService.mypetInfo(petId);
+			
+				// 년도만 비교 한다
+				SimpleDateFormat date = new SimpleDateFormat("yyyy");
+				// 현재 데이터 나오게 설정
+				Date  proddate = new Date();
 				
-					// 년도만 비교 한다
-					SimpleDateFormat date = new SimpleDateFormat("yyyy");
-					// 현재 데이터 나오게 설정
-					Date  proddate = new Date();
-					
-					// string으로 변경하는 부분은 format으로 이용해야 한다
-					String petInfoBirth = date.format(mypetInfo.getMyp_birth());
+				// string으로 변경하는 부분은 format으로 이용해야 한다
+				String petInfoBirth = date.format(mypetInfo.getMyp_birth());
+			
+				int petBirth1 = Integer.parseInt(petInfoBirth);
 				
-					int petBirth1 = Integer.parseInt(petInfoBirth);
-					
-					// 보험상품의 보장기간 구해오기 
-					// 가입을 진행하고 있는 보험상품 정보 가지고 오기
-					InsProdVo prodJoin = insuranceService.getProdInfo(prodIdSelect);
+				// 보험상품의 보장기간 구해오기 
+				// 가입을 진행하고 있는 보험상품 정보 가지고 오기
+				InsProdVo prodJoin = insuranceService.getProdInfo(prodIdSelect);
+			
+				// 보험상품 보장기간 넣어주기
+				int period = prodJoin.getInsp_period();
+			
+				// 만기되는 일자 구하기 (년도)
+				int duedateDay = petBirth1 + period;
 				
-					// 보험상품 보장기간 넣어주기
-					int period = prodJoin.getInsp_period();
+				// 월을 저장하는 부분
+				SimpleDateFormat month = new SimpleDateFormat("MM");
+				String petInfoBirthmonth = month.format(mypetInfo.getMyp_birth());
 				
-					// 만기되는 일자 구하기 (년도)
-					int duedateDay = petBirth1 + period;
-					
-						// 월을 저장하는 부분
-						SimpleDateFormat month = new SimpleDateFormat("MM");
-						String petInfoBirthmonth = month.format(mypetInfo.getMyp_birth());
-						
-						// 애완동물 월 저장되는 변수 (만기 월)
-						int petBirthMonthSub = Integer.parseInt(petInfoBirthmonth);
-						
-						// 일을 저장하는 부분
-						SimpleDateFormat day = new SimpleDateFormat("dd");
-						String petInfoBirthDay = day.format(mypetInfo.getMyp_birth());
-						
-						// 애완동물 월 일 저장되는 변수 (만기 일)
-						int petBirthDaySub = Integer.parseInt(petInfoBirthDay);
-					
-					// 년 / 월 / 일 모두 더해주기
-					String duedate = duedateDay +"-"+petBirthMonthSub +"-" + petBirthDaySub;
-					
-					// DB가 DATE형 이기 때문에 DATE형으로 변경해준다
-					Date prodDuedate = date.parse(duedate);
+				// 애완동물 월 저장되는 변수 (만기 월)
+				int petBirthMonthSub = Integer.parseInt(petInfoBirthmonth);
+				
+				// 일을 저장하는 부분
+				SimpleDateFormat day = new SimpleDateFormat("dd");
+				String petInfoBirthDay = day.format(mypetInfo.getMyp_birth());
+				
+				// 애완동물 월 일 저장되는 변수 (만기 일)
+				int petBirthDaySub = Integer.parseInt(petInfoBirthDay);
+				
+				// 년 / 월 / 일 모두 더해주기
+				String duedate = duedateDay +"-"+petBirthMonthSub +"-" + petBirthDaySub;
+				
+				// DB가 DATE형 이기 때문에 DATE형으로 변경해준다
+				Date prodDuedate = date.parse(duedate);
 					
 				// 서비스 이용하여 db 보험가입상품 테이블에 추가하기 (매개변수는 보험상품 VO로 넘겨주기)
 				InsuranceVo isrVo = new InsuranceVo();
@@ -2015,6 +2021,27 @@ public class InsuranceController {
 				List<InsuranceVo> terminationList = insuranceService.terminationList();
 				model.addAttribute("terminationList" , terminationList );
 				model.addAttribute("terminationListSize" , terminationList.size() );
+				
+				final String mem_id = request.getParameter("memid");
+				
+				final MimeMessagePreparator preparator = new MimeMessagePreparator() {
+					@Override
+					public void prepare(MimeMessage mimeMessage) throws Exception {
+						final MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
+						helper.setFrom("sjyounghos@naver.com");
+						helper.setTo(mem_id);
+						helper.setSubject("연습용");
+						helper.setText("연습연습", true);
+						
+						String path = request.getSession().getServletContext().getRealPath("");
+						String filePathToBeServed = path + "/img/petSitterImg/PDF.png";
+						
+						FileSystemResource file = new FileSystemResource(new File(filePathToBeServed));
+						helper.addAttachment("PDF.png", file);
+
+					}
+				};
+				mailSender.send(preparator);
 				
 				return "admin/petInsurance/goApplyJoinManager";
 			}
@@ -2569,7 +2596,6 @@ public class InsuranceController {
 			}
 			
 		
-			
 			
 			
 

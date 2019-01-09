@@ -32,7 +32,7 @@
 			<span>펫시터 집으로 부르기</span>
 		</div>
 		<div style="width:100%;">
-			<table id="reservationTable">
+			<table id="reservationTable" border="1">
 				<tr>
 					<th class="th">이름</th>
 					<th class="th">반려동물</th>

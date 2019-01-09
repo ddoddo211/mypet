@@ -306,7 +306,7 @@ public class SitterService implements SitterServiceInf {
 		int pageCnt = (int)Math.ceil(((double)totalPetSitterCnt/pageSize));
 		
 		Map<String, Object> resultMap = new HashMap<>();
-		resultMap.put("petSitterListAll", petSitterListAll);
+		resultMap.put("petSitterToListAll", petSitterListAll);
 		resultMap.put("pageCnt", pageCnt);
 		
 		return resultMap;
@@ -315,5 +315,30 @@ public class SitterService implements SitterServiceInf {
 	@Override
 	public int getPetSitterToAllCnt() {
 		return sitterDao.getPetSitterToAllCnt();
+	}
+
+	@Override
+	public int deleteSitterTo(String pst_id) {
+		return sitterDao.deleteSitterTo(pst_id);
+	}
+
+	@Override
+	public Map<String, Object> getPetListAll(PageVo pageVo) {
+		List<MypetVo> petListAll = sitterDao.getPetListAll(pageVo);
+		
+		int totalReviewCnt = sitterDao.getPetListAllCnt();
+		int pageSize = pageVo.getPageSize();
+		int pageCnt = (int)Math.ceil(((double)totalReviewCnt/pageSize));
+		
+		Map<String, Object> resultMap = new HashMap<>();
+		resultMap.put("petListAll", petListAll);
+		resultMap.put("pageCnt", pageCnt);
+		
+		return resultMap;
+	}
+
+	@Override
+	public int getPetListAllCnt() {
+		return sitterDao.getPetListAllCnt();
 	}
 }
