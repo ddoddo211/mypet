@@ -5,7 +5,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
 <link  href="/css/petHair.css" rel="stylesheet"/>
 <link  href="/css/petHairMyPage.css" rel="stylesheet"/>
  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -15,6 +14,32 @@
   <%--다음 주소 api --%>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 
+<style type="text/css">
+	table {
+		margin-top : 30px;
+		margin-left : 50px;
+		font-size: 20px;
+	}
+	
+	th{
+		background-color: grey;
+		width: 150px;
+		height: 50px;
+		color: white;
+	}
+	
+	td{
+		height: 50px;
+		background-color: #e9edf3;
+		text-align: center;
+	}
+	
+	.tempspan{
+		font-size: 20px;
+		width: 50%;
+		border-bottom : 4px solid black;
+	}
+</style>
 
 <%-- 스크립트 위치 --%>
 
@@ -158,9 +183,9 @@
 					</div>
 				</c:when>
 				<c:otherwise>
-					${memVo.mem_id } 님 등록신청 대기상태입니다 <br>
+					 <span class="tempspan">- ${memVo.mem_id } 님 등록신청 대기상태입니다 -</span>  <br>
 					
-					<table border="1">
+					<table>
 						<thead>
 							<tr>
 								<th>미용실명</th>

@@ -15,14 +15,14 @@ $(document).ready(function(){
 	// 진단서(필수)의 첨부파일을 클릭하였을 경우
 	$("#pdf").click(function(){
 		// 진단서 넣어주기
-		var file = '${acdVo.accd_recp}';
+		var file = '${history.accd_recp}';
 		goPdf(file);
 	});
 	
 	// 진단서(필수)의 첨부파일을 클릭하였을 경우
 	$("#pdf2").click(function(){
 		// 진단서 넣어주기
-		var file = '${acdVo.accd_img}';
+		var file = '${history.accd_img}';
 		goPdf(file);
 	});
 
@@ -233,7 +233,7 @@ function goPdf(fileName){
 								진단서(필수)
 							</div>
 								<c:choose>
-									<c:when test="${acdVo.accd_recp != ''}">
+									<c:when test="${history.accd_recp != ''}">
 										<div class="document2_2">
 											<img id="pdf" alt="pdf파일" src="/img/petInsurance/PDF.png">
 										</div>
@@ -251,7 +251,7 @@ function goPdf(fileName){
 								사고사진
 							</div>
 								<c:choose>
-										<c:when test="${acdVo.accd_img != '/img/petimg/noimg.jpg'}">
+										<c:when test="${history.accd_img != '/img/petimg/noimg.jpg'}">
 											<div class="document2_2">
 												<img id="pdf2" alt="pdf파일" src="/img/petInsurance/PDF.png">
 											</div>

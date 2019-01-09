@@ -16,6 +16,10 @@
   
   <!-- 모든 미용실의 목록을 표시 -->
   <select id="shopSelectAll" resultType="hairShopVo">
+  	select * from hairshop where has_score not in (0)
+  </select>
+  <!-- 모든 미용실의 목록을 표시 -->
+  <select id="shopSelectAllR" resultType="hairShopVo">
   	select * from hairshop
   </select>
   
@@ -228,6 +232,50 @@
   <select id="selectHsaById" parameterType="String" resultType="hsaVo">
   	select * from hairshopapply where hsa_mem=#{hsa_mem} and hsa_acp='대기'
   </select>
+  
+  <!-- select Hair Shop Apply user -->
+  <select id="selectHairShopApply" resultType="hsaVo">
+  	select * from hairshopapply where hsa_acp='대기'
+  </select>
+  
+  <!-- insert HairShop -->
+  <select id="insertHairShop" parameterType="hsaVo">
+  	insert into hairshop
+	values('has'||SEQ_HAIRSHOP.NEXTVAL,#{hsa_name},#{hsa_addr},#{hsa_img},#{hsa_ptext},#{hsa_text},5,#{hsa_mem},#{hsa_addr2})
+  </select>
+  
+  <!-- hairShopApply update -->
+  <update id="updateHairShopApply" parameterType="hsaVo">
+  	update hairshopapply
+  	set	hsa_name=#{hsa_name},
+  		hsa_addr=#{hsa_addr},
+  		hsa_addr2=#{hsa_addr2},
+  		hsa_img=#{hsa_img},
+  		hsa_ptext=#{hsa_ptext},
+  		hsa_text=#{hsa_text},
+  		hsa_acp=#{hsa_acp}
+  	where hsa_id=#{hsa_id}
+  </update>
+  
+  <!-- 미용사 등급업 -->
+  <update id="updateMember" parameterType="String" >
+  	update member
+  	set mem_hair=2
+  	where mem_id=#{hsa_mem}
+  </update>
+  
+  <!-- 미용실 정보 수정 -->
+  <update id="updateHairShop" parameterType="hairShopVo">
+	update hairshop
+  	set has_name = #{has_name},
+  		has_addr = #{has_addr},
+  		has_img  = #{has_img},
+  		has_addr2 = #{has_addr2},
+  		has_ptext = #{has_ptext},
+  		has_text = #{has_text},
+  		has_score = #{has_score}
+  	where has_id = #{has_id}
+  </update>
   
 </mapper>
 

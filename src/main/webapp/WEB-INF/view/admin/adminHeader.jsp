@@ -13,7 +13,7 @@
 									<a class="adminHeaderA" href="#">펫 시터</a>
 								</div>
 								<div>
-									<a class="adminHeaderA" href="#">펫 미용실</a>
+									<a class="adminHeaderA" href="/mem/petHairAdmin">펫 미용실</a>
 								</div>
 								<div>
 									<a class="adminHeaderA" href="/shopAdmin/shopAdminMain">펫 쇼핑몰</a>
