@@ -482,6 +482,35 @@
 		where pdd_dvs = #{pdd_dvs})
 	</select>
 	
+	<insert id="insertSupport" parameterType="map">
+		insert into sitterApp
+		values ('STA' || lpad(sta_no.nextVal, 3, '0'), #{sta_mem}, #{sta_text}, 'N', sysdate, '', #{sta_num}, #{sta_kind}, 2)
+	</insert>
+	
+	<select id="getSupportListAll" parameterType="pageVo" resultType="staVo">
+		select *
+		from
+		(
+			select rownum rnum, a.*
+			from
+			(
+				select (select mem_name from member where mem_id = s.sta_mem) mem_name
+				     , (select mem_hp from member where mem_id = s.sta_mem) mem_hp
+				     , s.*
+				from sitterapp s
+				where s.sta_chk = 2
+				order by s.sta_suc
+			) a
+		)
+		where rnum between (${page}*${pageSize})-(${pageSize}-1) and (${page}*${pageSize})
+	</select>
+	
+	<select id="getSupportListAllCnt" resultType="Integer">
+		select count(*)
+		from sitterapp
+		where sta_chk = 2
+	</select>
+	
 	<!-- 펫쇼핑몰 이벤트글 삭제 -->
 	<update id="shopNoticeDel" parameterType="String">
 		update shopnotice

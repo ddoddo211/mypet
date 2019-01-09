@@ -16,6 +16,7 @@ import kr.co.mypet.shopping.model.DivisionVo;
 import kr.co.mypet.shopping.model.ProdVo;
 import kr.co.mypet.shopping.model.ShopNoticeVo;
 import kr.co.mypet.shopping.service.ShoppingServiceInf;
+import kr.co.mypet.sitter.model.SitterAppVo;
 
 @Controller
 @RequestMapping("/shopAdmin")

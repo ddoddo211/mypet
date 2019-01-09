@@ -16,7 +16,7 @@
 	
 	//보험 청구 버튼을 클릭하였을때  보험신청/가입자 관리 화면으로 이동
 	function goClaim(){
-		location.href ='';
+		location.href ='/shopAdmin/seller?page=1&pageSize=10';
 	}
 	
 </script>   

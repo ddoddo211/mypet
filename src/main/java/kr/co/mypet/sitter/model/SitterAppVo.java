@@ -9,8 +9,11 @@ public class SitterAppVo {
 	private String sta_suc;
 	private Date sta_date;
 	private String sta_file;
+	private String sta_kind;
+	private String sta_num;
 
 	private String mem_name;
+	private String mem_hp;
 
 	private int rnum;
 
@@ -20,6 +23,30 @@ public class SitterAppVo {
 
 	public void setRnum(int rnum) {
 		this.rnum = rnum;
+	}
+
+	public String getSta_kind() {
+		return sta_kind;
+	}
+
+	public void setSta_kind(String sta_kind) {
+		this.sta_kind = sta_kind;
+	}
+
+	public String getSta_num() {
+		return sta_num;
+	}
+
+	public void setSta_num(String sta_num) {
+		this.sta_num = sta_num;
+	}
+
+	public String getMem_hp() {
+		return mem_hp;
+	}
+
+	public void setMem_hp(String mem_hp) {
+		this.mem_hp = mem_hp;
 	}
 
 	public String getMem_name() {
@@ -81,8 +108,8 @@ public class SitterAppVo {
 	@Override
 	public String toString() {
 		return "SitterAppVo [sta_id=" + sta_id + ", sta_mem=" + sta_mem + ", sta_text=" + sta_text + ", sta_suc="
-				+ sta_suc + ", sta_date=" + sta_date + ", sta_file=" + sta_file + ", mem_name=" + mem_name + ", rnum="
-				+ rnum + "]";
+				+ sta_suc + ", sta_date=" + sta_date + ", sta_file=" + sta_file + ", sta_kind=" + sta_kind
+				+ ", sta_num=" + sta_num + ", mem_name=" + mem_name + ", mem_hp=" + mem_hp + ", rnum=" + rnum + "]";
 	}
 
 }

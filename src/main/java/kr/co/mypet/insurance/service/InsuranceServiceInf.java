@@ -180,7 +180,7 @@ public interface InsuranceServiceInf {
 	* @return
 	* Method 설명 : 마이펫에서 번호를 주면 품종 가지고 오는 쿼리문 (플랜정보에서 보험가입할때 이부분이 필요하다)
 	*/
-	PetkindVo petKindVo (String petk_id);
+	PetkindVo petKindVo (PetkindVo petKindVo);
 	
 	
 	/**
@@ -768,5 +768,16 @@ public interface InsuranceServiceInf {
 	* Method 설명 :관리자용 - 보험청구관리(신청) : 결과를 반려로 입력하는 부분
 	*/
 	int unpaid(AccidentVo acdVo);
+	
+	
+	/**
+	* Method : insprodCancel
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param ins_id
+	* @return
+	* Method 설명 :나의 펫 보험 화면에서 해당 펫의 가입되어 있는 보험상품 신청 취소 버튼을 클릭하였을 경우
+	*/
+	int insprodCancel(String ins_id);
 
 }

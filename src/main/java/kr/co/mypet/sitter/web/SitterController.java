@@ -1185,35 +1185,4 @@ public class SitterController {
 		
 		return "admin/petSitter/mypageADPet";
 	}
-	
-	@Autowired
-	private JavaMailSenderImpl mailSender;
-	
-	@RequestMapping("/mailSend")
-	public String mailSend(final HttpServletRequest request) throws Exception {
-		final MimeMessagePreparator preparator = new MimeMessagePreparator() {
-			@Override
-			public void prepare(MimeMessage mimeMessage) throws Exception {
-				final MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
-				helper.setFrom("sjyounghos@naver.com");
-				helper.setTo("seo1575@naver.com");
-				helper.setSubject("연습용");
-				helper.setText("연습연습", true);
-				
-				String path = request.getSession().getServletContext().getRealPath("");
-				String filePathToBeServed = path + "/img/petSitterImg/PDF.png";
-				
-				FileSystemResource file = new FileSystemResource(new File(filePathToBeServed));
-				helper.addAttachment("PDF.png", file);
-
-			}
-		};
-		mailSender.send(preparator);
-		return "";
-	}
-	
-	@RequestMapping("/sup")
-	public String sup() {
-		return "petSitter/shopSupport";
-	}
 }
