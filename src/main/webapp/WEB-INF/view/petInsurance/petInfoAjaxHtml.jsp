@@ -134,12 +134,17 @@ $(document).ready(function(){
 			<div id="mypetIsrJoin">
 				<div id="mypetIsrJoin1">
 					<div id="mypetIsrJoin1_1">해당 펫에 신청/가입되어 있는 보험</div>
+					
+					<div class="claimTitle7">
+						<div class="claimTitle7_2">
+							<div class="claimTitle4_2">보험상태가 완료로 되어 있는 부분 결재하기를 진행해야 정상적인 보험가입이 완료됩니다.</div>
+						</div>
+					</div>
 
 					<div id="mypetIsrJoin2">
 						<table>
 							<tr>
 								<th class="mypetTd0">체크</th>
-								<th class="mypetTd2">가입대상</th>
 								<th>보험상품</th>
 								<th class="mypetTd7">월 보험료 가격</th>
 								<th class="mypetTd2">가입연령</th>
@@ -149,6 +154,7 @@ $(document).ready(function(){
 								<th class="mypetTd3">보험상품 만료여부</th>
 								<th class="mypetTd2">보험가입상태</th>
 								<th class="mypetTd2">보험신청취소</th>
+								<th class="mypetTd2">보험결재</th>
 							</tr>
 
 							<!-- 펫에 신청/가입되어 있는 상품이 없을 경우 -->
@@ -164,7 +170,6 @@ $(document).ready(function(){
 										<tr>
 											<td class="tdh"><input type="radio" name="petProd"
 												class="petProdSelect" value="${list.ins_id}"></td>
-											<td class="tdh">${list.insp_join}</td>
 											<td class="tdh">${list.insp_kind}</td>
 											<td class="tdh"><%="월 "%>${list.insp_fees}<%="원"%></td>
 											<td class="tdh">${list.insp_minage}<%="~"%>${list.insp_maxage}<%="세"%></td>
@@ -182,6 +187,7 @@ $(document).ready(function(){
 													<td class="tdh"></td>
 												</c:otherwise>
 											</c:choose>
+											<td class="tdh">결재하기</td>
 										<tr>
 									</c:forEach>
 								</c:otherwise>

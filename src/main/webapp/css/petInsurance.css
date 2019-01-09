@@ -1639,6 +1639,12 @@ input[name="cb2"] {
 	margin-top: 20px;
 }
 
+.claimTitle7{
+	width:915px;
+	height: 30px;
+	margin-top: 20px;
+}
+
 .claimTitle4_1{
 	width: 1200px;
 	height: 25px;
@@ -1649,6 +1655,14 @@ input[name="cb2"] {
 
 .claimTitle4_1_2{
 	width: 1200px;
+	height: 25px;
+	background-color: #dbf6ff;
+	font-family: 'Jeju Gothic', sans-serif;
+    font-size: 18px;
+}
+
+.claimTitle7_2{
+	width: 915px;
 	height: 25px;
 	background-color: #dbf6ff;
 	font-family: 'Jeju Gothic', sans-serif;
@@ -3046,6 +3060,10 @@ div#upload-btnPet_wrap button {/*버튼 div*/
 	width: 915px;
     margin-top: 10px;
     min-height : 100px;
+}
+
+.mypeTtd0{
+	width: 10px;
 }
 
 .mypetTd{
