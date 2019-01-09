@@ -294,7 +294,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			select * from insurance , insprod
 			where inssp_id = insp_id
 			and ins_dis= 'N'
-			and (ins_stat ='완료' or ins_stat ='신청')
+			and (ins_stat ='완료' or ins_stat ='신청' or  ins_stat ='결재완료')
 			and myp_id = #{myp_id}
 			and mem_id = #{mem_id}
 			order by ins_stat desc
@@ -311,6 +311,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<update id="insprodCancel" parameterType="String">
 			update insurance 
 			   set ins_stat = '신청취소' 
+			 where ins_id = #{ins_id}
+		</update>
+		
+		<!-- 나의 펫 보험 화면에서 해당 펫의 가입되어 있는 보험상품 결재하기 버튼을 클릭하였을 경우 보험가입상태를 결재완료로 변경 -->
+		<update id="goPaymentSucces" parameterType="String">
+			update insurance 
+			   set ins_stat = '결재완료' 
 			 where ins_id = #{ins_id}
 		</update>
 		

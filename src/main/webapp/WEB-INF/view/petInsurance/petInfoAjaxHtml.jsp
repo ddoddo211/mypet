@@ -4,9 +4,23 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+
 <script type="text/javascript">
 $(document).ready(function(){
+    
+	// 체크 박스 클릭한 부분
+	$(".petProdSelect").click(function(){
+		var petProdSelect = $(this).val();
+		$("#petProdSelect").val(petProdSelect);
+		
+	});
 	
+	// 클릭한 결재 버튼의 data(prod)값을 넣어주기
+	$(".approval").click(function(){
+    	var prodId = $(this).data("ins_id");
+    	$("#prodId").val(prodId);
+	});
+    
 	//신청한 보험 건을 취소하는 부분
 	$("#cancel").click(function(){
 		var prodId = $(this).data("ins_id");
@@ -14,11 +28,6 @@ $(document).ready(function(){
 		$("#frm2").submit();
 	});
 	
-	// 체크 박스 클릭한 부분
-	$(".petProdSelect").click(function(){
-		var petProdSelect = $(this).val();
-		$("#petProdSelect").val(petProdSelect);
-	});
 	
 	// 보험해지 하기 버튼을 클릭할시에 적용되는 부분
 	$("#Termination").click(function(){
@@ -61,12 +70,60 @@ $(document).ready(function(){
 			$("#frm2").submit();
 		}
 	});
-	
-	
 });
 
+//결재 하기 버튼을 클릭하였을떄 나오는 부분
+function goPayment(insp_kind){
+	    var price = '100';
+	    var prodName = insp_kind;
+	    var petId = '${mypetInfo.myp_id}';
+	    
+	    var totalP = price;
+	    var prodNmae= prodName;
+	    IMP.request_pay({
+	        pg : 'inicis', // version 1.1.0부터 지원.
+	        pay_method : 'card',
+	        merchant_uid : 'merchant_' + new Date().getTime(),
+	        name : prodNmae,     // 상품명
+	        amount : parseInt(price),    // 가격
+	        buyer_email : '${memVo.mem_id}',
+	        buyer_name : '${memVo.mem_name}',
+	        buyer_tel : '${memVo.mem_hp}',
+	        buyer_addr : '${memVo.mem_addr}',
+	        buyer_postcode : '123-456',
+	        m_redirect_url : 'https://www.yourdomain.com/payments/complete'
+	    }, function(rsp) {
+	        if ( rsp.success ) {
+	            var msg = '';
+	            msg +='${memVo.mem_name}'+'님 선택하신 ';
+	            msg += prodNmae+'  에 대한  ';
+	            msg += rsp.paid_amount + '원 의 ';
+	            msg += '결제가 완료되었습니다.  \n\n';
+	            msg += '@ 결제완료   카드 승인번호 : ' + rsp.apply_num;
+	        } else {
+	            var msg = '결제에 실패하였습니다.';
+	            msg += '에러내용 : ' + rsp.error_msg;
+	        }
+	        alert(msg);
+	        
+	        if(rsp.success){
+	        	 //form으로 전달
+	        	 $("#goPay").submit();
+	        }
+	        
+	    });
+}
 
 </script>
+
+<!-- 결재완료후에 보험가입상태 변경하는 부분 -->
+<form action="/isr/goPaymentSucces" method="post" id="goPay">
+	<input type="hidden" name="prodId" id="prodId">
+	<input type="hidden" name="petId" id="petId">
+</form>
+
+
+
 <form action="/isr/mypetIsrDel" method="get" id="frm">
 	<input type="hidden" id="petProdSelect" name="petProdSelect" value="">
 	<input type="hidden" id="petId" name="petId" value="${mypetInfo.myp_id}">
@@ -168,8 +225,7 @@ $(document).ready(function(){
 
 									<c:forEach items="${isrVoList}" var="list">
 										<tr>
-											<td class="tdh"><input type="radio" name="petProd"
-												class="petProdSelect" value="${list.ins_id}"></td>
+											<td class="tdh"><input type="radio" name="petProd" class="petProdSelect" value="${list.ins_id}" data-insp_kind="${list.insp_kind}"></td>
 											<td class="tdh">${list.insp_kind}</td>
 											<td class="tdh"><%="월 "%>${list.insp_fees}<%="원"%></td>
 											<td class="tdh">${list.insp_minage}<%="~"%>${list.insp_maxage}<%="세"%></td>
@@ -187,7 +243,15 @@ $(document).ready(function(){
 													<td class="tdh"></td>
 												</c:otherwise>
 											</c:choose>
-											<td class="tdh">결재하기</td>
+											
+											<c:choose>
+												<c:when test="${list.ins_stat == '결재완료'}">
+													<td class="tdh"></td>
+												</c:when>
+												<c:otherwise>
+													<td class="tdh"><input class="approval" type="button" onclick="goPayment('${list.insp_kind}')" value="결재" data-ins_id="${list.ins_id }"></td>
+												</c:otherwise>
+											</c:choose>
 										<tr>
 									</c:forEach>
 								</c:otherwise>

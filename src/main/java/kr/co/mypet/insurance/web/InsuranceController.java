@@ -1496,8 +1496,6 @@ public class InsuranceController {
 			@RequestMapping("/insprodCancel")
 			public String insprodCancel(Model model ,HttpSession session,HttpServletRequest request) {
 				
-				System.out.println("컨트롤러");
-				
 				// 신청 취소할 id 담기
 				String prodId = request.getParameter("prodId");
 			
@@ -1537,6 +1535,51 @@ public class InsuranceController {
 					
 				return "petInsurance/myPetInsurance";
 			}
+			
+			// 개인용 - 나의 펫 보험 : 결재완료후에 보험가입상태 변경하는 부분
+			@RequestMapping("/goPaymentSucces")
+			public String goPaymentSucces(HttpServletRequest request, HttpSession session , Model model) {
+				
+				String prodId = request.getParameter("prodId");
+				
+				insuranceService.goPaymentSucces(prodId);
+				
+				// 펫의 아이디 담아주기(화면으로 이동해야 하기때문에)
+				String petId = request.getParameter("petId");
+				model.addAttribute("petId" , petId);
+								
+				// 회원 정보 받아오는 부분
+				MemberVo memVo = (MemberVo) session.getAttribute("memVo");
+				
+					//회원의 펫 가지고 오기
+					List<InsshoppingVo> mypetList = insuranceService.petList(memVo.getMem_id());
+					model.addAttribute("mypetList", mypetList);
+					
+					// 나의펫 보험 화면에서 현재까지 받은 보험금 현황 부분에 나와야 하는 부분
+					int isuranceStatus = insuranceService.isuranceStatus(memVo.getMem_id());
+					model.addAttribute("money",isuranceStatus );
+					
+					// 월 전체 보험료가 나오는 부분
+					int monthlyPremium = insuranceService.monthlyPremium(memVo.getMem_id());
+					model.addAttribute("money2",monthlyPremium);
+					
+					// 현재 보험금 신청현황(신청)- 신청 건수가 나와야 하기 때문에
+					List<AccidentVo> isrApply =  insuranceService.isrApply(memVo.getMem_id());
+					model.addAttribute("isrApplySize",isrApply.size());
+					
+					// 현재 보험금 신청현황(반려)- 반려 건수가 나와야 하기 때문에
+					List<AccidentVo> underExamination =  insuranceService.underExamination(memVo.getMem_id());
+					model.addAttribute("ueSize",underExamination.size());
+					
+					// 현재 보험금 신청현황(완료)- 완료 건수가 나와야 하기 때문에
+					List<AccidentVo> isrComplete =  insuranceService.isrComplete(memVo.getMem_id());
+					model.addAttribute("isrCompleteSize",isrComplete.size());
+				
+					return "petInsurance/myPetInsurance";
+					
+					
+			}
+			
 			
 			
 /*펫 관리자 페이지*/
@@ -2594,6 +2637,9 @@ public class InsuranceController {
 		        }
 				
 			}
+			
+			
+			
 			
 		
 			
