@@ -246,7 +246,7 @@ body {
 
 						<li><a href="/mem/memJoinSel">회원가입</a></li>
 
-						<li><a href="#">마이페이지</a></li>
+						<li><a href="/mem/memMypage">마이페이지</a></li>
 
 					</ul>
 

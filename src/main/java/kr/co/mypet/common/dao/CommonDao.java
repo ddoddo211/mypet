@@ -73,8 +73,11 @@ public class CommonDao implements CommonDaoInf {
 	}
 
 	@Override
-	public List<MemberVo> getMemberList() {
-		return template.selectList("member.getMemberList");
+	public int updateMemInfo(MemberVo memVo) {
+		
+		int chk = template.update("member.updateMemInfo", memVo);
+		
+		return chk;
 	}
 
 	

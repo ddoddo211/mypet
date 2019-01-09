@@ -32,6 +32,17 @@
 	set mem_point = #{mem_point}
 	where mem_id = #{mem_id}
   </update>
+  
+  <!-- 회원정보 수정 -->
+  <update id="updateMemInfo" parameterType="memVo">
+  	update member
+  	set	mem_pass=#{mem_pass},
+  		mem_name=#{mem_name},
+  		mem_addr=#{mem_addr},
+  		mem_addr2=#{mem_addr2},
+  		mem_hp=#{mem_hp}
+  	where mem_id=#{mem_id}
+  </update>
  
   <select id="getMemberList" resultType="memVo">
   	select mem_id from member

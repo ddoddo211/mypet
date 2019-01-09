@@ -1,7 +1,5 @@
 package kr.co.mypet.common.service;
 
-import java.util.List;
-
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -54,8 +52,9 @@ public class CommonService implements CommonServiceInf {
 	}
 
 	@Override
-	public List<MemberVo> getMemberList() {
-		return commonDao.getMemberList();
+	public int updateMemInfo(MemberVo memVo) {
+		// TODO Auto-generated method stub
+		return commonDao.updateMemInfo(memVo);
 	}
 	
 	

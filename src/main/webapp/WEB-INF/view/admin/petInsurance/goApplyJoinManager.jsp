@@ -203,12 +203,7 @@ $(document).ready(function() {
 					<div id="productManagement1_1">보험 신청자 관리</div>
 				</div>
 				
-				<div class="claimTitle4">
-					<div class="claimTitle4_1_2">
-						<div class="claimTitle4_2">보험"가입 신청 승인"을 하신다면 해당 회원에게 보험가입완료 메일이 발송되게 됩니다.</div>
-					</div>
-				</div>
-				
+
 				<div id="productManagement">
 						<div id="productList">
 							<table id="example-table-1">
@@ -304,14 +299,15 @@ $(document).ready(function() {
 				
 				
 				<div id="productManagement1">
-					<div id="productManagement1_1">보험 가입자 관리</div>
+					<div id="productManagement1_1">보험 가입완료자 관리</div>
 				</div>
 				
 				<div class="claimTitle4">
 					<div class="claimTitle4_1_2">
-						<div class="claimTitle4_2">블랙리스트로 등록되어 있는 대상자는 미납금액이 있는 대상자입니다.</div>
+						<div class="claimTitle4_2">보험 가입완료자 관리 부분은 회원이 보험료 결재까지 완료하였을떄 보험 가입 완료자로 나오는 부분입니다.</div>
 					</div>
 				</div>
+				
 				
 				<div class="claimTitle4">
 					<div class="claimTitle4_1_2">

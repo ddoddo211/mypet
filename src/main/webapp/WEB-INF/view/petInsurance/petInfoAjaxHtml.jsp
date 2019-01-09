@@ -70,7 +70,22 @@ $(document).ready(function(){
 			$("#frm2").submit();
 		}
 	});
+	
+	
+	// 진단서(필수)의 첨부파일을 클릭하였을 경우
+	$("#pdf3").click(function(){
+		// 진단서 넣어주기
+		var file = '/img/petInsurance/contract.jpg';
+		goPdf(file);
+	});
+	
 });
+
+//pdf으로 가는 부분
+function goPdf(fileName){
+	var fileName = fileName;
+	location.href = '/isr/fileDown?fileName='+fileName;
+}
 
 //결재 하기 버튼을 클릭하였을떄 나오는 부분
 function goPayment(insp_kind){
@@ -197,6 +212,18 @@ function goPayment(insp_kind){
 							<div class="claimTitle4_2">보험상태가 완료로 되어 있는 부분 결재하기를 진행해야 정상적인 보험가입이 완료됩니다.</div>
 						</div>
 					</div>
+					
+					<div class="claimTitle7">
+						<div class="claimTitle7_2">
+							<div class="claimTitle4_2">결재가 완료된후에는 해당 회원의 이메일로 "보험계약 증명서"가 발송됩니다.</div>
+						</div>
+					</div>
+					
+					<div class="claimTitle7">
+						<div class="claimTitle7_2">
+							<div class="claimTitle4_2">발송된 "보험계약 증명서"는 해당 화면에 보험결재 부분에서 다운도 가능합니다.</div>
+						</div>
+					</div>
 
 					<div id="mypetIsrJoin2">
 						<table>
@@ -246,7 +273,7 @@ function goPayment(insp_kind){
 											
 											<c:choose>
 												<c:when test="${list.ins_stat == '결재완료'}">
-													<td class="tdh"></td>
+													<td class="tdh"><img id="pdf3" alt="pdf파일" src="/img/petInsurance/PDF.png"></td>
 												</c:when>
 												<c:otherwise>
 													<td class="tdh"><input class="approval" type="button" onclick="goPayment('${list.insp_kind}')" value="결재" data-ins_id="${list.ins_id }"></td>
