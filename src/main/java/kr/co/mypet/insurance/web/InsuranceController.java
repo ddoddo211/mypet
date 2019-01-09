@@ -1946,7 +1946,7 @@ public class InsuranceController {
 			
 			/* 보험 신청 /가입자 : 신청 승인 버튼을 클릭하였을 경우*/
 			@RequestMapping("/goApplyJoin")
-			public String goApplyJoin(Model model ,final HttpServletRequest request) throws Exception {
+			public String goApplyJoin(Model model , HttpServletRequest request) throws Exception {
 				
 				String applyJoinProd = request.getParameter("applyJoinProd");
 				String petId = request.getParameter("petIdProd");
@@ -2021,27 +2021,6 @@ public class InsuranceController {
 				List<InsuranceVo> terminationList = insuranceService.terminationList();
 				model.addAttribute("terminationList" , terminationList );
 				model.addAttribute("terminationListSize" , terminationList.size() );
-				
-				final String mem_id = request.getParameter("memid");
-				
-				final MimeMessagePreparator preparator = new MimeMessagePreparator() {
-					@Override
-					public void prepare(MimeMessage mimeMessage) throws Exception {
-						final MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
-						helper.setFrom("sjyounghos@naver.com");
-						helper.setTo(mem_id);
-						helper.setSubject("연습용");
-						helper.setText("연습연습", true);
-						
-						String path = request.getSession().getServletContext().getRealPath("");
-						String filePathToBeServed = path + "/img/petSitterImg/PDF.png";
-						
-						FileSystemResource file = new FileSystemResource(new File(filePathToBeServed));
-						helper.addAttachment("PDF.png", file);
-
-					}
-				};
-				mailSender.send(preparator);
 				
 				return "admin/petInsurance/goApplyJoinManager";
 			}
