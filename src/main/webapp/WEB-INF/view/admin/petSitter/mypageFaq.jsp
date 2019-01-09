@@ -31,8 +31,8 @@
 	<div style="margin-top:30px; width:100%;">
 		<table id="reservationTable">
 			<tr>
-				<th class="th">구분</th>
-				<th class="th">번호</th>
+				<th class="th" width="50px;">구분</th>
+				<th class="th" width="50px;">번호</th>
 				<th class="th">제목</th>
 				<th class="th">작성일자</th>
 			</tr>

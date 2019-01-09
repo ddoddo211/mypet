@@ -13,11 +13,17 @@ import java.util.Map;
 import java.util.UUID;
 
 import javax.annotation.Resource;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.tomcat.util.http.fileupload.IOUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -207,7 +213,7 @@ public class SitterController {
 	
 	// 나의 반려동물 정보 수정 처리
 	@RequestMapping("/mypetUpdate")
-	public String mypetUpdate(@RequestParam("petId")String petId, @RequestParam("petName")String petName, @RequestParam("petGender")String petGender, @RequestParam("petNTL")String petNTL,
+	public String mypetUpdate(HttpServletRequest request, @RequestParam("petId")String petId, @RequestParam("petName")String petName, @RequestParam("petGender")String petGender, @RequestParam("petNTL")String petNTL,
 			@RequestParam("petBirthForm")String petBirthForm, @RequestParam("petSick")String petSick, @RequestPart("petImgForm")MultipartFile part,
 			@RequestParam("petPreImg")String petPreImg) throws Exception {
 		
@@ -222,7 +228,8 @@ public class SitterController {
 		mypetVo.setMyp_sick(petSick);
 		
 		// 실제 파일 저장될 경로 설정하기
-		String path = "D:\\A_TeachingMaterial\\7.LastProject\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\mypet\\img\\petimg";
+		String path1 = request.getSession().getServletContext().getRealPath("");
+		String path = path1+"\\img\\petimg";
 		String str = part.getOriginalFilename();
 		
 		// 파일명 가지고 오기
@@ -505,24 +512,24 @@ public class SitterController {
 	@RequestMapping("/reviewPaginationAjaxHtml")
 	public String reviewPaginationAjaxHtml(PageVo pageVo, @RequestParam("pst_id")String pst_id, Model model) {
 				
-			String stv_pst = pst_id;
-			
-			Map<String, Object> param = new HashMap<>();
-			param.put("page", pageVo.getPage());
-			param.put("pageSize", pageVo.getPageSize());
-			param.put("stv_pst", stv_pst);
-			
-			Map<String, Object> resultMap = sitterService.getReviewList(param);
-			
-			List<SitterRevVo> reviewList = (List<SitterRevVo>) resultMap.get("reviewList");
-			int pageCnt = (int) resultMap.get("pageCnt");
-			
-			model.addAttribute("reviewList", reviewList);
-			model.addAttribute("pageCnt", pageCnt);
-			model.addAttribute("page", pageVo.getPage());
-			model.addAttribute("stv_pst", stv_pst);
-			
-			return "/petSitter/reviewPaginationAjaxHtml";
+		String stv_pst = pst_id;
+		
+		Map<String, Object> param = new HashMap<>();
+		param.put("page", pageVo.getPage());
+		param.put("pageSize", pageVo.getPageSize());
+		param.put("stv_pst", stv_pst);
+		
+		Map<String, Object> resultMap = sitterService.getReviewList(param);
+		
+		List<SitterRevVo> reviewList = (List<SitterRevVo>) resultMap.get("reviewList");
+		int pageCnt = (int) resultMap.get("pageCnt");
+		
+		model.addAttribute("reviewList", reviewList);
+		model.addAttribute("pageCnt", pageCnt);
+		model.addAttribute("page", pageVo.getPage());
+		model.addAttribute("stv_pst", stv_pst);
+		
+		return "/petSitter/reviewPaginationAjaxHtml";
 	}
 	
 	// 후기 게시글 등록
@@ -562,7 +569,7 @@ public class SitterController {
 	}
 	
 	@RequestMapping("/sitterToInsert")
-	public String sitterToInsert(@RequestParam("notice_title")String notice_title, @RequestParam("pst_text")String pst_text,
+	public String sitterToInsert(HttpServletRequest request, @RequestParam("notice_title")String notice_title, @RequestParam("pst_text")String pst_text,
 			@RequestParam("chkIn")String pst_cidate,@RequestParam("chkOut")String pst_codate, @RequestParam("chkIn2")String pst_cidate2,@RequestParam("chkOut2")String pst_codate2,
 			@RequestPart("notice_file")MultipartFile part, @RequestParam("price_dc")String price_dc, @RequestParam("price_1d")String price_1d, HttpSession session) throws Exception, IOException {
 
@@ -576,7 +583,8 @@ public class SitterController {
 		} else {
 
 			// 실제 파일 저장될 경로 설정하기
-			String path = "D:\\A_TeachingMaterial\\7.LastProject\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\mypet\\img\\petSitterImg";
+			String path1 = request.getSession().getServletContext().getRealPath("");
+			String path = path1+"\\img\\petSitterImg";
 			String str = part.getOriginalFilename();
 
 			// 파일명 가지고 오기
@@ -780,7 +788,7 @@ public class SitterController {
 		
 		model.addAttribute("faqList", faqList);
 		
-		return "petSitter/mypageFaq";
+		return "admin/petSitter/mypageFaq";
 	}
 	
 	// 마이페이지 FAQ 삭제 처리
@@ -797,7 +805,7 @@ public class SitterController {
 		
 		model.addAttribute("faqList", faqList);
 		
-		return "petSitter/mypageFaq";
+		return "admin/petSitter/mypageFaq";
 	}
 	
 	// 마이페이지 반려동물 관리 화면
@@ -810,7 +818,7 @@ public class SitterController {
 		
 		model.addAttribute("mypetList", mypetList);
 		
-		return "/petSitter/mypageMypet";
+		return "petSitter/mypageMypet";
 	}
 	
 	// 마이페이지 펫시터 지원관리
@@ -842,7 +850,7 @@ public class SitterController {
 	
 	// 마이페이지 펫시터 지원관리 -> PDF 출력
 	@RequestMapping("/supportPDF")
-	public String supportPDF(HttpServletRequest request, Model model) {
+	public String supportPDF(HttpServletRequest request, Model model, PageVo pageVo) {
 		
 		String sta_id = request.getParameter("staId");
 		String[] staId = sta_id.split(" ");
@@ -873,13 +881,15 @@ public class SitterController {
 		model.addAttribute("memName", memName);
 		model.addAttribute("memBirth", memBirth);
 		model.addAttribute("staId", staID);
+		model.addAttribute("page", pageVo.getPage());
+		model.addAttribute("pageSize", pageVo.getPageSize());
 		
 		return "redirect:/sit/supportPDFCreate";
 	}
 	
 	// 펫시터 지원 합격증 생성
 	@RequestMapping("/supportPDFCreate")
-	public String pdfCreate(@RequestParam("memName")String[] memName, @RequestParam("memBirth")String[] memBirth, @RequestParam("staId")String[] staId) throws DocumentException, IOException {
+	public String pdfCreate(Model model, @RequestParam("page")int page, @RequestParam("pageSize")int pageSize, HttpServletRequest request, @RequestParam("memName")String[] memName, @RequestParam("memBirth")String[] memBirth, @RequestParam("staId")String[] staId) throws DocumentException, IOException {
 		
 		String[] name = memName;
 		String[] birth = memBirth;
@@ -887,7 +897,8 @@ public class SitterController {
 		
 		for(int i=0; i<name.length; i++) {
 			String fileName = "";
-			String dir = "D:\\A_TeachingMaterial\\7.LastProject\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\mypet\\upload\\petSitter_SUC";
+			String path1 = request.getSession().getServletContext().getRealPath("");
+			String dir = path1 + "\\upload\\petSitter_SUC";
 			fileName = UUID.randomUUID().toString()+".pdf";
 			
 			File directory = new File(dir);
@@ -898,10 +909,10 @@ public class SitterController {
 			PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(dir+"/"+fileName));
 			document.open();
 			
-			Image jpg = Image.getInstance("D:\\A_TeachingMaterial\\7.LastProject\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\mypet\\img\\petSitterImg\\petsitter_suc.jpg");
+			Image jpg = Image.getInstance(path1 + "\\img\\petSitterImg\\petsitter_suc.jpg");
 			document.add(jpg);
 			
-			BaseFont bf = BaseFont.createFont("D:\\A_TeachingMaterial\\7.LastProject\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\mypet\\font\\korean.h2gtrm.ttf", BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
+			BaseFont bf = BaseFont.createFont(path1 + "\\font\\korean.h2gtrm.ttf", BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
 			
 			PdfContentByte cb = writer.getDirectContent();
 			cb.beginText();
@@ -923,9 +934,18 @@ public class SitterController {
 			param.put("sta_file", fileName);
 			
 			int updateCnt = sitterService.updateSupportFile(param);
+			
 		}
 		
-		return "redirect:/sit/myPage";
+		PageVo pageVo = new PageVo();
+		pageVo.setPage(page);
+		pageVo.setPageSize(pageSize);
+		
+		List<SitterAppVo> staList = sitterService.getSupportListAll(pageVo);
+		
+		model.addAttribute("staList", staList);
+		
+		return "admin/petSitter/mypageADSupport";
 	}
 	
 	// 마이페이지 ADMIN 예약 관리 화면
@@ -936,7 +956,7 @@ public class SitterController {
 		
 		model.addAttribute("resList", resList);
 		
-		return "petSitter/mypageADReservation";
+		return "admin/petSitter/mypageADReservation";
 	}
 	
 	// 마이페이지 ADMIN 예약 관리 화면 페이징 처리
@@ -951,7 +971,7 @@ public class SitterController {
 		model.addAttribute("page", pageVo.getPage());
 		model.addAttribute("pageCnt", pageCnt);
 		
-		return "petSitter/mypageADReservationPage";
+		return "admin/petSitter/mypageADReservationPage";
 	}
 	
 	// 마이페이지 ADMIN 지원관리 화면
@@ -962,7 +982,7 @@ public class SitterController {
 				
 		model.addAttribute("staList", staList);
 		
-		return "petSitter/mypageADSupport";
+		return "admin/petSitter/mypageADSupport";
 	}
 	
 	// 마이페이지 ADMIN 지원관리 화면
@@ -978,25 +998,16 @@ public class SitterController {
 		model.addAttribute("page", pageVo.getPage());
 		model.addAttribute("pageCnt", pageCnt);
 		
-		return "petSitter/mypageADSupportPage";
+		return "admin/petSitter/mypageADSupportPage";
 	}
 	
 	// 마이페이지 일반사용자 지원관리 화면 -> 첨부파일 클릭시 다운로드
 	@RequestMapping("/supportPDFfileViewer")
-	public void supportPDFfileViewer(@RequestParam("fileName")String fileName, HttpSession session,HttpServletResponse response) throws Exception {
-		
-//		HttpHeaders headers = new HttpHeaders();
-//		
-//		headers.setContentType(MediaType.parseMediaType("application/pdf"));
-//		String file_name = fileName;
-//		
-//		headers.add("content-disposition", "inline;filename="+file_name);
-//		
-//		headers.setCacheControl("must-revalidate, post-check=0, pre-check=0");
-//		ResponseEntity<byte[]> response = new ResponseEntity<byte[]>(, headers, HttpStatus.OK );
+	public void supportPDFfileViewer(HttpServletRequest request, @RequestParam("fileName")String fileName, HttpSession session,HttpServletResponse response) throws Exception {
 		
 		try {
-            String filePathToBeServed = "D:\\A_TeachingMaterial\\7.LastProject\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\mypet\\upload\\petSitter_SUC\\";
+			String path1 = request.getSession().getServletContext().getRealPath("");
+            String filePathToBeServed = path1 + "\\upload\\petSitter_SUC\\";
             File fileToDownload = new File(filePathToBeServed+fileName);
 
             FileInputStream inputStream = new FileInputStream(fileToDownload);
@@ -1033,7 +1044,7 @@ public class SitterController {
 		
 		int deleteCnt = sitterService.deleteADReservation(date);
 		
-		return "petSitter/mypageADReservation";
+		return "admin/petSitter/mypageADReservation";
 	}
 	
 	// 관리자 마이페이지 -> 게시글 관리(후기글)
@@ -1045,7 +1056,7 @@ public class SitterController {
 		List<SitterRevVo> reviewListAll = (List<SitterRevVo>) resultMap.get("reviewListAll");
 		model.addAttribute("reviewListAll", reviewListAll);
 		
-		return "petSitter/mypageADNotice";
+		return "admin/petSitter/mypageADNotice";
 	}
 	
 	// 관리자 마이페이지 -> 게시글 관리(후기글) 페이징 처리
@@ -1061,7 +1072,7 @@ public class SitterController {
 		model.addAttribute("pageCnt", pageCnt);
 		model.addAttribute("page", pageVo.getPage());
 		
-		return "petSitter/mypageADNoticePage";
+		return "admin/petSitter/mypageADNoticePage";
 	}
 	
 	// 관리자 마이페이지 -> 게시글 관리(후기글) 삭제 처리
@@ -1079,7 +1090,7 @@ public class SitterController {
 		List<SitterRevVo> reviewListAll = (List<SitterRevVo>) resultMap.get("reviewListAll");
 		model.addAttribute("reviewListAll", reviewListAll);
 		
-		return "petSitter/mypageADNotice";
+		return "admin/petSitter/mypageADNotice";
 	}
 	
 	// 관리자 마이페이지 -> 게시글 관리(펫시터 집에 맡기기)
@@ -1091,6 +1102,118 @@ public class SitterController {
 		List<PetSitterVo> petSitterToListAll = (List<PetSitterVo>) resultMap.get("petSitterToListAll");
 		model.addAttribute("petSitterToListAll", petSitterToListAll);
 		
-		return "petSitter/mypageADNotice";
+		return "admin/petSitter/mypageADSitterTo";
+	}
+	
+	// 관리자 마이페이지 -> 게시글 관리(펫시터 집에 맡기기) 페이징 처리
+	@RequestMapping("/mypageSitterToPageAjaxHtml")
+	public String mypageSitterToPageAjaxHtml(PageVo pageVo, Model model) {
+		
+		Map<String, Object> resultMap = sitterService.getPetSitterToListAll(pageVo);
+		
+		List<SitterRevVo> petSitterToListAll = (List<SitterRevVo>) resultMap.get("petSitterToListAll");
+		int pageCnt = (int) resultMap.get("pageCnt");
+		
+		model.addAttribute("petSitterToListAll", petSitterToListAll);
+		model.addAttribute("pageCnt", pageCnt);
+		model.addAttribute("page", pageVo.getPage());
+		
+		return "admin/petSitter/mypageADSitterPage";
+	}
+	
+	// 관리자 마이페이지 -> 게시글 관리(펫시터 집에 맡기기) 삭제 처리
+	@RequestMapping("/mypageDeleteSitterTo")
+	public String mypageDeleteSitterTo(PageVo pageVo, Model model, @RequestParam("pst_id")String pst_id) {
+		
+		String[] pstId = pst_id.split(" ");
+		for(int i=0; i<pstId.length; i++) {
+			int deleteCnt = sitterService.deleteSitterTo(pstId[i]);
+		}
+		
+		Map<String, Object> resultMap = sitterService.getPetSitterToListAll(pageVo);
+		
+		List<PetSitterVo> petSitterToListAll = (List<PetSitterVo>) resultMap.get("petSitterToListAll");
+		model.addAttribute("petSitterToListAll", petSitterToListAll);
+		
+		return "admin/petSitter/mypageADSitterTo";
+	}
+	
+	// 관리자 마이페이지 -> 반려동물 관리
+	@RequestMapping("/mypagePetListAll")
+	public String mypagePetListAll(PageVo pageVo, Model model) {
+		
+		Map<String, Object> resultMap = sitterService.getPetListAll(pageVo);
+		
+		List<SitterRevVo> petListAll = (List<SitterRevVo>) resultMap.get("petListAll");
+		
+		model.addAttribute("petListAll", petListAll);
+		
+		return "admin/petSitter/mypageADPet";
+	}
+	
+	// 관리자 마이페이지 -> 반려동물 관리 페이징 처리
+	@RequestMapping("/mypagePetListAllPage")
+	public String mypagePetListAllPage(PageVo pageVo, Model model) {
+		
+		Map<String, Object> resultMap = sitterService.getPetListAll(pageVo);
+		
+		List<SitterRevVo> petListAll = (List<SitterRevVo>) resultMap.get("petListAll");
+		int pageCnt = (int) resultMap.get("pageCnt");
+		
+		model.addAttribute("petListAll", petListAll);
+		model.addAttribute("pageCnt", pageCnt);
+		model.addAttribute("page", pageVo.getPage());
+		
+		return "admin/petSitter/mypageADPetPage";
+	}
+	
+	// 관리자 마이페이지 -> 반려동물 관리(반려동물) 삭제처리
+	@RequestMapping("/mypageDeletePet")
+	public String mypageDeletePet(@RequestParam("myp_id")String myp_id, PageVo pageVo, Model model) {
+		
+		String[] mypId = myp_id.split(" ");
+		
+		for(int i=0; i<mypId.length; i++) {
+			int deleteCnt = sitterService.deleteMypet(mypId[i]);
+		}
+		
+		Map<String, Object> resultMap = sitterService.getPetListAll(pageVo);
+		
+		List<SitterRevVo> petListAll = (List<SitterRevVo>) resultMap.get("petListAll");
+		
+		model.addAttribute("petListAll", petListAll);
+		
+		return "admin/petSitter/mypageADPet";
+	}
+	
+	@Autowired
+	private JavaMailSenderImpl mailSender;
+	
+	@RequestMapping("/mailSend")
+	public String mailSend(final HttpServletRequest request) throws Exception {
+		final MimeMessagePreparator preparator = new MimeMessagePreparator() {
+			@Override
+			public void prepare(MimeMessage mimeMessage) throws Exception {
+				final MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
+				helper.setFrom("sjyounghos@naver.com");
+				helper.setTo("seo1575@naver.com");
+				helper.setSubject("연습용");
+				helper.setText("연습연습", true);
+				
+				String path = request.getSession().getServletContext().getRealPath("");
+				String filePathToBeServed = path + "/img/petSitterImg/PDF.png";
+				
+				FileSystemResource file = new FileSystemResource(new File(filePathToBeServed));
+				helper.addAttachment("PDF.png", file);
+
+			}
+		};
+		mailSender.send(preparator);
+		return "";
+	}
+	
+	@RequestMapping("/sup")
+	public String sup() {
+		return "petSitter/shopSupport";
 	}
 }
