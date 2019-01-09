@@ -80,7 +80,10 @@ public class CommonDao implements CommonDaoInf {
 		return chk;
 	}
 
-	
+	@Override
+	public List<MemberVo> getMemberList() {
+		return template.selectList("member.getMemberList");
+	}
 
 
 }
