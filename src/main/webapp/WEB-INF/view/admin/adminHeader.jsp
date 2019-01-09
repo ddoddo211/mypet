@@ -10,7 +10,7 @@
 									<a class="adminHeaderA" href="/mem/petManagerMain">홈</a>
 								</div>
 								<div>
-									<a class="adminHeaderA" href="#">펫 시터</a>
+									<a class="adminHeaderA" href="/mem/petSitManager">펫 시터</a>
 								</div>
 								<div>
 									<a class="adminHeaderA" href="#">펫 미용실</a>

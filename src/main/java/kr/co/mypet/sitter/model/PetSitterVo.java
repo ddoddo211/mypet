@@ -3,8 +3,11 @@ package kr.co.mypet.sitter.model;
 import java.util.Date;
 
 public class PetSitterVo {
+	private int rnum;
+
+	private String mem_name;
 	private String mem_addr;
-	
+
 	private String pst_id;
 	private String pst_mem;
 	private String pst_img;
@@ -17,8 +20,24 @@ public class PetSitterVo {
 	private int pst_price2; // 1박 가격
 	private String pst_cidate; // 체크인 시간
 	private String pst_codate; // 체크아웃 시간
+	private String pst_chk; // 삭제여부
 
-	
+	public int getRnum() {
+		return rnum;
+	}
+
+	public void setRnum(int rnum) {
+		this.rnum = rnum;
+	}
+
+	public String getMem_name() {
+		return mem_name;
+	}
+
+	public void setMem_name(String mem_name) {
+		this.mem_name = mem_name;
+	}
+
 	public String getMem_addr() {
 		return mem_addr;
 	}
@@ -123,12 +142,22 @@ public class PetSitterVo {
 		this.pst_view = pst_view;
 	}
 
-	@Override
-	public String toString() {
-		return "PetSitterVo [mem_addr=" + mem_addr + ", pst_id=" + pst_id + ", pst_mem=" + pst_mem + ", pst_img="
-				+ pst_img + ", pst_title=" + pst_title + ", pst_text=" + pst_text + ", pst_date=" + pst_date
-				+ ", pst_score=" + pst_score + ", pst_view=" + pst_view + ", pst_price1=" + pst_price1 + ", pst_price2="
-				+ pst_price2 + ", pst_cidate=" + pst_cidate + ", pst_codate=" + pst_codate + "]";
+	public String getPst_chk() {
+		return pst_chk;
 	}
 
+	public void setPst_chk(String pst_chk) {
+		this.pst_chk = pst_chk;
+	}
+
+	@Override
+	public String toString() {
+		return "PetSitterVo [rnum=" + rnum + ", mem_name=" + mem_name + ", mem_addr=" + mem_addr + ", pst_id=" + pst_id
+				+ ", pst_mem=" + pst_mem + ", pst_img=" + pst_img + ", pst_title=" + pst_title + ", pst_text="
+				+ pst_text + ", pst_date=" + pst_date + ", pst_score=" + pst_score + ", pst_view=" + pst_view
+				+ ", pst_price1=" + pst_price1 + ", pst_price2=" + pst_price2 + ", pst_cidate=" + pst_cidate
+				+ ", pst_codate=" + pst_codate + ", pst_chk=" + pst_chk + "]";
+	}
+
+	
 }

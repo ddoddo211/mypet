@@ -546,14 +546,7 @@
 			<div id="mypageLeft">
 				<div id="profile">
 					<div id="profileImg">
-						<c:choose>
-							<c:when test="${memVo.mem_img == null}">
-								<img src="/img/member/kanghanna.jpg" id="proImg" />
-							</c:when>
-							<c:otherwise>
-								<img src="${memVo.mem_img}" id="proImg"/>
-							</c:otherwise>
-						</c:choose>
+						<img src="/img/member/kanghanna.jpg" id="proImg" />
 					</div>
 					<div id="profileInfo">
 						<span>${memVo.mem_name }</span>

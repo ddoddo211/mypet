@@ -346,4 +346,9 @@ public class MemberController {
 		return "admin/petInsurance/petInsuranceMain";
 	}
 
+	// 관리자 마이페이지(펫시터)
+	@RequestMapping("/petSitManager")
+	public String petSitManager() {
+		return "/admin/petSitter/petSitterMain";
+	}
 }

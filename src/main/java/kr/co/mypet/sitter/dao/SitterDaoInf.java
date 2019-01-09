@@ -116,4 +116,10 @@ public interface SitterDaoInf {
 	List<PetSitterVo> getPetSitterToListAll(PageVo pageVo);
 
 	int getPetSitterToAllCnt();
+
+	int deleteSitterTo(String pst_id);
+
+	List<MypetVo> getPetListAll(PageVo pageVo);
+
+	int getPetListAllCnt();
 }

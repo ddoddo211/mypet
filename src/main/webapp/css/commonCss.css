@@ -14,6 +14,7 @@ html, body, div, a, span, button, p{
 	font-weight: inherit;
 	font-style: inherit;
 	vertical-align: baseline;
+
 }
 
 body {
@@ -83,7 +84,8 @@ body {
 }
 
 #gateway_con .gnbArea_left li a:hover {
-	text-decoration: none
+	text-decoration: none;
+	outline: none;
 }
 
 #gateway_warp ul, #gateway_warp li, #gateway_warp dl, #gateway_warp dt,
