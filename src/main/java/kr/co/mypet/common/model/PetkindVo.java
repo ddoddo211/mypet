@@ -9,19 +9,15 @@ public class PetkindVo {
 	
 	// 펫 품종에서 AM_NAME가지고 오기 위해서 설정
 	private String am_name;
-	
+	private String myp_name;
+	private String myp_petk;
 	
 	@Override
 	public String toString() {
 		return "PetkindVo [petk_id=" + petk_id + ", petk_name=" + petk_name + ", petk_am=" + petk_am + ", petk_size="
-				+ petk_size + ", am_name=" + am_name + "]";
+				+ petk_size + ", am_name=" + am_name + ", myp_name=" + myp_name + ", myp_petk=" + myp_petk + "]";
 	}
-	public String getAm_name() {
-		return am_name;
-	}
-	public void setAm_name(String am_name) {
-		this.am_name = am_name;
-	}
+	
 	public String getPetk_id() {
 		return petk_id;
 	}
@@ -46,6 +42,25 @@ public class PetkindVo {
 	public void setPetk_size(String petk_size) {
 		this.petk_size = petk_size;
 	}
+	public String getAm_name() {
+		return am_name;
+	}
+	public void setAm_name(String am_name) {
+		this.am_name = am_name;
+	}
+	public String getMyp_name() {
+		return myp_name;
+	}
+	public void setMyp_name(String myp_name) {
+		this.myp_name = myp_name;
+	}
+	public String getMyp_petk() {
+		return myp_petk;
+	}
+	public void setMyp_petk(String myp_petk) {
+		this.myp_petk = myp_petk;
+	}
+
 	
 	
 

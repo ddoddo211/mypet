@@ -221,7 +221,7 @@ public class InsuranceDao implements InsuranceDaoInf {
 	*/
 	@Override
 	public List<PetkindVo> petKindList(String am_name) {
-		return template.selectList("petIns.petKind" , am_name);
+		return template.selectList("petIns.petKindVo" , am_name);
 	}
 
 
@@ -277,8 +277,8 @@ public class InsuranceDao implements InsuranceDaoInf {
 	* Method 설명 : 마이펫에서 번호를 주면 품종 가지고 오는 쿼리문 (플랜정보에서 보험가입할때 이부분이 필요하다)
 	*/
 	@Override
-	public PetkindVo petKindVo(String petk_id) {
-		return template.selectOne("petIns.petIrsJoinKind", petk_id);
+	public PetkindVo petKindVo(PetkindVo petKindVo) {
+		return template.selectOne("petIns.petKindVo", petKindVo);
 	}
 
 
@@ -1081,6 +1081,20 @@ public class InsuranceDao implements InsuranceDaoInf {
 	@Override
 	public int unpaid(AccidentVo acdVo) {
 		return template.update("petIns.unpaid", acdVo);
+	}
+
+
+	/**
+	* Method : insprodCancel
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param ins_id
+	* @return
+	* Method 설명 :나의 펫 보험 화면에서 해당 펫의 가입되어 있는 보험상품 신청 취소 버튼을 클릭하였을 경우
+	*/
+	@Override
+	public int insprodCancel(String ins_id) {
+		return template.update("petIns.insprodCancel", ins_id);
 	}
 
 

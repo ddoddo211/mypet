@@ -114,10 +114,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</update>
 		
 		<!--반려동물 품종 가지고 오는 쿼리문-->
-		<select id="petKind" parameterType="String" resultType="petkindVo">
-			select * from petkind , animal
-			where petk_am = AM_ID
-            and am_name = #{am_name}
+		<select id="petKindVo" parameterType="petkindVo" resultType="petkindVo">
+			select * from petkind a, animal b , mypet c
+			where c.myp_petk = a.petk_id
+            and a.petk_am = b.am_id
+            and c.myp_petk = #{myp_petk}
+            and c.myp_name = #{myp_name}
             order by petk_id asc
 		</select>
 		
@@ -145,19 +147,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			       ,#{myp_sick},#{myp_img},	#{myp_neu},#{myp_gender},#{myp_name},'N')
 		</insert>
 		
-		
-		<!-- 마이펫에서 번호를 주면 품종 가지고 오는 쿼리문 (플랜정보에서 보험가입할때 이부분이 필요하다) -->
-		<select id="petIrsJoinKind" parameterType="String" resultType="petkindVo">
-            select * from petkind , mypet ,animal
-			where myp_petk = petk_id 
-			and PETK_AM = AM_ID
- 			and myp_del = 'N'
-            and petk_id = #{petk_id}
-		</select>
-		
 		<!-- 보험상품 가입되는 부분 -->
 		<insert id="isrProdMypetJoin" parameterType="insVo">
-			insert into insurance values (insurancejoin_num.nextval,'','','신청','N',0,#{myp_id},#{mem_id},#{inssp_id},#{act_id})
+			insert into insurance values (insurancejoin_num.nextval,'','','신청','N',0,#{myp_id},#{mem_id},#{inssp_id},'')
 		</insert>
 		
 		<!-- 보험가입이 완료 된다면 해당 플랜정보(장바구니)화면에 해당 상품이 삭제 되도록 만들기 -->
@@ -314,6 +306,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			 where ins_id = #{ins_id}
 		</update>
 		
+		<!-- 나의 펫 보험 화면에서 해당 펫의 가입되어 있는 보험상품 신청 취소 버튼을 클릭하였을 경우 -->
+		<update id="insprodCancel" parameterType="String">
+			update insurance 
+			   set ins_stat = '신청취소' 
+			 where ins_id = #{ins_id}
+		</update>
+		
 		<!-- 나의 펫 보험 - 보험 해지 되어 있는 가입내역이 나오는 부분 -->
 		<select id="claimPetJoinProd2" parameterType="insVo" resultType="insVo">
 			select * from insurance , insprod
@@ -328,7 +327,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<select id="claimPetJoinHandling" parameterType="insVo" resultType="insVo">
 			select * from insurance , insprod
 			where inssp_id = insp_id
-			and ins_stat = '반려'
+			and (ins_stat ='반려' or ins_stat ='신청취소')
 			and myp_id = #{myp_id}
 			and mem_id = #{mem_id}
 		</select>
