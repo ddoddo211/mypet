@@ -16,5 +16,13 @@ public interface CommonServiceInf {
 	//memberinfo
 	public MemberVo memberInfo(String mem_id);
 	
-	
+	/**
+	* Method : pointUpdate
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param memVo
+	* @return
+	* Method 설명 : 멤버 포인트 적립 및 사용
+	*/
+	public int pointUpdate(MemberVo memVo);
 }

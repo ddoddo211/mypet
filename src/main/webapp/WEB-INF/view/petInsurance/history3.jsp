@@ -12,12 +12,30 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-
+	// 진단서(필수)의 첨부파일을 클릭하였을 경우
+	$("#pdf").click(function(){
+		// 진단서 넣어주기
+		var file = '${history.accd_recp}';
+		goPdf(file);
+	});
+	
+	// 진단서(필수)의 첨부파일을 클릭하였을 경우
+	$("#pdf2").click(function(){
+		// 진단서 넣어주기
+		var file = '${history.accd_img}';
+		goPdf(file);
+	});
 
 });
 
 function goBack(){
 	location.href ='/isr/gocompleted';
+}
+
+//pdf으로 가는 부분
+function goPdf(fileName){
+	var fileName = fileName;
+	location.href = '/isr/fileDown?fileName='+fileName;
 }
 </script>
 
@@ -188,32 +206,48 @@ function goBack(){
 					</div>
 				</div>
 				
-				<form action="/isr/claimApply" method="post" id="frm" enctype="multipart/form-data">
-
-					<input type="hidden" id="selectProd"  name="selectProd" value="">
-					<input type="hidden" id="petId" name="petId" value="${mypetInfo.myp_id}">
-					<input type="hidden" id="accidentDate" name="accidentDate" value="">
-					<input type="hidden" id="accidentPlace"  name="accidentPlace" value="">
-					<input type="hidden" id="accidentContent" name="accidentContent"  value="">
-					<input type="hidden" id="selectAccident" name="selectAccident" value="">
+								<div class="claimTitle4">
+							<div class="claimTitle4_1_2">
+								<div class="claimTitle4_2">진단서 & 사고사진에 첨부된 파일이 있을 경우 해당 아이콘을 클릭하여 파일을 다운받아 확인하실수 있습니다.</div>
+							</div>
+						</div>
+				
 				<div id="document">
 					<div id="document1">
 						<div id="document2">
 							<div class="document2_1">
 								진단서(필수)
 							</div>
-							<div class="document2_2">
-								<label>${history.accd_recp}</label>
-							</div>
+								<c:choose>
+									<c:when test="${history.accd_recp != ''}">
+										<div class="document2_2">
+											<img id="pdf" alt="pdf파일" src="/img/petInsurance/PDF.png">
+										</div>
+									</c:when>
+									<c:otherwise>
+										<div class="document2_2">
+											<label class="insurer2_4">회원께서 진단서를 첨부하지 않았습니다.</label>
+										</div>
+									</c:otherwise>
+								</c:choose>	
 						
 						</div>
 						<div id="document3">
 							<div class="document2_1">
 								사고사진
 							</div>
-							<div class="document2_2">
-								<label>${history.accd_img}</label>
-							</div>						
+										<c:choose>
+										<c:when test="${history.accd_img != '/img/petimg/noimg.jpg'}">
+											<div class="document2_2">
+												<img id="pdf2" alt="pdf파일" src="/img/petInsurance/PDF.png">
+											</div>
+										</c:when>
+										<c:otherwise>
+											<div class="document2_2">
+												<label class="insurer2_4">회원께서 사고사진을 첨부하지 않았습니다.</label>
+											</div>
+										</c:otherwise>
+									</c:choose>								
 						</div>
 					</div>
 				</div>
@@ -223,10 +257,6 @@ function goBack(){
 					<input type="button" id="nextBtn2_1" value="목록으로 가기" onclick="goBack()">
 				</div>
 			</div>
-			
-			
-			</form>
-			
 			
 	</div>
 

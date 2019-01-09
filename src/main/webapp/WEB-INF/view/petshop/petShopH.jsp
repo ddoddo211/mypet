@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 	<!-- header 시작 -->
 	<%@include file="/WEB-INF/view/common/header.jsp"%>
 	<!-- header 끝-->
@@ -34,18 +35,26 @@
 				<a href="/shop/petShopList?page=1&pagesize=12&dvs_id=DVS1&dvs_parent=DVS3">
 					<li class="mainmenu-li">강아지</li>
 				</a>
-				<a href="/shop/petShopList?page=1&pagesize=12&dvs_id=DVS2&dvs_parent=DVS3"">
+				<a href="/shop/petShopList?page=1&pagesize=12&dvs_id=DVS2&dvs_parent=DVS11">
 					<li class="mainmenu-li">고양이</li>
 				</a>
-				<li class="mainmenu-li">베스트</li>
+				<a href="/shop/prodBest">
+					<li class="mainmenu-li">베스트</li>
+				</a>
 				<a href="/shop/recentProd">
 					<li class="mainmenu-li">최근 본 상품</li>
 				</a>
 				<a href="/shop/cartList">
 					<li class="mainmenu-li">장바구니</li>
 				</a>
-				<li class="mainmenu-li">이벤트</li>
-				<li class="mainmenu-li">마이페이지</li>
+				<a href="/shop/prodEvent">
+					<li class="mainmenu-li">이벤트</li>
+				</a>
+				<c:if test="${memVo != null }">
+					<a href="/shop/shopMypage">
+						<li class="mainmenu-li">마이페이지</li>
+					</a>
+				</c:if>
 			</ul>
 		</div>
 	</div>

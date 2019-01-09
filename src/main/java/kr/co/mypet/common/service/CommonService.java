@@ -38,4 +38,20 @@ public class CommonService implements CommonServiceInf {
 		return commonDao.memberInfo(mem_id);
 	}
 	
+	/**
+	* Method : pointUpdate
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param memVo
+	* @return
+	* Method 설명 : 멤버 포인트 적립 및 사용
+	*/
+	@Override
+	public int pointUpdate(MemberVo memVo) {
+		return commonDao.pointUpdate(memVo);
+	}
+	
+	
+	
+	
 }

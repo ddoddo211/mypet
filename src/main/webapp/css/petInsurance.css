@@ -1785,7 +1785,7 @@ input[name="cb2"] {
 }
 
 #accident{
-	height: 230px;
+	height: 205px;
 	margin-top: 20px;
 }
 
@@ -1800,6 +1800,8 @@ input[name="cb2"] {
 	height: 50px;
 	width: 800px;
 }
+
+
 
 .accident2_1{
 	width: 150px;
@@ -1818,7 +1820,7 @@ input[name="cb2"] {
 .accident2_2{
 	width: 200px;
 	height: 30px;
-	margin-left: 180px;
+	margin-left: 170px;
 }
 
 .accident2_2_1{
@@ -1829,12 +1831,19 @@ input[name="cb2"] {
 
 .accident2_2_1_1{
 	width: 800px;
-	height: 100px;
+	height: 40px;
 	margin-left: 180px;
 }
 
 #accidentInput{
 	width: 1000px;
+	height: 30px;
+	border-radius: 5px;
+}
+
+
+#price{
+	width: 213px;
 	height: 30px;
 	border-radius: 5px;
 }
@@ -1973,7 +1982,7 @@ input[name="cb2"] {
 
 #agree{
 	width: 1200px;
-	height: 340px;
+	height: 350px;
 	margin-top : 20px;
 }
 
@@ -2903,9 +2912,9 @@ div#upload-btnPet_wrap button {/*버튼 div*/
 
 
 #nextBtn1_1{
-	width: 200px;
-	height: 50px;
-	margin-left: 620px;
+    width: 260px;
+    height: 50px;
+    margin-left: 676px;
 }
 
 #nextBtn2_1{
@@ -2987,25 +2996,24 @@ div#upload-btnPet_wrap button {/*버튼 div*/
 /*나의 펫 보험 - 나의 펫 정보 부분에 보험가입 상품 나오세 설정*/
 #mypetIsrJoin{
 	width: 915px;
-	height: 260px;
     margin-top: 10px;
 }
 
 #mypetIsrJoin1{
 	width: 915px;
-    height: 30px;
-	background-color: #ffefef;
 }
 
 #mypetIsrJoin1_1{
-	width: 300px;
-	height: 30px;
-	margin-left: 30px;
-	font-size: 16px;
+	width: 885px;
+    height: 30px;
+    /* margin-left: 30px; */
+    font-size: 16px;
     font-family: 'Jeju Gothic', sans-serif;
     color: gray;
     line-height: 30px;
-    text-align: center;
+    background-color: #ffefef;
+    /* text-align: center; */
+    padding-left: 30px;
 }
 
 #mypetIsrJoin2{
@@ -3218,7 +3226,8 @@ div#upload-btnPet_wrap button {/*버튼 div*/
 
 #adminInsMenu1_1{
 	width: 1200px;
-	height: 300px;
+	height: 525px;
+	margin-top: 200px;
 }
 
 #adminInsMenu1_2{
@@ -3612,5 +3621,29 @@ div#upload-btnPet_wrap button {/*버튼 div*/
 	width: 780px;
 	height: 30px;
 	margin-left: 745px;
+}
+
+#pay{
+	font-family: 'Jeju Gothic', sans-serif;
+    font-size: 20px;
+    line-height: 30px;
+    float: left;
+}
+
+#he1{
+	height: 60px;
+	margin-top: 10px;
+}
+
+#pdf{
+	margin-left: 30px;
+	width: 50px;
+	height: 50px;
+}
+
+#pdf2{
+	margin-left: 30px;
+	width: 50px;
+	height: 50px;
 }
 

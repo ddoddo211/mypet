@@ -397,7 +397,8 @@
 		});
 		
 		
-		$(".revDel").click(function() {
+		$(".revDel1").click(function() {
+			$(".prev_id").val($(this).parent().children(".previd").val());
 			$(".deleteRev").submit();
 		})
 		
@@ -437,6 +438,11 @@
 			}
 		})
 		
+		
+		$("#reviewAdd").click(function() {
+// 			$("#prev_num").val($("#prevNum").val());
+			$("#prevCre").submit();
+		})
 		
 	})
 
@@ -531,7 +537,7 @@
 
 					$("#facebook").click(function() {
 			 			var url = "https://www.facebook.com/sharer/sharer.php";
-			 			var url2 = "www.naver.com";
+			 			var url2 = "192.168.203.20:8081/shop/prodDetail?dvs_id=DVS1&dvs_parent=DVS3&prod_id=PROD1246";
 			 			window.open(url + "?u=" + url2, height=100, width=100);
 			 		})
 			 	
@@ -756,7 +762,7 @@
 												$("#oQtys").val(qtyChk);
 											}
 											//장바구니 상품수량 등록
-											$("#cartQty").val(qty);   
+											$("#cartQty").val(qty);
 											$("#cart_price").val($("#cartprice").val());
 											
 											if('${memVo.mem_id}' == ''){
@@ -827,17 +833,18 @@
 			
 			<c:if test="${memVo != null }">
 				<div id="reviewCre">
-					<form method="post" action="/shop/revCre">
+					<form method="post" action="/shop/revCre" id="prevCre">
 						<input type="hidden" name ="prev_prod" value="${prodVo.prod_id }" />
 						<input type="hidden" name="dvs_id" value="${dvsVo.dvs_id }" />
 						<input type="hidden" name="dvs_parent" value="${dvsVo.dvs_parent }" />
+<!-- 						<input type="hidden" name="prev_num" id="prev_num"/> -->
 						<div class="creN">
 							<div class="creName">
 								<input type="text" class="revCreName" name="prev_title" value="${list.prev_title }"/>
 							</div>
 							
 							<div class="creNum">
-								<select name="prev_num">
+								<select name="prev_num" id="prevNum">
 									<option value="5점">5점</option>
 									<option value="4점">4점</option>
 									<option value="3점">3점</option>
@@ -852,7 +859,7 @@
 								<textarea rows="3" cols="61" id="review" name="prev_text"></textarea>
 							</div>
 							<div id="reviewBtn">
-								<input type="submit" id="reviewAdd" value="등록"/>
+								<input type="button" id="reviewAdd" value="등록"/>
 							</div>
 						</div>
 					</form>
@@ -890,10 +897,11 @@
 								<div class="revDel">
 									<form class="deleteRev" action="/shop/revDelete" method="post">
 										<input type="hidden" value="${prodVo.prod_id }" name="prod_id" />
-										<input type="hidden" value="${list.prev_id }" name="prev_id" />
+										<input type="hidden" class="previd" value="${list.prev_id }"/>
+										<input type="hidden" class="prev_id" name="prev_id" />
 										<input type="hidden" name="dvs_id" value="${dvsVo.dvs_id }" />
 										<input type="hidden" name="dvs_parent" value="${dvsVo.dvs_parent }" />
-										<input type="button" value = "삭제">
+										<input type="button" value = "삭제" class="revDel1">
 									</form>
 								</div>
 									

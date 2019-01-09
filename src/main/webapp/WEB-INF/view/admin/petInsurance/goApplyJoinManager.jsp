@@ -197,6 +197,12 @@ $(document).ready(function() {
 					<div id="productManagement1_1">보험 신청자 관리</div>
 				</div>
 				
+				<div class="claimTitle4">
+					<div class="claimTitle4_1_2">
+						<div class="claimTitle4_2">보험"가입 신청 승인"을 하신다면 해당 회원에게 보험가입완료 메일이 발송되게 됩니다.</div>
+					</div>
+				</div>
+				
 				<div id="productManagement">
 						<div id="productList">
 							<table id="example-table-1">

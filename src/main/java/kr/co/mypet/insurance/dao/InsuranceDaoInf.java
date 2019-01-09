@@ -766,4 +766,34 @@ public interface InsuranceDaoInf {
 	*/
 	int goBlackRelease(String mem_id);
 	
+	/**
+	* Method : accidentApply
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param accd_id
+	* @return
+	* Method 설명 :관리자용 - 보험청구관리 :해당 회원을 블랙리스트에 해제하는 부분
+	*/
+	AccidentVo accidentApply(String accd_id);
+	
+	/**
+	* Method : insPayment
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param acdVo
+	* @return
+	* Method 설명 :관리자용 - 보험청구관리(신청) : 결과를 완료로 입력하는 부분
+	*/
+	int insPayment(AccidentVo acdVo);
+	
+	/**
+	* Method : unpaid
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param acdVo
+	* @return
+	* Method 설명 :관리자용 - 보험청구관리(신청) : 결과를 반려로 입력하는 부분
+	*/
+	int unpaid(AccidentVo acdVo);
+	
 }

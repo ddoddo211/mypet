@@ -8,6 +8,9 @@
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <!-- daum주소 api -->
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+
+<%-- im'port 결제 스크립트 --%>
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <style type="text/css">
 	
 	
@@ -242,6 +245,9 @@
 </style>
 <script type="text/javascript">
 	$(document).ready(function() {
+		//im'port 결제모듈
+		var IMP = window.IMP; // 생략가능
+		IMP.init('imp09203705'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
 		
 		$("#memAddress").prop("checked",true);
 		
@@ -373,7 +379,44 @@
 				$("#daddr_chk").val('4');
 			}
 			
-			$("#paymentGo").submit();
+			var totalP = '${totalPrice }';
+			var prodNmae= '상품명'
+			IMP.request_pay({
+			    pg : 'inicis', // version 1.1.0부터 지원.
+			    pay_method : 'card',
+			    merchant_uid : 'merchant_' + new Date().getTime(),
+			    name : prodNmae,     // 상품명
+			    amount : parseInt(totalP),    // 가격
+			    buyer_email : '${memVo.mem_id}',
+			    buyer_name : '${memVo.mem_name}',
+			    buyer_tel : '${memVo.mem_hp}',
+			    buyer_addr : '${memVo.mem_addr}',
+			    buyer_postcode : '123-456',
+			    m_redirect_url : 'https://www.yourdomain.com/payments/complete'
+			}, function(rsp) {
+			    if ( rsp.success ) {
+			        var msg = '';
+			        msg +='${memVo.mem_name}'+'님 선택하신';
+			        msg += prodNmae+'  에 대한  ';
+			        msg += rsp.paid_amount + '원 의 ';
+			        msg += '결제가 완료되었습니다.  \n\n';
+			        msg += '@ 결제완료   카드 승인번호 : ' + rsp.apply_num;
+			    } else {
+			        var msg = '결제에 실패하였습니다.';
+			        msg += '에러내용 : ' + rsp.error_msg;
+			    }
+			    alert(msg);
+			    
+			    if(rsp.success){
+// 			    	$("#hres_pts").val(
+// 			    		strArray[2]
+// 			    	);
+			    	
+					$("#paymentGo").submit();
+			    }
+			    
+			});
+			
 		})
 		
 	});
