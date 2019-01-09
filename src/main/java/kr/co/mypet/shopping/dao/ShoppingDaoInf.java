@@ -3,7 +3,6 @@ package kr.co.mypet.shopping.dao;
 import java.util.List;
 import java.util.Map;
 
-import kr.co.mypet.common.model.PageVo;
 import kr.co.mypet.shopping.model.CartVo;
 import kr.co.mypet.shopping.model.DeliveryAddrVo;
 import kr.co.mypet.shopping.model.DivisionVo;
@@ -14,6 +13,7 @@ import kr.co.mypet.shopping.model.ProdVo;
 import kr.co.mypet.shopping.model.ProddvVo;
 import kr.co.mypet.shopping.model.RecentProdVo;
 import kr.co.mypet.shopping.model.ShopNoticeVo;
+import kr.co.mypet.common.model.PageVo;
 import kr.co.mypet.sitter.model.SitterAppVo;
 
 public interface ShoppingDaoInf {
@@ -604,7 +604,8 @@ public interface ShoppingDaoInf {
 	* Method 설명 : 반품
 	*/
 	public int returnUpdate(String ords_id);
-
+	
+	
 	public int insertSupport(Map<String, Object> param);
 
 	public List<SitterAppVo> getSupportListAll(PageVo pageVo);
@@ -617,4 +618,14 @@ public interface ShoppingDaoInf {
 	* Method 설명 : 펫 쇼핑몰 총 지원자 수 
 	*/
 	public int getSupportListAllCnt();
+	
+	/**
+	* Method : shopNoticeDel
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param snot_id
+	* @return
+	* Method 설명 : 이벤트 삭제 (업데이트처리)
+	*/
+	public int shopNoticeDel(String snot_id);
 }
