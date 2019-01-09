@@ -237,6 +237,42 @@ public class HairService implements HairServiceInf {
 			// TODO Auto-generated method stub
 			return hairDao.selectHsaById(hsa_mem);
 		}
+
+		@Override
+		public List<HairShopApplyVo> selectHairShopApply() {
+			// TODO Auto-generated method stub
+			return hairDao.selectHairShopApply();
+		}
+
+		@Override
+		public int insertHairShop(HairShopApplyVo hsaVo) {
+			// TODO Auto-generated method stub
+			return hairDao.insertHairShop(hsaVo);
+		}
+
+		@Override
+		public int updateHairShopApply(HairShopApplyVo hsaVo) {
+			// TODO Auto-generated method stub
+			return hairDao.updateHairShopApply(hsaVo);
+		}
+
+		@Override
+		public int updateMember(String hsa_mem) {
+			// TODO Auto-generated method stub
+			return hairDao.updateMember(hsa_mem);
+		}
+
+		@Override
+		public int updateHairShop(HairShopVo hsVo) {
+			// TODO Auto-generated method stub
+			return hairDao.updateHairShop(hsVo);
+		}
+
+		@Override
+		public List<HairShopVo> selectHairShopAllR() {
+			// TODO Auto-generated method stub
+			return hairDao.selectHairShopAllR();
+		}
 		
 		
 		

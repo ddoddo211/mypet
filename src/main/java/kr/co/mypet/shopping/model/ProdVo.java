@@ -10,6 +10,7 @@ public class ProdVo {
 	private String prod_img;
 	private String prod_date;
 	private String prod_mem;
+	private int rownum;
 	
 	public ProdVo() {
 	}
@@ -85,12 +86,21 @@ public class ProdVo {
 	public void setProd_mem(String prod_mem) {
 		this.prod_mem = prod_mem;
 	}
+	
+	public int getRownum() {
+		return rownum;
+	}
+
+	public void setRownum(int rownum) {
+		this.rownum = rownum;
+	}
 
 	@Override
 	public String toString() {
 		return "ProdVo [prod_id=" + prod_id + ", prod_name=" + prod_name + ", prod_price=" + prod_price
 				+ ", prod_sprice=" + prod_sprice + ", prod_qty=" + prod_qty + ", prod_pimg=" + prod_pimg + ", prod_img="
-				+ prod_img + ", prod_date=" + prod_date + ", prod_mem=" + prod_mem + "]";
+				+ prod_img + ", prod_date=" + prod_date + ", prod_mem=" + prod_mem + ", rownum=" + rownum + "]";
 	}
+	
 	
 }

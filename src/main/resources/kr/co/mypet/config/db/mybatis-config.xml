@@ -41,6 +41,7 @@
 			<typeAlias type="kr.co.mypet.shopping.model.CartVo" alias="cartVo"/>
 			<typeAlias type="kr.co.mypet.shopping.model.OrderSheetVo" alias="ordsVo"/>
 			<typeAlias type="kr.co.mypet.shopping.model.DeliveryAddrVo" alias="daddrVo"/>
+			 <typeAlias type="kr.co.mypet.shopping.model.RecentProdVo" alias="recpVo"/>
 	</typeAliases>
 
   <mappers>

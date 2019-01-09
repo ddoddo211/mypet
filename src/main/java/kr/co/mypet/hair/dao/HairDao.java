@@ -262,5 +262,49 @@ public class HairDao implements HairDaoInf {
 		HairShopApplyVo hsaVo = template.selectOne("petHair.selectHsaById", hsa_mem);
 		return hsaVo;
 	}
+
+	@Override
+	public List<HairShopApplyVo> selectHairShopApply() {
+		
+		List<HairShopApplyVo> hsaList = template.selectList("petHair.selectHairShopApply");
+		
+		
+		return hsaList;
+	}
+
+	@Override
+	public int insertHairShop(HairShopApplyVo hsaVo) {
+		
+		int chk = template.insert("petHair.insertHairShop", hsaVo);
+		
+		return chk;
+	}
+
+	@Override
+	public int updateHairShopApply(HairShopApplyVo hsaVo) {
+		
+		int chk = template.update("petHair.updateHairShopApply", hsaVo);
+		
+		return chk;
+	}
+
+	@Override
+	public int updateMember(String hsa_mem) {
+		int chk = template.update("petHair.updateMember", hsa_mem);
+		return 0;
+	}
+
+	@Override
+	public int updateHairShop(HairShopVo hsVo) {
+		int chk  = template.update("petHair.updateHairShop", hsVo);
+		return chk;
+	}
+
+	@Override
+	public List<HairShopVo> selectHairShopAllR() {
+			List<HairShopVo> hairShopList = template.selectList("petHair.shopSelectAllR");
+		
+		return hairShopList;
+	}
 	
 }

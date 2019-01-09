@@ -26,6 +26,13 @@
   	select * from member where mem_id=#{mem_id}
   </select>
   
+  <!-- 멤버포인트 적립 -->
+  <update id="pointUpdate" parameterType="memVo">
+  	update member
+	set mem_point = #{mem_point}
+	where mem_id = #{mem_id}
+  </update>
+ 
 </mapper>
 
 

@@ -6,16 +6,22 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.co.mypet.common.model.MemberVo;
 import kr.co.mypet.common.service.CommonServiceInf;
+import kr.co.mypet.hair.model.HairShopApplyVo;
+import kr.co.mypet.hair.model.HairShopVo;
+import kr.co.mypet.hair.service.HairServiceInf;
 
 @RequestMapping("/mem")
 @Controller
@@ -23,6 +29,10 @@ public class MemberController {
 	
 	@Resource(name="commonService")
 	private CommonServiceInf commonService;
+	
+	@Resource(name="hairService")
+	private HairServiceInf hairService;
+	
 	
 	//초기에 main 화면 진입
 	@RequestMapping("/main")
@@ -345,5 +355,95 @@ public class MemberController {
 	public String petInsManager() {
 		return "admin/petInsurance/petInsuranceMain";
 	}
+	
+	
+	//petHair 관리자 부분 /////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// hair 관리 페이지 진입
+	@RequestMapping("/petHairAdmin")
+	public String petHairAdmin() {
+		
+		return "admin/petHair/petHairAdmin";
+	}
+	
+	
+	//펫미용실 등록관리 화면이동
+	@RequestMapping("/petHairApplyCheck")
+	public String petHairApplyCheck(Model model) {
+		
+		List<HairShopApplyVo> hsaList = new ArrayList<>();
+		hsaList = hairService.selectHairShopApply();
+		
+		model.addAttribute("hsaList", hsaList);
+		return "admin/petHair/petHairApplyCheck";
+	}
+	
+	//펫 미용실 관리
+	@RequestMapping("/petHairCon")
+	public String petHairCon(Model model) {
+		
+		List<HairShopVo> hsList = new ArrayList<>();
+		hsList = hairService.selectHairShopAllR();
+		
+		model.addAttribute("hsList", hsList);
+		return "admin/petHair/petHairCon";
+	}
+	
+	//관리자가 미용실 지원자들의 정보를 관리
+	@RequestMapping("/updateHsa")
+	public String updateHsa(HairShopApplyVo hsaVo) {
+		
+		//승인, 거절, 대기 일경우의 처리
+		if(hsaVo.getHsa_acp().equals("승인")) {
+			//hsa_acp == '승인'
+			
+			//insert hairshop
+			int chk = hairService.insertHairShop(hsaVo);
+			
+			//update member
+			int chkmem = hairService.updateMember(hsaVo.getHsa_mem());
+			
+			//update hairshopapply
+			int chkupdate = hairService.updateHairShopApply(hsaVo);
+			
+			
+		} else if(hsaVo.getHsa_acp().equals("거절")) {
+			//hsa_acp =='거절'	
+			//update hairshopapply
+			int chkupdate = hairService.updateHairShopApply(hsaVo);
+			
+			
+			
+		} else {
+			//hsa_acp =='대기'	
+			
+			
+			
+		}
+		
+		return "redirect:/mem/petHairApplyCheck";
+	}
+	
+	//관리자가 미용실 정보 싹다 날려버림
+	@RequestMapping("/updateHairShop")
+	public String updateHairShop(HairShopVo hsVo) {
+		
+		//모든 내용을 지워버림
+		
+		if(hsVo.getHas_score()==0) {
+			hsVo.setHas_score(1);
+			
+		} else {
+			hsVo.setHas_score(0);
+			
+		}
+		int chk = hairService.updateHairShop(hsVo);
+		
+		return "redirect:/mem/petHairCon";
+	}
+	
+	//petHair 관리자 부분 /////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	
+	
 
-}
+} // controller class 끝나는곳

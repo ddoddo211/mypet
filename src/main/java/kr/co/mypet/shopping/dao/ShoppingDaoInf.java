@@ -11,6 +11,7 @@ import kr.co.mypet.shopping.model.ProdOptionVo;
 import kr.co.mypet.shopping.model.ProdRevVo;
 import kr.co.mypet.shopping.model.ProdVo;
 import kr.co.mypet.shopping.model.ProddvVo;
+import kr.co.mypet.shopping.model.RecentProdVo;
 import kr.co.mypet.shopping.model.ShopNoticeVo;
 
 public interface ShoppingDaoInf {
@@ -421,4 +422,184 @@ public interface ShoppingDaoInf {
 	* Method 설명 : 기존 배송지에서 저장된 배송지로 변경
 	*/
 	public int updateDaddr(String daddr_id);
+	
+	/**
+	* Method : bestProd
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param rownum
+	* @return
+	* Method 설명 : best상품 조회
+	*/
+	public List<ProdVo> bestProd(int rownum);
+	
+	/**
+	* Method : insertRecp
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param recpVo
+	* @return
+	* Method 설명 : 최근 본 상품 등록
+	*/
+	public int insertRecp(RecentProdVo recpVo);
+	
+	/**
+	* Method : recpList
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param mem_id
+	* @return
+	* Method 설명 :회원 최근 본상품
+	*/
+	public List<ProdVo> recpList(String mem_id);
+	
+	/**
+	* Method : delRecp
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param recpVo
+	* @return
+	* Method 설명 : 최근 본 상품 삭제
+	*/
+	public int delRecp(RecentProdVo recpVo);
+	
+	/**
+	* Method : dvsDetail
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param dvs_id
+	* @return
+	* Method 설명 : 강아지/고양이 확인
+	*/
+	public DivisionVo dvsDetail(String dvs_id);
+	
+	/**
+	* Method : orderList
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param ords_mem
+	* @return
+	* Method 설명 : 주문내역 조회
+	*/
+	public List<OrderSheetVo> orderList(String ords_mem);
+	
+	/**
+	* Method : orderCancle
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param ords_id
+	* @return
+	* Method 설명 : 마이페이지 구매취소
+	*/
+	public int orderCancle(String ords_id);
+	
+	/**
+	* Method : buyList
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param ords_mem
+	* @return
+	* Method 설명 : 구매내역 조회
+	*/
+	public List<OrderSheetVo> buyList(String ords_mem);
+	
+	/**
+	* Method : orderDetail
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param ords_id
+	* @return
+	* Method 설명 : 주문서 내역 조회
+	*/
+	public OrderSheetVo orderDetail(String ords_id);
+	
+	/**
+	* Method : searchParent
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param pddVo
+	* @return
+	* Method 설명 : 상품디테일로 가기 위해서 dvs_parent 찾기
+	*/
+	public String searchParent(ProddvVo pddVo);
+	
+	/**
+	* Method : searchId
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param prod_id
+	* @return
+	* Method 설명 : 상품디테일로 가기 위해서 dvs_id 찾기
+	*/
+	public String searchId(String prod_id);
+	
+	/**
+	* Method : marketerList
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param mem_id
+	* @return
+	* Method 설명 : 판매자가 등록한 상품List
+	*/
+	public List<ProdVo> marketerList(String mem_id);
+	
+	/**
+	* Method : marketerOrderList
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param mem_id
+	* @return
+	* Method 설명 : 판매자가 등록한 상품 주문 확인
+	*/
+	public List<OrderSheetVo> marketerOrderList(String mem_id);
+	
+	/**
+	* Method : deliveryUpdate
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param ords_id
+	* @return
+	* Method 설명 : 배송 보내면 배송완료로 끝
+	*/
+	public int deliveryUpdate(String ords_id);
+	
+	/**
+	* Method : decideUpdate
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param ords_id
+	* @return
+	* Method 설명 : 구매확정
+	*/
+	public int decideUpdate(String ords_id);
+	
+	/**
+	* Method : cancleList
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param ords_mem
+	* @return
+	* Method 설명 : 취소/환불/반품 List
+	*/
+	public List<OrderSheetVo> cancleList(String ords_mem);
+	
+	/**
+	* Method : swapUpdate
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param ords_id
+	* @return
+	* Method 설명 : 교환 
+	*/
+	public int swapUpdate(String ords_id);
+	
+	/**
+	* Method : returnUpdate
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param ords_id
+	* @return
+	* Method 설명 : 반품
+	*/
+	public int returnUpdate(String ords_id);
 }

@@ -23,6 +23,8 @@ public interface HairServiceInf {
 	
 	//모든 헤어샵 호출
 	public List<HairShopVo> selectHairShopAll();
+	//모든 헤어샵 호출
+	public List<HairShopVo> selectHairShopAllR();
 	
 	//지역의 헤어샵만 호출
 	public List<HairShopVo> selectHairShopLoc(String has_addr);
@@ -120,7 +122,22 @@ public interface HairServiceInf {
 	//insert hairShopApply
 	public int insertHairShopApply(HairShopApplyVo hsaVo);
 	
-	//select apply hairshop 중에서 대기중인 사람
+	//select apply hairshop 중에서 대기중인 사람 인지 아닌지
 	public HairShopApplyVo selectHsaById(String hsa_mem);
+
+	//hairshop 이 되기위해 지원한 모든사람들의 list
+	public List<HairShopApplyVo> selectHairShopApply();
+
+	//insertHairShop
+	public int insertHairShop(HairShopApplyVo hsaVo);
+
+	//updateHairShopApply
+	public int updateHairShopApply(HairShopApplyVo hsaVo);
+
+	//회원등급업
+	public int updateMember(String hsa_mem);
+
+	//미용실 정보 수정 method
+	public int updateHairShop(HairShopVo hsVo);
 	
 }

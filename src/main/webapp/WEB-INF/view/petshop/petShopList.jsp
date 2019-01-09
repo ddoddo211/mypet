@@ -78,9 +78,15 @@
 	
 	.listMenu ul li{
 		padding-top: 10px;
-		padding-bottom: 15px;
 	}
-	.listMenu ul li a{
+	
+	.listMenu ul li .menu{
+		color: #000;
+	    font-size: 15px;
+	    height: 40px;
+	}
+	
+	.listMenu ul li .menu a{
 		color: #000;
 	    font-size: 15px;
 	    border: 1px solid;
@@ -88,7 +94,7 @@
 	    padding: 5px;
 	}
 	
-	.listMenu ul li a:active {
+	.listMenu ul li .menu a:active {
 		color: red;
 	}
 	
@@ -303,7 +309,7 @@
 </form>
 	<%@include file="/WEB-INF/view/petshop/petShopH.jsp"%>
 	<div id="maintop">
-		<p>강아지</p>
+		<p>${dvs.dvs_name }</p>
 	</div>
 	
 	<div id="mainmid">
@@ -316,7 +322,11 @@
 				<p>Menu</p>
 				<ul>
 					<c:forEach items="${menuList }" var="list">
-						<li><a href="/shop/petShopList?dvs_id=${dvs_id }&dvs_parent=${list.dvs_id}">${list.dvs_name }</a></li>
+						<li>
+							<div class="menu">
+								<a href="/shop/petShopList?dvs_id=${dvs_id }&dvs_parent=${list.dvs_id}">${list.dvs_name }</a>
+							</div>
+						</li>
 					</c:forEach>
 				</ul>
 			</div>
