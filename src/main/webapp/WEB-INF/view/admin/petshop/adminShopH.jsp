@@ -2,15 +2,16 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
  <script type="text/javascript">
 	// 보험상품 관리 버튼을 클릭하였을때 보험상품 안내 화면으로 이동하도록 설정 
 	function goProdManager(){
-		location.href ='';
+		location.href ='/shopAdmin/shopAdminMain';
 	}
 	
 	//보험신청/가입자 관리 버튼을 클릭하였을때  보험신청/가입자 관리 화면으로 이동
 	function goApplyJoin(){
-		location.href ='';
+		location.href ='/shopAdmin/shopAdminEvent';
 	}
 	
 	//보험 청구 버튼을 클릭하였을때  보험신청/가입자 관리 화면으로 이동
@@ -18,10 +19,6 @@
 		location.href ='';
 	}
 	
-	// 공지사항 관리 버튼을 클릭하였을때 공지사항 관리 화면으로 이동
-	function goNoticeBoard(){
-		location.href ='';
-	}
 </script>   
 	<!-- header 시작 -->
 	<%@include file="/WEB-INF/view/common/header.jsp"%>

@@ -913,6 +913,19 @@ public class ShoppingService implements ShoppingServiceInf {
 	@Override
 	public int returnUpdate(String ords_id) {
 		return shoppingDao.returnUpdate(ords_id);
+	}
+	
+	/**
+	* Method : shopNoticeDel
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param snot_id
+	* @return
+	* Method 설명 : 이벤트 삭제 (업데이트처리)
+	*/
+	@Override
+	public int shopNoticeDel(String snot_id) {
+		return shoppingDao.shopNoticeDel(snot_id);
 	};
 	
 	

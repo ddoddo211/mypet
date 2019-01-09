@@ -602,4 +602,14 @@ public interface ShoppingDaoInf {
 	* Method 설명 : 반품
 	*/
 	public int returnUpdate(String ords_id);
+	
+	/**
+	* Method : shopNoticeDel
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param snot_id
+	* @return
+	* Method 설명 : 이벤트 삭제 (업데이트처리)
+	*/
+	public int shopNoticeDel(String snot_id);
 }

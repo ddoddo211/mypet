@@ -481,5 +481,12 @@
 		select pdd_prod from proddv
 		where pdd_dvs = #{pdd_dvs})
 	</select>
+	
+	<!-- 펫쇼핑몰 이벤트글 삭제 -->
+	<update id="shopNoticeDel" parameterType="String">
+		update shopnotice
+		set snot_chk = 2
+		where snot_id = #{snot_id}
+	</update>
 </mapper>
  
