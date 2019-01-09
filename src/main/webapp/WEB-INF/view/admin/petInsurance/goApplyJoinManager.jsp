@@ -300,13 +300,7 @@ $(document).ready(function() {
 				<div id="productManagement1">
 					<div id="productManagement1_1">보험 가입자 관리</div>
 				</div>
-				
-				<div class="claimTitle4">
-					<div class="claimTitle4_1_2">
-						<div class="claimTitle4_2">블랙리스트로 등록되어 있는 대상자는 미납금액이 있는 대상자입니다.</div>
-					</div>
-				</div>
-				
+
 				<div class="claimTitle4">
 					<div class="claimTitle4_1_2">
 						<div class="claimTitle4_2">관리자께서 보험해지하기 버튼을 클릭할시 보험해지가 가능합니다. 보험해지를 클릭할시에는 해지된 보험상품  신청건이 모두 반려처리 됩니다.</div>

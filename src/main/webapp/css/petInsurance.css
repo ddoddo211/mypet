@@ -1253,13 +1253,11 @@ input[name="cb2"] {
 
 #isrJoinInfo2{
 	margin-bottom:25px;
-	text-align: center;
 	font-family: 'Nanum Pen Script', cursive;
 	font-size: 50px;
 	width: 700px;
     height: 50px;
     background-color: #fff6dd;
-    text-align: center;
     border-radius: 3px;
     box-shadow: 3px 3px 3px 3px #999;
     border-right: none;
@@ -1300,13 +1298,11 @@ input[name="cb2"] {
 #isrJoinNotice2{
 	margin-bottom:35px;
 	margin-top:15px;
-	text-align: center;
 	font-family: 'Nanum Pen Script', cursive;
 	font-size: 50px;
 	width: 700px;
     height: 50px;
     background-color: #fff6dd;
-    text-align: center;
     border-radius: 3px;
     box-shadow: 3px 3px 3px 3px #999;
     border-right: none;
@@ -1338,13 +1334,11 @@ input[name="cb2"] {
 #contractor{
 	margin-bottom:35px;
 	margin-top:50px;
-	text-align: center;
 	font-family: 'Nanum Pen Script', cursive;
 	font-size: 50px;
-	width: 700px;
+	width: 895px;
     height: 50px;
     background-color: #fff6dd;
-    text-align: center;
     border-radius: 3px;
     box-shadow: 3px 3px 3px 3px #999;
     border-right: none;
@@ -1910,6 +1904,38 @@ input[name="cb2"] {
     border-radius: 50px;
     text-align: center;
     padding: 5px;
+}
+
+.insurer2_6{
+	margin-left: 34px;
+	width: 150px;
+    float: left;
+    font-family: 'Jeju Gothic', sans-serif;
+    font-size: 20px;
+    margin-bottom: 10px;
+    background-color: #ffcce7;
+    color: white;
+    width: 150px;
+    border-radius: 50px;
+    text-align: center;
+    border: 2px solid #ffcce7;
+    outline: none;
+}
+
+.insurer2_6:hover{
+	margin-left: 34px;
+	width: 150px;
+    float: left;
+    font-family: 'Jeju Gothic', sans-serif;
+    font-size: 20px;
+    margin-bottom: 10px;
+    background-color: white;
+    color: black;
+    width: 150px;
+    border-radius: 50px;
+    text-align: center;
+    border: 2px solid #ffcce7;
+    outline: none;
 }
 
 .insurer2_3{
@@ -3026,12 +3052,16 @@ div#upload-btnPet_wrap button {/*버튼 div*/
 	width: 95px;
 }
 
+.mypetTd7{
+	width: 50px;
+}
+
 .mypetTd1{
 	width: 125px;
 }
 
 .mypetTd2{
-	width: 42px;
+	width: 40px;
 	height: 30px;
 }
 
@@ -3077,6 +3107,7 @@ div#upload-btnPet_wrap button {/*버튼 div*/
     line-height: 30px;
     border-radius: 50px;
     margin-left: 340px;
+    float: left;
 }
 
 .mypetTr{
@@ -3094,6 +3125,7 @@ div#upload-btnPet_wrap button {/*버튼 div*/
     line-height: 30px;
     border-radius: 50px;
     outline: none;
+    float: left;
 }
 
 
@@ -3226,8 +3258,8 @@ div#upload-btnPet_wrap button {/*버튼 div*/
 
 #adminInsMenu1_1{
 	width: 1200px;
-	height: 525px;
-	margin-top: 200px;
+	height: 443px;
+	margin-top: 170px;
 }
 
 #adminInsMenu1_2{

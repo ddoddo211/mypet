@@ -596,9 +596,15 @@ public class InsuranceController {
 						// 가입을 진행하고 있는 펫 정보 가지고 오기
 						MypetVo mypetInfo = insuranceService.mypetInfo(petId);
 						
+						PetkindVo petK = new PetkindVo();
+						
+						petK.setMyp_name(mypetInfo.getMyp_name());
+						petK.setMyp_petk(mypetInfo.getMyp_petk());
+						
 						
 						// 조회해온 마이펫의 품종을 준다면 그 강아지를 뽑아 올수 있어야 가입조건에 가입대상을 확인할수 있다.
-						PetkindVo petkindVo = insuranceService.petKindVo(mypetInfo.getMyp_petk());
+						PetkindVo petkindVo = insuranceService.petKindVo(petK);
+						
 						
 							// 지금 부분하고 상관은 없지만 알고 있을려고 입력해 놓은것 
 							// 날짜를 구하는 부분은 parse로 이용한다
@@ -657,7 +663,6 @@ public class InsuranceController {
 				String petId = request.getParameter("petId");
 				String memId = request.getParameter("memId");
 				String prodJoinId = request.getParameter("prodJoinId");
-				String memAccident = request.getParameter("memAccount");
 				
 				// 만기일 계산하기 
 				// 만기일을 계산할떄에는 현재 애완펫의 년생을 구한다 
@@ -713,7 +718,6 @@ public class InsuranceController {
 				isrVo.setMyp_id(petId);
 				isrVo.setMem_id(memId);
 				isrVo.setInssp_id(prodJoinId);
-				isrVo.setAct_id(memAccident);
 				
 				// 쿼리문 이용하여 저장해주기
 				insuranceService.isrProdMypetJoin(isrVo);
@@ -825,6 +829,7 @@ public class InsuranceController {
 				// 해당 회원의 이메일(pk)로 보내서 회원의 계좌번호를 가지고 오는 방법(매개변수를 회원의 아이디로 설정한다) 
 				List<AccountVo> memAccidentList = insuranceService.memAccountList(memVo.getMem_id());
 				model.addAttribute("memAccidentList", memAccidentList);
+				model.addAttribute("size", memAccidentList.size());
 				
 				return "petInsurance/insuranceClaim2";
 			}
@@ -1479,6 +1484,52 @@ public class InsuranceController {
 					
 				return "petInsurance/myPetInsurance";
 				
+			}
+			
+			// 신청한 보험 취소하기 
+			@RequestMapping("/insprodCancel")
+			public String insprodCancel(Model model ,HttpSession session,HttpServletRequest request) {
+				
+				System.out.println("컨트롤러");
+				
+				// 신청 취소할 id 담기
+				String prodId = request.getParameter("prodId");
+			
+				// 상태 변경해주기
+				insuranceService.insprodCancel(prodId);
+				
+				// 펫의 아이디 담아주기(화면으로 이동해야 하기때문에)
+				String petId = request.getParameter("petId");
+				model.addAttribute("petId" , petId);
+								
+				// 회원 정보 받아오는 부분
+				MemberVo memVo = (MemberVo) session.getAttribute("memVo");
+				
+					//회원의 펫 가지고 오기
+					List<InsshoppingVo> mypetList = insuranceService.petList(memVo.getMem_id());
+					model.addAttribute("mypetList", mypetList);
+					
+					// 나의펫 보험 화면에서 현재까지 받은 보험금 현황 부분에 나와야 하는 부분
+					int isuranceStatus = insuranceService.isuranceStatus(memVo.getMem_id());
+					model.addAttribute("money",isuranceStatus );
+					
+					// 월 전체 보험료가 나오는 부분
+					int monthlyPremium = insuranceService.monthlyPremium(memVo.getMem_id());
+					model.addAttribute("money2",monthlyPremium);
+					
+					// 현재 보험금 신청현황(신청)- 신청 건수가 나와야 하기 때문에
+					List<AccidentVo> isrApply =  insuranceService.isrApply(memVo.getMem_id());
+					model.addAttribute("isrApplySize",isrApply.size());
+					
+					// 현재 보험금 신청현황(반려)- 반려 건수가 나와야 하기 때문에
+					List<AccidentVo> underExamination =  insuranceService.underExamination(memVo.getMem_id());
+					model.addAttribute("ueSize",underExamination.size());
+					
+					// 현재 보험금 신청현황(완료)- 완료 건수가 나와야 하기 때문에
+					List<AccidentVo> isrComplete =  insuranceService.isrComplete(memVo.getMem_id());
+					model.addAttribute("isrCompleteSize",isrComplete.size());
+					
+				return "petInsurance/myPetInsurance";
 			}
 			
 			
@@ -2516,6 +2567,8 @@ public class InsuranceController {
 		        }
 				
 			}
+			
+		
 			
 			
 			
