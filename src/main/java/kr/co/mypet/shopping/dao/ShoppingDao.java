@@ -867,4 +867,18 @@ public class ShoppingDao implements ShoppingDaoInf {
 		return template.selectOne("shop.getSupportListAllCnt");
 	}
 	
+	/**
+	* Method : shopNoticeDel
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param snot_id
+	* @return
+	* Method 설명 : 이벤트 삭제 (업데이트처리)
+	*/
+	@Override
+	public int shopNoticeDel(String snot_id) {
+		int result = template.update("shop.shopNoticeDel",snot_id);
+		return result;
+	}
+	
 }
