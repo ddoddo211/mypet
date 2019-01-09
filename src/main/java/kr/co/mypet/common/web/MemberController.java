@@ -449,5 +449,11 @@ public class MemberController {
 		return "/admin/petSitter/petSitterMain";
 	}
 	
+	// 회원 마이페이지이로 이동하는 부분
+	@RequestMapping("/memMypage")
+	public String memMypage() {
+		return "/common/memMypage";
+	}
+	
 
 } // controller class 끝나는곳
