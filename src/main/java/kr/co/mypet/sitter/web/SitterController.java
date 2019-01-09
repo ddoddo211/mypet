@@ -1185,9 +1185,4 @@ public class SitterController {
 		
 		return "admin/petSitter/mypageADPet";
 	}
-	
-	@RequestMapping("/sup")
-	public String sup() {
-		return "petSitter/shopSupport";
-	}
 }

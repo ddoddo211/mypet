@@ -1086,4 +1086,36 @@ public class ShoppingController {
 		
 		return "redirect:/shop/shopMypage";
 	}
+	
+	// 마이페이지 -> 판매자 지원하기 view
+	@RequestMapping("/sup")
+	public String sup() {
+		return "petshop/shopSupport";
+	}
+	
+	// 마이페이지 -> 판매자 지원하기 처리
+	@RequestMapping("/supportInsert")
+	public String supportInsert(HttpSession session, @RequestParam("memName")String memName, @RequestParam("memTel")String memTel, @RequestParam("compChk")String compChk,
+			@RequestParam("compName")String compName, @RequestParam("compNum")String compNum) {
+		
+		String sta_text = null;
+		
+		if(compName == "") {
+			sta_text = "- "+memName+"- "+memTel;
+		} else {
+			sta_text = "- "+memName+"- "+memTel+"- "+compName;
+		}
+		MemberVo memVo = (MemberVo) session.getAttribute("memVo");
+		
+		Map<String, Object> param = new HashMap<>();
+		param.put("sta_text", sta_text);
+		param.put("sta_num", compNum);
+		param.put("sta_kind", compChk);
+		param.put("sta_mem", memVo.getMem_id());
+		
+		int insertCnt = shoppingService.insertSupport(param);
+		
+		return "petshop/shopMypage";
+	}
+	
 }

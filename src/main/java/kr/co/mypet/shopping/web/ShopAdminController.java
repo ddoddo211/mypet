@@ -1,6 +1,7 @@
 package kr.co.mypet.shopping.web;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -9,8 +10,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import kr.co.mypet.common.model.PageVo;
 import kr.co.mypet.shopping.model.DivisionVo;
 import kr.co.mypet.shopping.service.ShoppingServiceInf;
+import kr.co.mypet.sitter.model.SitterAppVo;
 
 @Controller
 @RequestMapping("/shopAdmin")
@@ -40,6 +43,23 @@ public class ShopAdminController {
 		List<DivisionVo> menuList = shoppingService.prodMenu(dvs_id);
 		
 		return "admin/petshop/adminShopMain";
+	}
+	
+	@RequestMapping("/seller")
+	public String sellerView(Model model, @RequestParam("page")int page, @RequestParam("pageSize")int pageSize) {
+		PageVo pageVo = new PageVo();
+		pageVo.setPage(page);
+		pageVo.setPageSize(pageSize);
+		
+		List<SitterAppVo> supportListAll = shoppingService.getSupportListAll(pageVo); 
+		
+		int totalCnt = shoppingService.getSupportListAllCnt();
+		int pageCnt = (int)Math.ceil(((double)totalCnt/pageSize));
+		
+		model.addAttribute("supportListAll", supportListAll);
+		model.addAttribute("pageCnt", pageCnt);
+		
+		return "/admin/petshop/adminShopSeller";
 	}
 	
 }

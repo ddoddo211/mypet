@@ -350,6 +350,9 @@
 			$(".returnOrder").submit();
 		})
 		
+		$("#marketerGo").click(function(){
+			location.href = "/shop/sup";
+		});
 		
 	})
 	
