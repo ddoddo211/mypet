@@ -25,4 +25,8 @@ public interface CommonServiceInf {
 	* Method 설명 : 멤버 포인트 적립 및 사용
 	*/
 	public int pointUpdate(MemberVo memVo);
+
+	
+	//member 의 정보 수정
+	public int updateMemInfo(MemberVo memVo);
 }

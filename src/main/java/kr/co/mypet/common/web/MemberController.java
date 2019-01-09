@@ -443,6 +443,26 @@ public class MemberController {
 	
 	//petHair 관리자 부분 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
+	//member 정보 수정
+	@RequestMapping("/updateMemInfo")
+	public String updateMemInfo(MemberVo memVo,HttpSession session) {
+		
+		//회원의 정보수정하기 호출
+		int chk = commonService.updateMemInfo(memVo);
+		
+		if(chk==1) {
+			//정보수정 성공
+			session.setAttribute("memVo", memVo);
+		} else {
+			//정보수정 실패
+		}
+		
+		
+		
+		
+		return "";
+	}
+	
 	
 	
 
