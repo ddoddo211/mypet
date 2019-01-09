@@ -14,7 +14,7 @@ public class MemberVo {
 	private int mem_hair;
 	private int mem_point;
 	private int mem_black;
-	private String mem_profile;
+	private String mem_img;
 	
 	// 관리자용 - 펫 보험금 청구관리화면에서 이용해야 하기 때문에 입력
 	private String cnt;
@@ -26,7 +26,7 @@ public class MemberVo {
 		return "MemberVo [mem_id=" + mem_id + ", mem_pass=" + mem_pass + ", mem_name=" + mem_name + ", mem_addr="
 				+ mem_addr + ", mem_addr2=" + mem_addr2 + ", mem_hp=" + mem_hp + ", mem_exit=" + mem_exit
 				+ ", mem_admin=" + mem_admin + ", mem_sit=" + mem_sit + ", mem_shop=" + mem_shop + ", mem_hair="
-				+ mem_hair + ", mem_point=" + mem_point + ", mem_black=" + mem_black + ", mem_profile=" + mem_profile
+				+ mem_hair + ", mem_point=" + mem_point + ", mem_black=" + mem_black + ", mem_profile=" + mem_img
 				+ "]";
 	}
 	
@@ -44,12 +44,12 @@ public class MemberVo {
 
 
 
-	public String getMem_profile() {
-		return mem_profile;
+	public String getMem_img() {
+		return mem_img;
 	}
 
-	public void setMem_profile(String mem_profile) {
-		this.mem_profile = mem_profile;
+	public void setMem_img(String mem_img) {
+		this.mem_img = mem_img;
 	}
 
 	public String getMem_addr2() {
