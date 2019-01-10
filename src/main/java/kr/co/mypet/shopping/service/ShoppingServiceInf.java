@@ -661,14 +661,14 @@ public interface ShoppingServiceInf {
 	* Method 설명 : 이벤트 삭제 (업데이트처리)
 	*/
 	public int shopNoticeDel(String snot_id);
-
+	
 	/**
-	* Method : updateSupportFile
-	* 작성자 : pc24
+	* Method : shopNoticeCre
+	* 작성자 : pc25
 	* 변경이력 :
-	* @param param
+	* @param snotVo
 	* @return
-	* Method 설명 : 펫 쇼핑몰 판매 지원합격자 파일 업로드 
+	* Method 설명 : 이벤트등록
 	*/
-	public int updateSupportFile(Map<String, Object> param);
+	public int shopNoticeCre(ShopNoticeVo snotVo);
 }
