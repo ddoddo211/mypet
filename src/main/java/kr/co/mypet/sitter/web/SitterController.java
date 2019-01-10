@@ -848,7 +848,7 @@ public class SitterController {
 		return "petSitter/mypageSupport";
 	}
 	
-	// 마이페이지 펫시터 지원관리 -> PDF 출력
+	// 마이페이지 펫시터 지원관리 -> PDF생성 준비 및 상태변경
 	@RequestMapping("/supportPDF")
 	public String supportPDF(HttpServletRequest request, Model model, PageVo pageVo) {
 		
@@ -878,6 +878,7 @@ public class SitterController {
 			memId[i] = staMem[i];
 		}
 		
+		model.addAttribute("memId", memId);
 		model.addAttribute("memName", memName);
 		model.addAttribute("memBirth", memBirth);
 		model.addAttribute("staId", staID);
@@ -887,15 +888,23 @@ public class SitterController {
 		return "redirect:/sit/supportPDFCreate";
 	}
 	
+
+	@Autowired
+	private JavaMailSenderImpl mailSender;
+	
 	// 펫시터 지원 합격증 생성
 	@RequestMapping("/supportPDFCreate")
-	public String pdfCreate(Model model, @RequestParam("page")int page, @RequestParam("pageSize")int pageSize, HttpServletRequest request, @RequestParam("memName")String[] memName, @RequestParam("memBirth")String[] memBirth, @RequestParam("staId")String[] staId) throws DocumentException, IOException {
+	public String pdfCreate(Model model, @RequestParam("page")int page, @RequestParam("pageSize")int pageSize, final HttpServletRequest request, 
+			@RequestParam("memName")String[] memName, @RequestParam("memBirth")String[] memBirth, @RequestParam("staId")String[] staId,
+			@RequestParam("memId")String[] memId) throws DocumentException, IOException {
 		
 		String[] name = memName;
 		String[] birth = memBirth;
 		String[] sta_id = staId;
+		final String[] mem_id = memId;
 		
 		for(int i=0; i<name.length; i++) {
+			final String to = mem_id[i];
 			String fileName = "";
 			String path1 = request.getSession().getServletContext().getRealPath("");
 			String dir = path1 + "\\upload\\petSitter_SUC";
@@ -934,6 +943,27 @@ public class SitterController {
 			param.put("sta_file", fileName);
 			
 			int updateCnt = sitterService.updateSupportFile(param);
+			
+			if(updateCnt != 0) {
+				final MimeMessagePreparator preparator = new MimeMessagePreparator() {
+					@Override
+					public void prepare(MimeMessage mimeMessage) throws Exception {
+						final MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
+						helper.setFrom("sjyounghos@naver.com");
+						helper.setTo(to);
+						helper.setSubject("MYPET 펫 시터 합격증");
+						helper.setText("펫시터에 합격하신걸 축하드립니다. \r\n 추후에 전화연결 부탁드립니다.", true);
+						
+						String path = request.getSession().getServletContext().getRealPath("");
+						String filePathToBeServed = path + "/img/petInsurance/contract.jpg";
+						
+						FileSystemResource file = new FileSystemResource(new File(filePathToBeServed));
+						helper.addAttachment("contract.jpg", file);
+
+					}
+				};
+				mailSender.send(preparator);
+			}
 			
 		}
 		

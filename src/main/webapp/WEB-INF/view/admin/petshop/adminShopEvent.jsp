@@ -11,19 +11,22 @@
 	#mainMid{
 		margin: 0 auto;
 		width: 1200px;
+		min-height: 578px;
+		
 	}
 	
 	.eventCre{
 		width: 1200px;
 	    display: flex;
-	    align-items: center;
 	    margin-bottom: 10px;
+	    text-align: center;
 	}
 	
 	#eventGo{
 		width: 100%;
-	    background-color: #adabab;
+	    background-color: #807c7c;
 	    color: white;
+	    padding: 5px;
 	    cursor: pointer;
 	}
 	
@@ -47,22 +50,121 @@
 	.eventTr{
 		background-color: #f5edeb;
 	}
+	
+	.eventInfo1{
+		float:left;
+		width: 400px;
+    	height: 45px;
+	}
+	
+	.eventCre{
+		width: 1200px;
+	}
+	
+	.eventA{
+		width: 100px;
+	    height: 30px;
+	    display: flext;
+	    display: flex;
+	    float: left;
+	    align-items: center;
+	    justify-content: center;
+	    background: #f1f1f1;
+	    border-radius: 5px;
+	}
+	
+	.eventB{
+		float: left;
+	    width: 300px;
+	    height: 30px;
+	    display: flex;
+	    align-items: center;
+	    justify-content: center;
+	}
+	
+	.event_title{
+		width: 250px;
+	    height: 20px;
+	}
+	
+	.event_date{
+		width: 118px;
+    	height: 20px;
+	}
+	
+	.event1{
+		float: left;
+	}
+	
+	.eventBtn1{
+		width: 110px;
+    	float: left;
+	}
+	
+	.eventBtn{
+		width: 100px;
+		height: 30px;
+	}
+	
+	.eventCre1{
+		width: 1200px;
+	    height: 145px;
+	    margin: 0 auto;
+	    text-align: center;
+	    background-color: #a3aba5;
+	    overflow: hidden;
+	}
+	
+	.eventBtn2{
+		width: 1200px;
+	    height: 45px;
+	    display: flex;
+	    align-items: center;
+	    justify-content: center;
+	    margin-top: 15px;
+	}
+	
+	.aEvent{
+		margin-top:10px;
+		width: 1200px;
+		display: flex;
+	    align-items: center;
+	    justify-content: center;
+	}
+	
+	.bEvent{
+		width: 1200px;
+		display: flex;
+	    align-items: center;
+	    justify-content: center;
+	}
+	
+	.eventMenu{
+		margin-top: 15px;
+	}   
 </style>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript">
 	$(document).ready(function() {
 		
-		$("#eventGo").click(function() {
-			alert("이벤트 등록");
-		})
-		
 		// 이벤트 삭제
 		$(".eventDel").click(function() {
 			if(confirm("삭제하시겠습니까?")){
-				snot_id($(this).parent().parent().children()[0].innerHTML);
+				$("#snot_id").val($(this).parent().parent().children()[0].innerHTML);
+				$("#eventDel").submit();
 			}else{
 				return;
+			}
+		})
+		
+		$(".eventBtn").click(function() {
+			if($("#snot_title").val() == ''){
+				alert("빈 공간이 있습니다.");
+				return;
+			}else{
+				$("#snot_date").val($("#date1").val()+"~"+$("#date2").val());
+				$("#eventInsert").submit();
 			}
 		})
 	})
@@ -70,14 +172,78 @@
 </script>
 </head>
 <body>
-<form action="#" method="post" id = "eventDel">
+<form action="/shopAdmin/eventDel" method="post" id = "eventDel">
 	<input type="hidden" id = "snot_id" name="snot_id" />
 </form>
 
 <%@include file="/WEB-INF/view/admin/petshop/adminShopH.jsp"%>
 	<div id="mainMid">
-		<div class="eventCre">
-			<input type="button" value="이벤트 등록하기" id="eventGo">
+		<div>
+			<div class="eventCre">
+				<span id="eventGo">이벤트 등록하기</span>
+			</div>
+			
+			<div class="eventCre1">
+				<form action="/shopAdmin/eventCre" method="post" id="eventInsert" enctype="multipart/form-data">
+					<div class="aEvent">
+						<div class="eventInfo1">
+							<div class="eventA">
+								<span>이벤트명</span>
+							</div>
+							<div class="eventB">
+								<input type="text" class="event_title" id="snot_title" name="snot_title" value="">
+							</div>
+						</div>
+						
+						<div class="eventInfo1">
+							<div class="eventA">
+								<span>이벤트기간</span>
+							</div>
+							<div class="eventB">
+								<div class="event1">
+									<input type="date" class="event_date" id="date1">
+								</div>
+								<div class="event1">
+									<span>~</span>
+								</div>
+								<div class="event1">
+									<input type="date" class="event_date" id="date2">
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="bEvent">
+						<div class="eventInfo2">
+							<div class="eventA">
+								<span>이벤트_PIMG</span>
+							</div>
+							<div class="eventB">
+								<input type="file" name="snotPimg">
+							</div>
+						</div>
+						
+						<div class="eventInfo2">
+							<div class="eventA">
+								<span>이벤트상세_IMG</span>
+							</div>
+							<div class="eventB">
+								<input type="file" name="snotImg">
+							</div>
+						</div>
+					</div>
+					
+					<div class="eventBtn2">
+						<div class="eventBtn1">
+							<input type="hidden" id="snot_date" name="snot_date">
+							<input type="button" value="이벤트 등록" class="eventBtn">
+						</div>
+						<div class="eventBtn1">
+							<input type="reset" value="초기화" class="eventBtn">
+						</div>
+					</div>
+				</form>
+			</div>
 		</div>
 		<div class="eventMenu">
 			<table width="1200" class="eventTable">
@@ -106,5 +272,9 @@
 			</table>
 		</div>
 	</div>
+	
+<!-- footer 시작 -->
+<%@include file="../../common/footer.jsp"%>
+<!-- footer 끝 -->
 </body>
 </html>

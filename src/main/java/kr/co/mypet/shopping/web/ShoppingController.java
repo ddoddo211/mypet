@@ -86,6 +86,8 @@ public class ShoppingController {
 		// 펫쇼핑몰 동물 List
 		List<DivisionVo> aniList = shoppingService.animalList();
 		
+		List<ProdVo> bestList = shoppingService.bestProd(12); 
+		
 		if(!(dvs_id.equals("ani"))){
 			// 사료검색의 선택한 동물의 사료id 
 			String dvs_parent = shoppingService.animalSaryo(dvs_id);
@@ -98,6 +100,7 @@ public class ShoppingController {
 		
 		model.addAttribute("snotList",snotList);
 		model.addAttribute("aniList",aniList);
+		model.addAttribute("bestList",bestList);
 		model.addAttribute("dvs_id",dvs_id);
 		
 		
@@ -342,6 +345,18 @@ public class ShoppingController {
 		if(!(prodqty.equals(""))) {
 			int prod_qty = Integer.parseInt(prodqty);
 			prodVo.setProd_qty(prod_qty);
+		}else {
+			if(!(request.getParameter("chkNum").equals(""))){
+				int opQty = 0;
+				int chkNum = Integer.parseInt(request.getParameter("chkNum"));
+				for (int i = 1; i < chkNum; i++) {
+					if(!(request.getParameter("opName"+i).equals(""))) {
+						opQty += Integer.parseInt(request.getParameter("opQty"+i));
+						
+					}
+				}
+				prodVo.setProd_qty(opQty);
+			}
 		}
 		
 		//------------------------------------------------------------------------------------------------------

@@ -60,6 +60,7 @@
 	
 	.snot_text {
 		margin-top: 10px;
+		text-align: center;
 	}
 	
 </style>

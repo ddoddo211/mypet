@@ -26,4 +26,6 @@ public interface CommonDaoInf {
 	public int pointUpdate(MemberVo memVo);
 
 	public int updateMemInfo(MemberVo memVo);
+	
+	public List<MemberVo> getMemberList();
 }

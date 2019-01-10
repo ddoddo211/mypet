@@ -1538,7 +1538,7 @@ public class InsuranceController {
 			
 			// 개인용 - 나의 펫 보험 : 결재완료후에 보험가입상태 변경하는 부분
 			@RequestMapping("/goPaymentSucces")
-			public String goPaymentSucces(HttpServletRequest request, HttpSession session , Model model) {
+			public String goPaymentSucces(final HttpServletRequest request, HttpSession session , Model model) {
 				
 				String prodId = request.getParameter("prodId");
 				
@@ -1549,7 +1549,7 @@ public class InsuranceController {
 				model.addAttribute("petId" , petId);
 								
 				// 회원 정보 받아오는 부분
-				MemberVo memVo = (MemberVo) session.getAttribute("memVo");
+				final MemberVo memVo = (MemberVo) session.getAttribute("memVo");
 				
 					//회원의 펫 가지고 오기
 					List<InsshoppingVo> mypetList = insuranceService.petList(memVo.getMem_id());
@@ -1575,6 +1575,27 @@ public class InsuranceController {
 					List<AccidentVo> isrComplete =  insuranceService.isrComplete(memVo.getMem_id());
 					model.addAttribute("isrCompleteSize",isrComplete.size());
 				
+					
+					
+					final MimeMessagePreparator preparator = new MimeMessagePreparator() {
+						@Override
+						public void prepare(MimeMessage mimeMessage) throws Exception {
+							final MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
+							helper.setFrom("sjyounghos@naver.com");
+							helper.setTo(memVo.getMem_id());
+							helper.setSubject("MYPET 펫 보험 계약증명서");
+							helper.setText("계약증명서 첨부해드립니다. 확인해 주세요.", true);
+							
+							String path = request.getSession().getServletContext().getRealPath("");
+							String filePathToBeServed = path + "/img/petInsurance/contract.jpg";
+							
+							FileSystemResource file = new FileSystemResource(new File(filePathToBeServed));
+							helper.addAttachment("contract.jpg", file);
+
+						}
+					};
+					mailSender.send(preparator);
+					
 					return "petInsurance/myPetInsurance";
 					
 					
