@@ -1,5 +1,7 @@
 package kr.co.mypet.common.service;
 
+import java.util.List;
+
 import kr.co.mypet.common.model.MemberVo;
 
 public interface CommonServiceInf {
@@ -25,4 +27,17 @@ public interface CommonServiceInf {
 	* Method 설명 : 멤버 포인트 적립 및 사용
 	*/
 	public int pointUpdate(MemberVo memVo);
+
+	
+	//member 의 정보 수정
+	public int updateMemInfo(MemberVo memVo);
+	
+	/**
+	* Method : getMemberList
+	* 작성자 : pc24
+	* 변경이력 :
+	* @return
+	* Method 설명 : 회원가입 아이디 중복 체크확인
+	*/
+	public List<MemberVo> getMemberList();
 }

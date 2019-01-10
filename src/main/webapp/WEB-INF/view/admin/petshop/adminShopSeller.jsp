@@ -50,20 +50,52 @@
 	float: left;
 	margin: 0 auto;
 }
-#OK{
+.okBtn{
 	padding : 5px 10px 5px 10px;
 	color : #fff;
 	background-color: #d88787;
 	border-radius: 5px;
 }
+.hidden{
+	display : none;
+}
 </style>
 <script type="text/javascript">
-	function OK(){
+$(document).ready(function(){
+	$(".okBtn").click(function(){
 		
-	}
+		var staId = $(this).parent().parent().children().children("#sId").val();
+		var memName =$(this).parent().parent().children().children("#memName").val();
+		var sKind = $(this).parent().parent().children().children("#sKind").val();
+		var sCompName = $(this).parent().parent().children().children("#sCompName").val();
+		var sNum = $(this).parent().parent().children().children("#sNum").val();
+		var sMem = $(this).parent().parent().children().children("#sMem").val();
+		
+		$("#staId").val(staId);
+		$("#mem_name").val(memName);
+		$("#staKind").val(sKind);
+		$("#staComp").val(sCompName);
+		$("#staNum").val(sNum);
+		$("#staMem").val(sMem);
+		
+		$("#frm").submit();
+	});
+});			
+
+		
 </script>
 </head>
 <body>
+<form action="/shopAdmin/pdfEmail" method="post" id="frm">
+	<input type="hidden" id="staId" name="staId" />
+	<input type="hidden" id="mem_name" name="memName" />
+	<input type="hidden" id="staKind" name="staKind" />
+	<input type="hidden" id="staComp" name="staComp" />
+	<input type="hidden" id="staNum" name="staNum" />
+	<input type="hidden" id="staMem" name="staMem" />
+	<input type="hidden" name="pageSize" value="${pageSize }" />
+	<input type="hidden" name="page" value="${page }"/>
+</form>
 	<%@include file="/WEB-INF/view/admin/petshop/adminShopH.jsp"%>
 
 	<div id="sellerMain">
@@ -71,6 +103,8 @@
 			<table border="1" id="sellerTable">
 				<tr>
 					<th class="th">번호</th>
+					<th class="th hidden">아이디</th>
+					<th class="th hidden">아이디</th>
 					<th class="th">지원자 성명</th>
 					<th class="th">지원자 연락처</th>
 					<th class="th">지원자 구분</th>
@@ -81,26 +115,32 @@
 				</tr>
 				<c:choose>
 					<c:when test="${supportListAll.size() == 0 }">
-						<td class="td" colspan="7">지원자가 없습니다.</td>
+						<td class="td" colspan="9">지원자가 없습니다.</td>
 					</c:when>
 					<c:otherwise>
 						<c:forEach items="${supportListAll }" var="list">
 							<tr>
 								<td class="td">${list.rnum }</td>
-								<td class="td">${list.mem_name }</td>
+								<td class="td hidden"><input type="hidden" id="sId" value="${list.sta_id }" /></td>
+								<td class="td hidden"><input type="hidden" id="sMem" value="${list.sta_mem }" /></td>
+								<td class="td">${list.mem_name }<input type="hidden" id="memName" value="${list.mem_name }" /></td>
 								<td class="td">${list.mem_hp }</td>
-								<td class="td">${list.sta_kind }</td>
+								<td class="td">${list.sta_kind }<input type="hidden" id="sKind" value="${list.sta_kind }" /></td>
 								<c:choose>
 									<c:when test="${list.sta_kind == '회사' }">
-										<td class="td">${fn:split(list.sta_text, '- ')[2] }</td>
-										<td class="td">${list.sta_num }</td>
+										<td class="td">${fn:split(list.sta_text, '- ')[2] }<input type="hidden" id="sCompName" value="${fn:split(list.sta_text, '- ')[2] }" /></td>
+										<td class="td">${list.sta_num }<input type="hidden" id="sNum" value="${list.sta_num }" /></td>
 									</c:when>
 									<c:otherwise>
 										<td class="td" colspan="2">해당사항없음</td>
 									</c:otherwise>
 								</c:choose>
 								<td class="td">${list.sta_suc }</td>
-								<td class="td"><input type="button" id="OK" onclick="" value="승인"/></td>								
+								<td class="td">
+									<c:if test="${list.sta_suc == 'N' }">
+										<input type="button" class="okBtn" value="승인"/>
+									</c:if>
+								</td>								
 							</tr>
 						</c:forEach>
 					</c:otherwise>

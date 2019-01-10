@@ -53,7 +53,7 @@
 	
 	.eventLeft{
 		margin-left:20px;
-		width:250px;
+		width: 310px;
 		height:100px;
 		padding-left: 10px;
     	border-left: 1px solid #f1f1f1;
