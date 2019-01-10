@@ -944,6 +944,11 @@ public class ShoppingService implements ShoppingServiceInf {
 	@Override
 	public int shopNoticeDel(String snot_id) {
 		return shoppingDao.shopNoticeDel(snot_id);
+	}
+
+	@Override
+	public int updateSupportFile(Map<String, Object> param) {
+		return shoppingDao.updateSupportFile(param);
 	};
 	
 	

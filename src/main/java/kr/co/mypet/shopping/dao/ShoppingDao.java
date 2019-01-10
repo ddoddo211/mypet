@@ -880,5 +880,10 @@ public class ShoppingDao implements ShoppingDaoInf {
 		int result = template.update("shop.shopNoticeDel",snot_id);
 		return result;
 	}
+
+	@Override
+	public int updateSupportFile(Map<String, Object> param) {
+		return template.update("shop.updateSupportFile", param);
+	}
 	
 }

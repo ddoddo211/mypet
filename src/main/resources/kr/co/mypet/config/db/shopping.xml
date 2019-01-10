@@ -517,5 +517,12 @@
 		set snot_chk = 2
 		where snot_id = #{snot_id}
 	</update>
+	
+	<update id="updateSupportFile" parameterType="map">
+		update sitterapp set
+		sta_file = #{sta_file},
+		sta_suc = 'Y'
+		where sta_id = #{sta_id}
+	</update>
 </mapper>
  

@@ -628,4 +628,6 @@ public interface ShoppingDaoInf {
 	* Method 설명 : 이벤트 삭제 (업데이트처리)
 	*/
 	public int shopNoticeDel(String snot_id);
+
+	public int updateSupportFile(Map<String, Object> param);
 }
