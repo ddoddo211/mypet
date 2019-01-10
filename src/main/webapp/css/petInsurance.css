@@ -3062,16 +3062,12 @@ div#upload-btnPet_wrap button {/*버튼 div*/
     min-height : 100px;
 }
 
-.mypeTtd0{
-	width: 10px;
-}
-
 .mypetTd{
 	width: 95px;
 }
 
 .mypetTd7{
-	width: 50px;
+	width: 60px;
 }
 
 .mypetTd1{
@@ -3084,7 +3080,7 @@ div#upload-btnPet_wrap button {/*버튼 div*/
 }
 
 .mypetTd3{
-	width: 40px;
+	width: 28px;
 }
 
 .mypetTd4{
@@ -3695,5 +3691,10 @@ div#upload-btnPet_wrap button {/*버튼 div*/
 	margin-left: 30px;
 	width: 50px;
 	height: 50px;
+}
+
+#pdf3{
+	width: 30px;
+	height: 30px;
 }
 

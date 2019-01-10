@@ -9,9 +9,18 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<%-- im'port 결제 스크립트 --%>
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+
 <script type="text/javascript">
 $(document).ready(function(){
 	
+	
+	// 이부분은 제일 위쪽에 설정해 놔야 함
+	//im'port 결제모듈
+    var IMP = window.IMP; // 생략가능
+    IMP.init('imp09203705'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
+    
 	// 나의 펫 보험을 시작을 했을때 펫 정보에는 무조건 실행되어야 하기때문에 설정 
 	getPetInfoFormHtml();
 	
@@ -83,6 +92,7 @@ function gocompanion(){
 function gocompleted(){
 	location.href ='/isr/gocompleted';
 }
+
 
 </script>
 

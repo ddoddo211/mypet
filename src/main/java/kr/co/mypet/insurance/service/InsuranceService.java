@@ -1110,6 +1110,20 @@ public class InsuranceService implements InsuranceServiceInf {
 	public int insprodCancel(String ins_id) {
 		return insuranceDao.insprodCancel(ins_id);
 	}
+
+	
+	/**
+	* Method : goPaymentSucces
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param accd_id
+	* @return
+	* Method 설명 :나의 펫 보험 화면에서 해당 펫의 가입되어 있는 보험상품 결재하기 버튼을 클릭하였을 경우 보험가입상태를 결재완료로 변경 
+	*/
+	@Override
+	public int goPaymentSucces(String accd_id) {
+		return insuranceDao.goPaymentSucces(accd_id);
+	}
 	
 	
 }

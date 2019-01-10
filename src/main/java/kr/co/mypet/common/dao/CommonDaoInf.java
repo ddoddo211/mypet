@@ -24,4 +24,8 @@ public interface CommonDaoInf {
 	* Method 설명 : 멤버 포인트 적립 및 사용
 	*/
 	public int pointUpdate(MemberVo memVo);
+
+	public int updateMemInfo(MemberVo memVo);
+	
+	public List<MemberVo> getMemberList();
 }
