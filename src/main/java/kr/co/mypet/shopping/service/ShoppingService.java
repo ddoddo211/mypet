@@ -959,5 +959,8 @@ public class ShoppingService implements ShoppingServiceInf {
 		return shoppingDao.shopNoticeCre(snotVo);
 	};
 	
-	
+	@Override
+	public int updateSupportFile(Map<String, Object> param) {
+		return shoppingDao.updateSupportFile(param);
+	};
 }

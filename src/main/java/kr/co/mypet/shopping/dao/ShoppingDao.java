@@ -880,11 +880,6 @@ public class ShoppingDao implements ShoppingDaoInf {
 		int result = template.update("shop.shopNoticeDel",snot_id);
 		return result;
 	}
-
-	@Override
-	public int updateSupportFile(Map<String, Object> param) {
-		return template.update("shop.updateSupportFile", param);
-	}
 	
 	/**
 	* Method : shopNoticeCre
@@ -898,6 +893,11 @@ public class ShoppingDao implements ShoppingDaoInf {
 	public int shopNoticeCre(ShopNoticeVo snotVo) {
 		int result = template.insert("shop.shopNoticeCre",snotVo);
 		return result;
+	}
+
+	@Override
+	public int updateSupportFile(Map<String, Object> param) {
+		return template.update("shop.updateSupportFile", param);
 	}
 	
 }

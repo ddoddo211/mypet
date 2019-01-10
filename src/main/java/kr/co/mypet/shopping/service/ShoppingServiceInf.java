@@ -671,4 +671,15 @@ public interface ShoppingServiceInf {
 	* Method 설명 : 이벤트등록
 	*/
 	public int shopNoticeCre(ShopNoticeVo snotVo);
+	
+
+	/**
+	* Method : updateSupportFile
+	* 작성자 : pc24
+	* 변경이력 :
+	* @param param
+	* @return
+	* Method 설명 : 펫 쇼핑몰 판매 지원합격자 파일 업로드 
+	*/
+	public int updateSupportFile(Map<String, Object> param);
 }

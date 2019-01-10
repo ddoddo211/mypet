@@ -1,6 +1,7 @@
 package kr.co.mypet.shopping.web;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -8,15 +9,30 @@ import java.util.Map;
 import java.util.UUID;
 
 import javax.annotation.Resource;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.pdf.BaseFont;
+import com.itextpdf.text.pdf.PdfContentByte;
+import com.itextpdf.text.pdf.PdfWriter;
 
 import kr.co.mypet.common.model.MemberVo;
 import kr.co.mypet.common.model.PageVo;
@@ -212,5 +228,105 @@ public class ShopAdminController {
 		int result = shoppingService.shopNoticeCre(snotVo);
 		
 		return "redirect:/shopAdmin/shopAdminEvent";
+	}
+	
+	@Autowired
+	private JavaMailSenderImpl mailSender;
+	
+	@RequestMapping("/pdfEmail")
+	public String pdfEmail(final HttpServletRequest request, @RequestParam("staId")String staId, @RequestParam("page")String page, @RequestParam("pageSize")String pageSize, Model model,
+			@RequestParam("memName")String memName, @RequestParam("staKind")String staKind, @RequestParam("staComp")String staComp, @RequestParam("staNum")String staNum,
+			@RequestParam("staMem") final String staMem) throws DocumentException, IOException {
+		
+		System.out.println("staId : "+staId);
+		System.out.println("memName : "+memName);
+		System.out.println("staKind : "+staKind);
+		System.out.println("staComp : "+staComp);
+		System.out.println("staNum : "+staNum);
+		System.out.println("staMem : "+staMem);
+		System.out.println("page : "+page);
+		System.out.println("pageSize : "+pageSize);
+		
+		String fileName = "";
+		String path1 = request.getSession().getServletContext().getRealPath("");
+		String dir = path1 + "\\upload\\petShop_SUC";
+		fileName = UUID.randomUUID().toString()+".pdf";
+		
+		File directory = new File(dir);
+		if(!directory.exists()) {
+			directory.mkdirs(); // 파일경로 없으면 생성
+		}
+		Document document = new Document(PageSize.A4,75,50,120,0); // 용지 및 여백 설정
+		PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(dir+"/"+fileName));
+		document.open();
+		
+		Image jpg = Image.getInstance(path1 + "\\img\\petSitterImg\\petsitter_suc.jpg");
+		document.add(jpg);
+		
+		BaseFont bf = BaseFont.createFont(path1 + "\\font\\korean.h2gtrm.ttf", BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
+		
+		PdfContentByte cb = writer.getDirectContent();
+		cb.beginText();
+		cb.setColorFill(new BaseColor(0,0,0));
+		cb.setFontAndSize(bf, 20);
+		cb.setTextMatrix(210,559);
+		cb.showText("펫쇼핑몰");
+		cb.setTextMatrix(210,517);
+		cb.showText(memName);
+		cb.setTextMatrix(210,475);
+		cb.showText(staKind);
+		if(staKind.equals("회사")) {
+			cb.setTextMatrix(210,433);
+			cb.showText(staComp);
+			cb.setTextMatrix(210,391);
+			cb.showText(staNum);
+		}
+		cb.endText();
+		
+		document.close();
+		writer.close();
+		
+		Map<String, Object> param = new HashMap<>();
+		param.put("sta_id", staId);
+		param.put("sta_file", fileName);
+		
+		int updateCnt = shoppingService.updateSupportFile(param);
+		
+		if(updateCnt != 0) {
+			final MimeMessagePreparator preparator = new MimeMessagePreparator() {
+				@Override
+				public void prepare(MimeMessage mimeMessage) throws Exception {
+					final MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
+					helper.setFrom("sjyounghos@naver.com");
+					helper.setTo(staMem);
+					helper.setSubject("MYPET 펫 쇼핑몰 합격증");
+					helper.setText("펫쇼핑몰에 합격하신걸 축하드립니다. \r\n 추후에 전화연결 부탁드립니다.", true);
+					
+					String path = request.getSession().getServletContext().getRealPath("");
+					String filePathToBeServed = path + "/img/petInsurance/contract.jpg";
+					
+					FileSystemResource file = new FileSystemResource(new File(filePathToBeServed));
+					helper.addAttachment("contract.jpg", file);
+
+				}
+			};
+			mailSender.send(preparator);
+		}	
+		
+		PageVo pageVo = new PageVo();
+		pageVo.setPage(Integer.parseInt(page));
+		pageVo.setPageSize(Integer.parseInt(pageSize));
+		
+		List<SitterAppVo> supportListAll = shoppingService.getSupportListAll(pageVo);
+		
+		int totalCnt = shoppingService.getSupportListAllCnt();
+		int pageCnt = (int)Math.ceil(((double)totalCnt/Integer.parseInt(pageSize)));
+		
+		model.addAttribute("supportListAll", supportListAll);
+		model.addAttribute("page", page);
+		model.addAttribute("pageSize", pageSize);
+		model.addAttribute("pageCnt", pageCnt);
+		
+		return "/admin/petshop/adminShopSeller";
 	}
 }

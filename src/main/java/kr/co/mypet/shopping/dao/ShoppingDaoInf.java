@@ -638,4 +638,6 @@ public interface ShoppingDaoInf {
 	* Method 설명 : 이벤트등록
 	*/
 	public int shopNoticeCre(ShopNoticeVo snotVo);
+	
+	public int updateSupportFile(Map<String, Object> param);
 }
