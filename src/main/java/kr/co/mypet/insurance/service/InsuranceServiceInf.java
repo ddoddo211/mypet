@@ -789,5 +789,15 @@ public interface InsuranceServiceInf {
 	* Method 설명 :나의 펫 보험 화면에서 해당 펫의 가입되어 있는 보험상품 결재하기 버튼을 클릭하였을 경우 보험가입상태를 결재완료로 변경 
 	*/
 	int goPaymentSucces(String accd_id);
+	
+	/**
+	* Method : accountDel
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param actId
+	* @return
+	* Method 설명 : 해당 회원의 이메일(pk)로 보내서 회원의 계좌번호를 가지고 오는 방법
+	*/
+	int accountDel(String actId);
 
 }

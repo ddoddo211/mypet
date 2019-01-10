@@ -152,7 +152,7 @@ $(document).ready(function() {
 									<td class="td1"><fmt:formatDate value="${list.accd_date}" pattern="yyyy년 MM월 dd일"></fmt:formatDate></td>
 									<td class="td1">${list.accd_addr}</td>
 									<td class="td1">${list.accd_stat}</td>
-									<td class="td1">(${list.act_bank}) ${list.act_num}</td>
+									<td class="td1">${list.accd_act}</td>
 								</tr>
 							</c:forEach>
 	</c:otherwise>	

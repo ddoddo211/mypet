@@ -148,7 +148,7 @@ function goBack(){
 								<div id="accountInfo3">
 									<div class="isrJoinNotice3">
 										<span class="isrJoinNotice3_1">
-										(${insVoList.act_bank })${insVoList.act_num }${insVoList.act_name }
+										${insVoList.accd_act }
 										</span>
 									</div>
 								</div>

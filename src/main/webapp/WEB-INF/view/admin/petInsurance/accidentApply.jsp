@@ -279,7 +279,7 @@ function goPdf(fileName){
 											보험금 요청계좌
 										</div>
 										<div id="accountInfo3">
-											<label class="insurer2_4">(${acdVo.act_bank})${acdVo.act_num}/${acdVo.act_name}</label>
+											<label class="insurer2_4">${acdVo.accd_act}</label>
 										</div>
 									</div>
 								</div>	

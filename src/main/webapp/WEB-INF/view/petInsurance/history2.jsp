@@ -185,7 +185,7 @@ function goPdf(fileName){
 									보험금 입금계좌
 								</div>
 								<div id="historyAct">
-									<label>(${history.act_bank})${history.act_num} 예금주 : ${history.act_name}</label>
+									<label>${history.accd_act}</label>
 								</div>
 							</div>
 						</div>	

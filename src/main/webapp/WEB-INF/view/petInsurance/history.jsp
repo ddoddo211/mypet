@@ -6,6 +6,25 @@
 <meta charset="UTF-8">
 <title>history.jsp(보험금 청구 내역)</title>
 
+<style type="text/css">
+.memAccidentSelect{
+	font-family: 'Jeju Gothic', sans-serif;
+	font-size: 18px;
+	width: 100px;
+	text-align: center;
+	outline: none;
+	height: 30px;
+    border-radius: 5px;
+    line-height: 30px;
+    margin-left: 10px;
+    float: left;
+}
+
+#account{
+	outline: none;
+}
+</style>
+
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -13,22 +32,41 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	
-	// 계좌번호를 변경하였다면 나오는 부분
+	// 보험금 입금계좌 클릭하였을때 값을 담아주는 부분
 	$(".memAccidentSelect").click(function(){
-		var selectAc = $(this).val();
-		$("#selectAc").val(selectAc);
+		var selectAccident = $(this).val();
+		$("#selectAc").val(selectAccident);
 	});
+	
 	
 	// 계좌번호 수정하기 버튼을 클릭할시 
 		$("#nextBtn2").click(function(){
 			var selectAccident = $("#selectAc").val();
-
-			if(selectAccident == 0 || selectAccident == "" ){
-				alert("수정하실 계좌번호를 선택하시기 바랍니다.");
-				return;
-			}else{
-				$("#frm").submit();
-			}
+			var account = $("#account").val();
+			
+			// 원래 계좌번호 
+			var act = '${history.accd_act}';
+			var actChk = selectAccident+account;
+			
+			// 숫자와 특수문자만 입력하였는지 확인
+			var regexp = /[0-9;\-]/;
+				v = account;
+				if( selectAccident == "" || selectAccident == 0){
+					alert("수정하실 은행을 선택하시기 바랍니다.");
+					return;
+				}else if(account == ""){
+					alert("계좌번호를 입력하시기 바랍니다.");
+					return;
+				}else if( !regexp.test(v) ) {
+					alert("계좌번호는 숫자 , 특수문자(-)로  입력하세요");
+					return;
+				}else if(act == actChk ){
+					alert("이전에 등록되었던 계좌번호입니다.");
+					return;
+				}else{
+					$("#account2").val(account);
+					$("#frm").submit();
+					}
 		});
 	
 		// 진단서(필수)의 첨부파일을 클릭하였을 경우
@@ -67,6 +105,7 @@ function goPdf(fileName){
 <!-- 변경할 계좌번호를 담아서 보내주기 -->
 <form action="/isr/accountChange" id="frm" method="post">
 	<input type="hidden" name="selectAc" id="selectAc" value="" />
+	<input type="hidden" name="account2" id="account2" value="" />
 	<input type="hidden" name="accd_id" value="${history.accd_id}">
 </form>
 
@@ -205,7 +244,12 @@ function goPdf(fileName){
 				
 				<div id="isrApplyTitle3_1_1">
 					<div id="isrApplyTitle3_1_2">
-						보험금 입금계좌는 고객님께서 청구신청하실때 입력하신 계좌번호입니다. 만약, 변경을 원하실경우에는 "변경을 원하는 계좌번호"를 선택하시기 바랍니다.
+						보험금 입금계좌는 고객님께서 청구신청하실때 입력하신 계좌번호입니다. 만약, 변경을 원하실경우에는 "변경을 원하는 계좌번호"를 입력하시기 바랍니다.
+					</div>
+				</div>
+				<div class="claimTitle4">
+					<div class="claimTitle4_1_2">
+						<div class="claimTitle4_2">보험금 입금계좌 입력시에는 올바르게 입력하시기 바랍니다. 올바르지 않을 경우에는 입금이 안될수 있습니다.(-입력)</div>
 					</div>
 				</div>
 				
@@ -216,20 +260,24 @@ function goPdf(fileName){
 									보험금 입금계좌
 								</div>
 								<div id="historyAct">
-									<label>(${history.act_bank})${history.act_num} 예금주 : ${history.act_name}</label>
+									<label>${history.accd_act}</label>
 								</div>
 								
 								<div class="history2_2">
 									변경할 입금 계좌
 								</div>
-
 								<div id="accountInfo3">
 									<select class="memAccidentSelect" name="accountSelect" >
-										<option selected value="0">원하시는 입금계좌를 선택하시기 바랍니다.</option>
-										<c:forEach items="${memAccidentList }" var="account">
-											<option value="${account.act_id}">${account.act_bank}${account.act_num} 예금주 : ${account.act_name}</option>
-										</c:forEach>
+										<option selected value="0">은행 선택</option>
+											<option value="농협">농협</option>
+											<option value="국민">국민</option>
+											<option value="우리">우리</option>
+											<option value="하나">하나</option>
 									</select>
+								</div>
+
+								<div >
+									<input id="account" name="account" type="text" >
 								</div>
 							</div>
 						</div>	
