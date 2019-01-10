@@ -944,6 +944,19 @@ public class ShoppingService implements ShoppingServiceInf {
 	@Override
 	public int shopNoticeDel(String snot_id) {
 		return shoppingDao.shopNoticeDel(snot_id);
+	}
+	
+	/**
+	* Method : shopNoticeCre
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param snotVo
+	* @return
+	* Method 설명 : 이벤트등록
+	*/
+	@Override
+	public int shopNoticeCre(ShopNoticeVo snotVo) {
+		return shoppingDao.shopNoticeCre(snotVo);
 	};
 	
 	

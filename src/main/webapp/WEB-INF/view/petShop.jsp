@@ -16,6 +16,7 @@
 		width: 1200px;
 		height : 300px;
 		margin: 0 auto;
+		margin-top: 20px;
 	}
 	
 	.maintop-left{
@@ -147,6 +148,10 @@
 		padding-right: 4px;
 		margin-top: 4px;
 	}
+	
+	.saryoImg{
+		margin-top: 10px;
+	}
 </style>
 <script type="text/javascript">
 	
@@ -216,7 +221,9 @@
 			</div>
 			
 			<div class="maintop-right">
-				<img alt="간편 사료 찾기" src="/shopimg/shopsaryo.png" width="190">
+				<div class="saryoImg">
+					<img alt="간편 사료 찾기" src="/shopimg/shopsaryo.png" width="190">
+				</div>
 				<div class="search">
 					<form method="get" action="/shop/petShopList">
 						<select class="petSearch" id = "searchPet" name="searchPet">
@@ -265,7 +272,7 @@
 				</ul>
 				<br>
 				<div class="productBtn">
-					<a href="#" onclick="return false;">더보기</a>
+					<a href="/shop/prodBest">더보기</a>
 				</div>
 		</div>
 	

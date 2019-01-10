@@ -881,4 +881,18 @@ public class ShoppingDao implements ShoppingDaoInf {
 		return result;
 	}
 	
+	/**
+	* Method : shopNoticeCre
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param snotVo
+	* @return
+	* Method 설명 : 이벤트등록
+	*/
+	@Override
+	public int shopNoticeCre(ShopNoticeVo snotVo) {
+		int result = template.insert("shop.shopNoticeCre",snotVo);
+		return result;
+	}
+	
 }
