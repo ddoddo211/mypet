@@ -141,5 +141,10 @@ public class CommonDao implements CommonDaoInf {
 		return memberVo;
 	}
 
+	@Override
+	public String memberPWSearch(String mem_id) {
+		return template.selectOne("member.memberPWSearch", mem_id);
+	}
+
 
 }

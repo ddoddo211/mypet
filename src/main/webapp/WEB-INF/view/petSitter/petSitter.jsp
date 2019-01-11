@@ -58,6 +58,10 @@ body {
 	margin-top: 50px !important;
 }
 </style>
+<script type="text/javascript">
+	$(document).ready(function(){
+	});
+</script>
 </head>
 <body>
 	<!-- header 시작 -->
@@ -70,7 +74,7 @@ body {
 		<div id="header">
 			<!-- main -->
 			<div id="logo">
-				<a href="/petSitter.jsp"><img alt="이미지가 없습니다"
+				<a href="/sit/sitMain"><img alt="이미지가 없습니다"
 					src="/img/petSitterLogo2.jpg" width="200px;" /></a>
 			</div>
 			<div id="petSearch">
@@ -116,7 +120,7 @@ body {
 			<div id="fromHome2">
 				<span id="fromWord">펫시터 집으로 부르기</span><br>
 				<p>도그메이트 펫시터가 집으로 찾아와 반려동물을 돌봐드려요.</p>
-				<br> <a href="/sit/sitFrom"><button id="detail1">
+				<br> <a href="/sit/sitterFrom"><button class="detail1" id="detail1">
 						자세히 알아보기<i class="icon-arrow-right icons"></i>
 					</button></a>
 			</div>
@@ -125,7 +129,7 @@ body {
 			<div id="toHome1">
 				<span id="fromWord">펫시터 집에 맡기기</span><br>
 				<p>도그메이트 펫시터의 가정집에서 편안하고 자유롭게 지낼 수 있어요.</p>
-				<br> <a href="/sit/sitTo"><button id="detail1">
+				<br> <a href="/sit/sitterTo"><button class="detail1" id="detail2">
 						자세히 알아보기<i class="icon-arrow-right icons"></i>
 					</button></a>
 			</div>
@@ -145,30 +149,6 @@ body {
 			<div id="slide">
 				<div class="swiper-container">
 					<div class="swiper-wrapper">
-						<div class="swiper-slide">
-							<div id="post1Image">
-								<img class="pImg" name="pos3" alt="이미지"
-									src="/img/petSitterImg/petSitterPost1.jpg" />
-							</div>
-							<div>
-								<span> 하루종일 같이 놀아주시고, 배식과 간식 먹는 사진과 즐겁게<br>
-									    노는 사진을 많이 보내주셔서 안심하고 맡길 수 있어서 너무<br>
-									    안심이 됐습니다.
-								</span>
-							</div>
-						</div>
-						<div class="swiper-slide">
-							<div id="post1Image">
-								<img class="pImg" name="pos3" alt="이미지"
-									src="/img/petSitterImg/petSitterPost2.jpg" />
-							</div>
-							<div>
-								<span> 하루종일 같이 놀아주시고, 배식과 간식 먹는 사진과 즐겁게<br>
-									    노는 사진을 많이 보내주셔서 안심하고 맡길 수 있어서 너무<br>
-									    안심이 됐습니다.
-								</span>
-							</div>
-						</div>
 						<div class="swiper-slide">
 							<div id="post1Image">
 								<img class="pImg" name="pos3" alt="이미지"

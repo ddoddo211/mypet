@@ -128,6 +128,12 @@
 		where mem_id = #{mem_id}
 	</update>
 	
+	<select id="memberPWSearch" parameterType="String" resultType="String">
+		select mem_pass
+		from member
+		where mem_id = #{mem_id}
+	</select>
+	
 	<!-- ID찾기 -->
 	<select id="idSearch" parameterType="memVo" resultType="memVo">
 		select * from member

@@ -287,7 +287,8 @@ div#upload-btn_wrap button {/*버튼 div*/
 		<div id="header">
 			<!-- main -->
 			<div id="logo">
-				<a href="/petSitter.jsp"><img alt="이미지가 없습니다" src="/img/petSitterLogo2.jpg" width="200px;" /></a>
+				<a href="/sit/sitMain"><img alt="이미지가 없습니다"
+					src="/img/petSitterLogo2.jpg" width="200px;" /></a>
 			</div>
 			<div id="petSearch">
 				<div id="word">

@@ -341,4 +341,24 @@ public class SitterService implements SitterServiceInf {
 	public int getPetListAllCnt() {
 		return sitterDao.getPetListAllCnt();
 	}
+
+	@Override
+	public int getPstReviewAllCnt(String pst_id) {
+		return sitterDao.getPstReviewAllCnt(pst_id);
+	}
+
+	@Override
+	public int getPstReviewScore(String pst_id) {
+		return sitterDao.getPstReviceScore(pst_id);
+	}
+
+	@Override
+	public int updatePetsitterScore(Map<String, Object> param) {
+		return sitterDao.updatePetsitterScore(param);
+	}
+
+	@Override
+	public int insertPetsitterChk(Map<String, Object> param) {
+		return sitterDao.insertPetsitterChk(param);
+	}
 }

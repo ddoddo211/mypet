@@ -20,7 +20,18 @@
     	overflow: hidden;
   	}
   </style>
+<script type="text/javascript">
+	function move(){
+		var cnt = "${cnt}";
+		if(cnt == "1"){
+			location.href="/mem/petSitManager";
+		} else{
+			location.href="/sit/faq";
+		}
+	}
+</script>
 </head>
+
 <body>
 <%@include file="/WEB-INF/view/common/header.jsp"%>
 
@@ -30,7 +41,7 @@
 		<div id="header">
 			<!-- main -->
 			<div id="logo">
-				<a href="/petSitter.jsp"><img alt="이미지가 없습니다"
+				<a href="/sit/sitMain"><img alt="이미지가 없습니다"
 					src="/img/petSitterLogo2.jpg" width="200px;" /></a>
 			</div>
 			<div id="petSearch">
@@ -71,7 +82,7 @@
 					<a class="indexMove" href="/sit/faqUpdateView?faq_id=${fVo.psf_id }">수정</a>
 					<a class="indexMove" href="/sit/faqDelete?faq_id=${fVo.psf_id }">삭제</a>
 				</c:if>
-				<a class="indexMove" href="/sit/faq">목록</a>
+				<a class="indexMove" onclick="move()">목록</a>
 			</div>
 		</div>
 	</div>

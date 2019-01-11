@@ -533,4 +533,45 @@ public interface SitterServiceInf {
 	* Method 설명 : 관리자 마이페이지 반려동물 관리 -> 반려동물 전체 리스트 갯수 
 	*/
 	int getPetListAllCnt();
+
+	/**
+	* Method : getPstReviewAllCnt
+	* 작성자 : pc24
+	* 변경이력 :
+	* @param pst_id
+	* @return
+	* Method 설명 : 해당 게시글의 후기글의 총 개수 
+	*/
+	int getPstReviewAllCnt(String pst_id);
+
+	/**
+	* Method : getPstReviewScore
+	* 작성자 : pc24
+	* 변경이력 :
+	* @param pst_id
+	* @return
+	* Method 설명 : 해당 게시글의 후기글 평점의 합 
+	*/
+	int getPstReviewScore(String pst_id);
+
+	/**
+	* Method : updatePetsitterScore
+	* 작성자 : pc24
+	* 변경이력 :
+	* @param param
+	* @return
+	* Method 설명 : 펫시터 집에 맡기기 평점 수정 
+	*/
+	int updatePetsitterScore(Map<String, Object> param);
+
+	/**
+	* Method : insertPetsitterChk
+	* 작성자 : pc24
+	* 변경이력 :
+	* @param param
+	* @return
+	* Method 설명 : 펫시터 집에 맡기기 이용여부 등록 
+	*/
+	int insertPetsitterChk(Map<String, Object> param);
+	
 }

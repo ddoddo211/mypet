@@ -104,6 +104,16 @@ public interface CommonServiceInf {
 	public int memberUpdate(Map<String, Object> param);
 	
 	/**
+	* Method : memberPWSearch
+	* 작성자 : pc24
+	* 변경이력 :
+	* @param mem_id
+	* @return
+	* Method 설명 : 회원의 비밀번호 조회 
+	*/
+	public String memberPWSearch(String mem_id);
+	
+	/**
 	* Method : idSearch
 	* 작성자 : pc25
 	* 변경이력 :

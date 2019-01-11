@@ -47,6 +47,9 @@ public interface CommonDaoInf {
 
 	public int memberUpdate(Map<String, Object> param);
 	
+	public String memberPWSearch(String mem_id);
+	
+	
 	/**
 	* Method : idSearch
 	* 작성자 : pc25

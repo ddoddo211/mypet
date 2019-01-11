@@ -100,7 +100,7 @@ function window_onload(){
 		<div id="header">
 			<!-- main -->
 			<div id="logo">
-				<a href="/petSitter.jsp"><img alt="이미지가 없습니다"
+				<a href="/sit/sitMain"><img alt="이미지가 없습니다"
 					src="/img/petSitterLogo2.jpg" width="200px;" /></a>
 			</div>
 			<div id="petSearch">
@@ -163,7 +163,7 @@ function window_onload(){
 						</table>
 					</div>
 					<div id ="pay">
-						<span>결제 금액 : </span><span style="color:red;">115,000원</span>
+						<span>결제 금액 : </span><span style="color:red;">${pay_price }</span>
 					</div>
 				</c:when>
 				<c:when test="${pay_chk == '0' }">
@@ -198,7 +198,7 @@ function window_onload(){
 						</table>
 					</div>
 					<div id ="pay">
-						<span>결제 금액 : </span><span style="color:red;">115,000원</span>
+						<span>결제 금액 : </span><span style="color:red;">%{pay_price}</span>
 					</div>
 				</c:when>
 			</c:choose>

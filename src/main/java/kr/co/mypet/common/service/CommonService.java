@@ -133,5 +133,8 @@ public class CommonService implements CommonServiceInf {
 		return commonDao.idSearch(memVo);
 	}
 	
-	
+	@Override
+	public String memberPWSearch(String mem_id) {
+		return commonDao.memberPWSearch(mem_id);
+	}
 }

@@ -1,6 +1,7 @@
 package kr.co.mypet.common.web;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
@@ -681,5 +682,33 @@ public class MemberController {
 		model.addAttribute("memberVo",memberVo);
 		model.addAttribute("chk",chk);
 		return "common/loginIdSearch";
+	}
+	
+	@RequestMapping("/pwSearchView")
+	public String pwSearchView() {
+		
+		return "common/loginPwSearch";
+	}
+	
+	@RequestMapping("/pwSearch")
+	public String pwSearch(Model model, @RequestParam("mem_id") final String mem_id, @RequestParam("mem_hp1")String mem_hp1, @RequestParam("mem_hp2")String mem_hp2, @RequestParam("mem_hp3")String mem_hp3) {
+		String mem_hp = mem_hp1 + mem_hp2 + mem_hp3;
+		final String mem_pw = commonService.memberPWSearch(mem_id);
+		
+		final MimeMessagePreparator preparator = new MimeMessagePreparator() {
+			@Override
+			public void prepare(MimeMessage mimeMessage) throws Exception {
+				final MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
+				helper.setFrom("sjyounghos@naver.com");
+				helper.setTo(mem_id);
+				helper.setSubject("MYPET 회원 비밀번호 찾기");
+				helper.setText("MYPET 사이트 비밀번호 : "+ mem_pw, true);
+			}
+		};
+		mailSender.send(preparator);
+		int cnt = 1;
+		model.addAttribute("cnt", cnt);
+		
+		return "common/loginPwSearch";
 	}
 } // controller class 끝나는곳

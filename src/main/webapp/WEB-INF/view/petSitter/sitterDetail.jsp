@@ -108,7 +108,7 @@
   	display: table;
   }
   
-  #reviewMDBtn{
+  .reviewMDBtn{
   	display: table-cell;
   	vertical-align: middle;
   }
@@ -129,14 +129,15 @@
   	margin : 0 auto;
   }
   
-  #review_text{
+  .review_text{
   	width : 530px;
   	height : 40px;
   }
   
-  #reviewMDBtn2{
+  .reviewMDBtn2{
   	display: none;
   	vertical-align: middle;
+  	line-height: 90px;
   }
   
   .priceDt{
@@ -176,7 +177,7 @@
   }
   
   .starR{
-   	background: url(http://miuu227.godohosting.com/images/icon/ico_review.png) no-repeat right 0;
+   	background: url('http://miuu227.godohosting.com/images/icon/ico_review.png') no-repeat right 0;
     background-size: auto 100%;
     width: 20px;
     height: 20px;
@@ -184,8 +185,13 @@
     text-indent: -9999px;
     cursor: pointer;
   }
-  .starR .on {
+  .starR.on {
 	background-position: 0 0;
+  }
+  
+  .sFont{
+  	font-family: monospace;
+  	font-size : 20px;
   }
   </style>
 
@@ -216,10 +222,17 @@
 		
 		$("#reviewAdd").click(function(){
 			var chk = ${chk};
+			
 			if(chk == 1){
 				var review_text = $("#review").val();
 				$("#stv_text").val(review_text);
-				
+				var addcnt = $(this).parent().parent().children().children(".on").length;
+				if(addcnt <= 0){
+					alert("별점을 입력해주세요.");
+					return;
+				} else{
+					$("#stv_score").val(addcnt-1);
+				}
 				$("#insertFrm").submit();
 			} else{
 				alert("이용한 유저만 후기글이 등록가능합니다.");
@@ -244,7 +257,6 @@
 		
 
 	});
-	
 	function payment(){
 		var name = "${pstVo.pst_title}";
 		var price = $("#totalPrice").val();
@@ -254,8 +266,12 @@
 		var mem_id = "${memVo.mem_id}";
 		var pst_mem = "${pstVo.pst_mem}";
 		
-		if(price == null || price == '' || mem_id == null || mem_id == '' || mem_id == pst_mem){
+		if(price == null || price == '' || mem_id == null || mem_id == ''){
 			alert("예약을 할 수 없습니다.");
+			return;
+		}
+		if( mem_id == pst_mem){
+			alert("자신이 쓴 게시글에 대해서는 예약할 수 없습니다.");
 			return;
 		}
 		IMP.request_pay({
@@ -302,7 +318,6 @@
 	function AddComma(data_value) {
 		return Number(data_value).toLocaleString('en').split(".")[0];
 	}
-
 	
 	$(function(){
 		// 달력 옵션 설정
@@ -459,57 +474,6 @@
 		
 	}
 	
-	function reviewUpdate(){
-		var revtext = document.getElementById("revtext");
-		var review_text = document.getElementById("review_text");
-		var review_btn = document.getElementById("reviewMDBtn");
-		var review_btn2 = document.getElementById("reviewMDBtn2");
-		
-		$("#review_text").val(revtext.innerHTML);
-		
-		if(review_text.style.display == "none"){
-			review_text.style.display = "block";
-			revtext.style.display = "none";
-		} else {
-			review_text.style.display = "none";
-			revtext.style.display = "block";
-		}
-		
-		if(review_btn.style.display == "none"){
-			review_btn.style.display = "table-cell";
-			review_btn2.style.display = "none";
-		} else{
-			review_btn.style.display = "none";
-			review_btn2.style.display = "table-cell";
-		}
-	}
-	
-	function reviewUpdate2(){
-		var stvId = $("#stvId").val()
-		$("#stv_id").val(stvId);
-		var revtext = $("#review_text").val();
-		$("#upReview").val(revtext);
-		$("#updateFrm").submit();
-	}
-	
-	function reviewCancle(){
-		var revtext = document.getElementById("revtext");
-		var review_text = document.getElementById("review_text");
-		var review_btn = document.getElementById("reviewMDBtn");
-		var review_btn2 = document.getElementById("reviewMDBtn2");
-		
-		revtext.style.display = "block";
-		review_text.style.display = "none";
-		review_btn.style.display = "table-cell";
-		review_btn2.style.display = "none";
-	}
-	
-	function reviewDelete(){
-		var stvId = $("#stvId").val()
-		$("#stvID").val(stvId);
-		$("#deleteFrm").submit();
-	}
-	
 	function str(k){
 		alert(k);
 	}
@@ -523,17 +487,7 @@
 <form action="/sit/insertReview" method="post" id="insertFrm">
 	<input type="hidden" name="pst_id" value="${pstVo.pst_id }" />
 	<input type="hidden" id="stv_text" name="stv_text"  />
-</form>
-
-<form action="/sit/updateReview" method="POST" id="updateFrm">
-	<input type="hidden" name="pst_id" value="${pstVo.pst_id }" />
-	<input type="hidden" id="stv_id" name="stv_id"  />
-	<input type="hidden" id="upReview" name="revText" />
-</form>
-
-<form action="/sit/deleteReview" method="post" id="deleteFrm">
-	<input type="hidden" name="pst_id" value="${pstVo.pst_id }" />
-	<input type="hidden" id="stvID" name="stvID" />
+	<input type="hidden" id="stv_score" name="stv_score"  />
 </form>
 
 <form action="/sit/paymentSuccess" method="Post" id="successFrm">
@@ -544,6 +498,7 @@
 	<input type="hidden" id="pay_timeEnd" name="pay_timeEnd"   />
 	<input type="hidden" id="pay_name" name="pay_name"   />
 	<input type="hidden" id="pay_chk" name="pay_chk"   />
+	<input type="hidden" name="pst_id" value="${pstVo.pst_id }" />
 </form>
 <!-- 각자 화면 -->
 	<div id="">
@@ -551,7 +506,7 @@
 		<div id="header">
 			<!-- main -->
 			<div id="logo">
-				<a href="/petSitter.jsp"><img alt="이미지가 없습니다"
+				<a href="/sit/sitMain"><img alt="이미지가 없습니다"
 					src="/img/petSitterLogo2.jpg" width="200px;" /></a>
 			</div>
 			<div id="petSearch">
@@ -605,12 +560,12 @@
 						</div>
 						<div id="reviewAddMain">
 							<div class="starRev">
-								별점주기 / 
-								<span class="starR on">별1</span>
-								<span class="starR">별2</span>
-								<span class="starR">별3</span> 
-								<span class="starR">별4</span> 
-								<span class="starR">별5</span>
+								<span class="sFont">별점주기/</span> 
+								<span class="sFont starR">별1</span>
+								<span class="sFont starR">별2</span>
+								<span class="sFont starR">별3</span> 
+								<span class="sFont starR">별4</span> 
+								<span class="sFont starR">별5</span>
 							</div>
 							<div id="reviewWord">
 								<textarea rows="3" cols="100" id="review" name="review"></textarea>
@@ -632,10 +587,10 @@
 				<div id="contentright1">
 					<span style="font-size:24px;">예약을 원하는 날짜와 시간을 선택해주세요.</span> <br>
 					<div id="contentDate">
-						<input type="text" name="dateStart" id="dateStart" value="" readonly="readonly"/>
-						<input type="text" name="timeStart" id="timeStart" value="" readonly="readonly"/> ~
-						<input type="text" name="dateEnd" id="dateEnd" value="" readonly="readonly" />
-						<input type="text" name="timeEnd" id="timeEnd" value="" readonly="readonly"/>
+						<input type="text" name="dateStart" id="dateStart" value="" placeholder="의뢰시작일자" readonly="readonly"/>
+						<input type="text" name="timeStart" id="timeStart" value="" placeholder="시간" readonly="readonly"/> ~
+						<input type="text" name="dateEnd" id="dateEnd" value="" placeholder="의뢰마침일자" readonly="readonly" />
+						<input type="text" name="timeEnd" id="timeEnd" value="" placeholder="시간" readonly="readonly"/>
 					</div>
 					<div id="contentPrice">
 						<dl style="margin-top:50px;height: 60px;">
@@ -658,13 +613,25 @@
 						</div>
 					</div>
 				</div>
-<!-- 				<div id="contentright2"> -->
-<!-- 					<span>캘린더 미리보기</span> -->
-<!-- 					<div id="calendar"></div> -->
-<!-- 					<div id="calendarChk"> -->
-<!-- 						<label>예약가능</label><label>예약불가능</label> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
+				<div id="contentright2">
+					<div style="width:100%;">
+						<div id="contentProfile">
+							<c:choose>
+								<c:when test="${pstVo.mem_img != null }">
+									<img src="${pstVo.mem_img }" id="proImg" />
+								</c:when>
+								<c:otherwise>
+									<img src="/img/petimg/noimg.jpg" id="proImg" />								
+								</c:otherwise>
+							</c:choose>
+						</div>
+						<div id="pstMemInfo">
+							<span>판매자 : ${pstVo.mem_name }</span> <br>
+							<span>이메일 : ${pstVo.mem_id }</span> <br>
+							<span>연락처 : ${pstVo.mem_hp }</span>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

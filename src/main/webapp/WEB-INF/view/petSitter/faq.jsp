@@ -22,7 +22,7 @@
 		});
 		
 		$("#faq_insert_btn").click(function(){
-			location.href="/sit/faqInsertView";
+			location.href="/sit/faqInsertView?cnt=0";
 		});
 	});
 </script>
@@ -78,7 +78,7 @@
 		<div id="header">
 			<!-- main -->
 			<div id="logo">
-				<a href="/petSitter.jsp"><img alt="이미지가 없습니다"
+				<a href="/sit/sitMain"><img alt="이미지가 없습니다"
 					src="/img/petSitterLogo2.jpg" width="200px;" /></a>
 			</div>
 			<div id="petSearch">
