@@ -127,6 +127,12 @@
 		mem_hair = #{mem_hair}
 		where mem_id = #{mem_id}
 	</update>
+	
+	<select id="memberPWSearch" parameterType="String" resultType="String">
+		select mem_pass
+		from member
+		where mem_id = #{mem_id}
+	</select>
 </mapper>
 
 

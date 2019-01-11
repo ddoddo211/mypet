@@ -5,7 +5,7 @@
 <script>
 	$(function(){
 		$("#revInsert").click(function(){
-			location.href = "/sit/faqInsertView";
+			location.href = "/sit/faqInsertView?cnt=1";
 		});
 		
 		$("#revDelete").click(function(){

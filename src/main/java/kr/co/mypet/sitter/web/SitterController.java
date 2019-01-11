@@ -64,6 +64,9 @@ public class SitterController {
 	// 펫시터 메인화면
 	@RequestMapping("/sitMain")
 	public String MainView() {
+		
+		
+		
 		return "petSitter/petSitter";
 	}
 	
@@ -534,7 +537,7 @@ public class SitterController {
 	
 	// 후기 게시글 등록
 	@RequestMapping("/insertReview")
-	public String insertReview(@RequestParam("pst_id")String pst_id, @RequestParam("stv_text")String stv_text, HttpSession session) {
+	public String insertReview(@RequestParam("pst_id")String pst_id, @RequestParam("stv_text")String stv_text, HttpSession session, @RequestParam("stv_score")int stv_score) {
 		
 		MemberVo memVo = (MemberVo) session.getAttribute("memVo");
 		
@@ -542,18 +545,31 @@ public class SitterController {
 		param.put("stv_pst", pst_id);
 		param.put("stv_text", stv_text);
 		param.put("stv_mem", memVo.getMem_id());
+		param.put("stv_score", stv_score);
 		
 		int insertCnt = sitterService.insertReview(param);
+		
+		int count = sitterService.getPstReviewAllCnt(pst_id);
+		int score = sitterService.getPstReviewScore(pst_id);
+		
+		int reviewScore = (int)(Math.ceil(score/count));
+		
+		Map<String, Object> param2 = new HashMap<>();
+		param2.put("pst_id", pst_id);
+		param2.put("pst_score", reviewScore);
+		
+		int updateCnt = sitterService.updatePetsitterScore(param2);
 		
 		return "redirect:/sit/sitDetail?pst_id="+pst_id;
 	}
 	
 	// 후기 게시글 수정
 	@RequestMapping("/updateReview")
-	public String updateReview(@RequestParam("revText")String revText, @RequestParam("stv_id")String stv_id, @RequestParam("pst_id")String pst_id) {
+	public String updateReview(@RequestParam("stv_score")int stv_score, @RequestParam("revText")String revText, @RequestParam("stv_id")String stv_id, @RequestParam("pst_id")String pst_id) {
 		Map<String, Object> param = new HashMap<>();
 		param.put("stv_text", revText);
 		param.put("stv_id", stv_id);
+		param.put("stv_score", stv_score);
 		
 		int updateCnt = sitterService.updateReview(param);
 		
@@ -561,8 +577,7 @@ public class SitterController {
 	}
 	
 	@RequestMapping("/deleteReview")
-	public String deleteReview(@RequestParam("stvID")String stv_id, @RequestParam("pst_id")String pst_id) {
-		
+	public String deleteReview(@RequestParam("stvID")String stv_id, @RequestParam("pstId")String pst_id) {
 		int deleteCnt = sitterService.deleteReview(stv_id);
 		
 		return "redirect:/sit/sitDetail?pst_id="+pst_id;
@@ -636,11 +651,12 @@ public class SitterController {
 	
 	// FAQ 게시판 상세화면
 	@RequestMapping("/faqDetail")
-	public String faqDetail(Model model, @RequestParam("faqId")String psf_id) {
+	public String faqDetail(Model model, @RequestParam("faqId")String psf_id, @RequestParam("cnt")int cnt) {
 		
 		FaqVo fVo = sitterService.getFaqOne(psf_id);
 		
 		model.addAttribute("fVo", fVo);
+		model.addAttribute("cnt", cnt);
 		
 		return "petSitter/faqDetail";
 	}
@@ -677,13 +693,14 @@ public class SitterController {
 
 	// faq 등록화면 이동
 	@RequestMapping("/faqInsertView")
-	public String faqInsertView() {
+	public String faqInsertView(@RequestParam("cnt")int cnt, Model model) {
+		model.addAttribute("cnt", cnt);
 		return "petSitter/faqInsert";
 	}
 	
 	// faq 등록 처리
 	@RequestMapping("/faqInsert")
-	public String faqInsert(@RequestParam("faq_name")String psf_name, @RequestParam("smarteditor")String psf_text) {
+	public String faqInsert(@RequestParam("faq_name")String psf_name, @RequestParam("smarteditor")String psf_text, @RequestParam("cnt")String cnt) {
 		Map<String, Object> param = new HashMap<>();
 		param.put("psf_name", psf_name);
 		param.put("psf_text", psf_text);
@@ -693,7 +710,7 @@ public class SitterController {
 		if(insertCnt !=0) {
 			String psf_id = sitterService.getMaxFaq();
 			
-			return "redirect:/sit/faqDetail?faqId="+psf_id;
+			return "redirect:/sit/faqDetail?faqId="+psf_id+"&cnt="+cnt;
 		}
 		
 		return "redirect:/sit/faqInsertView";
@@ -702,7 +719,14 @@ public class SitterController {
 	
 	// 펫시터 지원하기 화면
 	@RequestMapping("/support")
-	public String support() {
+	public String support(HttpSession session, Model model) {
+		
+		MemberVo memVo = (MemberVo) session.getAttribute("memVo");
+		
+		SitterAppVo staVo = sitterService.getMySupport(memVo.getMem_id());
+		
+		model.addAttribute("staVo", staVo);
+		
 		return "petSitter/support";
 	}
 	
@@ -1053,7 +1077,7 @@ public class SitterController {
 	
 	// 결재성공 화면
 	@RequestMapping("/paymentSuccess")
-	public String paymentSuccess(Model model, @RequestParam("pay_chk")String pay_chk, @RequestParam("pay_price")int pay_price, @RequestParam("pay_name")String pay_name, @RequestParam("pay_dateStart")String pay_dateStart,
+	public String paymentSuccess(HttpSession session, @RequestParam("pst_id")String pst_id, Model model, @RequestParam("pay_chk")String pay_chk, @RequestParam("pay_price")int pay_price, @RequestParam("pay_name")String pay_name, @RequestParam("pay_dateStart")String pay_dateStart,
 			@RequestParam("pay_dateEnd")String pay_dateEnd, @RequestParam("pay_timeStart")String pay_timeStart, @RequestParam("pay_timeEnd")String pay_timeEnd) {
 		
 		model.addAttribute("pay_chk", pay_chk);
@@ -1063,6 +1087,16 @@ public class SitterController {
 		model.addAttribute("pay_dateEnd", pay_dateEnd);
 		model.addAttribute("pay_timeStart", pay_timeStart);
 		model.addAttribute("pay_timeEnd", pay_timeEnd);
+		
+		MemberVo memVo = (MemberVo) session.getAttribute("memVo");
+		
+		if(pay_chk.equals("1")) {
+			Map<String, Object> param = new HashMap<>();
+			param.put("pc_pst", pst_id);
+			param.put("pc_mem", memVo.getMem_id());
+			
+			int insertCnt = sitterService.insertPetsitterChk(param);
+		}
 		
 		return "petSitter/paymentSuccess";
 	}

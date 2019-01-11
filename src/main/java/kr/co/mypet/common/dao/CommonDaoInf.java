@@ -46,4 +46,6 @@ public interface CommonDaoInf {
 	public int getMemberListAllCnt2();
 
 	public int memberUpdate(Map<String, Object> param);
+
+	public String memberPWSearch(String mem_id);
 }

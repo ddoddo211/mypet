@@ -7,6 +7,9 @@ public class PetSitterVo {
 
 	private String mem_name;
 	private String mem_addr;
+	private String mem_id;
+	private String mem_img;
+	private String mem_hp;
 
 	private String pst_id;
 	private String pst_mem;
@@ -44,6 +47,30 @@ public class PetSitterVo {
 
 	public void setMem_addr(String mem_addr) {
 		this.mem_addr = mem_addr;
+	}
+
+	public String getMem_id() {
+		return mem_id;
+	}
+
+	public void setMem_id(String mem_id) {
+		this.mem_id = mem_id;
+	}
+
+	public String getMem_img() {
+		return mem_img;
+	}
+
+	public void setMem_img(String mem_img) {
+		this.mem_img = mem_img;
+	}
+
+	public String getMem_hp() {
+		return mem_hp;
+	}
+
+	public void setMem_hp(String mem_hp) {
+		this.mem_hp = mem_hp;
 	}
 
 	public String getPst_cidate() {
@@ -152,12 +179,12 @@ public class PetSitterVo {
 
 	@Override
 	public String toString() {
-		return "PetSitterVo [rnum=" + rnum + ", mem_name=" + mem_name + ", mem_addr=" + mem_addr + ", pst_id=" + pst_id
-				+ ", pst_mem=" + pst_mem + ", pst_img=" + pst_img + ", pst_title=" + pst_title + ", pst_text="
-				+ pst_text + ", pst_date=" + pst_date + ", pst_score=" + pst_score + ", pst_view=" + pst_view
-				+ ", pst_price1=" + pst_price1 + ", pst_price2=" + pst_price2 + ", pst_cidate=" + pst_cidate
-				+ ", pst_codate=" + pst_codate + ", pst_chk=" + pst_chk + "]";
+		return "PetSitterVo [rnum=" + rnum + ", mem_name=" + mem_name + ", mem_addr=" + mem_addr + ", mem_id=" + mem_id
+				+ ", mem_img=" + mem_img + ", mem_hp=" + mem_hp + ", pst_id=" + pst_id + ", pst_mem=" + pst_mem
+				+ ", pst_img=" + pst_img + ", pst_title=" + pst_title + ", pst_text=" + pst_text + ", pst_date="
+				+ pst_date + ", pst_score=" + pst_score + ", pst_view=" + pst_view + ", pst_price1=" + pst_price1
+				+ ", pst_price2=" + pst_price2 + ", pst_cidate=" + pst_cidate + ", pst_codate=" + pst_codate
+				+ ", pst_chk=" + pst_chk + "]";
 	}
 
-	
 }

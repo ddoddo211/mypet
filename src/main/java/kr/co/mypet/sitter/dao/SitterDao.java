@@ -293,4 +293,24 @@ public class SitterDao implements SitterDaoInf {
 	public int getPetListAllCnt() {
 		return template.selectOne("petSitter.getPetListAllCnt");
 	}
+
+	@Override
+	public int getPstReviewAllCnt(String pst_id) {
+		return template.selectOne("petSitter.getPstReviewAllCnt", pst_id);
+	}
+
+	@Override
+	public int getPstReviceScore(String pst_id) {
+		return template.selectOne("petSitter.getPstReviewScore", pst_id);
+	}
+
+	@Override
+	public int updatePetsitterScore(Map<String, Object> param) {
+		return template.update("petSitter.updatePetsitterScore", param);
+	}
+
+	@Override
+	public int insertPetsitterChk(Map<String, Object> param) {
+		return template.insert("petSitter.insertPetsitterChk", param);
+	}
 }

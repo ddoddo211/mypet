@@ -119,6 +119,11 @@ public class CommonService implements CommonServiceInf {
 	public int memberUpdate(Map<String, Object> param) {
 		return commonDao.memberUpdate(param);
 	}
+
+	@Override
+	public String memberPWSearch(String mem_id) {
+		return commonDao.memberPWSearch(mem_id);
+	}
 	
 	
 }

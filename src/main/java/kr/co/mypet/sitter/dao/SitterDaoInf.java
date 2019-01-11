@@ -122,4 +122,12 @@ public interface SitterDaoInf {
 	List<MypetVo> getPetListAll(PageVo pageVo);
 
 	int getPetListAllCnt();
+
+	int getPstReviewAllCnt(String pst_id);
+
+	int getPstReviceScore(String pst_id);
+
+	int updatePetsitterScore(Map<String, Object> param);
+
+	int insertPetsitterChk(Map<String, Object> param);
 }

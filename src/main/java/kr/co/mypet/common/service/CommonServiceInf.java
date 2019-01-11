@@ -102,4 +102,14 @@ public interface CommonServiceInf {
 	* Method 설명 : 회원 권한 수정 
 	*/
 	public int memberUpdate(Map<String, Object> param);
+
+	/**
+	* Method : memberPWSearch
+	* 작성자 : pc24
+	* 변경이력 :
+	* @param mem_id
+	* @return
+	* Method 설명 : 회원의 비밀번호 조회 
+	*/
+	public String memberPWSearch(String mem_id);
 }

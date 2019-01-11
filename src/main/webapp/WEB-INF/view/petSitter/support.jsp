@@ -12,6 +12,15 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script type="text/javascript">
 	$(document).ready(function(){
+		
+		var staVo = "${staVo}";
+		
+		if(staVo != null || staVo == ''){
+			alert("이미 지원한 이용자는 접근할 수 없습니다.");
+			history.back();
+			return;
+		}
+		
 		getSupportApplication();
 		
 	});
@@ -38,7 +47,7 @@
 		<div id="header">
 			<!-- main -->
 			<div id="logo">
-				<a href="/petSitter.jsp"><img alt="이미지가 없습니다"
+				<a href="/sit/sitMain"><img alt="이미지가 없습니다"
 					src="/img/petSitterLogo2.jpg" width="200px;" /></a>
 			</div>
 			<div id="petSearch">

@@ -127,5 +127,10 @@ public class CommonDao implements CommonDaoInf {
 		return template.update("member.memberUpdate", param);
 	}
 
+	@Override
+	public String memberPWSearch(String mem_id) {
+		return template.selectOne("member.memberPWSearch", mem_id);
+	}
+
 
 }

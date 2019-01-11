@@ -29,11 +29,13 @@ var oEditors = []; // 개발되어 있는 소스에 맞추느라, 전역변수�
 		
 		// 전송버튼 클릭이벤트
 		$("#faq_insert").click(function(){
+			var cnt = "${cnt}";
 			if(confirm("저장하시겠습니까?")) {
 				// id가 smarteditor인 textarea에 에디터에서 대입
 				oEditors.getById["smarteditor"].exec("UPDATE_CONTENTS_FIELD", []);
 				// 이부분에 에디터 validation 검증
 				if(validation()) {
+					$("#cnt").val(cnt);
 					$("#frm").submit();
 				}
 			}
@@ -174,7 +176,7 @@ var oEditors = []; // 개발되어 있는 소스에 맞추느라, 전역변수�
 		<div id="header">
 			<!-- main -->
 			<div id="logo">
-				<a href="/petSitter.jsp"><img alt="이미지가 없습니다"
+				<a href="/sit/sitMain"><img alt="이미지가 없습니다"
 					src="/img/petSitterLogo2.jpg" width="200px;" /></a>
 			</div>
 			<div id="petSearch">
@@ -198,6 +200,7 @@ var oEditors = []; // 개발되어 있는 소스에 맞추느라, 전역변수�
 			<%@include file="/WEB-INF/view/petSitter/petSitterMenu.jsp" %>
 		</div>
 		<form action="/sit/faqInsert" method="post" id="frm">
+			<input type="hidden" id="cnt" name="cnt" />
 			<div id="faqUpdate">
 				<div id="faqMain">
 					<div id="faq_Title">
