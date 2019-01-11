@@ -200,6 +200,17 @@ function goPdf(fileName){
 						</div>	
 				</div>
 				
+				<div id="claimTitle5">
+					<div id="claimTitle5_1">
+						<div class="claimTitle5_1_1">
+							지급금액
+						</div>
+						<div class="claimTitle5_1_2">
+							<label class="history2_4">${history.accd_insp}원</label>
+						</div>
+					</div>
+				</div>
+				
 				<div class="claimTitle4">
 					<div class="claimTitle4_1">
 						<div class="claimTitle4_2">첨부하신 서류</div>

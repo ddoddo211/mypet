@@ -36,6 +36,21 @@ $(document).ready(function(){
 		showAnim : "fold", //애니메이션효과
 		maxDate : "0D"
 	});
+
+	// 첨부파일 미리 보여 주는 텍스트 떄문에 입력
+	$('#upload_text').val('');
+	$('#upload_text2').val('');
+	
+	$('#input_file').change(function() {
+		var i = $(this).val();
+		$('#upload_text').val(i);
+	});
+	
+	$('#input_file2').change(function() {
+		var i = $(this).val();
+		$('#upload_text2').val(i);
+	});
+	
 	
 	// 진단서사진을 입력할때 jpg 파일만 넣게 설정하기
 	var sel_file;
@@ -47,10 +62,13 @@ $(document).ready(function(){
 		
 		filesArr.forEach(function(f){
 			if(!f.type.match("image.*")){
+				$("#upload_text").val("");
 				alert("확장자는 jpg확장자만 가능합니다.");
-				$("#input_file").val("");
 				return;
-			}			
+			}else {
+				// 첨부파일 미리 보여 주는 텍스트 떄문에 입력
+				$('#upload_text').val('');
+			}	
 		});
 	}
 	
@@ -71,20 +89,6 @@ $(document).ready(function(){
 		});
 	}
 
-	
-	// 첨부파일 미리 보여 주는 텍스트 떄문에 입력
-	$('#upload_text').val('');
-	$('#upload_text2').val('');
-	
-	$('#input_file').change(function() {
-		var i = $(this).val();
-		$('#upload_text').val(i);
-	});
-	
-	$('#input_file2').change(function() {
-		var i = $(this).val();
-		$('#upload_text2').val(i);
-	});
 					
 	// 보험가입 상품 select를 클릭하였을때 값을 담아 주는 부분 
 	$(".optionProd").click(function(){

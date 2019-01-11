@@ -46,6 +46,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		         and INSP_MINAGE <![CDATA[<=]]> ${petBirth}
 		         and INSP_MAXAGE <![CDATA[>=]]> ${petBirth}
 		         and INSP_SICK = #{petSick}
+		         
 		</select>
 		
 		<!-- 게시글 총갯수(우리아이보험추천) -->
@@ -526,7 +527,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			where a.mem_id = b.mem_id
 			and a.mem_id =  #{mem_id}
 			and a.ins_id = #{ins_id}
-			and a.act_id = #{act_id}
 		</select>
 		
 		<!-- 보험가입자 관리 화면에서 보험해지하기 버튼을 클릭하였을 경우 해당 보험목록 해지로 변경하기 -->
