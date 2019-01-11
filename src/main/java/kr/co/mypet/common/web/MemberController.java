@@ -509,5 +509,10 @@ public class MemberController {
 
 		return "common/join";
 	}
+	
+	@RequestMapping("/idSearch")
+	public String idSearch() {
+		return "common/loginIdSearch";
+	}
 
 } // controller class 끝나는곳
