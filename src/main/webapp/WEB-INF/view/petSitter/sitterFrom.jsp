@@ -75,6 +75,12 @@
 				k += val[i] + " ";
 			});
 			$("#mypet").val(k);
+			var time = $(".tiemSelect").val();
+			var date = $("#dateChooice").val();
+			if(k == '' || time == '' || date == '' ){
+				alert("값이 제대로 입력되지 않았습니다. 확인해 주세요.");
+				return;
+			}
 			$("#revFrm").submit();
 		});
 	});

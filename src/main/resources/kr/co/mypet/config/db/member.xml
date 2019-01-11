@@ -3,50 +3,130 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="member">
-  
-  <!-- 로그인 체크 -->
-  <select id="login" parameterType="memVo" resultType="memVo">
-  	select * from member where mem_id=#{mem_id} and mem_pass=#{mem_pass}
-  </select>
-  
-  <!-- naver 로그인 체크 -->
-  <select id="naverLogin" parameterType="String" resultType="memVo">
-  	select * from member where mem_id=#{mem_id}
-  </select>
-  
-  <!--  사용자 등록 -->
-  <insert id="insertMember" parameterType="memVo">
-	insert into member
-	(mem_id, mem_pass, mem_name, mem_addr, mem_hp, mem_exit, mem_admin, mem_sit, mem_shop, mem_hair,mem_point,mem_black)
-	values(#{mem_id},#{mem_pass},#{mem_name},#{mem_addr},#{mem_hp},1,1,1,1, 1,0,1)
-  </insert>
-  
-  <!-- 정보조회 -->
-  <select id="memberInfo" parameterType="String" resultType="memVo">
-  	select * from member where mem_id=#{mem_id}
-  </select>
-  
-  <!-- 멤버포인트 적립 -->
-  <update id="pointUpdate" parameterType="memVo">
-  	update member
-	set mem_point = #{mem_point}
-	where mem_id = #{mem_id}
-  </update>
-  
-  <!-- 회원정보 수정 -->
-  <update id="updateMemInfo" parameterType="memVo">
-  	update member
-  	set	mem_pass=#{mem_pass},
-  		mem_name=#{mem_name},
-  		mem_addr=#{mem_addr},
-  		mem_addr2=#{mem_addr2},
-  		mem_hp=#{mem_hp}
-  	where mem_id=#{mem_id}
-  </update>
- 
-  <select id="getMemberList" resultType="memVo">
-  	select mem_id from member
-  </select>
+
+	<!-- 로그인 체크 -->
+	<select id="login" parameterType="memVo" resultType="memVo">
+		select * from member where mem_id=#{mem_id} and mem_pass=#{mem_pass}
+	</select>
+
+	<!-- naver 로그인 체크 -->
+	<select id="naverLogin" parameterType="String"
+		resultType="memVo">
+		select * from member where mem_id=#{mem_id}
+	</select>
+
+	<!-- 사용자 등록 -->
+	<insert id="insertMember" parameterType="memVo">
+		insert into member
+		(mem_id, mem_pass, mem_name, mem_addr, mem_hp, mem_exit, mem_admin, mem_sit,
+		mem_shop, mem_hair,mem_point,mem_black)
+		values(#{mem_id},#{mem_pass},#{mem_name},#{mem_addr},#{mem_hp},1,1,1,1,
+		1,0,1)
+	</insert>
+
+	<!-- 정보조회 -->
+	<select id="memberInfo" parameterType="String"
+		resultType="memVo">
+		select * from member where mem_id=#{mem_id}
+	</select>
+
+	<!-- 멤버포인트 적립 -->
+	<update id="pointUpdate" parameterType="memVo">
+		update member
+		set mem_point = #{mem_point}
+		where mem_id = #{mem_id}
+	</update>
+
+	<!-- 회원정보 수정 -->
+	<update id="updateMemInfo" parameterType="memVo">
+		update member
+		set mem_pass=#{mem_pass},
+		mem_name=#{mem_name},
+		mem_addr=#{mem_addr},
+		mem_addr2=#{mem_addr2},
+		mem_hp=#{mem_hp}
+		where mem_id=#{mem_id}
+	</update>
+
+	<select id="getMemberList" resultType="memVo">
+		select mem_id from member
+	</select>
+
+	<select id="getMemListAll" parameterType="pageVo"
+		resultType="memVo">
+		select *
+		from
+		(
+			select rownum as rnum, a.*
+			from
+			(
+				select *
+				from member
+				where mem_exit = 1
+				and mem_id != 'admin'
+				order by mem_id
+			) a
+		)
+		where rnum between (${page}*${pageSize})-(${pageSize}-1) and (${page}*${pageSize})
+	</select>
+
+	<select id="getMemListAllCnt" resultType="Integer">
+		select count(*)
+		from member
+		where mem_exit = 1
+	</select>
+
+	<update id="deleteMember" parameterType="String">
+		update member set
+		mem_exit = 2
+		where mem_id = #{mem_id}
+	</update>
+
+	<update id="memberBlack" parameterType="String">
+		update member set
+		mem_black = 2
+		where mem_id = #{mem_id}
+	</update>
+	
+	<update id="memberWhite" parameterType="String">
+		update member set
+		mem_black = 1
+		where mem_id = #{mem_id}
+	</update>
+	
+	<select id="getMemListAll2" parameterType="pageVo"
+		resultType="memVo">
+		select *
+		from
+		(
+			select rownum as rnum, a.*
+			from
+			(
+				select *
+				from member
+				where mem_exit = 1
+				and mem_black = 1
+				and mem_id != 'admin'
+				order by mem_id
+			) a
+		)
+		where rnum between (${page}*${pageSize})-(${pageSize}-1) and (${page}*${pageSize})
+	</select>
+
+	<select id="getMemListAllCnt2" resultType="Integer">
+		select count(*)
+		from member
+		where mem_exit = 1
+		and mem_black = 1
+	</select>
+	
+	<update id="memberUpdate" parameterType="map" >
+		update member set
+		mem_sit = #{mem_sit},
+		mem_shop = #{mem_shop},
+		mem_hair = #{mem_hair}
+		where mem_id = #{mem_id}
+	</update>
 </mapper>
 
 

@@ -123,6 +123,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             order by petk_id asc
 		</select>
 		
+		<!--반려동물 품종 가지고 오는 쿼리문-->
+		<select id="petKindList" parameterType="String" resultType="petkindVo">
+            select * from petkind a, animal b
+			where a.petk_am = b.am_id
+            and b.am_name = #{am_name}
+            order by petk_id asc
+		</select>
+		
 		<!-- 플랜정보에서 나의 펫에 현재 보험가입이 되어 있는 상품 보여주기 -->
 		<select id="petIsrAlready" parameterType="String" resultType="insVo">
 			select * from insurance , insprod
@@ -157,13 +165,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			delete from insshopping where inssp_insp = #{inssp_insp}
 		</delete>
 		
-		
-		<!-- 해당 회원의 이메일(pk)로 보내서 회원의 계좌번호를 가지고 오는 방법 -->
-		<select id="memAccountList" parameterType="String" resultType="accountVo">
-			select * from account where act_mem = #{act_mem}
-		</select>
-		
-		
+
 		<!-- 보상안내 공지사항 나오게 설정 -->
 		<select id="insNotice" resultType="insNoticeVo">
 			select * from insNotice 
@@ -186,7 +188,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			                         where c.INSSP_ID = d.INSP_ID
 			                           and ins_dis= 'N'
 			                           and c.MEM_ID =  #{mem_id}
-			                           and (c.ins_stat ='완료' or  c.ins_stat ='결재완료')
+			                           and c.ins_stat ='결재완료'
 			                        )
 			                 group by  myp_id 
 			                 having myp_id = a.myp_id
@@ -204,7 +206,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<select id="claimPetJoinProd" parameterType="insVo" resultType="insVo">
 			select * from insurance , insprod
 			where inssp_id = insp_id
-			and ins_stat = '완료'
+			and ins_stat = '결재완료'
 			and ins_dis= 'N'
 			and myp_id = #{myp_id}
 			and mem_id = #{mem_id}
@@ -228,42 +230,40 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		
 		<!--나의펫 보험 - 월 전체 보험료 나오는 부분-->
 		<select id="monthlyPremium" parameterType="String" resultType="int">
-			select nvl(sum(insp_fees),0) from insurance , insprod
-		     where inssp_id = insp_id
-			   and mem_id =  #{mem_id}
-			   and INS_DIS = 'N'
-			   and INS_STAT = '결재완료'
+			select nvl(sum(b.insp_fees),0) 
+              from insurance a , insprod b ,member c
+		     where a.inssp_id = b.insp_id
+			   and c.mem_id =  'laswl4090@hanmail.net'
+			   and a.INS_DIS = 'N'
+			   and a.INS_STAT = '결재완료'
 		</select>
 		
 		<!-- 나의 펫 보험 - 현재보험금 신청현황(신청) -->
 		<select id="isrApply" parameterType="String" resultType="accidentVo">
-				select * from accident a , mypet b , insurance c , insprod d , account e
+				select * from accident a , mypet b , insurance c , insprod d 
 				where a.accd_myp = b.myp_id
 				and a.accd_ins = c.ins_id
 				and c.inssp_id = d.insp_id
-				and a.accd_act = e.act_id
 				and a.accd_mem = #{mem_id}
 				and a.accd_stat = '신청'
 		</select>
 		
 		<!-- 나의 펫 보험 - 현재보험금 신청현황(반려) -->
 		<select id="underExamination" parameterType="String" resultType="accidentVo">
-				select * from accident a , mypet b , insurance c , insprod d , account e
+				select * from accident a , mypet b , insurance c , insprod d
 				where a.accd_myp = b.myp_id
 				and a.accd_ins = c.ins_id
 				and c.inssp_id = d.insp_id
-				and a.accd_act = e.act_id
 				and a.accd_mem = #{mem_id}
 				and a.accd_stat = '반려'
 		</select>
 		
 		<!-- 나의 펫 보험 - 현재보험금 신청현황(완료) -->
 		<select id="isrComplete" parameterType="String" resultType="accidentVo">
-				select * from accident a , mypet b , insurance c , insprod d , account e
+				select * from accident a , mypet b , insurance c , insprod d 
 				where a.accd_myp = b.myp_id
 				and a.accd_ins = c.ins_id
 				and c.inssp_id = d.insp_id
-				and a.accd_act = e.act_id
 				and a.accd_mem = #{mem_id}
 				and a.accd_stat = '완료'
 		</select>
@@ -276,11 +276,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		
 		<!-- 보험금 내역 확인 버튼을 클릭하였을때 나오는 부분 -->
 		<select id="history" parameterType="String" resultType="accidentVo">
-				select * from accident a , mypet b , insurance c ,insprod d , account e
+				select * from accident a , mypet b , insurance c ,insprod d 
 			   	 where a.accd_myp = b.myp_id
                    and a.ACCD_INS = c.INS_ID
                    and c.inssp_id = d.INSP_ID
-                   and a.accd_act = e.act_id
 			       and a.accd_id = #{accd_id}
 		</select>
 		
@@ -349,11 +348,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		
 		<!-- 나의 펫 보험 - 펫 삭제할떄 보험금 청구 신청을 하였을때 삭제 못하도록 하는것 -->
 		<select id="petDelCondition" parameterType="String" resultType="accidentVo">
-				select * from accident a , mypet b , insurance c , insprod d , account e
+				select * from accident a , mypet b , insurance c , insprod d
 				where a.accd_myp = b.myp_id
 				and a.accd_ins = c.ins_id
 				and c.inssp_id = d.insp_id
-				and a.accd_act = e.act_id
 				and a.accd_myp = #{accd_myp}
 				and a.accd_stat = '신청'
 		</select>
@@ -524,9 +522,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		
 		<!-- 관리자용 - 보험 상품 id를 줘서 해당 보험상품 정보가지고 오기 ( 보험상품 내용 & 가입자 정보 -->
 		<select id="goJoinCheck" parameterType="insVo" resultType="insVo">
-			select * from insurance a , member b , account c
+			select * from insurance a , member b 
 			where a.mem_id = b.mem_id
-			and a.act_id = c.act_id
 			and a.mem_id =  #{mem_id}
 			and a.ins_id = #{ins_id}
 			and a.act_id = #{act_id}
@@ -582,14 +579,30 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		
 		<!-- 보험금 청구 관리 : 보험금 청구 (신청)리스트 나오는 부분 -->
 		<select id="goClaim" resultType="accidentVo">
-			select * 
-			  from accident a , insprod b , insurance c , mypet d , member e
+			select a.ACCD_ID
+                 , a.ACCD_MEM
+                 , e.MEM_name ||'(' || ( select count(*) 
+                                           from accident
+                                          where accd_stat = '반려'
+                                            and accd_mem = a.accd_mem) ||')' AS mem_name
+                 , a.ACCD_INS
+                 , b.INSP_NAME
+                 , b.INSP_JOIN
+                 , b.INSP_KIND
+                 , d.MYP_name
+                 , a.ACCD_DATE
+                 , a.ACCD_STAT
+			  from accident a 
+                 , insprod b 
+                 , insurance c 
+                 , mypet d 
+                 , member e
 			 where a.ACCD_INS =  c.INS_ID
 			   and c.INSSP_ID = b.INSP_ID
 			   and a.ACCD_MYP = d.MYP_ID
 			   and a.ACCD_MEM = e.MEM_ID
 			   and a.ACCD_STAT = '신청'
-			   order by accd_id desc
+             order by accd_id desc
 		</select>
 		
 		<!-- 보험금 청구 관리 : 보험금 청구 (반려)리스트 나오는 부분 -->
@@ -618,10 +631,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		
 		<!-- 보험금 청구 관리 : 블랙 리스트인 회원 조회하는부분 -->
 		<select id="memBlacklist" resultType="memVo">
-				select  *
-				  from  member
-				 where  MEM_BLACK = '2'
-				 order by mem_id desc
+				select a.mem_id
+				     ,  a.mem_name
+				     ,  ( select count(*) 
+				           from accident
+				          where accd_stat = '반려'
+				            and ACCD_MEM = a.mem_id) AS cnt
+				  from member a 
+				 where  a.MEM_BLACK= '2' 
+				 order by mem_id desc 
 		</select>
 		
 		<!-- 관리자용 - 보험청구관리 :해당 회원을 블랙리스트에 추가하는 부분  -->
@@ -646,12 +664,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<!-- 보험금 청구 관리 : 보험금청구 신청내역확인(매개변수로 해당 사고 테이블의 pk)주기 -->
 		<select id="accidentApply" parameterType="String" resultType="accidentVo">
 			select * 
-			  from accident a , mypet b , insurance c , insprod d , member e , account f
+			  from accident a , mypet b , insurance c , insprod d , member e 
 			 where a.accd_myp = b.myp_id 
 			   and a.accd_ins = c.ins_id
 			   and c.inssp_id = d.insp_id
 			   and a.accd_mem = e.mem_id
-			   and a.accd_act = f.act_id
 			   and a.accd_id = #{accd_id}
 		</select>
 		

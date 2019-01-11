@@ -163,6 +163,18 @@ input[type="checkbox"] {
 	<%} else {%>
 		alert("네이버 로그인 실패"); 
 	<%	}%>
+	
+	$(document).ready(function() {
+		$("#idSearch").click(function() {
+			popUp();
+		})
+	})
+	
+	function popUp() {
+		var popUrl = "/mem/idSearch";
+		var popOption = "width=370, height=360, resizable=no, scrollbars=no, status=no;";
+		window.open(popUrl, "주소변경", popOption);
+	};
 </script>
 
 </head>
@@ -231,7 +243,7 @@ input[type="checkbox"] {
 					    <label><input type="checkbox">보안접속</label> <br>
 					    
 					    <div id="loginMenu">
-							<label class="loginMenuLabel"><input class="loginMenuInput" type="button" value="아이디 찾기"></label>
+							<label class="loginMenuLabel"><input class="loginMenuInput"  id ="idSearch"type="button" value="아이디 찾기"></label>
 							<label class="loginMenuLabel"><input class="loginMenuInput" type="button" value="비밀번호 찾기"></label>
 							<label class="loginMenuLabel"><input class="loginMenuInput" type="button" value="회원가입"></label>
 						</div>

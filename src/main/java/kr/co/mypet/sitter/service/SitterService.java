@@ -326,9 +326,9 @@ public class SitterService implements SitterServiceInf {
 	public Map<String, Object> getPetListAll(PageVo pageVo) {
 		List<MypetVo> petListAll = sitterDao.getPetListAll(pageVo);
 		
-		int totalReviewCnt = sitterDao.getPetListAllCnt();
+		int totalCnt = sitterDao.getPetListAllCnt();
 		int pageSize = pageVo.getPageSize();
-		int pageCnt = (int)Math.ceil(((double)totalReviewCnt/pageSize));
+		int pageCnt = (int)Math.ceil(((double)totalCnt/pageSize));
 		
 		Map<String, Object> resultMap = new HashMap<>();
 		resultMap.put("petListAll", petListAll);
