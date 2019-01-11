@@ -322,17 +322,21 @@
 			}
 		})
 		
-		var chk=1;
+		var chk = 1;
+		$('input[name="op"]').change(function() {
+			chk= 1;
+		})
+		
 		$("#plus").click(function() {
 			$(".radioChK").append(
-					"<div class=\"proda\"> <div class=\"opDvs1\"><div class=\"prodName\"><label>옵션명</label></div>"
-					+"<div class=\"prodText\"><input type=\"text\" name=\"opName"+chk+"\"></div></div>"
-					+"<div class=\"opDvs2\"><div class=\"prodName\"><label>옵션수량</label></div>"
-					+"<div class=\"prodText\"><input type=\"text\" class=\"qtyText\" name=\"opQty"+chk+"\"><span class=\"prodSpan\">개</span></div></div>"
-					+"<div class=\"opDvs3\"><div class=\"prodName\"><label>추가금액</label></div><div class=\"prodText\">"
-					+"<input type=\"text\" class=\"priceText\" name=\"opPrice"+chk+"\">"
-					+"<span class=\"prodSpan\">원</span>	</div></div></div>"
-				);
+				"<div class=\"proda\"> <div class=\"opDvs1\"><div class=\"prodName\"><label>옵션명</label></div>"
+				+"<div class=\"prodText\"><input type=\"text\" name=\"opName"+chk+"\"></div></div>"
+				+"<div class=\"opDvs2\"><div class=\"prodName\"><label>옵션수량</label></div>"
+				+"<div class=\"prodText\"><input type=\"text\" class=\"qtyText\" name=\"opQty"+chk+"\"><span class=\"prodSpan\">개</span></div></div>"
+				+"<div class=\"opDvs3\"><div class=\"prodName\"><label>추가금액</label></div><div class=\"prodText\">"
+				+"<input type=\"text\" class=\"priceText\" name=\"opPrice"+chk+"\">"
+				+"<span class=\"prodSpan\">원</span>	</div></div></div>"
+			);
 			chk++;
 			$("#chkNum").val(chk);
 		})

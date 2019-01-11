@@ -171,8 +171,8 @@ input[type="checkbox"] {
 	})
 	
 	function popUp() {
-		var popUrl = "/mem/idSearch";
-		var popOption = "width=370, height=360, resizable=no, scrollbars=no, status=no;";
+		var popUrl = "/mem/idSearchView";
+		var popOption = "width=500, height=200, resizable=no, scrollbars=no, status=no;";
 		window.open(popUrl, "주소변경", popOption);
 	};
 </script>

@@ -120,5 +120,18 @@ public class CommonService implements CommonServiceInf {
 		return commonDao.memberUpdate(param);
 	}
 	
+	/**
+	* Method : idSearch
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param memVo
+	* @return 
+	* Method 설명 : 멤버ID 찾기
+	*/
+	@Override
+	public MemberVo idSearch(MemberVo memVo) {
+		return commonDao.idSearch(memVo);
+	}
+	
 	
 }

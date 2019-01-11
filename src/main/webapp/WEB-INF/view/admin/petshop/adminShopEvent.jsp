@@ -160,7 +160,16 @@
 		
 		$("#evenCreBtn").click(function() {
 			if($("#snot_title").val() == ''){
-				alert("빈 공간이 있습니다.");
+				alert("이벤트 제목을 적어주세요");
+				return;
+			}else if($("#date1").val() == '' || $("#date2").val() == ''){
+				alert("이벤트기간을 설정해주세요.")
+				return;
+			}else if($("#evPimg").val() == ''){
+				alert("이벤트 프로필사진을 넣어주세요.");
+				return;
+			}else if($("#evImg").val() == ''){
+				alert("이벤트 상세이미지를 넣어주세요.");
 				return;
 			}else{
 				$("#snot_date").val($("#date1").val()+"~"+$("#date2").val());
@@ -219,7 +228,7 @@
 								<span>이벤트_PIMG</span>
 							</div>
 							<div class="eventB">
-								<input type="file" name="snotPimg">
+								<input type="file" name="snotPimg" id="evPimg">
 							</div>
 						</div>
 						
@@ -228,7 +237,7 @@
 								<span>이벤트상세_IMG</span>
 							</div>
 							<div class="eventB">
-								<input type="file" name="snotImg">
+								<input type="file" name="snotImg" id="evImg">
 							</div>
 						</div>
 					</div>

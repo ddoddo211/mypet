@@ -126,6 +126,20 @@ public class CommonDao implements CommonDaoInf {
 	public int memberUpdate(Map<String, Object> param) {
 		return template.update("member.memberUpdate", param);
 	}
+	
+	/**
+	* Method : idSearch
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param memVo
+	* @return 
+	* Method 설명 : 멤버ID 찾기
+	*/
+	@Override
+	public MemberVo idSearch(MemberVo memVo) {
+		MemberVo memberVo = template.selectOne("member.idSearch",memVo);
+		return memberVo;
+	}
 
 
 }

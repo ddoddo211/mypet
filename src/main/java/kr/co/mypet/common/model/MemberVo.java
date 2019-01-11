@@ -15,11 +15,15 @@ public class MemberVo {
 	private int mem_point;
 	private int mem_black;
 	private String mem_img;
+	private String mem_qet;
+	private String mem_rep;
 
 	private int rnum;
 
 	// 관리자용 - 펫 보험금 청구관리화면에서 이용해야 하기 때문에 입력
 	private String cnt;
+
+	
 
 	@Override
 	public String toString() {
@@ -27,7 +31,7 @@ public class MemberVo {
 				+ mem_addr + ", mem_addr2=" + mem_addr2 + ", mem_hp=" + mem_hp + ", mem_exit=" + mem_exit
 				+ ", mem_admin=" + mem_admin + ", mem_sit=" + mem_sit + ", mem_shop=" + mem_shop + ", mem_hair="
 				+ mem_hair + ", mem_point=" + mem_point + ", mem_black=" + mem_black + ", mem_img=" + mem_img
-				+ ", rnum=" + rnum + ", cnt=" + cnt + "]";
+				+ ", mem_qet=" + mem_qet + ", mem_rep=" + mem_rep + ", rnum=" + rnum + ", cnt=" + cnt + "]";
 	}
 
 	public int getRnum() {
@@ -158,4 +162,21 @@ public class MemberVo {
 		this.mem_black = mem_black;
 	}
 
+	public String getMem_qet() {
+		return mem_qet;
+	}
+
+	public void setMem_qet(String mem_qet) {
+		this.mem_qet = mem_qet;
+	}
+
+	public String getMem_rep() {
+		return mem_rep;
+	}
+
+	public void setMem_rep(String mem_rep) {
+		this.mem_rep = mem_rep;
+	}
+	
+	
 }

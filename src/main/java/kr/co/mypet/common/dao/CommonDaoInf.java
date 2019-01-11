@@ -46,4 +46,14 @@ public interface CommonDaoInf {
 	public int getMemberListAllCnt2();
 
 	public int memberUpdate(Map<String, Object> param);
+	
+	/**
+	* Method : idSearch
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param memVo
+	* @return 
+	* Method 설명 : 멤버ID 찾기
+	*/
+	public MemberVo idSearch(MemberVo memVo);
 }

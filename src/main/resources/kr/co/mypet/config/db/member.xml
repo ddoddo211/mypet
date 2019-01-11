@@ -127,6 +127,14 @@
 		mem_hair = #{mem_hair}
 		where mem_id = #{mem_id}
 	</update>
+	
+	<!-- ID찾기 -->
+	<select id="idSearch" parameterType="memVo" resultType="memVo">
+		select * from member
+		where mem_hp = #{mem_hp}
+		and mem_qet = #{mem_qet}
+		and mem_rep = #{mem_rep}
+	</select>
 </mapper>
 
 

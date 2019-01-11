@@ -440,8 +440,16 @@
 		
 		
 		$("#reviewAdd").click(function() {
-// 			$("#prev_num").val($("#prevNum").val());
-			$("#prevCre").submit();
+			if($(".revCreName").val() == ''){
+				alert("상품후기 제목을 적어주세요.");
+				return;
+			}else if($("#review").val()==''){
+				alert("상품후기 내용이 없습니다.");
+				return;
+			}else{
+				$("#prevCre").submit();
+			}
+			
 		})
 		
 	})
@@ -505,7 +513,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:title" content="MyPet 쇼핑몰"/>    
 <meta property="og:description" content="${prodVo.prod_name }" />
-<meta property="og:image" content="http://192.168.203.20:8081/${prodVo.prod_pimg }" />
+<meta property="og:image" content="http://192.168.203.20:8081${prodVo.prod_pimg }" />
 </head>
 <body>
 	
@@ -572,6 +580,9 @@
 					</div>
 					<!-- kakao -->
 					<script type="text/javascript">
+						var price = ${prodVo.prod_price};
+						var sprice = ${prodVo.prod_sprice};
+						var discount = (price - sprice) / price * 100;
 						//<![CDATA[
 						// // 사용할 앱의 JavaScript 키를 설정해 주세요.
 						Kakao.init("8cf57df45561e81799f022a19acc46c2");
@@ -582,22 +593,22 @@
 									objectType : 'commerce',
 									content : {
 										title : '${prodVo.prod_name}',
-										imageUrl : 'http://localhost:8081/shopimg/saryo2.jpg',
+										imageUrl : 'http://192.168.203.20:8081${prodVo.prod_pimg}',
 										link : {
-											mobileWebUrl : 'http://localhost:8081/shop/prodDetail?prod_id=${prodVo.prod_id}',
-											webUrl : 'http://localhost:8081/shop/prodDetail?prod_id=${prodVo.prod_id}'
+											mobileWebUrl : 'http://localhost:8081/shop/prodDetail?dvs_id=${dvsVo.dvs_id}&dvs_parent=${dvsVo.dvs_parent}&prod_id=${prodVo.prod_id}',
+											webUrl : 'http://localhost:8081/shop/prodDetail?dvs_id=${dvsVo.dvs_id}&dvs_parent=${dvsVo.dvs_parent}&prod_id=${prodVo.prod_id}'
 										}
 									},
 									commerce : {
 										regularPrice : ${prodVo.prod_price},
 										discountPrice : ${prodVo.prod_sprice},
-										discountRate : 10
+										discountRate : discount
 									},
 									buttons : [ {
 										title : '구매하기',
 										link : {
-											mobileWebUrl : 'http://localhost:8081/shop/prodDetail?prod_id=${prodVo.prod_id}',
-											webUrl : 'http://localhost:8081/shop/prodDetail?prod_id=${prodVo.prod_id}'
+											mobileWebUrl : 'http://localhost:8081/shop/prodDetail?dvs_id=${dvsVo.dvs_id}&dvs_parent=${dvsVo.dvs_parent}&prod_id=${prodVo.prod_id}',
+											webUrl : 'http://localhost:8081/shop/prodDetail?dvs_id=${dvsVo.dvs_id}&dvs_parent=${dvsVo.dvs_parent}&prod_id=${prodVo.prod_id}'
 										}
 									} ]
 								});
@@ -643,7 +654,7 @@
 						<div class="prodQty">
 							<div class="qtyChk">
 								<button class="minusBtn"><img src="/shopimg/minus.png" height="20" /></button>
-							   	<input  type="text" name="Quantity" class="qty" name="qty" value="1" max = "${prod_qty }" min="1" readonly />
+							   	<input  type="text" name="Quantity" class="qty" name="qty" value="1" min="1" readonly />
 								<button class="plusBtn"><img src="/shopimg/plus.png" height="20" /></button>
 							</div>
 						    <div class="qtyPrice">
@@ -676,7 +687,7 @@
 					   			qtyValue = parseInt($(this).parent().children(".qty").val())-1;
 					   		}
 					   		
-							$("#cartQty").val($(this).parent().children(".qty").val());
+							$(".cartQty").val($(this).parent().children(".qty").val());
 							
 							var prodo_id = '';
 							
@@ -687,6 +698,7 @@
 								prodo_id = $(this).parent().children(".prodo_id").val();
 								prodo_ids.push(prodo_id);
 							})
+							
 							qtyPrice('${dvsVo.dvs_id}','${dvsVo.dvs_parent}','${prodVo.prod_id}',qty,prodo_ids);
 						})
 						
@@ -695,11 +707,17 @@
 							var qty = [];
 							var prodo_ids = [];
 							//장바구니에 보내주기 위해서 현재 수량
-							$("#cartQty").val($(this).parent().children(".qty").val());
+							$(".cartQty").val($(this).parent().children(".qty").val());
 							
-							
+							var prod_qty = ${prodVo.prod_qty};
 							var prodo_id = '';
-							var qtyValue =parseInt($(this).parent().children(".qty").val())+1;
+														
+							if(prod_qty == parseInt($(".cartQty").val())){
+								alert("최대 수량입니다.");
+								return;
+							}else{
+								var qtyValue =parseInt($(this).parent().children(".qty").val())+1;
+							}
 							
 							$(this).parent().children(".qty").val(qtyValue);
 							
@@ -745,6 +763,7 @@
 									</form>
 								</div>
 								<div class="saveBtn">
+									<input type="hidden" name="cart_qty" class="cartQty" />
 									<form action="/shop/prodDelete" method="POST" id="frm" name="frm">
 										<input type="hidden" name="prod_id" value="${prodVo.prod_id }" />
 										<input type="hidden" name="dvs_id" value="${dvsVo.dvs_id }" />
@@ -759,7 +778,7 @@
 								<div class="buyBtn">
 									<form action="/shop/cartAdd" method="post" id="cartgo">
 										<input type="hidden" name="cart_prod" value="${prodVo.prod_id }" />
-										<input type="hidden" name="cart_qty" id="cartQty" />
+										<input type="hidden" name="cart_qty" class="cartQty" />
 										<input type="hidden" name="cart_price" id="cart_price" />
 										<input type="hidden" name="prodo_ids" id="oIds" />
 										<input type="hidden" name="prodo_qtys" id="oQtys" />
@@ -785,7 +804,7 @@
 												$("#oQtys").val(qtyChk);
 											}
 											//장바구니 상품수량 등록
-											$("#cartQty").val(qty);
+											$(".cartQty").val(qty);
 											$("#cart_price").val($("#cartprice").val());
 											
 											if('${memVo.mem_id}' == ''){

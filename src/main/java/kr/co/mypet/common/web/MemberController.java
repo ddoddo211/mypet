@@ -649,9 +649,37 @@ public class MemberController {
 		return "admin/common/memRight";
 	}
 	
-	@RequestMapping("/idSearch")
-	public String idSearch() {
+	/**
+	* Method : idSearchView
+	* 작성자 : pc25
+	* 변경이력 :
+	* @return
+	* Method 설명 : 아이디 찾기 화면
+	*/
+	@RequestMapping("/idSearchView")
+	public String idSearchView() {
 		return "common/loginIdSearch";
 	}
-
+	
+	/**
+	* Method : idSearch
+	* 작성자 : pc25
+	* 변경이력 :
+	* @param memVo
+	* @param model
+	* @return
+	* Method 설명 : 아이디 찾기
+	*/
+	@RequestMapping("/idSearch")
+	public String idSearch(MemberVo memVo,Model model) {
+		MemberVo memberVo = commonService.idSearch(memVo);
+		int chk = 0;
+		
+		if(memberVo == null) {
+			chk = 1;
+		}
+		model.addAttribute("memberVo",memberVo);
+		model.addAttribute("chk",chk);
+		return "common/loginIdSearch";
+	}
 } // controller class 끝나는곳

@@ -379,14 +379,18 @@
 				$("#daddr_chk").val('4');
 			}
 			
-			var totalP = '${totalPrice }';
+			var totalPrice = ${totalPrice };
+			var pointUse = $(".pointText").val();
+			// 포인트 사용 후 가격
+			var pointUsePrice = parseInt(totalPrice) - parseInt(pointUse);
+			
 			var prodNmae= '상품명'
 			IMP.request_pay({
 			    pg : 'inicis', // version 1.1.0부터 지원.
 			    pay_method : 'card',
 			    merchant_uid : 'merchant_' + new Date().getTime(),
 			    name : prodNmae,     // 상품명
-			    amount : parseInt(totalP),    // 가격
+			    amount : parseInt(pointUsePrice),    // 가격
 			    buyer_email : '${memVo.mem_id}',
 			    buyer_name : '${memVo.mem_name}',
 			    buyer_tel : '${memVo.mem_hp}',
@@ -476,7 +480,6 @@
 		
 		$(".lastPrice").text(momo);
 		$(".pointUse").text(pointUse);
-		$(".pointText").val("0");
 	}
 	
 	// 천단위마다 콤마
