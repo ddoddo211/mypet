@@ -1,7 +1,6 @@
 <%@page import="com.fasterxml.jackson.annotation.JsonInclude.Include"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -498,6 +497,15 @@
 </script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+ <!-- You can use Open Graph tags to customize link previews.
+    Learn more: https://developers.facebook.com/docs/sharing/webmasters -->
+<link rel="image_src" href="http://192.168.203.20:8081/${prodVo.prod_pimg }"/>
+<meta property="fb:app_id" content="386372922137185" />
+<meta property="og:url" content="http://192.168.203.20:8081/shop/prodDetail?dvs_id="+"${dvs_id }"+"&dvs_parent="+"${dvs_parent }"+"&prod_id="+"${prodVo.prod_id}" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="MyPet 쇼핑몰"/>    
+<meta property="og:description" content="${prodVo.prod_name }" />
+<meta property="og:image" content="http://192.168.203.20:8081/${prodVo.prod_pimg }" />
 </head>
 <body>
 	
@@ -519,59 +527,42 @@
 <!-- 						<a target="_blank"	class="fb-xfbml-parse-ignore" id="facebook"> -->
 <!-- 							<img src="/shopimg/facebook.png" width="30" height="30"> -->
 <!-- 						</a> -->
-<!-- 						<a id="facebook" class="fb-xfbml-parse-ignore"  -->
-<!-- 						onclick="window.open('https://www.facebook.com/sharer/sharer.php','window_name', -->
-<!--  								'width=430,height=500,location=no,status=no,scrollbars=no');"> -->
+<!-- 						<a id="facebook" class="fb-xfbml-parse-ignore" > -->
+<%-- <%--  						onclick="window.open('https://www.facebook.com/sharer/sharer.php','window_name', --%> 
+<!-- <!-- 							'width=430,height=500,location=no,status=no,scrollbars=no');">   --> 
 <!-- 							<img src="/shopimg/facebook.png" width="30" height="30"> -->
 <!-- 						</a> -->
 <!-- 					</div> -->
 
-						<!-- Your share button code -->
-<!-- 					  <div class="fb-share-button" data-href="http://localhost:8081/shop/prodDetail?dvs_id=DVS1&dvs_parent=DVS3&prod_id=PROD1246"  -->
-<!-- 					  		data-layout="button" data-size="small" data-mobile-iframe="true"> -->
-<!-- 					  		<a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse"  -->
-<!-- 					  		class="fb-xfbml-parse-ignore">공유하기 -->
-<!-- 					  		</a> -->
-<!-- 					  </div> -->
-							
-							<div
-							  class="fb-like"
-							  data-share="true"
-							  data-width="450"
-							  data-show-faces="true">
-							</div>
- 					<script> 
-//   				 		(function(d, s, id) { 
-//  				 			var js, fjs = d.getElementsByTagName(s)[0];
-//  				 			if (d.getElementById(id)) 
-//  				 				return;
-//   				 			js = d.createElement(s); 
-//   				 			js.id = id; -->
-//  				 			js.src = 'https://connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v3.2';
-//   				 			fjs.parentNode.insertBefore(js, fjs);
-//  				 		}(document, 'script', 'facebook-jssdk'));
+<!-- 						Your share button code -->
+						 <div class="fb-share-button"  data-layout="button" data-size="small" data-mobile-iframe="true" data-img ="${prodVo.prod_pimg }"
+						 data-href="http://192.168.203.20:8081/shop/prodDetail?dvs_id=${dvs_id }&dvs_parent=${dvs_parent }&prod_id=${prodVo.prod_id}" >
+					 	   	<a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" 
+					 	   		class="fb-xfbml-parse-ignore">공유하기
+					 	    </a>
+						</div>
 
-// 					$("#facebook").click(function() {
-// 			 			var url = "https://www.facebook.com/sharer/sharer.php";
-// 			 			var url2 = "192.168.203.20:8081/shop/prodDetail?dvs_id=DVS1&dvs_parent=DVS3&prod_id=PROD1246";
-// 			 			window.open(url + "?u=" + url2, height=100, width=100);
-// 			 		})
-						window.fbAsyncInit = function() {
-						    FB.init({
-						      appId      : '386372922137185',
-						      xfbml      : true,
-						      version    : 'v3.2'
-						    });
-						    FB.AppEvents.logPageView();
-						  };
+							
+ 					<script> 
+  						(function(d, s, id) {
+						  var js, fjs = d.getElementsByTagName(s)[0];
+						  if (d.getElementById(id)) return;
+						  js = d.createElement(s); js.id = id;
+						  js.src = 'https://connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v3.2&appId=386372922137185&autoLogAppEvents=1';
+						  fjs.parentNode.insertBefore(js, fjs);
+						}(document, 'script', 'facebook-jssdk'));
+					
+// 					$(document).ready(function() {
 						
-						  (function(d, s, id){
-						     var js, fjs = d.getElementsByTagName(s)[0];
-						     if (d.getElementById(id)) {return;}
-						     js = d.createElement(s); js.id = id;
-						     js.src = "https://connect.facebook.net/en_US/sdk.js";
-						     fjs.parentNode.insertBefore(js, fjs);
-						   }(document, 'script', 'facebook-jssdk'));
+// 						$("#facebook").click(function() {
+// 				 			var url = "https://www.facebook.com/sharer/sharer.php?";
+// 				 			var url2 = "http://192.168.203.20:8081/shop/prodDetail?dvs_id="+'${dvsVo.dvs_id }'+"&dvs_parent="+'${dvsVo.dvs_parent }'+"&prod_id="+'${prodVo.prod_id}';
+// 							var image = 'http://192.168.203.20:8081/${prodVo.prod_pimg}';
+// 							var params = 'u='+encodeURIComponent(url2+'?imgname='+image+'&msg=${prodVo.prod_name}'+'&t=MyPet 쇼핑몰'+"&passerby=1");
+// 				 			window.open(url + params,'sharer', 'height=300, width=300');
+// 				 		})
+// 					})
+						
 			 		
 					</script> 
 					<div class="kakaoShare" id="kakao-link-btn">
