@@ -10,6 +10,7 @@
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <!-- kakao -->
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+
 <style type="text/css">
 	#maintop{
 		width: 1200px;
@@ -513,17 +514,32 @@
 			</div>
 			<div class="prodRight">
 				<div class="share">
-					<div class="fb-share-button" data-href="http://www.naver.com" data-layout="button"
-						data-size="small">
-						<a target="_blank"	class="fb-xfbml-parse-ignore" id="facebook">
-							<img src="/shopimg/facebook.png" width="30" height="30">
-						</a>
+<!-- 					<div class="fb-share-button" data-href="http://www.naver.com" data-layout="button" -->
+<!-- 						data-size="small"> -->
+<!-- 						<a target="_blank"	class="fb-xfbml-parse-ignore" id="facebook"> -->
+<!-- 							<img src="/shopimg/facebook.png" width="30" height="30"> -->
+<!-- 						</a> -->
 <!-- 						<a id="facebook" class="fb-xfbml-parse-ignore"  -->
 <!-- 						onclick="window.open('https://www.facebook.com/sharer/sharer.php','window_name', -->
 <!--  								'width=430,height=500,location=no,status=no,scrollbars=no');"> -->
 <!-- 							<img src="/shopimg/facebook.png" width="30" height="30"> -->
 <!-- 						</a> -->
-					</div>
+<!-- 					</div> -->
+
+						<!-- Your share button code -->
+<!-- 					  <div class="fb-share-button" data-href="http://localhost:8081/shop/prodDetail?dvs_id=DVS1&dvs_parent=DVS3&prod_id=PROD1246"  -->
+<!-- 					  		data-layout="button" data-size="small" data-mobile-iframe="true"> -->
+<!-- 					  		<a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse"  -->
+<!-- 					  		class="fb-xfbml-parse-ignore">공유하기 -->
+<!-- 					  		</a> -->
+<!-- 					  </div> -->
+							
+							<div
+							  class="fb-like"
+							  data-share="true"
+							  data-width="450"
+							  data-show-faces="true">
+							</div>
  					<script> 
 //   				 		(function(d, s, id) { 
 //  				 			var js, fjs = d.getElementsByTagName(s)[0];
@@ -535,12 +551,28 @@
 //   				 			fjs.parentNode.insertBefore(js, fjs);
 //  				 		}(document, 'script', 'facebook-jssdk'));
 
-					$("#facebook").click(function() {
-			 			var url = "https://www.facebook.com/sharer/sharer.php";
-			 			var url2 = "192.168.203.20:8081/shop/prodDetail?dvs_id=DVS1&dvs_parent=DVS3&prod_id=PROD1246";
-			 			window.open(url + "?u=" + url2, height=100, width=100);
-			 		})
-			 	
+// 					$("#facebook").click(function() {
+// 			 			var url = "https://www.facebook.com/sharer/sharer.php";
+// 			 			var url2 = "192.168.203.20:8081/shop/prodDetail?dvs_id=DVS1&dvs_parent=DVS3&prod_id=PROD1246";
+// 			 			window.open(url + "?u=" + url2, height=100, width=100);
+// 			 		})
+						window.fbAsyncInit = function() {
+						    FB.init({
+						      appId      : '386372922137185',
+						      xfbml      : true,
+						      version    : 'v3.2'
+						    });
+						    FB.AppEvents.logPageView();
+						  };
+						
+						  (function(d, s, id){
+						     var js, fjs = d.getElementsByTagName(s)[0];
+						     if (d.getElementById(id)) {return;}
+						     js = d.createElement(s); js.id = id;
+						     js.src = "https://connect.facebook.net/en_US/sdk.js";
+						     fjs.parentNode.insertBefore(js, fjs);
+						   }(document, 'script', 'facebook-jssdk'));
+			 		
 					</script> 
 					<div class="kakaoShare" id="kakao-link-btn">
 						<a id="kakao-link-btn" href="javascript:;"> 

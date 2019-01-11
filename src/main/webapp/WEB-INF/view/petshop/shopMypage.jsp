@@ -345,6 +345,7 @@
 			$(".swapOrder").submit();
 		})
 		
+		// 환불로 변경
 		$(".return").click(function() {
 			$("#return_id").val($(this).parent().children(".ords_id").val());
 			$(".returnOrder").submit();
@@ -353,7 +354,6 @@
 		$("#marketerGo").click(function(){
 			location.href = "/shop/sup";
 		});
-		
 	})
 	
 </script>
@@ -519,32 +519,41 @@
 			</div>
 			
 			<div id="cencleInfo" class="tabcontent">
-				<c:forEach items="${cancleList }" var="list">
-					<div class="orderList">
-						 <div class="orderA">
-						 	<img src="${list.prod_pimg }" width="150" height="150">
-						 </div>
-						 <div class="orderB">
-						 	<div class="orderName">
-						 		<span class="prodName">${list.prod_name }</span>
-						 	</div>
-						 	<div class="order">
-						 		<span>(구매수량 ${list.ords_qty }개)</span>
-						 	</div>
-						 	<div class="order">
-						 		<span>구매가격 : </span><span>${list.ords_price }</span>
-						 	</div>
-						 	<div class="order">
-						 		<span>구매날짜 : </span><span>${list.ords_date }</span>
-						 	</div>
-						 </div>
-						 <div class="orderC">
-						 	<div>
-						 		<span>${list.ords_stat }</span>
-						 	</div>
-						 </div>
-					</div>
-				</c:forEach>
+				<c:choose>
+					<c:when test="${cancleList.size() == 0 }">
+						<div class="orderWhite">
+							<span>취소/반품/교환 내역이 없습니다.</span>
+						</div>
+					</c:when>
+					<c:otherwise>
+						<c:forEach items="${cancleList }" var="list">
+							<div class="orderList">
+								 <div class="orderA">
+								 	<img src="${list.prod_pimg }" width="150" height="150">
+								 </div>
+								 <div class="orderB">
+								 	<div class="orderName">
+								 		<span class="prodName">${list.prod_name }</span>
+								 	</div>
+								 	<div class="order">
+								 		<span>(구매수량 ${list.ords_qty }개)</span>
+								 	</div>
+								 	<div class="order">
+								 		<span>구매가격 : </span><span>${list.ords_price }</span>
+								 	</div>
+								 	<div class="order">
+								 		<span>구매날짜 : </span><span>${list.ords_date }</span>
+								 	</div>
+								 </div>
+								 <div class="orderC">
+								 	<div>
+								 		<span>${list.ords_stat }</span>
+								 	</div>
+								 </div>
+							</div>
+						</c:forEach>
+					</c:otherwise>
+				</c:choose>
 			</div>
 			
 			<div id="myProd" class="tabcontent">
@@ -625,8 +634,6 @@
 					</c:forEach>
 					
 				</div>
-				
-				
 			</div>
 			
 				

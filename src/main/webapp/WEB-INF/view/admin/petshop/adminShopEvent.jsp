@@ -27,7 +27,6 @@
 	    background-color: #807c7c;
 	    color: white;
 	    padding: 5px;
-	    cursor: pointer;
 	}
 	
 	.listMenu{
@@ -104,6 +103,7 @@
 	.eventBtn{
 		width: 100px;
 		height: 30px;
+		cursor: pointer;
 	}
 	
 	.eventCre1{
@@ -158,7 +158,7 @@
 			}
 		})
 		
-		$(".eventBtn").click(function() {
+		$("#evenCreBtn").click(function() {
 			if($("#snot_title").val() == ''){
 				alert("빈 공간이 있습니다.");
 				return;
@@ -236,7 +236,7 @@
 					<div class="eventBtn2">
 						<div class="eventBtn1">
 							<input type="hidden" id="snot_date" name="snot_date">
-							<input type="button" value="이벤트 등록" class="eventBtn">
+							<input type="button" value="이벤트 등록" class="eventBtn" id="evenCreBtn">
 						</div>
 						<div class="eventBtn1">
 							<input type="reset" value="초기화" class="eventBtn">

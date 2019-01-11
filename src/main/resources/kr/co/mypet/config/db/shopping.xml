@@ -436,6 +436,7 @@
 		and prod_id in (
 		select ords_prod from ordersheet)
 		and prod_mem = #{mem_id}
+        and ords_stat = '상품준비중'
 	</select>
 	
 	<!-- 배송 중 -->
