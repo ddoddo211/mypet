@@ -1,8 +1,10 @@
 package kr.co.mypet.common.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import kr.co.mypet.common.model.MemberVo;
+import kr.co.mypet.common.model.PageVo;
 import kr.co.mypet.hair.model.HairShopVo;
 
 public interface CommonDaoInf {
@@ -28,4 +30,20 @@ public interface CommonDaoInf {
 	public int updateMemInfo(MemberVo memVo);
 	
 	public List<MemberVo> getMemberList();
+
+	public List<MemberVo> getMemberListAll(PageVo pageVo);
+
+	public int getMemberListAllCnt();
+
+	public int deleteMember(String string);
+
+	public int memberBlack(String string);
+
+	public int memberWhite(String string);
+
+	public List<MemberVo> getMemberListAll2(PageVo pageVo);
+
+	public int getMemberListAllCnt2();
+
+	public int memberUpdate(Map<String, Object> param);
 }

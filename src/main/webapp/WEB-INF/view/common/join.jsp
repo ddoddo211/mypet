@@ -46,7 +46,7 @@ $(document).ready(function(){
 	var chk = "${chk}";
 	
 	if(chk == "true"){
-		alert("사용 가능한 아이디 입니다.");
+		alert("사용 가능한 아이디 입니다. 메일의 인증번호를 확인하세요.");
 		var memID = "${memId}";
 		$("#mem_id").val(memID);
 	} else if(chk == "false"){
@@ -59,11 +59,13 @@ $(document).ready(function(){
 			$("#mem_id").focus();
 			return;
 		}
-		
 	});
 	
 	$("#chk_btn").click(function(){
 		var ran = $("#random").val()+"";
+		if(ran == ''){
+			ran = 1;
+		}
 		var ran2 = "${random}";
 		
 		if(ran == ran2){

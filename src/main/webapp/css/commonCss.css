@@ -336,6 +336,13 @@ a.innerborder:hover img {
 
 
 /*관리자용 메인화면*/
+#main{
+	width: 1200px;
+    height: 0 auto;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+
 #adminMain{
 	width: 1200px;
 	height: 0 auto;
@@ -403,11 +410,11 @@ a.innerborder:hover img {
 }
 
 .adminHeaderA{
-	width: 170px;
+	width: 135px;
 	height: 40px;
 	margin-top: 17px;
 	margin-bottom: 15px;
-	margin-left: 53px;
+	margin-left: 50px;
 	font-size: 30px;
 	font-family: 'Nanum Pen Script', cursive;
 	text-align: center;
@@ -420,11 +427,11 @@ a.innerborder:hover img {
 }
 
 .adminHeaderA:hover{
-	width: 170px;
+	width: 135px;
 	height: 40px;
 	margin-top: 17px;
 	margin-bottom: 15px;
-	margin-left: 53px;
+	margin-left: 50px;
 	font-size: 30px;
 	font-family: 'Nanum Pen Script', cursive;
 	text-align: center;

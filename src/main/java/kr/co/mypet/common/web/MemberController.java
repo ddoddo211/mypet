@@ -7,7 +7,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.mail.internet.MimeMessage;
@@ -24,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.co.mypet.common.model.MemberVo;
+import kr.co.mypet.common.model.PageVo;
 import kr.co.mypet.common.service.CommonServiceInf;
 import kr.co.mypet.hair.model.HairShopApplyVo;
 import kr.co.mypet.hair.model.HairShopVo;
@@ -509,5 +512,142 @@ public class MemberController {
 
 		return "common/join";
 	}
+	
+	@RequestMapping("/memManager")
+	public String memManager() {
+		return "admin/common/memberAdmin";
+	}
+	
+	@RequestMapping("/memMain")
+	public String memMain() {
+		return "admin/common/memberAdmin";
+	}
+	
+	@RequestMapping("/memExit")
+	public String memExitView(Model model, PageVo pageVo) {
+				
+		Map<String, Object> resultMap = commonService.getMemberListAll(pageVo);
+		
+		List<MemberVo> memList = (List<MemberVo>) resultMap.get("memList");
+		
+		model.addAttribute("memList", memList);
+		
+		return "admin/common/memberExit";
+	}
+	
+	@RequestMapping("/memPage")
+	public String memPage(Model model, PageVo pageVo) {
+		
+		Map<String, Object> resultMap = commonService.getMemberListAll(pageVo);
+		
+		int page = (int) resultMap.get("page");
+		int pageCnt = (int) resultMap.get("pageCnt");
+		
+		model.addAttribute("page",page);
+		model.addAttribute("pageCnt",pageCnt);
+		
+		return "admin/common/memPage";
+	}
+	
+	
+	@RequestMapping("/memDelete")
+	public String memDelete(PageVo pageVo, @RequestParam("mem_id")String mem_id, Model model) {
+		
+		String[] memId = mem_id.split(" ");
+		for(int i=0; i<memId.length; i++) {
+			int deleteCnt = commonService.deleteMember(memId[i]);
+		}
+		
+		Map<String, Object> resultMap = commonService.getMemberListAll(pageVo);
+		
+		List<MemberVo> memList = (List<MemberVo>) resultMap.get("memList");
+		
+		model.addAttribute("memList", memList);
+		
+		return "admin/common/memberExit";
+	}
+	
+	@RequestMapping("/memBlack")
+	public String memBlack(PageVo pageVo, @RequestParam("mem_id")String mem_id, Model model) {
+		
+		String[] memId = mem_id.split(" ");
+		for(int i=0; i<memId.length; i++) {
+			int deleteCnt = commonService.memberBlack(memId[i]);
+		}
+		
+		Map<String, Object> resultMap = commonService.getMemberListAll(pageVo);
+		
+		List<MemberVo> memList = (List<MemberVo>) resultMap.get("memList");
+		
+		model.addAttribute("memList", memList);
+		
+		return "admin/common/memberExit";
+	}
+	
+	@RequestMapping("/memWhite")
+	public String memWhite(PageVo pageVo, @RequestParam("mem_id")String mem_id, Model model) {
+		
+		String[] memId = mem_id.split(" ");
+		for(int i=0; i<memId.length; i++) {
+			int deleteCnt = commonService.memberWhite(memId[i]);
+		}
+		
+		Map<String, Object> resultMap = commonService.getMemberListAll(pageVo);
+		
+		List<MemberVo> memList = (List<MemberVo>) resultMap.get("memList");
+		
+		model.addAttribute("memList", memList);
+		
+		return "admin/common/memberExit";
+	}
+	
+	@RequestMapping("/memRight")
+	public String memRightView(Model model, PageVo pageVo) {
+		
+		Map<String, Object> resultMap = commonService.getMemberListAll2(pageVo);
+		
+		List<MemberVo> memList = (List<MemberVo>) resultMap.get("memList");
+		
+		model.addAttribute("memList", memList);
+		
+		
+		
+		return "admin/common/memRight";
+	}
+	
+	@RequestMapping("/memRightPage")
+	public String memRightPage(Model model, PageVo pageVo) {
+		
+		Map<String, Object> resultMap = commonService.getMemberListAll2(pageVo);
+		
+		int page = (int) resultMap.get("page");
+		int pageCnt = (int) resultMap.get("pageCnt");
+		
+		model.addAttribute("page",page);
+		model.addAttribute("pageCnt",pageCnt);
+		
+		return "admin/common/memRightPage";
+	}
+	
+	@RequestMapping("/memberUpdate")
+	public String memberUpdate(Model model, PageVo pageVo, MemberVo memVo) {
+		
+		Map<String, Object> param = new HashMap<>();
+		param.put("mem_id", memVo.getMem_id());
+		param.put("mem_sit", memVo.getMem_sit());
+		param.put("mem_shop", memVo.getMem_shop());
+		param.put("mem_hair", memVo.getMem_hair());
+		
+		int updateCnt = commonService.memberUpdate(param);
+		
+		Map<String, Object> resultMap = commonService.getMemberListAll2(pageVo);
+		
+		List<MemberVo> memList = (List<MemberVo>) resultMap.get("memList");
+		
+		model.addAttribute("memList", memList);
+		
+		return "admin/common/memRight";
+	}
+	
 
 } // controller class 끝나는곳
