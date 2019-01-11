@@ -175,6 +175,18 @@
     text-align: right;
   }
   
+  .starR{
+   	background: url(http://miuu227.godohosting.com/images/icon/ico_review.png) no-repeat right 0;
+    background-size: auto 100%;
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    text-indent: -9999px;
+    cursor: pointer;
+  }
+  .starR .on {
+	background-position: 0 0;
+  }
   </style>
 
 <script type="text/javascript">
@@ -221,6 +233,13 @@
 				alert("날짜를 정확하게 입력해주세요.");
 				return;
 			}
+		});
+		
+		$('.starRev span').click(function(){
+			  $(this).parent().children('span').removeClass('on');
+			  $(this).addClass('on').prevAll('span').addClass('on');
+			  
+			  return false;
 		});
 		
 
@@ -585,6 +604,14 @@
 							<span>후기글</span>
 						</div>
 						<div id="reviewAddMain">
+							<div class="starRev">
+								별점주기 / 
+								<span class="starR on">별1</span>
+								<span class="starR">별2</span>
+								<span class="starR">별3</span> 
+								<span class="starR">별4</span> 
+								<span class="starR">별5</span>
+							</div>
 							<div id="reviewWord">
 								<textarea rows="3" cols="100" id="review" name="review"></textarea>
 							</div>

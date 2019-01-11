@@ -6,6 +6,21 @@
 <meta charset="UTF-8">
 <title>insuranceClaim2.jsp(인터넷보험청구화면2)</title>
 
+<style type="text/css">
+
+#claimDay{
+	font-family: 'Jeju Gothic', sans-serif;
+	font-size: 18px;
+	width: 210px;
+	text-align: center;
+	outline: none;
+	height: 30px;
+    border-radius: 5px;
+    line-height: 30px;
+    margin-left: 10px;
+}
+</style>
+
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -82,26 +97,27 @@ $(document).ready(function(){
 		var selectAccident = $(this).val();
 		$("#selectAccident").val(selectAccident);
 	});
-	
-				
-	
-	// 계좌번호가 등록되어 있는지 확인
-	var account = '${size}';
-	
+
 	// 보험금 청구 하기 버튼을 클릭할시 
 		$("#nextBtn2").click(function(){
-			
 
 			var selectProd = $("#selectProd").val();
-			
 			var accidentDate = $("#claimDay").val();
 			var accidentPlace = $("#accidentInput").val();
 			var accidentContent = $("#accidentInput2").val();
-			
 			var selectAccident = $("#selectAccident").val();
-			
 			var diagnosis = $("#upload_text").val();
 			var accidentPhoto = $("#upload_text2").val();
+			
+			// 계좌번호
+			var account = $("#account").val();
+			// 숫자와 특수문자만 입력하였는지 확인
+			var regexp = /[0-9;\-]/;
+				v = account;
+				if( !regexp.test(v) ) {
+					alert("계좌번호는 숫자 , 특수문자(-)로  입력하세요");
+					return;
+				}
 			
 		
 			// 보험가입 상품을 선택하였는지 확인하기 
@@ -117,8 +133,11 @@ $(document).ready(function(){
 			}else if(accidentContent == ""){
 				alert("사고 내용을 입력하시기 바랍니다.");
 				return;
-			}else if(account == 0){
-				alert("회원의 보험금 입금계좌번호가 등록되어 있지 않습니다.\n[계좌등록하기] 버튼을 클릭하여 번호를 등록하신후에 진행하시기 바랍니다.");
+			}else if(selectAccident == 0){
+				alert("회원의 보험금 입금 은행을 선택하시기 바랍니다");
+				return;
+			}else if(account == ""){
+				alert("회원의 보험금 입금 계좌 번호를 입력하시기 바랍니다");
 				return;
 			}else if(diagnosis == ""){
 				alert("진단서는 필수 입니다. 첨부하시기 바랍니다.");
@@ -137,6 +156,11 @@ $(document).ready(function(){
 				$("#diagnosis").val(diagnosis);
 				// 진단서 form에 담아주기
 				$("#accidentPhoto").val(accidentPhoto);
+
+				
+				// 계좌번호 form에 담아주기
+				$("#account2").val(account);
+				
 				
 				$("#frm").submit();
 			}
@@ -144,7 +168,6 @@ $(document).ready(function(){
 			
 			
 		});
-
 });
 </script>
 
@@ -293,7 +316,7 @@ $(document).ready(function(){
 				
 				<div class="claimTitle4">
 					<div class="claimTitle4_1_2">
-						<div class="claimTitle4_2">보험금 입금계좌가 없을때에는 보험금 청구를 진행하실수 없습니다. 계좌등록하기 버튼을 클릭하여 보험금청구를 이용하시기 바랍니다.</div>
+						<div class="claimTitle4_2">보험금 입금계좌 입력시에는 올바르게 입력하시기 바랍니다. 올바르지 않을 경우에는 입금이 안될수 있습니다.(-입력)</div>
 					</div>
 				</div>
 				
@@ -305,14 +328,15 @@ $(document).ready(function(){
 								</div>
 								<div id="accountInfo3">
 									<select class="memAccidentSelect" name="accountSelect" >
-										<option selected value="0">보험금을 받으실 계좌번호를 선택하시기 바랍니다.</option>
-										<c:forEach items="${memAccidentList }" var="account">
-											<option value="${account.act_id}">${account.act_bank}${account.act_num} 예금주 : ${account.act_name}</option>
-										</c:forEach>
+										<option selected value="0">은행를 선택하시기 바랍니다.</option>
+											<option value="농협">농협</option>
+											<option value="국민">국민</option>
+											<option value="우리">우리</option>
+											<option value="하나">하나</option>
 									</select>
 								</div>
 								<div >
-									<input class="insurer2_6" type="button" value="계좌 등록하기">
+									<input id="account" name="account" type="text" >
 								</div>
 								
 							</div>
@@ -334,6 +358,7 @@ $(document).ready(function(){
 					<input type="hidden" id="accidentPlace"  name="accidentPlace" value="">
 					<input type="hidden" id="accidentContent" name="accidentContent"  value="">
 					<input type="hidden" id="selectAccident" name="selectAccident" value="">
+					<input type="hidden" id="account2" name="account2" value="">
 				<div id="document">
 					<div id="document1">
 						<div id="document2">

@@ -22,9 +22,9 @@ $(document).ready(function(){
 	});
     
 	//신청한 보험 건을 취소하는 부분
-	$("#cancel").click(function(){
-		var prodId = $(this).data("ins_id");
-		$("#prodId").val(prodId);
+	$(".cancel").click(function(){
+		var prodId2 = $(this).data("ins_id");
+		$("#prodId2").val(prodId2);
 		$("#frm2").submit();
 	});
 	
@@ -146,7 +146,7 @@ function goPayment(insp_kind){
 
 <!-- 보험신청 취소하는 부분 -->
 <form action="/isr/insprodCancel" method="get" id="frm2">
-	<input type="hidden" id="prodId" name="prodId" value="">
+	<input type="hidden" id="prodId2" name="prodId2" value="">
 	<input type="hidden" id="petId" name="petId" value="${mypetInfo.myp_id}">
 </form>
 
@@ -264,20 +264,27 @@ function goPayment(insp_kind){
 											<td class="tdh">${list.ins_stat}</td>
 											<c:choose>
 												<c:when test="${list.ins_stat == '신청'}">
-													<td class="tdh"><input id="cancel" type="button" value="취소" data-ins_id="${list.ins_id}"></td>
+													<td class="tdh"><input class="cancel" type="button" value="취소" data-ins_id="${list.ins_id}"></td>
 												</c:when>
-												<c:otherwise>
+												<c:when test="${list.ins_stat == '완료'}">
 													<td class="tdh"></td>
-												</c:otherwise>
+												</c:when>
+												<c:when test="${list.ins_stat == '결재완료'}">
+													<td class="tdh"></td>
+												</c:when>
 											</c:choose>
 											
 											<c:choose>
 												<c:when test="${list.ins_stat == '결재완료'}">
 													<td class="tdh"><img id="pdf3" alt="pdf파일" src="/img/petInsurance/PDF.png"></td>
 												</c:when>
-												<c:otherwise>
+												<c:when test="${list.ins_stat == '완료'}">
 													<td class="tdh"><input class="approval" type="button" onclick="goPayment('${list.insp_kind}')" value="결재" data-ins_id="${list.ins_id }"></td>
-												</c:otherwise>
+												</c:when>
+												<c:when test="${list.ins_stat == '신청'}">
+													<td class="tdh"></td>
+												</c:when>
+												
 											</c:choose>
 										<tr>
 									</c:forEach>

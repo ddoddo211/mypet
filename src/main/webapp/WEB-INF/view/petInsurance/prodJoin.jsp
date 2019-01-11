@@ -21,8 +21,6 @@ $(document).ready(function() {
 			
 		$("#isrJoinBtn3").click(function() {
 			
-			var account = $("#memAccountId").val();
-			
 			// 계약자 정보 체크박스
 			if (!$("input[id='isrJoinInfo5_1']:checked").val()) {
 				alert("계약자 정보의 체크 박스에 체크하시기 바랍니다");

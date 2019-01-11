@@ -905,10 +905,9 @@ public class SitterController {
 		
 		for(int i=0; i<name.length; i++) {
 			final String to = mem_id[i];
-			String fileName = "";
 			String path1 = request.getSession().getServletContext().getRealPath("");
 			String dir = path1 + "\\upload\\petSitter_SUC";
-			fileName = UUID.randomUUID().toString()+".pdf";
+			final String fileName = UUID.randomUUID().toString()+".pdf";
 			
 			File directory = new File(dir);
 			if(!directory.exists()) {
@@ -955,10 +954,10 @@ public class SitterController {
 						helper.setText("펫시터에 합격하신걸 축하드립니다. \r\n 추후에 전화연결 부탁드립니다.", true);
 						
 						String path = request.getSession().getServletContext().getRealPath("");
-						String filePathToBeServed = path + "/img/petInsurance/contract.jpg";
+						String filePathToBeServed = path + "/upload/petSitter_SUC/"+fileName;
 						
 						FileSystemResource file = new FileSystemResource(new File(filePathToBeServed));
-						helper.addAttachment("contract.jpg", file);
+						helper.addAttachment(fileName, file);
 
 					}
 				};

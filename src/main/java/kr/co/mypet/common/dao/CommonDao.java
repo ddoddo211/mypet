@@ -1,6 +1,7 @@
 package kr.co.mypet.common.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -8,6 +9,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import kr.co.mypet.common.model.MemberVo;
+import kr.co.mypet.common.model.PageVo;
 import kr.co.mypet.hair.model.HairShopVo;
 
 @Repository
@@ -83,6 +85,46 @@ public class CommonDao implements CommonDaoInf {
 	@Override
 	public List<MemberVo> getMemberList() {
 		return template.selectList("member.getMemberList");
+	}
+
+	@Override
+	public List<MemberVo> getMemberListAll(PageVo pageVo) {
+		return template.selectList("member.getMemListAll", pageVo);
+	}
+
+	@Override
+	public int getMemberListAllCnt() {
+		return template.selectOne("member.getMemListAllCnt");
+	}
+
+	@Override
+	public int deleteMember(String string) {
+		return template.update("member.deleteMember", string);
+	}
+
+	@Override
+	public int memberBlack(String string) {
+		return template.update("member.memberBlack", string);
+	}
+
+	@Override
+	public int memberWhite(String string) {
+		return template.update("member.memberWhite", string);
+	}
+
+	@Override
+	public List<MemberVo> getMemberListAll2(PageVo pageVo) {
+		return template.selectList("member.getMemListAll2", pageVo);
+	}
+
+	@Override
+	public int getMemberListAllCnt2() {
+		return template.selectOne("member.getMemListAllCnt2");
+	}
+
+	@Override
+	public int memberUpdate(Map<String, Object> param) {
+		return template.update("member.memberUpdate", param);
 	}
 
 

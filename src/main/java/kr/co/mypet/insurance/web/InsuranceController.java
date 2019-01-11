@@ -343,8 +343,6 @@ public class InsuranceController {
 	// 보험 메뉴에서 플랜정보 버튼을 클릭하였을때 이동하는 부분
 	@RequestMapping("/goplanInformation")
 	public String planInformation(Model model, HttpSession session, HttpServletRequest request) {
-
-		String joinFail = request.getParameter("joinFail");
 		
 		// 회원 정보 받아오는 부분
 		MemberVo memVo = (MemberVo) session.getAttribute("memVo");
@@ -383,7 +381,6 @@ public class InsuranceController {
 	
 			// 회원의 펫이 없을떄 가입가능한 나의 펫 부분에 (펫이 없다는 메세지 나오게 하기 위해서 설정)
 			model.addAttribute("petListSize", mypetList.size());
-			model.addAttribute("joinFail", joinFail);
 			
 			
 			return "petInsurance/planInformation";
@@ -645,11 +642,6 @@ public class InsuranceController {
 						// 가입을 진행하고 있는 펫 정보 가지고 오기
 						model.addAttribute("mypetInfo", mypetInfo);
 						
-						
-						// 해당 회원의 이메일(pk)로 보내서 회원의 계좌번호를 가지고 오는 방법(매개변수를 회원의 아이디로 설정한다) 
-						List<AccountVo> memAccidentList = insuranceService.memAccountList(memVo.getMem_id());
-						model.addAttribute("memAccidentList", memAccidentList);
-						
 					
 						// 가입조건이 맞지 않는다면 가입이 안되는 메서드 사용 
 						if(insuranceAvaliable(prodJoin.getInsp_sick(), mypetInfo.getMyp_sick(), petkindVo.getAm_name(), prodJoin.getInsp_join(), minage, maxage, petage ))	
@@ -832,11 +824,6 @@ public class InsuranceController {
 				// 가입 진행하고 있는 펫의 정보 담아주기
 				model.addAttribute("mypetInfo" , mypetInfo);
 				
-				// 해당 회원의 이메일(pk)로 보내서 회원의 계좌번호를 가지고 오는 방법(매개변수를 회원의 아이디로 설정한다) 
-				List<AccountVo> memAccidentList = insuranceService.memAccountList(memVo.getMem_id());
-				model.addAttribute("memAccidentList", memAccidentList);
-				model.addAttribute("size", memAccidentList.size());
-				
 				return "petInsurance/insuranceClaim2";
 			}
 			
@@ -853,13 +840,14 @@ public class InsuranceController {
 				String accidentPlace = request.getParameter("accidentPlace");
 				String accidentContent = request.getParameter("accidentContent");
 				String selectAccident = request.getParameter("selectAccident");
+				String accident = request.getParameter("account2");
 				
 				// 사고 vo에 담아주기
 				//	사고일자 , 사고장소 , 사고설명 , 사고사진 , 진단서 ,이메일아이디 , 내반려동물ID , 보험ID
 				AccidentVo acdVo = new AccidentVo();
 				
 				acdVo.setAccd_myp(petId);
-				acdVo.setAccd_act(selectAccident);
+				acdVo.setAccd_act(selectAccident+accident);
 				
 				// String 을 Date로 변경하는 작업 
 				SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
@@ -970,7 +958,6 @@ public class InsuranceController {
 					//회원의 펫 가지고 오기
 					List<InsshoppingVo> mypetList = insuranceService.petList(memVo.getMem_id());
 					model.addAttribute("mypetList", mypetList);
-					
 					// 나의펫 보험 화면에서 현재까지 받은 보험금 현황 부분에 나와야 하는 부분
 					int isuranceStatus = insuranceService.isuranceStatus(memVo.getMem_id());
 					model.addAttribute("money",isuranceStatus );
@@ -1370,12 +1357,7 @@ public class InsuranceController {
 				AccidentVo history =  insuranceService.history(accd_id);
 				model.addAttribute("history",history);
 				
-				// 회원 정보 받아오는 부분
-				MemberVo memVo = (MemberVo) session.getAttribute("memVo");
-				// 해당 회원의 이메일(pk)로 보내서 회원의 계좌번호를 가지고 오는 방법(매개변수를 회원의 아이디로 설정한다) 
-				List<AccountVo> memAccidentList = insuranceService.memAccountList(memVo.getMem_id());
-				model.addAttribute("memAccidentList", memAccidentList);
-								
+				
 				return "petInsurance/history";
 			}
 			
@@ -1385,12 +1367,13 @@ public class InsuranceController {
 				
 				//계좌번호 받아온 부분
 				String accd_act = request.getParameter("selectAc");
+				String account2 = request.getParameter("account2");
 				
 				// 다시 보험금 청구 내역 확인화면으로 접속해야 하기 때문에 설정 
 				String accd_id = request.getParameter("accd_id");
 				
 				AccidentVo acdVo = new AccidentVo();
-				acdVo.setAccd_act(accd_act);
+				acdVo.setAccd_act(accd_act + account2 );
 				acdVo.setAccd_id(accd_id);
 				
 				// 계좌번호 변경하는 쿼리문 전달 
@@ -1400,12 +1383,6 @@ public class InsuranceController {
 				AccidentVo history =  insuranceService.history(accd_id);
 				model.addAttribute("history",history);
 				
-				// 회원 정보 받아오는 부분
-				MemberVo memVo = (MemberVo) session.getAttribute("memVo");
-				// 해당 회원의 이메일(pk)로 보내서 회원의 계좌번호를 가지고 오는 방법(매개변수를 회원의 아이디로 설정한다) 
-				List<AccountVo> memAccidentList = insuranceService.memAccountList(memVo.getMem_id());
-				model.addAttribute("memAccidentList", memAccidentList);
-								
 				return "petInsurance/history";
 			}	
 			
@@ -1419,12 +1396,6 @@ public class InsuranceController {
 				AccidentVo history =  insuranceService.history(accd_id);
 				model.addAttribute("history",history);
 				
-				// 회원 정보 받아오는 부분
-				MemberVo memVo = (MemberVo) session.getAttribute("memVo");
-				// 해당 회원의 이메일(pk)로 보내서 회원의 계좌번호를 가지고 오는 방법(매개변수를 회원의 아이디로 설정한다) 
-				List<AccountVo> memAccidentList = insuranceService.memAccountList(memVo.getMem_id());
-				model.addAttribute("memAccidentList", memAccidentList);
-				
 				return "petInsurance/history2";
 			}
 			
@@ -1437,12 +1408,6 @@ public class InsuranceController {
 				// 현재 보험금 신청현황(반려)
 				AccidentVo history =  insuranceService.history(accd_id);
 				model.addAttribute("history",history);
-				
-				// 회원 정보 받아오는 부분
-				MemberVo memVo = (MemberVo) session.getAttribute("memVo");
-				// 해당 회원의 이메일(pk)로 보내서 회원의 계좌번호를 가지고 오는 방법(매개변수를 회원의 아이디로 설정한다) 
-				List<AccountVo> memAccidentList = insuranceService.memAccountList(memVo.getMem_id());
-				model.addAttribute("memAccidentList", memAccidentList);
 				
 				return "petInsurance/history3";
 			}
@@ -1497,7 +1462,7 @@ public class InsuranceController {
 			public String insprodCancel(Model model ,HttpSession session,HttpServletRequest request) {
 				
 				// 신청 취소할 id 담기
-				String prodId = request.getParameter("prodId");
+				String prodId = request.getParameter("prodId2");
 			
 				// 상태 변경해주기
 				insuranceService.insprodCancel(prodId);
@@ -1601,7 +1566,7 @@ public class InsuranceController {
 					
 			}
 			
-			
+
 			
 /*펫 관리자 페이지*/
 			
@@ -2166,12 +2131,6 @@ public class InsuranceController {
 					InsuranceVo insVoList = insuranceService.goJoinCheck(insVo);
 					model.addAttribute("insVoList", insVoList);
 					
-					
-					// 해당 회원의 이메일(pk)로 보내서 회원의 계좌번호를 가지고 오는 방법(매개변수를 회원의 아이디로 설정한다) 
-					List<AccountVo> memAccidentList = insuranceService.memAccountList(mem_id);
-					model.addAttribute("memAccidentList", memAccidentList);
-					
-			
 				return "admin/petInsurance/goJoinCheck";
 			}
 			

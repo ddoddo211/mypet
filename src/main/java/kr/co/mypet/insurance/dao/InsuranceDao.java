@@ -217,11 +217,11 @@ public class InsuranceDao implements InsuranceDaoInf {
 	* 작성자 : Yumint
 	* 변경이력 :
 	* @return
-	* Method 설명 : 반려동물 품종 조회해오는 쿼리문
+	* Method 설명 : 반려동물 품종 조회해오는 쿼리문 (펫 추가할때 사용)
 	*/
 	@Override
 	public List<PetkindVo> petKindList(String am_name) {
-		return template.selectList("petIns.petKindVo" , am_name);
+		return template.selectList("petIns.petKindList" , am_name);
 	}
 
 
@@ -1109,6 +1109,20 @@ public class InsuranceDao implements InsuranceDaoInf {
 	@Override
 	public int goPaymentSucces(String accd_id) {
 		return template.update("petIns.goPaymentSucces", accd_id);
+	}
+
+
+	/**
+	* Method : accountDel
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param actId
+	* @return
+	* Method 설명 : 해당 회원의 이메일(pk)로 보내서 회원의 계좌번호를 가지고 오는 방법
+	*/
+	@Override
+	public int accountDel(String actId) {
+		return template.delete("petIns.accountDel" , actId );
 	}
 
 

@@ -154,7 +154,7 @@ $(document).ready(function(){
 						<c:choose>
 							<c:when test="${mypetListSize == 0}">
 								<tr class="tr2" id="td5">
-									<td colspan="8">보험에 가입완료된 펫이 없습니다.</td>
+									<td colspan="8">보험에 가입 결재완료된 펫이 없습니다.</td>
 								</tr>
 							</c:when>
 							<c:otherwise>

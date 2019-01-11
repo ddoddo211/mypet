@@ -1124,6 +1124,20 @@ public class InsuranceService implements InsuranceServiceInf {
 	public int goPaymentSucces(String accd_id) {
 		return insuranceDao.goPaymentSucces(accd_id);
 	}
+
+	
+	/**
+	* Method : accountDel
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param actId
+	* @return
+	* Method 설명 : 해당 회원의 이메일(pk)로 보내서 회원의 계좌번호를 가지고 오는 방법
+	*/
+	@Override
+	public int accountDel(String actId) {
+		return insuranceDao.accountDel(actId);
+	}
 	
 	
 }
