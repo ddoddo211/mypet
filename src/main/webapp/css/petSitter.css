@@ -60,6 +60,7 @@ body, option, select{
 	border: none;
 	font-family: 'Nanum Brush Script', cursive;
 	vertical-align: middle;
+	cursor: pointer;
 }
 
 #petSittingFromHome {
@@ -119,13 +120,14 @@ body, option, select{
 	font-weight: bold;
 }
 
-#detail1 {
+.detail1 {
 	width: 200px;
 	height: 50px;
 	background-color: #fff;
 	border: 1px solid #cecece;
 	font-weight: bold;
 	font-size: 15px;
+	cursor: pointer;
 }
 
 #postscript {
@@ -546,9 +548,36 @@ td {
 #res { position:relative;  margin-bottom : 20px;}
 
 #contentright2{ 
-	margin-top : 30px; 
+	margin-top : 404px; 
 	border : 1px solid #d1d1d1;
 	border-radius: 5px;
+	position: fixed;
+	width: 375px;
+}
+
+#contentProfile{
+	width : 40%;
+	height : 120px;
+	border-radius: 50%;
+	overflow : hidden;
+	margin : 0 auto;
+	float:left;
+}
+
+#pstMemInfo{
+	width : 60%;
+	float:left;
+	line-height: 35px;
+}
+
+#pstMemInfo > span {
+	font-size : 20px;
+	font-weight: bold;
+}
+
+#proImg{
+	width : 100%;
+	height : 120px;
 }
 
 #faqSearch{

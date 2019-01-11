@@ -667,7 +667,6 @@ public class ShoppingController {
 		}
 		
 		
-		
 		model.addAttribute("price",price);
 		
 		return "/petshop/prodQtyHtml";

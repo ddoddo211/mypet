@@ -67,7 +67,7 @@ body {
 }
 
 #wrap {
-	width: 400px;
+	width: 680px;
 	min-height: 658px;
 	margin: 0 auto;
 }
@@ -168,13 +168,23 @@ input[type="checkbox"] {
 		$("#idSearch").click(function() {
 			popUp();
 		})
+		
+		$("#pwSearch").click(function(){
+			pwSearchPopup();
+		});
 	})
 	
 	function popUp() {
-		var popUrl = "/mem/idSearch";
-		var popOption = "width=370, height=360, resizable=no, scrollbars=no, status=no;";
+		var popUrl = "/mem/idSearchView";
+		var popOption = "width=500, height=200, resizable=no, scrollbars=no, status=no;";
 		window.open(popUrl, "주소변경", popOption);
 	};
+	
+	function pwSearchPopup(){
+		var popUrl = "/mem/pwSearchView";
+		var popOption = "width=500, height=200";
+		window.open(popUrl, "비밀번호찾기", popOption);
+	}
 </script>
 
 </head>
@@ -244,7 +254,7 @@ input[type="checkbox"] {
 					    
 					    <div id="loginMenu">
 							<label class="loginMenuLabel"><input class="loginMenuInput"  id ="idSearch"type="button" value="아이디 찾기"></label>
-							<label class="loginMenuLabel"><input class="loginMenuInput" type="button" value="비밀번호 찾기"></label>
+							<label class="loginMenuLabel"><input class="loginMenuInput" id="pwSearch" type="button" value="비밀번호 찾기"></label>
 							<label class="loginMenuLabel"><input class="loginMenuInput" type="button" value="회원가입"></label>
 						</div>
 						

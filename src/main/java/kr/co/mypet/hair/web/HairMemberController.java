@@ -81,29 +81,31 @@ public class HairMemberController {
 			model.addAttribute("hairResList", hairResList);
 			
 			
-			//내가 했던 문의 내역 불러오기
-			List<HairBoardVo> askList = new ArrayList<>();
-			
-			askList = hairService.selectAsk(mem_id);
-			
-			HairBoardVo hbVo = new HairBoardVo();
-			
-			for(int i = 0 ; i < askList.size() ; i++) {
-				String has_name = "";
-				String has_id = askList.get(i).getHbrd_has();
-				hbVo = askList.get(i);
-				has_name = hairService.selectShop(has_id).getHas_name();
-				hbVo.setHas_name(has_name);
-				
-				askList.set(i, hbVo);
-				
-				
-			}
-			
-			
-			//문의 내역 add
-			model.addAttribute("askList", askList);
 		}
+		//내가 했던 문의 내역 불러오기
+		List<HairBoardVo> askList = new ArrayList<>();
+		
+		askList = hairService.selectAsk(mem_id);
+		System.out.println("mem_id : " + mem_id);
+		System.out.println("askList.size() : " + askList.size());
+		
+		HairBoardVo hbVo = new HairBoardVo();
+		
+		for(int i = 0 ; i < askList.size() ; i++) {
+			String has_name = "";
+			String has_id = askList.get(i).getHbrd_has();
+			hbVo = askList.get(i);
+			has_name = hairService.selectShop(has_id).getHas_name();
+			hbVo.setHas_name(has_name);
+			
+			askList.set(i, hbVo);
+			
+			
+		}
+		
+		
+		//문의 내역 add
+		model.addAttribute("askList", askList);
 		
 		return "petHair/petHairMypageMain";
 	}

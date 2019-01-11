@@ -7,15 +7,15 @@ public class SitterRevVo {
 
 	private String mem_name;
 	private String mem_profile;
-	
+
 	private int rnum;
 	private String stv_id;
 	private String stv_text;
 	private Date stv_date;
 	private String stv_pst;
 	private String stv_mem;
+	private int stv_score;
 
-	
 	public String getPst_id() {
 		return pst_id;
 	}
@@ -88,11 +88,21 @@ public class SitterRevVo {
 		this.stv_mem = stv_mem;
 	}
 
+	public int getStv_score() {
+		return stv_score;
+	}
+
+	public void setStv_score(int stv_score) {
+		this.stv_score = stv_score;
+	}
+
 	@Override
 	public String toString() {
 		return "SitterRevVo [pst_id=" + pst_id + ", mem_name=" + mem_name + ", mem_profile=" + mem_profile + ", rnum="
 				+ rnum + ", stv_id=" + stv_id + ", stv_text=" + stv_text + ", stv_date=" + stv_date + ", stv_pst="
-				+ stv_pst + ", stv_mem=" + stv_mem + "]";
+				+ stv_pst + ", stv_mem=" + stv_mem + ", stv_score=" + stv_score + "]";
 	}
+
+	
 
 }

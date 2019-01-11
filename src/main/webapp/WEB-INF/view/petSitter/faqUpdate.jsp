@@ -173,7 +173,7 @@ var oEditors = []; // 개발되어 있는 소스에 맞추느라, 전역변수�
 		<div id="header">
 			<!-- main -->
 			<div id="logo">
-				<a href="/petSitter.jsp"><img alt="이미지가 없습니다"
+				<a href="/sit/sitMain"><img alt="이미지가 없습니다"
 					src="/img/petSitterLogo2.jpg" width="200px;" /></a>
 			</div>
 			<div id="petSearch">

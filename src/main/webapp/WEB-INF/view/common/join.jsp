@@ -240,6 +240,14 @@ $(document).ready(function(){
 
 
 	$("#checkid").click(function(){
+		
+		 var emailRegex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+         if (!emailRegex.test($("#mem_id").val())) {
+             alert('이메일 주소가 유효하지 않습니다. ex)abc@gmail.com');
+             mem_id.focus();
+             return false;
+         }
+		
 		var mem_id = $("#mem_id").val();
 		$("#memId").val(mem_id);
 		$("#chkMemFrm").submit();
@@ -276,7 +284,7 @@ $(document).ready(function(){
 		</div>
 		<!-- main header content 끝  -->
 		<div id="wrap">
-		<h1 class="member">My Pet Login</h1>
+		<h1 class="member">My Pet Join</h1>
 
 		<%-- 네이버 인지 아닌지 확인해서 mem_id 채울지 말지 결정 --%>
 		<c:set var="id">

@@ -10,6 +10,7 @@
 		</c:if>
 	</div>
 	<div class=opQty2>
+	    <input type="hidden" value="${prodoVo.prodo_qty}" class="prodo_qty" />
 		<input type="hidden" value="${prodoVo.prodo_id }" name="prodo_id" class="prodo_id"/>
 		<button class="minusBtn"><img src="/shopimg/minus.png" height=20" /></button>
 		<input  type="text" name="Quantity" class="qty" name="qty" value="1" min="1" readonly />

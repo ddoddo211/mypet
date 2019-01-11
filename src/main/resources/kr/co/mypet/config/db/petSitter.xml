@@ -15,9 +15,10 @@
 	</select>
 	
 	<select id="petToHomeDetail" parameterType="String" resultType="pstVo">
-		select * 
-		from petsitter
-		where pst_id = #{pst_id}
+		select p.*, mem_name, mem_id, mem_img, mem_hp 
+		from petsitter p, member m
+		where p.pst_id = #{pst_id}
+		and p.pst_mem = m.mem_id
 	</select>
 	
 	<select id="getFaqList" resultType="fVo">
@@ -111,12 +112,13 @@
 	
 	<insert id="insertReview" parameterType="Map">
 		insert into sitterrev
-		values('RE' || lpad(rev_no.nextVal, 3, '0'), #{stv_text}, sysdate, #{stv_pst}, #{stv_mem})
+		values('RE' || lpad(rev_no.nextVal, 3, '0'), #{stv_text}, sysdate, #{stv_pst}, #{stv_mem}, #{stv_score})
 	</insert>
 	
 	<update id="updateReview" parameterType="map">
 		update sitterrev set
-		stv_text = #{stv_text}
+		stv_text = #{stv_text},
+		stv_score = #{stv_score}
 		where stv_id = #{stv_id}
 	</update>
 	
@@ -306,7 +308,7 @@
 	<update id="deleteMySitterTo" parameterType="String">
 		update petsitter set
 		pst_chk = 'Y'
-		where pst_id = (select pst_id from petsitter where pst_mem = #{mem_id})
+		where pst_id = (select pst_id from petsitter where pst_mem = #{mem_id} and pst_chk = 'N')
 	</update>
 	
 	<select id="getPetSitterChk" parameterType="map" resultType="Integer">
@@ -315,6 +317,11 @@
 		where pc_pst = #{pc_pst}
 		and pc_mem = #{pc_mem}
 	</select> 
+	
+	<insert id="insertPetsitterChk" parameterType="map">
+		insert into petsitterchk
+		values('PSC' || lpad(pc_no.nextVal,3,'0'), #{pc_pst}, #{pc_mem})
+	</insert>
 	
 	<delete id="deleteADReservation" parameterType="String">
 		delete from sitterres
@@ -395,4 +402,22 @@
 		from mypet
 		where myp_del = 'N'
 	</select>
+	
+	<select id="getPstReviewAllCnt" parameterType="String" resultType="Integer">
+		select count(*)
+		from sitterrev
+		where stv_pst = #{stv_pst}
+	</select>
+	
+	<select id="getPstReviewScore" parameterType="String" resultType="Integer">
+		select sum(stv_score) as stv_score 
+		from sitterrev
+		where stv_pst = #{stv_pst}
+	</select>
+	
+	<update id="updatePetsitterScore" parameterType="map">
+		update petsitter set
+		pst_score = ${pst_score}
+		where pst_id = #{pst_id}
+	</update>
 </mapper>
