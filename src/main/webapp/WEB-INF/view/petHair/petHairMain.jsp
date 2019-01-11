@@ -204,7 +204,7 @@
 			}
 			
 			var has_name = $(".shopName").text().trim();
-			var result=confirm(has_name + " 을 즐겨찾기에 등록하시겠습니까?????")
+			var result=confirm(has_name + " 을 즐겨찾기에 등록하시겠습니까?????");
 			
 			if(!result){
 				return;
