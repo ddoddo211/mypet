@@ -133,28 +133,6 @@ function goBack(){
 						</span>
 					</div>
 					
-				<div id="contractorInfo">
-						<!-- 계약자의 계좌정보입력하기 -->
-						<div id="contractor">
-							보험료를 납부할 계좌 내역
-						</div>
-						
-						<!-- 회원의 계좌번호 select박스 나오는곳 -->
-						<div id ="accountInfo">
-							<div id="accountInfo1">
-								<div id="accountInfo2">
-									계좌번호 
-								</div>
-								<div id="accountInfo3">
-									<div class="isrJoinNotice3">
-										<span class="isrJoinNotice3_1">
-										${insVoList.accd_act }
-										</span>
-									</div>
-								</div>
-							</div>
-						</div>									
-				</div>
 					
 					<!-- 보험가입 버튼 -->
 					<div id="isrJoinBtn">

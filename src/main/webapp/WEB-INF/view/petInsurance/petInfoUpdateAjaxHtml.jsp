@@ -91,6 +91,7 @@
 
 	// 수정완료 하기 버튼을 클릭하였을떄 중성화 여부 담아주기 
 		$(".mypetPageBtn1_1").click(function(){
+
 			// 중성화 부분이 체크 되지 않았을때는 N으로 넘겨진다. 체크되었다면 Y로 담긴다.
 			if ($("input[id='neuYnChk']:checked").val()== 'Y') {
 				petNeutralization = "Y";
@@ -104,7 +105,7 @@
 </script>
 
 <!-- form에 input에 name을 담아서 submit으로 보내기 -->
-<form id="frm" action="/isr/mypetInfoUpdateS" method="post" enctype="multipart/form-data">
+<form id="frm3" action="/isr/mypetInfoUpdateS" method="post" enctype="multipart/form-data">
 <input type="hidden" name="petId" value="${mypetInfo.myp_id}">			
 <input type="hidden" name="petNeutralization" id="petNeutralization" value="">	
 
