@@ -68,7 +68,7 @@ public class HairShopController {
 		//선택한 대분류로 검색한 미용실 목록
 		String zip_high = zipVo.getZip_high().replace("특별시", "");
 		zip_high = zip_high.replace("광역시", "");
-		System.out.println(zip_high);
+//		System.out.println(zip_high);
 		List<HairShopVo> hairShopList = hairService.selectHairShopLoc(zip_high);
 		
 		model.addAttribute("hairShopList", hairShopList);
@@ -126,7 +126,7 @@ public class HairShopController {
 				//선택한 대분류로 검색한 미용실 목록
 				String zip = zipVo.getZip_high().replace("특별시", " ")+zipVo.getZip_low();
 				zip = zip.replace("광역시", " ");
-				System.out.println(zip);
+//				System.out.println(zip);
 				List<HairShopVo> hairShopList = hairService.selectHairShopLoc(zip);
 				
 				model.addAttribute("hairShopList", hairShopList);
@@ -203,7 +203,7 @@ public class HairShopController {
 		//선택한 대분류로 검색한 미용실 목록
 		String zip = zipVo.getZip_high().replace("특별시", " ")+zipVo.getZip_low();
 		zip = zip.replace("광역시", " ");
-		System.out.println(zip);
+//		System.out.println(zip);
 		List<HairShopVo> hairShopList = hairService.selectHairShopLoc(zip);
 		
 		model.addAttribute("hairShopList", hairShopList);
@@ -272,7 +272,7 @@ public class HairShopController {
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		
-		System.out.println(date);
+//		System.out.println(date);
 		
 		//db로 넘길 parameter vo
 		HairResVo hrVo = new HairResVo();
@@ -340,9 +340,9 @@ public class HairShopController {
 			int chk = hairService.insertRev(hairResVo);
 			
 			if(chk==0) {
-				System.out.println("insert실패");
+				//System.out.println("insert실패");
 			} else {
-				System.out.println("rev insert 성공!");
+				//System.out.println("rev insert 성공!");
 			}
 			
 			model.addAttribute("mem_id", hairResVo.getHres_mem());
