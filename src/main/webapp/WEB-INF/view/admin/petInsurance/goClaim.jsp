@@ -230,6 +230,12 @@ $(document).ready(function() {
 					</div>
 				</div>
 				
+				<div class="claimTitle4">
+					<div class="claimTitle4_1_2">
+						<div class="claimTitle4_2">신청자 옆의()괄호안의 숫자는 회원의 보험금 반려건의 숫자가  표시됩니다. 블랙리스트로 추가해야 한다면 블랙리스트로 추가하시기 바랍니다.</div>
+					</div>
+				</div>
+				
 								<div id="productManagement">
 						<div id="productList">
 							<table id="example-table-1">
@@ -251,7 +257,7 @@ $(document).ready(function() {
 								<c:forEach items="${accidentList }" var="list">
 									<tr>
 										<td class="tdh"><input class="check" type="radio" name="check" value="${list.accd_id}" data-accd_mem="${list.accd_mem}" ></td>									
-										<td class="tdh">${list.mem_name}(보험금 반려 숫자)</td>									
+										<td class="tdh">${list.mem_name}</td>									
 										<td class="tdh">${list.myp_name}</td>									
 										<td class="tdh">${list.insp_name}</td>
 										<td class="tdh"><fmt:formatDate value="${list.accd_date}" pattern="yyyy년 MM월 dd일"/></td>									
@@ -293,7 +299,7 @@ $(document).ready(function() {
 								</tr>
 <c:choose>
 	<c:when test="${companionListSize == 0}">
-		<td class="tdh" colspan="6">회원께서 보험금 반려 내역이 없습니다.</td>	
+		<td class="tdh" colspan="7">회원께서 보험금 반려 내역이 없습니다.</td>	
 	</c:when>
 	<c:otherwise>
 								
@@ -342,7 +348,7 @@ $(document).ready(function() {
 								</tr>
 <c:choose>
 	<c:when test="${completedListSize == 0}">
-		<td class="tdh" colspan="6">회원께서 보험금 완료 내역이 없습니다.</td>	
+		<td class="tdh" colspan="8">회원께서 보험금 완료 내역이 없습니다.</td>	
 	</c:when>
 	<c:otherwise>
 								
@@ -408,7 +414,7 @@ $(document).ready(function() {
 									<tr>
 										<td class="tdh"><input class="check3" type="radio" name="check3" value="${list.mem_id}" ></td>									
 										<td class="tdh">${list.mem_name}</td>									
-										<td class="tdh">반려횟수</td>									
+										<td class="tdh">${list.cnt}</td>									
 									</tr>
 								</c:forEach>
 	</c:otherwise>

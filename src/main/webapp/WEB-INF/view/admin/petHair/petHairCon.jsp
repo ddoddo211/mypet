@@ -122,6 +122,7 @@ $(document).ready(function() {
 												<input type="hidden" class="has_ptext" name="has_ptext" value="-관리자삭제-"/>
 												<input type="hidden" class="has_text" name="has_text" value="-관리자삭제-"/>
 												<input type="hidden" class="has_img" name="has_img" value="x.png"/>
+												<input type="hidden" class="has_score" name="has_score" value="${hl.has_score }"/>
 											</form>	
 											</td>
 										</tr>
