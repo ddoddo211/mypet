@@ -133,8 +133,7 @@ $(document).ready(function(){
 		}else if(selectProdRow != selectPetRow){
 		
 			$(".cb2_label").removeClass("activeCb");
-			var country = document.getElementById("select");
-			country.options[country.options.selectedIndex].selected = false;
+			$("select option").prop("selected", false);
 			alert("펫과 동일한 보험상품 행의 체크박스를 선택하시기 바랍니다.");
 			select = null;
 			$("#prodId").val("");

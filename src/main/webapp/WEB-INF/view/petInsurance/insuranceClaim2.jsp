@@ -37,46 +37,33 @@ $(document).ready(function(){
 		maxDate : "0D"
 	});
 
-	// 첨부파일 미리 보여 주는 텍스트 떄문에 입력
-	$('#upload_text').val('');
-	$('#upload_text2').val('');
-	
-	$('#input_file').change(function() {
-		var i = $(this).val();
-		$('#upload_text').val(i);
-	});
-	
-	$('#input_file2').change(function() {
-		var i = $(this).val();
-		$('#upload_text2').val(i);
-	});
-	
 	
 	// 진단서사진을 입력할때 jpg 파일만 넣게 설정하기
 	var sel_file;
 	$("#input_file").on("change" , handleImgFileSelect);
 	
 	function handleImgFileSelect(e){
+
 		var files = e.target.files;
 		var filesArr = Array.prototype.slice.call(files);
-		
+
 		filesArr.forEach(function(f){
 			if(!f.type.match("image.*")){
 				$("#upload_text").val("");
 				alert("확장자는 jpg확장자만 가능합니다.");
 				return;
 			}else {
-				// 첨부파일 미리 보여 주는 텍스트 떄문에 입력
-				$('#upload_text').val('');
+				$('#upload_text').val($('#input_file').val());
 			}	
+
 		});
 	}
 	
 	// 사고사진을 입력할때 jpg 파일만 넣게 설정하기
 	var sel_file;
-	$("#input_file2").on("change" , handleImgFileSelect);
+	$("#input_file2").on("change" , handleImgFileSelect2);
 	
-	function handleImgFileSelect(e){
+	function handleImgFileSelect2(e){
 		var files = e.target.files;
 		var filesArr = Array.prototype.slice.call(files);
 		
@@ -85,6 +72,8 @@ $(document).ready(function(){
 				alert("확장자는 jpg확장자만 가능합니다.");
 				$("#input_file2").val("");
 				return;
+			}else {
+				$('#upload_text2').val($('#input_file2').val());
 			}			
 		});
 	}
