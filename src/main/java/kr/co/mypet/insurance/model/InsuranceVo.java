@@ -50,14 +50,6 @@ public class InsuranceVo {
 	private String mem_hp;
 	private int mem_black;
 	
-	// 계좌 정보
-	private String act_bank;
-	private String act_num;
-	private String act_name;
-
-
-
-
 
 
 	@Override
@@ -72,8 +64,7 @@ public class InsuranceVo {
 				+ insp_kind + ", insp_fees=" + insp_fees + ", insp_maxins=" + insp_maxins + ", insp_minage="
 				+ insp_minage + ", insp_maxage=" + insp_maxage + ", insp_period=" + insp_period + ", insp_sick="
 				+ insp_sick + ", insp_del=" + insp_del + ", mem_name=" + mem_name + ", mem_hp=" + mem_hp
-				+ ", mem_black=" + mem_black + ", act_bank=" + act_bank + ", act_num=" + act_num + ", act_name="
-				+ act_name + "]";
+				+ ", mem_black=" + mem_black + "]";
 	}
 
 
@@ -88,41 +79,6 @@ public class InsuranceVo {
 		this.mem_black = mem_black;
 	}
 
-
-
-	public String getAct_bank() {
-		return act_bank;
-	}
-
-
-
-	public void setAct_bank(String act_bank) {
-		this.act_bank = act_bank;
-	}
-
-
-
-	public String getAct_num() {
-		return act_num;
-	}
-
-
-
-	public void setAct_num(String act_num) {
-		this.act_num = act_num;
-	}
-
-
-
-	public String getAct_name() {
-		return act_name;
-	}
-
-
-
-	public void setAct_name(String act_name) {
-		this.act_name = act_name;
-	}
 
 
 

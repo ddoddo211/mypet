@@ -211,6 +211,10 @@ public class InsuranceController {
 		// 문자열로 변경하기
 		pageVo.setPetBirth(c + "");
 		pageVo.setPetSick(request.getParameter("petSick"));
+		
+		System.out.println(c);
+		System.out.println(request.getParameter("petKind"));
+		System.out.println(request.getParameter("petSick"));
 
 		// 쿼리문으로 연결하여 전달하기
 		Map<String, Object> resultMap = insuranceService.prodProductRecommendation(pageVo);
@@ -229,6 +233,8 @@ public class InsuranceController {
 
 		// model 객체에 저장
 		model.addAttribute("pageList", pageList);
+		
+		System.out.println(pageList);
 
 		return "petInsurance/prodPageListAjaxHtml";
 	}
@@ -1174,8 +1180,11 @@ public class InsuranceController {
 				MypetVo mypetInfo = insuranceService.mypetInfo(petId);
 				model.addAttribute("mypetInfo" , mypetInfo);
 				
-				// 해당 펫의 이미를 표시하기 위해 필요 
+				// 해당 펫의 이미지를 표시하기 위해 필요 
 				model.addAttribute("petImg" , mypetInfo.getMyp_img());
+				
+				// 해당 펫의 이름을 표시하기 위해 필요
+				model.addAttribute("petName" , mypetInfo.getMyp_name());
 				
 				// 생년월일 미리 표시하게 필요하기 때문에 설정
 				model.addAttribute("petBirth" , mypetInfo.getMyp_birth());
@@ -2126,10 +2135,11 @@ public class InsuranceController {
 					
 					insVo.setIns_id(prodJoinId);
 					insVo.setMem_id(mem_id);
-					insVo.setAct_id(act_id);
 					
 					InsuranceVo insVoList = insuranceService.goJoinCheck(insVo);
 					model.addAttribute("insVoList", insVoList);
+					
+					System.out.println(insVoList);
 					
 				return "admin/petInsurance/goJoinCheck";
 			}

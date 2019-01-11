@@ -67,7 +67,7 @@ $(document).ready(function(){
 			alert("해당 펫은 보험에 가입(신청/완료)되어 있는 펫입니다.\n보험을 해지한후 삭제하시기 바랍니다.");
 			return;
 		}else{
-			$("#frm2").submit();
+			$("#frm4").submit();
 		}
 	});
 	
@@ -152,7 +152,7 @@ function goPayment(insp_kind){
 
 	<div class="mypetPageBtn">
 		<div id="mypetPageBtn">
-			<form action="/isr/mypageMypetDel" method="get" id="frm2">
+			<form action="/isr/mypageMypetDel" method="get" id="frm4">
 				<input type="hidden" value="${mypetInfo.myp_id}" name="mypetId">
 			</form>
 			<div id="mypetPageBtn1">

@@ -116,11 +116,6 @@ function gocompleted(){
 </head>
 <body>
 
-<!-- 회원의 계좌번호 삭제하는 id 만들기 -->
-<form action="/isr/accountDel" method="post" id="frm">
-	<input type="hidden" id="actId" name="actId" value="">
-</form>
-
 
 <!-- 나의 펫을 클릭하였을때 아이디를 담아주는 input -->
 <input type="hidden" id="petIdInput" value="" >

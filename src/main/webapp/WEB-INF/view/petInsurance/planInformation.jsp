@@ -202,8 +202,9 @@ function petDelete(){
 			// 반려견하고 반려견이 가입되어 있는 사이즈 만큼 구하면 된다 
 				// 체크박스 회색 없애기 
 				$("#label"+i).removeClass("activeCb");
-			
 				alert("해당 펫은 보험에 가입되어 있는 펫입니다.\n나의 펫에서 삭제하실수 없습니다.");
+				$(".cb1_label").removeClass("activeCb");
+				$("#petId").val("");
 				//해당화면에 모든 radio들의 체크를해제시킨다. 
 				$("input[type=checkbox]").prop("checked",false);
 				return ;

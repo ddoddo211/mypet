@@ -10,25 +10,23 @@
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript">
-
+ 
 	$(document).ready(function() {
 		
 		//input을 문서 실행하면 먼저 실행되게끔 처리하기 
 		var pageSize = 10;
-		
 		var petKind = "강아지";
 
 		// input에 값을 가지고 와서 함수로 뺴기 
 		$(".petKind").click(function(){
-			if($(this).val()== "강아지"){
+			if($(this).val()== "강아지"){                     
 				petKind = "강아지";
 			}
 			if($(this).val() == "고양이"){
 				petKind = "고양이";
 			}
 			getProdKindPageListAjaxHtml(1,petKind,pageSize);
-
-				
+			
 			if($(this).val()== "전체"){
 				getProdListHtml(1);
 			}
