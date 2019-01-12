@@ -169,7 +169,8 @@ public class SitterController {
 			// 파일 저장되기
 			
 			// 실제 파일 저장될 경로 설정하기
-			String path = "D:\\A_TeachingMaterial\\7.LastProject\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\mypet\\img\\petimg";
+			String path1 = request.getSession().getServletContext().getRealPath("");
+			String path = path1+"\\img\\petimg";
 			String str = part.getOriginalFilename();
 			
 			// 파일명 가지고 오기
