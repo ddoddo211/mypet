@@ -130,4 +130,6 @@ public interface SitterDaoInf {
 	int updatePetsitterScore(Map<String, Object> param);
 
 	int insertPetsitterChk(Map<String, Object> param);
+
+	int getMySupportCnt(String mem_id);
 }

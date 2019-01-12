@@ -420,4 +420,10 @@
 		pst_score = ${pst_score}
 		where pst_id = #{pst_id}
 	</update>
+	
+	<select id="getMySupportCnt" parameterType="String" resultType="Integer">
+		select count(*)
+		from sitterapp
+		where sta_mem = #{sta_mem}
+	</select>
 </mapper>

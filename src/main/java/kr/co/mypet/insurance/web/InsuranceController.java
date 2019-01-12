@@ -212,10 +212,6 @@ public class InsuranceController {
 		pageVo.setPetBirth(c + "");
 		pageVo.setPetSick(request.getParameter("petSick"));
 		
-		System.out.println(c);
-		System.out.println(request.getParameter("petKind"));
-		System.out.println(request.getParameter("petSick"));
-
 		// 쿼리문으로 연결하여 전달하기
 		Map<String, Object> resultMap = insuranceService.prodProductRecommendation(pageVo);
 
@@ -234,7 +230,6 @@ public class InsuranceController {
 		// model 객체에 저장
 		model.addAttribute("pageList", pageList);
 		
-		System.out.println(pageList);
 
 		return "petInsurance/prodPageListAjaxHtml";
 	}

@@ -54,7 +54,7 @@ $(document).ready(function(){
 	} 
 	
 	$("#mem_pass").focus(function(){
-		if(chk == false){
+		if(chk == "false"){
 			alert("ID 중복체크를 해주세요.");
 			$("#mem_id").focus();
 			return;
@@ -91,6 +91,28 @@ $(document).ready(function(){
     // 회원가입처리
     $('#join-submit').click(function(e){
         e.preventDefault();
+        
+        var mem_id = $("input[name='mem_id']");
+        if(mem_id.val() == ''){
+        	alert("아이디를 입력하세요.");
+        	mem_id.focus();
+        	return false;
+        }
+        
+        var mem_pass = $("input[name='mem_pass']");
+        if(mem_id.val() == ''){
+        	alert("비밀번호를 입력하세요.");
+        	mem_pass.focus();
+        	return false;
+        }
+        
+        var re_mem_pass = $("input[name='re_mem_pass']");
+        if(mem_id.val() == ''){
+        	alert("비밀번호(확인)를 입력하세요.");
+        	re_mem_pass.focus();
+        	return false;
+        }
+        
         var mem_name = $("input[name='mem_name']");
         console.log(mem_name);
         if( mem_name.val() =='') {
