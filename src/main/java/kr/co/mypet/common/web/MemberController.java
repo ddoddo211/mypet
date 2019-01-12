@@ -179,7 +179,7 @@ public class MemberController {
 
 	// 일반 로그인 method
 	@RequestMapping("/loginNM")
-	public String loginNM(MemberVo memVo, HttpSession session) {
+	public String loginNM(MemberVo memVo, HttpSession session, HttpServletRequest request) {
 		String url = "";
 		int chk = commonService.login(memVo);
 
@@ -194,7 +194,12 @@ public class MemberController {
 				url = "admin/adminMain";
 			} else {
 				// 조회 성공
-				url = "common/main";
+				String referer = request.getHeader("Referer");
+				
+				
+				
+				
+				url = "redirect:"+referer;
 			}
 
 		} else {
@@ -324,7 +329,14 @@ public class MemberController {
 
 		if (chk == 0) {
 			// 조회 성공
-			url = "common/main";
+			
+			//이전페이지 돌려보내기
+			String referer = request.getHeader("Referer");
+			
+			
+			
+			
+			url = "redirect:"+referer;
 			memVo = commonService.memberInfo(memVo.getMem_id());
 			request.getSession().setAttribute("memVo", memVo);
 		} else {
