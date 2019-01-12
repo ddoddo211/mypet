@@ -93,7 +93,8 @@ public class SitterController {
 	
 	// 펫시터 집으로 부르기 -> 주소변경 화면
 	@RequestMapping(value= {"/mypetInsertView"}, method= {RequestMethod.GET})
-	public String mypetInsertView() {
+	public String mypetInsertView(@RequestParam("cnt")int cnt, Model model) {
+		model.addAttribute("cnt", cnt);
 		return "petSitter/mypetInsert";
 	}
 	

@@ -122,8 +122,18 @@ body {
 	margin-left: 70px;
 }
 
-
 </style>
+<script>
+function pwSearchPopup(){
+	var popUrl = "/mem/pwSearchView";
+	var popOption = "width=500, height=200";
+	window.open(popUrl, "비밀번호찾기", popOption);
+}
+
+function goJoin(){
+	location.href="memJoin";
+}
+</script>
 <!-- header 시작 -->
 <div id="gateway_warp">
 
@@ -207,14 +217,10 @@ body {
 												  <a href="<%=apiURL%>"><img height="40" src="/img/naverBtn.PNG"/></a>
 												 </div>
 										<div class="form4">
-											<br>
-											<label><input type="checkbox">아이디저장</label> 
-										    <label><input type="checkbox">보안접속</label> <br>
-										    
 										    <div id="loginMenu">
 												<label class="loginMenuLabel"><input class="loginMenuInput" type="button" value="아이디 찾기"></label>
-												<label class="loginMenuLabel"><input class="loginMenuInput"  type="button" value="비밀번호 찾기"></label>
-												<label class="loginMenuLabel"><input class="loginMenuInput" type="button" value="회원가입"></label>
+												<label class="loginMenuLabel"><input class="loginMenuInput" onclick="pwSearchPopup()" type="button" value="비밀번호 찾기"></label>
+												<label class="loginMenuLabel"><input class="loginMenuInput" onclick="goJoin()" type="button" value="회원가입"></label>
 											</div>
 										</div>
 									</div>

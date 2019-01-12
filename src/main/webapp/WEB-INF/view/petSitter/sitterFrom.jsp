@@ -169,7 +169,7 @@
 							<span>● 돌봄을 신청하는 반려동물을 선택해 주세요.</span>
 						</div>
 						<div id="mypetDiv3">
-							<a href="/sit/mypetInsertView"><span>추가</span></a>
+							<a href="/sit/mypetInsertView?cnt=0"><span>추가</span></a>
 							<a id="mypetDel" onclick="mypetDelete()"><span>삭제</span></a>
 						</div>
 					</div>
