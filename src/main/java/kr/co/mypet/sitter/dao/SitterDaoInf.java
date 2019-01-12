@@ -132,4 +132,6 @@ public interface SitterDaoInf {
 	int insertPetsitterChk(Map<String, Object> param);
 
 	int getMySupportCnt(String mem_id);
+
+	List<SitterRevVo> getBestReview();
 }

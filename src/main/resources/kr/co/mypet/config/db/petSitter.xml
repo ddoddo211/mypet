@@ -426,4 +426,21 @@
 		from sitterapp
 		where sta_mem = #{sta_mem}
 	</select>
+	
+	<select id="getBestReview" resultType="revVo">
+	select *
+		from
+		(
+		    select rownum as rnum, a.*
+		    from
+		    (
+		        select s.*, p.pst_img, p.pst_id
+				from sitterrev s, petsitter p
+				where stv_score <![CDATA[>]]> 4
+				and stv_pst = pst_id
+		    ) a
+		)
+		where rnum between 1 and 5
+		
+	</select>
 </mapper>

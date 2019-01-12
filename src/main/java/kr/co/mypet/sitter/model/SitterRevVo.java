@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class SitterRevVo {
 	private String pst_id;
+	private String pst_img;
 
 	private String mem_name;
 	private String mem_profile;
@@ -22,6 +23,14 @@ public class SitterRevVo {
 
 	public void setPst_id(String pst_id) {
 		this.pst_id = pst_id;
+	}
+
+	public String getPst_img() {
+		return pst_img;
+	}
+
+	public void setPst_img(String pst_img) {
+		this.pst_img = pst_img;
 	}
 
 	public String getMem_profile() {
@@ -98,11 +107,9 @@ public class SitterRevVo {
 
 	@Override
 	public String toString() {
-		return "SitterRevVo [pst_id=" + pst_id + ", mem_name=" + mem_name + ", mem_profile=" + mem_profile + ", rnum="
-				+ rnum + ", stv_id=" + stv_id + ", stv_text=" + stv_text + ", stv_date=" + stv_date + ", stv_pst="
-				+ stv_pst + ", stv_mem=" + stv_mem + ", stv_score=" + stv_score + "]";
+		return "SitterRevVo [pst_id=" + pst_id + ", pst_img=" + pst_img + ", mem_name=" + mem_name + ", mem_profile="
+				+ mem_profile + ", rnum=" + rnum + ", stv_id=" + stv_id + ", stv_text=" + stv_text + ", stv_date="
+				+ stv_date + ", stv_pst=" + stv_pst + ", stv_mem=" + stv_mem + ", stv_score=" + stv_score + "]";
 	}
-
-	
 
 }

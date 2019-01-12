@@ -10,6 +10,8 @@
 <link rel="stylesheet" href="/css/petInsurance.css">
 
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
 		memExit(1);
@@ -20,6 +22,20 @@
 	}
 	function Right(){
 		memRight(1);
+	}
+	
+	function chart(){
+		chartView();
+	}
+	
+	function chartView(){
+		$.ajax({
+			type : "post",
+			url : "/mem/chartView",
+			success : function(dt) {
+				$("#contextMain").html(dt);
+			}
+		});
 	}
 	
 	function memExit(page) {
@@ -272,12 +288,15 @@
 			<%@include file="../adminHeader.jsp"%>
 			<div id="insTitle">MYPET 회원 관리</div>
 			<div id="insMenu">
-				<div style="width : 440px; margin:0 auto; overflow: hidden;">
+				<div style="width : 660px; margin:0 auto; overflow: hidden;">
 					<div>
 						<input class="adpetSitterMenu" onclick="Exit()"	type="button" value="1.회원 탈퇴/블랙리스트">
 					</div>
 					<div>
 						<input class="adpetSitterMenu" type="button" onclick="Right()" value="2.회원 권한">
+					</div>
+					<div>
+						<input class="adpetSitterMenu" type="button" onclick="chart()" value="3. 통계">
 					</div>
 				</div>
 			</div>

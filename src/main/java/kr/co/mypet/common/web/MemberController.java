@@ -711,4 +711,10 @@ public class MemberController {
 		
 		return "common/loginPwSearch";
 	}
+	
+	@RequestMapping("/chartView")
+	public String chartView() {
+		
+		return "admin/common/chart";
+	}
 } // controller class 끝나는곳
