@@ -25,10 +25,55 @@
 			$("#frm").submit();
 		});
 		
+		//im'port 결제모듈
+		var IMP = window.IMP; // 생략가능
+		IMP.init('imp09203705'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
+		
+		$("#supOk").click(function(){
+			var k = 55000;
+			IMP.request_pay({
+			    pg : 'inicis', // version 1.1.0부터 지원.
+			    pay_method : 'card',
+			    merchant_uid : 'merchant_' + new Date().getTime(),
+			    name : '펫시터 교육비', //물건이름
+			    amount : k, // 물건가격
+			    buyer_email : '${memVo.mem_id}',
+			    buyer_name : '${memVo.mem_name}',
+			    buyer_tel : '${memVo.mem_hp}',
+			    buyer_addr : '${memVo.mem_addr}',
+			    buyer_postcode : '123-456',
+			    m_redirect_url : 'https://www.yourdomain.com/payments/complete'
+			}, function(rsp) {
+			    if ( rsp.success ) { //결재 성공 후
+			        var msg = '';
+			        msg +='${memVo.mem_name}'+'님 선택하신';
+			        msg += '펫시터 교육비'+'  에 대한  ';
+			        msg += rsp.paid_amount + '원 의 ';
+			        msg += '결제가 완료되었습니다.  \n\n';
+			        msg += '@ 결제완료   카드 승인번호 : ' + rsp.apply_num;
+			    } else { // 결재 실패
+			        var msg = '결제에 실패하였습니다.';
+			        msg += '에러내용 : ' + rsp.error_msg;
+			    }
+			    alert(msg);
+			    
+			    if(rsp.success){ //결재 성공 시 페이지 이동
+			    	
+			    	
+			    	$("#successFrm").submit();
+			    }
+			    
+			});
+		});
+		
 	});
 </script>
 <form action="/sit/supportPDFfileViewer" method="post" id="frm">
 	<input type="hidden" id="fileName" name="fileName" />
+</form>
+<form action="/sit/paymentSuccess" method="post" id="successFrm">
+	<input type="hidden" id="pay_chk" name="pay_chk" />
+	<input type="hidden" id="pay_price" name="pay_price" />
 </form>
 <div id="mypageRightMain">
 	<div style="background-color: #6eb9b5; color : #fff; border-color:#6eb9b5; height : 50px; text-align: center; line-height: 50px;">
@@ -62,7 +107,14 @@
 									<td class="td">합  격</td>
 								</c:when>
 							</c:choose>
-							<td class="td">55,000원</td>
+							<c:choose>
+								<c:when test="${staVo.sta_pay == 'Y' }">
+									<td class="td">결재완료</td>
+								</c:when>
+								<c:otherwise>
+									<td class="td">55,000원</td>
+								</c:otherwise>
+							</c:choose>
 							<c:if test="${staVo.sta_suc eq 'Y' }">
 								<td class="td">
 									<img alt="PDF이미지" id="pdfImg" src="/img/petSitterImg/PDF.png" style="width:20px;height:20px;">
@@ -80,16 +132,18 @@
 			</table>
 		</div>
 	</div>
-	<div style="width:100%; height:70px; overflow: hidden;">
-		<c:if test="${staVo.sta_id != null || staVo.sta_id != '' }">
-			<div style="margin-top:20px;float:right; margin-left : 20px;">
-				<input type="button" onclick="supCancle()" class="mypageBtn" value="지원취소"/> 
-			</div>
-		</c:if>
-		<c:if test="${staVo.sta_suc == 'Y' }">
-			<div style="margin-top:20px;float:right;">
-				<input type="button" id="supOk" class="mypageBtn" value="결제하기"/> 
-			</div>
-		</c:if>
-	</div>
+	<c:if test="${staVo.sta_pay == 'N' }">
+		<div style="width:100%; height:70px; overflow: hidden;">
+			<c:if test="${staVo.sta_id != null || staVo.sta_id != '' }">
+				<div style="margin-top:20px;float:right; margin-left : 20px;">
+					<input type="button" onclick="supCancle()" class="mypageBtn" value="지원취소"/> 
+				</div>
+			</c:if>
+			<c:if test="${staVo.sta_suc == 'Y' }">
+				<div style="margin-top:20px;float:right;">
+					<input type="button" id="supOk" class="mypageBtn" value="결제하기"/> 
+				</div>
+			</c:if>
+		</div>
+	</c:if>
 </div>

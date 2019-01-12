@@ -97,7 +97,7 @@
 						<th class="th">결재상태</th>
 					</tr>
 					<c:choose>
-						<c:when test="${reslist.size() == 0}">
+						<c:when test="${resList.size() == 0}">
 							<tr>
 								<td class="td" colspan="8">예약 내역이 없습니다.</td>
 							</tr>				
