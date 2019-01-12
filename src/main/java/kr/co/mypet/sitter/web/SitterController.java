@@ -724,9 +724,9 @@ public class SitterController {
 		
 		MemberVo memVo = (MemberVo) session.getAttribute("memVo");
 		
-		SitterAppVo staVo = sitterService.getMySupport(memVo.getMem_id());
+		int supportCnt = sitterService.getMySupportCnt(memVo.getMem_id());
 		
-		model.addAttribute("staVo", staVo);
+		model.addAttribute("supportCnt", supportCnt);
 		
 		return "petSitter/support";
 	}

@@ -313,4 +313,9 @@ public class SitterDao implements SitterDaoInf {
 	public int insertPetsitterChk(Map<String, Object> param) {
 		return template.insert("petSitter.insertPetsitterChk", param);
 	}
+
+	@Override
+	public int getMySupportCnt(String mem_id) {
+		return template.selectOne("petSitter.getMySupportCnt", mem_id);
+	}
 }
