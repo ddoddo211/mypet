@@ -352,7 +352,7 @@ public class MemberController {
 	public String logout(HttpServletRequest request) {
 		request.getSession().invalidate();
 
-		return "common/main";
+		return "redirect:/mem/main";
 	}
 
 	// 펫쇼핑몰로 화면이동

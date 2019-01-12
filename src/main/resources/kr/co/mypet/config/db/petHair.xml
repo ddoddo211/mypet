@@ -277,6 +277,20 @@
   	where has_id = #{has_id}
   </update>
   
+  <select id="selectHairShopTotalSales" parameterType="String">
+  
+  select sum(hres_price) from hairres where hres_stat='완료' and hres_date like #{date}||'%'
+  
+  	
+  </select>
+  <select id="selectHairShopTotalSalesByHasId" parameterType="map">
+  
+  select sum(hres_price) from hairres where hres_stat='완료' and hres_has=#{hres_has} and hres_date like #{date}||'%'
+  
+  	
+  </select>
+  
+  
 </mapper>
 
 
