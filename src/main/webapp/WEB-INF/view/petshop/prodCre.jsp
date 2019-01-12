@@ -325,6 +325,7 @@
 		var chk = 1;
 		$('input[name="op"]').change(function() {
 			chk= 1;
+			$("#chkNum").val('');
 		})
 		
 		$("#plus").click(function() {
