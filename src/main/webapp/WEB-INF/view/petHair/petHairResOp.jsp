@@ -40,9 +40,12 @@
 		//datepicker
 		$( function() {
 		    $( "#datepicker" ).datepicker({
-		    		dateFormat:"yy-mm-dd",
-		    		minDate:mindt,
-		    		maxDate:"+10D"
+		    	dayNamesMin : [ "일", "월", "화", "수", "목",	"금", "토" ], // 요일에 표시되는 형식 설정
+				dateFormat : "yy-mm-dd", //날짜 형식 설정
+				monthNames : [ "1월", "2월", "3월", "4월","5월", "6월", "7월", "8월", "9월","10월", "11월", "12월" ], //월표시 형식 설정
+				showAnim : "fold", //애니메이션효과
+				minDate : "+1D",
+				maxDate : "+3M"
 		    });
 		 } );
 		

@@ -222,7 +222,7 @@
 	
 	<insert id="insertSupport" parameterType="map">
 		insert into sitterApp
-		values ('STA' || lpad(sta_no.nextVal, 3, '0'), #{sta_mem}, #{sta_text}, 'N', sysdate, '', '', '', 1)
+		values ('STA' || lpad(sta_no.nextVal, 3, '0'), #{sta_mem}, #{sta_text}, 'N', sysdate, '', '', '', 1, 'N')
 	</insert>
 	
 	<select id="getMySupport" parameterType="String" resultType="staVo">
@@ -420,4 +420,10 @@
 		pst_score = ${pst_score}
 		where pst_id = #{pst_id}
 	</update>
+	
+	<select id="getMySupportCnt" parameterType="String" resultType="Integer">
+		select count(*)
+		from sitterapp
+		where sta_mem = #{sta_mem}
+	</select>
 </mapper>

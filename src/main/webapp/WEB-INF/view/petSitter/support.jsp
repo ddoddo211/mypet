@@ -13,15 +13,16 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		
-		var staVo = "${staVo}";
+		var supportCnt = "${supportCnt}";
 		
-		if(staVo != null || staVo == ''){
+		if(supportCnt == "0"){
+			getSupportApplication();
+		} else{
 			alert("이미 지원한 이용자는 접근할 수 없습니다.");
 			history.back();
 			return;
 		}
 		
-		getSupportApplication();
 		
 	});
 

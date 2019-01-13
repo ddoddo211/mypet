@@ -93,7 +93,8 @@ public class SitterController {
 	
 	// 펫시터 집으로 부르기 -> 주소변경 화면
 	@RequestMapping(value= {"/mypetInsertView"}, method= {RequestMethod.GET})
-	public String mypetInsertView() {
+	public String mypetInsertView(@RequestParam("cnt")int cnt, Model model) {
+		model.addAttribute("cnt", cnt);
 		return "petSitter/mypetInsert";
 	}
 	
@@ -169,7 +170,8 @@ public class SitterController {
 			// 파일 저장되기
 			
 			// 실제 파일 저장될 경로 설정하기
-			String path = "D:\\A_TeachingMaterial\\7.LastProject\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\mypet\\img\\petimg";
+			String path1 = request.getSession().getServletContext().getRealPath("");
+			String path = path1+"\\img\\petimg";
 			String str = part.getOriginalFilename();
 			
 			// 파일명 가지고 오기
@@ -723,9 +725,9 @@ public class SitterController {
 		
 		MemberVo memVo = (MemberVo) session.getAttribute("memVo");
 		
-		SitterAppVo staVo = sitterService.getMySupport(memVo.getMem_id());
+		int supportCnt = sitterService.getMySupportCnt(memVo.getMem_id());
 		
-		model.addAttribute("staVo", staVo);
+		model.addAttribute("supportCnt", supportCnt);
 		
 		return "petSitter/support";
 	}

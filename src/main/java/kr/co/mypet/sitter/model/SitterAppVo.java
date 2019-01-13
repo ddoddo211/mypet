@@ -11,6 +11,7 @@ public class SitterAppVo {
 	private String sta_file;
 	private String sta_kind;
 	private String sta_num;
+	private String sta_pay;
 
 	private String mem_name;
 	private String mem_hp;
@@ -105,11 +106,20 @@ public class SitterAppVo {
 		this.sta_file = sta_file;
 	}
 
+	public String getSta_pay() {
+		return sta_pay;
+	}
+
+	public void setSta_pay(String sta_pay) {
+		this.sta_pay = sta_pay;
+	}
+
 	@Override
 	public String toString() {
 		return "SitterAppVo [sta_id=" + sta_id + ", sta_mem=" + sta_mem + ", sta_text=" + sta_text + ", sta_suc="
 				+ sta_suc + ", sta_date=" + sta_date + ", sta_file=" + sta_file + ", sta_kind=" + sta_kind
-				+ ", sta_num=" + sta_num + ", mem_name=" + mem_name + ", mem_hp=" + mem_hp + ", rnum=" + rnum + "]";
+				+ ", sta_num=" + sta_num + ", sta_pay=" + sta_pay + ", mem_name=" + mem_name + ", mem_hp=" + mem_hp
+				+ ", rnum=" + rnum + "]";
 	}
 
 }

@@ -20,7 +20,7 @@
   </select>
   <!-- 모든 미용실의 목록을 표시 -->
   <select id="shopSelectAllR" resultType="hairShopVo">
-  	select * from hairshop
+  	select * from hairshop order by has_id desc 
   </select>
   
   <!-- 주소로 미용실 목록 표시 -->
@@ -276,6 +276,20 @@
   		has_score = #{has_score}
   	where has_id = #{has_id}
   </update>
+  
+  <select id="selectHairShopTotalSales" parameterType="String">
+  
+  select sum(hres_price) from hairres where hres_stat='완료' and hres_date like #{date}||'%'
+  
+  	
+  </select>
+  <select id="selectHairShopTotalSalesByHasId" parameterType="map">
+  
+  select sum(hres_price) from hairres where hres_stat='완료' and hres_has=#{hres_has} and hres_date like #{date}||'%'
+  
+  	
+  </select>
+  
   
 </mapper>
 

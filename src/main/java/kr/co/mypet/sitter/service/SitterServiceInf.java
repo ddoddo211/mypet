@@ -573,5 +573,15 @@ public interface SitterServiceInf {
 	* Method 설명 : 펫시터 집에 맡기기 이용여부 등록 
 	*/
 	int insertPetsitterChk(Map<String, Object> param);
+
+	/**
+	* Method : getMySupportCnt
+	* 작성자 : pc24
+	* 변경이력 :
+	* @param mem_id
+	* @return
+	* Method 설명 : 펫시터 지원하기 여부 확인
+	*/
+	int getMySupportCnt(String mem_id);
 	
 }

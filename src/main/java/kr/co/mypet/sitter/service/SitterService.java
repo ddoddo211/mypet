@@ -361,4 +361,9 @@ public class SitterService implements SitterServiceInf {
 	public int insertPetsitterChk(Map<String, Object> param) {
 		return sitterDao.insertPetsitterChk(param);
 	}
+
+	@Override
+	public int getMySupportCnt(String mem_id) {
+		return sitterDao.getMySupportCnt(mem_id);
+	}
 }

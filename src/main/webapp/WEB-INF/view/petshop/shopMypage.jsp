@@ -66,7 +66,7 @@
 		width: 1200px;
 		margin: 0 auto;
 		overflow: hidden;
-		margin-top: 5px;
+		margin-top: 5px;`
 		border-bottom: 1px solid #f1f1f1;
 		border-top: 1px solid #f1f1f1;
 	}
@@ -345,7 +345,7 @@
 			$(".swapOrder").submit();
 		})
 		
-		// 환불로 변경
+		// 반품으로 변경
 		$(".return").click(function() {
 			$("#return_id").val($(this).parent().children(".ords_id").val());
 			$(".returnOrder").submit();
@@ -356,6 +356,11 @@
 		});
 	})
 	
+	function popUp() {
+		var popUrl = "/mem/idSearchView";
+		var popOption = "width=500, height=200, resizable=no, scrollbars=no, status=no;";
+		window.open(popUrl, "주소변경", popOption);
+	};
 </script>
 </head>
 <body>
