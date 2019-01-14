@@ -734,4 +734,12 @@ public class MemberController {
 		
 		return "admin/common/chart";
 	}
+	
+	@RequestMapping("/monthChart")
+	public String monthChart() {
+		
+//		commonService.
+		
+		return "";
+	}
 } // controller class 끝나는곳
