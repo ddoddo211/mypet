@@ -94,21 +94,21 @@ $(document).ready(function(){
         e.preventDefault();
         
         var mem_id = $("input[name='mem_id']");
-        if(mem_id.val() == ''){
+        if(mem_id == ''){
         	alert("아이디를 입력하세요.");
         	mem_id.focus();
         	return false;
         }
         
         var mem_pass = $("input[name='mem_pass']");
-        if(mem_id.val() == ''){
+        if(mem_pass == ''){
         	alert("비밀번호를 입력하세요.");
         	mem_pass.focus();
         	return false;
         }
         
         var re_mem_pass = $("input[name='re_mem_pass']");
-        if(mem_id.val() == ''){
+        if(mem_pass == ''){
         	alert("비밀번호(확인)를 입력하세요.");
         	re_mem_pass.focus();
         	return false;
@@ -116,7 +116,7 @@ $(document).ready(function(){
         
         var mem_name = $("input[name='mem_name']");
         console.log(mem_name);
-        if( mem_name.val() =='') {
+        if( mem_name =='') {
             alert("성명을 입력하세요");
             mem_name.focus();
             return false;
@@ -137,14 +137,14 @@ $(document).ready(function(){
         }
 
         var mem_hp = $("input[name='mem_hp']");
-        if(mem_hp.val() ==''){
+        if(mem_hp ==''){
             alert('휴대폰 번호를 입력하세요');
             mem_hp.focus();
             return false;
-        } else if(!/^[0-9]{10,11}$/.test(mem_hp.val())){
+        } else if(!/^[0-9]{10,11}$/.test(mem_hp)){
             alert("휴대폰 번호는 숫자만 10~11자리 입력하세요.");
             return false;
-        } else if(!/^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})([0-9]{3,4})([0-9]{4})$/.test(mem_hp.val())){
+        } else if(!/^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})([0-9]{3,4})([0-9]{4})$/.test(mem_hp)){
             alert("유효하지 않은 전화번호 입니다.");
             return false;
         }
