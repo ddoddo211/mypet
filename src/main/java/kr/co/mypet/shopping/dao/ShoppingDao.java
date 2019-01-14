@@ -833,8 +833,8 @@ public class ShoppingDao implements ShoppingDaoInf {
 	* Method 설명 : 교환 
 	*/
 	@Override
-	public int swapUpdate(String ords_id) {
-		int result = template.update("shop.swapUpdate",ords_id);
+	public int swapUpdate(OrderSheetVo ordsVo) {
+		int result = template.update("shop.swapUpdate",ordsVo);
 		return result;
 	}
 	
@@ -847,8 +847,8 @@ public class ShoppingDao implements ShoppingDaoInf {
 	* Method 설명 : 반품
 	*/
 	@Override
-	public int returnUpdate(String ords_id) {
-		int result = template.update("shop.returnUpdate",ords_id);
+	public int returnUpdate(OrderSheetVo ordsVo) {
+		int result = template.update("shop.returnUpdate",ordsVo);
 		return result;
 	}
 

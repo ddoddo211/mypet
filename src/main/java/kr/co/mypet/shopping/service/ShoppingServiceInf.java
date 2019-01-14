@@ -610,7 +610,7 @@ public interface ShoppingServiceInf {
 	* @return
 	* Method 설명 : 교환 
 	*/
-	public int swapUpdate(String ords_id);
+	public int swapUpdate(OrderSheetVo ordsVo);
 	
 	/**
 	* Method : returnUpdate
@@ -620,7 +620,7 @@ public interface ShoppingServiceInf {
 	* @return
 	* Method 설명 : 반품
 	*/
-	public int returnUpdate(String ords_id);
+	public int returnUpdate(OrderSheetVo ordsVo);
 	
 	/**
 	* Method : insertSupport
