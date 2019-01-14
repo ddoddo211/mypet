@@ -94,35 +94,34 @@ $(document).ready(function(){
         e.preventDefault();
         
         var mem_id = $("input[name='mem_id']");
-        if(mem_id.val() == ''){
+        if(mem_id == ''){
         	alert("아이디를 입력하세요.");
+        	alert(mem_id);
         	mem_id.focus();
         	return false;
         }
         
         var mem_pass = $("input[name='mem_pass']");
-        if(mem_id.val() == ''){
+        if(mem_pass == ''){
         	alert("비밀번호를 입력하세요.");
         	mem_pass.focus();
         	return false;
         }
         
         var re_mem_pass = $("input[name='re_mem_pass']");
-        if(mem_id.val() == ''){
+        if(re_mem_pass == ''){
         	alert("비밀번호(확인)를 입력하세요.");
         	re_mem_pass.focus();
         	return false;
         }
         
         var mem_name = $("input[name='mem_name']");
-        console.log(mem_name);
-        if( mem_name.val() =='') {
+        if( mem_name =='') {
             alert("성명을 입력하세요");
             mem_name.focus();
             return false;
         }
         var mem_id = $("input[name='mem_id']");
-		console.log(mem_id);
         if($("#mem_id").val() == ''){
             alert('이메일을 입력하세요');
             mem_id.focus();
@@ -137,7 +136,7 @@ $(document).ready(function(){
         }
 
         var mem_hp = $("input[name='mem_hp']");
-        if(mem_hp.val() ==''){
+        if(mem_hp ==''){
             alert('휴대폰 번호를 입력하세요');
             mem_hp.focus();
             return false;
