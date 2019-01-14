@@ -543,7 +543,7 @@
 			
 			</c:when>
 			<c:otherwise>
-				<div><h2>클릭안했을때의 화면</h2></div>
+				<div><img src="/img/petHairLogo.jpg" style="margin-top: 150px; margin-left: 150px;"/></div>
 				<div id="map" style="width:500px;height:300px; display:none;"></div>
 			</c:otherwise>
 		</c:choose>

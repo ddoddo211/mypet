@@ -206,6 +206,8 @@
 }	
 
 .profileImgBlock img{
+	width: 139px;
+	heigth: 110px;
 	max-width: 139px;
 	max-height: 110px;
 	
