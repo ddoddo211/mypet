@@ -230,7 +230,6 @@ public class InsuranceController {
 		// model 객체에 저장
 		model.addAttribute("pageList", pageList);
 		
-
 		return "petInsurance/prodPageListAjaxHtml";
 	}
 
@@ -1209,9 +1208,10 @@ public class InsuranceController {
 				
 				String petPreImg = request.getParameter("petPreImg");
 				
-				String petId = request.getParameter("petId");
+				String petId = request.getParameter("petId3");
 				String petName = request.getParameter("petName");
 				String petGender = request.getParameter("petGender");
+				String petNeutralization = request.getParameter("petNeutralization");
 				
 				// 객체 만들기
 				MypetVo petVo = new MypetVo();
@@ -1220,6 +1220,7 @@ public class InsuranceController {
 				petVo.setMyp_id(petId);
 				petVo.setMyp_name(petName);
 				petVo.setMyp_gender(petGender);
+				petVo.setMyp_neu(petNeutralization);
 				
 				// 나의펫의 이미지 경로 저장
 				// 실제 파일 저장될 경로 설정하기
