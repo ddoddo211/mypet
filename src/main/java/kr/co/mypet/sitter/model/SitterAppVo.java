@@ -7,11 +7,12 @@ public class SitterAppVo {
 	private String sta_mem;
 	private String sta_text;
 	private String sta_suc;
-	private Date sta_date;
+	private Date sta_date; // 지원날짜
 	private String sta_file;
 	private String sta_kind;
 	private String sta_num;
-	private String sta_pay;
+	private String sta_pay; // 결재여부
+	private String sta_price; // 결재금액
 
 	private String mem_name;
 	private String mem_hp;
@@ -114,12 +115,20 @@ public class SitterAppVo {
 		this.sta_pay = sta_pay;
 	}
 
+	public String getSta_price() {
+		return sta_price;
+	}
+
+	public void setSta_price(String sta_price) {
+		this.sta_price = sta_price;
+	}
+
 	@Override
 	public String toString() {
 		return "SitterAppVo [sta_id=" + sta_id + ", sta_mem=" + sta_mem + ", sta_text=" + sta_text + ", sta_suc="
 				+ sta_suc + ", sta_date=" + sta_date + ", sta_file=" + sta_file + ", sta_kind=" + sta_kind
-				+ ", sta_num=" + sta_num + ", sta_pay=" + sta_pay + ", mem_name=" + mem_name + ", mem_hp=" + mem_hp
-				+ ", rnum=" + rnum + "]";
+				+ ", sta_num=" + sta_num + ", sta_pay=" + sta_pay + ", sta_price=" + sta_price + ", mem_name="
+				+ mem_name + ", mem_hp=" + mem_hp + ", rnum=" + rnum + "]";
 	}
 
 }

@@ -366,4 +366,9 @@ public class SitterService implements SitterServiceInf {
 	public int getMySupportCnt(String mem_id) {
 		return sitterDao.getMySupportCnt(mem_id);
 	}
+
+	@Override
+	public List<SitterRevVo> getBestReview() {
+		return sitterDao.getBestReview();
+	}
 }

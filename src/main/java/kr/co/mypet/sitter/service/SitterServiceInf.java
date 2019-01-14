@@ -583,5 +583,14 @@ public interface SitterServiceInf {
 	* Method 설명 : 펫시터 지원하기 여부 확인
 	*/
 	int getMySupportCnt(String mem_id);
+
+	/**
+	* Method : getBestReview
+	* 작성자 : pc24
+	* 변경이력 :
+	* @return
+	* Method 설명 : 베스트 후기글 조회 
+	*/
+	List<SitterRevVo> getBestReview();
 	
 }

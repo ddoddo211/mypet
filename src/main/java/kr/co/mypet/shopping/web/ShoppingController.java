@@ -242,7 +242,6 @@ public class ShoppingController {
 		MemberVo memVo = (MemberVo) session.getAttribute("memVo");
 		RecentProdVo recpVo = new RecentProdVo();
 		
-		
 		ProdVo prodVo = shoppingService.prodDetail(prod_id);
 		List<ProdOptionVo> prodoList = shoppingService.prodOpList(prod_id);
 		List<ProdRevVo> revList = shoppingService.revList(prod_id);
@@ -910,7 +909,7 @@ public class ShoppingController {
 			}
 		}
 		
-		return "";
+		return "petshop/shopMypage";
 	}
 	
 	/**
@@ -1085,20 +1084,31 @@ public class ShoppingController {
 		return "redirect:/shop/shopMypage";
 	}
 	
-	@RequestMapping("/swapUpdate")
-	public String swapUpdate(@RequestParam("ords_id")String ords_id) {
+	@RequestMapping("/reasonView")
+	public String swapUpdate(@RequestParam("ords_id")String ords_id,@RequestParam("btnVal")String btnVal,Model model) {
 		
-		shoppingService.swapUpdate(ords_id);
 		
-		return "redirect:/shop/shopMypage";
+		model.addAttribute("btnVal",btnVal);
+		model.addAttribute("ords_id",ords_id);
+		
+		return "petshop/petShopReason";
 	}
 	
-	@RequestMapping("/returnUpdate")
-	public String returnUpdate(@RequestParam("ords_id")String ords_id) {
+	@RequestMapping("/reason")
+	public String returnUpdate(OrderSheetVo ordsVo,@RequestParam("btnVal")String btnVal,Model model) {
 		
-		shoppingService.returnUpdate(ords_id);
+		int cnt = 0;
+		if(btnVal.equals("반품")) {
+			shoppingService.returnUpdate(ordsVo);
+			cnt = 1;
+		}else {
+			shoppingService.swapUpdate(ordsVo);
+			cnt = 1;
+		}
 		
-		return "redirect:/shop/shopMypage";
+		model.addAttribute("cnt",cnt);
+		
+		return "petshop/petShopReason";
 	}
 	
 	// 마이페이지 -> 판매자 지원하기 view
@@ -1127,7 +1137,7 @@ public class ShoppingController {
 		param.put("sta_kind", compChk);
 		param.put("sta_mem", memVo.getMem_id());
 		
-		int insertCnt = shoppingService.insertSupport(param);
+		shoppingService.insertSupport(param);
 		
 		return "petshop/shopMypage";
 	}

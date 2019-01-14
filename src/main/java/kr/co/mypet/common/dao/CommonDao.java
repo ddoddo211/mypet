@@ -25,18 +25,9 @@ public class CommonDao implements CommonDaoInf {
 	}
 
 	@Override
-	public int login(MemberVo memVo) {
-		// TODO Auto-generated method stub
-		int Chk = 0;
-		memVo = template.selectOne("member.login", memVo);
-		if(memVo==null) {
-			//조회 실패
-			Chk = 1;
-		} else {
-			//조회 성공
-			Chk = 0;
-		}
-		return Chk;
+	public MemberVo login(MemberVo memVo) {
+		MemberVo memberVo = template.selectOne("member.login", memVo);
+		return memberVo;
 	}
 
 	@Override
@@ -144,6 +135,11 @@ public class CommonDao implements CommonDaoInf {
 	@Override
 	public String memberPWSearch(String mem_id) {
 		return template.selectOne("member.memberPWSearch", mem_id);
+	}
+
+	@Override
+	public int getSupportPaymentSuccess() {
+		return template.selectOne("petSitter.getSupportPaymentSuccess");
 	}
 
 

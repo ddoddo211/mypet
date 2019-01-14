@@ -22,7 +22,7 @@
 			<a class="adminHeaderA" href="/mem/petInsManager">펫 보험</a>
 		</div>
 		<div>
-			<a class="adminHeaderA" href="/mem/memMain">회원 관리</a>
+			<a class="adminHeaderA" href="/mem/memMain">관리/통계</a>
 		</div>
 	
 	</div>

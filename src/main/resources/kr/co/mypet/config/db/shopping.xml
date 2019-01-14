@@ -462,16 +462,18 @@
 	</select>
 	
 	<!-- 교환 -->
-	<update id="swapUpdate" parameterType="String">
+	<update id="swapUpdate" parameterType="ordsVo">
 		update ordersheet
-		set ords_stat = '교환'
+		set ords_stat = '교환',
+		    ords_rea = #{ords_rea}
 		where ords_id = #{ords_id}
 	</update>
 	
 	<!-- 반품 -->
-	<update id="returnUpdate" parameterType="String">
+	<update id="returnUpdate" parameterType="ordsVo">
 		update ordersheet
-		set ords_stat = '반품'
+		set ords_stat = '반품',
+		    ords_rea = #{ords_rea}
 		where ords_id = #{ords_id}
 	</update>
 	
@@ -530,6 +532,12 @@
 		sta_file = #{sta_file},
 		sta_suc = 'Y'
 		where sta_id = #{sta_id}
+	</update>
+	
+	<update id="updateMemberShop" parameterType="String">
+		update member set
+		mem_shop = 2
+		where mem_id = #{mem_id}
 	</update>
 </mapper>
  

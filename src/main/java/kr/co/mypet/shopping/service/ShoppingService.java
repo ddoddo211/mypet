@@ -172,7 +172,7 @@ public class ShoppingService implements ShoppingServiceInf {
 				
 				// 옵션id map에 저장
 				chkMap.put("opid",opValues[i]);
-				
+					
 				// 스플리트 한 배열을 리스트에 저장
 				for (int k = 0; k < tempArray.length; k++) {
 					valueGo.add(tempArray[k]);
@@ -200,7 +200,7 @@ public class ShoppingService implements ShoppingServiceInf {
 			 size = shoppingDao.chkSize(map);
 			 prodList = shoppingDao.chkList(map);
 			
-		}else {
+		}else{
 			for (int i = 0; i < opValues.length; i++) {
 				
 			// 체크한 체크박스 id들
@@ -898,8 +898,8 @@ public class ShoppingService implements ShoppingServiceInf {
 	* Method 설명 : 교환 
 	*/
 	@Override
-	public int swapUpdate(String ords_id) {
-		return shoppingDao.swapUpdate(ords_id);
+	public int swapUpdate(OrderSheetVo ordsVo) {
+		return shoppingDao.swapUpdate(ordsVo);
 	}
 	
 	/**
@@ -911,8 +911,8 @@ public class ShoppingService implements ShoppingServiceInf {
 	* Method 설명 : 반품
 	*/
 	@Override
-	public int returnUpdate(String ords_id) {
-		return shoppingDao.returnUpdate(ords_id);
+	public int returnUpdate(OrderSheetVo ordsVo) {
+		return shoppingDao.returnUpdate(ordsVo);
 	}
 	
 	@Override
@@ -962,5 +962,10 @@ public class ShoppingService implements ShoppingServiceInf {
 	@Override
 	public int updateSupportFile(Map<String, Object> param) {
 		return shoppingDao.updateSupportFile(param);
+	}
+
+	@Override
+	public int updateMemeberShop(String staMem) {
+		return shoppingDao.updateMemberShop(staMem);
 	};
 }

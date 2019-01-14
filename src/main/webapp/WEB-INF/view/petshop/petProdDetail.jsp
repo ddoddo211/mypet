@@ -507,9 +507,8 @@
 <title>Insert title here</title>
  <!-- You can use Open Graph tags to customize link previews.
     Learn more: https://developers.facebook.com/docs/sharing/webmasters -->
-<link rel="image_src" href="http://192.168.203.20:8081/${prodVo.prod_pimg }"/>
-<meta property="fb:app_id" content="386372922137185" />
-<meta property="og:url" content="http://192.168.203.20:8081/shop/prodDetail?dvs_id="+"${dvs_id }"+"&dvs_parent="+"${dvs_parent }"+"&prod_id="+"${prodVo.prod_id}" />
+<link rel="image_src" href="http://192.168.203.20:8081${prodVo.prod_pimg }"/>
+<meta property="og:url" content="http://192.168.203.20:8081/shop/prodDetail?prod_id=${prodVo.prod_id}" />
 <meta property="og:type" content="website" />
 <meta property="og:title" content="MyPet 쇼핑몰"/>    
 <meta property="og:description" content="${prodVo.prod_name }" />
@@ -543,8 +542,8 @@
 <!-- 					</div> -->
 
 <!-- 						Your share button code -->
-						 <div class="fb-share-button"  data-layout="button" data-size="small" data-mobile-iframe="true" data-img ="${prodVo.prod_pimg }"
-						 data-href="http://192.168.203.20:8081/shop/prodDetail?dvs_id=${dvs_id }&dvs_parent=${dvs_parent }&prod_id=${prodVo.prod_id}" >
+						 <div class="fb-share-button"  data-layout="button" data-size="small" data-mobile-iframe="true" 
+						  data-href="http://192.168.203.20:8081/shop/prodDetail?dvs_id=${dvsVo.dvs_id}&dvs_parent=${dvsVo.dvs_parent}&prod_id=${prodVo.prod_id}" >
 					 	   	<a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" 
 					 	   		class="fb-xfbml-parse-ignore">공유하기
 					 	    </a>
@@ -711,7 +710,8 @@
 							
 							var prod_qty = ${prodVo.prod_qty};
 							var prodo_id = '';
-														
+							
+							// 기본 상품 수량
 							if(prod_qty == parseInt($(".cartQty").val())){
 								alert("최대 수량입니다.");
 								return;
@@ -719,7 +719,13 @@
 								var qtyValue =parseInt($(this).parent().children(".qty").val())+1;
 							}
 							
-							$(this).parent().children(".qty").val(qtyValue);
+							// 옵션 수량
+							if($(this).parent().children(".qty").val() == $(this).parent().children(".prodo_qty").val()){
+								alert("최대수량입니다.");
+								return;
+							}else{
+								$(this).parent().children(".qty").val(qtyValue);
+							}
 							
 							$(".qty").each(function() {
 								qty.push($(this).parent().children(".qty").val());

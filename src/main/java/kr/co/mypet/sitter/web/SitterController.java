@@ -63,9 +63,11 @@ public class SitterController {
 	
 	// 펫시터 메인화면
 	@RequestMapping("/sitMain")
-	public String MainView() {
+	public String MainView(Model model) {
 		
+		List<SitterRevVo> bestReviewList = sitterService.getBestReview();
 		
+		model.addAttribute("bestReviewList", bestReviewList);
 		
 		return "petSitter/petSitter";
 	}
@@ -725,9 +727,15 @@ public class SitterController {
 		
 		MemberVo memVo = (MemberVo) session.getAttribute("memVo");
 		
-		int supportCnt = sitterService.getMySupportCnt(memVo.getMem_id());
+		if(memVo != null) {
+			int supportCnt = sitterService.getMySupportCnt(memVo.getMem_id());
+			
+			model.addAttribute("supportCnt", supportCnt);
+		} else {
+			int supportCnt = 1;
+			model.addAttribute("supportCnt", supportCnt);
+		}
 		
-		model.addAttribute("supportCnt", supportCnt);
 		
 		return "petSitter/support";
 	}

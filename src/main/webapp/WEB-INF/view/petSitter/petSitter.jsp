@@ -57,13 +57,25 @@ body {
 .swiper-pagination {
 	margin-top: 50px !important;
 }
+
+.bestReview{
+	cursor: pointer;1
+}
 </style>
 <script type="text/javascript">
 	$(document).ready(function(){
+		$(".bestReview").click(function(){
+			var pstId = $(this).parent().children(".pstId").val();
+			$("#pstId").val(pstId);
+			$("#brFrm").submit();
+		});
 	});
 </script>
 </head>
 <body>
+<form action="/sit/sitDetail" method="post" id="brFrm">
+	<input type="hidden" id="pstId" name="pst_id" />
+</form>
 	<!-- header 시작 -->
 	<%@include file="/WEB-INF/view/common/header.jsp"%>
 	<!-- header 끝-->
@@ -149,54 +161,41 @@ body {
 			<div id="slide">
 				<div class="swiper-container">
 					<div class="swiper-wrapper">
-						<div class="swiper-slide">
-							<div id="post1Image">
-								<img class="pImg" name="pos3" alt="이미지"
-									src="/img/petSitterImg/petSitterPost1.jpg" />
+						<c:forEach items="${bestReviewList }" var="list">
+							<div class="swiper-slide">
+								<div id="post1Image">
+									<img class="pImg bestReview" name="pos3" alt="이미지" src="${list.pst_img}" />
+									<input type="hidden" class="pstId" name="pstId" value="${list.pst_id }" />
+								</div>
+								<div>
+									<span class="bestReview"> 
+										${list.stv_text }
+									</span>
+								</div>
 							</div>
-							<div>
-								<span> 하루종일 같이 놀아주시고, 배식과 간식 먹는 사진과 즐겁게<br>
-									    노는 사진을 많이 보내주셔서 안심하고 맡길 수 있어서 너무<br>
-									    안심이 됐습니다.
-								</span>
+						</c:forEach>
+						<c:if test="${bestReviewList.size() < 3 }">
+							<div class="swiper-slide">
+								<div id="post1Image">
+									<img class="pImg bestReview" name="pos3" alt="이미지" src="/img/petimg/noimg.jpg" />
+								</div>
+								<div>
+									<span> 
+										
+									</span>
+								</div>
 							</div>
-						</div>
-						<div class="swiper-slide">
-							<div id="post1Image">
-								<img class="pImg" name="pos3" alt="이미지"
-									src="/img/petSitterImg/petSitterPost2.jpg" />
+							<div class="swiper-slide">
+								<div id="post1Image">
+									<img class="pImg bestReview" name="pos3" alt="이미지" src="/img/petimg/noimg.jpg" />
+								</div>
+								<div>
+									<span> 
+										
+									</span>
+								</div>
 							</div>
-							<div>
-								<span> 하루종일 같이 놀아주시고, 배식과 간식 먹는 사진과 즐겁게<br>
-									    노는 사진을 많이 보내주셔서 안심하고 맡길 수 있어서 너무<br>
-									    안심이 됐습니다.
-								</span>
-							</div>
-						</div>
-						<div class="swiper-slide">
-							<div id="post1Image">
-								<img class="pImg" name="pos3" alt="이미지"
-									src="/img/petSitterImg/petSitterPost1.jpg" />
-							</div>
-							<div>
-								<span> 하루종일 같이 놀아주시고, 배식과 간식 먹는 사진과 즐겁게<br>
-									    노는 사진을 많이 보내주셔서 안심하고 맡길 수 있어서 너무<br>
-									    안심이 됐습니다.
-								</span>
-							</div>
-						</div>
-						<div class="swiper-slide">
-							<div id="post1Image">
-								<img class="pImg" name="pos3" alt="이미지"
-									src="/img/petSitterImg/petSitterPost2.jpg" />
-							</div>
-							<div>
-								<span> 하루종일 같이 놀아주시고, 배식과 간식 먹는 사진과 즐겁게<br>
-									    노는 사진을 많이 보내주셔서 안심하고 맡길 수 있어서 너무<br>
-									    안심이 됐습니다.
-								</span>
-							</div>
-						</div>
+						</c:if>
 					</div>
 					<!-- Add Pagination -->
 					<div class="swiper-pagination"></div>

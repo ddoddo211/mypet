@@ -723,4 +723,23 @@ public class MemberController {
 		
 		return "common/loginPwSearch";
 	}
+	
+	@RequestMapping("/chartView")
+	public String chartView(Model model) {
+		int count = commonService.getSupportPaymentSuccess();
+		int totalSupportPrice = count * 55000;
+		
+		model.addAttribute("count", count);
+		model.addAttribute("totalSupportPrice", totalSupportPrice);
+		
+		return "admin/common/chart";
+	}
+	
+	@RequestMapping("/monthChart")
+	public String monthChart() {
+		
+//		commonService.
+		
+		return "";
+	}
 } // controller class 끝나는곳

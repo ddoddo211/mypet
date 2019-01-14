@@ -318,4 +318,9 @@ public class SitterDao implements SitterDaoInf {
 	public int getMySupportCnt(String mem_id) {
 		return template.selectOne("petSitter.getMySupportCnt", mem_id);
 	}
+
+	@Override
+	public List<SitterRevVo> getBestReview() {
+		return template.selectList("petSitter.getBestReview");
+	}
 }

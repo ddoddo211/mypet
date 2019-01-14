@@ -88,7 +88,7 @@
 	
 	.orderC{
 		float: left;
-		width: 200px;
+		width: 187px;
 		height: 150px;
 		display: flex;
 	    justify-content: center;
@@ -156,12 +156,7 @@
 		height: 25px;
 	}
 	
-	.swap{
-		width: 60px;
-		height: 25px;
-	}
-	
-	.return{
+	.ordsBtn{
 		width: 60px;
 		height: 25px;
 	}
@@ -338,27 +333,17 @@
 			$(".marketOrder").submit();
 		})
 		
-		// 교환으로 변경
-		$(".swap").click(function() {
-			
-			$("#swap_id").val($(this).parent().children(".ords_id").val());
-			$(".swapOrder").submit();
-		})
-		
-		// 반품으로 변경
-		$(".return").click(function() {
-			$("#return_id").val($(this).parent().children(".ords_id").val());
-			$(".returnOrder").submit();
-		})
-		
 		$("#marketerGo").click(function(){
 			location.href = "/shop/sup";
 		});
 	})
 	
-	function popUp() {
-		var popUrl = "/mem/idSearchView";
-		var popOption = "width=500, height=200, resizable=no, scrollbars=no, status=no;";
+	function reasonPopUp() {
+		var id = event.srcElement.id;
+		var btn = $("#"+id).val();
+		var ords_id = $("#"+id).parent().children(".ords_id").val();
+		var popUrl = "/shop/reasonView?ords_id="+ords_id+"&btnVal="+btn;
+		var popOption = "width=500, height=180, resizable=no, scrollbars=no, status=no;";
 		window.open(popUrl, "주소변경", popOption);
 	};
 </script>
@@ -382,16 +367,6 @@
 <!-- 주문자가 배송보내기 -->
 <form method="post" action="/shop/prodDelivery" class="marketOrder">
 	<input type="hidden" id="market_id" name="ords_id">
-</form>
-
-<!-- 교환  -->
-<form method="post" action="/shop/swapUpdate" class="swapOrder">
-	<input type="hidden" id="swap_id" name="ords_id">
-</form>
-
-<!-- 반품 -->
-<form method="post" action="/shop/returnUpdate" class="returnOrder">
-	<input type="hidden" id="return_id" name="ords_id">
 </form>
 
 <%@include file="/WEB-INF/view/petshop/petShopH.jsp"%>
@@ -500,11 +475,11 @@
 									  		</div>
 									  		<div class="orderBtn">
 									  			<input type="hidden" class="ords_id" value="${list.ords_id }"/>
-									  			<input type="button" class="return" value="반품" >
+									  			<input type="button" class="ordsBtn" value="반품" onclick="reasonPopUp()" id="1"/>
 									  		</div>
 									  		<div class="orderBtn">
 									  			<input type="hidden" class="ords_id" value="${list.ords_id }"/>
-									  			<input type="button" class="swap" value="교환" >
+									  			<input type="button" class="ordsBtn" value="교환" onclick="reasonPopUp()" id="2"/>
 									  		</div>
 							  			</div>
 							  		</c:when>
@@ -553,6 +528,11 @@
 								 <div class="orderC">
 								 	<div>
 								 		<span>${list.ords_stat }</span>
+								 	</div>
+								 </div>
+								 <div class="orderC">
+								 	<div>
+								 		<span>${list.ords_rea }</span>
 								 	</div>
 								 </div>
 							</div>
