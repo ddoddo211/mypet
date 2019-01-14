@@ -139,6 +139,13 @@ function popSearch() {
 	var popOption = "width=500, height=200, resizable=no, scrollbars=no, status=no;";
 	window.open(popUrl, "주소변경", popOption);
 };
+
+$(document).ready(function(){
+	$("#loginButton").click(function(){
+		alert("여기왓니?");
+		$("#loginFrm").submit();
+	});
+});
 </script>
 <!-- header 시작 -->
 <div id="gateway_warp">
@@ -190,7 +197,7 @@ function popSearch() {
 				<div id="loginPopup">
 					<div id="exitBtn"><a>X</a></div>
 					<!-- login form -->
-						<form action="/mem/loginNM" method="post">
+						<form action="/mem/loginNM" method="post" id="loginFrm">
 							<div id="wrap">
 								<h1 class="member">My Pet Login</h1>
 								<div class="form">
@@ -205,7 +212,7 @@ function popSearch() {
 												</div>
 											</div>
 											<div id="form2-1-1-1">
-												<input id="loginButton" type="submit" value="로그인">
+												<input id="loginButton" type="button" value="로그인">
 											</div>
 										</div>
 												 <%

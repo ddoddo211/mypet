@@ -196,9 +196,6 @@ public class MemberController {
 				// 조회 성공
 				String referer = request.getHeader("Referer");
 				
-				
-				
-				
 				url = "redirect:"+referer;
 			}
 
