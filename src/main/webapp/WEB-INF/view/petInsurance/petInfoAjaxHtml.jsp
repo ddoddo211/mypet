@@ -13,6 +13,10 @@ $(document).ready(function(){
 		var petProdSelect = $(this).val();
 		$("#petProdSelect").val(petProdSelect);
 		
+		// 상태 
+		var ins_stat = $(this).data("ins_stat");
+		$("#ins_stat").val(ins_stat);
+		
 	});
 	
 	// 클릭한 결재 버튼의 data(prod)값을 넣어주기
@@ -34,6 +38,7 @@ $(document).ready(function(){
 		
 		// 보험해지시 해지를 원하는 체크박스를 클릭하였는지 확인할때 필요
 		var petProdSelect = $("#petProdSelect").val();
+		var ins_stat = $("#ins_stat").val();
 		
 		// 보험해지버튼 클릭시 보험금 신청을 해 놓은 건이 있는지 확인
 		var petAc = ${acVoSize};
@@ -45,6 +50,10 @@ $(document).ready(function(){
 			return;
 		}else if(petProdSelect == ""){
 			alert("보험해지를 원하시는 보험상품을 선택하시기 바랍니다.");
+			return;
+		}else if(ins_stat == "완료"){
+			alert("완료된 부분은 보험가입이 완료된 상품이 아니기 때문에\n보험해지가 아닌 취소를 진행하시기 바랍니다.");
+			$("input[type=radio]").prop("checked",false);
 			return;
 		}else{
 			$("#frm").submit();
@@ -142,6 +151,7 @@ function goPayment(insp_kind){
 <form action="/isr/mypetIsrDel" method="get" id="frm">
 	<input type="hidden" id="petProdSelect" name="petProdSelect" value="">
 	<input type="hidden" id="petId" name="petId" value="${mypetInfo.myp_id}">
+	<input type="hidden" id="ins_stat" name="ins_stat" value="">
 </form>
 
 <!-- 보험신청 취소하는 부분 -->
@@ -252,7 +262,7 @@ function goPayment(insp_kind){
 
 									<c:forEach items="${isrVoList}" var="list">
 										<tr>
-											<td class="tdh"><input type="radio" name="petProd" class="petProdSelect" value="${list.ins_id}" data-insp_kind="${list.insp_kind}"></td>
+											<td class="tdh"><input type="radio" name="petProd" class="petProdSelect" value="${list.ins_id}" data-insp_kind="${list.insp_kind}" data-ins_stat="${list.ins_stat}"></td>
 											<td class="tdh">${list.insp_kind}</td>
 											<td class="tdh"><%="월 "%>${list.insp_fees}<%="원"%></td>
 											<td class="tdh">${list.insp_minage}<%="~"%>${list.insp_maxage}<%="세"%></td>
@@ -263,11 +273,8 @@ function goPayment(insp_kind){
 											<td class="tdh">${list.ins_dis}</td>
 											<td class="tdh">${list.ins_stat}</td>
 											<c:choose>
-												<c:when test="${list.ins_stat == '신청'}">
+												<c:when test="${list.ins_stat == '신청' || list.ins_stat == '완료'}">
 													<td class="tdh"><input class="cancel" type="button" value="취소" data-ins_id="${list.ins_id}"></td>
-												</c:when>
-												<c:when test="${list.ins_stat == '완료'}">
-													<td class="tdh"></td>
 												</c:when>
 												<c:when test="${list.ins_stat == '결재완료'}">
 													<td class="tdh"></td>
