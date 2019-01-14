@@ -290,9 +290,10 @@ public class ShopAdminController {
 		param.put("sta_id", staId);
 		param.put("sta_file", fileName);
 		
+		int updateMem = shoppingService.updateMemeberShop(staMem);
 		int updateCnt = shoppingService.updateSupportFile(param);
 		
-		if(updateCnt != 0) {
+		if(updateCnt != 0 && updateMem != 0) {
 			final MimeMessagePreparator preparator = new MimeMessagePreparator() {
 				@Override
 				public void prepare(MimeMessage mimeMessage) throws Exception {
