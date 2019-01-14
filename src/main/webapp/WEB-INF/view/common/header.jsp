@@ -133,6 +133,12 @@ function pwSearchPopup(){
 function goJoin(){
 	location.href="memJoin";
 }
+
+function popUp() {
+	var popUrl = "/mem/idSearchView";
+	var popOption = "width=500, height=200, resizable=no, scrollbars=no, status=no;";
+	window.open(popUrl, "주소변경", popOption);
+};
 </script>
 <!-- header 시작 -->
 <div id="gateway_warp">
@@ -218,7 +224,7 @@ function goJoin(){
 												 </div>
 										<div class="form4">
 										    <div id="loginMenu">
-												<label class="loginMenuLabel"><input class="loginMenuInput" type="button" value="아이디 찾기"></label>
+												<label class="loginMenuLabel"><input class="loginMenuInput" type="button" value="아이디 찾기" onclick="popUp()"></label>
 												<label class="loginMenuLabel"><input class="loginMenuInput" onclick="pwSearchPopup()" type="button" value="비밀번호 찾기"></label>
 												<label class="loginMenuLabel"><input class="loginMenuInput" onclick="goJoin()" type="button" value="회원가입"></label>
 											</div>
