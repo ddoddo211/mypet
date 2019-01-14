@@ -142,7 +142,6 @@ function popSearch() {
 
 $(document).ready(function(){
 	$("#loginButton").click(function(){
-		alert("여기왓니?");
 		$("#loginFrm").submit();
 	});
 });
