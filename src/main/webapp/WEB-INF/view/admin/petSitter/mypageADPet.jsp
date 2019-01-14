@@ -10,6 +10,10 @@
 			val[i] = $(this).val();
 			k += val[i] + " ";
 		});
+		if(k==''){
+			alert("선택해주세요.");
+			return;
+		}
 		deletePet(1, k);
 	}
 </script>

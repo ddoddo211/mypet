@@ -533,5 +533,11 @@
 		sta_suc = 'Y'
 		where sta_id = #{sta_id}
 	</update>
+	
+	<update id="updateMemberShop" parameterType="String">
+		update member set
+		mem_shop = 2
+		where mem_id = #{mem_id}
+	</update>
 </mapper>
  

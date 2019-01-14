@@ -962,5 +962,10 @@ public class ShoppingService implements ShoppingServiceInf {
 	@Override
 	public int updateSupportFile(Map<String, Object> param) {
 		return shoppingDao.updateSupportFile(param);
+	}
+
+	@Override
+	public int updateMemeberShop(String staMem) {
+		return shoppingDao.updateMemberShop(staMem);
 	};
 }
