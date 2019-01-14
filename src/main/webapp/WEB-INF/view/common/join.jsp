@@ -108,7 +108,7 @@ $(document).ready(function(){
         }
         
         var re_mem_pass = $("input[name='re_mem_pass']");
-        if(mem_pass == ''){
+        if(re_mem_pass == ''){
         	alert("비밀번호(확인)를 입력하세요.");
         	re_mem_pass.focus();
         	return false;
@@ -141,10 +141,10 @@ $(document).ready(function(){
             alert('휴대폰 번호를 입력하세요');
             mem_hp.focus();
             return false;
-        } else if(!/^[0-9]{10,11}$/.test(mem_hp)){
+        } else if(!/^[0-9]{10,11}$/.test(mem_hp.val())){
             alert("휴대폰 번호는 숫자만 10~11자리 입력하세요.");
             return false;
-        } else if(!/^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})([0-9]{3,4})([0-9]{4})$/.test(mem_hp)){
+        } else if(!/^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})([0-9]{3,4})([0-9]{4})$/.test(mem_hp.val())){
             alert("유효하지 않은 전화번호 입니다.");
             return false;
         }
