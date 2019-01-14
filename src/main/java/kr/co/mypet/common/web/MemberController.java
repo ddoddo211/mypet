@@ -198,8 +198,11 @@ public class MemberController {
 				
 				
 				
-				
+//				System.out.println(referer + " :: referer");
 				url = "redirect:"+referer;
+				if(referer.equals("http://localhost:8081/mem/joinMethod")) {
+					url = "redirect:/mem/main";
+				}
 			}
 
 		} else {
