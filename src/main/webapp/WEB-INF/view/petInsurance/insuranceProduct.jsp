@@ -39,10 +39,12 @@
 	
 		$(".kind").click(function(){
 			petKind = $(this).val();
+			alert(petKind);
 		});
 		
 		$(".petSick").click(function(){
 			petSick = $(this).val();
+			alert(petSick);
 		});
 		
 		$("#productBtn").click(function(){
