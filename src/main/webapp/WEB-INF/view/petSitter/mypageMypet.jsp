@@ -25,9 +25,10 @@
 	
 	function mypetUpdate(){
 		var k = "";
+		var cnt = 0;
 		$(':checkbox:checked').each(function(i) {
 			if(i > 0){
-				alert("하나만 선택가능합니다.");
+				cnt = i;
 				return;
 			} else{
 				k = $(this).val();
@@ -38,8 +39,13 @@
 			alert("수정하고싶은 반려동물 정보를 선택해주세요.");
 			return;
 		}
-		$("#mypetId").val(k);
-		$("#mypetUpdateFrm").submit();
+		if(cnt < 1){
+			$("#mypetId").val(k);
+			$("#mypetUpdateFrm").submit();
+		} else{
+			alert("하나만 선택하세요.");
+			return;
+		}
 	}
 </script>
 <form action="/sit/mypetUpdateView" method="post" id="mypetUpdateFrm">
