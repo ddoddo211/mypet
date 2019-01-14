@@ -196,7 +196,13 @@ public class MemberController {
 				// 조회 성공
 				String referer = request.getHeader("Referer");
 				
+				
+				
+//				System.out.println(referer + " :: referer");
 				url = "redirect:"+referer;
+				if(referer.equals("http://localhost:8081/mem/joinMethod")) {
+					url = "redirect:/mem/main";
+				}
 			}
 
 		} else {
