@@ -37,16 +37,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	  	
 	  	<!-- 우리아이 보험상품 추천 리스트 가지고 오는 부분 -->
 	  	<select id="prodProductRecommendation" parameterType="inspageVo" resultType="insProdVo">
-		     select * from
+		      select * from
 		              (select ROWNUM rnum,
 		                      A.*
 		               from  (select * from insProd where insp_del = 'N' order by to_number(insp_id) asc)A)
-				 WHERE  rnum BETWEEN #{page}*#{pageSize}-(#{pageSize}-1) and #{page}*#{pageSize}
+ 				 WHERE  ROWNUM BETWEEN #{page}*#{pageSize}-(#{pageSize}-1) and #{page}*#{pageSize}
 		         and INSP_JOIN = #{petKind}
 		         and INSP_MINAGE <![CDATA[<=]]> ${petBirth}
 		         and INSP_MAXAGE <![CDATA[>=]]> ${petBirth}
 		         and INSP_SICK = #{petSick}
-		         
 		</select>
 		
 		<!-- 게시글 총갯수(우리아이보험추천) -->
@@ -689,6 +688,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				 , accd_res = #{accd_res}
 			  where accd_id = #{accd_id}
 		</update>
-		
-	  	
+
+		<!-- 플랜정보 이미 등록된 가입 상품일 경우  -->
+		<select id="insCnt" parameterType="mypetVo" resultType="mypetVo">
+	  	 select count(*) rnum 
+              from insurance
+             where 1=1
+               and myp_id = #{myp_id}
+               and inssp_id =#{inssp_id}
+               and ins_stat in ('결재완료', '완료', '신청')
+               and ins_dis = 'N'
+		</select>		
+
 </mapper>

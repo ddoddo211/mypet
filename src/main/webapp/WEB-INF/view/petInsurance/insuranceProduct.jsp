@@ -39,15 +39,14 @@
 	
 		$(".kind").click(function(){
 			petKind = $(this).val();
-			alert(petKind);
 		});
 		
 		$(".petSick").click(function(){
 			petSick = $(this).val();
-			alert(petSick);
 		});
 		
 		$("#productBtn").click(function(){
+			
 			birth = $("#date1").val();
 			
 			//생년월일을 입력하지 않고 보험상품 추천 버튼을 클릭하였을때 처리해야 하는 부분
