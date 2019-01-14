@@ -725,7 +725,12 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/chartView")
-	public String chartView() {
+	public String chartView(Model model) {
+		int count = commonService.getSupportPaymentSuccess();
+		int totalSupportPrice = count * 55000;
+		
+		model.addAttribute("count", count);
+		model.addAttribute("totalSupportPrice", totalSupportPrice);
 		
 		return "admin/common/chart";
 	}

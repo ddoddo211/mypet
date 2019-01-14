@@ -137,4 +137,9 @@ public class CommonService implements CommonServiceInf {
 	public String memberPWSearch(String mem_id) {
 		return commonDao.memberPWSearch(mem_id);
 	}
+
+	@Override
+	public int getSupportPaymentSuccess() {
+		return commonDao.getSupportPaymentSuccess();
+	}
 }

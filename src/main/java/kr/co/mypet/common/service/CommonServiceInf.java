@@ -122,4 +122,13 @@ public interface CommonServiceInf {
 	* Method 설명 : 멤버ID 찾기
 	*/
 	public MemberVo idSearch(MemberVo memVo);
+
+	/**
+	* Method : getSupportPaymentSuccess
+	* 작성자 : pc24
+	* 변경이력 :
+	* @return
+	* Method 설명 : 펫시터 지원(결재한사람 명수) 
+	*/
+	public int getSupportPaymentSuccess();
 }

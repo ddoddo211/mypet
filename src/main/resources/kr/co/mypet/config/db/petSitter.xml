@@ -222,7 +222,7 @@
 	
 	<insert id="insertSupport" parameterType="map">
 		insert into sitterApp
-		values ('STA' || lpad(sta_no.nextVal, 3, '0'), #{sta_mem}, #{sta_text}, 'N', sysdate, '', '', '', 1, 'N')
+		values ('STA' || lpad(sta_no.nextVal, 3, '0'), #{sta_mem}, #{sta_text}, 'N', sysdate, '', '', '', 1, 'N', 55000)
 	</insert>
 	
 	<select id="getMySupport" parameterType="String" resultType="staVo">
@@ -443,4 +443,11 @@
 		where rnum between 1 and 5
 		
 	</select>
+	
+	<select id="getSupportPaymentSuccess" resultType="Integer">
+		select count(*)
+		from sitterapp
+		where sta_chk = 1
+		and sta_pay = 'Y'
+	</select> 
 </mapper>

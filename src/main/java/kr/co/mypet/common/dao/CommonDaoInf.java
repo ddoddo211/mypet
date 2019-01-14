@@ -59,4 +59,6 @@ public interface CommonDaoInf {
 	* Method 설명 : 멤버ID 찾기
 	*/
 	public MemberVo idSearch(MemberVo memVo);
+
+	public int getSupportPaymentSuccess();
 }

@@ -146,5 +146,10 @@ public class CommonDao implements CommonDaoInf {
 		return template.selectOne("member.memberPWSearch", mem_id);
 	}
 
+	@Override
+	public int getSupportPaymentSuccess() {
+		return template.selectOne("petSitter.getSupportPaymentSuccess");
+	}
+
 
 }

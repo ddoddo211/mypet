@@ -1,23 +1,37 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$(".click").click(function(){
+			var date = $(this).children().val();
+			alert(date);
+		});
+	});
+</script>
+<style>
+	.click{
+		cursor : pointer;
+	}
 
+</style>
 <div>
-	<table>
+	<table width="1200px;">
+		<caption style="text-align: right;">단위(원)</caption>
 		<tr>
 			<th>구분</th>
-			<th>1월</th>
-			<th>2월</th>
-			<th>3월</th>
-			<th>4월</th>
-			<th>5월</th>
-			<th>6월</th>
-			<th>7월</th>
-			<th>8월</th>
-			<th>9월</th>
-			<th>10월</th>
-			<th>11월</th>
-			<th>12월</th>
-			<th>합격</th>
+			<th class="click">1월<input type="hidden" id="m1" name="" value="1" /></th>
+			<th class="click">2월<input type="hidden" id="m2" name="" value="2" /></th>
+			<th class="click">3월<input type="hidden" id="m3" name="" value="3" /></th>
+			<th class="click">4월<input type="hidden" id="m4" name="" value="4" /></th>
+			<th class="click">5월<input type="hidden" id="m5" name="" value="5" /></th>
+			<th class="click">6월<input type="hidden" id="m6" name="" value="6" /></th>
+			<th class="click">7월<input type="hidden" id="m7" name="" value="7" /></th>
+			<th class="click">8월<input type="hidden" id="m8" name="" value="8" /></th>
+			<th class="click">9월<input type="hidden" id="m9" name="" value="9" /></th>
+			<th class="click">10월<input type="hidden" id="m10" name="" value="10" /></th>
+			<th class="click">11월<input type="hidden" id="m11" name="" value="11" /></th>
+			<th class="click">12월<input type="hidden" id="m12" name="" value="12" /></th>
+			<th class="click">합계<input type="hidden" id="total" name="" value="13" /></th>
 		</tr>
 		<tr>
 			<td>펫시터</td>
@@ -36,7 +50,7 @@
 			<td></td>
 		</tr>
 		<tr>
-			<td></td>
+			<td>펫쇼핑몰</td>
 			<td></td>
 			<td></td>
 			<td></td>
@@ -52,7 +66,7 @@
 			<td></td>
 		</tr>
 		<tr>
-			<td></td>
+			<td>펫미용실</td>
 			<td></td>
 			<td></td>
 			<td></td>
