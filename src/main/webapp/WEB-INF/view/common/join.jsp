@@ -32,6 +32,7 @@ body {
 
 
 #wrap {
+	min-height:70vh;
 	width: 400px;
 	height: 400px;
 	margin: 0 auto;
@@ -358,6 +359,26 @@ $(document).ready(function(){
 					<tr>
 						<td>상세주소</td>
 						<td><input type="text" size=37 name="mem_addr2" value="" id="mem_addr2"></td>
+					</tr>
+					<tr>
+						<td>아이디 찾기 질문</td>
+						<td>
+							<select class="question" name="mem_qet">
+								<option value="1">질문을 선택해주세요</option>
+								<option>기억에 남는 추억의 장소는?</option>
+								<option>자신의 보물 제1호는?</option>
+								<option>가장 기억에 남는 선생님 성함은?</option>
+								<option>타인이 모르는 자신만의 신체비밀이 있다면?</option>
+								<option>추억하고 싶은 날짜가 있다면?</option>
+								<option>유년시절 가장 생각나는 친구 이름은?</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td>답변</td>
+						<td>
+							<input type="text" name="mem_rep" />
+						</td>
 					</tr>
 					<tr>
 						<td colspan='2' align='center'><input type="button"

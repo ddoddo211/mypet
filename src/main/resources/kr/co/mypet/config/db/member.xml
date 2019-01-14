@@ -19,9 +19,9 @@
 	<insert id="insertMember" parameterType="memVo">
 		insert into member
 		(mem_id, mem_pass, mem_name, mem_addr, mem_hp, mem_exit, mem_admin, mem_sit,
-		mem_shop, mem_hair,mem_point,mem_black)
+		mem_shop, mem_hair,mem_point,mem_black,mem_addr2,mem_rep,mem_qet)
 		values(#{mem_id},#{mem_pass},#{mem_name},#{mem_addr},#{mem_hp},1,1,1,1,
-		1,0,1)
+		1,0,1,#{mem_addr2},#{mem_rep},#{mem_qet})
 	</insert>
 
 	<!-- 정보조회 -->
