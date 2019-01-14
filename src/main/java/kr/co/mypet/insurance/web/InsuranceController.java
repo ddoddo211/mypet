@@ -502,6 +502,9 @@ public class InsuranceController {
 					
 					// 파일 저장되기
 					
+					// 진단서
+					String str = part.getOriginalFilename();
+					
 					// 실제 파일 저장될 경로 설정하기
 					String path1 = request.getSession().getServletContext().getRealPath("");
 					String path = "/img/petimg";
@@ -1049,6 +1052,8 @@ public class InsuranceController {
 						// DB 넣어주기
 						mypetVo.setMyp_img(str);
 					}
+					
+					
 					
 					//회원의 펫 가지고 오기
 					List<InsshoppingVo> mypetList = insuranceService.petList(memVo.getMem_id());
