@@ -158,8 +158,12 @@ $(document).ready(function(){
 				$("#frm2").submit();
 			} else {
 				alert("이미 가입된 상품입니다");
+				$(".cb2_label").removeClass("activeCb");
+				$("select option").prop("selected", false);
+				select = null;
+				$("#prodId").val("");
 				//해당화면에 모든 radio들의 체크를해제시킨다. 
-				$("input[type=checkbox]").prop("checked",false);
+				//$("input[type=checkbox]").prop("checked",false);
 				return;
 			}
 			

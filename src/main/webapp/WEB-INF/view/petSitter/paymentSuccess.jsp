@@ -88,7 +88,7 @@ function window_onload(){
 
  function go_url(){
 
-    location.href="/sit/sitMain";
+    history.back();
 
  }
 </script>
