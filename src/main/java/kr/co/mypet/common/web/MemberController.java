@@ -738,7 +738,7 @@ public class MemberController {
 	@RequestMapping("/monthChart")
 	public String monthChart() {
 		
-		commonService.
+//		commonService.
 		
 		return "";
 	}
