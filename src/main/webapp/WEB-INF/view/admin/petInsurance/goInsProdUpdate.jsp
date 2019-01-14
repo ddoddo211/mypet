@@ -5,6 +5,33 @@
 <head>
 <meta charset="UTF-8">
 <title>goInsProdInsert.jsp(보험상품 내용 수정하는 화면)</title>
+<style type="text/css">
+
+#nextBtn11{
+	margin-top:25px;
+	margin-bottom:30px;
+	width: 1200px;
+	height: 50px;
+}
+
+#nextBtn12{
+	width: 200px;
+	height: 50px;
+	margin-left: 215px;
+	float: left;
+}
+
+#nextBtn2{
+	background-color: black;
+    color: white;
+    width: 200px;
+    height: 50px;
+    font-family: 'Jeju Gothic', sans-serif;
+    font-size: 18px;
+    border-radius: 50px;
+    outline: none;
+}
+</style>
 
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -204,8 +231,8 @@ $(document).ready(function(){
 				</div>
 </form>
 
-			<div id="nextBtn">
-				<div id="nextBtn1">
+			<div id="nextBtn11">
+				<div id="nextBtn12">
 					<input type="button" id="nextBtn2" value="내용 수정완료하기">
 				</div>
 				<div id="nextBtn1_1">

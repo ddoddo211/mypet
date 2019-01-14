@@ -640,4 +640,6 @@ public interface ShoppingDaoInf {
 	public int shopNoticeCre(ShopNoticeVo snotVo);
 	
 	public int updateSupportFile(Map<String, Object> param);
+
+	public int updateMemberShop(String staMem);
 }

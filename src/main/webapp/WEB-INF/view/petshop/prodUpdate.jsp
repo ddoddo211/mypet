@@ -7,6 +7,12 @@
 <link href="/css/petShopCss.css" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <style type="text/css">
+	#mainUpdate{
+		width:1200px;
+		margin: 0 auto;
+	 	min-height: 663px;
+	}
+	
 	#maintop{
 		width: 1200px;
 		margin: 0 auto;
@@ -212,6 +218,7 @@
 <body>
 	<%@include file="/WEB-INF/view/petshop/petShopH.jsp"%>
 	
+	<div id="mainUpdate">
 	<div id="maintop">
 		<p>상품 수정</p>
 	</div>
@@ -374,8 +381,8 @@
 					</div>
 				</form>
 			</div>
+		</div>
 	</div>
-	
 	<!-- footer 시작 -->
 	<%@include file="/WEB-INF/view/common/footer.jsp"%>
 	<!-- footer 끝 -->

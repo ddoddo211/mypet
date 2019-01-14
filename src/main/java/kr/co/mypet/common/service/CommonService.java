@@ -27,8 +27,14 @@ public class CommonService implements CommonServiceInf {
 
 	@Override
 	public int login(MemberVo memVo) {
-		
-		return commonDao.login(memVo);
+		int chk =0 ;
+		MemberVo memberVo = commonDao.login(memVo);
+		if(memberVo == null) {
+			chk = 1;
+		} else {
+			chk = 0;
+		}
+		return chk;
 	}
 
 	@Override

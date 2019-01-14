@@ -341,7 +341,7 @@
 }
 
 .mypageBtn {
-	width: 100px;
+	width: 120px;
 	height: 40px;
 	border: 1px solid black;
 	background-color: #000;
@@ -353,7 +353,7 @@
 }
 
 .mypageBtn:active {
-	width: 100px;
+	width: 120px;
 	height: 40px;
 	border: 1px solid #a1a1a1;
 	background-color: #a1a1a1;

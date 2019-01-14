@@ -682,4 +682,14 @@ public interface ShoppingServiceInf {
 	* Method 설명 : 펫 쇼핑몰 판매 지원합격자 파일 업로드 
 	*/
 	public int updateSupportFile(Map<String, Object> param);
+
+	/**
+	* Method : updateMemeberShop
+	* 작성자 : pc24
+	* 변경이력 :
+	* @param staMem
+	* @return
+	* Method 설명 : 회원의 펫 쇼핑몰 판매자 권한 변경 
+	*/
+	public int updateMemeberShop(String staMem);
 }

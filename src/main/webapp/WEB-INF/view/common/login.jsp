@@ -166,7 +166,7 @@ input[type="checkbox"] {
 	
 	$(document).ready(function() {
 		$("#idSearch").click(function() {
-			popUp();
+			popSearch();
 		})
 		
 		$("#pwSearch").click(function(){
@@ -174,7 +174,7 @@ input[type="checkbox"] {
 		});
 	})
 	
-	function popUp() {
+	function popSearch() {
 		var popUrl = "/mem/idSearchView";
 		var popOption = "width=500, height=200, resizable=no, scrollbars=no, status=no;";
 		window.open(popUrl, "주소변경", popOption);

@@ -222,7 +222,7 @@
 	
 	<insert id="insertSupport" parameterType="map">
 		insert into sitterApp
-		values ('STA' || lpad(sta_no.nextVal, 3, '0'), #{sta_mem}, #{sta_text}, 'N', sysdate, '', '', '', 1, 'N', 55000)
+		values ('STA' || lpad(sta_no.nextVal, 3, '0'), #{sta_mem}, #{sta_text}, 'N', sysdate, '', '', '', 1, 'N', 55000, '')
 	</insert>
 	
 	<select id="getMySupport" parameterType="String" resultType="staVo">
@@ -444,10 +444,13 @@
 		
 	</select>
 	
-	<select id="getSupportPaymentSuccess" resultType="Integer">
-		select count(*)
+	<select id="getSupportPaymentSuccess" parameterType="map" resultType="Integer">
+		select to_char(sta_pdate, 'MM') as month, sum(sta_price) as price
 		from sitterapp
-		where sta_chk = 1
+		where to_char(sta_pdate, 'YYYYMMDD') between #{startDate} and #{endDate}
+		and sta_chk = 1
 		and sta_pay = 'Y'
+		group by to_char(sta_pdate,'MM')
+		order by to_char(sta_pdate,'MM') asc
 	</select> 
 </mapper>

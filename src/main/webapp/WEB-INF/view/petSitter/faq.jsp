@@ -68,6 +68,7 @@
 <body>
 <form action="/sit/faqDetail" method="post" id="faqFrm">
 	<input type="hidden" id="faq_id" name="faqId" />
+	<input type="hidden" id="" name="cnt" value="0" />
 </form>
 
 <%@include file="/WEB-INF/view/common/header.jsp"%>
