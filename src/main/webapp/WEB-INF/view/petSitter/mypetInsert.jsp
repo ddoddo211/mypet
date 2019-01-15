@@ -92,7 +92,9 @@
 							"5월", "6월", "7월", "8월", "9월",
 							"10월", "11월", "12월" ], //월표시 형식 설정
 					showAnim : "fold", //애니메이션효과
-					maxDate : "0D"
+					maxDate : "0D",
+					changeMonth : true,
+					changeYear : true
 				});
 
 				// 여자아이 , 남자아이 선택한 부분 색 유지 해주는 부분
