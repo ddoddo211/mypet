@@ -88,7 +88,14 @@ function window_onload(){
 
  function go_url(){
 
-    history.back();
+	 var chk = "${pay_chk}";
+	 if(chk == "2"){
+		 location.href="/sit/myPage";
+	 } else if(chk == "0"){
+	    location.href="/sit/sitMain";
+	 } else{
+		location.href="/sit/sitterTo";
+	 }
 
  }
 </script>
@@ -198,7 +205,40 @@ function window_onload(){
 						</table>
 					</div>
 					<div id ="pay">
-						<span>결제 금액 : </span><span style="color:red;">%{pay_price}</span>
+						<span>결제 금액 : </span><span style="color:red;">${pay_price}</span>
+					</div>
+				</c:when>
+				<c:when test="${pay_chk == 2 }">
+					<div class="infoDiv">
+						<span>결제회원 정보</span>
+						<table border="1" class="infoTable">
+							<tr bgcolor="#e5e5e5">
+								<th width="200px;">결제자 성명</th>
+								<th width="350px;">연락처</th>
+								<th width="350px;">이메일</th>
+							</tr>
+							<tr bgcolor="#f1f1f1">
+								<td class="td">${memVo.mem_name }</td>
+								<td class="td">${memVo.mem_hp }</td>
+								<td class="td">${memVo.mem_id }</td>
+							</tr>
+						</table>
+					</div>
+					<div class="infoDiv">
+						<span>결제 정보</span>
+						<table border="1" class="infoTable">
+							<tr bgcolor="e5e5e5">
+								<th>상품명</th>
+								<th>결제금액</th>
+							</tr>
+							<tr bgcolor="#f1f1f1">
+								<td class="td">펫시터 교육비</td>
+								<td class="td">${pay_price }</td>
+							</tr>
+						</table>
+					</div>
+					<div id ="pay">
+						<span>결제 금액 : </span><span style="color:red;">${pay_price}</span>
 					</div>
 				</c:when>
 			</c:choose>

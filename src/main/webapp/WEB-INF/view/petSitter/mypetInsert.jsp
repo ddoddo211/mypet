@@ -7,7 +7,7 @@
 <title>petInsert.jsp(펫추가하기)</title>
 
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript">
 
@@ -83,18 +83,17 @@
 				}
 
 				// 달력 옵션 설정
-				$("#wr1_2_3")
-						.datepicker(
-								{ // 달력에 옵션 설정하기
-									dayNamesMin : [ "일", "월", "화", "수", "목",
-											"금", "토" ], // 요일에 표시되는 형식 설정
-									dateFormat : "yy-mm-dd", //날짜 형식 설정
-									monthNames : [ "1월", "2월", "3월", "4월",
-											"5월", "6월", "7월", "8월", "9월",
-											"10월", "11월", "12월" ], //월표시 형식 설정
-									showAnim : "fold", //애니메이션효과
-									maxDate : "0D"
-								});
+				$("#wr1_2_3").datepicker(
+				{ // 달력에 옵션 설정하기
+					dayNamesMin : [ "일", "월", "화", "수", "목",
+							"금", "토" ], // 요일에 표시되는 형식 설정
+					dateFormat : "yy-mm-dd", //날짜 형식 설정
+					monthNames : [ "1월", "2월", "3월", "4월",
+							"5월", "6월", "7월", "8월", "9월",
+							"10월", "11월", "12월" ], //월표시 형식 설정
+					showAnim : "fold", //애니메이션효과
+					maxDate : "0D"
+				});
 
 				// 여자아이 , 남자아이 선택한 부분 색 유지 해주는 부분
 				$(".wr1_2_2").click(function() {

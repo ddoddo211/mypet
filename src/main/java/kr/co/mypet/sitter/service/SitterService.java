@@ -371,4 +371,19 @@ public class SitterService implements SitterServiceInf {
 	public List<SitterRevVo> getBestReview() {
 		return sitterDao.getBestReview();
 	}
+
+	@Override
+	public String maxSitterres(String mem_id) {
+		return sitterDao.maxSitterres(mem_id);
+	}
+
+	@Override
+	public int updateSitterres(String str_id) {
+		return sitterDao.updateSitterres(str_id);
+	}
+
+	@Override
+	public int updateSupportPay(String sta_id) {
+		return sitterDao.updateSupportPay(sta_id);
+	}
 }

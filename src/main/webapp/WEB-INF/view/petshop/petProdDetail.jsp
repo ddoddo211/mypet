@@ -265,7 +265,7 @@
 	
 	.revTitle{
 		float: left;
-		width: 450px;
+		width: 400px;
 	}
 	
 	.revNum{
@@ -274,7 +274,7 @@
 	}
 	.revMem{
 		float: left;
-		width: 100px;
+		width: 140px;
 	}
 	
 	.revDate{

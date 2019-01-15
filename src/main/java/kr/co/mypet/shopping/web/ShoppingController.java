@@ -768,7 +768,7 @@ public class ShoppingController {
 				basicAddress = shoppingService.basicAddress(memVo.getMem_id());
 			}
 			 List<DeliveryAddrVo> otherAddrList = shoppingService.otherAddress(memVo.getMem_id());
-			 
+              
 			 model.addAttribute("basicAddress",basicAddress);
 			 model.addAttribute("otherAddrList",otherAddrList);
 		}
@@ -794,8 +794,7 @@ public class ShoppingController {
 	}
 	
 	@RequestMapping(value="/payment",method=RequestMethod.POST)
-	public String payment(DeliveryAddrVo daddrVo,HttpServletRequest request,HttpSession session) {
-		
+	public String payment(DeliveryAddrVo daddrVo,HttpServletRequest request,HttpSession session,Model model) {
 		MemberVo memVo = (MemberVo) session.getAttribute("memVo");
 		if(memVo != null) {
 			
@@ -906,6 +905,24 @@ public class ShoppingController {
 						shoppingService.qtyUpdate(prodVo);
 					}
 				}
+			}
+		}
+		
+		if(memVo != null) {
+			// 주문내역 List
+			List<OrderSheetVo> orderList = shoppingService.orderList(memVo.getMem_id());
+			List<OrderSheetVo> buyList = shoppingService.buyList(memVo.getMem_id());
+			List<OrderSheetVo> cancleList = shoppingService.cancleList(memVo.getMem_id());
+			
+			model.addAttribute("orderList",orderList);
+			model.addAttribute("buyList",buyList);
+			model.addAttribute("cancleList",cancleList);
+			
+			if(memVo.getMem_shop() == 2) {
+				List<ProdVo> marketerList = shoppingService.marketerList(memVo.getMem_id());
+				model.addAttribute("marketerList",marketerList);
+				List<OrderSheetVo> marketOrderList = shoppingService.marketerOrderList(memVo.getMem_id());
+				model.addAttribute("marketOrderList",marketOrderList);
 			}
 		}
 		

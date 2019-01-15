@@ -592,5 +592,35 @@ public interface SitterServiceInf {
 	* Method 설명 : 베스트 후기글 조회 
 	*/
 	List<SitterRevVo> getBestReview();
+
+	/**
+	* Method : maxSitterres
+	* 작성자 : pc24
+	* 변경이력 :
+	* @param mem_id
+	* @return
+	* Method 설명 : 회원이 예약한 아이디 찾기(최상단) 
+	*/
+	String maxSitterres(String mem_id);
+
+	/**
+	* Method : updateSitterres
+	* 작성자 : pc24
+	* 변경이력 :
+	* @param str_id
+	* @return
+	* Method 설명 : 결재완료 시 결재상태 변경 
+	*/
+	int updateSitterres(String str_id);
+
+	/**
+	* Method : updateSupportPay
+	* 작성자 : pc24
+	* 변경이력 :
+	* @param sta_id
+	* @return
+	* Method 설명 : 교육비 결재시 결재상태 변경 
+	*/
+	int updateSupportPay(String sta_id);
 	
 }
