@@ -11,6 +11,12 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
+	
+	var login = '${login}';
+	if(login == 'N'){
+		alert("로그인 하셔야 이용할수 있는 화면입니다\n로그인 하시기 바랍니다.");
+	}
+	
 		// 회원이 블랙리스트일경우 인터넷 보험청구를 못하도록 막는부분
 		var blackMem = '${blackMem}';
 		if(blackMem == 'no'){

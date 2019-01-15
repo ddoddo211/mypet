@@ -9,6 +9,15 @@
 <link rel="stylesheet" href="/css/petInsuranceMenu.css">
 <link rel="stylesheet" href="/css/petInsurance.css">
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	var login = '${login}';
+	if(login == 'N'){
+		alert("로그인 하셔야 이용할수 있는 화면입니다\n로그인 하시기 바랍니다.");
+	}
+});
+
+</script>
 </head>
 <body>
 <!-- header 시작 -->
