@@ -198,6 +198,7 @@ var oEditors = []; // 개발되어 있는 소스에 맞추느라, 전역변수�
 		</div>
 		<form action="/sit/faqUpdate" method="post" id="frm">
 			<input type="hidden" name="psf_id" value="${faqVo.psf_id }" />
+			<input type="hidden" name="cnt" value="${cnt }" />
 			<div id="faqUpdate">
 				<div id="faqMain">
 					<div id="faq_Title">

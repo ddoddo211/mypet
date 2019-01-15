@@ -166,8 +166,16 @@
 </head>
 <body>
 <form action="/sit/paymentSuccess" method="post" id="successFrm">
-	<input type="hidden" id="pay_chk" name="pay_chk" />
-	<input type="hidden" id="pay_price" name="pay_price" />
+	<input type="hidden" id="pay_price" name="pay_price"   />
+	<input type="hidden" id="pay_dateStart" name="pay_dateStart"   />
+	<input type="hidden" id="pay_dateEnd" name="pay_dateEnd"   />
+	<input type="hidden" id="pay_timeStart" name="pay_timeStart"   />
+	<input type="hidden" id="pay_timeEnd" name="pay_timeEnd"   />
+	<input type="hidden" id="pay_name" name="pay_name"   />
+	<input type="hidden" id="pay_chk" name="pay_chk"   />
+	<input type="hidden" name="pst_id" value=" "/>
+	<input type="hidden" id="pay_date" name="pay_date" value="${date }"/>
+	<input type="hidden" id="sta_id" name="sta_id" />
 </form>
 <%@include file="/WEB-INF/view/common/header.jsp"%>
 

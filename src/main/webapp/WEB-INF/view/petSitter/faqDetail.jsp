@@ -79,7 +79,7 @@
 			</div>
 			<div id="index">
 				<c:if test="${memVo.mem_id == 'admin' }">
-					<a class="indexMove" href="/sit/faqUpdateView?faq_id=${fVo.psf_id }">수정</a>
+					<a class="indexMove" href="/sit/faqUpdateView?faq_id=${fVo.psf_id }&cnt=0">수정</a>
 					<a class="indexMove" href="/sit/faqDelete?faq_id=${fVo.psf_id }">삭제</a>
 				</c:if>
 				<a class="indexMove" onclick="move()">목록</a>

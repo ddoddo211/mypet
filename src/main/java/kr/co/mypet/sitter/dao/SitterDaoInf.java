@@ -134,4 +134,10 @@ public interface SitterDaoInf {
 	int getMySupportCnt(String mem_id);
 
 	List<SitterRevVo> getBestReview();
+
+	String maxSitterres(String mem_id);
+
+	int updateSitterres(String str_id);
+
+	int updateSupportPay(String sta_id);
 }
