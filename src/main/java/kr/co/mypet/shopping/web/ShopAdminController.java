@@ -165,6 +165,8 @@ public class ShopAdminController {
 		int totalCnt = shoppingService.getSupportListAllCnt();
 		int pageCnt = (int)Math.ceil(((double)totalCnt/pageSize));
 		
+		model.addAttribute("page",page);
+		model.addAttribute("pageSize",pageSize);
 		model.addAttribute("supportListAll", supportListAll);
 		model.addAttribute("pageCnt", pageCnt);
 		

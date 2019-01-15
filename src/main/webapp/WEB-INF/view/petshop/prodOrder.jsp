@@ -70,7 +70,7 @@
 		width: 1200px;
 		margin : 0 auto;
 		margin-top : 20px;
-		min-height: 426px;
+		min-height: 446px;
 	}
 	
 	.bottomLeft{
@@ -356,7 +356,7 @@
 				
 			}
 			
-			if($('input:checkbox[id="basicAddress"]').is(":checked")==true && $('input:checkbox[id="otherAddress"]').is(":checked")==true){
+			if($('input:checkbox[id="basicAddress"]').is(":checked")==true && $('input:checkbox[id="addressSave"]').is(":checked")==true){
 				$(".chkboxa").prop("checked",false);
 				alert("기존 배송지와 배송지저장 중 하나를 선택 해주세요.")
 				return;
@@ -373,7 +373,7 @@
 			}
 			
 			// 배송지 저장
-			else if($('input:checkbox[id="otherAddress"]').is(":checked")==true){
+			else if($('input:checkbox[id="addressSave"]').is(":checked")==true){
 				$("#daddr_chk").val('3');
 			}else{
 				$("#daddr_chk").val('4');
@@ -697,7 +697,7 @@
 				<div class="basicSelect">
 					<input type="checkbox" id="basicAddress" class="chkboxa">
 					<span>기존배송지로 설정</span>
-					<input type="checkbox" id="otherAddress" class="chkboxa">
+					<input type="checkbox" id="addressSave" class="chkboxa">
 					<span>배송지저장</span>
 				</div>
 				
