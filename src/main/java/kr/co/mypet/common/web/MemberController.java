@@ -94,14 +94,14 @@ public class MemberController {
 		apiURL += "&state=" + state;
 		String access_token = "";
 		String refresh_token = "";
-		System.out.println("apiURL=" + apiURL);
+//		System.out.println("apiURL=" + apiURL);
 		try {
 			URL url = new URL(apiURL);
 			HttpURLConnection con = (HttpURLConnection) url.openConnection();
 			con.setRequestMethod("GET");
 			int responseCode = con.getResponseCode();
 			BufferedReader br;
-			System.out.println("responseCode=" + responseCode);
+//			System.out.println("responseCode=" + responseCode);
 			if (responseCode == 200) { // 정상 호출
 				br = new BufferedReader(new InputStreamReader(con.getInputStream()));
 			} else { // 에러 발생
@@ -114,14 +114,14 @@ public class MemberController {
 			}
 			br.close();
 			if (responseCode == 200) {
-				System.out.println(res.toString());
+//				System.out.println(res.toString());
 
 				// res.toString() 에서 token 빼오기
 				String temp = res.toString();
 				int startIndex = temp.indexOf("access_token") + 15;
 				int endIndex = temp.indexOf("refresh_token") - 3;
 				access_token = temp.substring(startIndex, endIndex);
-				System.out.println("access_token : " + access_token);
+//				System.out.println("access_token : " + access_token);
 			}
 		} catch (Exception e) {
 			System.out.println(e);
@@ -152,14 +152,14 @@ public class MemberController {
 				response.append(inputLine);
 			}
 			br.close();
-			System.out.println(response.toString());
+//			System.out.println(response.toString());
 			String temp = response.toString();
 
 			if (temp.contains("email")) {
 				int startIndex = temp.indexOf("email") + 8;
 				int endIndex = temp.lastIndexOf("\"");
 				String mem_id = temp.substring(startIndex, endIndex);
-				System.out.println("로그인 아이디 : " + mem_id);
+//				System.out.println("로그인 아이디 : " + mem_id);
 				memVo.setMem_id(mem_id);
 
 			} else {
@@ -194,15 +194,19 @@ public class MemberController {
 				url = "admin/adminMain";
 			} else {
 				// 조회 성공
-				String referer = request.getHeader("Referer");
-				
-				
-				
+//					url = "redirect:/mem/main";
+					url = "common/main";
+//				String referer = request.getHeader("Referer");
+//				
+//				
+//				
 //				System.out.println(referer + " :: referer");
-				url = "redirect:"+referer;
-				if(referer.equals("http://localhost:8081/mem/joinMethod")) {
-					url = "redirect:/mem/main";
-				}
+//				url = "redirect:"+referer;
+//				if(referer.equals("http://localhost:8081/mem/joinMethod")) {
+//					url = "redirect:/mem/main";
+//				}else if(referer.equals("http://localhost:8081/mem/null")) {
+//					url = "redirect:/mem/main";
+//				}
 			}
 
 		} else {
@@ -249,14 +253,14 @@ public class MemberController {
 		apiURL += "&state=" + state;
 		String access_token = "";
 		String refresh_token = "";
-		System.out.println("apiURL=" + apiURL);
+//		System.out.println("apiURL=" + apiURL);
 		try {
 			URL url = new URL(apiURL);
 			HttpURLConnection con = (HttpURLConnection) url.openConnection();
 			con.setRequestMethod("GET");
 			int responseCode = con.getResponseCode();
 			BufferedReader br;
-			System.out.println("responseCode=" + responseCode);
+//			System.out.println("responseCode=" + responseCode);
 			if (responseCode == 200) { // 정상 호출
 				br = new BufferedReader(new InputStreamReader(con.getInputStream()));
 			} else { // 에러 발생
@@ -269,14 +273,14 @@ public class MemberController {
 			}
 			br.close();
 			if (responseCode == 200) {
-				System.out.println(res.toString());
+//				System.out.println(res.toString());
 
 				// res.toString() 에서 token 빼오기
 				String temp = res.toString();
 				int startIndex = temp.indexOf("access_token") + 15;
 				int endIndex = temp.indexOf("refresh_token") - 3;
 				access_token = temp.substring(startIndex, endIndex);
-				System.out.println("access_token : " + access_token);
+//				System.out.println("access_token : " + access_token);
 			}
 		} catch (Exception e) {
 			System.out.println(e);
@@ -307,14 +311,14 @@ public class MemberController {
 				response.append(inputLine);
 			}
 			br.close();
-			System.out.println(response.toString());
+//			System.out.println(response.toString());
 			String temp = response.toString();
 
 			if (temp.contains("email")) {
 				int startIndex = temp.indexOf("email") + 8;
 				int endIndex = temp.lastIndexOf("\"");
 				String mem_id = temp.substring(startIndex, endIndex);
-				System.out.println("로그인 아이디 : " + mem_id);
+//				System.out.println("로그인 아이디 : " + mem_id);
 				memVo.setMem_id(mem_id);
 
 			} else {
@@ -334,12 +338,13 @@ public class MemberController {
 			// 조회 성공
 			
 			//이전페이지 돌려보내기
-			String referer = request.getHeader("Referer");
+//			String referer = request.getHeader("Referer");
 			
 			
 			
 			
-			url = "redirect:"+referer;
+//			url = "redirect:"+referer;
+			url = "common/main";
 			memVo = commonService.memberInfo(memVo.getMem_id());
 			request.getSession().setAttribute("memVo", memVo);
 		} else {

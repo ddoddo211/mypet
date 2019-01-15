@@ -86,8 +86,8 @@ public class HairMemberController {
 		List<HairBoardVo> askList = new ArrayList<>();
 		
 		askList = hairService.selectAsk(mem_id);
-		System.out.println("mem_id : " + mem_id);
-		System.out.println("askList.size() : " + askList.size());
+//		System.out.println("mem_id : " + mem_id);
+//		System.out.println("askList.size() : " + askList.size());
 		
 		HairBoardVo hbVo = new HairBoardVo();
 		
@@ -313,15 +313,15 @@ public class HairMemberController {
 	
 	@RequestMapping("/deleteBm")
 	public String deleteBm(HttpServletRequest request,BookmarkVo bmVo,MemberVo memVo,Model model) {
-		System.out.println("메서드 진입");
+//		System.out.println("메서드 진입");
 		String bmk_id = bmVo.getBmk_id();
 		
 		int chk = hairService.deleteBm(bmk_id);
 		
 		if(chk==1) {
-			System.out.println("성공");
+//			System.out.println("성공");
 		} else {
-			System.out.println("실패");
+//			System.out.println("실패");
 		}
 		
 		model.addAttribute("mem_id", memVo.getMem_id());
