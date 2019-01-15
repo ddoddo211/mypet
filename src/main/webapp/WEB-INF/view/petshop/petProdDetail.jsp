@@ -543,7 +543,7 @@
 
 <!-- 						Your share button code -->
 						 <div class="fb-share-button"  data-layout="button" data-size="small" data-mobile-iframe="true" 
-						  data-href="http://192.168.203.20:8081/shop/prodDetail?dvs_id=${dvsVo.dvs_id}&dvs_parent=${dvsVo.dvs_parent}&prod_id=${prodVo.prod_id}" >
+						  data-href="http://192.168.203.11:8081/shop/prodDetail?dvs_id=${dvsVo.dvs_id}&dvs_parent=${dvsVo.dvs_parent}&prod_id=${prodVo.prod_id}" >
 					 	   	<a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" 
 					 	   		class="fb-xfbml-parse-ignore">공유하기
 					 	    </a>
