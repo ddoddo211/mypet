@@ -30,7 +30,7 @@
 		IMP.init('imp09203705'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
 		
 		$("#supOk").click(function(){
-			var k = 55000;
+			var k = 550;
 			IMP.request_pay({
 			    pg : 'inicis', // version 1.1.0부터 지원.
 			    pay_method : 'card',
@@ -59,7 +59,8 @@
 			    
 			    if(rsp.success){ //결재 성공 시 페이지 이동
 			    	
-			    	
+			    	$("#pay_chk").val("2");
+			    	$("#pay_price").val(k);
 			    	$("#successFrm").submit();
 			    }
 			    
@@ -72,8 +73,16 @@
 	<input type="hidden" id="fileName" name="fileName" />
 </form>
 <form action="/sit/paymentSuccess" method="post" id="successFrm">
-	<input type="hidden" id="pay_chk" name="pay_chk" />
-	<input type="hidden" id="pay_price" name="pay_price" />
+	<input type="hidden" id="pay_price" name="pay_price"   />
+	<input type="hidden" id="pay_dateStart" name="pay_dateStart"   />
+	<input type="hidden" id="pay_dateEnd" name="pay_dateEnd"   />
+	<input type="hidden" id="pay_timeStart" name="pay_timeStart"   />
+	<input type="hidden" id="pay_timeEnd" name="pay_timeEnd"   />
+	<input type="hidden" id="pay_name" name="pay_name"   />
+	<input type="hidden" id="pay_chk" name="pay_chk"   />
+	<input type="hidden" name="pst_id" value=" "/>
+	<input type="hidden" id="pay_date" name="pay_date" value="${date }"/>
+	<input type="hidden" id="sta_id" name="sta_id" value="${staVo.sta_id }" />
 </form>
 <div id="mypageRightMain">
 	<div style="background-color: #6eb9b5; color : #fff; border-color:#6eb9b5; height : 50px; text-align: center; line-height: 50px;">
@@ -112,7 +121,7 @@
 									<td class="td">결재완료</td>
 								</c:when>
 								<c:otherwise>
-									<td class="td">55,000원</td>
+									<td class="td"><fmt:formatNumber value="${staVo.sta_price }" pattern="###,###"/>원<input type="hidden" id="price" value="${staVo.sta_price }"/></td>
 								</c:otherwise>
 							</c:choose>
 							<c:if test="${staVo.sta_suc eq 'Y' }">

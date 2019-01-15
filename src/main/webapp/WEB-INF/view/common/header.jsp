@@ -140,11 +140,7 @@ function popSearch() {
 	window.open(popUrl, "주소변경", popOption);
 };
 
-$(document).ready(function(){
-	$("#loginButton").click(function(){
-		$("#loginFrm").submit();
-	});
-});
+
 </script>
 <!-- header 시작 -->
 <div id="gateway_warp">
@@ -211,7 +207,7 @@ $(document).ready(function(){
 												</div>
 											</div>
 											<div id="form2-1-1-1">
-												<input id="loginButton" type="button" value="로그인">
+												<input id="loginButton" type="submit" value="로그인">
 											</div>
 										</div>
 												 <%

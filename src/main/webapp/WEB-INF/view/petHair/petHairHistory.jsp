@@ -50,7 +50,7 @@
 			);
 			  var cnt = $(".on").length;
 			$("#hdscore").val(
-				cnt-4		
+				cnt		
 			);
 			
 			//alert($(".historyte").eq(btnIndex).val() + " : "+$(".historyta").eq(btnIndex).val() + " : " + $(".hbrd_has").eq(btnIndex).val());
@@ -62,7 +62,6 @@
 		$('.starRev span').click(function(){
 			  $(this).parent().children('span').removeClass('on');
 			  $(this).addClass('on').prevAll('span').addClass('on');
-			  
 			  return false;
 		});
 		

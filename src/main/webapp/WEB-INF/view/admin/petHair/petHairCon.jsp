@@ -110,7 +110,7 @@ $(document).ready(function() {
 													
 													</c:when>
 													<c:otherwise>
-														<input type="submit" class="acceptBtn" value="변경"/>	
+														<input type="submit" class="acceptBtn" value="삭제"/>	
 													
 													</c:otherwise>
 												</c:choose>
@@ -157,7 +157,7 @@ $(document).ready(function() {
 
 
 	<!-- footer 시작 -->
-	<%@include file="../../common/footer.jsp"%>
+<%-- 	<%@include file="../../common/footer.jsp"%> --%>
 	<!-- footer 끝 -->
 
 <script type="text/javascript">

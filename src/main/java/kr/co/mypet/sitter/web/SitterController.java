@@ -556,7 +556,7 @@ public class SitterController {
 		int count = sitterService.getPstReviewAllCnt(pst_id);
 		int score = sitterService.getPstReviewScore(pst_id);
 		
-		int reviewScore = (int)(Math.ceil(score/count));
+		int reviewScore = (int)Math.ceil(((double)score/count));
 		
 		Map<String, Object> param2 = new HashMap<>();
 		param2.put("pst_id", pst_id);
@@ -577,12 +577,39 @@ public class SitterController {
 		
 		int updateCnt = sitterService.updateReview(param);
 		
+		int count = sitterService.getPstReviewAllCnt(pst_id);
+		int score = sitterService.getPstReviewScore(pst_id);
+		
+		int reviewScore = (int)Math.ceil(((double)score/count));
+		
+		Map<String, Object> param2 = new HashMap<>();
+		param2.put("pst_id", pst_id);
+		param2.put("pst_score", reviewScore);
+		
+		int updateCnt2 = sitterService.updatePetsitterScore(param2);
+		
 		return "redirect:/sit/sitDetail?pst_id="+pst_id;
 	}
 	
 	@RequestMapping("/deleteReview")
 	public String deleteReview(@RequestParam("stvID")String stv_id, @RequestParam("pstId")String pst_id) {
 		int deleteCnt = sitterService.deleteReview(stv_id);
+		
+		int count = sitterService.getPstReviewAllCnt(pst_id);
+		int score = sitterService.getPstReviewScore(pst_id);
+		int reviewScore = 0;
+		
+		if(score == 0) {
+			reviewScore = 0;
+		} else {
+			reviewScore = (int)Math.ceil(((double)score/count));
+		}
+		
+		Map<String, Object> param2 = new HashMap<>();
+		param2.put("pst_id", pst_id);
+		param2.put("pst_score", reviewScore);
+		
+		int updateCnt2 = sitterService.updatePetsitterScore(param2);
 		
 		return "redirect:/sit/sitDetail?pst_id="+pst_id;
 	}
@@ -667,15 +694,16 @@ public class SitterController {
 	
 	// faq 수정화면 이동
 	@RequestMapping("/faqUpdateView")
-	public String faqUpdateView(Model model, @RequestParam("faq_id")String psf_id) {
+	public String faqUpdateView(Model model, @RequestParam("faq_id")String psf_id, @RequestParam("cnt")int cnt) {
 		FaqVo faqVo =  sitterService.getFaqOne(psf_id);
 		model.addAttribute("faqVo", faqVo);
+		model.addAttribute("cnt", cnt);
 		return "petSitter/faqUpdate";
 	}
 	
 	// faq 수정처리
 	@RequestMapping("/faqUpdate")
-	public String faqUpdate(@RequestParam("psf_id")String psf_id, @RequestParam("faq_name")String psf_name, @RequestParam("smarteditor")String psf_text) {
+	public String faqUpdate(@RequestParam("psf_id")String psf_id, @RequestParam("faq_name")String psf_name, @RequestParam("smarteditor")String psf_text, @RequestParam("cnt")String cnt) {
 		Map<String, Object> param = new HashMap<>();
 		param.put("psf_id", psf_id);
 		param.put("psf_name", psf_name);
@@ -683,7 +711,11 @@ public class SitterController {
 		
 		int updateCnt = sitterService.updateFaq(param);
 		
-		return "redirect:/sit/faq";
+		if(cnt.equals("0")) {
+			return "redirect:/sit/faq";
+		} else {
+			return "redirect:/mem/petSitManager";
+		}
 	}
 	
 	// faq 삭제 처리
@@ -784,7 +816,6 @@ public class SitterController {
 		List<SitterResVo> resList = sitterService.getReservationList(memVo.getMem_id());
 		
 		model.addAttribute("resList", resList);
-		System.out.println("resList : "+resList);
 		
 		return "petSitter/mypageReservation";
 	}
@@ -1088,24 +1119,37 @@ public class SitterController {
 	// 결재성공 화면
 	@RequestMapping("/paymentSuccess")
 	public String paymentSuccess(HttpSession session, @RequestParam("pst_id")String pst_id, Model model, @RequestParam("pay_chk")String pay_chk, @RequestParam("pay_price")int pay_price, @RequestParam("pay_name")String pay_name, @RequestParam("pay_dateStart")String pay_dateStart,
-			@RequestParam("pay_dateEnd")String pay_dateEnd, @RequestParam("pay_timeStart")String pay_timeStart, @RequestParam("pay_timeEnd")String pay_timeEnd) {
-		
-		model.addAttribute("pay_chk", pay_chk);
-		model.addAttribute("pay_price", pay_price);
-		model.addAttribute("pay_name", pay_name);
-		model.addAttribute("pay_dateStart", pay_dateStart);
-		model.addAttribute("pay_dateEnd", pay_dateEnd);
-		model.addAttribute("pay_timeStart", pay_timeStart);
-		model.addAttribute("pay_timeEnd", pay_timeEnd);
+			@RequestParam("pay_dateEnd")String pay_dateEnd, @RequestParam("pay_timeStart")String pay_timeStart, @RequestParam("pay_timeEnd")String pay_timeEnd, @RequestParam("pay_date")String pay_date, @RequestParam("sta_id")String sta_id) {
 		
 		MemberVo memVo = (MemberVo) session.getAttribute("memVo");
 		
 		if(pay_chk.equals("1")) {
+			model.addAttribute("pay_chk", pay_chk);
+			model.addAttribute("pay_price", pay_price);
+			model.addAttribute("pay_name", pay_name);
+			model.addAttribute("pay_dateStart", pay_dateStart);
+			model.addAttribute("pay_dateEnd", pay_dateEnd);
+			model.addAttribute("pay_timeStart", pay_timeStart);
+			model.addAttribute("pay_timeEnd", pay_timeEnd);
+			
 			Map<String, Object> param = new HashMap<>();
 			param.put("pc_pst", pst_id);
 			param.put("pc_mem", memVo.getMem_id());
 			
 			int insertCnt = sitterService.insertPetsitterChk(param);
+		} else if(pay_chk.equals("0")){
+			model.addAttribute("pay_price", pay_price);
+			model.addAttribute("pay_date", pay_date);
+			model.addAttribute("pay_chk", pay_chk);
+			
+			String str_id = sitterService.maxSitterres(memVo.getMem_id());
+			
+			int updateCnt = sitterService.updateSitterres(str_id);
+		} else {
+			model.addAttribute("pay_chk", pay_chk);
+			model.addAttribute("pay_price", pay_price);
+			
+			int updateCnt = sitterService.updateSupportPay(sta_id);
 		}
 		
 		return "petSitter/paymentSuccess";
