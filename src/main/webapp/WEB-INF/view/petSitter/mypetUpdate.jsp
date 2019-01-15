@@ -254,7 +254,7 @@
 				</div>
 					<div class="wr1">
 						<c:choose>
-							<c:when test="${mypVo.am_id eq 'AM001' }">
+							<c:when test="${mypVo.am_id eq '1' }">
 								<input id="petK1" class="petK" type="button" value="강아지">
 							</c:when>
 							<c:otherwise>
