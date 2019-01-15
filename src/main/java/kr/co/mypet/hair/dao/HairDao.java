@@ -159,7 +159,7 @@ public class HairDao implements HairDaoInf {
 	@Override
 	public int revComCnt(String mem_id) {
 		int cnt = template.selectOne("petHair.revComCnt", mem_id);
-		System.out.println("dao cnt : " + cnt);
+//		System.out.println("dao cnt : " + cnt);
 		return cnt;
 	}
 
