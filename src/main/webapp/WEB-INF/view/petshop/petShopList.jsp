@@ -324,7 +324,7 @@
 					<c:forEach items="${menuList }" var="list">
 						<li>
 							<div class="menu">
-								<a href="/shop/petShopList?dvs_id=${dvs_id }&dvs_parent=${list.dvs_id}">${list.dvs_name }</a>
+								<a href="/shop/petShopList?page=1&pagesize=12&dvs_id=${dvs_id }&dvs_parent=${list.dvs_id}">${list.dvs_name }</a>
 							</div>
 						</li>
 					</c:forEach>

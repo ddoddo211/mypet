@@ -37,16 +37,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	  	
 	  	<!-- 우리아이 보험상품 추천 리스트 가지고 오는 부분 -->
 	  	<select id="prodProductRecommendation" parameterType="inspageVo" resultType="insProdVo">
-		     select * from
+		      select * from
 		              (select ROWNUM rnum,
 		                      A.*
 		               from  (select * from insProd where insp_del = 'N' order by to_number(insp_id) asc)A)
-				 WHERE  rnum BETWEEN #{page}*#{pageSize}-(#{pageSize}-1) and #{page}*#{pageSize}
+ 				 WHERE  ROWNUM BETWEEN #{page}*#{pageSize}-(#{pageSize}-1) and #{page}*#{pageSize}
 		         and INSP_JOIN = #{petKind}
 		         and INSP_MINAGE <![CDATA[<=]]> ${petBirth}
 		         and INSP_MAXAGE <![CDATA[>=]]> ${petBirth}
 		         and INSP_SICK = #{petSick}
-		         
 		</select>
 		
 		<!-- 게시글 총갯수(우리아이보험추천) -->
@@ -169,8 +168,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 		<!-- 보상안내 공지사항 나오게 설정 -->
 		<select id="insNotice" resultType="insNoticeVo">
-			select * from insNotice 
-			where rownum <![CDATA[<= 5]]>
+			select ROWNUM rnum , A.* from insnotice a 
+            where rownum <![CDATA[<=]]> 5
+			order by INOT_ID desc
 		</select>
 		
 		<!-- 피보험자 선택하는 부분에 가입이 완료된 상품 나오게 설정 -->
@@ -325,7 +325,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<select id="claimPetJoinProd2" parameterType="insVo" resultType="insVo">
 			select * from insurance , insprod
 			where inssp_id = insp_id
-			and ins_stat = '완료'
+			and (ins_stat ='결재완료')
 			and ins_dis= 'Y'
 			and myp_id = #{myp_id}
 			and mem_id = #{mem_id}
@@ -343,7 +343,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		
 		<!-- 나의 펫 보험 화면에서 펫의 정보 수정하는 부분 -->
 		<update id="mypetInfoUpdate" parameterType="mypetVo">
-			update mypet set myp_img=#{myp_img}, myp_name=#{myp_name},myp_gender=#{myp_gender} 
+			update mypet set myp_img=#{myp_img}, myp_name=#{myp_name},myp_gender=#{myp_gender} ,myp_neu=#{myp_neu}
 			 where myp_id=#{myp_id}
 		</update>
 		
@@ -547,7 +547,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<!-- 보험 공지사항 나오게 설정하기 -->
 		<select id="noticList" resultType="insNoticeVo">
 			select ROWNUM rnum , A.* from insnotice a 
-			order by inot_date desc
+			order by ROWNUM desc
 		</select>	
 		
 		<!-- 공지사항에 글 추가하기 -->
@@ -688,6 +688,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				 , accd_res = #{accd_res}
 			  where accd_id = #{accd_id}
 		</update>
-		
-	  	
+
+		<!-- 플랜정보 이미 등록된 가입 상품일 경우  -->
+		<select id="insCnt" parameterType="mypetVo" resultType="mypetVo">
+	  	 select count(*) rnum 
+              from insurance
+             where 1=1
+               and myp_id = #{myp_id}
+               and inssp_id =#{inssp_id}
+               and ins_stat in ('결재완료', '완료', '신청')
+               and ins_dis = 'N'
+		</select>		
+
 </mapper>
