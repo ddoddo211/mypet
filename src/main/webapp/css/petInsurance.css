@@ -400,6 +400,7 @@ table tr:last-child td:last-child{
 /*보험상품안내 리스트 - 페이징 처리*/
 #pagenation{
 	margin-top: 20px;
+	min-height: 240px;
 }
 
 #pagenation ul {
