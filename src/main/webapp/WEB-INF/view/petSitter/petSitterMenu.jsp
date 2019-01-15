@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <link href="/css/petSitterMenu.css" rel ="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic" rel="stylesheet">
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script>
 	$(document).ready(function(){
 		$("#sitFrom").click(function(){

@@ -17,7 +17,6 @@
 		$("#faqList").on(ev,".click", function(){
 			var faqId = $(this).children()[0].innerHTML;
 			$("#faq_id").val(faqId);
-			alert(faqId);
 			$("#faqFrm").submit();
 		});
 		

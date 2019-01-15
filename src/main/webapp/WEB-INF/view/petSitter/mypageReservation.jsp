@@ -26,6 +26,8 @@
 	function payment(){
 		var chk = "";
 		var chk2 = [];
+		var chk3 = [];
+		var chk3_date = "";
 		var k = 0;
 		$(':checkbox:checked').each(function(i) {
 			chk = $(this).parent().parent().children().children(".pay").val();
@@ -34,7 +36,9 @@
 				return;
 			}
 			chk2[i] = $(this).parent().parent().children().children(".price").val();
+			chk3[i] = $(this).parent().parent().children().children(".date").val();
 			k += Number(chk2[i]);
+			chk3_date += chk3[i] + " ";
 		});
 		alert(k);
 		IMP.request_pay({
@@ -64,7 +68,7 @@
 		    alert(msg);
 		    
 		    if(rsp.success){ //결재 성공 시 페이지 이동
-		    	
+		    	$("#pay_date").val(chk3_date);
 		    	$("#pay_chk").val("0");
 		    	$("#pay_price").val(totalPrice);
 		    	$("#successFrm").submit();
@@ -74,8 +78,15 @@
 	}
 </script>
 <form action="/sit/paymentSuccess" method="post" id="successFrm">
-	<input type="hidden" id="pay_chk" name="pay_chk" />
-	<input type="hidden" id="pay_price" name="pay_price" />
+	<input type="hidden" id="pay_price" name="pay_price"   />
+	<input type="hidden" id="pay_dateStart" name="pay_dateStart"   />
+	<input type="hidden" id="pay_dateEnd" name="pay_dateEnd"   />
+	<input type="hidden" id="pay_timeStart" name="pay_timeStart"   />
+	<input type="hidden" id="pay_timeEnd" name="pay_timeEnd"   />
+	<input type="hidden" id="pay_name" name="pay_name"   />
+	<input type="hidden" id="pay_chk" name="pay_chk"   />
+	<input type="hidden" name="pst_id" value=" "/>
+	<input type="hidden" id="pay_date" name="pay_date"/>
 </form>
 <form action="/sit/reservationDelete" method="post" id="resDeleteFrm">
 <input type="hidden" id="resId" name="resId" />

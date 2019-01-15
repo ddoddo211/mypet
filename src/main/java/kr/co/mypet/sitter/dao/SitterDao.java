@@ -323,4 +323,19 @@ public class SitterDao implements SitterDaoInf {
 	public List<SitterRevVo> getBestReview() {
 		return template.selectList("petSitter.getBestReview");
 	}
+
+	@Override
+	public String maxSitterres(String mem_id) {
+		return template.selectOne("petSitter.maxSitterres", mem_id);
+	}
+
+	@Override
+	public int updateSitterres(String str_id) {
+		return template.update("petSitter.updateSitterres", str_id);
+	}
+
+	@Override
+	public int updateSupportPay(String sta_id) {
+		return template.update("petSitter.updateSupportPay", sta_id);
+	}
 }

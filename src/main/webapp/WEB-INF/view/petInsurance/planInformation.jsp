@@ -26,6 +26,11 @@ var joinFail = <%=request.getParameter("joinFail")%>;
 	
 $(document).ready(function(){
 	
+	var cnt = '${cnt}';
+	if(cnt == 'Y'){
+		alert("이미 가입된 상품입니다.");
+	}
+	
 	var blackMem = '${blackMem}';
 	
 	if(blackMem == 'no'){
@@ -144,14 +149,15 @@ $(document).ready(function(){
 			// 동일한 값이 있는지 확인하는 변수
 			var chkDu = 0;
 		
-			// 해당 펫의 이미 가입되어 있는 상품이 있을떄에는 변수의 값을 1씩 증가한다
-			for(var i = 1 ; i < ${mypetIsrJoinSize}; i++){
-				//prodId2 보험상품에서 선택한 부분
-				if(prodId2 == $("#isr"+i+select).val()){
-					chkDu += 1;
-				}
+// 			// 해당 펫의 이미 가입되어 있는 상품이 있을떄에는 변수의 값을 1씩 증가한다
+// 			for(var i = 1 ; i < ${mypetIsrJoinSize}; i++){
+// 				//prodId2 보험상품에서 선택한 부분
+// 				alert(select+"____________"+prodId2 +"________"+$("#isr"+i+select).val() +"________"+chkDu);
+// 				if(prodId2 == $("#isr"+i+select).val()){
+// 					chkDu += 1;
+// 				}
 				
-			}
+// 			}
 			
 			// 가입되어 있는 보험상품이 없을때에는 아래 부분이 실행된다
 			if(chkDu==0){
@@ -162,8 +168,6 @@ $(document).ready(function(){
 				$("select option").prop("selected", false);
 				select = null;
 				$("#prodId").val("");
-				//해당화면에 모든 radio들의 체크를해제시킨다. 
-				//$("input[type=checkbox]").prop("checked",false);
 				return;
 			}
 			

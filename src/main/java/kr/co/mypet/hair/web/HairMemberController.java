@@ -285,7 +285,12 @@ public class HairMemberController {
 		totalScore += hbVo.getHbrd_score();
 		
 		HairShopVo hsVo = new HairShopVo();
-		hsVo.setHas_score(totalScore/totalCnt);
+		if(!(totalScore/totalCnt==0)) {
+			hsVo.setHas_score(totalScore/totalCnt);
+		} else {
+			hsVo.setHas_score(3);
+			
+		}
 		hsVo.setHas_id(has_id);
 		chk = hairService.updateScore(hsVo);
 		

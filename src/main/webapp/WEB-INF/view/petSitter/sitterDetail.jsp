@@ -391,8 +391,6 @@
 								surtaxPrice = daycarePrice/10;
 								totalPrice = daycarePrice + surtaxPrice;
 								
-								alert(dayLength);
-								
 								daycarePrice = AddComma(daycarePrice);
 								surtaxPrice = AddComma(surtaxPrice);
 								totalPrice = AddComma(totalPrice);
@@ -413,7 +411,6 @@
 								$("#totalPrice2").val(totalPrice);
 								
 							} else if((dayLength >= 1) && (dayLength < 5)){
-								alert("저기");
 								$("#daycare").addClass("hidden");
 								$("#daycare").removeClass("show");
 								$("#daycarePrice").addClass("hidden");
@@ -475,7 +472,7 @@
 	}
 	
 	function str(k){
-		alert(k);
+		
 	}
 	
 	
@@ -499,6 +496,8 @@
 	<input type="hidden" id="pay_name" name="pay_name"   />
 	<input type="hidden" id="pay_chk" name="pay_chk"   />
 	<input type="hidden" name="pst_id" value="${pstVo.pst_id }" />
+	<input type="hidden" name="pay_date" />
+	<input type="hidden" id="sta_id" name="sta_id" />
 </form>
 <!-- 각자 화면 -->
 	<div id="">
