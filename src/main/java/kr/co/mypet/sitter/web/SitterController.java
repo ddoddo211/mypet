@@ -556,7 +556,7 @@ public class SitterController {
 		int count = sitterService.getPstReviewAllCnt(pst_id);
 		int score = sitterService.getPstReviewScore(pst_id);
 		
-		int reviewScore = (int)(Math.ceil(score/count));
+		int reviewScore = (int)Math.ceil(((double)score/count));
 		
 		Map<String, Object> param2 = new HashMap<>();
 		param2.put("pst_id", pst_id);
@@ -580,7 +580,7 @@ public class SitterController {
 		int count = sitterService.getPstReviewAllCnt(pst_id);
 		int score = sitterService.getPstReviewScore(pst_id);
 		
-		int reviewScore = (int)(Math.ceil(score/count));
+		int reviewScore = (int)Math.ceil(((double)score/count));
 		
 		Map<String, Object> param2 = new HashMap<>();
 		param2.put("pst_id", pst_id);
@@ -602,7 +602,7 @@ public class SitterController {
 		if(score == 0) {
 			reviewScore = 0;
 		} else {
-			reviewScore = (int)(Math.ceil(score/count));
+			reviewScore = (int)Math.ceil(((double)score/count));
 		}
 		
 		Map<String, Object> param2 = new HashMap<>();
