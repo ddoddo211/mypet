@@ -223,7 +223,7 @@
 		$("#reviewAdd").click(function(){
 			var chk = ${chk};
 			
-			if(chk == 1){
+			if(chk >= 1){
 				var review_text = $("#review").val();
 				$("#stv_text").val(review_text);
 				var addcnt = $(this).parent().parent().children().children(".on").length;
@@ -234,7 +234,7 @@
 					$("#stv_score").val(addcnt-1);
 				}
 				$("#insertFrm").submit();
-			} else{
+			} else if(chk == 0){
 				alert("이용한 유저만 후기글이 등록가능합니다.");
 				$("#stv_text").val("");
 				return;
