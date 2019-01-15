@@ -19,12 +19,12 @@
 </head>
 <script type="text/javascript">
 
-var joinFail = <%=request.getParameter("joinFail")%>;
-	if(joinFail == "0"){
+$(document).ready(function(){
+	
+	var joinFail = '${joinFail}';
+	if(joinFail == '0'){
 		alert("보험상품 조건에 맞지 않습니다. 확인하시기 바랍니다.");
 	}
-	
-$(document).ready(function(){
 	
 	var cnt = '${cnt}';
 	if(cnt == 'Y'){
