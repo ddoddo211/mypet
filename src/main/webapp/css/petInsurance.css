@@ -2617,7 +2617,7 @@ div#upload-btnPet_wrap button {/*버튼 div*/
 
 #isrApplyMain{
 	width: 1200px;
-	height: 0 auto;
+	min-height: 600px;
 }
 
 #isrApplyTitle{
