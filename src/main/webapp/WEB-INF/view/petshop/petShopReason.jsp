@@ -46,6 +46,7 @@
 		var cnt = '${cnt}';
 		
 		if(cnt == '1'){
+			opener.parent.location.reload();
 			window.close();
 		}
 		

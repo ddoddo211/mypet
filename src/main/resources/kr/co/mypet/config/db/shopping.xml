@@ -297,7 +297,7 @@
 	<select id="otherAddress" parameterType="String" resultType="daddrVo">
 		select * from deliveryaddr
 		where daddr_mem = #{daddr_mem}
-		and daddr_chk = 3
+		and daddr_chk = 2
 	</select>
 	
 	<!-- 상품 판매시 수량 변경 -->
@@ -319,7 +319,7 @@
 			select max(substr(daddr_id,6,4)) from deliveryaddr
 		</selectKey>
 		insert into ordersheet
-		values ('ORDS'||SHOPORDS_ID.NEXTVAL,#{ords_qty},'상품준비중',#{ords_mem},#{ords_prod},'DADDR'||#{ords_daddr},#{ords_price},sysdate)
+		values ('ORDS'||SHOPORDS_ID.NEXTVAL,#{ords_qty},'상품준비중',#{ords_mem},#{ords_prod},'DADDR'||#{ords_daddr},#{ords_price},sysdate,'')
 	</insert>
 	
 	<!-- 기존에 배송지가 있을 경우 -->
@@ -487,7 +487,7 @@
 	
 	<insert id="insertSupport" parameterType="map">
 		insert into sitterApp
-		values ('STA' || lpad(sta_no.nextVal, 3, '0'), #{sta_mem}, #{sta_text}, 'N', sysdate, '', #{sta_num}, #{sta_kind}, 2)
+		values ('STA' || lpad(sta_no.nextVal, 3, '0'), #{sta_mem}, #{sta_text}, 'N', sysdate, '', #{sta_num}, #{sta_kind}, 2,'','','')
 	</insert>
 	
 	<select id="getSupportListAll" parameterType="pageVo" resultType="staVo">
