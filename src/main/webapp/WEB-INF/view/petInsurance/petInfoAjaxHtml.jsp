@@ -54,6 +54,12 @@ $(document).ready(function(){
 		}else if(ins_stat == "완료"){
 			alert("완료된 부분은 보험가입이 완료된 상품이 아니기 때문에\n보험해지가 아닌 취소를 진행하시기 바랍니다.");
 			$("input[type=radio]").prop("checked",false);
+			$("#petProdSelect").val("");
+			return;
+		}else if(ins_stat == "신청"){
+			alert("해당 부분은 현재 보험 신청을 한것이기 때문에\n신청취소로 진행하시기 바랍니다.");
+			$("input[type=radio]").prop("checked",false);
+			$("#petProdSelect").val("");
 			return;
 		}else{
 			$("#frm").submit();

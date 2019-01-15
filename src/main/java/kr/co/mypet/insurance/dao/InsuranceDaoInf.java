@@ -822,6 +822,17 @@ public interface InsuranceDaoInf {
 	* Method 설명 :나의 펫 보험 화면에서 해당 펫의 가입되어 있는 보험상품 결재하기 버튼을 클릭하였을 경우 보험가입상태를 결재완료로 변경 
 	*/
 	int goPaymentSucces(String accd_id);
+
+	
+	/**
+	* Method : insCnt
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param mem_id
+	* @return
+	* Method 설명 : 플랜정보 이미 등록된 가입 상품일 경우 
+	*/
+	public MypetVo insCnt(MypetVo mpVo);
 	
 	
 	

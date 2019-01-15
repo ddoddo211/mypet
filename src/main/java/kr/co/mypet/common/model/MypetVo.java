@@ -5,6 +5,8 @@ import java.util.Date;
 public class MypetVo {
 
 	private int rnum;
+	
+	private String inssp_id;
 
 	private String mem_name;
 
@@ -29,14 +31,31 @@ public class MypetVo {
 	private String am_id;
 	private String am_name;
 
+	
+
 	@Override
 	public String toString() {
-		return "MypetVo [rnum=" + rnum + ", mem_name=" + mem_name + ", myp_id=" + myp_id + ", myp_mem=" + myp_mem
-				+ ", myp_petk=" + myp_petk + ", myp_birth=" + myp_birth + ", myp_sick=" + myp_sick + ", myp_img="
-				+ myp_img + ", myp_neu=" + myp_neu + ", myp_gender=" + myp_gender + ", myp_name=" + myp_name
-				+ ", myp_del=" + myp_del + ", petk_id=" + petk_id + ", petk_name=" + petk_name + ", petk_am=" + petk_am
-				+ ", petk_size=" + petk_size + ", am_id=" + am_id + ", am_name=" + am_name + "]";
+		return "MypetVo [rnum=" + rnum + ", inssp_id=" + inssp_id + ", mem_name=" + mem_name + ", myp_id=" + myp_id
+				+ ", myp_mem=" + myp_mem + ", myp_petk=" + myp_petk + ", myp_birth=" + myp_birth + ", myp_sick="
+				+ myp_sick + ", myp_img=" + myp_img + ", myp_neu=" + myp_neu + ", myp_gender=" + myp_gender
+				+ ", myp_name=" + myp_name + ", myp_del=" + myp_del + ", petk_id=" + petk_id + ", petk_name="
+				+ petk_name + ", petk_am=" + petk_am + ", petk_size=" + petk_size + ", am_id=" + am_id + ", am_name="
+				+ am_name + "]";
 	}
+
+
+
+	public String getInssp_id() {
+		return inssp_id;
+	}
+
+
+
+	public void setInssp_id(String inssp_id) {
+		this.inssp_id = inssp_id;
+	}
+
+
 
 	public String getMyp_del() {
 		return myp_del;

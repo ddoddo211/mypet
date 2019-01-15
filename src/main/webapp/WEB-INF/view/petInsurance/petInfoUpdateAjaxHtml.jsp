@@ -59,13 +59,6 @@
 		$("#petSickN2").attr('checked',true);
 	}
 	
-	// 중성화 여부 담아서 보내주는 부분
-	var petNeu = '${petNeu}';
-	if(petNeu == 'Y'){
-		$("#neuYnChk").attr('checked',true);
-	}
-
-	
 	// 성별 부분을 원래 선택되어 있는 값이 아닌 다른 부분으로 클릭하여 선택하였다면 담아주기 
 	var petGender = '${petGender}';
 	$("#petGender").val(petGender);
@@ -86,27 +79,37 @@
 	
 	// 중성화 부분을 원래 선택되어 있는 값이 아닌 다른 부분으로 클릭하여 선택하였다면 담아주기
 		var petNeutralization = '${petNeu}';
-		$("#petNeutralization").val(petNeutralization);
+		if(petNeutralization == 'Y'){
+			 $("input:checkbox[id='neuYnChk']").attr("checked", true);
+			 $("#petNeutralization").val(petNeutralization);
+		}else{
+			$("input:checkbox[id='neuYnChk']").attr("checked", false);
+			$("#petNeutralization").val(petNeutralization);
+		}
 		
+		// 중성화 부분이 체크 되지 않았을때는 N으로 넘겨진다. 체크되었다면 Y로 담긴다.
+		 $("#neuYnChk").change(function(){
+		        if($("#neuYnChk").is(":checked")){
+					petNeutralization = "Y";
+					$("#petNeutralization").val(petNeutralization);
+		        }else{
+					petNeutralization = "N";
+					$("#petNeutralization").val(petNeutralization);
+		        }
+		  });
+		
+	
 
 	// 수정완료 하기 버튼을 클릭하였을떄 중성화 여부 담아주기 
 		$(".mypetPageBtn1_1").click(function(){
-
-			// 중성화 부분이 체크 되지 않았을때는 N으로 넘겨진다. 체크되었다면 Y로 담긴다.
-			if ($("input[id='neuYnChk']:checked").val()== 'Y') {
-				petNeutralization = "Y";
-				$("#petNeutralization").val(petNeutralization);
-			}else{
-				petNeutralization = "N";
-				$("#petNeutralization").val(petNeutralization);
-			}
+			$("#frm3").submint();
 		});
 							
 </script>
 
 <!-- form에 input에 name을 담아서 submit으로 보내기 -->
 <form id="frm3" action="/isr/mypetInfoUpdateS" method="post" enctype="multipart/form-data">
-<input type="hidden" name="petId" value="${mypetInfo.myp_id}">			
+<input type="hidden" name="petId3" value="${mypetInfo.myp_id}">			
 <input type="hidden" name="petNeutralization" id="petNeutralization" value="">	
 
 						<div class="mypetPage3_3">

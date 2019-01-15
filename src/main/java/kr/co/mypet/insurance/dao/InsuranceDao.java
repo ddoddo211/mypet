@@ -1112,7 +1112,17 @@ public class InsuranceDao implements InsuranceDaoInf {
 	}
 
 
-
-
-
+	/**
+	* Method : insCnt
+	* 작성자 : Yumint
+	* 변경이력 :
+	* @param mem_id
+	* @return
+	* Method 설명 : 플랜정보 이미 등록된 가입 상품일 경우 
+	*/
+	@Override
+	public MypetVo insCnt(MypetVo mpVo) {
+		// TODO Auto-generated method stub
+		return template.selectOne("petIns.insCnt" , mpVo);
+	}
 }

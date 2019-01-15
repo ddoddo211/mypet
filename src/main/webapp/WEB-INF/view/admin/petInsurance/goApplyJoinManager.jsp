@@ -331,7 +331,7 @@ $(document).ready(function() {
 								
 <c:choose>
 	<c:when test="${completeListSize == 0}">
-		<td class="tdh" colspan="6">회원께서 가입한 내역이 없습니다.</td>	
+		<td class="tdh" colspan="8">회원께서 가입한 내역이 없습니다.</td>	
 	</c:when>
 	<c:otherwise>
 								<c:forEach items="${completeList}" var="clist">
@@ -389,5 +389,4 @@ $(document).ready(function() {
 
 </body>
 
->>>>>>> branch 'master' of https://github.com/ddoddo211/mypet.git
 </html>

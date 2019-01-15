@@ -212,10 +212,12 @@ public class InsuranceController {
 		pageVo.setPetBirth(c + "");
 		pageVo.setPetSick(request.getParameter("petSick"));
 		
+		
 		// 쿼리문으로 연결하여 전달하기
 		Map<String, Object> resultMap = insuranceService.prodProductRecommendation(pageVo);
 
 		List<InsProdVo> pageList = (List<InsProdVo>) resultMap.get("pageList");
+		
 
 		int pageSize = 0;
 		if (pageList.size() == 0) {
@@ -230,7 +232,6 @@ public class InsuranceController {
 		// model 객체에 저장
 		model.addAttribute("pageList", pageList);
 		
-
 		return "petInsurance/prodPageListAjaxHtml";
 	}
 
@@ -502,26 +503,29 @@ public class InsuranceController {
 					
 					// 파일 저장되기
 					
-					// 실제 파일 저장될 경로 설정하기
-					String path = "C:\\Users\\PC\\6.Spring\\LastProjectWorkSpace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\mypet\\img\\petimg";
+					// 진단서
 					String str = part.getOriginalFilename();
 					
+					// 실제 파일 저장될 경로 설정하기
+					String path1 = request.getSession().getServletContext().getRealPath("");
+					String path = "/img/petimg";
+					
 					// 파일명 가지고 오기
-					if(str == "") {
+					if(path == "") {
 						mypetVo.setMyp_img("/img/petimg/noimg.jpg");
 					}else {
 						// 확장자만 빼기(확장자는 저장해줘야 한다)
-						String fileExt = StringUtil.getFileExt(str);
+						String fileExt = StringUtil.getFileExt(path);
 						String fileName = UUID.randomUUID().toString() + fileExt;	// 충돌 방지를 위한 임의의 파일명 
 						
-						File file = new File(path + File.separator + fileName);
+						File file = new File(path1+path + File.separator + fileName);
 						
 						part.transferTo(file);
 						
-						str = "/img/petimg/"+fileName;
+						path = "/img/petimg/"+fileName;
 						
 						// DB 넣어주기
-						mypetVo.setMyp_img(str);
+						mypetVo.setMyp_img(path);
 					}
 					
 					insuranceService.insertPet(mypetVo);
@@ -594,6 +598,51 @@ public class InsuranceController {
 						return "petInsurance/planInformation";
 						
 					}else {
+						
+						MypetVo mpVo = new MypetVo();
+						
+						mpVo.setMyp_id(petId);
+						mpVo.setInssp_id(prodJoinId);
+
+						// 가입을 진행하고 있는 펫 정보 가지고 오기
+						MypetVo insCnt = insuranceService.insCnt(mpVo);
+						
+						if(insCnt.getRnum() > 0) {
+							model.addAttribute("cnt" , "Y");
+							
+							// 회원의 추가된 보험상품 가지고 오기
+							List<InsshoppingVo> memIsrList = insuranceService.memPlan(memVo.getMem_id());
+							model.addAttribute("memIsrList", memIsrList);
+							
+							// 보험상품 에서 삭제 할때 for문 돌리기 위해서 플랜정보에 추가된 상품 수가 필요하기 떄문에 설정
+							model.addAttribute("memIsrListSize", memIsrList.size());
+							
+							
+							// 보험상품이 하나도 업을때 사이즈 보내주는것 (상품이 없을때 상품이 없다는 메세지 나오게 하기 위해서 설정) 
+							model.addAttribute("isrListSize" , memIsrList.size());
+							
+							//회원의 펫 가지고 오기
+							List<InsshoppingVo> mypetList = insuranceService.petList(memVo.getMem_id());
+							model.addAttribute("mypetList", mypetList);
+							
+							// 나의 펫 에서 삭제 할때 for문 돌리기 위해서 펫의 수가 필요하기 떄문에 설정
+							model.addAttribute("mypetListSize" , mypetList.size());
+							
+							
+							//회원의 펫 가입되어 있는 현재 보험 상품 나오게 하기 
+							List<InsuranceVo> mypetIsrJoin = insuranceService.petIsrAlready(memVo.getMem_id());
+							model.addAttribute("mypetIsrJoin", mypetIsrJoin);
+							
+							
+							// 보험상품 선택한 보험가입이 되어 있는지 확인하려고 for문 돌리기 위해서 필요
+							model.addAttribute("mypetIsrJoinSize", mypetIsrJoin.size());
+							
+					
+							// 회원의 펫이 없을떄 가입가능한 나의 펫 부분에 (펫이 없다는 메세지 나오게 하기 위해서 설정)
+							model.addAttribute("petListSize", mypetList.size());
+							return "petInsurance/planInformation";
+						}
+						
 						// 가입을 진행하고 있는 보험상품 정보 가지고 오기
 						InsProdVo prodJoin = insuranceService.getProdInfo(prodJoinId);
 						
@@ -1050,6 +1099,8 @@ public class InsuranceController {
 						mypetVo.setMyp_img(str);
 					}
 					
+					
+					
 					//회원의 펫 가지고 오기
 					List<InsshoppingVo> mypetList = insuranceService.petList(memVo.getMem_id());
 					model.addAttribute("mypetList", mypetList);
@@ -1204,9 +1255,10 @@ public class InsuranceController {
 				
 				String petPreImg = request.getParameter("petPreImg");
 				
-				String petId = request.getParameter("petId");
+				String petId = request.getParameter("petId3");
 				String petName = request.getParameter("petName");
 				String petGender = request.getParameter("petGender");
+				String petNeutralization = request.getParameter("petNeutralization");
 				
 				// 객체 만들기
 				MypetVo petVo = new MypetVo();
@@ -1215,6 +1267,7 @@ public class InsuranceController {
 				petVo.setMyp_id(petId);
 				petVo.setMyp_name(petName);
 				petVo.setMyp_gender(petGender);
+				petVo.setMyp_neu(petNeutralization);
 				
 				// 나의펫의 이미지 경로 저장
 				// 실제 파일 저장될 경로 설정하기
