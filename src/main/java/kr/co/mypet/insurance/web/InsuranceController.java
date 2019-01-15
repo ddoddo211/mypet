@@ -351,7 +351,8 @@ public class InsuranceController {
 		
 		// 로그인을 안한 회원일 경우에는 로그인 화면으로 이동
 		if (memVo == null) {
-			return "petInsurance/memLoginChk";
+			model.addAttribute("login" , "N");
+			return "petInsurance";
 		} else {
 			// 회원의 추가된 보험상품 가지고 오기
 			List<InsshoppingVo> memIsrList = insuranceService.memPlan(memVo.getMem_id());
@@ -403,7 +404,8 @@ public class InsuranceController {
 			
 			// 로그인을 안한 회원일 경우에는 로그인 화면으로 이동
 			if (memVo == null) {
-				return "petInsurance/memLoginChk";
+				model.addAttribute("login" , "N");
+				return "petInsurance";
 			} else {
 				// 회원의 추가된 보험상품 가지고 오기
 				List<InsshoppingVo> memIsrList = insuranceService.memPlan(memVo.getMem_id());
@@ -430,7 +432,8 @@ public class InsuranceController {
 			
 			// 로그인을 안한 회원일 경우에는 로그인 화면으로 이동
 			if (memVo == null) {
-				return "petInsurance/memLoginChk";
+				model.addAttribute("login" , "N");
+				return "petInsurance";
 			} else {
 				// 회원의 추가된 보험상품 가지고 오기
 				List<InsshoppingVo> memIsrList = insuranceService.memPlan(memVo.getMem_id());
@@ -451,7 +454,8 @@ public class InsuranceController {
 				MemberVo memVo = (MemberVo) session.getAttribute("memVo");
 				// 로그인을 안한 회원일 경우에는 로그인 화면으로 이동
 				if (memVo == null) {
-					return "petInsurance/memLoginChk";
+					model.addAttribute("login" , "N");
+					return "petInsurance";
 				}
 				return "petInsurance/petInsert";
 			}
@@ -480,7 +484,8 @@ public class InsuranceController {
 				
 				// 로그인을 안한 회원일 경우에는 로그인 화면으로 이동
 				if (memVo == null) {
-					return "petInsurance/memLoginChk";
+					model.addAttribute("login" , "N");
+					return "petInsurance";
 				} else {
 					// 나의 펫에 추가하려며 있어야 하는 부분 
 					// myp_mem , myp_petk ,myp_birth , myp_sick ,myp_img ,myp_neu ,myp_gender,myp_name
@@ -856,7 +861,9 @@ public class InsuranceController {
 				
 				// 로그인을 안한 회원일 경우에는 로그인 화면으로 이동
 				if (memVo == null) {
-					return "petInsurance/memLoginChk";
+					model.addAttribute("login" , "N");
+					return "petInsurance/compensationGuide";
+					
 				}else if(memVo.getMem_black() == 2) {
 					
 					//회원이 블랙리스트라면 인터넷 보험청구가 안되도록 막기
@@ -1035,7 +1042,8 @@ public class InsuranceController {
 				
 				// 로그인을 안한 회원일 경우에는 로그인 화면으로 이동
 				if (memVo == null) {
-					return "petInsurance/memLoginChk";
+					model.addAttribute("login" , "N");
+					return "petInsurance";
 				} else {
 					//회원의 펫 가지고 오기
 					List<InsshoppingVo> mypetList = insuranceService.petList(memVo.getMem_id());
@@ -1066,12 +1074,13 @@ public class InsuranceController {
 			
 			// 나의 펫 보험에서 펫 추가하는 화면으로 이동하기
 			@RequestMapping("/petInsert2")
-			public String petInsert2(HttpSession session) {
+			public String petInsert2(HttpSession session , Model model) {
 				// 회원 정보 받아오는 부분
 				MemberVo memVo = (MemberVo) session.getAttribute("memVo");
 				// 로그인을 안한 회원일 경우에는 로그인 화면으로 이동
 				if (memVo == null) {
-					return "petInsurance/memLoginChk";
+					model.addAttribute("login" , "N");
+					return "petInsurance";
 				}
 				return "petInsurance/petInsert2";
 			}
@@ -1086,7 +1095,8 @@ public class InsuranceController {
 				
 				// 로그인을 안한 회원일 경우에는 로그인 화면으로 이동
 				if (memVo == null) {
-					return "petInsurance/memLoginChk";
+					model.addAttribute("login" , "N");
+					return "petInsurance";
 				} else {
 					// 나의 펫에 추가하려며 있어야 하는 부분 
 					// myp_mem , myp_petk ,myp_birth , myp_sick ,myp_img ,myp_neu ,myp_gender,myp_name

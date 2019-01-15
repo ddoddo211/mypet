@@ -12,6 +12,7 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	
+	
 	// 나의 펫 선택할떄 값 담아주기
 	$(".cb1_label").click(function(){
 		// 선택한 펫의 pk를 저장해주는 부분 
