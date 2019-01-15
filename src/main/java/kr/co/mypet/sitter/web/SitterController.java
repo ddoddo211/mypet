@@ -144,7 +144,6 @@ public class SitterController {
 		MemberVo memVo = (MemberVo) session.getAttribute("memVo");
 		
 		String cnt = request.getParameter("cnt");
-		System.out.println("cnt : "+cnt);
 		
 		// 로그인을 안한 회원일 경우에는 로그인 화면으로 이동
 		if (memVo == null) {
@@ -211,8 +210,6 @@ public class SitterController {
 		
 		MypetVo mypVo = sitterService.getPetInfo(mypet_id);
 		
-		System.out.println("mypVo : "+mypVo);
-		
 		model.addAttribute("mypVo", mypVo);
 		
 		return "petSitter/mypetUpdate";
@@ -257,8 +254,6 @@ public class SitterController {
 			mypetVo.setMyp_img(str);
 		}
 		
-		System.out.println("mypetVo :" + mypetVo);
-		
 		int updateCnt = sitterService.updateMypetInfo(mypetVo);
 		
 		return "redirect:/sit/myPage";
@@ -273,7 +268,6 @@ public class SitterController {
 		for(int i=0;i<mypetId.length;i++) {
 			int deleteCnt = sitterService.deleteMypet(mypetId[i]);
 		}
-		System.out.println("cnt : "+cnt);
 		if(cnt.equals("0")) {
 			return "redirect:/sit/sitterFrom";
 		} else {
