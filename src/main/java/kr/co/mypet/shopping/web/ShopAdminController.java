@@ -240,15 +240,6 @@ public class ShopAdminController {
 			@RequestParam("memName")String memName, @RequestParam("staKind")String staKind, @RequestParam("staComp")String staComp, @RequestParam("staNum")String staNum,
 			@RequestParam("staMem") final String staMem) throws DocumentException, IOException {
 		
-		System.out.println("staId : "+staId);
-		System.out.println("memName : "+memName);
-		System.out.println("staKind : "+staKind);
-		System.out.println("staComp : "+staComp);
-		System.out.println("staNum : "+staNum);
-		System.out.println("staMem : "+staMem);
-		System.out.println("page : "+page);
-		System.out.println("pageSize : "+pageSize);
-		
 		String fileName = "";
 		String path1 = request.getSession().getServletContext().getRealPath("");
 		String dir = path1 + "\\upload\\petShop_SUC";
