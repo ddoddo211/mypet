@@ -16,7 +16,7 @@
 
 <div id="mypageRightMain">
 	<div style="background-color: #6eb9b5; color : #fff; border-color:#6eb9b5; height : 50px; text-align: center; line-height: 50px;">
-		<span style="font-size : 16px;">예약 내역</span>
+		<span style="font-size : 16px;">후기글 & 게시글 관리</span>
 	</div>
 	<div style=" margin-top : 30px;">
 		<div style="font-size:22px; font-weight: bold;">
