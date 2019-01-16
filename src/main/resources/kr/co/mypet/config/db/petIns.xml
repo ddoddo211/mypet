@@ -234,7 +234,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			select nvl(sum(b.insp_fees),0) 
               from insurance a , insprod b ,member c
 		     where a.inssp_id = b.insp_id
-			   and c.mem_id =  'laswl4090@hanmail.net'
+			   and c.mem_id =  #{mem_id}
 			   and a.INS_DIS = 'N'
 			   and a.INS_STAT = '결재완료'
 		</select>
