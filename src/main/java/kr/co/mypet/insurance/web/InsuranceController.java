@@ -1312,13 +1312,15 @@ public class InsuranceController {
 				petVo.setMyp_name(petName);
 				petVo.setMyp_gender(petGender);
 				petVo.setMyp_neu(petNeutralization);
+	
+				// 실제 파일 저장될 경로 설정하기
+				String path1 = request.getSession().getServletContext().getRealPath("");
+				String path = "/img/petimg";
 				
 				// 나의펫의 이미지 경로 저장
 				// 실제 파일 저장될 경로 설정하기
-				String path = "C:\\Users\\PC\\6.Spring\\LastProjectWorkSpace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\mypet\\img\\petimg";
-				// 진단서
 				String str = part.getOriginalFilename();
-				
+
 				// 진단서 처리
 				// 파일명 가지고 오기
 				
@@ -1330,7 +1332,7 @@ public class InsuranceController {
 					String fileExt = StringUtil.getFileExt(str);
 					String fileName = UUID.randomUUID().toString() + fileExt;	// 충돌 방지를 위한 임의의 파일명 
 					
-					File file = new File(path + File.separator + fileName);
+					File file = new File(path1+path + File.separator + fileName);
 					
 					part.transferTo(file);
 					
